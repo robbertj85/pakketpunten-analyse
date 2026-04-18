@@ -37,6 +37,7 @@ import time
 from pathlib import Path
 
 import numpy as np
+from scipy import stats as sp_stats
 
 ROOT = Path(__file__).parent.parent
 STATS_PATH = ROOT / "webapp" / "public" / "data" / "pc4_stats.json"
@@ -101,6 +102,47 @@ def bic(ss_res: float, n: int, p: int) -> float:
     if ss_res <= 0 or n <= 0:
         return float("-inf")
     return n * math.log(ss_res / n) + (p + 1) * math.log(n)
+
+
+def partial_f_test(r2_full: float, r2_reduced: float, q: int, n: int,
+                   p_full: int) -> tuple[float, float]:
+    """Partial-F test for H0: the q extra variables add nothing.
+
+    Returns (F, p-value). Requires the reduced model to be strictly nested
+    inside the full model — caller must check. For non-nested comparisons
+    use Cohen's f² + ΔBIC instead (neither requires nesting).
+    """
+    df2 = n - p_full - 1
+    if df2 <= 0 or q <= 0 or r2_full <= r2_reduced:
+        return 0.0, 1.0
+    num = (r2_full - r2_reduced) / q
+    den = (1 - r2_full) / df2
+    if den <= 0:
+        return float("inf"), 0.0
+    F = num / den
+    p = float(sp_stats.f.sf(F, q, df2))
+    return F, p
+
+
+def cohens_f2(r2_full: float, r2_reduced: float) -> float:
+    """Cohen's f² effect size for the contribution of the extra variables.
+    Rules of thumb: ≥ 0.02 small, ≥ 0.15 medium, ≥ 0.35 large. Unlike the
+    F-statistic this does not grow with sample size.
+    """
+    denom = 1 - r2_full
+    if denom <= 0:
+        return float("inf")
+    return (r2_full - r2_reduced) / denom
+
+
+def effect_label(f2: float) -> str:
+    if f2 < 0.02:
+        return "verwaarloosbaar"
+    if f2 < 0.15:
+        return "klein"
+    if f2 < 0.35:
+        return "middel"
+    return "groot"
 
 
 def main() -> int:
@@ -197,6 +239,50 @@ def main() -> int:
     elbow_model = best_per_k[elbow_k][0]
     bic_model = best_per_k[bic_k][0]
 
+    # Step-by-step comparison: best-at-k vs best-at-(k-1). For the partial
+    # F-test we always use a nested comparison (best-k-1 plus the single
+    # best additional variable), because best-at-k winners aren't required
+    # to be nested in best-at-(k-1).
+    step_rows: list[dict] = []
+    for k in ks_sorted:
+        if k == 1:
+            continue
+        prev = best_per_k[k - 1][0]
+        curr = best_per_k[k][0]
+        nested = set(prev["features"]).issubset(set(curr["features"]))
+        prev_idx = [feature_keys.index(f) for f in prev["features"]]
+        extra_idx = None
+        best_extra_r2 = prev["r2"]
+        for j in range(len(feature_keys)):
+            if j in prev_idx:
+                continue
+            X = X_full[:, prev_idx + [j]]
+            r2_j, _, _ = fit_ols(X, y)
+            if r2_j > best_extra_r2:
+                best_extra_r2 = r2_j
+                extra_idx = j
+        extra_label = (
+            feature_labels[feature_keys[extra_idx]]
+            if extra_idx is not None else "(geen verbetering)"
+        )
+        F_nested, p_nested = partial_f_test(
+            r2_full=best_extra_r2, r2_reduced=prev["r2"], q=1, n=n, p_full=k
+        )
+        step_rows.append({
+            "from_k": k - 1,
+            "to_k": k,
+            "nested": nested,
+            "best_extra_feature": extra_label,
+            "r2_prev": prev["r2"],
+            "r2_curr": curr["r2"],
+            "delta_r2": round(curr["r2"] - prev["r2"], 6),
+            "cohens_f2": round(cohens_f2(curr["r2"], prev["r2"]), 4),
+            "cohens_f2_label": effect_label(cohens_f2(curr["r2"], prev["r2"])),
+            "partial_F_nested": round(F_nested, 2),
+            "partial_F_p": float(f"{p_nested:.3g}"),
+            "delta_bic": round(curr["bic"] - prev["bic"], 2),
+        })
+
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     with open(REPORT_JSON, "w") as f:
         json.dump({
@@ -204,6 +290,7 @@ def main() -> int:
             "candidate_features": feature_keys,
             "feature_labels": feature_labels,
             "best_per_k": best_per_k,
+            "step_comparisons": step_rows,
             "elbow_delta_r2": args.elbow,
             "recommendations": {
                 "parsimonious_elbow": {"k": elbow_k, **elbow_model},
@@ -228,6 +315,33 @@ def main() -> int:
             f"{k:>3} {top['r2']:>9.4f} {top['adj_r2']:>9.4f} {top['bic']:>11.1f}  "
             + " + ".join(top["labels"])
         )
+    lines.append("")
+    lines.append("STAPSGEWIJZE TOEVOEGING (beste k vs beste k-1)")
+    lines.append("-" * 78)
+    lines.append(
+        f"{'k':>3}→{'k+1':<4}{'ΔR²':>10}{'f²':>8} {'effect':<16}"
+        f"{'F_nested':>10}{'p':>10}{'ΔBIC':>10}  nested?  extra var."
+    )
+    for s in step_rows:
+        nested_mark = "ja" if s["nested"] else "nee"
+        p_str = f"{s['partial_F_p']:.2g}" if s["partial_F_p"] > 0 else "< 1e-16"
+        lines.append(
+            f"{s['from_k']:>3}→{s['to_k']:<4}"
+            f"{s['delta_r2']:>+10.4f}{s['cohens_f2']:>8.3f} "
+            f"{s['cohens_f2_label']:<16}"
+            f"{s['partial_F_nested']:>10.2f}{p_str:>10}"
+            f"{s['delta_bic']:>+10.2f}  {nested_mark:<7}  "
+            f"{s['best_extra_feature']}"
+        )
+    lines.append("")
+    lines.append("Interpretatie:")
+    lines.append("  - Partial F / p-waarde: is er genoeg signaal om één extra variabele")
+    lines.append("    te rechtvaardigen? (nested F-test; vergelijkt best-k-1 tegen")
+    lines.append("    best-k-1 + één beste toevoeging). p < 0.05 = statistisch ja.")
+    lines.append("  - Cohen's f²: sample-size-onafhankelijke effectgrootte. Drempels:")
+    lines.append("    ≥ 0.02 klein, ≥ 0.15 middel, ≥ 0.35 groot.")
+    lines.append("  - ΔBIC: negatief = het grotere model is beter. ΔBIC ≤ -6 = sterk")
+    lines.append("    bewijs, ≤ -10 = doorslaggevend. Bij grote n wint ΔBIC het van F.")
     lines.append("")
     lines.append("RECOMMENDATIONS")
     lines.append("-" * 78)
