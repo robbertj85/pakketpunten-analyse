@@ -597,6 +597,7 @@ function MapComponent(props?: MapProps) {
     g4_city?: string;
     municipality?: string | null;
     carriers: string[];
+    notes?: string[];
     pakketpunten?: {
       total: number;
       locker: number;
@@ -1439,6 +1440,15 @@ function MapComponent(props?: MapProps) {
                 </span>
               ))}
             </div>
+            {selectedPainpointEntry.notes && selectedPainpointEntry.notes.length > 0 && (
+              <div className="mb-3 space-y-1">
+                {selectedPainpointEntry.notes.map((n, i) => (
+                  <div key={i} className="text-xs text-amber-900 bg-amber-50 border border-amber-200 rounded px-2 py-1">
+                    {n}
+                  </div>
+                ))}
+              </div>
+            )}
             {selectedPainpointEntry.pakketpunten && (
               <div className="grid grid-cols-3 gap-2 text-center">
                 <div>

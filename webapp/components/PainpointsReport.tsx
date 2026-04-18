@@ -21,6 +21,7 @@ interface Painpoint {
   g4_city?: string;
   municipality?: string | null;
   carriers: string[];
+  notes?: string[];
   pakketpunten: {
     total: number;
     locker: number;
@@ -407,6 +408,15 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                   </span>
                 ))}
               </div>
+              {selected.notes && selected.notes.length > 0 && (
+                <div className="mb-3 space-y-1">
+                  {selected.notes.map((n, i) => (
+                    <div key={i} className="text-xs text-amber-900 bg-amber-50 border border-amber-200 rounded px-2 py-1">
+                      {n}
+                    </div>
+                  ))}
+                </div>
+              )}
               <div className="grid grid-cols-3 gap-2 text-center">
                 <div>
                   <div className="text-lg font-bold text-gray-900">{selected.pakketpunten.total}</div>

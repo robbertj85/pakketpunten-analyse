@@ -26,6 +26,13 @@ ROOT = Path(__file__).parent.parent
 SOURCE = ROOT / "PC4_Postcodes_per_Carrier.xlsx"
 OUTPUT = ROOT / "webapp" / "public" / "data" / "pc4_painpoints.json"
 
+# Pain-points reported outside the main Excel (e.g. bilateral gesprekken).
+# Each entry: (city, carrier, [pc4 codes], note)
+BILATERAL_ADDITIONS: list[tuple[str, str, list[str], str]] = [
+    ("Amsterdam", "ViaTim", ["1012", "1013", "1016", "1017", "1018"],
+     "Bilateraal gesprek 3 april 2026"),
+]
+
 
 def main() -> int:
     df = pd.read_excel(SOURCE, sheet_name=0, header=None)
@@ -62,6 +69,21 @@ def main() -> int:
             entry = painpoints.setdefault(code, {"city": current_city, "carriers": []})
             if carrier not in entry["carriers"]:
                 entry["carriers"].append(carrier)
+
+    # Merge in out-of-band additions (e.g. bilateral conversations not yet
+    # reflected in the Excel). Each note is attached to the PC4 so the UI
+    # can show why it was included.
+    notes: dict[str, list[str]] = {}
+    for city, carrier, codes, note in BILATERAL_ADDITIONS:
+        for code in codes:
+            if not re.fullmatch(r"\d{4}", code):
+                continue
+            entry = painpoints.setdefault(code, {"city": city, "carriers": []})
+            if carrier not in entry["carriers"]:
+                entry["carriers"].append(carrier)
+            notes.setdefault(code, []).append(f"{carrier}: {note}")
+    for code, note_list in notes.items():
+        painpoints[code]["notes"] = note_list
 
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     payload = {
