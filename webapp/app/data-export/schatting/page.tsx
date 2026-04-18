@@ -58,6 +58,10 @@ async function getPayload(): Promise<PainpointsPayload> {
             highway_km: round(v.highway_km, 2),
             loading_zones: round(v.loading_zones, 0),
             loading_zones_per_km2: round(v.loading_zones_per_km2, 2),
+            in_emission_zone: round(v.in_emission_zone, 0),
+            ov_stops: round(v.ov_stops, 0),
+            ov_stops_per_km2: round(v.ov_stops_per_km2, 2),
+            ov_train_stops: round(v.ov_train_stops, 0),
           });
           sumArea += area;
           nAreaRows += 1;

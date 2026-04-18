@@ -19,7 +19,8 @@ type FeatureKey =
   | 'urbanity' | 'oad' | 'pct_age_25_45' | 'pct_single_hh'
   | 'pct_multi_family' | 'pct_owner_occupied'
   | 'horeca_1km' | 'supermarket_1km' | 'station_km' | 'highway_km'
-  | 'loading_zones' | 'loading_zones_per_km2';
+  | 'loading_zones' | 'loading_zones_per_km2'
+  | 'in_emission_zone' | 'ov_stops' | 'ov_stops_per_km2' | 'ov_train_stops';
 
 interface FeatureDef {
   key: FeatureKey;
@@ -51,6 +52,10 @@ const FEATURE_DEFS: FeatureDef[] = [
   { key: 'highway_km', label: 'Afstand tot snelwegoprit', group: 'voorzieningen', unit: 'km', help: 'Bezorgroute-efficiëntie' },
   { key: 'loading_zones', label: 'Laad-/losplaatsen (E7)', group: 'verkeer', unit: 'borden', help: 'NDW verkeersborden: RVV-code E7, dagelijks geüpdatet' },
   { key: 'loading_zones_per_km2', label: 'Laad-/losplaatsen per km²', group: 'verkeer', unit: 'borden/km²', help: 'Genormaliseerd naar PC4-oppervlakte' },
+  { key: 'in_emission_zone', label: 'In milieu-/ZE-zone', group: 'verkeer', unit: '0/1', help: 'NDW emissiezones: flag 1 als PC4 overlapt met een lowEmissionZone' },
+  { key: 'ov_stops', label: 'OV-haltes', group: 'verkeer', unit: 'aantal', help: 'Nationale GTFS-feed via OVapi, alle carriers samen' },
+  { key: 'ov_stops_per_km2', label: 'OV-haltes per km²', group: 'verkeer', unit: 'halten/km²', help: 'OV-dichtheid — proxy voor stedelijkheid + voetverkeer' },
+  { key: 'ov_train_stops', label: 'Trein-achtige halten', group: 'verkeer', unit: 'aantal', help: 'Heuristische filter op stop_name (Centraal, Station, Sloterdijk, ...)' },
 ];
 
 const GROUP_LABELS: Record<FeatureDef['group'], string> = {
@@ -65,16 +70,16 @@ const GROUP_LABELS: Record<FeatureDef['group'], string> = {
 // Curated presets from scripts/find_best_model.py so users can jump to
 // known strong combinations without re-running the search themselves.
 const MODEL_PRESETS: Array<{ name: string; keys: FeatureKey[]; note: string }> = [
-  { name: 'Basis', keys: ['pop', 'area'], note: 'Oorspronkelijke Python-baseline' },
+  { name: 'Basis', keys: ['pop', 'area'], note: 'Oorspronkelijke Python-baseline (R² ≈ 0.44)' },
   {
     name: 'Ockham (k=4)',
     keys: ['pop', 'pct_low_income', 'oad', 'horeca_1km'],
-    note: 'Beste 4-variabelenmodel uit best-subset search',
+    note: 'Beste 4-variabelenmodel uit best-subset search (R² ≈ 0.48)',
   },
   {
-    name: 'Elbow (k=7)',
-    keys: ['pop', 'area', 'avg_woz', 'oad', 'pct_single_hh', 'horeca_1km', 'supermarket_1km'],
-    note: 'Parsimonieus — ΔR² < 0.003 t.o.v. k+1',
+    name: 'Beste k=6',
+    keys: ['pop', 'pct_low_income', 'oad', 'horeca_1km', 'supermarket_1km', 'ov_stops'],
+    note: 'Elbow + laagste BIC na toevoeging van OV-halten (R² ≈ 0.51)',
   },
 ];
 

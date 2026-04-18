@@ -25,6 +25,8 @@ CBS_INCOME_PATH = ROOT / "data" / "cbs_pc4_income.json"
 CBS_SES_PATH = ROOT / "data" / "cbs_pc4_ses_woa.json"
 CBS_EXTRA_PATH = ROOT / "data" / "cbs_pc4_extra.json"
 NDW_LOADING_PATH = ROOT / "data" / "ndw_pc4_loading_zones.json"
+NDW_EMISSION_PATH = ROOT / "data" / "ndw_pc4_emission_zones.json"
+OV_STOPS_PATH = ROOT / "data" / "ov_pc4_stops.json"
 BOUNDARIES_DIR = ROOT / "webapp" / "public" / "data" / "boundaries"
 OUTPUT = ROOT / "webapp" / "public" / "data" / "pc4_stats.json"
 
@@ -111,6 +113,35 @@ def main() -> int:
         with_any = sum(1 for v in ndw_lookup.values() if v.get("loading_zones", 0) > 0)
         print(f"  → {with_any}/{len(ndw_lookup)} PC4s with at least one loading zone")
 
+    emission_lookup: dict[str, dict] = {}
+    emission_meta = None
+    if NDW_EMISSION_PATH.exists():
+        print(f"Loading NDW emission-zones from {NDW_EMISSION_PATH.name}...")
+        with open(NDW_EMISSION_PATH) as f:
+            em_payload = json.load(f)
+        emission_lookup = em_payload.get("pc4", {})
+        emission_meta = {
+            "source": em_payload.get("source"),
+            "reference_date": em_payload.get("reference_date"),
+            "zone_count": em_payload.get("zone_count"),
+        }
+        in_zone = sum(1 for v in emission_lookup.values() if v.get("in_zone"))
+        print(f"  → {in_zone}/{len(emission_lookup)} PC4s inside an emission zone")
+
+    ov_lookup: dict[str, dict] = {}
+    ov_meta = None
+    if OV_STOPS_PATH.exists():
+        print(f"Loading OV stops per PC4 from {OV_STOPS_PATH.name}...")
+        with open(OV_STOPS_PATH) as f:
+            ov_payload = json.load(f)
+        ov_lookup = ov_payload.get("pc4", {})
+        ov_meta = {
+            "source": ov_payload.get("source"),
+            "reference_date": ov_payload.get("reference_date"),
+        }
+        with_stops = sum(1 for v in ov_lookup.values() if v.get("ov_stops", 0) > 0)
+        print(f"  → {with_stops}/{len(ov_lookup)} PC4s with ≥1 OV-stop")
+
     print("Joining PC4s with municipality boundaries...")
     boundary_parts = [
         gpd.read_file(p)[["gemeente", "geometry"]]
@@ -173,6 +204,8 @@ def main() -> int:
         ses = ses_lookup.get(pc4, {})
         ex = extra_lookup.get(pc4, {})
         ndw = ndw_lookup.get(pc4, {})
+        em = emission_lookup.get(pc4, {})
+        ov = ov_lookup.get(pc4, {})
         stats[pc4] = {
             "area_km2": float(row["area_km2"]),
             "population": int(pop_lookup.get(pc4, 0)),
@@ -203,6 +236,12 @@ def main() -> int:
             # NDW verkeersborden 2026 — laad-/losplaatsen (RVV code E7)
             "loading_zones": ndw.get("loading_zones"),
             "loading_zones_per_km2": ndw.get("loading_zones_per_km2"),
+            # NDW emissiezones (milieuzone + ZE-zone, lowEmissionZone)
+            "in_emission_zone": em.get("in_zone"),
+            # OVapi GTFS 2026 — halte-dichtheid
+            "ov_stops": ov.get("ov_stops"),
+            "ov_stops_per_km2": ov.get("ov_stops_per_km2"),
+            "ov_train_stops": ov.get("ov_train_stops"),
         }
 
     payload = {
@@ -215,6 +254,8 @@ def main() -> int:
             "cbs_ses_woa": ses_meta,
             "cbs_extra": extra_meta,
             "ndw_loading_zones": ndw_meta,
+            "ndw_emission_zones": emission_meta,
+            "ov_stops": ov_meta,
         },
         "stats": dict(sorted(stats.items())),
     }

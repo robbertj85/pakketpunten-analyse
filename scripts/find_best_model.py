@@ -73,6 +73,10 @@ CANDIDATE_FEATURES: list[tuple[str, str]] = [
     ("highway_km", "Afstand snelwegoprit (km)"),
     ("loading_zones", "Laad-/losplaatsen (NDW E7)"),
     ("loading_zones_per_km2", "Laad-/losplaatsen per km²"),
+    ("in_emission_zone", "In milieu-/ZE-zone (0/1)"),
+    ("ov_stops", "OV-haltes (GTFS)"),
+    ("ov_stops_per_km2", "OV-haltes per km²"),
+    ("ov_train_stops", "Trein-achtige halten"),
 ]
 
 
