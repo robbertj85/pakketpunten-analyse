@@ -6,6 +6,7 @@ import {
   ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, ZAxis, Legend,
 } from 'recharts';
+import { fitModel, type ModelFit } from '@/utils/regression';
 
 type ByCarrier = Record<string, { locker: number; shop: number }>;
 
@@ -60,6 +61,14 @@ export interface ScatterPoint {
   area: number;
   actual: number;
   predicted: number;
+  // Optional CBS 2022 features (null when CBS suppressed the cell)
+  avg_income?: number | null;
+  pct_low_income?: number | null;
+  pct_high_income?: number | null;
+  avg_woz?: number | null;
+  ses_total?: number | null;
+  ses_welvaart?: number | null;
+  ses_arbeid?: number | null;
 }
 
 export interface PainpointsPayload {
@@ -266,6 +275,39 @@ function SortBuilder<K extends string>({
   );
 }
 
+// ---- Model builder configuration ----
+// Keys match ScatterPoint fields so we can read them directly.
+type FeatureKey =
+  | 'pop' | 'area'
+  | 'avg_income' | 'pct_low_income' | 'pct_high_income' | 'avg_woz'
+  | 'ses_total' | 'ses_welvaart' | 'ses_arbeid';
+
+interface FeatureDef {
+  key: FeatureKey;
+  label: string;
+  group: 'basis' | 'inkomen' | 'ses';
+  help: string;
+  unit?: string;
+}
+
+const FEATURE_DEFS: FeatureDef[] = [
+  { key: 'pop', label: 'Inwoners', group: 'basis', help: 'CBS 83502NED' },
+  { key: 'area', label: 'Oppervlakte (km²)', group: 'basis', help: 'PC4-polygoon in EPSG:28992' },
+  { key: 'avg_income', label: 'Gem. besteedbaar inkomen / huishouden', group: 'inkomen', unit: '× €1 000', help: 'CBS Kerncijfers 2022' },
+  { key: 'pct_low_income', label: '% huishoudens met laag inkomen', group: 'inkomen', unit: '%', help: 'CBS Kerncijfers 2022' },
+  { key: 'pct_high_income', label: '% huishoudens met hoog inkomen', group: 'inkomen', unit: '%', help: 'CBS Kerncijfers 2022' },
+  { key: 'avg_woz', label: 'Gem. WOZ-waarde woning', group: 'inkomen', unit: '× €1 000', help: 'CBS Kerncijfers 2022' },
+  { key: 'ses_total', label: 'SES-WOA totaalscore', group: 'ses', help: 'CBS maatwerk 2024/24' },
+  { key: 'ses_welvaart', label: 'SES-WOA deelscore welvaart', group: 'ses', help: 'CBS maatwerk 2024/24' },
+  { key: 'ses_arbeid', label: 'SES-WOA deelscore arbeidsverleden', group: 'ses', help: 'CBS maatwerk 2024/24' },
+];
+
+const GROUP_LABELS: Record<FeatureDef['group'], string> = {
+  basis: 'Omvang & ruimte',
+  inkomen: 'Inkomen & welvaart (CBS 2022)',
+  ses: 'SES-WOA (CBS 2022, incl. studenten)',
+};
+
 export default function PainpointsReport({ payload }: { payload: PainpointsPayload }) {
   const entries = useMemo(
     () => Object.entries(payload.painpoints).sort(([a], [b]) => a.localeCompare(b)),
@@ -313,6 +355,79 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
     'density', 'per_capita', 'predicted', 'delta',
   ]);
   const isPc4Numeric = (k: PC4Col) => PC4_NUMERIC_COLS.has(k);
+
+  // ---- Client-side model builder ----
+  // Default model mirrors the Python base model (pop + area) so the R² you
+  // see here matches what the pipeline printed on the last run.
+  const [selectedFeatures, setSelectedFeatures] = useState<Set<FeatureKey>>(
+    () => new Set<FeatureKey>(['pop', 'area']),
+  );
+  const toggleFeature = (k: FeatureKey) =>
+    setSelectedFeatures((s) => {
+      const next = new Set(s);
+      if (next.has(k)) {
+        // Never allow an empty model — leave at least one feature.
+        if (next.size > 1) next.delete(k);
+      } else {
+        next.add(k);
+      }
+      return next;
+    });
+
+  // Fit two models each time the feature set changes:
+  //  1. the "base" (pop + area) reference so we can report ΔR² honestly
+  //  2. the user's chosen feature set
+  // Both reuse the same NA-filtering rule: rows are dropped unless every
+  // selected feature is non-null for that PC4.
+  const modelFit = useMemo(() => {
+    const scatter = payload.scatter ?? [];
+    const selected = FEATURE_DEFS.filter((f) => selectedFeatures.has(f.key));
+    const keys = selected.map((f) => f.key);
+    const labels = selected.map((f) => f.label);
+
+    const rows: number[][] = [];
+    const ys: number[] = [];
+    for (const p of scatter) {
+      const vals = keys.map((k) => (p as any)[k]);
+      if (vals.some((v) => v == null || typeof v !== 'number' || Number.isNaN(v))) continue;
+      rows.push(vals);
+      ys.push(p.actual);
+    }
+
+    if (rows.length < keys.length + 2) {
+      return {
+        error: `Te weinig PC4s (${rows.length}) voor ${keys.length} variabelen.`,
+        keys, labels, n: rows.length,
+      } as const;
+    }
+
+    try {
+      const fit: ModelFit = fitModel(rows, ys, labels);
+      // Baseline: pop + area on the SAME filtered set so ΔR² is comparable.
+      let baseR2: number | null = null;
+      try {
+        const baseRows: number[][] = [];
+        const baseY: number[] = [];
+        for (const p of scatter) {
+          if (p.pop == null || p.area == null) continue;
+          // Require the same NA mask as the extended fit so numbers are fair.
+          const vals = keys.map((k) => (p as any)[k]);
+          if (vals.some((v) => v == null || typeof v !== 'number' || Number.isNaN(v))) continue;
+          baseRows.push([p.pop, p.area]);
+          baseY.push(p.actual);
+        }
+        if (baseRows.length >= 4) baseR2 = fitModel(baseRows, baseY, ['pop', 'area']).r2;
+      } catch {
+        // baseline fit is optional
+      }
+      return { fit, keys, labels, baseR2 } as const;
+    } catch (e) {
+      return {
+        error: e instanceof Error ? e.message : String(e),
+        keys, labels, n: rows.length,
+      } as const;
+    }
+  }, [payload.scatter, selectedFeatures]);
 
   // Sort state for the per-carrier tables (shared across all carriers)
   type CarCol = 'pc4' | 'city' | 'total' | 'locker' | 'shop';
@@ -525,6 +640,150 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                   </ScatterChart>
                 </ResponsiveContainer>
               </div>
+            )}
+          </section>
+        )}
+
+        {/* Interactive model builder — user picks features, OLS runs client-side */}
+        {(payload.scatter?.length ?? 0) > 0 && (
+          <section className="bg-white border border-gray-200 rounded-lg p-4 md:p-5 space-y-4">
+            <div>
+              <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">Zelf een model bouwen</div>
+              <h3 className="text-lg font-semibold text-gray-900">Kies variabelen voor de regressie</h3>
+              <p className="text-sm text-gray-700 leading-relaxed mt-1">
+                Vink variabelen aan om ze aan het OLS-model toe te voegen. De fit draait live in je browser op
+                alle PC4-gebieden waarvoor <em>elke</em> gekozen variabele bekend is. Gebruik de VIF-kolom om
+                multicollineariteit in de gaten te houden — waardes boven 5 betekenen dat twee variabelen
+                sterk op elkaar lijken.
+              </p>
+            </div>
+
+            {/* Feature checkboxes, grouped */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {(['basis', 'inkomen', 'ses'] as const).map((grp) => (
+                <fieldset key={grp} className="border border-gray-200 rounded p-3">
+                  <legend className="px-1 text-xs font-semibold text-gray-700 uppercase tracking-wide">
+                    {GROUP_LABELS[grp]}
+                  </legend>
+                  <div className="space-y-1.5">
+                    {FEATURE_DEFS.filter((f) => f.group === grp).map((f) => {
+                      const checked = selectedFeatures.has(f.key);
+                      const onlyOne = selectedFeatures.size === 1 && checked;
+                      return (
+                        <label
+                          key={f.key}
+                          className={`flex items-start gap-2 cursor-pointer rounded px-1 py-0.5 transition ${
+                            checked ? 'bg-indigo-50' : 'hover:bg-gray-50'
+                          } ${onlyOne ? 'opacity-80' : ''}`}
+                          title={onlyOne ? 'Minstens één variabele is vereist' : f.help}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={checked}
+                            onChange={() => toggleFeature(f.key)}
+                            disabled={onlyOne}
+                            className="mt-0.5 w-4 h-4 text-indigo-600 rounded focus:ring-2 focus:ring-indigo-500"
+                          />
+                          <div className="text-sm">
+                            <div className="text-gray-900">
+                              {f.label}
+                              {f.unit && <span className="text-gray-500 text-xs ml-1">({f.unit})</span>}
+                            </div>
+                            <div className="text-[11px] text-gray-500">{f.help}</div>
+                          </div>
+                        </label>
+                      );
+                    })}
+                  </div>
+                </fieldset>
+              ))}
+            </div>
+
+            {/* Fit results */}
+            {'error' in modelFit ? (
+              <div className="text-sm text-red-700 bg-red-50 border border-red-200 rounded p-3">
+                {modelFit.error}
+              </div>
+            ) : (
+              (() => {
+                const { fit, baseR2 } = modelFit;
+                const deltaR2 = baseR2 != null ? fit.r2 - baseR2 : null;
+                return (
+                  <div className="space-y-3">
+                    <div className="flex flex-wrap items-baseline gap-x-6 gap-y-1 text-sm">
+                      <div>
+                        <span className="text-gray-500">R² =</span>{' '}
+                        <span className="font-semibold text-gray-900 tabular-nums">{fit.r2.toFixed(4)}</span>
+                      </div>
+                      {deltaR2 != null && (
+                        <div>
+                          <span className="text-gray-500">ΔR² t.o.v. basis (pop + area) =</span>{' '}
+                          <span
+                            className={`font-semibold tabular-nums ${
+                              deltaR2 > 0.001 ? 'text-emerald-700' : deltaR2 < -0.001 ? 'text-red-700' : 'text-gray-700'
+                            }`}
+                          >
+                            {deltaR2 >= 0 ? '+' : ''}{deltaR2.toFixed(4)}
+                          </span>
+                        </div>
+                      )}
+                      <div>
+                        <span className="text-gray-500">n =</span>{' '}
+                        <span className="font-semibold text-gray-900 tabular-nums">{fit.n.toLocaleString('nl-NL')}</span>
+                        <span className="text-xs text-gray-500 ml-1">
+                          van {payload.scatter?.length.toLocaleString('nl-NL')} PC4s
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-gray-500">intercept =</span>{' '}
+                        <span className="font-semibold text-gray-900 tabular-nums">{fit.intercept.toFixed(3)}</span>
+                      </div>
+                    </div>
+
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-sm">
+                        <thead className="bg-gray-50">
+                          <tr>
+                            <th className="px-3 py-2 text-left font-semibold uppercase text-xs tracking-wide text-gray-600">Variabele</th>
+                            <th className="px-3 py-2 text-right font-semibold uppercase text-xs tracking-wide text-gray-600">Coëfficiënt</th>
+                            <th className="px-3 py-2 text-right font-semibold uppercase text-xs tracking-wide text-gray-600">Effect per 1 eenheid</th>
+                            <th className="px-3 py-2 text-right font-semibold uppercase text-xs tracking-wide text-gray-600">VIF</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-100">
+                          {fit.featureNames.map((name, i) => {
+                            const c = fit.coefficients[i];
+                            const v = fit.vif[name] ?? NaN;
+                            const vifColor =
+                              v > 10 ? 'text-red-700' : v > 5 ? 'text-amber-700' : 'text-gray-700';
+                            return (
+                              <tr key={name}>
+                                <td className="px-3 py-2 text-gray-900">{name}</td>
+                                <td className={`px-3 py-2 text-right tabular-nums font-semibold ${c >= 0 ? 'text-emerald-700' : 'text-red-700'}`}>
+                                  {c >= 0 ? '+' : ''}{c.toExponential(3)}
+                                </td>
+                                <td className="px-3 py-2 text-right tabular-nums text-gray-700">
+                                  {c >= 0 ? '+' : ''}{c.toFixed(Math.abs(c) < 0.01 ? 5 : 3)} pakketpunten
+                                </td>
+                                <td className={`px-3 py-2 text-right tabular-nums font-semibold ${vifColor}`}>
+                                  {Number.isFinite(v) ? v.toFixed(2) : '∞'}
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <p className="text-xs text-gray-500 leading-relaxed">
+                      VIF {'>'} 5: twee variabelen dragen overlappende informatie (geel). VIF {'>'} 10:
+                      sterk problematisch (rood) — één van beide kan beter uit het model. Een negatieve
+                      coëfficiënt op inkomen of SES-WOA bevestigt dat pakketpunten relatief vaker in PC4s
+                      met lagere welvaart staan, niet minder.
+                    </p>
+                  </div>
+                );
+              })()
             )}
           </section>
         )}
