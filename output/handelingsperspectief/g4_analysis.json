@@ -1,0 +1,90 @@
+{
+  "fits": {
+    "Amsterdam": {
+      "n": 80,
+      "r2": 0.4658,
+      "intercept": -1.918993689747637,
+      "coefficients": {
+        "population": 0.0005025183761055117,
+        "pct_low_income_household": 0.0301219298231772,
+        "oad": 0.00017432525955162734,
+        "horeca_1km": 0.00833403476965356,
+        "supermarket_1km": 0.45944250027452627,
+        "ov_stops": 0.040051158237464114
+      },
+      "mean_parcel_points": 9.3125
+    },
+    "Rotterdam": {
+      "n": 68,
+      "r2": 0.5668,
+      "intercept": -3.7025835753616745,
+      "coefficients": {
+        "population": 0.0005838980245009593,
+        "pct_low_income_household": 0.08254532718437738,
+        "oad": -0.0005220957215037348,
+        "horeca_1km": 0.05085859887881906,
+        "supermarket_1km": 0.48267581362756146,
+        "ov_stops": 0.05962091561297289
+      },
+      "mean_parcel_points": 9.014705882352942
+    },
+    "Utrecht": {
+      "n": 42,
+      "r2": 0.2348,
+      "intercept": 3.2124751322229717,
+      "coefficients": {
+        "population": 0.00018482979684437744,
+        "pct_low_income_household": -0.02743735174983852,
+        "oad": -0.0006746357162336977,
+        "horeca_1km": -0.008684070643743273,
+        "supermarket_1km": 1.0692865940317018,
+        "ov_stops": 0.12561938582599805
+      },
+      "mean_parcel_points": 6.5
+    },
+    "Den Haag": {
+      "n": 48,
+      "r2": 0.3824,
+      "intercept": -6.551015202705476,
+      "coefficients": {
+        "population": 0.0005015795114912655,
+        "pct_low_income_household": 0.11665372805961043,
+        "oad": 0.0004528160200558239,
+        "horeca_1km": 0.03769570776982258,
+        "supermarket_1km": -0.2340810464721088,
+        "ov_stops": 0.12981109364549026
+      },
+      "mean_parcel_points": 8.145833333333334
+    },
+    "Rest van NL": {
+      "n": 3341,
+      "r2": 0.5517,
+      "intercept": -2.1905202487345985,
+      "coefficients": {
+        "population": 0.0007312572572610048,
+        "pct_low_income_household": 0.07572215002170525,
+        "oad": -0.0019233861687511728,
+        "horeca_1km": 0.08425848974328232,
+        "supermarket_1km": 1.1588498632364663,
+        "ov_stops": 0.07067905199426958
+      },
+      "mean_parcel_points": 4.738700987728225
+    }
+  },
+  "features": [
+    "population",
+    "pct_low_income_household",
+    "oad",
+    "horeca_1km",
+    "supermarket_1km",
+    "ov_stops"
+  ],
+  "labels": {
+    "population": "Inwoners",
+    "pct_low_income_household": "% laag inkomen",
+    "oad": "OAD",
+    "horeca_1km": "Horeca 1km",
+    "supermarket_1km": "Supermarkten 1km",
+    "ov_stops": "OV-haltes"
+  }
+}
