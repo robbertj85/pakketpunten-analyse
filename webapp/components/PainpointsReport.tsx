@@ -2,6 +2,10 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
+import {
+  ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip,
+  ResponsiveContainer, ZAxis, Legend,
+} from 'recharts';
 
 type ByCarrier = Record<string, { locker: number; shop: number }>;
 
@@ -50,11 +54,21 @@ export interface ModelMeta {
   nationwide_rates: { points_per_inhabitant: number; points_per_km2: number };
 }
 
+export interface ScatterPoint {
+  pc4: string;
+  pop: number;
+  area: number;
+  actual: number;
+  predicted: number;
+}
+
 export interface PainpointsPayload {
   generated_at: string;
   source: string;
   painpoints: Record<string, Painpoint>;
   model?: ModelMeta;
+  scatter?: ScatterPoint[];
+  mean_area_km2?: number;
 }
 
 const PainpointMiniMap = dynamic(() => import('./PainpointMiniMap'), {
@@ -138,6 +152,30 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
   const togglePanelSort = (k: PanelCol) =>
     setPanelSort((s) => (s.key === k ? { key: k, dir: s.dir === 'asc' ? 'desc' : 'asc' } : { key: k, dir: 'asc' }));
 
+  // Pre-compute scatter data and trendline. Highlight pain-point PC4s.
+  const scatterData = useMemo(() => {
+    const scatter = payload.scatter ?? [];
+    const painSet = new Set(Object.keys(payload.painpoints));
+    const other = scatter.filter((p) => !painSet.has(p.pc4));
+    const pain = scatter.filter((p) => painSet.has(p.pc4));
+    return { other, pain };
+  }, [payload.scatter, payload.painpoints]);
+
+  const trendLine = useMemo(() => {
+    const m = payload.model;
+    if (!m || !payload.scatter || payload.scatter.length === 0) return [];
+    const meanArea = payload.mean_area_km2 ?? 1;
+    const maxPop = Math.max(...payload.scatter.map((p) => p.pop));
+    // 20 evenly-spaced points from 0 to maxPop
+    const N = 20;
+    const { intercept, coefficients } = m;
+    return Array.from({ length: N }, (_, i) => {
+      const pop = (maxPop * i) / (N - 1);
+      const y = intercept + coefficients.population * pop + coefficients.area_km2 * meanArea;
+      return { pop, actual: Math.max(0, y) };
+    });
+  }, [payload.model, payload.scatter, payload.mean_area_km2]);
+
   // Close panel with Escape
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -192,26 +230,109 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
           </p>
         </section>
 
-        {/* Model info */}
+        {/* Netherlands-wide regression model + scatterplot */}
         {payload.model && (
-          <section className="bg-indigo-50 border border-indigo-200 rounded-lg p-4 text-sm text-indigo-900">
-            <div className="font-semibold mb-1">Regressiemodel (OLS) op alle Nederlandse PC4-gebieden</div>
-            <div className="text-xs leading-relaxed">
-              Pakketpunten = {payload.model.intercept.toFixed(2)}
-              {' + '}
-              {payload.model.coefficients.population.toFixed(6)} × inwoners
-              {' + '}
-              {payload.model.coefficients.area_km2.toFixed(3)} × km²
-              {' · '}
-              R² = {payload.model.r2.toFixed(3)}
-              {' · '}
-              {payload.model.training_size.toLocaleString('nl-NL')} PC4-gebieden in training
+          <section className="bg-white border border-gray-200 rounded-lg p-4 md:p-5 space-y-3">
+            <div>
+              <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">Nederland-breed</div>
+              <h3 className="text-lg font-semibold text-gray-900">Regressiemodel voor verwachte pakketpunten per PC4</h3>
+              <p className="text-sm text-gray-700 leading-relaxed mt-1">
+                OLS-regressie op alle {payload.model.training_size.toLocaleString('nl-NL')} Nederlandse PC4-gebieden
+                (inwoners ≥ 10, oppervlakte ≥ 0,05 km²).
+              </p>
+              <div className="mt-2 inline-block font-mono text-sm bg-indigo-50 border border-indigo-200 text-indigo-900 rounded px-2 py-1">
+                pakketpunten = {payload.model.intercept.toFixed(3)}
+                {' + '}
+                {payload.model.coefficients.population.toFixed(6)} × inwoners
+                {' + '}
+                {payload.model.coefficients.area_km2.toFixed(3)} × km²
+              </div>
+              <div className="mt-1 text-sm text-gray-700">
+                R² = <span className="font-semibold">{payload.model.r2.toFixed(3)}</span>
+                {' · '}
+                ≈ +{(payload.model.coefficients.population * 1000).toFixed(2)} pakketpunten per 1 000 inwoners
+                {' · '}
+                +{payload.model.coefficients.area_km2.toFixed(2)} per extra km²
+              </div>
+              <p className="text-xs text-gray-500 mt-2 leading-relaxed">
+                PC4-niveau R² is lager dan het gemeentelijke model (~0.87) — kleinere, ruisiger geografieën — maar
+                geeft bruikbare verwachtingswaarden per postcode. Δ = werkelijk − voorspeld; negatieve Δ betekent
+                minder pakketpunten dan op basis van inwoners en oppervlakte verwacht. Pijnpunt-PC4s zijn rood gemarkeerd.
+              </p>
             </div>
-            <div className="text-xs leading-relaxed mt-1 text-indigo-800/80">
-              Tolken: ≈ +{(payload.model.coefficients.population * 1000).toFixed(2)} pakketpunten per 1 000 inwoners en
-              {' '}+{payload.model.coefficients.area_km2.toFixed(2)} per extra km². Δ = werkelijk – voorspeld;
-              negatieve Δ betekent minder pakketpunten dan op basis van inwoners en oppervlakte verwacht.
-            </div>
+
+            {scatterData.other.length > 0 && (
+              <div className="h-80 md:h-96 -ml-2">
+                <ResponsiveContainer width="100%" height="100%">
+                  <ScatterChart margin={{ top: 10, right: 20, bottom: 30, left: 10 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                    <XAxis
+                      type="number"
+                      dataKey="pop"
+                      name="Inwoners"
+                      tickFormatter={(n) => (n >= 1000 ? `${(n / 1000).toFixed(0)}k` : String(n))}
+                      label={{ value: 'Inwoners per PC4', position: 'insideBottom', offset: -10, fill: '#6b7280', fontSize: 12 }}
+                      tick={{ fill: '#6b7280', fontSize: 11 }}
+                    />
+                    <YAxis
+                      type="number"
+                      dataKey="actual"
+                      name="Pakketpunten"
+                      label={{ value: 'Pakketpunten', angle: -90, position: 'insideLeft', fill: '#6b7280', fontSize: 12 }}
+                      tick={{ fill: '#6b7280', fontSize: 11 }}
+                    />
+                    <ZAxis range={[20, 20]} />
+                    <Tooltip
+                      cursor={{ strokeDasharray: '3 3' }}
+                      content={({ active, payload: tp }) => {
+                        if (!active || !tp || !tp.length) return null;
+                        const d = tp[0].payload as ScatterPoint;
+                        if (!d.pc4) {
+                          return (
+                            <div className="bg-white border border-gray-200 rounded shadow px-2 py-1 text-xs">
+                              <div className="font-semibold text-amber-700">Trendlijn</div>
+                              <div>{Math.round(d.pop).toLocaleString('nl-NL')} inw. → {d.actual.toFixed(1)} PP</div>
+                            </div>
+                          );
+                        }
+                        return (
+                          <div className="bg-white border border-gray-200 rounded shadow px-2 py-1 text-xs">
+                            <div className="font-semibold font-mono">PC4 {d.pc4}</div>
+                            <div>{d.pop.toLocaleString('nl-NL')} inw. · {d.area.toFixed(2)} km²</div>
+                            <div>Werkelijk: <span className="font-semibold">{d.actual}</span></div>
+                            <div>Verwacht: {d.predicted.toFixed(1)}</div>
+                          </div>
+                        );
+                      }}
+                    />
+                    <Legend wrapperStyle={{ fontSize: 12 }} />
+                    <Scatter
+                      name={`PC4-gebieden (${scatterData.other.length})`}
+                      data={scatterData.other}
+                      fill="#6366f1"
+                      fillOpacity={0.35}
+                    />
+                    <Scatter
+                      name={`Pijnpunten (${scatterData.pain.length})`}
+                      data={scatterData.pain}
+                      fill="#dc2626"
+                      fillOpacity={0.9}
+                      shape="circle"
+                    />
+                    {trendLine.length > 0 && (
+                      <Scatter
+                        name={`Trendlijn @ ø ${payload.mean_area_km2?.toFixed(2)} km²`}
+                        data={trendLine}
+                        fill="#f59e0b"
+                        line={{ stroke: '#f59e0b', strokeWidth: 2 }}
+                        shape={() => <></>}
+                        legendType="line"
+                      />
+                    )}
+                  </ScatterChart>
+                </ResponsiveContainer>
+              </div>
+            )}
           </section>
         )}
 
