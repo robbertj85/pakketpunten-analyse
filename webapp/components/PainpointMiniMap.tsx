@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { MapContainer, TileLayer, GeoJSON, CircleMarker, Popup, useMap } from 'react-leaflet';
 import type { LatLngBoundsExpression } from 'leaflet';
 import L from 'leaflet';
@@ -68,9 +68,18 @@ export default function PainpointMiniMap({ pc4, points }: Props) {
     };
   }, [pc4]);
 
-  const bounds: LatLngBoundsExpression | null = polygon
-    ? (L.geoJSON(polygon).getBounds() as LatLngBoundsExpression)
-    : null;
+  // IMPORTANT: derive `bounds` via useMemo so we hand the same reference to
+  // FitToFeature's effect across parent re-renders. Without memoisation, each
+  // render built a new L.LatLngBounds, which retriggered fitBounds, which via
+  // react-leaflet's moveend listener caused another parent render — classic
+  // "Maximum update depth exceeded".
+  const bounds: LatLngBoundsExpression | null = useMemo(
+    () =>
+      polygon
+        ? (L.geoJSON(polygon).getBounds() as LatLngBoundsExpression)
+        : null,
+    [polygon],
+  );
 
   // Default center — Dutch G4 roughly in the middle
   const fallbackCenter: [number, number] = points[0]
