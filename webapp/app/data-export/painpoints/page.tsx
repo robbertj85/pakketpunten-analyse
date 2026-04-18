@@ -47,6 +47,16 @@ async function getPainpoints(): Promise<PainpointsPayload> {
             ses_total: round(v.ses_woa_total, 3),
             ses_welvaart: round(v.ses_woa_welvaart, 3),
             ses_arbeid: round(v.ses_woa_arbeid, 3),
+            urbanity: round(v.urbanity, 0),
+            oad: round(v.oad, 0),
+            pct_age_25_45: round(v.pct_age_25_45, 1),
+            pct_single_hh: round(v.pct_single_hh, 1),
+            pct_multi_family: round(v.pct_multi_family, 1),
+            pct_owner_occupied: round(v.pct_owner_occupied, 0),
+            horeca_1km: round(v.horeca_1km, 0),
+            supermarket_1km: round(v.supermarket_1km, 0),
+            station_km: round(v.station_km, 2),
+            highway_km: round(v.highway_km, 2),
           });
           sumArea += area;
           nAreaRows += 1;

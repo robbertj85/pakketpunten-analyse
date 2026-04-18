@@ -69,6 +69,16 @@ export interface ScatterPoint {
   ses_total?: number | null;
   ses_welvaart?: number | null;
   ses_arbeid?: number | null;
+  urbanity?: number | null;
+  oad?: number | null;
+  pct_age_25_45?: number | null;
+  pct_single_hh?: number | null;
+  pct_multi_family?: number | null;
+  pct_owner_occupied?: number | null;
+  horeca_1km?: number | null;
+  supermarket_1km?: number | null;
+  station_km?: number | null;
+  highway_km?: number | null;
 }
 
 export interface PainpointsPayload {
@@ -280,12 +290,15 @@ function SortBuilder<K extends string>({
 type FeatureKey =
   | 'pop' | 'area'
   | 'avg_income' | 'pct_low_income' | 'pct_high_income' | 'avg_woz'
-  | 'ses_total' | 'ses_welvaart' | 'ses_arbeid';
+  | 'ses_total' | 'ses_welvaart' | 'ses_arbeid'
+  | 'urbanity' | 'oad' | 'pct_age_25_45' | 'pct_single_hh'
+  | 'pct_multi_family' | 'pct_owner_occupied'
+  | 'horeca_1km' | 'supermarket_1km' | 'station_km' | 'highway_km';
 
 interface FeatureDef {
   key: FeatureKey;
   label: string;
-  group: 'basis' | 'inkomen' | 'ses';
+  group: 'basis' | 'inkomen' | 'ses' | 'stedelijk' | 'voorzieningen';
   help: string;
   unit?: string;
 }
@@ -300,13 +313,41 @@ const FEATURE_DEFS: FeatureDef[] = [
   { key: 'ses_total', label: 'SES-WOA totaalscore', group: 'ses', help: 'CBS maatwerk 2024/24' },
   { key: 'ses_welvaart', label: 'SES-WOA deelscore welvaart', group: 'ses', help: 'CBS maatwerk 2024/24' },
   { key: 'ses_arbeid', label: 'SES-WOA deelscore arbeidsverleden', group: 'ses', help: 'CBS maatwerk 2024/24' },
+  { key: 'urbanity', label: 'Stedelijkheid (1-5)', group: 'stedelijk', help: 'CBS ordinaal: 1=zeer sterk stedelijk, 5=niet stedelijk' },
+  { key: 'oad', label: 'Omgevingsadressendichtheid', group: 'stedelijk', unit: 'adressen/km²', help: 'CBS: dichtheid van adressen in omgeving' },
+  { key: 'pct_age_25_45', label: '% inwoners 25-45 jaar', group: 'stedelijk', unit: '%', help: 'Piek-leeftijd online shoppen' },
+  { key: 'pct_single_hh', label: '% eenpersoonshuishoudens', group: 'stedelijk', unit: '%', help: 'Zware e-commerce-verbruikers' },
+  { key: 'pct_multi_family', label: '% meergezinswoningen', group: 'stedelijk', unit: '%', help: 'Flats: vaker mislukte bezorging' },
+  { key: 'pct_owner_occupied', label: '% koopwoningen', group: 'stedelijk', unit: '%', help: 'CBS Kerncijfers 2022' },
+  { key: 'horeca_1km', label: 'Horeca binnen 1 km', group: 'voorzieningen', unit: 'vestigingen', help: 'Café + cafetaria + restaurant — host-locaties voor pakketpunten' },
+  { key: 'supermarket_1km', label: 'Grote supermarkten binnen 1 km', group: 'voorzieningen', unit: 'vestigingen', help: 'Supermarkten huisvesten automaten + servicepunten' },
+  { key: 'station_km', label: 'Afstand tot treinstation', group: 'voorzieningen', unit: 'km', help: 'OV-knooppunten trekken pickup-locaties' },
+  { key: 'highway_km', label: 'Afstand tot snelwegoprit', group: 'voorzieningen', unit: 'km', help: 'Bezorgroute-efficiëntie' },
 ];
 
 const GROUP_LABELS: Record<FeatureDef['group'], string> = {
   basis: 'Omvang & ruimte',
   inkomen: 'Inkomen & welvaart (CBS 2022)',
   ses: 'SES-WOA (CBS 2022, incl. studenten)',
+  stedelijk: 'Stedelijkheid & bevolking',
+  voorzieningen: 'Voorzieningen & bereikbaarheid',
 };
+
+// Curated presets from scripts/find_best_model.py so users can jump to
+// known strong combinations without re-running the search themselves.
+const MODEL_PRESETS: Array<{ name: string; keys: FeatureKey[]; note: string }> = [
+  { name: 'Basis', keys: ['pop', 'area'], note: 'Oorspronkelijke Python-baseline' },
+  {
+    name: 'Ockham (k=4)',
+    keys: ['pop', 'pct_low_income', 'oad', 'horeca_1km'],
+    note: 'Beste 4-variabelenmodel uit best-subset search',
+  },
+  {
+    name: 'Elbow (k=7)',
+    keys: ['pop', 'area', 'avg_woz', 'oad', 'pct_single_hh', 'horeca_1km', 'supermarket_1km'],
+    note: 'Parsimonieus — ΔR² < 0.003 t.o.v. k+1',
+  },
+];
 
 export default function PainpointsReport({ payload }: { payload: PainpointsPayload }) {
   const entries = useMemo(
@@ -703,9 +744,37 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
               </p>
             </div>
 
+            {/* Quick presets — hand-picked winners from the best-subset search */}
+            <div className="flex flex-wrap items-center gap-2 text-xs bg-indigo-50/60 border border-indigo-200 rounded px-3 py-2">
+              <span className="text-indigo-900 font-semibold uppercase tracking-wide">Snelkeuze</span>
+              {MODEL_PRESETS.map((preset) => {
+                const active =
+                  selectedFeatures.size === preset.keys.length
+                  && preset.keys.every((k) => selectedFeatures.has(k));
+                return (
+                  <button
+                    key={preset.name}
+                    type="button"
+                    onClick={() => setSelectedFeatures(new Set(preset.keys))}
+                    title={preset.note}
+                    className={`rounded px-2 py-1 font-medium transition ${
+                      active
+                        ? 'bg-indigo-600 text-white'
+                        : 'bg-white text-indigo-700 hover:bg-indigo-100 border border-indigo-200'
+                    }`}
+                  >
+                    {preset.name} ({preset.keys.length})
+                  </button>
+                );
+              })}
+              <span className="text-indigo-900/70 ml-2">
+                Voor volledige leaderboard: <code>scripts/find_best_model.py</code>
+              </span>
+            </div>
+
             {/* Feature checkboxes, grouped */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              {(['basis', 'inkomen', 'ses'] as const).map((grp) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+              {(['basis', 'inkomen', 'ses', 'stedelijk', 'voorzieningen'] as const).map((grp) => (
                 <fieldset key={grp} className="border border-gray-200 rounded p-3">
                   <legend className="px-1 text-xs font-semibold text-gray-700 uppercase tracking-wide">
                     {GROUP_LABELS[grp]}

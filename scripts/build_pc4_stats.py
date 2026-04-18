@@ -23,6 +23,7 @@ NEDERLAND_PATH = ROOT / "webapp" / "public" / "data" / "nederland.geojson"
 CBS_PC4_PATH = ROOT / "data" / "cbs_pc4.json"
 CBS_INCOME_PATH = ROOT / "data" / "cbs_pc4_income.json"
 CBS_SES_PATH = ROOT / "data" / "cbs_pc4_ses_woa.json"
+CBS_EXTRA_PATH = ROOT / "data" / "cbs_pc4_extra.json"
 BOUNDARIES_DIR = ROOT / "webapp" / "public" / "data" / "boundaries"
 OUTPUT = ROOT / "webapp" / "public" / "data" / "pc4_stats.json"
 
@@ -81,6 +82,19 @@ def main() -> int:
         n_with = sum(1 for v in ses_lookup.values()
                      if v.get("ses_woa_total") is not None)
         print(f"  → {n_with}/{len(ses_lookup)} PC4s have SES-WOA score")
+
+    extra_lookup: dict[str, dict] = {}
+    extra_meta = None
+    if CBS_EXTRA_PATH.exists():
+        print(f"Loading CBS extra features from {CBS_EXTRA_PATH.name}...")
+        with open(CBS_EXTRA_PATH) as f:
+            extra_payload = json.load(f)
+        extra_lookup = extra_payload.get("pc4", {})
+        extra_meta = {
+            "source": extra_payload.get("source"),
+            "reference_date": extra_payload.get("reference_date"),
+        }
+        print(f"  → {len(extra_lookup)} PC4s with derived features")
 
     print("Joining PC4s with municipality boundaries...")
     boundary_parts = [
@@ -142,6 +156,7 @@ def main() -> int:
         munic = pc4_to_municipality.get(pc4)
         inc = income_lookup.get(pc4, {})
         ses = ses_lookup.get(pc4, {})
+        ex = extra_lookup.get(pc4, {})
         stats[pc4] = {
             "area_km2": float(row["area_km2"]),
             "population": int(pop_lookup.get(pc4, 0)),
@@ -158,6 +173,17 @@ def main() -> int:
             "ses_woa_total": ses.get("ses_woa_total"),
             "ses_woa_welvaart": ses.get("ses_woa_welvaart"),
             "ses_woa_arbeid": ses.get("ses_woa_arbeid"),
+            # CBS Kerncijfers 2022 derived features (supply + demand side)
+            "urbanity": ex.get("urbanity"),
+            "oad": ex.get("oad"),
+            "pct_age_25_45": ex.get("pct_age_25_45"),
+            "pct_single_hh": ex.get("pct_single_hh"),
+            "pct_multi_family": ex.get("pct_multi_family"),
+            "pct_owner_occupied": ex.get("pct_owner_occupied"),
+            "horeca_1km": ex.get("horeca_1km"),
+            "supermarket_1km": ex.get("supermarket_1km"),
+            "station_km": ex.get("station_km"),
+            "highway_km": ex.get("highway_km"),
         }
 
     payload = {
@@ -168,6 +194,7 @@ def main() -> int:
             "cbs_period": cbs.get("period"),
             "cbs_income": income_meta,
             "cbs_ses_woa": ses_meta,
+            "cbs_extra": extra_meta,
         },
         "stats": dict(sorted(stats.items())),
     }
