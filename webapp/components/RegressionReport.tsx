@@ -614,7 +614,7 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                         <tr>
                           <th className="px-3 py-2 text-left font-semibold uppercase text-xs tracking-wide text-gray-600">Variabele</th>
                           <th className="px-3 py-2 text-right font-semibold uppercase text-xs tracking-wide text-gray-600">Coëfficiënt</th>
-                          <th className="px-3 py-2 text-right font-semibold uppercase text-xs tracking-wide text-gray-600">Effect per 1 eenheid</th>
+                          <th className="px-3 py-2 text-right font-semibold uppercase text-xs tracking-wide text-gray-600" title="Extra pakketpunten per eenheid toename van deze variabele (en per 1 000 eenheden)">Effect op pakketpunten</th>
                           <th className="px-3 py-2 text-right font-semibold uppercase text-xs tracking-wide text-gray-600">VIF</th>
                           {showAdvanced && (
                             <>
@@ -649,7 +649,14 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                                 {c >= 0 ? '+' : ''}{c.toExponential(3)}
                               </td>
                               <td className="px-3 py-2 text-right tabular-nums text-gray-700">
-                                {c >= 0 ? '+' : ''}{c.toFixed(Math.abs(c) < 0.01 ? 5 : 3)} pakketpunten
+                                <div>
+                                  {c >= 0 ? '+' : ''}{c.toFixed(Math.abs(c) < 0.01 ? 5 : 3)}
+                                  <span className="text-xs text-gray-500 ml-1">/ eenheid</span>
+                                </div>
+                                <div className="text-xs text-gray-500">
+                                  {c * 1000 >= 0 ? '+' : ''}{(c * 1000).toFixed(Math.abs(c * 1000) < 0.01 ? 5 : Math.abs(c * 1000) < 1 ? 3 : 2)}
+                                  <span className="ml-1">/ 1 000</span>
+                                </div>
                               </td>
                               <td className={`px-3 py-2 text-right tabular-nums font-semibold ${vifColor}`}>
                                 {Number.isFinite(v) ? v.toFixed(2) : '∞'}
