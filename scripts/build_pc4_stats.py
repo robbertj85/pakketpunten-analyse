@@ -24,6 +24,7 @@ CBS_PC4_PATH = ROOT / "data" / "cbs_pc4.json"
 CBS_INCOME_PATH = ROOT / "data" / "cbs_pc4_income.json"
 CBS_SES_PATH = ROOT / "data" / "cbs_pc4_ses_woa.json"
 CBS_EXTRA_PATH = ROOT / "data" / "cbs_pc4_extra.json"
+NDW_LOADING_PATH = ROOT / "data" / "ndw_pc4_loading_zones.json"
 BOUNDARIES_DIR = ROOT / "webapp" / "public" / "data" / "boundaries"
 OUTPUT = ROOT / "webapp" / "public" / "data" / "pc4_stats.json"
 
@@ -96,6 +97,20 @@ def main() -> int:
         }
         print(f"  → {len(extra_lookup)} PC4s with derived features")
 
+    ndw_lookup: dict[str, dict] = {}
+    ndw_meta = None
+    if NDW_LOADING_PATH.exists():
+        print(f"Loading NDW loading-zone counts from {NDW_LOADING_PATH.name}...")
+        with open(NDW_LOADING_PATH) as f:
+            ndw_payload = json.load(f)
+        ndw_lookup = ndw_payload.get("pc4", {})
+        ndw_meta = {
+            "source": ndw_payload.get("source"),
+            "reference_date": ndw_payload.get("reference_date"),
+        }
+        with_any = sum(1 for v in ndw_lookup.values() if v.get("loading_zones", 0) > 0)
+        print(f"  → {with_any}/{len(ndw_lookup)} PC4s with at least one loading zone")
+
     print("Joining PC4s with municipality boundaries...")
     boundary_parts = [
         gpd.read_file(p)[["gemeente", "geometry"]]
@@ -157,6 +172,7 @@ def main() -> int:
         inc = income_lookup.get(pc4, {})
         ses = ses_lookup.get(pc4, {})
         ex = extra_lookup.get(pc4, {})
+        ndw = ndw_lookup.get(pc4, {})
         stats[pc4] = {
             "area_km2": float(row["area_km2"]),
             "population": int(pop_lookup.get(pc4, 0)),
@@ -184,6 +200,9 @@ def main() -> int:
             "supermarket_1km": ex.get("supermarket_1km"),
             "station_km": ex.get("station_km"),
             "highway_km": ex.get("highway_km"),
+            # NDW verkeersborden 2026 — laad-/losplaatsen (RVV code E7)
+            "loading_zones": ndw.get("loading_zones"),
+            "loading_zones_per_km2": ndw.get("loading_zones_per_km2"),
         }
 
     payload = {
@@ -195,6 +214,7 @@ def main() -> int:
             "cbs_income": income_meta,
             "cbs_ses_woa": ses_meta,
             "cbs_extra": extra_meta,
+            "ndw_loading_zones": ndw_meta,
         },
         "stats": dict(sorted(stats.items())),
     }

@@ -18,12 +18,13 @@ type FeatureKey =
   | 'ses_total' | 'ses_welvaart' | 'ses_arbeid'
   | 'urbanity' | 'oad' | 'pct_age_25_45' | 'pct_single_hh'
   | 'pct_multi_family' | 'pct_owner_occupied'
-  | 'horeca_1km' | 'supermarket_1km' | 'station_km' | 'highway_km';
+  | 'horeca_1km' | 'supermarket_1km' | 'station_km' | 'highway_km'
+  | 'loading_zones' | 'loading_zones_per_km2';
 
 interface FeatureDef {
   key: FeatureKey;
   label: string;
-  group: 'basis' | 'inkomen' | 'ses' | 'stedelijk' | 'voorzieningen';
+  group: 'basis' | 'inkomen' | 'ses' | 'stedelijk' | 'voorzieningen' | 'verkeer';
   help: string;
   unit?: string;
 }
@@ -48,6 +49,8 @@ const FEATURE_DEFS: FeatureDef[] = [
   { key: 'supermarket_1km', label: 'Grote supermarkten binnen 1 km', group: 'voorzieningen', unit: 'vestigingen', help: 'Supermarkten huisvesten automaten + servicepunten' },
   { key: 'station_km', label: 'Afstand tot treinstation', group: 'voorzieningen', unit: 'km', help: 'OV-knooppunten trekken pickup-locaties' },
   { key: 'highway_km', label: 'Afstand tot snelwegoprit', group: 'voorzieningen', unit: 'km', help: 'Bezorgroute-efficiëntie' },
+  { key: 'loading_zones', label: 'Laad-/losplaatsen (E7)', group: 'verkeer', unit: 'borden', help: 'NDW verkeersborden: RVV-code E7, dagelijks geüpdatet' },
+  { key: 'loading_zones_per_km2', label: 'Laad-/losplaatsen per km²', group: 'verkeer', unit: 'borden/km²', help: 'Genormaliseerd naar PC4-oppervlakte' },
 ];
 
 const GROUP_LABELS: Record<FeatureDef['group'], string> = {
@@ -56,6 +59,7 @@ const GROUP_LABELS: Record<FeatureDef['group'], string> = {
   ses: 'SES-WOA (CBS 2022, incl. studenten)',
   stedelijk: 'Stedelijkheid & bevolking',
   voorzieningen: 'Voorzieningen & bereikbaarheid',
+  verkeer: 'Verkeer & logistiek (NDW)',
 };
 
 // Curated presets from scripts/find_best_model.py so users can jump to
@@ -480,7 +484,7 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
 
           {/* Feature checkboxes, grouped */}
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-            {(['basis', 'inkomen', 'ses', 'stedelijk', 'voorzieningen'] as const).map((grp) => (
+            {(['basis', 'inkomen', 'ses', 'stedelijk', 'voorzieningen', 'verkeer'] as const).map((grp) => (
               <fieldset key={grp} className="border border-gray-200 rounded p-3">
                 <legend className="px-1 text-xs font-semibold text-gray-700 uppercase tracking-wide">
                   {GROUP_LABELS[grp]}

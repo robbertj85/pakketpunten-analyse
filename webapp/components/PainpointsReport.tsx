@@ -74,6 +74,8 @@ export interface ScatterPoint {
   supermarket_1km?: number | null;
   station_km?: number | null;
   highway_km?: number | null;
+  loading_zones?: number | null;
+  loading_zones_per_km2?: number | null;
 }
 
 export interface PainpointsPayload {

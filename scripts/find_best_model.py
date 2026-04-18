@@ -71,6 +71,8 @@ CANDIDATE_FEATURES: list[tuple[str, str]] = [
     ("supermarket_1km", "Supermarkten binnen 1 km"),
     ("station_km", "Afstand treinstation (km)"),
     ("highway_km", "Afstand snelwegoprit (km)"),
+    ("loading_zones", "Laad-/losplaatsen (NDW E7)"),
+    ("loading_zones_per_km2", "Laad-/losplaatsen per km²"),
 ]
 
 
