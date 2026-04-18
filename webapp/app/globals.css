@@ -81,3 +81,22 @@ body {
     padding-left: max(1rem, env(safe-area-inset-left));
   }
 }
+
+/* PC4 code labels — bound as permanent tooltips on each polygon.
+   Hidden by default, revealed when Map wrapper has .show-pc4-labels
+   (controlled by zoom level to avoid 4000 labels at once). */
+.pc4-label {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(71, 85, 105, 0.4);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #334155;
+  box-shadow: none;
+  pointer-events: none;
+  white-space: nowrap;
+  display: none;
+}
+.pc4-label::before { display: none; } /* hide tooltip arrow */
+.show-pc4-labels .pc4-label { display: block; }

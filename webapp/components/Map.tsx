@@ -145,6 +145,21 @@ function FitBounds({
   return null;
 }
 
+// Fit map to a specific PC4 polygon whenever the selection changes
+function FitToPainpoint({ polygon }: { polygon: any | null }) {
+  const map = useMap();
+  useEffect(() => {
+    if (!polygon) return;
+    try {
+      const bounds = L.geoJSON(polygon).getBounds();
+      map.fitBounds(bounds, { padding: [40, 40], maxZoom: 16 });
+    } catch (err) {
+      console.error('Failed to fit PC4 bounds:', err);
+    }
+  }, [polygon, map]);
+  return null;
+}
+
 // Component to watch zoom level for performance optimization
 function ZoomWatcher({ onZoomChange }: { onZoomChange: (zoom: number) => void }) {
   const map = useMap();
@@ -575,6 +590,31 @@ function MapComponent(props?: MapProps) {
   // Hooks MUST be at the very top
   const [mounted, setMounted] = useState(false);
   const [currentZoom, setCurrentZoom] = useState(12);
+  const [pc4Data, setPc4Data] = useState<any | null>(null);
+  const [pc4Loading, setPc4Loading] = useState(false);
+  const [painPoints, setPainPoints] = useState<Record<string, {
+    city: string;
+    g4_city?: string;
+    municipality?: string | null;
+    carriers: string[];
+    pakketpunten?: {
+      total: number;
+      locker: number;
+      shop: number;
+      by_carrier: Record<string, { locker: number; shop: number }>;
+    };
+    points?: Array<{
+      lat: number;
+      lng: number;
+      vervoerder: string;
+      category: 'locker' | 'shop';
+      puntType: string;
+      locatieNaam: string;
+      straatNaam: string;
+      straatNr: string;
+    }>;
+  }> | null>(null);
+  const [selectedPainpointPc4, setSelectedPainpointPc4] = useState<string | null>(null);
 
   // Extract props with defaults AFTER hooks
   const data = props?.data ?? null;
@@ -590,6 +630,8 @@ function MapComponent(props?: MapProps) {
     showBufferFill: false,
     bufferMerged: true,
     showBoundary: false,
+    showPC4: false,
+    showPainPoints: false,
     useSimpleMarkers: false,
     minOccupancy: 0,
     maxOccupancy: 100,
@@ -602,6 +644,43 @@ function MapComponent(props?: MapProps) {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Lazy-load PC4 boundaries the first time the user toggles them on.
+  // Also needed for the pain-points overlay since it styles PC4 polygons.
+  const needsPc4 = activeFilters.showPC4 || activeFilters.showPainPoints;
+  useEffect(() => {
+    if (!needsPc4 || pc4Data || pc4Loading) return;
+    setPc4Loading(true);
+    fetch('/data/pc4.geojson')
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then(setPc4Data)
+      .catch((err) => console.error('Failed to load PC4 boundaries:', err))
+      .finally(() => setPc4Loading(false));
+  }, [needsPc4, pc4Data, pc4Loading]);
+
+  // Lazy-load carrier pain-points the first time the user toggles them on
+  useEffect(() => {
+    if (!activeFilters.showPainPoints || painPoints) return;
+    fetch('/data/pc4_painpoints.json')
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then((payload) => setPainPoints(payload.painpoints ?? {}))
+      .catch((err) => console.error('Failed to load PC4 pain points:', err));
+  }, [activeFilters.showPainPoints, painPoints]);
+
+  // Build the pain-points GeoJSON by filtering pc4Data to flagged codes
+  const painPointsGeoJSON = useMemo(() => {
+    if (!activeFilters.showPainPoints || !pc4Data || !painPoints) return null;
+    const features = pc4Data.features.filter((f: any) =>
+      painPoints[f?.properties?.pc4]
+    );
+    return { type: 'FeatureCollection', features };
+  }, [activeFilters.showPainPoints, pc4Data, painPoints]);
 
   // Helper to check if point matches service filters
   const matchesServiceFilters = (props: PakketpuntProperties): boolean => {
@@ -1020,6 +1099,27 @@ function MapComponent(props?: MapProps) {
       });
   }, [spreadPoints, currentZoom]);
 
+  // Look up the selected PC4 polygon (for zoom-to-selection)
+  const selectedPainpointPolygon = useMemo(() => {
+    if (!selectedPainpointPc4 || !pc4Data) return null;
+    return pc4Data.features.find((f: any) => f?.properties?.pc4 === selectedPainpointPc4) ?? null;
+  }, [selectedPainpointPc4, pc4Data]);
+
+  // Close panel on Escape
+  useEffect(() => {
+    if (!selectedPainpointPc4) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedPainpointPc4(null);
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [selectedPainpointPc4]);
+
+  // Clear selection when the pain-point layer is disabled
+  useEffect(() => {
+    if (!activeFilters.showPainPoints) setSelectedPainpointPc4(null);
+  }, [activeFilters.showPainPoints]);
+
   // Early returns AFTER all hooks to maintain hook order
   if (!mounted) {
     return (
@@ -1046,8 +1146,14 @@ function MapComponent(props?: MapProps) {
   // Check if municipality has 0 pakketpunten
   const hasNoPakketpunten = points.length === 0;
 
+  // Show PC4 labels only on pain-point polygons, zoom-gated to avoid clutter
+  const showPc4Labels = activeFilters.showPainPoints && currentZoom >= 11;
+
+  const selectedPainpointEntry =
+    selectedPainpointPc4 && painPoints ? painPoints[selectedPainpointPc4] : null;
+
   return (
-    <div className="relative w-full h-full">
+    <div className={`relative w-full h-full ${showPc4Labels ? 'show-pc4-labels' : ''}`}>
       <MapContainer
         key={`map-${useSimpleMarkers ? 'simple' : 'detailed'}`} // Force remount when rendering mode changes
         center={[52.3676, 4.9041]} // Amsterdam as default
@@ -1074,6 +1180,110 @@ function MapComponent(props?: MapProps) {
       />
       <ZoomWatcher onZoomChange={setCurrentZoom} />
       <ScaleControl />
+      <FitToPainpoint polygon={selectedPainpointPolygon} />
+
+      {/* PC4 postal code boundaries (outline only) */}
+      {activeFilters.showPC4 && pc4Data && (
+        <GeoJSON
+          key="pc4-layer"
+          data={pc4Data}
+          style={() => ({
+            color: '#475569',
+            weight: 1.5,
+            opacity: 1,
+            fillColor: '#475569',
+            fillOpacity: 0,
+          })}
+          onEachFeature={(feature, layer) => {
+            const code = feature?.properties?.pc4;
+            if (code) {
+              layer.bindTooltip(String(code), { sticky: true, direction: 'top' });
+            }
+            layer.on({
+              mouseover: (e) => e.target.setStyle({ weight: 3, fillOpacity: 0.12 }),
+              mouseout: (e) => e.target.setStyle({ weight: 1.5, fillOpacity: 0 }),
+            });
+          }}
+        />
+      )}
+
+      {/* Carrier pain-point PC4s (filled red polygons with per-carrier tooltip) */}
+      {activeFilters.showPainPoints && painPointsGeoJSON && painPoints && (
+        <GeoJSON
+          key="painpoints-layer"
+          data={painPointsGeoJSON as any}
+          style={(feature) => {
+            const entry = painPoints[feature?.properties?.pc4];
+            const count = entry?.carriers.length ?? 0;
+            // Categorical ramp: yellow → orange → red → dark red
+            const fillColor =
+              count >= 4 ? '#7f1d1d' :
+              count === 3 ? '#dc2626' :
+              count === 2 ? '#f97316' :
+              '#fbbf24';
+            const strokeColor =
+              count >= 4 ? '#450a0a' :
+              count === 3 ? '#991b1b' :
+              count === 2 ? '#c2410c' :
+              '#b45309';
+            return {
+              color: strokeColor,
+              weight: 1.5,
+              opacity: 1,
+              fillColor,
+              fillOpacity: 0.65,
+            };
+          }}
+          onEachFeature={(feature, layer) => {
+            const code = feature?.properties?.pc4;
+            const entry = code ? painPoints[code] : null;
+            if (!entry) return;
+            // Permanent PC4-code label, shown via CSS (zoom-gated)
+            layer.bindTooltip(String(code), {
+              permanent: true,
+              direction: 'center',
+              className: 'pc4-label',
+            });
+            layer.on({
+              mouseover: (e) => e.target.setStyle({ weight: 3 }),
+              mouseout: (e) => e.target.setStyle({ weight: 1.5 }),
+              click: () => setSelectedPainpointPc4(String(code)),
+            });
+          }}
+        />
+      )}
+
+      {/* Render pakketpunten inside the selected painpoint PC4.
+          Source is the nationwide enriched dataset so these appear even when
+          the PC4 lies outside the currently selected municipality. */}
+      {selectedPainpointEntry?.points?.map((p, idx) => {
+        const color = PROVIDER_INFO[p.vervoerder]?.color || '#666';
+        return (
+          <CircleMarker
+            key={`painpt-${selectedPainpointPc4}-${idx}`}
+            center={[p.lat, p.lng]}
+            radius={p.category === 'locker' ? 9 : 7}
+            pathOptions={{
+              fillColor: color,
+              fillOpacity: 0.95,
+              color: '#111827',
+              weight: 2,
+            }}
+          >
+            <Popup>
+              <div className="text-sm">
+                <div className="font-semibold text-gray-900">{p.locatieNaam || p.vervoerder}</div>
+                <div className="text-gray-600">{p.straatNaam} {p.straatNr}</div>
+                <div className="mt-1 text-xs">
+                  <span className="font-semibold">{p.vervoerder}</span>
+                  {' · '}
+                  {p.category === 'locker' ? 'Pakketautomaat' : 'Pakketshop'}
+                </div>
+              </div>
+            </Popup>
+          </CircleMarker>
+        );
+      })}
 
       {/* Render buffer zones - merged union polygons or individual circles */}
       {/* 400m buffers rendered first (underneath) */}
@@ -1187,6 +1397,138 @@ function MapComponent(props?: MapProps) {
         </Marker>
       )}
     </MapContainer>
+
+      {/* Side panel for selected painpoint PC4 */}
+      {selectedPainpointPc4 && selectedPainpointEntry && (
+        <aside className="absolute top-0 right-0 bottom-0 w-full sm:w-[380px] z-[1001] bg-white shadow-2xl flex flex-col border-l border-gray-200">
+          <div className="flex items-start justify-between p-4 border-b border-gray-200">
+            <div>
+              <div className="text-xs uppercase tracking-wide text-gray-500">Pijnpunt PC4</div>
+              <div className="text-2xl font-bold text-gray-900 font-mono">{selectedPainpointPc4}</div>
+              <div className="text-sm text-gray-600">
+                G4: {selectedPainpointEntry.g4_city ?? selectedPainpointEntry.city}
+              </div>
+              {selectedPainpointEntry.municipality &&
+                selectedPainpointEntry.municipality !== (selectedPainpointEntry.g4_city ?? selectedPainpointEntry.city) && (
+                  <div className="text-sm text-gray-900 font-medium">
+                    {selectedPainpointEntry.municipality}
+                  </div>
+                )}
+              {selectedPainpointEntry.municipality &&
+                selectedPainpointEntry.municipality === (selectedPainpointEntry.g4_city ?? selectedPainpointEntry.city) && (
+                  <div className="text-xs text-gray-500">Gemeente: {selectedPainpointEntry.municipality}</div>
+                )}
+            </div>
+            <button
+              onClick={() => setSelectedPainpointPc4(null)}
+              className="p-2 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded"
+              aria-label="Sluiten"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <div className="px-4 py-3 border-b border-gray-200 bg-gray-50">
+            <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">Gemeld als pijnpunt door</div>
+            <div className="flex flex-wrap gap-1 mb-3">
+              {selectedPainpointEntry.carriers.map((c) => (
+                <span key={c} className="px-2 py-0.5 text-xs font-semibold bg-red-100 text-red-800 rounded">
+                  {c}
+                </span>
+              ))}
+            </div>
+            {selectedPainpointEntry.pakketpunten && (
+              <div className="grid grid-cols-3 gap-2 text-center">
+                <div>
+                  <div className="text-lg font-bold text-gray-900">{selectedPainpointEntry.pakketpunten.total}</div>
+                  <div className="text-xs text-gray-500">Totaal</div>
+                </div>
+                <div>
+                  <div className="text-lg font-bold text-gray-900">{selectedPainpointEntry.pakketpunten.locker}</div>
+                  <div className="text-xs text-gray-500">Automaten</div>
+                </div>
+                <div>
+                  <div className="text-lg font-bold text-gray-900">{selectedPainpointEntry.pakketpunten.shop}</div>
+                  <div className="text-xs text-gray-500">Shops</div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="flex-1 overflow-y-auto">
+            <div className="px-4 py-3 text-xs uppercase tracking-wide text-gray-500 sticky top-0 bg-white border-b border-gray-100">
+              Pakketpunten in dit gebied ({selectedPainpointEntry.points?.length ?? 0})
+            </div>
+            {selectedPainpointEntry.points && selectedPainpointEntry.points.length > 0 ? (
+              <ul className="divide-y divide-gray-100">
+                {selectedPainpointEntry.points
+                  .slice()
+                  .sort((a, b) =>
+                    a.vervoerder.localeCompare(b.vervoerder) ||
+                    a.straatNaam.localeCompare(b.straatNaam)
+                  )
+                  .map((p, idx) => {
+                    const color = PROVIDER_INFO[p.vervoerder]?.color || '#666';
+                    return (
+                      <li key={idx} className="px-4 py-2 text-sm hover:bg-gray-50 flex items-start gap-2">
+                        <span
+                          className="inline-block w-3 h-3 rounded-full mt-1 flex-shrink-0 border border-white"
+                          style={{ backgroundColor: color, boxShadow: '0 0 0 1px rgba(0,0,0,0.15)' }}
+                          aria-hidden
+                        />
+                        <div className="min-w-0 flex-1">
+                          <div className="font-medium text-gray-900 truncate">
+                            {p.locatieNaam || p.vervoerder}
+                          </div>
+                          <div className="text-xs text-gray-600 truncate">
+                            {p.straatNaam} {p.straatNr}
+                          </div>
+                          <div className="text-xs text-gray-500 mt-0.5">
+                            <span className="font-semibold">{p.vervoerder}</span>
+                            {' · '}
+                            {p.category === 'locker' ? 'Pakketautomaat' : 'Pakketshop'}
+                          </div>
+                        </div>
+                      </li>
+                    );
+                  })}
+              </ul>
+            ) : (
+              <div className="px-4 py-6 text-sm text-gray-500 text-center">Geen pakketpunten in dit gebied.</div>
+            )}
+          </div>
+
+          {selectedPainpointEntry.pakketpunten?.by_carrier && (
+            <div className="px-4 py-3 border-t border-gray-200 max-h-[40%] overflow-y-auto bg-gray-50">
+              <div className="text-xs uppercase tracking-wide text-gray-500 mb-2">Per vervoerder</div>
+              <table className="w-full text-sm">
+                <thead className="text-xs uppercase text-gray-500">
+                  <tr>
+                    <th className="text-left py-1">Vervoerder</th>
+                    <th className="text-right py-1">Auto.</th>
+                    <th className="text-right py-1">Shops</th>
+                    <th className="text-right py-1">Totaal</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  {Object.entries(selectedPainpointEntry.pakketpunten.by_carrier)
+                    .sort(([a], [b]) => a.localeCompare(b))
+                    .map(([carrier, counts]) => (
+                      <tr key={carrier}>
+                        <td className="py-1 text-gray-900 font-medium">{carrier}</td>
+                        <td className="py-1 text-right tabular-nums text-gray-700">{counts.locker}</td>
+                        <td className="py-1 text-right tabular-nums text-gray-700">{counts.shop}</td>
+                        <td className="py-1 text-right tabular-nums font-semibold text-gray-900">{counts.locker + counts.shop}</td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </aside>
+      )}
 
       {/* Empty state overlay when municipality has 0 pakketpunten */}
       {hasNoPakketpunten && (

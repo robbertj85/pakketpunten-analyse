@@ -106,6 +106,8 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
 
   // Local spinner state for merged buffer toggle
   const [mergeSpinner, setMergeSpinner] = useState(false);
+  // Local spinner state for "toggle all providers" header click
+  const [providersSpinner, setProvidersSpinner] = useState(false);
 
   // Clear spinner once the filter change has been applied (computation done, re-render complete)
   useEffect(() => {
@@ -113,6 +115,14 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
       setMergeSpinner(false);
     }
   }, [filters.bufferMerged, mergeSpinner]);
+
+  // Clear providers spinner once provider list has been applied, but keep it
+  // visible for a minimum duration so fast re-renders don't cause it to flash
+  useEffect(() => {
+    if (!providersSpinner) return;
+    const t = setTimeout(() => setProvidersSpinner(false), 400);
+    return () => clearTimeout(t);
+  }, [filters.providers, providersSpinner]);
 
   const toggleProvider = (provider: string) => {
     const newProviders = filters.providers.includes(provider)
@@ -150,7 +160,20 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
 
       {/* Provider filters */}
       <div>
-        <label className="block text-sm font-medium text-gray-900 mb-2">Vervoerders</label>
+        <button
+          type="button"
+          onClick={() => {
+            const next = filters.providers.length > 0 ? [] : providers;
+            setProvidersSpinner(true);
+            // Defer so the browser paints the spinner before heavy re-render
+            setTimeout(() => onChange({ ...filters, providers: next }), 20);
+          }}
+          className="flex items-center gap-2 w-full text-left text-sm font-medium text-gray-900 mb-2 hover:text-blue-600 transition cursor-pointer select-none"
+          title={filters.providers.length > 0 ? 'Alle uitschakelen' : 'Alle inschakelen'}
+        >
+          <span>Vervoerders</span>
+          {providersSpinner && <InlineSpinner />}
+        </button>
         <div className="space-y-1 md:space-y-2">
           {providers.map((provider) => {
             const info = PROVIDER_INFO[provider as keyof typeof PROVIDER_INFO];
@@ -402,6 +425,25 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
               )}
             </div>
           </label>
+          <label className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-gray-50 active:bg-gray-100 transition">
+            <input
+              type="checkbox"
+              checked={filters.showPC4}
+              onChange={(e) => onChange({ ...filters, showPC4: e.target.checked })}
+              className="w-5 h-5 md:w-4 md:h-4 text-gray-600 rounded focus:ring-2 focus:ring-gray-500"
+            />
+            <span className="text-sm text-gray-900">Postcodegebieden (PC4)</span>
+          </label>
+          <label className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-gray-50 active:bg-gray-100 transition">
+            <input
+              type="checkbox"
+              checked={filters.showPainPoints}
+              onChange={(e) => onChange({ ...filters, showPainPoints: e.target.checked })}
+              className="w-5 h-5 md:w-4 md:h-4 text-red-600 rounded focus:ring-2 focus:ring-red-500"
+            />
+            <span className="w-3 h-3 rounded-sm bg-red-500/60 border border-red-600 flex-shrink-0" />
+            <span className="text-sm text-gray-900">Pijnpunten vervoerders</span>
+          </label>
         </div>
       </div>
 
@@ -415,6 +457,8 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
             showBufferFill: false,
             bufferMerged: true,
             showBoundary: false,
+            showPC4: false,
+            showPainPoints: false,
             useSimpleMarkers: false,
             minOccupancy: 0,
             maxOccupancy: 100,

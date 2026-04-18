@@ -13,6 +13,7 @@ export default function DataExportLayout({
   const isDownloads = pathname === '/data-export';
   const isMatrix = pathname === '/data-export/matrix';
   const isUpdates = pathname === '/data-export/updates';
+  const isPainpoints = pathname === '/data-export/painpoints';
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -74,6 +75,19 @@ export default function DataExportLayout({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
               </svg>
               Updates
+            </Link>
+            <Link
+              href="/data-export/painpoints"
+              className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
+                isPainpoints
+                  ? 'border-red-600 text-red-600'
+                  : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+              }`}
+            >
+              <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M4.93 19h14.14c1.54 0 2.5-1.67 1.73-3L13.73 4a2 2 0 00-3.46 0L3.2 16c-.77 1.33.19 3 1.73 3z" />
+              </svg>
+              Pijnpunten
             </Link>
           </nav>
         </div>

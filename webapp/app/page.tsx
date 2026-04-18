@@ -97,6 +97,8 @@ export default function Home() {
     showBufferFill: false,
     bufferMerged: true,
     showBoundary: false,
+    showPC4: false,
+    showPainPoints: false,
     useSimpleMarkers: false,
     minOccupancy: 0,
     maxOccupancy: 100,
@@ -225,6 +227,8 @@ export default function Home() {
           showBufferFill: false,
           bufferMerged: true,
           showBoundary: false,
+          showPC4: false,
+          showPainPoints: false,
           useSimpleMarkers: isNederland,
           minOccupancy: 0,
           maxOccupancy: 100,
@@ -439,8 +443,9 @@ export default function Home() {
         {/* Main header row */}
         <div className="px-3 py-2 md:px-4 md:py-3 flex items-center gap-2 md:gap-4">
           {/* Logo */}
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 leading-tight">
             <h1 className="text-lg md:text-xl font-bold text-gray-900">📦 <span className="hidden sm:inline">Pakketpunten</span></h1>
+            <p className="text-xs font-medium text-gray-500 tracking-wide uppercase hidden sm:block">Analyse</p>
           </div>
 
           {/* Municipality Selector - always visible but responsive width */}

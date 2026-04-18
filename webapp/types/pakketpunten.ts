@@ -56,6 +56,8 @@ export interface Filters {
   showBufferFill: boolean;
   bufferMerged: boolean;
   showBoundary: boolean;
+  showPC4: boolean;
+  showPainPoints: boolean;
   useSimpleMarkers: boolean;
   minOccupancy: number;
   maxOccupancy: number;
