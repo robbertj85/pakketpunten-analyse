@@ -60,9 +60,7 @@ def main() -> int:
         print(f"  → {len(boundary_gdf)} municipality polygons loaded")
         centroids = pc4_subset.copy()
         centroids["geometry"] = centroids.geometry.representative_point()
-        located = gpd.sjoin(
-            centroids, boundary_gdf, how="left", predicate="within"
-        )
+        located = gpd.sjoin_nearest(centroids, boundary_gdf, how="left")
         pc4_to_municipality = dict(zip(located["pc4"], located["gemeente"]))
     else:
         print("  ⚠ no boundary files found, skipping municipality lookup")

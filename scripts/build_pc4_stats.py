@@ -56,8 +56,11 @@ def main() -> int:
     )
     centroids = pc4_gdf.copy()
     centroids["geometry"] = centroids.geometry.representative_point()
-    located = gpd.sjoin(
-        centroids[["pc4", "geometry"]], boundary_gdf, how="left", predicate="within"
+    # sjoin_nearest handles the edge cases where representative points fall
+    # in small polygon gaps (e.g. Den Haag 2593). For interior points the
+    # distance is 0 so results match a strict "within" join.
+    located = gpd.sjoin_nearest(
+        centroids[["pc4", "geometry"]], boundary_gdf, how="left"
     )
     pc4_to_municipality = dict(zip(located["pc4"], located["gemeente"]))
 
