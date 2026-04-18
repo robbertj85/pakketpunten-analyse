@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import dynamic from 'next/dynamic';
 import {
   ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, ZAxis, Legend,
@@ -9,6 +10,39 @@ import {
   fitModel, ols, bic, cohensF2, cohensF2Label, partialF, type ModelFit,
 } from '@/utils/regression';
 import type { PainpointsPayload, ScatterPoint } from './PainpointsReport';
+
+// Leaflet needs to stay out of the server-rendered bundle. Spinner shows
+// while the (small) chunk downloads and the PC4 polygon is being fetched.
+const PainpointMiniMap = dynamic(() => import('./PainpointMiniMap'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full flex items-center justify-center bg-gray-50 border border-gray-200 rounded">
+      <MapSpinner label="Kaart laden..." />
+    </div>
+  ),
+});
+
+function MapSpinner({ label = 'Laden...' }: { label?: string }) {
+  return (
+    <div className="flex items-center gap-2 text-sm text-gray-500">
+      <svg
+        className="animate-spin w-4 h-4 text-indigo-500"
+        viewBox="0 0 24 24"
+        fill="none"
+        aria-hidden="true"
+      >
+        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeOpacity="0.2" strokeWidth="4" />
+        <path
+          d="M22 12a10 10 0 0 1-10 10"
+          stroke="currentColor"
+          strokeWidth="4"
+          strokeLinecap="round"
+        />
+      </svg>
+      <span>{label}</span>
+    </div>
+  );
+}
 
 // ---- Model builder configuration ----
 // Keys match ScatterPoint fields so we can read them directly.
@@ -145,6 +179,24 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
     const pain = scatter.filter((p) => painSet.has(p.pc4));
     return { other, pain };
   }, [payload.scatter, payload.painpoints]);
+
+  // Rendering ~4 000 SVG circles is slow in Recharts, especially on every
+  // preset change or feature toggle. We display a deterministic subsample
+  // of the non-pain points so the canvas stays snappy. The user still sees
+  // the overall cloud; pijnpunten (usually ~75 dots) render in full, plus
+  // the trend lines. The OLS fit keeps using the complete payload.scatter
+  // array unchanged — this is a visual compromise only.
+  const MAX_BLUE_DOTS = 1200;
+  const displayData = useMemo(() => {
+    const { other, pain } = scatterData;
+    if (other.length <= MAX_BLUE_DOTS) return scatterData;
+    const step = other.length / MAX_BLUE_DOTS;
+    const sampled: ScatterPoint[] = new Array(MAX_BLUE_DOTS);
+    for (let i = 0; i < MAX_BLUE_DOTS; i++) {
+      sampled[i] = other[Math.floor(i * step)];
+    }
+    return { other: sampled, pain, hiddenBlue: other.length - MAX_BLUE_DOTS };
+  }, [scatterData]);
 
   // Python-fitted baseline trendline (at the mean PC4 area)
   const trendLine = useMemo(() => {
@@ -405,10 +457,15 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                     wrapperStyle={{ fontSize: 12, paddingTop: 12, bottom: 0 }}
                   />
                   <Scatter
-                    name={`PC4-gebieden (${scatterData.other.length})`}
-                    data={scatterData.other}
+                    name={
+                      scatterData.other.length === displayData.other.length
+                        ? `PC4-gebieden (${scatterData.other.length})`
+                        : `PC4-gebieden (${displayData.other.length.toLocaleString('nl-NL')} van ${scatterData.other.length.toLocaleString('nl-NL')}, gesampled)`
+                    }
+                    data={displayData.other}
                     fill="#6366f1"
                     fillOpacity={0.35}
+                    isAnimationActive={false}
                     onClick={(e: any) => e?.payload && setSelectedPoint(e.payload as ScatterPoint)}
                     cursor="pointer"
                   />
@@ -418,6 +475,7 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                     fill="#dc2626"
                     fillOpacity={0.9}
                     shape="circle"
+                    isAnimationActive={false}
                     onClick={(e: any) => e?.payload && setSelectedPoint(e.payload as ScatterPoint)}
                     cursor="pointer"
                   />
@@ -429,6 +487,7 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                       line={{ stroke: '#f59e0b', strokeWidth: 2 }}
                       shape={() => <></>}
                       legendType="line"
+                      isAnimationActive={false}
                     />
                   )}
                   {userTrendLine.length > 0 && !('error' in modelFit) && (
@@ -439,6 +498,7 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                       line={{ stroke: '#4338ca', strokeWidth: 2, strokeDasharray: '6 3' }}
                       shape={() => <></>}
                       legendType="line"
+                      isAnimationActive={false}
                     />
                   )}
                 </ScatterChart>
@@ -899,6 +959,17 @@ function PC4DetailPanel({
                 ×
               </button>
             </div>
+
+            {/* Mini-map: PC4 polygon + pakketpunten dots */}
+            <div className="h-56 rounded overflow-hidden border border-gray-200 relative">
+              <PainpointMiniMap
+                pc4={point.pc4}
+                points={(painpointEntry?.points ?? [])}
+              />
+            </div>
+            <p className="text-[10px] text-gray-500 -mt-2">
+              PC4-grens (rood) en carrier-gerapporteerde pakketpunten.
+            </p>
 
             {/* Outcome vs predictions */}
             <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-sm space-y-1">
