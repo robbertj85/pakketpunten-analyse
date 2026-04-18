@@ -6,7 +6,7 @@ import {
   ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, ZAxis, Legend,
 } from 'recharts';
-import { fitModel, type ModelFit } from '@/utils/regression';
+import { fitModel, ols, bic, cohensF2, cohensF2Label, partialF, type ModelFit } from '@/utils/regression';
 
 type ByCarrier = Record<string, { locker: number; shop: number }>;
 
@@ -403,6 +403,7 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
   const [selectedFeatures, setSelectedFeatures] = useState<Set<FeatureKey>>(
     () => new Set<FeatureKey>(['pop', 'area']),
   );
+  const [showAdvanced, setShowAdvanced] = useState(false);
   const toggleFeature = (k: FeatureKey) =>
     setSelectedFeatures((s) => {
       const next = new Set(s);
@@ -473,7 +474,74 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
         const popIdx = keys.indexOf('pop' as FeatureKey);
         return popIdx >= 0 ? Math.max(m, r[popIdx]) : m;
       }, 0);
-      return { fit, keys, labels, baseR2, means, maxPop } as const;
+
+      // ---- Advanced-panel statistics ----
+      // Model BIC — uses the same SSR the fitter already computed.
+      const modelBic = bic(fit.ssRes, fit.n, keys.length);
+
+      // Model-level partial F: "does the user's whole model add anything
+      // beyond pop + area on the same NA-filtered rows?" Degenerate when
+      // the user already *is* pop+area (q = 0) — we skip in that case.
+      let modelVsBase: {
+        r2Base: number;
+        deltaR2: number;
+        f2: number;
+        f2Label: string;
+        F: number;
+        p: number;
+        df1: number;
+        df2: number;
+      } | null = null;
+      if (baseR2 != null) {
+        const baseFeatures = new Set<FeatureKey>(['pop', 'area']);
+        const addedCount = keys.filter((k) => !baseFeatures.has(k)).length;
+        if (addedCount > 0) {
+          const f2 = cohensF2(fit.r2, baseR2);
+          const pf = partialF(fit.r2, baseR2, addedCount, fit.n, keys.length);
+          modelVsBase = {
+            r2Base: baseR2,
+            deltaR2: fit.r2 - baseR2,
+            f2,
+            f2Label: cohensF2Label(f2),
+            F: pf.F,
+            p: pf.p,
+            df1: pf.df1,
+            df2: pf.df2,
+          };
+        }
+      }
+
+      // Per-feature leave-one-out partial F: "if I dropped this single
+      // variable, how much R² would I lose?" Equivalent to the t² on the
+      // coefficient. Cheap — one extra OLS fit per feature.
+      const perFeatureDrop: Array<{
+        key: FeatureKey;
+        F: number;
+        p: number;
+        deltaR2: number;
+      }> = [];
+      if (keys.length >= 2) {
+        for (let j = 0; j < keys.length; j++) {
+          const otherRows = rows.map((r) => r.filter((_, idx) => idx !== j));
+          try {
+            const reduced = ols(otherRows, ys);
+            const pf = partialF(fit.r2, reduced.r2, 1, fit.n, keys.length);
+            perFeatureDrop.push({
+              key: keys[j],
+              F: pf.F,
+              p: pf.p,
+              deltaR2: fit.r2 - reduced.r2,
+            });
+          } catch {
+            perFeatureDrop.push({
+              key: keys[j], F: Infinity, p: 0, deltaR2: fit.r2,
+            });
+          }
+        }
+      }
+
+      return { fit, keys, labels, baseR2, means, maxPop,
+               bic: modelBic, modelVsBase, perFeatureDrop } as const;
     } catch (e) {
       return {
         error: e instanceof Error ? e.message : String(e),
@@ -770,6 +838,18 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
               <span className="text-indigo-900/70 ml-2">
                 Voor volledige leaderboard: <code>scripts/find_best_model.py</code>
               </span>
+              <button
+                type="button"
+                onClick={() => setShowAdvanced((v) => !v)}
+                className={`ml-auto rounded px-2 py-1 font-medium transition ${
+                  showAdvanced
+                    ? 'bg-gray-800 text-white'
+                    : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'
+                }`}
+                aria-pressed={showAdvanced}
+              >
+                {showAdvanced ? '✓ Geavanceerd' : 'Geavanceerd'}
+              </button>
             </div>
 
             {/* Feature checkboxes, grouped */}
@@ -820,8 +900,14 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
               </div>
             ) : (
               (() => {
-                const { fit, baseR2 } = modelFit;
+                const { fit, baseR2, bic: modelBic, modelVsBase, perFeatureDrop } = modelFit;
                 const deltaR2 = baseR2 != null ? fit.r2 - baseR2 : null;
+                const dropByKey = new Map(perFeatureDrop.map((d) => [d.key, d]));
+                const featureKeyByLabel = new Map(
+                  FEATURE_DEFS.map((f) => [f.label, f.key] as [string, FeatureKey])
+                );
+                const fmtP = (p: number) =>
+                  p >= 0.001 ? p.toFixed(3) : p > 0 ? p.toExponential(1) : '< 1e-16';
                 return (
                   <div className="space-y-3">
                     <div className="flex flex-wrap items-baseline gap-x-6 gap-y-1 text-sm">
@@ -852,7 +938,49 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                         <span className="text-gray-500">intercept =</span>{' '}
                         <span className="font-semibold text-gray-900 tabular-nums">{fit.intercept.toFixed(3)}</span>
                       </div>
+                      {showAdvanced && (
+                        <div>
+                          <span className="text-gray-500">BIC =</span>{' '}
+                          <span className="font-semibold text-gray-900 tabular-nums">{modelBic.toFixed(1)}</span>
+                          <span className="text-xs text-gray-500 ml-1">(lager = beter)</span>
+                        </div>
+                      )}
                     </div>
+
+                    {/* Advanced: model-vs-basis significance */}
+                    {showAdvanced && modelVsBase && (
+                      <div className="bg-gray-50 border border-gray-200 rounded p-3 space-y-1 text-sm">
+                        <div className="text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">
+                          Model vs basis (pop + km²) op dezelfde {fit.n.toLocaleString('nl-NL')} PC4s
+                        </div>
+                        <div className="flex flex-wrap items-baseline gap-x-6 gap-y-1">
+                          <div>
+                            <span className="text-gray-500">Cohen's f² =</span>{' '}
+                            <span className="font-semibold tabular-nums">{modelVsBase.f2.toFixed(3)}</span>
+                            <span className="text-xs text-gray-500 ml-1">({modelVsBase.f2Label})</span>
+                          </div>
+                          <div>
+                            <span className="text-gray-500">Partial F({modelVsBase.df1}, {modelVsBase.df2}) =</span>{' '}
+                            <span className="font-semibold tabular-nums">{isFinite(modelVsBase.F) ? modelVsBase.F.toFixed(2) : '∞'}</span>
+                          </div>
+                          <div>
+                            <span className="text-gray-500">p =</span>{' '}
+                            <span
+                              className={`font-semibold tabular-nums ${
+                                modelVsBase.p < 0.05 ? 'text-emerald-700' : 'text-gray-700'
+                              }`}
+                            >
+                              {fmtP(modelVsBase.p)}
+                            </span>
+                          </div>
+                        </div>
+                        <p className="text-[11px] text-gray-500 mt-1">
+                          f² ≥ 0.02 = klein effect, ≥ 0.15 = middel, ≥ 0.35 = groot. Bij grote <em>n</em>{' '}
+                          wordt de F-toets snel "significant" — leun dus op f² om te beslissen of een
+                          toevoeging <em>praktisch</em> de moeite waard is.
+                        </p>
+                      </div>
+                    )}
 
                     <div className="overflow-x-auto">
                       <table className="w-full text-sm">
@@ -862,6 +990,16 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                             <th className="px-3 py-2 text-right font-semibold uppercase text-xs tracking-wide text-gray-600">Coëfficiënt</th>
                             <th className="px-3 py-2 text-right font-semibold uppercase text-xs tracking-wide text-gray-600">Effect per 1 eenheid</th>
                             <th className="px-3 py-2 text-right font-semibold uppercase text-xs tracking-wide text-gray-600">VIF</th>
+                            {showAdvanced && (
+                              <>
+                                <th className="px-3 py-2 text-right font-semibold uppercase text-xs tracking-wide text-gray-600" title="F-statistiek als deze variabele wordt weggelaten (leave-one-out)">
+                                  Drop-F
+                                </th>
+                                <th className="px-3 py-2 text-right font-semibold uppercase text-xs tracking-wide text-gray-600">
+                                  p-waarde
+                                </th>
+                              </>
+                            )}
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-100">
@@ -870,6 +1008,8 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                             const v = fit.vif[name] ?? NaN;
                             const vifColor =
                               v > 10 ? 'text-red-700' : v > 5 ? 'text-amber-700' : 'text-gray-700';
+                            const fkey = featureKeyByLabel.get(name);
+                            const drop = fkey ? dropByKey.get(fkey) : undefined;
                             return (
                               <tr key={name}>
                                 <td className="px-3 py-2 text-gray-900">{name}</td>
@@ -882,6 +1022,20 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                                 <td className={`px-3 py-2 text-right tabular-nums font-semibold ${vifColor}`}>
                                   {Number.isFinite(v) ? v.toFixed(2) : '∞'}
                                 </td>
+                                {showAdvanced && (
+                                  <>
+                                    <td className="px-3 py-2 text-right tabular-nums text-gray-700">
+                                      {drop ? (isFinite(drop.F) ? drop.F.toFixed(1) : '∞') : '—'}
+                                    </td>
+                                    <td
+                                      className={`px-3 py-2 text-right tabular-nums font-semibold ${
+                                        drop && drop.p < 0.05 ? 'text-emerald-700' : 'text-gray-500'
+                                      }`}
+                                    >
+                                      {drop ? fmtP(drop.p) : '—'}
+                                    </td>
+                                  </>
+                                )}
                               </tr>
                             );
                           })}

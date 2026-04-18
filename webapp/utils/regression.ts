@@ -13,6 +13,7 @@ export interface OLSResult {
   n: number;                // rows used (after NA filtering happens upstream)
   residuals: number[];      // y − ŷ
   yHat: number[];
+  ssRes: number;            // Σ (y − ŷ)²  — kept so we can compute BIC cheaply
 }
 
 export interface ModelFit extends OLSResult {
@@ -78,7 +79,89 @@ export function ols(X: number[][], y: number[]): OLSResult {
     n,
     residuals,
     yHat,
+    ssRes: ssr,
   };
+}
+
+// Numerical helpers for the advanced stats panel. All approximations are
+// more than good enough for the n ≈ 3 000 regime we operate in, where the
+// F-distribution is close to its asymptotic limit anyway.
+function erf(x: number): number {
+  // Abramowitz & Stegun 7.1.26 — ~1.5e-7 absolute error
+  const sign = Math.sign(x);
+  const ax = Math.abs(x);
+  const p = 0.3275911;
+  const a1 = 0.254829592;
+  const a2 = -0.284496736;
+  const a3 = 1.421413741;
+  const a4 = -1.453152027;
+  const a5 = 1.061405429;
+  const t = 1 / (1 + p * ax);
+  const y =
+    1 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-ax * ax);
+  return sign * y;
+}
+
+function normalCdf(z: number): number {
+  return 0.5 * (1 + erf(z / Math.SQRT2));
+}
+
+// Wilson–Hilferty transformation of F to standard normal. Accurate to
+// ~4 decimals for df2 ≥ 30 and q ≥ 1 — plenty for a UI indicator.
+export function fPValue(F: number, q: number, df2: number): number {
+  if (!isFinite(F) || F <= 0 || q < 1 || df2 < 2) return 1;
+  const a = Math.pow(F, 1 / 3);
+  const term2q = 2 / (9 * q);
+  const term2df = 2 / (9 * df2);
+  const num = a * (1 - term2df) - (1 - term2q);
+  const den = Math.sqrt(Math.pow(F, 2 / 3) * term2df + term2q);
+  if (den <= 0) return 1;
+  const z = num / den;
+  return 1 - normalCdf(z);
+}
+
+export function bic(ssRes: number, n: number, p: number): number {
+  if (ssRes <= 0 || n <= 0) return -Infinity;
+  return n * Math.log(ssRes / n) + (p + 1) * Math.log(n);
+}
+
+export function cohensF2(r2Full: number, r2Reduced: number): number {
+  const denom = 1 - r2Full;
+  if (denom <= 0) return Infinity;
+  return (r2Full - r2Reduced) / denom;
+}
+
+export function cohensF2Label(f2: number): string {
+  if (f2 < 0.02) return 'verwaarloosbaar';
+  if (f2 < 0.15) return 'klein';
+  if (f2 < 0.35) return 'middel';
+  return 'groot';
+}
+
+export interface PartialFResult {
+  F: number;
+  p: number;
+  df1: number;
+  df2: number;
+}
+
+export function partialF(
+  r2Full: number,
+  r2Reduced: number,
+  q: number,
+  n: number,
+  pFull: number,
+): PartialFResult {
+  const df1 = q;
+  const df2 = n - pFull - 1;
+  if (df2 <= 0 || q <= 0 || r2Full <= r2Reduced) {
+    return { F: 0, p: 1, df1, df2 };
+  }
+  const num = (r2Full - r2Reduced) / q;
+  const den = (1 - r2Full) / df2;
+  if (den <= 0) return { F: Infinity, p: 0, df1, df2 };
+  const F = num / den;
+  return { F, p: fPValue(F, q, df2), df1, df2 };
 }
 
 export function vif(X: number[][], names: string[]): Record<string, number> {
