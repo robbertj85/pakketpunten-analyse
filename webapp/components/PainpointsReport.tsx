@@ -420,7 +420,19 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
       } catch {
         // baseline fit is optional
       }
-      return { fit, keys, labels, baseR2 } as const;
+      // Feature means over the accepted rows — used to project the fitted
+      // surface onto the scatterplot (which varies only population on the x).
+      const means: Record<string, number> = {};
+      for (let j = 0; j < keys.length; j++) {
+        let s = 0;
+        for (const r of rows) s += r[j];
+        means[keys[j]] = s / rows.length;
+      }
+      const maxPop = rows.reduce((m, r) => {
+        const popIdx = keys.indexOf('pop' as FeatureKey);
+        return popIdx >= 0 ? Math.max(m, r[popIdx]) : m;
+      }, 0);
+      return { fit, keys, labels, baseR2, means, maxPop } as const;
     } catch (e) {
       return {
         error: e instanceof Error ? e.message : String(e),
@@ -464,6 +476,29 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
       return { pop, actual: Math.max(0, y) };
     });
   }, [payload.model, payload.scatter, payload.mean_area_km2]);
+
+  // User-model trendline: only renders when 'pop' is in the selected
+  // features (otherwise varying the x-axis doesn't change ŷ). Every other
+  // feature is held at its mean over the accepted rows, so what you see is
+  // the fitted surface projected onto the inwoners axis.
+  const userTrendLine = useMemo(() => {
+    if ('error' in modelFit) return [];
+    const { fit, keys, means, maxPop } = modelFit;
+    const popIdx = keys.indexOf('pop' as FeatureKey);
+    if (popIdx < 0 || maxPop <= 0) return [];
+    const N = 20;
+    // Constant contribution from every non-pop feature at its mean
+    let constPart = fit.intercept;
+    for (let j = 0; j < keys.length; j++) {
+      if (j === popIdx) continue;
+      constPart += fit.coefficients[j] * means[keys[j]];
+    }
+    const betaPop = fit.coefficients[popIdx];
+    return Array.from({ length: N }, (_, i) => {
+      const pop = (maxPop * i) / (N - 1);
+      return { pop, actual: Math.max(0, constPart + betaPop * pop) };
+    });
+  }, [modelFit]);
 
   // Close panel with Escape
   useEffect(() => {
@@ -629,10 +664,20 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                     />
                     {trendLine.length > 0 && (
                       <Scatter
-                        name={`Trendlijn @ ø ${payload.mean_area_km2?.toFixed(2)} km²`}
+                        name={`Basis (pop + km²) @ ø ${payload.mean_area_km2?.toFixed(2)} km²`}
                         data={trendLine}
                         fill="#f59e0b"
                         line={{ stroke: '#f59e0b', strokeWidth: 2 }}
+                        shape={() => <></>}
+                        legendType="line"
+                      />
+                    )}
+                    {userTrendLine.length > 0 && !('error' in modelFit) && (
+                      <Scatter
+                        name={`Jouw model (${modelFit.keys.length} var, R² ${modelFit.fit.r2.toFixed(3)})`}
+                        data={userTrendLine}
+                        fill="#4338ca"
+                        line={{ stroke: '#4338ca', strokeWidth: 2, strokeDasharray: '6 3' }}
                         shape={() => <></>}
                         legendType="line"
                       />
