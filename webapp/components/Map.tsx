@@ -598,6 +598,14 @@ function MapComponent(props?: MapProps) {
     municipality?: string | null;
     carriers: string[];
     notes?: string[];
+    stats?: {
+      area_km2: number | null;
+      population: number | null;
+      points_per_km2: number | null;
+      points_per_1000_inw: number | null;
+      predicted_points: number | null;
+      delta_vs_predicted: number | null;
+    };
     pakketpunten?: {
       total: number;
       locker: number;
@@ -616,6 +624,16 @@ function MapComponent(props?: MapProps) {
     }>;
   }> | null>(null);
   const [selectedPainpointPc4, setSelectedPainpointPc4] = useState<string | null>(null);
+  const [pc4Stats, setPc4Stats] = useState<Record<string, {
+    area_km2: number;
+    population: number;
+    municipality: string | null;
+    points_per_km2: number | null;
+    points_per_1000_inw: number | null;
+    predicted_points: number;
+    delta_vs_predicted: number;
+    parcel_points: { total: number };
+  }> | null>(null);
 
   // Extract props with defaults AFTER hooks
   const data = props?.data ?? null;
@@ -633,6 +651,7 @@ function MapComponent(props?: MapProps) {
     showBoundary: false,
     showPC4: false,
     showPainPoints: false,
+    showPopulation: false,
     useSimpleMarkers: false,
     minOccupancy: 0,
     maxOccupancy: 100,
@@ -647,8 +666,9 @@ function MapComponent(props?: MapProps) {
   }, []);
 
   // Lazy-load PC4 boundaries the first time the user toggles them on.
-  // Also needed for the pain-points overlay since it styles PC4 polygons.
-  const needsPc4 = activeFilters.showPC4 || activeFilters.showPainPoints;
+  // Also needed for the pain-points overlay and population-density overlay
+  // since both style the same PC4 polygons.
+  const needsPc4 = activeFilters.showPC4 || activeFilters.showPainPoints || activeFilters.showPopulation;
   useEffect(() => {
     if (!needsPc4 || pc4Data || pc4Loading) return;
     setPc4Loading(true);
@@ -662,9 +682,12 @@ function MapComponent(props?: MapProps) {
       .finally(() => setPc4Loading(false));
   }, [needsPc4, pc4Data, pc4Loading]);
 
-  // Lazy-load carrier pain-points the first time the user toggles them on
+  // Lazy-load carrier pain-points when either the pain-points toggle or the
+  // population-density toggle needs them (density layer is scoped to the
+  // municipalities listed in the pain-points dataset).
+  const needsPainPoints = activeFilters.showPainPoints || activeFilters.showPopulation;
   useEffect(() => {
-    if (!activeFilters.showPainPoints || painPoints) return;
+    if (!needsPainPoints || painPoints) return;
     fetch('/data/pc4_painpoints.json')
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -672,7 +695,19 @@ function MapComponent(props?: MapProps) {
       })
       .then((payload) => setPainPoints(payload.painpoints ?? {}))
       .catch((err) => console.error('Failed to load PC4 pain points:', err));
-  }, [activeFilters.showPainPoints, painPoints]);
+  }, [needsPainPoints, painPoints]);
+
+  // Lazy-load nationwide PC4 stats (population + regression predictions)
+  useEffect(() => {
+    if (!activeFilters.showPopulation || pc4Stats) return;
+    fetch('/data/pc4_stats.json')
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then((payload) => setPc4Stats(payload.stats ?? {}))
+      .catch((err) => console.error('Failed to load PC4 stats:', err));
+  }, [activeFilters.showPopulation, pc4Stats]);
 
   // Build the pain-points GeoJSON by filtering pc4Data to flagged codes
   const painPointsGeoJSON = useMemo(() => {
@@ -1208,6 +1243,81 @@ function MapComponent(props?: MapProps) {
         />
       )}
 
+      {/* Population-density choropleth, scoped to pain-point municipalities */}
+      {activeFilters.showPopulation && pc4Data && pc4Stats && painPoints && (() => {
+        // Build the set of gemeenten that appear in the pain-points data
+        const paingemeenten = new Set<string>();
+        for (const entry of Object.values(painPoints)) {
+          if (entry.municipality) paingemeenten.add(entry.municipality);
+        }
+        // Filter PC4 features to those lying in a pain-point municipality
+        const features = (pc4Data.features ?? []).filter((f: any) => {
+          const s = pc4Stats[f?.properties?.pc4];
+          return s && s.municipality && paingemeenten.has(s.municipality);
+        });
+        if (features.length === 0) return null;
+        // Density ramp (inhabitants per km²). Thresholds roughly align with
+        // CBS "very low → very high" density bands.
+        const densityColor = (density: number) => {
+          if (density >= 15000) return '#312e81'; // indigo-900
+          if (density >= 10000) return '#4338ca'; // indigo-700
+          if (density >= 6000)  return '#6366f1'; // indigo-500
+          if (density >= 3000)  return '#a5b4fc'; // indigo-300
+          if (density >= 1000)  return '#e0e7ff'; // indigo-100
+          return '#f5f3ff';                       // violet-50
+        };
+        return (
+          <GeoJSON
+            key={`pop-layer-${features.length}`}
+            data={{ type: 'FeatureCollection', features } as any}
+            style={(feature) => {
+              const s = pc4Stats[feature?.properties?.pc4];
+              const density = s && s.area_km2 > 0 ? s.population / s.area_km2 : 0;
+              return {
+                color: '#3730a3',
+                weight: 0.7,
+                opacity: 0.7,
+                fillColor: densityColor(density),
+                fillOpacity: 0.55,
+              };
+            }}
+            onEachFeature={(feature, layer) => {
+              const code = feature?.properties?.pc4;
+              const s = code ? pc4Stats[code] : null;
+              if (!code || !s) return;
+              const density = s.area_km2 > 0 ? Math.round(s.population / s.area_km2) : 0;
+              const html = `
+                <div style="font-size:12px;line-height:1.4">
+                  <div style="font-weight:700">PC4 ${code} · ${s.municipality ?? ''}</div>
+                  <div>${s.population.toLocaleString('nl-NL')} inw. · ${s.area_km2.toFixed(2)} km²</div>
+                  <div style="color:#4f46e5;font-weight:600">${density.toLocaleString('nl-NL')} inw./km²</div>
+                  <div style="color:#6b7280;margin-top:2px">
+                    Pakketpunten: ${s.parcel_points.total}
+                    · verwacht: ${s.predicted_points.toFixed(1)}
+                    · Δ ${s.delta_vs_predicted >= 0 ? '+' : ''}${s.delta_vs_predicted.toFixed(1)}
+                  </div>
+                </div>
+              `;
+              layer.bindTooltip(html, { sticky: true, direction: 'top' });
+            }}
+          />
+        );
+      })()}
+
+      {/* Density legend */}
+      {activeFilters.showPopulation && (
+        <div className="absolute bottom-4 right-4 z-[1000] bg-white/95 rounded-lg shadow-md p-3 text-xs text-gray-700 border border-gray-200 pointer-events-none">
+          <div className="font-semibold mb-1">Inwoners/km²</div>
+          <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#f5f3ff'}}/>&lt; 1 000</div>
+          <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#e0e7ff'}}/>1 000 – 3 000</div>
+          <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#a5b4fc'}}/>3 000 – 6 000</div>
+          <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#6366f1'}}/>6 000 – 10 000</div>
+          <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#4338ca'}}/>10 000 – 15 000</div>
+          <div className="flex items-center gap-2"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#312e81'}}/>&ge; 15 000</div>
+          <div className="text-[10px] text-gray-500 mt-1">Bron: CBS 83502NED</div>
+        </div>
+      )}
+
       {/* Carrier pain-point PC4s (filled red polygons with per-carrier tooltip) */}
       {activeFilters.showPainPoints && painPointsGeoJSON && painPoints && (
         <GeoJSON
@@ -1447,6 +1557,37 @@ function MapComponent(props?: MapProps) {
                     {n}
                   </div>
                 ))}
+              </div>
+            )}
+            {selectedPainpointEntry.stats && (
+              <div className="mb-3 grid grid-cols-2 gap-2 text-xs">
+                <div className="bg-white rounded border border-gray-200 px-2 py-1">
+                  <div className="text-gray-500">Inwoners</div>
+                  <div className="font-semibold text-gray-900">{selectedPainpointEntry.stats.population?.toLocaleString('nl-NL') ?? '—'}</div>
+                </div>
+                <div className="bg-white rounded border border-gray-200 px-2 py-1">
+                  <div className="text-gray-500">Oppervlakte</div>
+                  <div className="font-semibold text-gray-900">{selectedPainpointEntry.stats.area_km2?.toFixed(2) ?? '—'} km²</div>
+                </div>
+                <div className="bg-white rounded border border-gray-200 px-2 py-1">
+                  <div className="text-gray-500">PP per 1000 inw.</div>
+                  <div className="font-semibold text-gray-900">{selectedPainpointEntry.stats.points_per_1000_inw?.toFixed(2) ?? '—'}</div>
+                </div>
+                <div className="bg-white rounded border border-gray-200 px-2 py-1">
+                  <div className="text-gray-500">PP per km²</div>
+                  <div className="font-semibold text-gray-900">{selectedPainpointEntry.stats.points_per_km2?.toFixed(1) ?? '—'}</div>
+                </div>
+                <div className="bg-white rounded border border-gray-200 px-2 py-1 col-span-2">
+                  <div className="text-gray-500">Verwacht (regressie) · Δ</div>
+                  <div className="font-semibold text-gray-900">
+                    {selectedPainpointEntry.stats.predicted_points?.toFixed(1) ?? '—'}
+                    {selectedPainpointEntry.stats.delta_vs_predicted != null && (
+                      <span className={`ml-2 ${selectedPainpointEntry.stats.delta_vs_predicted >= 0 ? 'text-emerald-700' : 'text-red-700'}`}>
+                        {selectedPainpointEntry.stats.delta_vs_predicted >= 0 ? '+' : ''}{selectedPainpointEntry.stats.delta_vs_predicted.toFixed(1)}
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
             )}
             {selectedPainpointEntry.pakketpunten && (

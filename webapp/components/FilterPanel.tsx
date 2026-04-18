@@ -444,6 +444,16 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
             <span className="w-3 h-3 rounded-sm bg-red-500/60 border border-red-600 flex-shrink-0" />
             <span className="text-sm text-gray-900">Pijnpunten vervoerders</span>
           </label>
+          <label className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-gray-50 active:bg-gray-100 transition">
+            <input
+              type="checkbox"
+              checked={filters.showPopulation}
+              onChange={(e) => onChange({ ...filters, showPopulation: e.target.checked })}
+              className="w-5 h-5 md:w-4 md:h-4 text-indigo-600 rounded focus:ring-2 focus:ring-indigo-500"
+            />
+            <span className="w-3 h-3 rounded-sm bg-indigo-500/60 border border-indigo-700 flex-shrink-0" />
+            <span className="text-sm text-gray-900">Inwoners per km² (CBS)</span>
+          </label>
         </div>
       </div>
 
@@ -459,6 +469,7 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
             showBoundary: false,
             showPC4: false,
             showPainPoints: false,
+            showPopulation: false,
             useSimpleMarkers: false,
             minOccupancy: 0,
             maxOccupancy: 100,

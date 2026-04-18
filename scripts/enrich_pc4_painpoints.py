@@ -20,6 +20,7 @@ PAINPOINTS_PATH = ROOT / "webapp" / "public" / "data" / "pc4_painpoints.json"
 PC4_PATH = ROOT / "webapp" / "public" / "data" / "pc4.geojson"
 NEDERLAND_PATH = ROOT / "webapp" / "public" / "data" / "nederland.geojson"
 BOUNDARIES_DIR = ROOT / "webapp" / "public" / "data" / "boundaries"
+PC4_STATS_PATH = ROOT / "webapp" / "public" / "data" / "pc4_stats.json"
 
 # Mirror of webapp/types/pakketpunten.ts getPointCategory
 LOCKER_TYPES = {
@@ -132,6 +133,15 @@ def main() -> int:
         }
         details[pc4] = pc4_points
 
+    # Load nationwide PC4 stats (population, area, model predictions)
+    pc4_stats: dict[str, dict] = {}
+    if PC4_STATS_PATH.exists():
+        with open(PC4_STATS_PATH) as f:
+            pc4_stats = json.load(f).get("stats", {})
+        print(f"Loaded PC4 stats for {len(pc4_stats)} PC4s")
+    else:
+        print(f"⚠ {PC4_STATS_PATH.name} missing — run build_pc4_stats.py + fit_pc4_model.py first")
+
     # Merge into painpoints payload
     # Keep "city" as the G4 convenant city that reported the PC4, and add
     # "municipality" for the actual municipality the polygon sits in.
@@ -143,6 +153,17 @@ def main() -> int:
             "total": 0, "locker": 0, "shop": 0, "by_carrier": {},
         })
         entry["points"] = details.get(pc4, [])
+        stat = pc4_stats.get(pc4)
+        if stat:
+            entry["stats"] = {
+                "area_km2": stat.get("area_km2"),
+                "population": stat.get("population"),
+                "points_per_km2": stat.get("points_per_km2"),
+                "points_per_1000_inw": stat.get("points_per_1000_inw"),
+                "predicted_points": stat.get("predicted_points"),
+                "delta_vs_predicted": stat.get("delta_vs_predicted"),
+                "expected_simple_rate": stat.get("expected_simple_rate"),
+            }
 
     payload["painpoints"] = painpoints
     with open(PAINPOINTS_PATH, "w") as f:

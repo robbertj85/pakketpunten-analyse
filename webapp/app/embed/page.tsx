@@ -32,6 +32,7 @@ function EmbedContent() {
     showBoundary: false,
     showPC4: false,
     showPainPoints: false,
+    showPopulation: false,
     useSimpleMarkers: gemeente === 'nederland',
     minOccupancy: 0,
     maxOccupancy: 100,

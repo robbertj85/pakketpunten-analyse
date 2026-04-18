@@ -16,12 +16,23 @@ interface PainpointPoint {
   straatNr: string;
 }
 
+interface PainpointStats {
+  area_km2: number | null;
+  population: number | null;
+  points_per_km2: number | null;
+  points_per_1000_inw: number | null;
+  predicted_points: number | null;
+  delta_vs_predicted: number | null;
+  expected_simple_rate: number | null;
+}
+
 interface Painpoint {
   city: string;
   g4_city?: string;
   municipality?: string | null;
   carriers: string[];
   notes?: string[];
+  stats?: PainpointStats;
   pakketpunten: {
     total: number;
     locker: number;
@@ -31,10 +42,19 @@ interface Painpoint {
   points: PainpointPoint[];
 }
 
+export interface ModelMeta {
+  r2: number;
+  intercept: number;
+  coefficients: { population: number; area_km2: number };
+  training_size: number;
+  nationwide_rates: { points_per_inhabitant: number; points_per_km2: number };
+}
+
 export interface PainpointsPayload {
   generated_at: string;
   source: string;
   painpoints: Record<string, Painpoint>;
+  model?: ModelMeta;
 }
 
 const PainpointMiniMap = dynamic(() => import('./PainpointMiniMap'), {
@@ -100,7 +120,8 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
   const [selectedPc4, setSelectedPc4] = useState<string | null>(null);
 
   // Sort state for the main "per PC4" table
-  type PC4Col = 'pc4' | 'city' | 'carriers' | 'count' | 'total' | 'locker' | 'shop';
+  type PC4Col = 'pc4' | 'city' | 'carriers' | 'count' | 'total' | 'locker' | 'shop'
+    | 'population' | 'area' | 'density' | 'per_capita' | 'predicted' | 'delta';
   const [pc4Sort, setPc4Sort] = useState<{ key: PC4Col; dir: SortDir }>({ key: 'pc4', dir: 'asc' });
   const togglePc4Sort = (k: PC4Col) =>
     setPc4Sort((s) => (s.key === k ? { key: k, dir: s.dir === 'asc' ? 'desc' : 'asc' } : { key: k, dir: 'asc' }));
@@ -171,6 +192,29 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
           </p>
         </section>
 
+        {/* Model info */}
+        {payload.model && (
+          <section className="bg-indigo-50 border border-indigo-200 rounded-lg p-4 text-sm text-indigo-900">
+            <div className="font-semibold mb-1">Regressiemodel (OLS) op alle Nederlandse PC4-gebieden</div>
+            <div className="text-xs leading-relaxed">
+              Pakketpunten = {payload.model.intercept.toFixed(2)}
+              {' + '}
+              {payload.model.coefficients.population.toFixed(6)} × inwoners
+              {' + '}
+              {payload.model.coefficients.area_km2.toFixed(3)} × km²
+              {' · '}
+              R² = {payload.model.r2.toFixed(3)}
+              {' · '}
+              {payload.model.training_size.toLocaleString('nl-NL')} PC4-gebieden in training
+            </div>
+            <div className="text-xs leading-relaxed mt-1 text-indigo-800/80">
+              Tolken: ≈ +{(payload.model.coefficients.population * 1000).toFixed(2)} pakketpunten per 1 000 inwoners en
+              {' '}+{payload.model.coefficients.area_km2.toFixed(2)} per extra km². Δ = werkelijk – voorspeld;
+              negatieve Δ betekent minder pakketpunten dan op basis van inwoners en oppervlakte verwacht.
+            </div>
+          </section>
+        )}
+
         {/* Summary cards */}
         <section className="grid grid-cols-2 md:grid-cols-5 gap-3">
           <div className="bg-white border border-gray-200 rounded-lg p-4">
@@ -209,6 +253,12 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                   <SortHeader label="Pakketpunten" sortKey="total" activeKey={pc4Sort.key} dir={pc4Sort.dir} onToggle={togglePc4Sort} align="right" />
                   <SortHeader label="Automaten" sortKey="locker" activeKey={pc4Sort.key} dir={pc4Sort.dir} onToggle={togglePc4Sort} align="right" />
                   <SortHeader label="Shops" sortKey="shop" activeKey={pc4Sort.key} dir={pc4Sort.dir} onToggle={togglePc4Sort} align="right" />
+                  <SortHeader label="Inwoners" sortKey="population" activeKey={pc4Sort.key} dir={pc4Sort.dir} onToggle={togglePc4Sort} align="right" />
+                  <SortHeader label="km²" sortKey="area" activeKey={pc4Sort.key} dir={pc4Sort.dir} onToggle={togglePc4Sort} align="right" />
+                  <SortHeader label="PP/km²" sortKey="density" activeKey={pc4Sort.key} dir={pc4Sort.dir} onToggle={togglePc4Sort} align="right" />
+                  <SortHeader label="PP/1000 inw." sortKey="per_capita" activeKey={pc4Sort.key} dir={pc4Sort.dir} onToggle={togglePc4Sort} align="right" />
+                  <SortHeader label="Verwacht" sortKey="predicted" activeKey={pc4Sort.key} dir={pc4Sort.dir} onToggle={togglePc4Sort} align="right" />
+                  <SortHeader label="Δ" sortKey="delta" activeKey={pc4Sort.key} dir={pc4Sort.dir} onToggle={togglePc4Sort} align="right" />
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -216,6 +266,7 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                   .slice()
                   .sort(([aPc4, av], [bPc4, bv]) => {
                     const getVal = (pc4: string, v: Painpoint) => {
+                      const s = v.stats;
                       switch (pc4Sort.key) {
                         case 'pc4': return pc4;
                         case 'city': return v.city;
@@ -224,6 +275,12 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                         case 'total': return v.pakketpunten.total;
                         case 'locker': return v.pakketpunten.locker;
                         case 'shop': return v.pakketpunten.shop;
+                        case 'population': return s?.population ?? -1;
+                        case 'area': return s?.area_km2 ?? -1;
+                        case 'density': return s?.points_per_km2 ?? -1;
+                        case 'per_capita': return s?.points_per_1000_inw ?? -1;
+                        case 'predicted': return s?.predicted_points ?? -1;
+                        case 'delta': return s?.delta_vs_predicted ?? 0;
                       }
                     };
                     const d = cmp(getVal(aPc4, av), getVal(bPc4, bv));
@@ -255,6 +312,12 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                     <td className="px-3 py-2 text-right tabular-nums font-semibold text-gray-900">{v.pakketpunten.total}</td>
                     <td className="px-3 py-2 text-right tabular-nums text-gray-700">{v.pakketpunten.locker}</td>
                     <td className="px-3 py-2 text-right tabular-nums text-gray-700">{v.pakketpunten.shop}</td>
+                    <td className="px-3 py-2 text-right tabular-nums text-gray-700">{v.stats?.population != null ? v.stats.population.toLocaleString('nl-NL') : '—'}</td>
+                    <td className="px-3 py-2 text-right tabular-nums text-gray-700">{v.stats?.area_km2 != null ? v.stats.area_km2.toFixed(2) : '—'}</td>
+                    <td className="px-3 py-2 text-right tabular-nums text-gray-700">{v.stats?.points_per_km2 != null ? v.stats.points_per_km2.toFixed(1) : '—'}</td>
+                    <td className="px-3 py-2 text-right tabular-nums text-gray-700">{v.stats?.points_per_1000_inw != null ? v.stats.points_per_1000_inw.toFixed(2) : '—'}</td>
+                    <td className="px-3 py-2 text-right tabular-nums text-gray-700">{v.stats?.predicted_points != null ? v.stats.predicted_points.toFixed(1) : '—'}</td>
+                    <td className={`px-3 py-2 text-right tabular-nums font-semibold ${v.stats?.delta_vs_predicted != null ? (v.stats.delta_vs_predicted >= 0 ? 'text-emerald-700' : 'text-red-700') : 'text-gray-500'}`}>{v.stats?.delta_vs_predicted != null ? (v.stats.delta_vs_predicted >= 0 ? '+' : '') + v.stats.delta_vs_predicted.toFixed(1) : '—'}</td>
                   </tr>
                 ))}
               </tbody>
@@ -265,6 +328,7 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                   <td className="px-3 py-2 text-right tabular-nums">{totalPoints}</td>
                   <td className="px-3 py-2 text-right tabular-nums">{totalLockers}</td>
                   <td className="px-3 py-2 text-right tabular-nums">{totalShops}</td>
+                  <td className="px-3 py-2" colSpan={6}></td>
                 </tr>
               </tfoot>
             </table>
@@ -415,6 +479,37 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                       {n}
                     </div>
                   ))}
+                </div>
+              )}
+              {selected.stats && (
+                <div className="mb-3 grid grid-cols-2 gap-2 text-xs">
+                  <div className="bg-white rounded border border-gray-200 px-2 py-1">
+                    <div className="text-gray-500">Inwoners</div>
+                    <div className="font-semibold text-gray-900">{selected.stats.population?.toLocaleString('nl-NL') ?? '—'}</div>
+                  </div>
+                  <div className="bg-white rounded border border-gray-200 px-2 py-1">
+                    <div className="text-gray-500">Oppervlakte</div>
+                    <div className="font-semibold text-gray-900">{selected.stats.area_km2?.toFixed(2) ?? '—'} km²</div>
+                  </div>
+                  <div className="bg-white rounded border border-gray-200 px-2 py-1">
+                    <div className="text-gray-500">PP per 1000 inw.</div>
+                    <div className="font-semibold text-gray-900">{selected.stats.points_per_1000_inw?.toFixed(2) ?? '—'}</div>
+                  </div>
+                  <div className="bg-white rounded border border-gray-200 px-2 py-1">
+                    <div className="text-gray-500">PP per km²</div>
+                    <div className="font-semibold text-gray-900">{selected.stats.points_per_km2?.toFixed(1) ?? '—'}</div>
+                  </div>
+                  <div className="bg-white rounded border border-gray-200 px-2 py-1 col-span-2">
+                    <div className="text-gray-500">Verwacht (regressie) · Δ</div>
+                    <div className="font-semibold text-gray-900">
+                      {selected.stats.predicted_points?.toFixed(1) ?? '—'}
+                      {selected.stats.delta_vs_predicted != null && (
+                        <span className={`ml-2 ${selected.stats.delta_vs_predicted >= 0 ? 'text-emerald-700' : 'text-red-700'}`}>
+                          {selected.stats.delta_vs_predicted >= 0 ? '+' : ''}{selected.stats.delta_vs_predicted.toFixed(1)}
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </div>
               )}
               <div className="grid grid-cols-3 gap-2 text-center">

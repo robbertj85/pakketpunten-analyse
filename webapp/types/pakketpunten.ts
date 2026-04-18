@@ -58,6 +58,7 @@ export interface Filters {
   showBoundary: boolean;
   showPC4: boolean;
   showPainPoints: boolean;
+  showPopulation: boolean;
   useSimpleMarkers: boolean;
   minOccupancy: number;
   maxOccupancy: number;
