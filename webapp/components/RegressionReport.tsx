@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, ZAxis, Legend,
@@ -115,6 +115,16 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
     () => new Set<FeatureKey>(['pop', 'area']),
   );
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [selectedPoint, setSelectedPoint] = useState<ScatterPoint | null>(null);
+
+  useEffect(() => {
+    if (!selectedPoint) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedPoint(null);
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [selectedPoint]);
 
   const toggleFeature = (k: FeatureKey) =>
     setSelectedFeatures((s) => {
@@ -383,6 +393,7 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                           <div>{d.pop.toLocaleString('nl-NL')} inw. · {d.area.toFixed(2)} km²</div>
                           <div>Werkelijk: <span className="font-semibold">{d.actual}</span></div>
                           <div>Verwacht: {d.predicted.toFixed(1)}</div>
+                          <div className="mt-1 text-[10px] text-indigo-600">klik voor details</div>
                         </div>
                       );
                     }}
@@ -398,6 +409,8 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                     data={scatterData.other}
                     fill="#6366f1"
                     fillOpacity={0.35}
+                    onClick={(e: any) => e?.payload && setSelectedPoint(e.payload as ScatterPoint)}
+                    cursor="pointer"
                   />
                   <Scatter
                     name={`Pijnpunten (${scatterData.pain.length})`}
@@ -405,6 +418,8 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                     fill="#dc2626"
                     fillOpacity={0.9}
                     shape="circle"
+                    onClick={(e: any) => e?.payload && setSelectedPoint(e.payload as ScatterPoint)}
+                    cursor="pointer"
                   />
                   {trendLine.length > 0 && (
                     <Scatter
@@ -744,6 +759,247 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
           )}
         </section>
       )}
+
+      {/* Slide-in side panel with per-PC4 details. Click a point in the
+          scatter plot to open; Escape or the backdrop closes it. */}
+      <PC4DetailPanel
+        point={selectedPoint}
+        onClose={() => setSelectedPoint(null)}
+        isPainpoint={
+          selectedPoint ? selectedPoint.pc4 in payload.painpoints : false
+        }
+        painpointEntry={
+          selectedPoint ? payload.painpoints[selectedPoint.pc4] : undefined
+        }
+        userModel={'error' in modelFit ? null : modelFit}
+      />
     </div>
+  );
+}
+
+/** Side panel that slides in from the right when a scatter point is clicked.
+ *  Shows the full feature row for that PC4, the actual vs. predicted parcel
+ *  point count under both the Python baseline and the user's live model, and
+ *  — if the PC4 is in the pain-points list — the carriers that flagged it. */
+function PC4DetailPanel({
+  point,
+  onClose,
+  isPainpoint,
+  painpointEntry,
+  userModel,
+}: {
+  point: ScatterPoint | null;
+  onClose: () => void;
+  isPainpoint: boolean;
+  painpointEntry: any;
+  userModel: any;
+}) {
+  const open = point != null;
+  // Map each feature key (matches ScatterPoint field names) to a user-facing
+  // row definition. Keeps the panel body declarative and easy to extend.
+  const rows: Array<{
+    section: string;
+    fields: Array<{ key: keyof ScatterPoint; label: string; unit?: string; digits?: number }>;
+  }> = [
+    { section: 'Omvang & ruimte', fields: [
+      { key: 'pop', label: 'Inwoners', digits: 0 },
+      { key: 'area', label: 'Oppervlakte', unit: 'km²', digits: 2 },
+    ]},
+    { section: 'Inkomen & welvaart (CBS 2022)', fields: [
+      { key: 'avg_income', label: 'Gem. besteedbaar inkomen / hh', unit: '× €1 000', digits: 1 },
+      { key: 'pct_low_income', label: '% huishoudens laag inkomen', unit: '%', digits: 1 },
+      { key: 'pct_high_income', label: '% huishoudens hoog inkomen', unit: '%', digits: 1 },
+      { key: 'avg_woz', label: 'Gem. WOZ-waarde', unit: '× €1 000', digits: 0 },
+    ]},
+    { section: 'SES-WOA', fields: [
+      { key: 'ses_total', label: 'SES-WOA totaalscore', digits: 3 },
+      { key: 'ses_welvaart', label: 'Deelscore welvaart', digits: 3 },
+      { key: 'ses_arbeid', label: 'Deelscore arbeidsverleden', digits: 3 },
+    ]},
+    { section: 'Stedelijkheid & bevolking', fields: [
+      { key: 'urbanity', label: 'Stedelijkheid (1-5)', digits: 0 },
+      { key: 'oad', label: 'Omgevingsadressendichtheid', unit: 'adr/km²', digits: 0 },
+      { key: 'pct_age_25_45', label: '% inwoners 25-45 jaar', unit: '%', digits: 1 },
+      { key: 'pct_single_hh', label: '% eenpersoonshuishoudens', unit: '%', digits: 1 },
+      { key: 'pct_multi_family', label: '% meergezinswoningen', unit: '%', digits: 1 },
+      { key: 'pct_owner_occupied', label: '% koopwoningen', unit: '%', digits: 0 },
+    ]},
+    { section: 'Voorzieningen & bereikbaarheid', fields: [
+      { key: 'horeca_1km', label: 'Horeca binnen 1 km', digits: 0 },
+      { key: 'supermarket_1km', label: 'Supermarkten binnen 1 km', digits: 0 },
+      { key: 'station_km', label: 'Afstand treinstation', unit: 'km', digits: 2 },
+      { key: 'highway_km', label: 'Afstand snelwegoprit', unit: 'km', digits: 2 },
+    ]},
+    { section: 'Verkeer & logistiek (NDW / OV)', fields: [
+      { key: 'loading_zones', label: 'Laad-/losplaatsen (E7)', digits: 0 },
+      { key: 'in_emission_zone', label: 'In milieu-/ZE-zone', digits: 0 },
+      { key: 'ov_stops', label: 'OV-haltes', digits: 0 },
+      { key: 'ov_train_stops', label: 'Trein-achtige halten', digits: 0 },
+    ]},
+  ];
+
+  // Compute the user-model prediction for this point by evaluating the fitted
+  // hyperplane at the selected PC4's actual feature values (not the scatter
+  // trendline's means-at-other-features).
+  const userPred = (() => {
+    if (!point || !userModel) return null;
+    const { fit, keys } = userModel;
+    let y = fit.intercept;
+    for (let j = 0; j < keys.length; j++) {
+      const v = (point as any)[keys[j]];
+      if (v == null || typeof v !== 'number' || Number.isNaN(v)) return null;
+      y += fit.coefficients[j] * v;
+    }
+    return Math.max(0, y);
+  })();
+
+  return (
+    <>
+      {/* Backdrop */}
+      <div
+        aria-hidden={!open}
+        onClick={onClose}
+        className={`fixed inset-0 bg-black/20 z-40 transition-opacity duration-200 ${
+          open ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+      />
+      {/* Panel */}
+      <aside
+        role="dialog"
+        aria-hidden={!open}
+        aria-label="PC4 details"
+        className={`fixed top-0 right-0 h-full w-full sm:w-[420px] bg-white shadow-2xl z-50 overflow-y-auto transition-transform duration-300 ease-out ${
+          open ? 'translate-x-0' : 'translate-x-full'
+        }`}
+      >
+        {point && (
+          <div className="p-5 space-y-4">
+            <div className="flex items-start justify-between gap-3 sticky top-0 bg-white pt-1 pb-3 -mx-5 px-5 border-b border-gray-200">
+              <div className="min-w-0">
+                <div className="text-xs uppercase tracking-wide text-gray-500">Postcodegebied</div>
+                <div className="font-mono text-2xl font-bold text-gray-900">{point.pc4}</div>
+                {point.city && (
+                  <div className="text-sm text-gray-600">{point.city}</div>
+                )}
+                {isPainpoint && (
+                  <div className="mt-1 inline-flex items-center gap-1 bg-red-100 text-red-800 text-xs font-semibold px-2 py-0.5 rounded">
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M4.93 19h14.14c1.54 0 2.5-1.67 1.73-3L13.73 4a2 2 0 00-3.46 0L3.2 16c-.77 1.33.19 3 1.73 3z" />
+                    </svg>
+                    Pijnpunt
+                  </div>
+                )}
+              </div>
+              <button
+                type="button"
+                onClick={onClose}
+                aria-label="Sluit paneel"
+                className="shrink-0 text-gray-400 hover:text-gray-700 text-3xl leading-none"
+              >
+                ×
+              </button>
+            </div>
+
+            {/* Outcome vs predictions */}
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-sm space-y-1">
+              <div className="flex justify-between">
+                <span className="text-gray-500">Pakketpunten (werkelijk)</span>
+                <span className="font-semibold text-gray-900 tabular-nums">{point.actual}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-500">Verwacht (Python pop + km²)</span>
+                <span className="tabular-nums text-gray-700">{point.predicted.toFixed(1)}</span>
+              </div>
+              {userPred != null && (
+                <div className="flex justify-between">
+                  <span className="text-gray-500">Verwacht (jouw model)</span>
+                  <span className="tabular-nums text-indigo-700 font-semibold">{userPred.toFixed(1)}</span>
+                </div>
+              )}
+              <div className="border-t border-gray-200 pt-1 mt-1 flex justify-between">
+                <span className="text-gray-500">Δ t.o.v. jouw model</span>
+                <span
+                  className={`tabular-nums font-semibold ${
+                    userPred != null && point.actual - userPred >= 0
+                      ? 'text-emerald-700' : 'text-red-700'
+                  }`}
+                >
+                  {userPred != null
+                    ? `${point.actual - userPred >= 0 ? '+' : ''}${(point.actual - userPred).toFixed(1)}`
+                    : '—'}
+                </span>
+              </div>
+            </div>
+
+            {/* Painpoint details */}
+            {isPainpoint && painpointEntry && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-sm space-y-1">
+                <div className="text-xs font-semibold text-red-900 uppercase tracking-wide mb-1">
+                  Gemeld door vervoerders
+                </div>
+                <div className="flex flex-wrap gap-1">
+                  {(painpointEntry.carriers ?? []).map((c: string) => (
+                    <span
+                      key={c}
+                      className="inline-block px-2 py-0.5 text-xs font-semibold bg-red-100 text-red-800 rounded"
+                    >
+                      {c}
+                    </span>
+                  ))}
+                </div>
+                {(painpointEntry.notes ?? []).length > 0 && (
+                  <ul className="list-disc pl-4 text-xs text-red-900/80 mt-1">
+                    {painpointEntry.notes.map((n: string, i: number) => (
+                      <li key={i}>{n}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            )}
+
+            {/* All features */}
+            {rows.map((section) => {
+              const visible = section.fields.filter((f) => {
+                const v = (point as any)[f.key];
+                return v != null && !(typeof v === 'number' && Number.isNaN(v));
+              });
+              if (visible.length === 0) return null;
+              return (
+                <div key={section.section}>
+                  <div className="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1">
+                    {section.section}
+                  </div>
+                  <dl className="divide-y divide-gray-100">
+                    {visible.map((f) => {
+                      const v = (point as any)[f.key];
+                      const isNum = typeof v === 'number';
+                      const digits = f.digits ?? 2;
+                      return (
+                        <div key={f.key} className="flex justify-between py-1.5 text-sm">
+                          <dt className="text-gray-600">{f.label}</dt>
+                          <dd className="tabular-nums text-gray-900 font-medium">
+                            {isNum
+                              ? Number.isInteger(v) || digits === 0
+                                ? v.toLocaleString('nl-NL')
+                                : v.toFixed(digits)
+                              : String(v)}
+                            {f.unit && <span className="text-xs text-gray-500 ml-1">{f.unit}</span>}
+                          </dd>
+                        </div>
+                      );
+                    })}
+                  </dl>
+                </div>
+              );
+            })}
+
+            <p className="text-[11px] text-gray-500 pt-2 border-t border-gray-100">
+              Druk <kbd className="px-1 py-0.5 border rounded text-[10px] bg-gray-50">Esc</kbd> om
+              te sluiten, of klik buiten het paneel.
+            </p>
+          </div>
+        )}
+      </aside>
+    </>
   );
 }

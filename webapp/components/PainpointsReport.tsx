@@ -80,6 +80,7 @@ export interface ScatterPoint {
   ov_stops?: number | null;
   ov_stops_per_km2?: number | null;
   ov_train_stops?: number | null;
+  city?: string | null;
 }
 
 export interface PainpointsPayload {

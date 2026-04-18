@@ -62,6 +62,7 @@ async function getPayload(): Promise<PainpointsPayload> {
             ov_stops: round(v.ov_stops, 0),
             ov_stops_per_km2: round(v.ov_stops_per_km2, 2),
             ov_train_stops: round(v.ov_train_stops, 0),
+            city: typeof v.municipality === 'string' ? v.municipality : null,
           });
           sumArea += area;
           nAreaRows += 1;
