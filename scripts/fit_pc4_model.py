@@ -1,13 +1,26 @@
-"""Fit a linear regression predicting parcel points from population and area.
+"""Fit a linear regression predicting parcel points from PC4 features.
 
-Reads ``pc4_stats.json``, fits::
+Base model::
 
     parcel_points = α + β₁ · population + β₂ · area_km2
 
-using OLS on the subset of PC4s with population > 0 and at least some
-built-up area. Writes back the same file with ``predicted_points`` and a
-``model`` metadata block. Also attaches per-PC4 density metrics
-(``points_per_km2``, ``points_per_1000_inw``) for direct UI use.
+Extended model (when CBS income + SES-WOA data are available)::
+
+    parcel_points = α + β₁·population + β₂·area_km2 + β₃·income + β₄·ses_woa
+
+Both models are trained on the subset of PC4s with population ≥ 10 and
+area ≥ 0.05 km². The extended model additionally requires non-missing
+income and SES-WOA values (CBS suppresses these for small PC4s).
+
+The script writes two sets of predictions back to ``pc4_stats.json``:
+  - ``predicted_points``       → from the base model (full 4 071 PC4 coverage)
+  - ``predicted_points_ext``   → from the extended model (≈ 80 % coverage)
+  - ``delta_vs_predicted``     → base residual
+  - ``delta_vs_predicted_ext`` → extended residual
+
+Multicollinearity is reported via Variance Inflation Factors so downstream
+readers can judge whether income and SES-WOA truly add information beyond
+population and area, or just duplicate it.
 """
 import json
 import sys
@@ -24,6 +37,33 @@ STATS_PATH = ROOT / "webapp" / "public" / "data" / "pc4_stats.json"
 MIN_POPULATION = 10        # avoid empty/industrial PC4s
 MIN_AREA_KM2 = 0.05        # avoid degenerate polygons
 
+EXTENDED_FEATURES = [
+    "population",
+    "area_km2",
+    "avg_income_household",
+    "ses_woa_total",
+]
+BASE_FEATURES = ["population", "area_km2"]
+
+
+def compute_vif(df: pd.DataFrame, features: list[str]) -> dict[str, float]:
+    """Variance inflation factors via 1 / (1 − R²) of each feature regressed
+    on the others. VIF > 5 is a yellow flag, > 10 red (textbook thresholds).
+    Computed ourselves to avoid a statsmodels dependency.
+    """
+    vifs: dict[str, float] = {}
+    for i, target in enumerate(features):
+        others = [f for j, f in enumerate(features) if j != i]
+        X = df[others].to_numpy()
+        y = df[target].to_numpy()
+        if np.var(y) == 0:
+            vifs[target] = float("inf")
+            continue
+        m = LinearRegression().fit(X, y)
+        r2 = m.score(X, y)
+        vifs[target] = float("inf") if r2 >= 0.9999 else round(1 / (1 - r2), 2)
+    return vifs
+
 
 def main() -> int:
     with open(STATS_PATH) as f:
@@ -37,32 +77,83 @@ def main() -> int:
             "population": v["population"],
             "area_km2": v["area_km2"],
             "parcel_points": v["parcel_points"]["total"],
+            "avg_income_household": v.get("avg_income_household"),
+            "ses_woa_total": v.get("ses_woa_total"),
         })
     df = pd.DataFrame(rows)
     print(f"Loaded {len(df)} PC4 rows")
 
-    mask = (df["population"] >= MIN_POPULATION) & (df["area_km2"] >= MIN_AREA_KM2)
-    train = df[mask].copy()
-    print(f"Training on {len(train)} PC4s "
+    # ---- Base model: population + area_km2 ----
+    base_mask = (df["population"] >= MIN_POPULATION) & (df["area_km2"] >= MIN_AREA_KM2)
+    train = df[base_mask].copy()
+    print(f"\n[BASE] Training on {len(train)} PC4s "
           f"(dropped {len(df) - len(train)} below pop/area thresholds)")
 
-    X = train[["population", "area_km2"]].to_numpy()
+    X = train[BASE_FEATURES].to_numpy()
     y = train["parcel_points"].to_numpy()
-    model = LinearRegression()
-    model.fit(X, y)
-    r2 = model.score(X, y)
+    base_model = LinearRegression()
+    base_model.fit(X, y)
+    r2_base = base_model.score(X, y)
 
-    print(f"R²             = {r2:.4f}")
-    print(f"Intercept (α)  = {model.intercept_:.4f}")
-    print(f"β_population   = {model.coef_[0]:.6f}  → "
-          f"+{model.coef_[0] * 1000:.3f} points per 1000 inhabitants")
-    print(f"β_area_km2     = {model.coef_[1]:.4f}  → "
-          f"+{model.coef_[1]:.3f} points per km²")
+    print(f"R²             = {r2_base:.4f}")
+    print(f"Intercept (α)  = {base_model.intercept_:.4f}")
+    print(f"β_population   = {base_model.coef_[0]:.6f}  → "
+          f"+{base_model.coef_[0] * 1000:.3f} points per 1000 inhabitants")
+    print(f"β_area_km2     = {base_model.coef_[1]:.4f}  → "
+          f"+{base_model.coef_[1]:.3f} points per km²")
+    vif_base = compute_vif(train, BASE_FEATURES)
+    print(f"VIF            = {vif_base}")
 
-    # Apply predictions to every PC4 (including those excluded from training).
-    # Fill missing inputs with 0 so the predict call doesn't choke.
-    X_all = df[["population", "area_km2"]].fillna(0).to_numpy()
-    df["predicted"] = np.clip(model.predict(X_all), 0, None).round(2)
+    # Apply base predictions to every PC4 (fill NaN inputs with 0 so predict
+    # doesn't blow up on PC4s missing population).
+    X_all = df[BASE_FEATURES].fillna(0).to_numpy()
+    df["predicted"] = np.clip(base_model.predict(X_all), 0, None).round(2)
+
+    # ---- Extended model: population + area_km2 + income + SES-WOA ----
+    ext_mask = (
+        base_mask
+        & df["avg_income_household"].notna()
+        & df["ses_woa_total"].notna()
+    )
+    ext_available = ext_mask.sum()
+    ext_model = None
+    r2_ext = None
+    vif_ext = None
+    if ext_available >= 100:
+        train_ext = df[ext_mask].copy()
+        print(f"\n[EXTENDED] Training on {len(train_ext)} PC4s "
+              f"(dropped {len(df) - len(train_ext)} below thresholds or with "
+              f"missing income/SES-WOA)")
+
+        X_ext = train_ext[EXTENDED_FEATURES].to_numpy()
+        y_ext = train_ext["parcel_points"].to_numpy()
+        ext_model = LinearRegression()
+        ext_model.fit(X_ext, y_ext)
+        r2_ext = ext_model.score(X_ext, y_ext)
+
+        print(f"R²             = {r2_ext:.4f}  (ΔR² vs base: "
+              f"{r2_ext - r2_base:+.4f})")
+        print(f"Intercept (α)  = {ext_model.intercept_:.4f}")
+        for name, coef in zip(EXTENDED_FEATURES, ext_model.coef_):
+            print(f"β_{name:<22} = {coef:+.6f}")
+        vif_ext = compute_vif(train_ext, EXTENDED_FEATURES)
+        print(f"VIF            = {vif_ext}")
+        _flag_high_vif(vif_ext)
+
+        # Predict for PC4s where all four features are present
+        predictable = (
+            df["population"].notna() & df["area_km2"].notna()
+            & df["avg_income_household"].notna() & df["ses_woa_total"].notna()
+        )
+        df["predicted_ext"] = np.nan
+        if predictable.any():
+            X_ext_all = df.loc[predictable, EXTENDED_FEATURES].to_numpy()
+            df.loc[predictable, "predicted_ext"] = np.clip(
+                ext_model.predict(X_ext_all), 0, None
+            ).round(2)
+    else:
+        print(f"\n[EXTENDED] Skipped — only {ext_available} PC4s have both "
+              f"income and SES-WOA (need ≥ 100).")
 
     # Simple nationwide rates as an alternative sanity-check
     tot_pts = df["parcel_points"].sum()
@@ -77,11 +168,17 @@ def main() -> int:
         area = v["area_km2"]
         pop = v["population"]
         predicted = float(row["predicted"])
-        delta = total - predicted
         v["points_per_km2"] = round(total / area, 3) if area > 0 else None
         v["points_per_1000_inw"] = round(total / pop * 1000, 3) if pop > 0 else None
         v["predicted_points"] = predicted
-        v["delta_vs_predicted"] = round(delta, 2)
+        v["delta_vs_predicted"] = round(total - predicted, 2)
+        pred_ext = row.get("predicted_ext")
+        if pred_ext is not None and not pd.isna(pred_ext):
+            v["predicted_points_ext"] = float(pred_ext)
+            v["delta_vs_predicted_ext"] = round(total - float(pred_ext), 2)
+        else:
+            v["predicted_points_ext"] = None
+            v["delta_vs_predicted_ext"] = None
         # Simple-rate alternative: what the nationwide ratio would yield
         v["expected_simple_rate"] = round(
             rate_per_cap * pop + rate_per_km2 * area, 2
@@ -89,14 +186,15 @@ def main() -> int:
 
     payload["model"] = {
         "type": "OLS",
-        "features": ["population", "area_km2"],
+        "features": BASE_FEATURES,
         "target": "parcel_points",
-        "r2": round(r2, 4),
-        "intercept": float(model.intercept_),
+        "r2": round(r2_base, 4),
+        "intercept": float(base_model.intercept_),
         "coefficients": {
-            "population": float(model.coef_[0]),
-            "area_km2": float(model.coef_[1]),
+            "population": float(base_model.coef_[0]),
+            "area_km2": float(base_model.coef_[1]),
         },
+        "vif": vif_base,
         "training_size": int(len(train)),
         "training_filters": {
             "min_population": MIN_POPULATION,
@@ -107,12 +205,39 @@ def main() -> int:
             "points_per_km2": round(rate_per_km2, 4),
         },
     }
+    if ext_model is not None:
+        payload["model_ext"] = {
+            "type": "OLS",
+            "features": EXTENDED_FEATURES,
+            "target": "parcel_points",
+            "r2": round(r2_ext, 4),
+            "delta_r2_vs_base": round(r2_ext - r2_base, 4),
+            "intercept": float(ext_model.intercept_),
+            "coefficients": {
+                name: float(coef)
+                for name, coef in zip(EXTENDED_FEATURES, ext_model.coef_)
+            },
+            "vif": vif_ext,
+            "training_size": int(ext_mask.sum()),
+            "coverage_pct": round(100 * ext_mask.sum() / base_mask.sum(), 1),
+        }
+    else:
+        payload["model_ext"] = None
     payload["stats"] = stats
 
     with open(STATS_PATH, "w") as f:
         json.dump(payload, f, separators=(",", ":"), allow_nan=False)
-    print(f"✓ Wrote predictions + model metadata → {STATS_PATH}")
+    print(f"\n✓ Wrote predictions + model metadata → {STATS_PATH}")
     return 0
+
+
+def _flag_high_vif(vifs: dict[str, float]) -> None:
+    hits = [(k, v) for k, v in vifs.items() if v > 5]
+    if hits:
+        print("  ⚠  Elevated VIF — features share variance:")
+        for k, v in hits:
+            level = "RED" if v > 10 else "yellow"
+            print(f"     {k}: {v} ({level})")
 
 
 if __name__ == "__main__":

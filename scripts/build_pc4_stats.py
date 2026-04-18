@@ -21,6 +21,8 @@ ROOT = Path(__file__).parent.parent
 PC4_PATH = ROOT / "webapp" / "public" / "data" / "pc4.geojson"
 NEDERLAND_PATH = ROOT / "webapp" / "public" / "data" / "nederland.geojson"
 CBS_PC4_PATH = ROOT / "data" / "cbs_pc4.json"
+CBS_INCOME_PATH = ROOT / "data" / "cbs_pc4_income.json"
+CBS_SES_PATH = ROOT / "data" / "cbs_pc4_ses_woa.json"
 BOUNDARIES_DIR = ROOT / "webapp" / "public" / "data" / "boundaries"
 OUTPUT = ROOT / "webapp" / "public" / "data" / "pc4_stats.json"
 
@@ -45,6 +47,40 @@ def main() -> int:
     with open(CBS_PC4_PATH) as f:
         cbs = json.load(f)
     pop_lookup: dict[str, int] = cbs.get("pc4_population", {})
+
+    # Optional CBS income + SES-WOA enrichments. Both scripts produce JSON
+    # keyed by PC4; if either file is missing, the corresponding fields are
+    # silently left out and the downstream model drops those features.
+    income_lookup: dict[str, dict] = {}
+    income_meta = None
+    if CBS_INCOME_PATH.exists():
+        print(f"Loading CBS income from {CBS_INCOME_PATH.name}...")
+        with open(CBS_INCOME_PATH) as f:
+            inc_payload = json.load(f)
+        income_lookup = inc_payload.get("pc4", {})
+        income_meta = {
+            "source": inc_payload.get("source"),
+            "reference_date": inc_payload.get("reference_date"),
+            "income_unit": inc_payload.get("income_unit"),
+        }
+        n_with = sum(1 for v in income_lookup.values()
+                     if v.get("avg_income_household") is not None)
+        print(f"  → {n_with}/{len(income_lookup)} PC4s have income")
+
+    ses_lookup: dict[str, dict] = {}
+    ses_meta = None
+    if CBS_SES_PATH.exists():
+        print(f"Loading CBS SES-WOA from {CBS_SES_PATH.name}...")
+        with open(CBS_SES_PATH) as f:
+            ses_payload = json.load(f)
+        ses_lookup = ses_payload.get("pc4", {})
+        ses_meta = {
+            "source": ses_payload.get("source"),
+            "reference_date": ses_payload.get("reference_date"),
+        }
+        n_with = sum(1 for v in ses_lookup.values()
+                     if v.get("ses_woa_total") is not None)
+        print(f"  → {n_with}/{len(ses_lookup)} PC4s have SES-WOA score")
 
     print("Joining PC4s with municipality boundaries...")
     boundary_parts = [
@@ -104,6 +140,8 @@ def main() -> int:
     for _, row in pc4_gdf.iterrows():
         pc4 = row["pc4"]
         munic = pc4_to_municipality.get(pc4)
+        inc = income_lookup.get(pc4, {})
+        ses = ses_lookup.get(pc4, {})
         stats[pc4] = {
             "area_km2": float(row["area_km2"]),
             "population": int(pop_lookup.get(pc4, 0)),
@@ -111,6 +149,15 @@ def main() -> int:
             "parcel_points": counts.get(pc4, {
                 "total": 0, "locker": 0, "shop": 0, "by_carrier": {},
             }),
+            # CBS 2022 income / WOZ (may be None if CBS suppressed the cell)
+            "avg_income_household": inc.get("avg_income_household"),
+            "pct_low_income_household": inc.get("pct_low_income_household"),
+            "pct_high_income_household": inc.get("pct_high_income_household"),
+            "avg_woz_value": inc.get("avg_woz_value"),
+            # CBS maatwerk 2022 SES-WOA scores (standardized, mean 0)
+            "ses_woa_total": ses.get("ses_woa_total"),
+            "ses_woa_welvaart": ses.get("ses_woa_welvaart"),
+            "ses_woa_arbeid": ses.get("ses_woa_arbeid"),
         }
 
     payload = {
@@ -119,6 +166,8 @@ def main() -> int:
             "pakketpunten": NEDERLAND_PATH.name,
             "cbs_dataset": cbs.get("dataset"),
             "cbs_period": cbs.get("period"),
+            "cbs_income": income_meta,
+            "cbs_ses_woa": ses_meta,
         },
         "stats": dict(sorted(stats.items())),
     }
