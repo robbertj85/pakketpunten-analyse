@@ -27,6 +27,10 @@ async function getMunicipalityData(): Promise<MunicipalityData[]> {
       const content = await fs.readFile(filePath, 'utf-8');
       const data = JSON.parse(content);
 
+      // Skip non-municipality geojson files dropped into this folder
+      // (e.g. pc4.geojson) which have no metadata.gemeente
+      if (!data?.metadata?.gemeente) continue;
+
       // Extract pakketpunt features only
       const pakketpunten = data.features.filter(
         (f: any) => f.properties?.type === 'pakketpunt'
