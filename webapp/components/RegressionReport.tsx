@@ -574,6 +574,28 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                     )}
                   </div>
 
+                  {/* Dynamic regression equation — mirrors the Python
+                      baked box up top, but reflects the user's selection. */}
+                  <div className="font-mono text-xs md:text-sm bg-indigo-50 border border-indigo-200 text-indigo-900 rounded px-3 py-2 whitespace-pre-wrap break-words leading-relaxed">
+                    {(() => {
+                      const sign = fit.intercept >= 0 ? '' : '−';
+                      const lines: string[] = [
+                        `pakketpunten = ${sign}${Math.abs(fit.intercept).toFixed(3)}`,
+                      ];
+                      fit.featureNames.forEach((name, i) => {
+                        const c = fit.coefficients[i];
+                        const op = c >= 0 ? '+' : '−';
+                        const abs = Math.abs(c);
+                        const formatted =
+                          abs < 0.01 ? abs.toExponential(3)
+                          : abs < 1 ? abs.toFixed(4)
+                          : abs.toFixed(3);
+                        lines.push(`             ${op} ${formatted} × ${name}`);
+                      });
+                      return lines.join('\n');
+                    })()}
+                  </div>
+
                   {showAdvanced && modelVsBase && (
                     <div className="bg-gray-50 border border-gray-200 rounded p-3 space-y-1 text-sm">
                       <div className="text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">
