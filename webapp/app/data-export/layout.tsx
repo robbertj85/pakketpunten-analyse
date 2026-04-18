@@ -14,6 +14,7 @@ export default function DataExportLayout({
   const isMatrix = pathname === '/data-export/matrix';
   const isUpdates = pathname === '/data-export/updates';
   const isPainpoints = pathname === '/data-export/painpoints';
+  const isSchatting = pathname === '/data-export/schatting';
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -88,6 +89,19 @@ export default function DataExportLayout({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M4.93 19h14.14c1.54 0 2.5-1.67 1.73-3L13.73 4a2 2 0 00-3.46 0L3.2 16c-.77 1.33.19 3 1.73 3z" />
               </svg>
               Pijnpunten
+            </Link>
+            <Link
+              href="/data-export/schatting"
+              className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
+                isSchatting
+                  ? 'border-indigo-600 text-indigo-600'
+                  : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+              }`}
+            >
+              <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3v18h18M7 14l4-4 3 3 5-5" />
+              </svg>
+              Schatting pakketpunten
             </Link>
           </nav>
         </div>
