@@ -39,7 +39,7 @@ def main() -> int:
     # Accurate metric area via RD New projection
     print("Computing PC4 areas in EPSG:28992...")
     pc4_rd = pc4_gdf.to_crs("EPSG:28992")
-    pc4_gdf["area_km2"] = (pc4_rd.area / 1e6).round(4)
+    pc4_gdf["area_km2"] = (pc4_rd.area / 1e6).round(4).fillna(0.0)
 
     print(f"Loading CBS population from {CBS_PC4_PATH.name}...")
     with open(CBS_PC4_PATH) as f:
@@ -124,7 +124,7 @@ def main() -> int:
     }
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     with open(OUTPUT, "w") as f:
-        json.dump(payload, f, separators=(",", ":"))
+        json.dump(payload, f, separators=(",", ":"), allow_nan=False)
     size = OUTPUT.stat().st_size / 1024
     print(f"✓ {len(stats)} PC4 stats → {OUTPUT} ({size:.0f} KB)")
     return 0

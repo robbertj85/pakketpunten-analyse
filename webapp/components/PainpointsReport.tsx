@@ -125,6 +125,147 @@ function SortHeader<K extends string>({
   );
 }
 
+function MultiSortHeader<K extends string>({
+  label,
+  sortKey,
+  stack,
+  onToggle,
+  align = 'left',
+}: {
+  label: string;
+  sortKey: K;
+  stack: Array<{ key: K; dir: SortDir }>;
+  onToggle: (k: K) => void;
+  align?: 'left' | 'right';
+}) {
+  const idx = stack.findIndex((s) => s.key === sortKey);
+  const isActive = idx >= 0;
+  const dir = isActive ? stack[idx].dir : 'asc';
+  const showPriority = isActive && stack.length > 1;
+  return (
+    <th className={`px-3 py-2 ${align === 'right' ? 'text-right' : 'text-left'}`}>
+      <button
+        type="button"
+        onClick={() => onToggle(sortKey)}
+        title="Klik om direct op deze kolom te sorteren. Gebruik de sort-rij hierboven voor meerdere niveaus."
+        className={`inline-flex items-center gap-1 font-semibold uppercase text-xs tracking-wide transition ${
+          isActive ? 'text-gray-900' : 'text-gray-600 hover:text-gray-900'
+        }`}
+      >
+        <span>{label}</span>
+        <span className={`text-[10px] leading-none ${isActive ? 'opacity-100' : 'opacity-30'}`}>
+          {isActive ? (dir === 'asc' ? '▲' : '▼') : '▲'}
+        </span>
+        {showPriority && (
+          <span className="text-[9px] leading-none bg-indigo-100 text-indigo-700 rounded px-1 py-0.5 font-bold tabular-nums">
+            {idx + 1}
+          </span>
+        )}
+      </button>
+    </th>
+  );
+}
+
+// Explicit multi-level sort builder — no hidden keyboard modifiers.
+// Each level: column dropdown + direction toggle + remove button. "+ Extra
+// sortering" appends a level. Identical in spirit to Excel's sort dialog.
+function SortBuilder<K extends string>({
+  stack,
+  options,
+  isNumeric,
+  onChange,
+}: {
+  stack: Array<{ key: K; dir: SortDir }>;
+  options: Array<{ value: K; label: string }>;
+  isNumeric: (k: K) => boolean;
+  onChange: (stack: Array<{ key: K; dir: SortDir }>) => void;
+}) {
+  const usedKeys = new Set(stack.map((s) => s.key));
+  const firstUnused = options.find((o) => !usedKeys.has(o.value))?.value;
+  const updateAt = (i: number, patch: Partial<{ key: K; dir: SortDir }>) => {
+    const next = stack.slice();
+    next[i] = { ...next[i], ...patch };
+    onChange(next);
+  };
+  const removeAt = (i: number) => {
+    const next = stack.slice();
+    next.splice(i, 1);
+    onChange(next.length ? next : [{ key: options[0].value, dir: 'asc' }]);
+  };
+  const addLevel = () => {
+    if (!firstUnused) return;
+    onChange([...stack, { key: firstUnused, dir: 'asc' }]);
+  };
+  return (
+    <div className="bg-gray-50 border border-gray-200 rounded-md p-3 space-y-2">
+      <div className="text-xs font-semibold text-gray-700 uppercase tracking-wide">Sorteren op</div>
+      {stack.map((entry, i) => {
+        const numeric = isNumeric(entry.key);
+        const ascLabel = numeric ? 'laag → hoog' : 'A → Z';
+        const descLabel = numeric ? 'hoog → laag' : 'Z → A';
+        return (
+          <div key={i} className="flex items-center gap-2 flex-wrap">
+            <span className="text-xs text-gray-500 w-16 shrink-0">
+              {i === 0 ? 'Primair' : i === 1 ? 'Dan op' : `Dan op (${i + 1})`}
+            </span>
+            <select
+              value={entry.key}
+              onChange={(e) => updateAt(i, { key: e.target.value as K })}
+              className="text-sm border border-gray-300 rounded px-2 py-1 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+              {options.map((o) => (
+                <option
+                  key={o.value}
+                  value={o.value}
+                  disabled={o.value !== entry.key && usedKeys.has(o.value)}
+                >
+                  {o.label}
+                </option>
+              ))}
+            </select>
+            <button
+              type="button"
+              onClick={() => updateAt(i, { dir: entry.dir === 'asc' ? 'desc' : 'asc' })}
+              className="text-sm border border-gray-300 bg-white rounded px-2 py-1 hover:bg-gray-100 transition tabular-nums"
+            >
+              {entry.dir === 'asc' ? `↑ ${ascLabel}` : `↓ ${descLabel}`}
+            </button>
+            {stack.length > 1 && (
+              <button
+                type="button"
+                onClick={() => removeAt(i)}
+                aria-label="Verwijder sorteer-niveau"
+                className="text-gray-400 hover:text-red-600 text-lg leading-none px-1"
+              >
+                ×
+              </button>
+            )}
+          </div>
+        );
+      })}
+      <div className="flex items-center gap-3 pt-1">
+        <button
+          type="button"
+          onClick={addLevel}
+          disabled={!firstUnused}
+          className="text-xs font-medium text-indigo-700 hover:text-indigo-900 disabled:text-gray-400 disabled:cursor-not-allowed"
+        >
+          + Extra sortering toevoegen
+        </button>
+        {stack.length > 1 && (
+          <button
+            type="button"
+            onClick={() => onChange([stack[0]])}
+            className="text-xs text-gray-500 hover:text-gray-700 underline underline-offset-2"
+          >
+            Reset naar één niveau
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function PainpointsReport({ payload }: { payload: PainpointsPayload }) {
   const entries = useMemo(
     () => Object.entries(payload.painpoints).sort(([a], [b]) => a.localeCompare(b)),
@@ -132,13 +273,46 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
   );
 
   const [selectedPc4, setSelectedPc4] = useState<string | null>(null);
+  const [showScatter, setShowScatter] = useState(true);
 
-  // Sort state for the main "per PC4" table
+  // Sort state for the main "per PC4" table — ordered stack for Excel-style
+  // multi-column sorting. stack[0] is the primary key, stack[1] the tiebreaker, etc.
   type PC4Col = 'pc4' | 'city' | 'carriers' | 'count' | 'total' | 'locker' | 'shop'
     | 'population' | 'area' | 'density' | 'per_capita' | 'predicted' | 'delta';
-  const [pc4Sort, setPc4Sort] = useState<{ key: PC4Col; dir: SortDir }>({ key: 'pc4', dir: 'asc' });
+  const [pc4SortStack, setPc4SortStack] = useState<Array<{ key: PC4Col; dir: SortDir }>>([
+    { key: 'pc4', dir: 'asc' },
+  ]);
+  // Header click → make this column the single active sort (toggle direction
+  // if it is already the primary). Multi-level sorting is done explicitly in
+  // the SortBuilder above the table.
   const togglePc4Sort = (k: PC4Col) =>
-    setPc4Sort((s) => (s.key === k ? { key: k, dir: s.dir === 'asc' ? 'desc' : 'asc' } : { key: k, dir: 'asc' }));
+    setPc4SortStack((stack) => {
+      const primary = stack[0];
+      if (primary && primary.key === k) {
+        return [{ key: k, dir: primary.dir === 'asc' ? 'desc' : 'asc' }];
+      }
+      return [{ key: k, dir: 'asc' }];
+    });
+  const PC4_SORT_OPTIONS: Array<{ value: PC4Col; label: string }> = [
+    { value: 'pc4', label: 'PC4' },
+    { value: 'city', label: 'Stad' },
+    { value: 'carriers', label: 'Gemeld door (carriers)' },
+    { value: 'count', label: 'Aantal carriers' },
+    { value: 'total', label: 'Pakketpunten' },
+    { value: 'locker', label: 'Automaten' },
+    { value: 'shop', label: 'Shops' },
+    { value: 'population', label: 'Inwoners' },
+    { value: 'area', label: 'Oppervlakte (km²)' },
+    { value: 'density', label: 'PP per km²' },
+    { value: 'per_capita', label: 'PP per 1 000 inw.' },
+    { value: 'predicted', label: 'Verwacht (model)' },
+    { value: 'delta', label: 'Δ (werkelijk − verwacht)' },
+  ];
+  const PC4_NUMERIC_COLS = new Set<PC4Col>([
+    'count', 'total', 'locker', 'shop', 'population', 'area',
+    'density', 'per_capita', 'predicted', 'delta',
+  ]);
+  const isPc4Numeric = (k: PC4Col) => PC4_NUMERIC_COLS.has(k);
 
   // Sort state for the per-carrier tables (shared across all carriers)
   type CarCol = 'pc4' | 'city' | 'total' | 'locker' | 'shop';
@@ -234,8 +408,20 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
         {payload.model && (
           <section className="bg-white border border-gray-200 rounded-lg p-4 md:p-5 space-y-3">
             <div>
-              <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">Nederland-breed</div>
-              <h3 className="text-lg font-semibold text-gray-900">Regressiemodel voor verwachte pakketpunten per PC4</h3>
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">Nederland-breed</div>
+                  <h3 className="text-lg font-semibold text-gray-900">Regressiemodel voor verwachte pakketpunten per PC4</h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowScatter((v) => !v)}
+                  aria-expanded={showScatter}
+                  className="shrink-0 text-xs font-medium text-indigo-700 hover:text-indigo-900 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded px-2 py-1 transition"
+                >
+                  {showScatter ? 'Verberg grafiek' : 'Toon grafiek'}
+                </button>
+              </div>
               <p className="text-sm text-gray-700 leading-relaxed mt-1">
                 OLS-regressie op alle {payload.model.training_size.toLocaleString('nl-NL')} Nederlandse PC4-gebieden
                 (inwoners ≥ 10, oppervlakte ≥ 0,05 km²).
@@ -261,17 +447,19 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
               </p>
             </div>
 
-            {scatterData.other.length > 0 && (
-              <div className="h-80 md:h-96 -ml-2">
+            {showScatter && scatterData.other.length > 0 && (
+              <div className="h-96 md:h-[28rem] -ml-2">
                 <ResponsiveContainer width="100%" height="100%">
-                  <ScatterChart margin={{ top: 10, right: 20, bottom: 30, left: 10 }}>
+                  <ScatterChart margin={{ top: 10, right: 24, bottom: 64, left: 10 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                     <XAxis
                       type="number"
                       dataKey="pop"
                       name="Inwoners"
+                      domain={[0, 'dataMax']}
+                      tickCount={7}
                       tickFormatter={(n) => (n >= 1000 ? `${(n / 1000).toFixed(0)}k` : String(n))}
-                      label={{ value: 'Inwoners per PC4', position: 'insideBottom', offset: -10, fill: '#6b7280', fontSize: 12 }}
+                      label={{ value: 'Inwoners per PC4', position: 'insideBottom', offset: -18, fill: '#6b7280', fontSize: 12 }}
                       tick={{ fill: '#6b7280', fontSize: 11 }}
                     />
                     <YAxis
@@ -305,7 +493,12 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                         );
                       }}
                     />
-                    <Legend wrapperStyle={{ fontSize: 12 }} />
+                    <Legend
+                      verticalAlign="bottom"
+                      align="center"
+                      iconSize={10}
+                      wrapperStyle={{ fontSize: 12, paddingTop: 12, bottom: 0 }}
+                    />
                     <Scatter
                       name={`PC4-gebieden (${scatterData.other.length})`}
                       data={scatterData.other}
@@ -363,32 +556,40 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
         {/* Table 1: PC4 → carriers + parcel point counts (clickable rows) */}
         <section>
           <h3 className="text-lg font-semibold text-gray-900 mb-3">Per postcodegebied</h3>
+          <div className="mb-3">
+            <SortBuilder
+              stack={pc4SortStack}
+              options={PC4_SORT_OPTIONS}
+              isNumeric={isPc4Numeric}
+              onChange={setPc4SortStack}
+            />
+          </div>
           <div className="overflow-x-auto bg-white border border-gray-200 rounded-lg">
             <table className="w-full text-sm">
               <thead className="bg-gray-50">
                 <tr>
-                  <SortHeader label="PC4" sortKey="pc4" activeKey={pc4Sort.key} dir={pc4Sort.dir} onToggle={togglePc4Sort} />
-                  <SortHeader label="Stad" sortKey="city" activeKey={pc4Sort.key} dir={pc4Sort.dir} onToggle={togglePc4Sort} />
-                  <SortHeader label="Gemeld door" sortKey="carriers" activeKey={pc4Sort.key} dir={pc4Sort.dir} onToggle={togglePc4Sort} />
-                  <SortHeader label="#" sortKey="count" activeKey={pc4Sort.key} dir={pc4Sort.dir} onToggle={togglePc4Sort} align="right" />
-                  <SortHeader label="Pakketpunten" sortKey="total" activeKey={pc4Sort.key} dir={pc4Sort.dir} onToggle={togglePc4Sort} align="right" />
-                  <SortHeader label="Automaten" sortKey="locker" activeKey={pc4Sort.key} dir={pc4Sort.dir} onToggle={togglePc4Sort} align="right" />
-                  <SortHeader label="Shops" sortKey="shop" activeKey={pc4Sort.key} dir={pc4Sort.dir} onToggle={togglePc4Sort} align="right" />
-                  <SortHeader label="Inwoners" sortKey="population" activeKey={pc4Sort.key} dir={pc4Sort.dir} onToggle={togglePc4Sort} align="right" />
-                  <SortHeader label="km²" sortKey="area" activeKey={pc4Sort.key} dir={pc4Sort.dir} onToggle={togglePc4Sort} align="right" />
-                  <SortHeader label="PP/km²" sortKey="density" activeKey={pc4Sort.key} dir={pc4Sort.dir} onToggle={togglePc4Sort} align="right" />
-                  <SortHeader label="PP/1000 inw." sortKey="per_capita" activeKey={pc4Sort.key} dir={pc4Sort.dir} onToggle={togglePc4Sort} align="right" />
-                  <SortHeader label="Verwacht" sortKey="predicted" activeKey={pc4Sort.key} dir={pc4Sort.dir} onToggle={togglePc4Sort} align="right" />
-                  <SortHeader label="Δ" sortKey="delta" activeKey={pc4Sort.key} dir={pc4Sort.dir} onToggle={togglePc4Sort} align="right" />
+                  <MultiSortHeader label="PC4" sortKey="pc4" stack={pc4SortStack} onToggle={togglePc4Sort} />
+                  <MultiSortHeader label="Stad" sortKey="city" stack={pc4SortStack} onToggle={togglePc4Sort} />
+                  <MultiSortHeader label="Gemeld door" sortKey="carriers" stack={pc4SortStack} onToggle={togglePc4Sort} />
+                  <MultiSortHeader label="#" sortKey="count" stack={pc4SortStack} onToggle={togglePc4Sort} align="right" />
+                  <MultiSortHeader label="Pakketpunten" sortKey="total" stack={pc4SortStack} onToggle={togglePc4Sort} align="right" />
+                  <MultiSortHeader label="Automaten" sortKey="locker" stack={pc4SortStack} onToggle={togglePc4Sort} align="right" />
+                  <MultiSortHeader label="Shops" sortKey="shop" stack={pc4SortStack} onToggle={togglePc4Sort} align="right" />
+                  <MultiSortHeader label="Inwoners" sortKey="population" stack={pc4SortStack} onToggle={togglePc4Sort} align="right" />
+                  <MultiSortHeader label="km²" sortKey="area" stack={pc4SortStack} onToggle={togglePc4Sort} align="right" />
+                  <MultiSortHeader label="PP/km²" sortKey="density" stack={pc4SortStack} onToggle={togglePc4Sort} align="right" />
+                  <MultiSortHeader label="PP/1000 inw." sortKey="per_capita" stack={pc4SortStack} onToggle={togglePc4Sort} align="right" />
+                  <MultiSortHeader label="Verwacht" sortKey="predicted" stack={pc4SortStack} onToggle={togglePc4Sort} align="right" />
+                  <MultiSortHeader label="Δ" sortKey="delta" stack={pc4SortStack} onToggle={togglePc4Sort} align="right" />
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {entries
                   .slice()
                   .sort(([aPc4, av], [bPc4, bv]) => {
-                    const getVal = (pc4: string, v: Painpoint) => {
+                    const getVal = (pc4: string, v: Painpoint, key: PC4Col) => {
                       const s = v.stats;
-                      switch (pc4Sort.key) {
+                      switch (key) {
                         case 'pc4': return pc4;
                         case 'city': return v.city;
                         case 'carriers': return v.carriers.join(',');
@@ -404,8 +605,11 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                         case 'delta': return s?.delta_vs_predicted ?? 0;
                       }
                     };
-                    const d = cmp(getVal(aPc4, av), getVal(bPc4, bv));
-                    return pc4Sort.dir === 'asc' ? d : -d;
+                    for (const { key, dir } of pc4SortStack) {
+                      const d = cmp(getVal(aPc4, av, key), getVal(bPc4, bv, key));
+                      if (d !== 0) return dir === 'asc' ? d : -d;
+                    }
+                    return 0;
                   })
                   .map(([pc4, v]) => (
                   <tr

@@ -110,7 +110,7 @@ def main() -> int:
     payload["stats"] = stats
 
     with open(STATS_PATH, "w") as f:
-        json.dump(payload, f, separators=(",", ":"))
+        json.dump(payload, f, separators=(",", ":"), allow_nan=False)
     print(f"✓ Wrote predictions + model metadata → {STATS_PATH}")
     return 0
 
