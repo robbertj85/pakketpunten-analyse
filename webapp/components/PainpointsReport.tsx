@@ -80,6 +80,15 @@ export interface ScatterPoint {
   ov_stops?: number | null;
   ov_stops_per_km2?: number | null;
   ov_train_stops?: number | null;
+  // BRON 2022-2024 — 3-yr accident aggregates per PC4 (Rijkswaterstaat)
+  crashes_total?: number | null;
+  crashes_total_per_km2?: number | null;
+  crashes_freight?: number | null;
+  crashes_van?: number | null;
+  crashes_freight_van_share?: number | null;
+  crashes_freight_vs_vulnerable?: number | null;
+  crashes_injury?: number | null;
+  crashes_urban?: number | null;
   city?: string | null;
 }
 

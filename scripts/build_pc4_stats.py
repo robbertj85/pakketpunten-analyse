@@ -27,6 +27,7 @@ CBS_EXTRA_PATH = ROOT / "data" / "cbs_pc4_extra.json"
 NDW_LOADING_PATH = ROOT / "data" / "ndw_pc4_loading_zones.json"
 NDW_EMISSION_PATH = ROOT / "data" / "ndw_pc4_emission_zones.json"
 OV_STOPS_PATH = ROOT / "data" / "ov_pc4_stops.json"
+BRON_PATH = ROOT / "data" / "bron_pc4_accidents.json"
 BOUNDARIES_DIR = ROOT / "webapp" / "public" / "data" / "boundaries"
 OUTPUT = ROOT / "webapp" / "public" / "data" / "pc4_stats.json"
 
@@ -142,6 +143,23 @@ def main() -> int:
         with_stops = sum(1 for v in ov_lookup.values() if v.get("ov_stops", 0) > 0)
         print(f"  → {with_stops}/{len(ov_lookup)} PC4s with ≥1 OV-stop")
 
+    bron_lookup: dict[str, dict] = {}
+    bron_meta = None
+    if BRON_PATH.exists():
+        print(f"Loading BRON 2022-2024 accidents per PC4 from {BRON_PATH.name}...")
+        with open(BRON_PATH) as f:
+            bron_payload = json.load(f)
+        bron_lookup = bron_payload.get("pc4", {})
+        bron_meta = {
+            "source": bron_payload.get("source"),
+            "reference_date": bron_payload.get("reference_date"),
+            "years": bron_payload.get("years"),
+            "accident_count_input": bron_payload.get("accident_count_input"),
+            "accident_count_matched": bron_payload.get("accident_count_matched"),
+        }
+        with_crashes = sum(1 for v in bron_lookup.values() if v.get("crashes_total", 0) > 0)
+        print(f"  → {with_crashes}/{len(bron_lookup)} PC4s with ≥1 registered accident")
+
     print("Joining PC4s with municipality boundaries...")
     boundary_parts = [
         gpd.read_file(p)[["gemeente", "geometry"]]
@@ -206,6 +224,7 @@ def main() -> int:
         ndw = ndw_lookup.get(pc4, {})
         em = emission_lookup.get(pc4, {})
         ov = ov_lookup.get(pc4, {})
+        br = bron_lookup.get(pc4, {})
         stats[pc4] = {
             "area_km2": float(row["area_km2"]),
             "population": int(pop_lookup.get(pc4, 0)),
@@ -242,6 +261,15 @@ def main() -> int:
             "ov_stops": ov.get("ov_stops"),
             "ov_stops_per_km2": ov.get("ov_stops_per_km2"),
             "ov_train_stops": ov.get("ov_train_stops"),
+            # BRON 2022-2024 (Rijkswaterstaat) — 3-jaarlijkse ongevalsaggregaten
+            "crashes_total": br.get("crashes_total"),
+            "crashes_total_per_km2": br.get("crashes_total_per_km2"),
+            "crashes_freight": br.get("crashes_freight"),
+            "crashes_van": br.get("crashes_van"),
+            "crashes_freight_van_share": br.get("crashes_freight_van_share"),
+            "crashes_freight_vs_vulnerable": br.get("crashes_freight_vs_vulnerable"),
+            "crashes_injury": br.get("crashes_injury"),
+            "crashes_urban": br.get("crashes_urban"),
         }
 
     payload = {
@@ -256,6 +284,7 @@ def main() -> int:
             "ndw_loading_zones": ndw_meta,
             "ndw_emission_zones": emission_meta,
             "ov_stops": ov_meta,
+            "bron_accidents": bron_meta,
         },
         "stats": dict(sorted(stats.items())),
     }

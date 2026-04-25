@@ -1,7 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Filters, PointCategory, ServiceFilter, getCategoryLabel } from '@/types/pakketpunten';
+import {
+  Filters, PointCategory, ServiceFilter, getCategoryLabel,
+  CoverageLevel, CoverageSubset, CoverageDistance, CoverageScope,
+} from '@/types/pakketpunten';
 import { BoundaryLoadProgress } from '@/utils/boundaryLoader';
 
 interface FilterPanelProps {
@@ -454,6 +457,68 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
             <span className="w-3 h-3 rounded-sm bg-indigo-500/60 border border-indigo-700 flex-shrink-0" />
             <span className="text-sm text-gray-900">Inwoners per km² (CBS)</span>
           </label>
+          <label className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-gray-50 active:bg-gray-100 transition">
+            <input
+              type="checkbox"
+              checked={filters.showCoverage}
+              onChange={(e) => onChange({ ...filters, showCoverage: e.target.checked })}
+              className="w-5 h-5 md:w-4 md:h-4 text-emerald-600 rounded focus:ring-2 focus:ring-emerald-500"
+            />
+            <span className="w-3 h-3 rounded-sm bg-emerald-500/60 border border-emerald-700 flex-shrink-0" />
+            <span className="text-sm text-gray-900">Bereik inwoners (300/400/500m)</span>
+          </label>
+          {filters.showCoverage && (
+            <div className="ml-7 pt-1 pb-1 grid grid-cols-2 gap-2 text-xs">
+              <label className="block">
+                <span className="text-gray-500">Niveau</span>
+                <select
+                  value={filters.coverageLevel}
+                  onChange={(e) => onChange({ ...filters, coverageLevel: e.target.value as CoverageLevel })}
+                  className="mt-0.5 w-full px-2 py-1 border border-gray-300 rounded text-xs focus:ring-1 focus:ring-emerald-500"
+                >
+                  <option value="pc4">PC4</option>
+                  <option value="gemeente">Gemeente</option>
+                </select>
+              </label>
+              <label className="block">
+                <span className="text-gray-500">Type</span>
+                <select
+                  value={filters.coverageSubset}
+                  onChange={(e) => onChange({ ...filters, coverageSubset: e.target.value as CoverageSubset })}
+                  className="mt-0.5 w-full px-2 py-1 border border-gray-300 rounded text-xs focus:ring-1 focus:ring-emerald-500"
+                >
+                  <option value="total">Alle</option>
+                  <option value="shop">Shops</option>
+                  <option value="locker">Lockers</option>
+                </select>
+              </label>
+              <label className="block">
+                <span className="text-gray-500">Afstand</span>
+                <select
+                  value={filters.coverageDistance}
+                  onChange={(e) => onChange({ ...filters, coverageDistance: e.target.value as CoverageDistance })}
+                  className="mt-0.5 w-full px-2 py-1 border border-gray-300 rounded text-xs focus:ring-1 focus:ring-emerald-500"
+                >
+                  <option value="300m">300 m</option>
+                  <option value="400m">400 m</option>
+                  <option value="500m">500 m</option>
+                </select>
+              </label>
+              {filters.coverageLevel === 'gemeente' && (
+                <label className="block">
+                  <span className="text-gray-500">Bereik</span>
+                  <select
+                    value={filters.coverageScope}
+                    onChange={(e) => onChange({ ...filters, coverageScope: e.target.value as CoverageScope })}
+                    className="mt-0.5 w-full px-2 py-1 border border-gray-300 rounded text-xs focus:ring-1 focus:ring-emerald-500"
+                  >
+                    <option value="national">Nationaal</option>
+                    <option value="strict">Strict (alleen eigen punten)</option>
+                  </select>
+                </label>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
@@ -470,6 +535,11 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
             showPC4: false,
             showPainPoints: false,
             showPopulation: false,
+            showCoverage: false,
+            coverageLevel: 'pc4',
+            coverageSubset: 'total',
+            coverageDistance: '300m',
+            coverageScope: 'national',
             useSimpleMarkers: false,
             minOccupancy: 0,
             maxOccupancy: 100,

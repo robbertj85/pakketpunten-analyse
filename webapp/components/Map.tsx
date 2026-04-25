@@ -634,6 +634,14 @@ function MapComponent(props?: MapProps) {
     delta_vs_predicted: number;
     parcel_points: { total: number };
   }> | null>(null);
+  // Population-coverage choropleth state. Coverage payload holds the per-PC4
+  // and per-municipality coverage % at 300/400m for total/shop/locker. Muni
+  // boundaries are only loaded when the user picks the gemeente level.
+  const [coverageData, setCoverageData] = useState<{
+    pc4: Record<string, any>;
+    municipalities: Record<string, any>;
+  } | null>(null);
+  const [muniBoundaries, setMuniBoundaries] = useState<any | null>(null);
 
   // Extract props with defaults AFTER hooks
   const data = props?.data ?? null;
@@ -652,6 +660,11 @@ function MapComponent(props?: MapProps) {
     showPC4: false,
     showPainPoints: false,
     showPopulation: false,
+    showCoverage: false,
+    coverageLevel: 'pc4',
+    coverageSubset: 'total',
+    coverageDistance: '300m',
+    coverageScope: 'national',
     useSimpleMarkers: false,
     minOccupancy: 0,
     maxOccupancy: 100,
@@ -668,7 +681,8 @@ function MapComponent(props?: MapProps) {
   // Lazy-load PC4 boundaries the first time the user toggles them on.
   // Also needed for the pain-points overlay and population-density overlay
   // since both style the same PC4 polygons.
-  const needsPc4 = activeFilters.showPC4 || activeFilters.showPainPoints || activeFilters.showPopulation;
+  const needsPc4 = activeFilters.showPC4 || activeFilters.showPainPoints || activeFilters.showPopulation
+    || (activeFilters.showCoverage && activeFilters.coverageLevel === 'pc4');
   useEffect(() => {
     if (!needsPc4 || pc4Data || pc4Loading) return;
     setPc4Loading(true);
@@ -708,6 +722,35 @@ function MapComponent(props?: MapProps) {
       .then((payload) => setPc4Stats(payload.stats ?? {}))
       .catch((err) => console.error('Failed to load PC4 stats:', err));
   }, [activeFilters.showPopulation, pc4Stats]);
+
+  // Lazy-load population-coverage payload when the choropleth toggles on
+  useEffect(() => {
+    if (!activeFilters.showCoverage || coverageData) return;
+    fetch('/data/population_coverage.json')
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then((payload) => setCoverageData({
+        pc4: payload.pc4 ?? {},
+        municipalities: payload.municipalities ?? {},
+      }))
+      .catch((err) => console.error('Failed to load population_coverage:', err));
+  }, [activeFilters.showCoverage, coverageData]);
+
+  // Lazy-load municipality boundaries only when the gemeente level is picked
+  useEffect(() => {
+    if (!activeFilters.showCoverage
+        || activeFilters.coverageLevel !== 'gemeente'
+        || muniBoundaries) return;
+    fetch('/data/municipality_boundaries.geojson')
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then(setMuniBoundaries)
+      .catch((err) => console.error('Failed to load muni boundaries:', err));
+  }, [activeFilters.showCoverage, activeFilters.coverageLevel, muniBoundaries]);
 
   // Build the pain-points GeoJSON by filtering pc4Data to flagged codes
   const painPointsGeoJSON = useMemo(() => {
@@ -1315,6 +1358,122 @@ function MapComponent(props?: MapProps) {
           <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#4338ca'}}/>10 000 – 15 000</div>
           <div className="flex items-center gap-2"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#312e81'}}/>&ge; 15 000</div>
           <div className="text-[10px] text-gray-500 mt-1">Bron: CBS 83502NED</div>
+        </div>
+      )}
+
+      {/* Population-coverage choropleth (PC4 or gemeente). Both layers share
+          the coverage payload; only the polygon source differs. Colour ramp
+          mirrors the PctBar in PopulationReachReport so the on-map view
+          matches the data-export tab. */}
+      {activeFilters.showCoverage && coverageData && (() => {
+        const subset = activeFilters.coverageSubset;
+        const dist = activeFilters.coverageDistance;
+        const scope = activeFilters.coverageScope;
+        const level = activeFilters.coverageLevel;
+        const isPC4 = level === 'pc4';
+        const polygonData = isPC4 ? pc4Data : muniBoundaries;
+        if (!polygonData) return null;
+        const coverageColor = (pct: number) => {
+          if (pct >= 80) return '#10b981'; // emerald-500
+          if (pct >= 60) return '#22c55e'; // green-500
+          if (pct >= 40) return '#eab308'; // yellow-500
+          if (pct >= 20) return '#f97316'; // orange-500
+          if (pct > 0)   return '#ef4444'; // red-500
+          return '#9ca3af';                 // gray-400 (no data / 0%)
+        };
+        const subsetLabel = subset === 'total' ? 'Alle pakketpunten'
+                          : subset === 'shop'  ? 'Pakketshops' : 'Pakketautomaten';
+        return (
+          <GeoJSON
+            key={`coverage-${level}-${subset}-${dist}-${scope}`}
+            data={polygonData as any}
+            style={(feature) => {
+              let pct = 0;
+              if (isPC4) {
+                const code = feature?.properties?.pc4;
+                const row = code && coverageData.pc4[code];
+                pct = row?.[subset]?.[dist]?.pct ?? 0;
+              } else {
+                const name = feature?.properties?.gemeente;
+                const row = name && coverageData.municipalities[name];
+                pct = row?.[scope]?.[subset]?.[dist]?.pct ?? 0;
+              }
+              return {
+                color: '#065f46',
+                weight: isPC4 ? 0.4 : 0.7,
+                opacity: 0.45,
+                fillColor: coverageColor(pct),
+                fillOpacity: 0.35,
+              };
+            }}
+            onEachFeature={(feature, layer) => {
+              let html = '';
+              if (isPC4) {
+                const code = feature?.properties?.pc4;
+                const row = code ? coverageData.pc4[code] : null;
+                if (!code || !row) return;
+                const m = row[subset]?.[dist] ?? { pct: 0, covered: 0 };
+                html = `
+                  <div style="font-size:12px;line-height:1.4">
+                    <div style="font-weight:700">PC4 ${code} · ${row.municipality ?? ''}</div>
+                    <div>${(row.population ?? 0).toLocaleString('nl-NL')} inw. · ${(row.area_km2 ?? 0).toFixed(2)} km²</div>
+                    <div style="color:#065f46;font-weight:600">
+                      ${subsetLabel} @ ${dist}: ${m.pct.toFixed(1)}%
+                    </div>
+                    <div style="color:#6b7280">
+                      ≈ ${m.covered.toLocaleString('nl-NL')} inwoners binnen bereik
+                    </div>
+                  </div>
+                `;
+              } else {
+                const name = feature?.properties?.gemeente;
+                const row = name ? coverageData.municipalities[name] : null;
+                if (!name || !row) return;
+                const m = row[scope]?.[subset]?.[dist] ?? { pct: 0, covered: 0 };
+                const other = scope === 'national' ? 'strict' : 'national';
+                const otherM = row[other]?.[subset]?.[dist] ?? { pct: 0 };
+                const delta = (row.national?.[subset]?.[dist]?.pct ?? 0)
+                            - (row.strict?.[subset]?.[dist]?.pct ?? 0);
+                html = `
+                  <div style="font-size:12px;line-height:1.4">
+                    <div style="font-weight:700">${name}</div>
+                    <div>${(row.population ?? 0).toLocaleString('nl-NL')} inw. · ${row.parcel_points?.[subset === 'total' ? 'total' : subset] ?? 0} ${subsetLabel.toLowerCase()}</div>
+                    <div style="color:#065f46;font-weight:600">
+                      ${scope === 'national' ? 'Nationaal' : 'Strict'} @ ${dist}: ${m.pct.toFixed(1)}%
+                    </div>
+                    <div style="color:#6b7280">
+                      ≈ ${m.covered.toLocaleString('nl-NL')} inwoners
+                      · ${other === 'national' ? 'nationaal' : 'strict'}: ${otherM.pct.toFixed(1)}%
+                      · Δ ${delta >= 0 ? '+' : ''}${delta.toFixed(1)}%
+                    </div>
+                  </div>
+                `;
+              }
+              layer.bindTooltip(html, { sticky: true, direction: 'top' });
+            }}
+          />
+        );
+      })()}
+
+      {/* Coverage legend */}
+      {activeFilters.showCoverage && (
+        <div className="absolute bottom-4 right-4 z-[1000] bg-white/95 rounded-lg shadow-md p-3 text-xs text-gray-700 border border-gray-200 pointer-events-none">
+          <div className="font-semibold mb-1">
+            % inwoners binnen {activeFilters.coverageDistance}
+          </div>
+          <div className="text-[10px] text-gray-500 mb-1">
+            {activeFilters.coverageSubset === 'total' ? 'Alle pakketpunten'
+              : activeFilters.coverageSubset === 'shop' ? 'Alleen shops' : 'Alleen lockers'}
+            {activeFilters.coverageLevel === 'gemeente'
+              ? ` · ${activeFilters.coverageScope === 'national' ? 'nationaal bereik' : 'alleen eigen punten'}`
+              : ' · per PC4'}
+          </div>
+          <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#9ca3af'}}/>0%</div>
+          <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#ef4444'}}/>0 – 20%</div>
+          <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#f97316'}}/>20 – 40%</div>
+          <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#eab308'}}/>40 – 60%</div>
+          <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#22c55e'}}/>60 – 80%</div>
+          <div className="flex items-center gap-2"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#10b981'}}/>&ge; 80%</div>
         </div>
       )}
 

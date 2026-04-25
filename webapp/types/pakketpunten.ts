@@ -59,6 +59,11 @@ export interface Filters {
   showPC4: boolean;
   showPainPoints: boolean;
   showPopulation: boolean;
+  showCoverage: boolean;
+  coverageLevel: CoverageLevel;
+  coverageSubset: CoverageSubset;
+  coverageDistance: CoverageDistance;
+  coverageScope: CoverageScope;
   useSimpleMarkers: boolean;
   minOccupancy: number;
   maxOccupancy: number;
@@ -67,6 +72,13 @@ export interface Filters {
   showOnlySharedLocations: boolean;
   serviceFilters: ServiceFilter[];
 }
+
+// Population-coverage choropleth (data sourced from population_coverage.json)
+export type CoverageLevel    = 'pc4' | 'gemeente';
+export type CoverageSubset   = 'total' | 'shop' | 'locker';
+export type CoverageDistance = '300m' | '400m' | '500m';
+// 'strict' only meaningful at gemeente level; PC4 layer always uses national
+export type CoverageScope    = 'national' | 'strict';
 
 // Service capability filter: pickup (receive) vs dropoff (send)
 export type ServiceFilter = 'pickup' | 'dropoff';

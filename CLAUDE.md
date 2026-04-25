@@ -44,6 +44,29 @@ python scripts/create_provincial_boundaries.py
 # Statistical Analysis - Fetch CBS data and run correlation analysis
 python scripts/fetch_cbs_municipality_data.py  # Fetch area data from CBS
 python scripts/municipality_statistics_analysis.py  # Run statistical analysis
+
+# Fetch Rijkswaterstaat BRON traffic-safety data (2022-2024, ~382k accidents)
+# and aggregate to PC4 level — feeds the regression report's new
+# "Verkeersveiligheid" feature group. Re-run when BRON publishes new years.
+python scripts/fetch_bron_accidents.py      # ~5 min, caches to data/bron_all_accidents.json
+python scripts/enrich_pc4_accidents.py      # sjoin → data/bron_pc4_accidents.json
+python scripts/build_pc4_stats.py           # merges BRON fields into pc4_stats.json
+
+# Best-subset regression search (33 candidate features incl. BRON).
+# Parallelised across CPU cores; --max-k 8 evaluates ~19.5M OLS fits.
+python scripts/find_best_model.py --max-k 8 --jobs 7   # ~25-30 min on 8-core M-series
+python scripts/find_best_model.py --max-k 6            # ~2-3 min for a quick leaderboard
+
+# Population coverage (% inwoners within 300m / 400m / 500m of a parcel point).
+# Parallelised via multiprocessing.fork; re-run when parcel points, PC4
+# boundaries, or the municipality polygon cache change. Output powers the
+# webapp's "Bereik inwoners" tab at /data-export/bereik plus the choropleth
+# layer on the main map.
+python scripts/compute_population_coverage.py  # ~2-3 min on 8-core M-series
+
+# Build the simplified municipality boundary GeoJSON used by the gemeente-
+# level coverage choropleth. Re-run when the polygon cache changes.
+python scripts/build_municipality_boundaries.py  # ~5s
 ```
 
 ### Statistical Analysis
@@ -197,6 +220,13 @@ The system automatically uses cached data when available:
 2. **Regular updates**: Run `batch_generate.py` - automatically uses cached data
 3. **Regenerate caches**: Re-run grid fetch scripts when you want updated data
 
+### BRON accident data (`data/bron_all_accidents.json`, `data/bron_pc4_accidents.json`)
+- Source: Rijkswaterstaat **BRON (Bestand geRegistreerde Ongevallen Nederland)** — open ArcGIS FeatureServer at `https://geo.rijkswaterstaat.nl/arcgis/rest/services/GDR/verkeersongevallen_nederland/FeatureServer`, layer 3 (`ongevallen_2022_2024`, point geometry in EPSG:28992, ~382k records).
+- `fetch_bron_accidents.py` paginates the REST endpoint in 2000-row batches (~5 min) and saves a compact record per accident (id, year, both party types, severity, urban flag, RD x/y). Re-run with `--force` to refresh.
+- `enrich_pc4_accidents.py` does the PC4 sjoin and computes 8 aggregates per postcode: `crashes_total`, `crashes_total_per_km2`, `crashes_freight` (Vrachtauto + Trekker variants), `crashes_van` (Bestelauto), `crashes_freight_van_share` (%), `crashes_freight_vs_vulnerable` (freight/van × ped/bike/moped), `crashes_injury` (Letsel + Dodelijk only), `crashes_urban` (`bebouwde_kom = Binnen`).
+- `build_pc4_stats.py` merges these into `pc4_stats.json` so the regression report's "Verkeersveiligheid (BRON 2022-2024)" feature group can use them.
+- Caveat: BRON is police-reported; ~90% complete for fatalities but 20-50% for UMS (uitsluitend materiele schade). Use `crashes_injury` when you want a less-biased count. No truck/van *exposure* (km driven) is included — that would need NDW's Hastig intensity dataset, which is license-restricted to road authorities, OR free proxies (BAG non-residential m², IBIS bedrijventerreinen) not yet integrated.
+
 ## API Integration Notes
 
 ### Rate Limiting
@@ -271,6 +301,7 @@ Data bronnen:
 - VintedGo / Mondial Relay (https://vintedgo.com)
 - De Buren (https://deburen.nl)
 - Gemeente grenzen © OpenStreetMap contributors
+- Verkeersongevallen (BRON 2022-2024) © Rijkswaterstaat (publiek domein) — geo.rijkswaterstaat.nl
 - Bedrijfslogo's © respectieve merkhouders
 
 Bezettingsgraad data is willekeurig gegenereerd voor demonstratie (niet echt)

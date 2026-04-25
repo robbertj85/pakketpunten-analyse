@@ -68,3 +68,7 @@ data/cbs/*.gpkg
 data/cbs/*.xlsx
 data/ndw/
 data/ov/
+
+# BRON raw national accident dump (~56 MB, regenerable via fetch_bron_accidents.py).
+# The PC4-aggregated derivative bron_pc4_accidents.json IS committed.
+data/bron_all_accidents.json

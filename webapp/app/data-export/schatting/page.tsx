@@ -62,6 +62,14 @@ async function getPayload(): Promise<PainpointsPayload> {
             ov_stops: round(v.ov_stops, 0),
             ov_stops_per_km2: round(v.ov_stops_per_km2, 2),
             ov_train_stops: round(v.ov_train_stops, 0),
+            crashes_total: round(v.crashes_total, 0),
+            crashes_total_per_km2: round(v.crashes_total_per_km2, 2),
+            crashes_freight: round(v.crashes_freight, 0),
+            crashes_van: round(v.crashes_van, 0),
+            crashes_freight_van_share: round(v.crashes_freight_van_share, 2),
+            crashes_freight_vs_vulnerable: round(v.crashes_freight_vs_vulnerable, 0),
+            crashes_injury: round(v.crashes_injury, 0),
+            crashes_urban: round(v.crashes_urban, 0),
             city: typeof v.municipality === 'string' ? v.municipality : null,
           });
           sumArea += area;

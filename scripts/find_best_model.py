@@ -32,6 +32,8 @@ import argparse
 import itertools
 import json
 import math
+import multiprocessing as mp
+import os
 import sys
 import time
 from pathlib import Path
@@ -77,6 +79,18 @@ CANDIDATE_FEATURES: list[tuple[str, str]] = [
     ("ov_stops", "OV-haltes (GTFS)"),
     ("ov_stops_per_km2", "OV-haltes per km²"),
     ("ov_train_stops", "Trein-achtige halten"),
+    # BRON 2022-2024 (Rijkswaterstaat) — 3-jaarlijkse ongevalsaggregaten per PC4.
+    # Pairs (total vs. per_km2, total vs. urban, total vs. injury, freight vs.
+    # freight_vs_vuln) are strongly correlated — VIF in the final model will
+    # flag redundancy. Caveat: accident counts conflate risk × traffic flow.
+    ("crashes_total", "Ongevallen totaal (BRON 3jr)"),
+    ("crashes_total_per_km2", "Ongevallen per km²"),
+    ("crashes_freight", "Ongevallen met vracht"),
+    ("crashes_van", "Ongevallen met bestel"),
+    ("crashes_freight_van_share", "Aandeel vracht/bestel (%)"),
+    ("crashes_freight_vs_vulnerable", "Vracht/bestel × kwetsbaar"),
+    ("crashes_injury", "Ongevallen met letsel"),
+    ("crashes_urban", "Ongevallen binnen bebouwde kom"),
 ]
 
 
@@ -95,6 +109,126 @@ def fit_ols(X: np.ndarray, y: np.ndarray) -> tuple[float, float, float]:
     ss_tot = float(np.sum((y - y.mean()) ** 2))
     r2 = 1 - ss_res / ss_tot if ss_tot > 0 else 0.0
     return r2, ss_res, float(beta[0])
+
+
+# ---------- Parallel best-subset search ---------------------------------
+#
+# For 33 candidate features and max_k=8 the total subset count tips over 19 M
+# fits. Each fit is ~20 µs of LAPACK + Python overhead — parallel-safe because
+# every subset is independent. We distribute work across a spawn-based
+# multiprocessing Pool with these optimisations:
+#
+#   1. `X_aug` (ones column pre-pended) is passed once via the worker
+#      initializer so every task re-uses the same array; no per-task pickling.
+#   2. Each worker calls ``threadpool_limits(1)`` so its inner BLAS doesn't
+#      thrash against the 8 worker processes the parent just launched.
+#   3. Combinations are streamed in chunks; each chunk returns only its
+#      local top-N, which keeps IPC traffic O(num_chunks × top_n) instead of
+#      O(num_subsets).
+#
+# The single-threaded path is kept for `--jobs 1` and for tiny k values
+# where the pool startup cost would dominate.
+
+_WORKER_X_AUG: np.ndarray | None = None
+_WORKER_Y: np.ndarray | None = None
+_WORKER_SS_TOT: float | None = None
+
+
+def _worker_init(X_aug: np.ndarray, y: np.ndarray, ss_tot: float) -> None:
+    """Multiprocess initializer — stash the shared matrices in module globals."""
+    global _WORKER_X_AUG, _WORKER_Y, _WORKER_SS_TOT
+    _WORKER_X_AUG = X_aug
+    _WORKER_Y = y
+    _WORKER_SS_TOT = ss_tot
+    try:
+        from threadpoolctl import threadpool_limits
+        threadpool_limits(1)
+    except ImportError:
+        pass
+
+
+def _score_chunk(args: tuple[list[tuple[int, ...]], int]) -> list[tuple[float, tuple[int, ...], float]]:
+    """Fit every combo in ``combos`` and return this chunk's local top-N.
+
+    Returns tuples of (r2, combo, ss_res); adjusted-R² and BIC are derived
+    in the parent process from (r2, ss_res, n, k).
+    """
+    combos, top_n = args
+    assert _WORKER_X_AUG is not None and _WORKER_Y is not None and _WORKER_SS_TOT is not None
+    X_aug = _WORKER_X_AUG
+    y = _WORKER_Y
+    ss_tot = _WORKER_SS_TOT
+    out: list[tuple[float, tuple[int, ...], float]] = []
+    for combo in combos:
+        # Column 0 is the ones-vector; features start at 1.
+        idx = (0, *(j + 1 for j in combo))
+        X_sub = X_aug[:, idx]
+        beta, *_ = np.linalg.lstsq(X_sub, y, rcond=None)
+        y_hat = X_sub @ beta
+        ss_res = float(np.sum((y - y_hat) ** 2))
+        r2 = 1 - ss_res / ss_tot if ss_tot > 0 else 0.0
+        out.append((r2, combo, ss_res))
+    out.sort(reverse=True, key=lambda t: t[0])
+    return out[:top_n]
+
+
+def _chunked(iterable, chunk_size: int):
+    """Yield successive ``chunk_size``-lists from ``iterable`` lazily."""
+    it = iter(iterable)
+    while True:
+        chunk = list(itertools.islice(it, chunk_size))
+        if not chunk:
+            return
+        yield chunk
+
+
+def search_k(
+    k: int,
+    n_features: int,
+    X_aug: np.ndarray,
+    y: np.ndarray,
+    ss_tot: float,
+    top_n: int,
+    jobs: int,
+    chunk_size: int = 4096,
+) -> list[tuple[float, tuple[int, ...], float]]:
+    """Return the global top-N subsets of size ``k``, sorted R² descending.
+
+    Falls back to a single-threaded inline loop when ``jobs == 1`` or when the
+    total subset count for this k is small enough that pool overhead dominates.
+    """
+    total = math.comb(n_features, k)
+    combos_iter = itertools.combinations(range(n_features), k)
+
+    # Threshold picked empirically: pool startup + IPC is ~100 ms on macOS,
+    # amortises over ~50k fits. Below that, run inline.
+    if jobs <= 1 or total < 50_000:
+        _worker_init(X_aug, y, ss_tot)
+        # One big chunk keeps the sort call cheap when total is small.
+        return _score_chunk((list(combos_iter), top_n))
+
+    chunks = _chunked(combos_iter, chunk_size)
+    tasks = ((chunk, top_n) for chunk in chunks)
+
+    # ``spawn`` is required on macOS for numpy safety and matches Linux's
+    # behaviour; fork would inherit the parent's BLAS thread pool and cause
+    # contention with threadpool_limits(1).
+    ctx = mp.get_context("spawn")
+    global_top: list[tuple[float, tuple[int, ...], float]] = []
+    with ctx.Pool(
+        processes=jobs,
+        initializer=_worker_init,
+        initargs=(X_aug, y, ss_tot),
+    ) as pool:
+        for local_top in pool.imap_unordered(_score_chunk, tasks, chunksize=1):
+            global_top.extend(local_top)
+            if len(global_top) > top_n * 4:
+                # Periodic trim — stops the list from growing unboundedly
+                # across millions of chunks.
+                global_top.sort(reverse=True, key=lambda t: t[0])
+                global_top = global_top[:top_n]
+    global_top.sort(reverse=True, key=lambda t: t[0])
+    return global_top[:top_n]
 
 
 def adjusted_r2(r2: float, n: int, p: int) -> float:
@@ -159,6 +293,15 @@ def main() -> int:
                         help="Elbow threshold on R² gain (default 0.003).")
     parser.add_argument("--top", type=int, default=5,
                         help="Top N models to keep per size (default 5).")
+    parser.add_argument(
+        "--jobs", type=int, default=max(1, (os.cpu_count() or 2) - 1),
+        help="Number of parallel worker processes (default: cpu_count - 1).",
+    )
+    parser.add_argument(
+        "--chunk-size", type=int, default=4096,
+        help="Subsets per worker task (default 4096). Lower = finer load balancing, "
+             "higher = less IPC overhead.",
+    )
     args = parser.parse_args()
 
     with open(STATS_PATH) as f:
@@ -194,25 +337,39 @@ def main() -> int:
 
     X_full = np.array([[r[k] for k in feature_keys] for r in rows], dtype=float)
     y = np.array([r["y"] for r in rows], dtype=float)
+    # Pre-augmented design matrix with a ones column — shared read-only with
+    # every worker so no per-task hstack is needed.
+    X_aug = np.hstack([np.ones((n, 1)), X_full])
+    ss_tot = float(np.sum((y - y.mean()) ** 2))
     total_subsets = sum(math.comb(len(feature_keys), k)
                         for k in range(1, args.max_k + 1))
     print(f"Complete-case rows: {n}")
     print(f"Candidate features: {len(feature_keys)}")
-    print(f"Enumerating {total_subsets:,} subsets up to size {args.max_k}...\n")
+    print(f"Enumerating {total_subsets:,} subsets up to size {args.max_k} "
+          f"on {args.jobs} worker{'s' if args.jobs != 1 else ''}...\n")
 
     start = time.time()
     best_per_k: dict[int, list[dict]] = {}
 
     for k in range(1, args.max_k + 1):
-        leaderboard: list[tuple[float, tuple[int, ...], float, float]] = []
-        for combo in itertools.combinations(range(len(feature_keys)), k):
-            X = X_full[:, list(combo)]
-            r2, ss_res, _ = fit_ols(X, y)
+        k_start = time.time()
+        top = search_k(
+            k=k,
+            n_features=len(feature_keys),
+            X_aug=X_aug,
+            y=y,
+            ss_tot=ss_tot,
+            top_n=args.top,
+            jobs=args.jobs,
+            chunk_size=args.chunk_size,
+        )
+        # Derive adj_R² and BIC for the surviving top-N — tiny cost, avoids
+        # sending those floats through IPC for every evaluated subset.
+        enriched: list[tuple[float, tuple[int, ...], float, float]] = []
+        for r2, combo, ss_res in top:
             ar2 = adjusted_r2(r2, n, k)
             b = bic(ss_res, n, k)
-            leaderboard.append((r2, combo, ar2, b))
-        leaderboard.sort(reverse=True, key=lambda t: t[0])
-        top = leaderboard[: args.top]
+            enriched.append((r2, combo, ar2, b))
         best_per_k[k] = [
             {
                 "features": [feature_keys[i] for i in combo],
@@ -221,13 +378,16 @@ def main() -> int:
                 "adj_r2": round(ar2, 6),
                 "bic": round(b, 2),
             }
-            for r2, combo, ar2, b in top
+            for r2, combo, ar2, b in enriched
         ]
-        best = top[0]
-        elapsed = time.time() - start
+        best = enriched[0]
+        n_subsets = math.comb(len(feature_keys), k)
+        k_elapsed = time.time() - k_start
+        rate = n_subsets / k_elapsed if k_elapsed > 0 else 0
+        total_elapsed = time.time() - start
         print(f"k={k:>2}  best R²={best[0]:.4f}  adj-R²={best[2]:.4f}  BIC={best[3]:>10.1f}  "
               f"features={[feature_labels[feature_keys[i]] for i in best[1]]}  "
-              f"[{elapsed:.1f}s]")
+              f"[{k_elapsed:.1f}s · {rate:>10,.0f} fits/s · total {total_elapsed:.1f}s]")
 
     # Choose a parsimonious winner by an elbow on R².
     best_r2_by_k = {k: best_per_k[k][0]["r2"] for k in best_per_k}

@@ -54,12 +54,15 @@ type FeatureKey =
   | 'pct_multi_family' | 'pct_owner_occupied'
   | 'horeca_1km' | 'supermarket_1km' | 'station_km' | 'highway_km'
   | 'loading_zones' | 'loading_zones_per_km2'
-  | 'in_emission_zone' | 'ov_stops' | 'ov_stops_per_km2' | 'ov_train_stops';
+  | 'in_emission_zone' | 'ov_stops' | 'ov_stops_per_km2' | 'ov_train_stops'
+  | 'crashes_total' | 'crashes_total_per_km2'
+  | 'crashes_freight' | 'crashes_van' | 'crashes_freight_van_share'
+  | 'crashes_freight_vs_vulnerable' | 'crashes_injury' | 'crashes_urban';
 
 interface FeatureDef {
   key: FeatureKey;
   label: string;
-  group: 'basis' | 'inkomen' | 'ses' | 'stedelijk' | 'voorzieningen' | 'verkeer';
+  group: 'basis' | 'inkomen' | 'ses' | 'stedelijk' | 'voorzieningen' | 'verkeer' | 'verkeersveiligheid';
   help: string;
   unit?: string;
 }
@@ -90,6 +93,16 @@ const FEATURE_DEFS: FeatureDef[] = [
   { key: 'ov_stops', label: 'OV-haltes', group: 'verkeer', unit: 'aantal', help: 'Nationale GTFS-feed via OVapi, alle carriers samen' },
   { key: 'ov_stops_per_km2', label: 'OV-haltes per km²', group: 'verkeer', unit: 'halten/km²', help: 'OV-dichtheid — proxy voor stedelijkheid + voetverkeer' },
   { key: 'ov_train_stops', label: 'Trein-achtige halten', group: 'verkeer', unit: 'aantal', help: 'Heuristische filter op stop_name (Centraal, Station, Sloterdijk, ...)' },
+  // Rijkswaterstaat BRON 2022-2024 — 3-jaarssom geregistreerde ongevallen per PC4.
+  // Politie-registratie; ~90% dekking dodelijke ongevallen, lager voor UMS.
+  { key: 'crashes_total', label: 'Ongevallen totaal (3 jr)', group: 'verkeersveiligheid', unit: 'aantal', help: 'BRON 2022-2024 — politie-gerapporteerd, dus ~90% dekking dodelijk maar 20-50% voor uitsluitend materiele schade. Gebruik "Met letsel" voor een schoner signaal.' },
+  { key: 'crashes_total_per_km2', label: 'Ongevallen per km² (3 jr)', group: 'verkeersveiligheid', unit: '/km²', help: 'Dichtheid — genormaliseerd naar PC4-oppervlakte' },
+  { key: 'crashes_freight', label: 'Ongevallen met vrachtverkeer', group: 'verkeersveiligheid', unit: 'aantal', help: 'Betrokken partij = Vrachtauto / Trekker / Trekker met oplegger' },
+  { key: 'crashes_van', label: 'Ongevallen met bestelauto', group: 'verkeersveiligheid', unit: 'aantal', help: 'Meest relevante proxy voor last-mile pakketbezorging' },
+  { key: 'crashes_freight_van_share', label: 'Aandeel vracht/bestel', group: 'verkeersveiligheid', unit: '%', help: '(vracht + bestel) / totaal — corrigeert voor "drukke weg"-effect en isoleert pure last-mile PC4s' },
+  { key: 'crashes_freight_vs_vulnerable', label: 'Vracht/bestel × kwetsbaar', group: 'verkeersveiligheid', unit: 'aantal', help: 'Vracht/bestel met voetganger/fiets/(brom/snor)fiets als tegenpartij — dodehoek-scenario' },
+  { key: 'crashes_injury', label: 'Ongevallen met letsel', group: 'verkeersveiligheid', unit: 'aantal', help: 'Letsel + Dodelijk (filtert UMS waar BRON-dekking het laagst is)' },
+  { key: 'crashes_urban', label: 'Ongevallen binnen bebouwde kom', group: 'verkeersveiligheid', unit: 'aantal', help: 'bebouwde_kom = Binnen — filtert snelweg-ruis voor last-mile focus' },
 ];
 
 const GROUP_LABELS: Record<FeatureDef['group'], string> = {
@@ -99,21 +112,87 @@ const GROUP_LABELS: Record<FeatureDef['group'], string> = {
   stedelijk: 'Stedelijkheid & bevolking',
   voorzieningen: 'Voorzieningen & bereikbaarheid',
   verkeer: 'Verkeer & logistiek (NDW)',
+  verkeersveiligheid: 'Verkeersveiligheid (BRON 2022-2024)',
 };
 
-// Curated presets from scripts/find_best_model.py so users can jump to
-// known strong combinations without re-running the search themselves.
+// Scaling rules for the plain-language interpretation block. For each active
+// feature we render "{phrase} → {sign}{|β × factor|} pakketpunten". The factor
+// is purely a display convenience — picked so the resulting number sits in a
+// readable range. Binary features (in_emission_zone) get a dedicated phrasing.
+interface ScaleDef {
+  factor: number;
+  phrase: string;
+  binary?: boolean;
+}
+const FEATURE_SCALE: Record<FeatureKey, ScaleDef> = {
+  pop: { factor: 1000, phrase: '+1 000 inwoners' },
+  area: { factor: 1, phrase: '+1 km² extra oppervlakte' },
+  avg_income: { factor: 10, phrase: '+€10 000 gemiddeld huishoudinkomen' },
+  pct_low_income: { factor: 1, phrase: '+1 procentpunt huishoudens met laag inkomen' },
+  pct_high_income: { factor: 1, phrase: '+1 procentpunt huishoudens met hoog inkomen' },
+  avg_woz: { factor: 100, phrase: '+€100 000 gemiddelde WOZ-waarde' },
+  ses_total: { factor: 1, phrase: '+1 SES-WOA totaalscore' },
+  ses_welvaart: { factor: 1, phrase: '+1 SES-WOA welvaart-subscore' },
+  ses_arbeid: { factor: 1, phrase: '+1 SES-WOA arbeidsverleden-subscore' },
+  urbanity: { factor: 1, phrase: '+1 stedelijkheidsklasse (1 = zeer stedelijk … 5 = niet stedelijk)' },
+  oad: { factor: 1000, phrase: '+1 000 adressen/km² (omgevingsadressendichtheid)' },
+  pct_age_25_45: { factor: 1, phrase: '+1 procentpunt inwoners 25-45 jaar' },
+  pct_single_hh: { factor: 1, phrase: '+1 procentpunt eenpersoonshuishoudens' },
+  pct_multi_family: { factor: 1, phrase: '+1 procentpunt meergezinswoningen' },
+  pct_owner_occupied: { factor: 1, phrase: '+1 procentpunt koopwoningen' },
+  horeca_1km: { factor: 10, phrase: '10 extra horeca-vestigingen binnen 1 km' },
+  supermarket_1km: { factor: 1, phrase: '1 extra supermarkt binnen 1 km' },
+  station_km: { factor: 1, phrase: '+1 km afstand tot treinstation' },
+  highway_km: { factor: 1, phrase: '+1 km afstand tot snelwegoprit' },
+  loading_zones: { factor: 10, phrase: '10 extra laad-/losplaatsen (E7)' },
+  loading_zones_per_km2: { factor: 1, phrase: '+1 laad-/losplaats per km²' },
+  in_emission_zone: { factor: 1, phrase: 'PC4 binnen een milieu-/ZE-zone (vs. erbuiten)', binary: true },
+  ov_stops: { factor: 10, phrase: '10 extra OV-haltes' },
+  ov_stops_per_km2: { factor: 1, phrase: '+1 OV-halte per km²' },
+  ov_train_stops: { factor: 1, phrase: '1 extra trein-achtige halte' },
+  crashes_total: { factor: 10, phrase: '10 extra geregistreerde ongevallen (3 jr)' },
+  crashes_total_per_km2: { factor: 10, phrase: '+10 ongevallen per km² (3 jr)' },
+  crashes_freight: { factor: 1, phrase: '1 extra ongeval met vrachtverkeer (3 jr)' },
+  crashes_van: { factor: 1, phrase: '1 extra ongeval met bestelauto (3 jr)' },
+  crashes_freight_van_share: { factor: 1, phrase: '+1 procentpunt aandeel vracht/bestel in het ongevallentotaal' },
+  crashes_freight_vs_vulnerable: { factor: 1, phrase: '1 extra vracht-/bestel-ongeval met voetganger of fietser (3 jr)' },
+  crashes_injury: { factor: 1, phrase: '1 extra ongeval met letsel of dodelijke afloop (3 jr)' },
+  crashes_urban: { factor: 10, phrase: '10 extra ongevallen binnen bebouwde kom (3 jr)' },
+};
+
+/** Format a predicted-delta-in-pakketpunten number with a signed prefix and
+ *  the Dutch decimal comma. Picks decimal places adaptively: bigger magnitudes
+ *  get fewer digits, so the eye can scan a column of them quickly. */
+function fmtDelta(v: number): string {
+  const abs = Math.abs(v);
+  const digits = abs >= 100 ? 0 : abs >= 10 ? 1 : abs >= 0.1 ? 2 : 3;
+  const formatted = abs.toLocaleString('nl-NL', {
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
+  });
+  return `${v >= 0 ? '+' : '−'}${formatted}`;
+}
+
+// Curated presets from scripts/find_best_model.py (run met 33 kandidaten incl.
+// BRON verkeersveiligheid, 19,5M subsets). Elke preset is de R²-winnaar op
+// zijn k; Vracht/bestel × kwetsbaar is het consistente BRON-signaal — zit in
+// alle winnaars van k=4 t/m k=8.
 const MODEL_PRESETS: Array<{ name: string; keys: FeatureKey[]; note: string }> = [
   { name: 'Basis', keys: ['pop', 'area'], note: 'Oorspronkelijke Python-baseline (R² ≈ 0.44)' },
   {
     name: 'Ockham (k=4)',
-    keys: ['pop', 'pct_low_income', 'oad', 'horeca_1km'],
-    note: 'Beste 4-variabelenmodel uit best-subset search (R² ≈ 0.48)',
+    keys: ['pop', 'pct_high_income', 'ov_stops', 'crashes_freight_vs_vulnerable'],
+    note: 'Beste 4-variabelenmodel (R² = 0.479) — eerste verschijning van BRON',
   },
   {
     name: 'Beste k=6',
-    keys: ['pop', 'pct_low_income', 'oad', 'horeca_1km', 'supermarket_1km', 'ov_stops'],
-    note: 'Elbow + laagste BIC na toevoeging van OV-halten (R² ≈ 0.51)',
+    keys: ['pop', 'pct_high_income', 'oad', 'supermarket_1km', 'ov_stops', 'crashes_freight_vs_vulnerable'],
+    note: 'Beste 6-variabelenmodel (R² = 0.520)',
+  },
+  {
+    name: 'Beste k=8',
+    keys: ['pop', 'avg_woz', 'oad', 'horeca_1km', 'supermarket_1km', 'ov_stops', 'crashes_freight', 'crashes_freight_vs_vulnerable'],
+    note: 'Laagste BIC over alle 19,5M subsets (R² = 0.539); 2 BRON-variabelen',
   },
 ];
 
@@ -564,7 +643,7 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
 
           {/* Feature checkboxes, grouped */}
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-            {(['basis', 'inkomen', 'ses', 'stedelijk', 'voorzieningen', 'verkeer'] as const).map((grp) => (
+            {(['basis', 'inkomen', 'ses', 'stedelijk', 'voorzieningen', 'verkeer', 'verkeersveiligheid'] as const).map((grp) => (
               <fieldset key={grp} className="border border-gray-200 rounded p-3">
                 <legend className="px-1 text-xs font-semibold text-gray-700 uppercase tracking-wide">
                   {GROUP_LABELS[grp]}
@@ -807,9 +886,70 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                     </table>
                   </div>
 
+                  {/* Plain-language interpretation per active coefficient.
+                      The table above shows the raw β; this block translates
+                      each one into "a change of X predicts Y pakketpunten
+                      extra" so users don't need to eyeball the scaled value. */}
+                  <div className="bg-indigo-50/40 border border-indigo-200 rounded p-3 space-y-1.5 text-sm">
+                    <div className="text-xs font-semibold text-indigo-900 uppercase tracking-wide mb-1">
+                      Interpretatie {fit.featureNames.length > 1 && (
+                        <span className="font-normal normal-case text-indigo-800/80">
+                          {fit.featureNames.length === 2
+                            ? ' · per variabele, na controle voor de andere variabele'
+                            : ` · per variabele, na controle voor de andere ${fit.featureNames.length - 1} variabelen`}
+                        </span>
+                      )}
+                    </div>
+                    <ul className="space-y-1 list-none pl-0">
+                      {fit.featureNames.map((name, i) => {
+                        const c = fit.coefficients[i];
+                        const fkey = featureKeyByLabel.get(name);
+                        const scale = fkey ? FEATURE_SCALE[fkey] : undefined;
+                        if (!scale) {
+                          // Fallback for any future variable lacking a scale entry.
+                          return (
+                            <li key={name} className="text-gray-700">
+                              <strong className="font-semibold">{name}</strong>: β = {c.toExponential(3)} / eenheid.
+                            </li>
+                          );
+                        }
+                        const deltaPP = c * scale.factor;
+                        const fmt = fmtDelta(deltaPP);
+                        const pakketpuntenWord = Math.abs(deltaPP) === 1 ? 'pakketpunt' : 'pakketpunten';
+                        const highlightSign =
+                          deltaPP > 0 ? 'text-emerald-700' : deltaPP < 0 ? 'text-red-700' : 'text-gray-700';
+                        if (scale.binary) {
+                          const direction = deltaPP >= 0 ? 'méér' : 'minder';
+                          return (
+                            <li key={name} className="text-gray-800">
+                              <strong className="font-semibold">{name}</strong>:{' '}
+                              {scale.phrase} → <span className={`font-semibold ${highlightSign}`}>{fmt}</span>{' '}
+                              {pakketpuntenWord} <span className="text-gray-500">({direction} dan een PC4 zonder deze conditie)</span>.
+                            </li>
+                          );
+                        }
+                        return (
+                          <li key={name} className="text-gray-800">
+                            <strong className="font-semibold">{name}</strong>:{' '}
+                            <span className="text-gray-600">{scale.phrase}</span> →{' '}
+                            <span className={`font-semibold ${highlightSign}`}>{fmt}</span>{' '}
+                            {pakketpuntenWord}.
+                          </li>
+                        );
+                      })}
+                    </ul>
+                    <p className="text-[11px] text-indigo-900/70 pt-1 leading-relaxed">
+                      Lees als: &ldquo;wanneer alle andere variabelen gelijk blijven en alléén deze met
+                      {' '}<em>het genoemde bedrag</em> verandert, verandert de voorspelde
+                      pakketpuntenwaarde met het getal achter de pijl.&rdquo;
+                      {' '}Positieve coëfficiënten (groen) zeggen <em>niet</em> dat deze variabele
+                      pakketpunten veroorzaakt — alleen dat beide samen voorkomen in de data.
+                    </p>
+                  </div>
+
                   <p className="text-xs text-gray-500 leading-relaxed">
                     VIF {'>'} 5: twee variabelen dragen overlappende informatie (geel). VIF {'>'} 10:
-                    sterk problematisch (rood) — één van beide kan beter uit het model. De rode "Droppen"-knop
+                    sterk problematisch (rood) — één van beide kan beter uit het model. De rode &ldquo;Droppen&rdquo;-knop
                     verschijnt automatisch wanneer een variabele statistisch niet significant is of weinig R²
                     bijdraagt; hover over de knop voor de onderbouwing.
                   </p>
@@ -895,6 +1035,16 @@ function PC4DetailPanel({
       { key: 'in_emission_zone', label: 'In milieu-/ZE-zone', digits: 0 },
       { key: 'ov_stops', label: 'OV-haltes', digits: 0 },
       { key: 'ov_train_stops', label: 'Trein-achtige halten', digits: 0 },
+    ]},
+    { section: 'Verkeersveiligheid (BRON 2022-2024)', fields: [
+      { key: 'crashes_total', label: 'Ongevallen totaal (3 jr)', digits: 0 },
+      { key: 'crashes_total_per_km2', label: 'Ongevallen per km²', unit: '/km²', digits: 1 },
+      { key: 'crashes_freight', label: 'Met vrachtverkeer', digits: 0 },
+      { key: 'crashes_van', label: 'Met bestelauto', digits: 0 },
+      { key: 'crashes_freight_van_share', label: 'Aandeel vracht/bestel', unit: '%', digits: 1 },
+      { key: 'crashes_freight_vs_vulnerable', label: 'Vracht/bestel × kwetsbaar', digits: 0 },
+      { key: 'crashes_injury', label: 'Met letsel', digits: 0 },
+      { key: 'crashes_urban', label: 'Binnen bebouwde kom', digits: 0 },
     ]},
   ];
 

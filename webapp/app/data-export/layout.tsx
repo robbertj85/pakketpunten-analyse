@@ -15,6 +15,7 @@ export default function DataExportLayout({
   const isUpdates = pathname === '/data-export/updates';
   const isPainpoints = pathname === '/data-export/painpoints';
   const isSchatting = pathname === '/data-export/schatting';
+  const isBereik = pathname === '/data-export/bereik';
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -102,6 +103,19 @@ export default function DataExportLayout({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3v18h18M7 14l4-4 3 3 5-5" />
               </svg>
               Schatting pakketpunten
+            </Link>
+            <Link
+              href="/data-export/bereik"
+              className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
+                isBereik
+                  ? 'border-emerald-600 text-emerald-600'
+                  : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+              }`}
+            >
+              <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              Bereik inwoners
             </Link>
           </nav>
         </div>
