@@ -1373,9 +1373,11 @@ function MapComponent(props?: MapProps) {
         const isPC4 = level === 'pc4';
         const polygonData = isPC4 ? pc4Data : muniBoundaries;
         if (!polygonData) return null;
+        // Greens swapped for blues so high-coverage polygons stand out from
+        // the basemap's parks/forests. Keeps the warm-to-cool ramp readable.
         const coverageColor = (pct: number) => {
-          if (pct >= 80) return '#10b981'; // emerald-500
-          if (pct >= 60) return '#22c55e'; // green-500
+          if (pct >= 80) return '#1d4ed8'; // blue-700
+          if (pct >= 60) return '#3b82f6'; // blue-500
           if (pct >= 40) return '#eab308'; // yellow-500
           if (pct >= 20) return '#f97316'; // orange-500
           if (pct > 0)   return '#ef4444'; // red-500
@@ -1399,11 +1401,11 @@ function MapComponent(props?: MapProps) {
                 pct = row?.[scope]?.[subset]?.[dist]?.pct ?? 0;
               }
               return {
-                color: '#065f46',
-                weight: isPC4 ? 0.4 : 0.7,
-                opacity: 0.45,
+                color: '#1e3a8a',
+                weight: isPC4 ? 0.5 : 0.8,
+                opacity: 0.6,
                 fillColor: coverageColor(pct),
-                fillOpacity: 0.35,
+                fillOpacity: 0.55,
               };
             }}
             onEachFeature={(feature, layer) => {
@@ -1472,8 +1474,8 @@ function MapComponent(props?: MapProps) {
           <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#ef4444'}}/>0 – 20%</div>
           <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#f97316'}}/>20 – 40%</div>
           <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#eab308'}}/>40 – 60%</div>
-          <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#22c55e'}}/>60 – 80%</div>
-          <div className="flex items-center gap-2"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#10b981'}}/>&ge; 80%</div>
+          <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#3b82f6'}}/>60 – 80%</div>
+          <div className="flex items-center gap-2"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#1d4ed8'}}/>&ge; 80%</div>
         </div>
       )}
 

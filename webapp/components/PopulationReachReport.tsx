@@ -63,8 +63,10 @@ const nlPct = (p: number) => p.toLocaleString('nl-NL', {
 });
 
 function pctTone(pct: number): string {
-  if (pct >= 80) return 'bg-emerald-500';
-  if (pct >= 60) return 'bg-green-500';
+  // Same red→yellow→blue ramp as the map choropleth (avoids clashing with
+  // the basemap's green parks/forests).
+  if (pct >= 80) return 'bg-blue-700';
+  if (pct >= 60) return 'bg-blue-500';
   if (pct >= 40) return 'bg-yellow-500';
   if (pct >= 20) return 'bg-orange-500';
   return 'bg-red-500';
