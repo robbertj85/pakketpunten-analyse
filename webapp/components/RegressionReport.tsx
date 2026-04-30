@@ -1154,20 +1154,41 @@ function PC4DetailPanel({
 
             {/* Painpoint details */}
             {isPainpoint && painpointEntry && (
-              <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-sm space-y-1">
-                <div className="text-xs font-semibold text-red-900 uppercase tracking-wide mb-1">
-                  Gemeld door vervoerders
-                </div>
-                <div className="flex flex-wrap gap-1">
-                  {(painpointEntry.carriers ?? []).map((c: string) => (
-                    <span
-                      key={c}
-                      className="inline-block px-2 py-0.5 text-xs font-semibold bg-red-100 text-red-800 rounded"
-                    >
-                      {c}
-                    </span>
-                  ))}
-                </div>
+              <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-sm space-y-2">
+                {(painpointEntry.carriers ?? []).length > 0 && (
+                  <div>
+                    <div className="text-xs font-semibold text-red-900 uppercase tracking-wide mb-1">
+                      Gemeld door carriers
+                    </div>
+                    <div className="flex flex-wrap gap-1">
+                      {painpointEntry.carriers.map((c: string) => (
+                        <span
+                          key={c}
+                          className="inline-block px-2 py-0.5 text-xs font-semibold bg-red-100 text-red-800 rounded"
+                        >
+                          {c}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {(painpointEntry.gemeenten ?? []).length > 0 && (
+                  <div>
+                    <div className="text-xs font-semibold text-blue-900 uppercase tracking-wide mb-1">
+                      Gemeld door G4-gemeente
+                    </div>
+                    <div className="flex flex-wrap gap-1">
+                      {painpointEntry.gemeenten.map((g: string) => (
+                        <span
+                          key={g}
+                          className="inline-block px-2 py-0.5 text-xs font-semibold bg-blue-100 text-blue-800 rounded"
+                        >
+                          Gemeente {g}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 {(painpointEntry.notes ?? []).length > 0 && (
                   <ul className="list-disc pl-4 text-xs text-red-900/80 mt-1">
                     {painpointEntry.notes.map((n: string, i: number) => (

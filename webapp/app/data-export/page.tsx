@@ -11,7 +11,7 @@ interface Municipality {
 
 export default function DownloadsPage() {
   const [municipalities, setMunicipalities] = useState<Municipality[]>([]);
-  const [downloadStatus, setDownloadStatus] = useState<string>('');
+  const [downloadStatus, setDownloadStatus] = useState<{ type: 'ok' | 'warn' | 'error'; message: string } | null>(null);
   const [isDownloading, setIsDownloading] = useState(false);
   const [nederlandStats, setNederlandStats] = useState<{ totalPoints: number; municipalityCount: number }>({ totalPoints: 0, municipalityCount: 0 });
 
@@ -38,13 +38,13 @@ export default function DownloadsPage() {
 
   const handleDownload = async (slug: string, format: 'json' | 'csv') => {
     setIsDownloading(true);
-    setDownloadStatus('');
+    setDownloadStatus(null);
 
     try {
       const response = await fetch(`/api/download?slug=${slug}&format=${format}`);
 
       if (response.status === 429) {
-        setDownloadStatus('⚠️ Te veel downloads. Probeer later opnieuw (max 5 downloads per uur).');
+        setDownloadStatus({ type: 'warn', message: 'Te veel downloads. Probeer later opnieuw (max 5 downloads per uur).' });
         setIsDownloading(false);
         return;
       }
@@ -63,9 +63,9 @@ export default function DownloadsPage() {
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
 
-      setDownloadStatus('✅ Download gestart!');
+      setDownloadStatus({ type: 'ok', message: 'Download gestart.' });
     } catch (error) {
-      setDownloadStatus(`❌ Error: ${error instanceof Error ? error.message : 'Onbekende fout'}`);
+      setDownloadStatus({ type: 'error', message: error instanceof Error ? error.message : 'Onbekende fout' });
     } finally {
       setIsDownloading(false);
     }
@@ -79,11 +79,11 @@ export default function DownloadsPage() {
       {/* Status message */}
         {downloadStatus && (
           <div className={`mb-6 p-4 rounded-lg ${
-            downloadStatus.startsWith('✅') ? 'bg-green-50 text-green-800' :
-            downloadStatus.startsWith('⚠️') ? 'bg-amber-50 text-amber-800' :
+            downloadStatus.type === 'ok' ? 'bg-green-50 text-green-800' :
+            downloadStatus.type === 'warn' ? 'bg-amber-50 text-amber-800' :
             'bg-red-50 text-red-800'
           }`}>
-            {downloadStatus}
+            {downloadStatus.message}
           </div>
         )}
 
@@ -103,7 +103,7 @@ export default function DownloadsPage() {
                   </p>
                   {nederlandStats.totalPoints > 0 && (
                     <p className="text-sm font-semibold text-gray-900 mt-2">
-                      📍 {nederlandStats.totalPoints.toLocaleString('nl-NL')} pakketpunten
+                      {nederlandStats.totalPoints.toLocaleString('nl-NL')} pakketpunten
                     </p>
                   )}
                 </div>

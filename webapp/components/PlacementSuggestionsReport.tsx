@@ -67,10 +67,23 @@ export interface PainpointEntry {
   city?: string;
   municipality?: string;
   carriers: string[];
+  gemeenten?: string[];
   notes?: string[];
   pakketpunten?: { total: number; locker: number; shop: number };
 }
 export type PainpointsByPc4 = Record<string, PainpointEntry>;
+
+export type PainpointMatchKind = 'carrier' | 'gemeente' | 'both';
+
+export function painpointMatch(entry: PainpointEntry | undefined): PainpointMatchKind | null {
+  if (!entry) return null;
+  const c = (entry.carriers?.length ?? 0) > 0;
+  const g = (entry.gemeenten?.length ?? 0) > 0;
+  if (c && g) return 'both';
+  if (c) return 'carrier';
+  if (g) return 'gemeente';
+  return null;
+}
 
 export interface ModelMeta {
   label: string;
@@ -255,23 +268,43 @@ export default function PlacementSuggestionsReport({
   // The server ships up to TOP_N PC4s — that caps how many the toggle can show.
   const availableTopN = block?.pc4s.length ?? 0;
 
-  // PC4s in the selected gemeente that carriers flagged as pijnpunten.
+  // PC4s in the selected gemeente flagged as a pijnpunt by either a carrier
+  // (≥ threshold carriers) OR by the G4-gemeente itself. Gemeente-flagged
+  // PC4s are always included regardless of the carrier-threshold slider.
   const muniPainpoints = useMemo(() => {
     if (!painpoints || !block) return [];
     const muniName = block.gemeente;
-    const rows: Array<{ pc4: string; entry: PainpointEntry }> = [];
+    const rows: Array<{ pc4: string; entry: PainpointEntry; kind: PainpointMatchKind }> = [];
     for (const [pc4, entry] of Object.entries(painpoints)) {
       if (entry.municipality !== muniName) continue;
-      if ((entry.carriers?.length ?? 0) < painpointThreshold) continue;
-      rows.push({ pc4, entry });
+      const kind = painpointMatch(entry);
+      if (!kind) continue;
+      const passesCarrierThreshold = (entry.carriers?.length ?? 0) >= painpointThreshold;
+      const hasGemeenteFlag = (entry.gemeenten?.length ?? 0) > 0;
+      if (!passesCarrierThreshold && !hasGemeenteFlag) continue;
+      rows.push({ pc4, entry, kind });
     }
     rows.sort(
       (a, b) =>
         b.entry.carriers.length - a.entry.carriers.length ||
+        (b.entry.gemeenten?.length ?? 0) - (a.entry.gemeenten?.length ?? 0) ||
         a.pc4.localeCompare(b.pc4),
     );
     return rows;
   }, [painpoints, block, painpointThreshold]);
+
+  // Quick lookup for the map-card badges: PC4 → match kind (or null).
+  const matchByPc4 = useMemo(() => {
+    const m = new Map<string, PainpointMatchKind>();
+    if (!painpoints || !block) return m;
+    const muniName = block.gemeente;
+    for (const [pc4, entry] of Object.entries(painpoints)) {
+      if (entry.municipality !== muniName) continue;
+      const kind = painpointMatch(entry);
+      if (kind) m.set(pc4, kind);
+    }
+    return m;
+  }, [painpoints, block]);
 
   // Max carriers seen across the whole painpoints dataset — caps the slider.
   const painpointMaxCarriers = useMemo(() => {
@@ -565,11 +598,36 @@ export default function PlacementSuggestionsReport({
                 const newScore = rankedPc4s.find(
                   (rr) => rr.pc4 === r.pc4,
                 )?.priority ?? r.priority;
+                const match = matchByPc4.get(r.pc4) ?? null;
+                const matchBadge = (() => {
+                  if (!match) return null;
+                  const label =
+                    match === 'both'
+                      ? 'Pijnpunt · carrier + gemeente'
+                      : match === 'carrier'
+                        ? 'Pijnpunt · carrier'
+                        : 'Pijnpunt · gemeente';
+                  const tone =
+                    match === 'both'
+                      ? 'bg-blue-700 text-white border-blue-800'
+                      : match === 'carrier'
+                        ? 'bg-blue-100 text-blue-800 border-blue-200'
+                        : 'bg-blue-50 text-blue-800 border-blue-300';
+                  return (
+                    <span
+                      className={`text-[10px] uppercase tracking-wide font-semibold px-1.5 py-0.5 rounded border ${tone}`}
+                      title={label}
+                    >
+                      {label}
+                    </span>
+                  );
+                })();
                 return (
                 <div key={r.pc4} className="border border-gray-200 rounded-lg overflow-hidden">
-                  <div className="px-3 py-2 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
-                    <div className="text-sm">
+                  <div className="px-3 py-2 bg-gray-50 border-b border-gray-200 flex items-center justify-between gap-2 flex-wrap">
+                    <div className="text-sm flex items-center gap-2 flex-wrap">
                       <span className="font-mono font-semibold text-gray-900">#{newRank} · PC4 {r.pc4}</span>
+                      {matchBadge}
                     </div>
                     <span className={`text-xs px-2 py-0.5 rounded font-mono tabular-nums ${priorityTone(newScore)}`}>
                       {newScore >= 0 ? '+' : ''}{nlNum1(newScore)}
@@ -616,24 +674,25 @@ export default function PlacementSuggestionsReport({
         </div>
       )}
 
-      {/* Pijnpunten cross-reference — PC4s flagged by ≥N carriers in this gemeente */}
+      {/* Pijnpunten cross-reference — PC4s flagged by carriers ≥ threshold OR by the G4-gemeente */}
       {painpoints && block && (
         <section className="mt-8 bg-white rounded-lg shadow-md p-6">
           <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
             <div>
               <h3 className="text-lg font-semibold text-gray-900">
-                Pijnpunten gemeld door vervoerders
+                Pijnpunten in {block.gemeente}
               </h3>
               <p className="text-sm text-gray-600">
-                PC4s in {block.gemeente} die door minimaal{' '}
+                PC4s aangedragen door minimaal{' '}
                 <strong>{painpointThreshold}</strong>{' '}
-                {painpointThreshold === 1 ? 'vervoerder' : 'vervoerders'} als
-                pijnpunt zijn aangedragen.
+                {painpointThreshold === 1 ? 'vervoerder' : 'vervoerders'} of
+                door de gemeente zelf. Gemeente-meldingen tellen altijd mee,
+                ongeacht de drempel.
               </p>
             </div>
             <div className="flex items-center gap-2 text-xs">
               <label htmlFor="pp-threshold" className="text-gray-600">
-                Drempel:
+                Drempel carriers:
               </label>
               <input
                 id="pp-threshold"
@@ -652,16 +711,21 @@ export default function PlacementSuggestionsReport({
                 href="/data-export/painpoints"
                 className="ml-3 inline-flex items-center gap-1 text-blue-700 hover:text-blue-900 font-medium"
               >
-                Volledig overzicht →
+                Carriers →
+              </Link>
+              <Link
+                href="/data-export/gemeente-painpoints"
+                className="inline-flex items-center gap-1 text-blue-700 hover:text-blue-900 font-medium"
+              >
+                Gemeenten →
               </Link>
             </div>
           </div>
 
           {muniPainpoints.length === 0 ? (
             <p className="text-sm text-gray-500 italic">
-              Geen PC4s gevonden met ≥ {painpointThreshold}{' '}
-              vervoerder-meldingen in {block.gemeente}. Verlaag de drempel om
-              meer te zien.
+              Geen pijnpunten gevonden in {block.gemeente} met de huidige
+              drempel. Verlaag de drempel om meer te zien.
             </p>
           ) : (
             <div className="overflow-x-auto -mx-6 px-6">
@@ -669,10 +733,12 @@ export default function PlacementSuggestionsReport({
                 <thead className="border-b border-gray-200">
                   <tr className="text-left">
                     <th className="px-2 py-2 text-xs font-semibold text-gray-600">PC4</th>
+                    <th className="px-2 py-2 text-xs font-semibold text-gray-600">Bron</th>
                     <th className="px-2 py-2 text-xs font-semibold text-gray-600 text-right">
                       # vervoerders
                     </th>
                     <th className="px-2 py-2 text-xs font-semibold text-gray-600">Vervoerders</th>
+                    <th className="px-2 py-2 text-xs font-semibold text-gray-600">Gemeente</th>
                     <th className="px-2 py-2 text-xs font-semibold text-gray-600 text-right">
                       Bestaande PP
                     </th>
@@ -681,12 +747,25 @@ export default function PlacementSuggestionsReport({
                   </tr>
                 </thead>
                 <tbody>
-                  {muniPainpoints.map(({ pc4, entry }) => {
+                  {muniPainpoints.map(({ pc4, entry, kind }) => {
                     const inTop5 = rankedPc4s.some((r) => r.pc4 === pc4);
                     const top5Rank = rankedPc4s.findIndex((r) => r.pc4 === pc4) + 1;
+                    const kindLabel =
+                      kind === 'both' ? 'Carrier + gemeente'
+                      : kind === 'carrier' ? 'Carrier'
+                      : 'Gemeente';
+                    const kindTone =
+                      kind === 'both' ? 'bg-blue-700 text-white'
+                      : kind === 'carrier' ? 'bg-blue-100 text-blue-800'
+                      : 'bg-blue-50 text-blue-800 border border-blue-300';
                     return (
                       <tr key={pc4} className="border-b border-gray-100 hover:bg-blue-50/40">
                         <td className="px-2 py-2 font-mono text-gray-900">{pc4}</td>
+                        <td className="px-2 py-2">
+                          <span className={`inline-block px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide rounded ${kindTone}`}>
+                            {kindLabel}
+                          </span>
+                        </td>
                         <td className="px-2 py-2 text-right tabular-nums font-semibold text-blue-800">
                           {entry.carriers.length}
                         </td>
@@ -702,6 +781,22 @@ export default function PlacementSuggestionsReport({
                             ))}
                           </div>
                         </td>
+                        <td className="px-2 py-2">
+                          {(entry.gemeenten ?? []).length === 0 ? (
+                            <span className="text-gray-400">—</span>
+                          ) : (
+                            <div className="flex flex-wrap gap-1">
+                              {(entry.gemeenten ?? []).map((g) => (
+                                <span
+                                  key={g}
+                                  className="inline-block px-1.5 py-0.5 text-[10px] font-medium bg-blue-50 text-blue-800 border border-blue-300 rounded"
+                                >
+                                  Gemeente {g}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+                        </td>
                         <td className="px-2 py-2 text-right tabular-nums text-gray-700">
                           {entry.pakketpunten?.total ?? '—'}
                         </td>
@@ -716,7 +811,7 @@ export default function PlacementSuggestionsReport({
                         </td>
                         <td className="px-2 py-2 text-xs">
                           <Link
-                            href={`/data-export/painpoints#${pc4}`}
+                            href={`/data-export/${kind === 'gemeente' ? 'gemeente-painpoints' : 'painpoints'}#${pc4}`}
                             className="text-blue-700 hover:text-blue-900 font-medium"
                           >
                             Bekijk →
@@ -731,10 +826,12 @@ export default function PlacementSuggestionsReport({
           )}
 
           <p className="mt-3 text-[11px] text-gray-500">
-            Bron: handmatig samengestelde lijst uit bilaterale gesprekken met
-            vervoerders. PC4s die ook in de top-5 prioriteits-PC4s staan
-            (kolom &quot;In top-5 advies?&quot;) zijn dubbel-bevestigde
-            kandidaten — zowel data-gedreven als door carriers genoemd.
+            Bronnen: <Link href="/data-export/painpoints" className="text-blue-700 hover:text-blue-900">vervoerder-meldingen</Link>{' '}
+            (Convenant Duurzame Pakketlogistiek) en{' '}
+            <Link href="/data-export/gemeente-painpoints" className="text-blue-700 hover:text-blue-900">G4-gemeenten</Link>.
+            PC4s die ook in de top-5 prioriteits-PC4s staan (kolom &quot;In
+            top-5 advies?&quot;) zijn dubbel-bevestigde kandidaten — zowel
+            data-gedreven als door een externe partij genoemd.
           </p>
         </section>
       )}

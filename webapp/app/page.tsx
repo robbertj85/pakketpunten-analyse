@@ -276,7 +276,7 @@ export default function Home() {
       console.log(`Loading: ${progress.loaded}/${progress.total} provinces (${progress.percentage}%)`);
     })
       .then((boundariesData) => {
-        console.log(`✅ Boundaries loaded successfully! ${boundariesData.metadata.total_boundaries} boundaries from ${boundariesData.metadata.provinces_loaded} provinces`);
+        console.log(`Boundaries loaded: ${boundariesData.metadata.total_boundaries} boundaries from ${boundariesData.metadata.provinces_loaded} provinces`);
         // Merge boundary features into existing data
         if (data) {
           setData({

@@ -630,6 +630,7 @@ function MapComponent(props?: MapProps) {
     g4_city?: string;
     municipality?: string | null;
     carriers: string[];
+    gemeenten?: string[];
     notes?: string[];
     stats?: {
       area_km2: number | null;
@@ -1854,7 +1855,9 @@ function MapComponent(props?: MapProps) {
           style={(feature) => {
             const code = String(feature?.properties?.pc4 ?? '');
             const entry = painPoints[code];
-            const count = entry?.carriers.length ?? 0;
+            // Combined intensity: any source counts (carriers + G4-gemeenten).
+            const count =
+              (entry?.carriers.length ?? 0) + (entry?.gemeenten?.length ?? 0);
             // Violet ramp — separates this layer from blue Plaatsingsadvies.
             const fillColor =
               count >= 4 ? '#4c1d95' : // violet-900
@@ -2076,14 +2079,40 @@ function MapComponent(props?: MapProps) {
           </div>
 
           <div className="px-4 py-3 border-b border-gray-200 bg-gray-50">
-            <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">Gemeld als pijnpunt door</div>
-            <div className="flex flex-wrap gap-1 mb-3">
-              {selectedPainpointEntry.carriers.map((c) => (
-                <span key={c} className="px-2 py-0.5 text-xs font-semibold bg-violet-100 text-violet-800 rounded">
-                  {c}
-                </span>
-              ))}
-            </div>
+            {selectedPainpointEntry.carriers.length > 0 && (
+              <>
+                <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">
+                  Gemeld door carriers
+                </div>
+                <div className="flex flex-wrap gap-1 mb-3">
+                  {selectedPainpointEntry.carriers.map((c) => (
+                    <span
+                      key={c}
+                      className="px-2 py-0.5 text-xs font-semibold bg-violet-100 text-violet-800 rounded"
+                    >
+                      {c}
+                    </span>
+                  ))}
+                </div>
+              </>
+            )}
+            {selectedPainpointEntry.gemeenten && selectedPainpointEntry.gemeenten.length > 0 && (
+              <>
+                <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">
+                  Gemeld door G4-gemeente
+                </div>
+                <div className="flex flex-wrap gap-1 mb-3">
+                  {selectedPainpointEntry.gemeenten.map((g) => (
+                    <span
+                      key={g}
+                      className="px-2 py-0.5 text-xs font-semibold bg-blue-100 text-blue-800 rounded"
+                    >
+                      Gemeente {g}
+                    </span>
+                  ))}
+                </div>
+              </>
+            )}
             {selectedPainpointEntry.notes && selectedPainpointEntry.notes.length > 0 && (
               <div className="mb-3 space-y-1">
                 {selectedPainpointEntry.notes.map((n, i) => (

@@ -31,6 +31,7 @@ interface Painpoint {
   g4_city?: string;
   municipality?: string | null;
   carriers: string[];
+  gemeenten?: string[];
   notes?: string[];
   stats?: PainpointStats;
   pakketpunten: {
@@ -96,6 +97,7 @@ export interface PainpointsPayload {
   generated_at: string;
   source: string;
   painpoints: Record<string, Painpoint>;
+  gemeente_status?: Record<string, 'ontvangen' | 'openstaand'>;
   model?: ModelMeta;
   scatter?: ScatterPoint[];
   mean_area_km2?: number;
@@ -297,8 +299,15 @@ function SortBuilder<K extends string>({
 }
 
 export default function PainpointsReport({ payload }: { payload: PainpointsPayload }) {
+  // This report covers ONLY PC4s flagged by carriers. PC4s that were only
+  // reported by a G4-gemeente (and not by any carrier) live on the separate
+  // /data-export/gemeente-painpoints page so the two source types stay
+  // explicitly separated.
   const entries = useMemo(
-    () => Object.entries(payload.painpoints).sort(([a], [b]) => a.localeCompare(b)),
+    () =>
+      Object.entries(payload.painpoints)
+        .filter(([, v]) => (v.carriers?.length ?? 0) > 0)
+        .sort(([a], [b]) => a.localeCompare(b)),
     [payload]
   );
 
@@ -399,13 +408,23 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
       <div className="space-y-8">
         {/* Intro */}
         <section>
-          <h2 className="text-xl font-bold text-gray-900 mb-2">PC4-Pijnpunten per Carrier</h2>
+          <h2 className="text-xl font-bold text-gray-900 mb-2">PC4-Pijnpunten — gemeld door carriers</h2>
           <p className="text-sm text-gray-600">
-            Probleemgebieden zoals aangeleverd door vervoerders in het kader van het
+            Probleemgebieden zoals aangeleverd door <strong>vervoerders</strong> in het kader van het
             Convenant Duurzame Pakketlogistiek (G4). Bron:{' '}
             <code className="text-xs bg-gray-100 px-1 py-0.5 rounded">{payload.source}</code>, laatst
             bijgewerkt {new Date(payload.generated_at).toLocaleDateString('nl-NL')}.
             Klik op een rij om de kaart met de PC4-zone en pakketpunten te openen.
+          </p>
+          <p className="text-sm text-gray-600 mt-2">
+            Pijnpunten die door de <strong>G4-gemeenten zelf</strong> zijn aangeleverd staan op een
+            aparte pagina:{' '}
+            <a
+              href="/data-export/gemeente-painpoints"
+              className="text-blue-700 hover:text-blue-900 underline underline-offset-2 font-medium"
+            >
+              Pijnpunten per gemeente →
+            </a>
           </p>
         </section>
 
@@ -670,14 +689,40 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
 
             {/* Stats */}
             <div className="px-4 py-3 border-b border-gray-200 bg-gray-50">
-              <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">Gemeld als pijnpunt door</div>
-              <div className="flex flex-wrap gap-1 mb-3">
-                {selected.carriers.map((c) => (
-                  <span key={c} className="px-2 py-0.5 text-xs font-semibold bg-blue-100 text-blue-800 rounded">
-                    {c}
-                  </span>
-                ))}
-              </div>
+              {selected.carriers.length > 0 && (
+                <>
+                  <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">
+                    Gemeld door carriers
+                  </div>
+                  <div className="flex flex-wrap gap-1 mb-3">
+                    {selected.carriers.map((c) => (
+                      <span
+                        key={c}
+                        className="px-2 py-0.5 text-xs font-semibold bg-blue-100 text-blue-800 rounded"
+                      >
+                        {c}
+                      </span>
+                    ))}
+                  </div>
+                </>
+              )}
+              {selected.gemeenten && selected.gemeenten.length > 0 && (
+                <>
+                  <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">
+                    Gemeld door G4-gemeente
+                  </div>
+                  <div className="flex flex-wrap gap-1 mb-3">
+                    {selected.gemeenten.map((g) => (
+                      <span
+                        key={g}
+                        className="px-2 py-0.5 text-xs font-semibold bg-blue-100 text-blue-800 rounded"
+                      >
+                        Gemeente {g}
+                      </span>
+                    ))}
+                  </div>
+                </>
+              )}
               {selected.notes && selected.notes.length > 0 && (
                 <div className="mb-3 space-y-1">
                   {selected.notes.map((n, i) => (
