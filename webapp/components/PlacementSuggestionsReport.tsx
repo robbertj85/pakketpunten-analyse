@@ -13,6 +13,26 @@ const SuggestionMiniMap = dynamic(() => import('./SuggestionMiniMap'), {
   ),
 });
 
+const PainpointMiniMap = dynamic(() => import('./PainpointMiniMap'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full flex items-center justify-center bg-gray-50 text-xs text-gray-500">
+      Kaart laden...
+    </div>
+  ),
+});
+
+interface PainpointPoint {
+  lat: number;
+  lng: number;
+  vervoerder: string;
+  category: 'locker' | 'shop';
+  puntType: string;
+  locatieNaam: string;
+  straatNaam: string;
+  straatNr: string;
+}
+
 /* ------------------------------------------------------------------ Types */
 
 export interface Suggestion {
@@ -70,6 +90,7 @@ export interface PainpointEntry {
   gemeenten?: string[];
   notes?: string[];
   pakketpunten?: { total: number; locker: number; shop: number };
+  points?: PainpointPoint[];
 }
 export type PainpointsByPc4 = Record<string, PainpointEntry>;
 
@@ -199,6 +220,9 @@ export default function PlacementSuggestionsReport({
   // Pijnpunten cross-reference threshold — show PC4s with ≥ this many carrier
   // mentions. Default 2 (3 isn't very useful since the dataset's max is 3).
   const [painpointThreshold, setPainpointThreshold] = useState<number>(2);
+  // Mini-map filter for the bottom Pijnpunt-locaties grid.
+  type PainpointFilter = 'all' | 'carrier' | 'gemeente' | 'both';
+  const [painpointFilter, setPainpointFilter] = useState<PainpointFilter>('all');
 
   // ---- User-adjustable weights + regression model ---- //
   const defaultWeights = payload.weights;
@@ -833,6 +857,155 @@ export default function PlacementSuggestionsReport({
             top-5 advies?&quot;) zijn dubbel-bevestigde kandidaten — zowel
             data-gedreven als door een externe partij genoemd.
           </p>
+        </section>
+      )}
+
+      {/* Pijnpunt-locaties op de kaart — mini-map per PC4 in this gemeente */}
+      {painpoints && block && muniPainpoints.length > 0 && (
+        <section className="mt-8 bg-white rounded-lg shadow-md p-6">
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900">
+                Pijnpunt-locaties in {block.gemeente}
+              </h3>
+              <p className="text-sm text-gray-600">
+                Mini-kaart per pijnpunt-PC4 — toont de PC4-zone en de
+                bestaande pakketpunten erin. Filter op bron via de knoppen
+                hieronder.
+              </p>
+            </div>
+            <div
+              className="inline-flex rounded-md shadow-sm"
+              role="group"
+              aria-label="Filter pijnpunten op bron"
+            >
+              {(
+                [
+                  ['all', 'Alle'],
+                  ['carrier', 'Carrier'],
+                  ['gemeente', 'Gemeente'],
+                  ['both', 'Carrier + gemeente'],
+                ] as Array<[PainpointFilter, string]>
+              ).map(([key, label], idx, arr) => {
+                const active = painpointFilter === key;
+                const first = idx === 0;
+                const last = idx === arr.length - 1;
+                return (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => setPainpointFilter(key)}
+                    className={`px-3 py-1.5 text-xs font-semibold border transition ${
+                      active
+                        ? 'bg-blue-700 text-white border-blue-700'
+                        : 'bg-white text-blue-700 border-gray-300 hover:bg-blue-50'
+                    } ${first ? 'rounded-l-md' : ''} ${last ? 'rounded-r-md' : ''} ${
+                      !first ? '-ml-px' : ''
+                    }`}
+                  >
+                    {label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {(() => {
+            const filtered = muniPainpoints.filter(({ kind }) =>
+              painpointFilter === 'all' ? true : kind === painpointFilter,
+            );
+            if (filtered.length === 0) {
+              return (
+                <p className="text-sm text-gray-500 italic">
+                  Geen pijnpunten in deze categorie voor {block.gemeente}.
+                </p>
+              );
+            }
+            return (
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                {filtered.map(({ pc4, entry, kind }) => {
+                  const inTop5 = rankedPc4s.some((r) => r.pc4 === pc4);
+                  const top5Rank =
+                    rankedPc4s.findIndex((r) => r.pc4 === pc4) + 1;
+                  const kindLabel =
+                    kind === 'both'
+                      ? 'Carrier + gemeente'
+                      : kind === 'carrier'
+                        ? 'Carrier'
+                        : 'Gemeente';
+                  const kindTone =
+                    kind === 'both'
+                      ? 'bg-blue-700 text-white'
+                      : kind === 'carrier'
+                        ? 'bg-blue-100 text-blue-800'
+                        : 'bg-blue-50 text-blue-800 border border-blue-300';
+                  return (
+                    <div
+                      key={pc4}
+                      className="border border-gray-200 rounded-lg overflow-hidden"
+                    >
+                      <div className="px-3 py-2 bg-gray-50 border-b border-gray-200 flex items-center justify-between gap-2 flex-wrap">
+                        <div className="text-sm flex items-center gap-2 flex-wrap">
+                          <span className="font-mono font-semibold text-gray-900">
+                            PC4 {pc4}
+                          </span>
+                          <span
+                            className={`text-[10px] uppercase tracking-wide font-semibold px-1.5 py-0.5 rounded ${kindTone}`}
+                          >
+                            {kindLabel}
+                          </span>
+                        </div>
+                        {inTop5 && (
+                          <span className="text-[10px] uppercase tracking-wide font-semibold px-1.5 py-0.5 rounded bg-blue-700 text-white font-mono">
+                            Top-5 #{top5Rank}
+                          </span>
+                        )}
+                      </div>
+                      <div className="h-56">
+                        <PainpointMiniMap pc4={pc4} points={entry.points ?? []} />
+                      </div>
+                      <div className="px-3 py-2 text-xs text-gray-600 bg-white border-t border-gray-100 space-y-1">
+                        {entry.carriers.length > 0 && (
+                          <div className="flex flex-wrap gap-1 items-center">
+                            <span className="text-gray-500">Carriers:</span>
+                            {entry.carriers.map((c) => (
+                              <span
+                                key={c}
+                                className="inline-block px-1.5 py-0.5 text-[10px] font-medium bg-blue-100 text-blue-800 rounded"
+                              >
+                                {c}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                        {(entry.gemeenten ?? []).length > 0 && (
+                          <div className="flex flex-wrap gap-1 items-center">
+                            <span className="text-gray-500">Gemeente:</span>
+                            {(entry.gemeenten ?? []).map((g) => (
+                              <span
+                                key={g}
+                                className="inline-block px-1.5 py-0.5 text-[10px] font-medium bg-blue-50 text-blue-800 border border-blue-300 rounded"
+                              >
+                                Gemeente {g}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                        {entry.pakketpunten && (
+                          <div className="text-gray-600">
+                            Bestaande PP:{' '}
+                            <strong>{entry.pakketpunten.total}</strong>{' '}
+                            ({entry.pakketpunten.locker} automaten,{' '}
+                            {entry.pakketpunten.shop} shops)
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })()}
         </section>
       )}
 
