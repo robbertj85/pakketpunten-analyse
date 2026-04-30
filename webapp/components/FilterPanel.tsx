@@ -442,9 +442,9 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
               type="checkbox"
               checked={filters.showPainPoints}
               onChange={(e) => onChange({ ...filters, showPainPoints: e.target.checked })}
-              className="w-5 h-5 md:w-4 md:h-4 text-red-600 rounded focus:ring-2 focus:ring-red-500"
+              className="w-5 h-5 md:w-4 md:h-4 text-violet-700 rounded focus:ring-2 focus:ring-violet-500"
             />
-            <span className="w-3 h-3 rounded-sm bg-red-500/60 border border-red-600 flex-shrink-0" />
+            <span className="w-3 h-3 rounded-sm bg-violet-700/70 border border-violet-900 flex-shrink-0" />
             <span className="text-sm text-gray-900">Pijnpunten vervoerders</span>
           </label>
           <label className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-gray-50 active:bg-gray-100 transition">
@@ -466,6 +466,16 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
             />
             <span className="w-3 h-3 rounded-sm bg-emerald-500/60 border border-emerald-700 flex-shrink-0" />
             <span className="text-sm text-gray-900">Bereik inwoners (300/400/500m)</span>
+          </label>
+          <label className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-gray-50 active:bg-gray-100 transition">
+            <input
+              type="checkbox"
+              checked={filters.showSuggestions}
+              onChange={(e) => onChange({ ...filters, showSuggestions: e.target.checked })}
+              className="w-5 h-5 md:w-4 md:h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+            />
+            <span className="w-3 h-3 rounded-sm bg-blue-600/70 border border-blue-900 flex-shrink-0" />
+            <span className="text-sm text-gray-900">Plaatsingsadvies (top-5 PC4s)</span>
           </label>
           {filters.showCoverage && (
             <div className="ml-7 pt-1 pb-1 grid grid-cols-2 gap-2 text-xs">
@@ -536,6 +546,7 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
             showPainPoints: false,
             showPopulation: false,
             showCoverage: false,
+            showSuggestions: false,
             coverageLevel: 'pc4',
             coverageSubset: 'total',
             coverageDistance: '300m',

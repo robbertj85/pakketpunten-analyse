@@ -44,6 +44,20 @@ EXTENDED_FEATURES = [
     "ses_woa_total",
 ]
 BASE_FEATURES = ["population", "area_km2"]
+# Best-subset k=8 winner from `scripts/find_best_model.py` (recommendation
+# block in output/best_model_report.json). R² ≈ 0.539 vs 0.439 for the base
+# model — meaningful uplift, surfaced as an alternative regression in the
+# placement-advice page.
+K8_FEATURES = [
+    "population",
+    "avg_woz_value",
+    "oad",
+    "horeca_1km",
+    "supermarket_1km",
+    "ov_stops",
+    "crashes_freight",
+    "crashes_freight_vs_vulnerable",
+]
 
 
 def compute_vif(df: pd.DataFrame, features: list[str]) -> dict[str, float]:
@@ -72,14 +86,18 @@ def main() -> int:
 
     rows = []
     for pc4, v in stats.items():
-        rows.append({
+        row = {
             "pc4": pc4,
             "population": v["population"],
             "area_km2": v["area_km2"],
             "parcel_points": v["parcel_points"]["total"],
             "avg_income_household": v.get("avg_income_household"),
             "ses_woa_total": v.get("ses_woa_total"),
-        })
+        }
+        # Pick up every K8 feature too — they're already in pc4_stats.json.
+        for f in K8_FEATURES:
+            row.setdefault(f, v.get(f))
+        rows.append(row)
     df = pd.DataFrame(rows)
     print(f"Loaded {len(df)} PC4 rows")
 
@@ -155,6 +173,46 @@ def main() -> int:
         print(f"\n[EXTENDED] Skipped — only {ext_available} PC4s have both "
               f"income and SES-WOA (need ≥ 100).")
 
+    # ---- K=8 best-subset model (from find_best_model.py) ----
+    k8_mask = base_mask
+    for f in K8_FEATURES:
+        k8_mask = k8_mask & df[f].notna()
+    k8_available = k8_mask.sum()
+    k8_model = None
+    r2_k8 = None
+    vif_k8 = None
+    if k8_available >= 100:
+        train_k8 = df[k8_mask].copy()
+        print(f"\n[K=8] Training on {len(train_k8)} PC4s "
+              f"(dropped {len(df) - len(train_k8)} below thresholds or with "
+              f"missing K8 features)")
+        X_k8 = train_k8[K8_FEATURES].to_numpy()
+        y_k8 = train_k8["parcel_points"].to_numpy()
+        k8_model = LinearRegression()
+        k8_model.fit(X_k8, y_k8)
+        r2_k8 = k8_model.score(X_k8, y_k8)
+        print(f"R²             = {r2_k8:.4f}  (ΔR² vs base: "
+              f"{r2_k8 - r2_base:+.4f})")
+        print(f"Intercept (α)  = {k8_model.intercept_:.4f}")
+        for name, coef in zip(K8_FEATURES, k8_model.coef_):
+            print(f"β_{name:<32} = {coef:+.6f}")
+        vif_k8 = compute_vif(train_k8, K8_FEATURES)
+        print(f"VIF            = {vif_k8}")
+        _flag_high_vif(vif_k8)
+
+        # Predict for PC4s where all 8 K8 features are non-null.
+        predictable_k8 = pd.Series(True, index=df.index)
+        for f in K8_FEATURES:
+            predictable_k8 = predictable_k8 & df[f].notna()
+        df["predicted_k8"] = np.nan
+        if predictable_k8.any():
+            X_k8_all = df.loc[predictable_k8, K8_FEATURES].to_numpy()
+            df.loc[predictable_k8, "predicted_k8"] = np.clip(
+                k8_model.predict(X_k8_all), 0, None
+            ).round(2)
+    else:
+        print(f"\n[K=8] Skipped — only {k8_available} PC4s have all eight K8 features.")
+
     # Simple nationwide rates as an alternative sanity-check
     tot_pts = df["parcel_points"].sum()
     tot_pop = df["population"].sum()
@@ -179,6 +237,13 @@ def main() -> int:
         else:
             v["predicted_points_ext"] = None
             v["delta_vs_predicted_ext"] = None
+        pred_k8 = row.get("predicted_k8")
+        if pred_k8 is not None and not pd.isna(pred_k8):
+            v["predicted_points_k8"] = float(pred_k8)
+            v["delta_vs_predicted_k8"] = round(total - float(pred_k8), 2)
+        else:
+            v["predicted_points_k8"] = None
+            v["delta_vs_predicted_k8"] = None
         # Simple-rate alternative: what the nationwide ratio would yield
         v["expected_simple_rate"] = round(
             rate_per_cap * pop + rate_per_km2 * area, 2
@@ -223,6 +288,25 @@ def main() -> int:
         }
     else:
         payload["model_ext"] = None
+    if k8_model is not None:
+        payload["model_k8"] = {
+            "type": "OLS",
+            "features": K8_FEATURES,
+            "target": "parcel_points",
+            "r2": round(r2_k8, 4),
+            "delta_r2_vs_base": round(r2_k8 - r2_base, 4),
+            "intercept": float(k8_model.intercept_),
+            "coefficients": {
+                name: float(coef)
+                for name, coef in zip(K8_FEATURES, k8_model.coef_)
+            },
+            "vif": vif_k8,
+            "training_size": int(k8_mask.sum()),
+            "coverage_pct": round(100 * k8_mask.sum() / base_mask.sum(), 1),
+            "source": "scripts/find_best_model.py best-subset (k=8)",
+        }
+    else:
+        payload["model_k8"] = None
     payload["stats"] = stats
 
     with open(STATS_PATH, "w") as f:

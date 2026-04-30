@@ -64,6 +64,30 @@ python scripts/find_best_model.py --max-k 6            # ~2-3 min for a quick le
 # layer on the main map.
 python scripts/compute_population_coverage.py  # ~2-3 min on 8-core M-series
 
+# Placement-suggestion engine (per municipality). Combines regression
+# residuals (predicted minus actual parcel points), 400 m population-coverage
+# gap, PC4 density (oad), and a buffer-overlap penalty into a single PC4-level
+# priority score, then derives a suggested coordinate.
+#
+# Suggestion derivation chain:
+#   1. White-spot = PC4 polygon − 400 m buffer union of existing pakketpunten.
+#   2. Mask to inhabited 100 m cells (CBS Vierkantstatistieken — drops parks,
+#      water, farmland, golf courses).
+#   3. Pick the populated white-spot polygon with the highest CBS-grid
+#      headcount; representative point of the densest 100 m cell inside it.
+#   4. Snap to nearest BAG `pand` via PDOK WFS (preferring woon/winkel/kantoor/
+#      bijeenkomst above industrie). Result has BAG-id + bouwjaar + snap distance.
+#   5. est_new_pop_within_400m = sum of CBS cells inside both the 400 m buffer
+#      and the white-spot.
+#
+# Pre-reqs: fit_pc4_model.py (writes predicted_points) and fetch_cbs_100m_grid.py
+# (one-off, caches data/cbs/cbs_vk100_2024_inhabited.gpkg).
+# Output → webapp/public/data/placement_suggestions.json + caches BAG snaps in
+# data/bag_building_snap_cache.json (1371 entries on first full run, free thereafter).
+python scripts/fit_pc4_model.py
+python scripts/fetch_cbs_100m_grid.py            # one-off, ~30s download
+python scripts/suggest_placements.py             # ~3-5 min cold (PDOK calls), ~30s warm
+
 # Build the simplified municipality boundary GeoJSON used by the gemeente-
 # level coverage choropleth. Re-run when the polygon cache changes.
 python scripts/build_municipality_boundaries.py  # ~5s
@@ -276,6 +300,7 @@ All API calls use `requests.Session()` with proxy bypass for specific domains (h
   - `boundaries/` → Provincial boundary chunks (12 files, ~46MB total)
     - `index.json` → Metadata about all provincial files
     - `provincie-{slug}.geojson` → Individual province boundaries
+  - `placement_suggestions.json` → Per-municipality top-5 placement advice. Each suggestion is an actual BAG building (pand id + bouwjaar + gebruiksdoel) inside the largest CBS-populated white-spot of its PC4. Population estimate comes from CBS 100 m cells inside the 400 m buffer × white-spot intersection. Produced by `scripts/suggest_placements.py`.
 
 ## Performance Considerations
 

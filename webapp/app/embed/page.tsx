@@ -34,6 +34,7 @@ function EmbedContent() {
     showPainPoints: false,
     showPopulation: false,
     showCoverage: false,
+    showSuggestions: false,
     coverageLevel: 'pc4',
     coverageSubset: 'total',
     coverageDistance: '300m',

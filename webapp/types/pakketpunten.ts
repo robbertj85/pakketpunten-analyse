@@ -60,6 +60,7 @@ export interface Filters {
   showPainPoints: boolean;
   showPopulation: boolean;
   showCoverage: boolean;
+  showSuggestions: boolean;
   coverageLevel: CoverageLevel;
   coverageSubset: CoverageSubset;
   coverageDistance: CoverageDistance;

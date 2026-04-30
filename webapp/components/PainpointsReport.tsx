@@ -265,7 +265,7 @@ function SortBuilder<K extends string>({
                 type="button"
                 onClick={() => removeAt(i)}
                 aria-label="Verwijder sorteer-niveau"
-                className="text-gray-400 hover:text-red-600 text-lg leading-none px-1"
+                className="text-gray-400 hover:text-blue-700 text-lg leading-none px-1"
               >
                 ×
               </button>
@@ -497,7 +497,7 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                     key={pc4}
                     onClick={() => setSelectedPc4(pc4)}
                     className={`cursor-pointer transition-colors ${
-                      selectedPc4 === pc4 ? 'bg-red-50' : 'hover:bg-gray-50'
+                      selectedPc4 === pc4 ? 'bg-blue-50' : 'hover:bg-gray-50'
                     }`}
                   >
                     <td className="px-3 py-2 font-mono font-semibold text-gray-900">{pc4}</td>
@@ -507,7 +507,7 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                         {v.carriers.map((c) => (
                           <span
                             key={c}
-                            className="inline-block px-2 py-0.5 text-xs font-semibold bg-red-100 text-red-800 rounded"
+                            className="inline-block px-2 py-0.5 text-xs font-semibold bg-blue-100 text-blue-800 rounded"
                           >
                             {c}
                           </span>
@@ -582,7 +582,7 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                             key={r.pc4}
                             onClick={() => setSelectedPc4(r.pc4)}
                             className={`cursor-pointer transition-colors ${
-                              selectedPc4 === r.pc4 ? 'bg-red-50' : 'hover:bg-gray-50'
+                              selectedPc4 === r.pc4 ? 'bg-blue-50' : 'hover:bg-gray-50'
                             }`}
                           >
                             <td className="px-3 py-2 font-mono font-semibold text-gray-900">{r.pc4}</td>
@@ -621,8 +621,8 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                         onClick={() => setSelectedPc4(pc4)}
                         className={`px-2 py-0.5 text-xs font-mono rounded transition ${
                           selectedPc4 === pc4
-                            ? 'bg-red-600 text-white'
-                            : 'bg-gray-100 text-gray-700 hover:bg-red-100 hover:text-red-800'
+                            ? 'bg-blue-700 text-white'
+                            : 'bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-800'
                         }`}
                       >
                         {pc4}
@@ -673,7 +673,7 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
               <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">Gemeld als pijnpunt door</div>
               <div className="flex flex-wrap gap-1 mb-3">
                 {selected.carriers.map((c) => (
-                  <span key={c} className="px-2 py-0.5 text-xs font-semibold bg-red-100 text-red-800 rounded">
+                  <span key={c} className="px-2 py-0.5 text-xs font-semibold bg-blue-100 text-blue-800 rounded">
                     {c}
                   </span>
                 ))}

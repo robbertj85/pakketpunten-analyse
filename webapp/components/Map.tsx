@@ -181,6 +181,35 @@ function ZoomWatcher({ onZoomChange }: { onZoomChange: (zoom: number) => void })
   return null;
 }
 
+// Persists the current center+zoom into a ref so we can restore it across
+// MapContainer remounts. Toggling Logo iconen ↔ Gekleurde stippen forces a
+// remount (Leaflet's preferCanvas is fixed at construction); without this
+// the new map would snap back to the default Amsterdam view + zoom 12.
+function ViewportRecorder({
+  viewportRef,
+}: {
+  viewportRef: React.MutableRefObject<{ center: [number, number]; zoom: number } | null>;
+}) {
+  const map = useMap();
+  useEffect(() => {
+    const record = () => {
+      const c = map.getCenter();
+      viewportRef.current = {
+        center: [c.lat, c.lng],
+        zoom: map.getZoom(),
+      };
+    };
+    record(); // capture initial view
+    map.on('moveend', record);
+    map.on('zoomend', record);
+    return () => {
+      map.off('moveend', record);
+      map.off('zoomend', record);
+    };
+  }, [map, viewportRef]);
+  return null;
+}
+
 // Component to add scale control (distance legend)
 function ScaleControl() {
   const map = useMap();
@@ -590,6 +619,10 @@ function MapComponent(props?: MapProps) {
   // Hooks MUST be at the very top
   const [mounted, setMounted] = useState(false);
   const [currentZoom, setCurrentZoom] = useState(12);
+  // Survives MapContainer remounts (e.g. when toggling marker style — that
+  // changes the `key` to swap renderers, which would otherwise reset to the
+  // default center/zoom).
+  const viewportRef = useRef<{ center: [number, number]; zoom: number } | null>(null);
   const [pc4Data, setPc4Data] = useState<any | null>(null);
   const [pc4Loading, setPc4Loading] = useState(false);
   const [painPoints, setPainPoints] = useState<Record<string, {
@@ -624,6 +657,8 @@ function MapComponent(props?: MapProps) {
     }>;
   }> | null>(null);
   const [selectedPainpointPc4, setSelectedPainpointPc4] = useState<string | null>(null);
+  // PC4 of the suggested-placement pin currently expanded in the right side panel.
+  const [selectedSuggestionPc4, setSelectedSuggestionPc4] = useState<string | null>(null);
   const [pc4Stats, setPc4Stats] = useState<Record<string, {
     area_km2: number;
     population: number;
@@ -642,6 +677,38 @@ function MapComponent(props?: MapProps) {
     municipalities: Record<string, any>;
   } | null>(null);
   const [muniBoundaries, setMuniBoundaries] = useState<any | null>(null);
+  // Placement-suggestions overlay (lazy-loaded). Keyed by municipality slug;
+  // each entry holds the top-N PC4 ranking + a suggested coordinate per PC4.
+  const [placementSuggestions, setPlacementSuggestions] = useState<{
+    weights: Record<string, number>;
+    by_municipality: Record<string, {
+      gemeente: string;
+      pc4s: Array<{
+        pc4: string;
+        priority: number;
+        actual: number;
+        predicted: number;
+        uncovered_pop: number;
+        coverage_pct_400m: number;
+        overlap_pct: number;
+        density: number;
+        population: number;
+        suggestion: {
+        lat: number; lon: number;
+        est_new_pop_within_400m: number;
+        white_spot_area_m2: number;
+        bag_distance_m?: number;
+        bag_gebruiksdoel?: string | null;
+        bag_bouwjaar?: number | null;
+        bag_identificatie?: string | null;
+        nearest_ov?: {
+          name: string; code?: string; platform?: string;
+          lat: number; lon: number; distance_m: number;
+        } | null;
+      } | null;
+      }>;
+    }>;
+  } | null>(null);
 
   // Extract props with defaults AFTER hooks
   const data = props?.data ?? null;
@@ -661,6 +728,7 @@ function MapComponent(props?: MapProps) {
     showPainPoints: false,
     showPopulation: false,
     showCoverage: false,
+    showSuggestions: false,
     coverageLevel: 'pc4',
     coverageSubset: 'total',
     coverageDistance: '300m',
@@ -682,7 +750,8 @@ function MapComponent(props?: MapProps) {
   // Also needed for the pain-points overlay and population-density overlay
   // since both style the same PC4 polygons.
   const needsPc4 = activeFilters.showPC4 || activeFilters.showPainPoints || activeFilters.showPopulation
-    || (activeFilters.showCoverage && activeFilters.coverageLevel === 'pc4');
+    || (activeFilters.showCoverage && activeFilters.coverageLevel === 'pc4')
+    || activeFilters.showSuggestions;
   useEffect(() => {
     if (!needsPc4 || pc4Data || pc4Loading) return;
     setPc4Loading(true);
@@ -737,6 +806,19 @@ function MapComponent(props?: MapProps) {
       }))
       .catch((err) => console.error('Failed to load population_coverage:', err));
   }, [activeFilters.showCoverage, coverageData]);
+
+  // Lazy-load placement suggestions when the toggle is on. Only meaningful
+  // when a single municipality is selected (not the Nederland view).
+  useEffect(() => {
+    if (!activeFilters.showSuggestions || placementSuggestions) return;
+    fetch('/data/placement_suggestions.json')
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then(setPlacementSuggestions)
+      .catch((err) => console.error('Failed to load placement_suggestions:', err));
+  }, [activeFilters.showSuggestions, placementSuggestions]);
 
   // Lazy-load municipality boundaries only when the gemeente level is picked
   useEffect(() => {
@@ -1197,6 +1279,7 @@ function MapComponent(props?: MapProps) {
   // Clear selection when the pain-point layer is disabled
   useEffect(() => {
     if (!activeFilters.showPainPoints) setSelectedPainpointPc4(null);
+    if (!activeFilters.showSuggestions) setSelectedSuggestionPc4(null);
   }, [activeFilters.showPainPoints]);
 
   // Early returns AFTER all hooks to maintain hook order
@@ -1235,12 +1318,13 @@ function MapComponent(props?: MapProps) {
     <div className={`relative w-full h-full ${showPc4Labels ? 'show-pc4-labels' : ''}`}>
       <MapContainer
         key={`map-${useSimpleMarkers ? 'simple' : 'detailed'}`} // Force remount when rendering mode changes
-        center={[52.3676, 4.9041]} // Amsterdam as default
-        zoom={12}
+        center={viewportRef.current?.center ?? [52.3676, 4.9041]} // restore prior view if we have one
+        zoom={viewportRef.current?.zoom ?? 12}
         style={{ width: '100%', height: '100%' }}
         className="z-0"
         preferCanvas={useSimpleMarkers} // Use Canvas renderer for better performance
       >
+      <ViewportRecorder viewportRef={viewportRef} />
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -1479,37 +1563,325 @@ function MapComponent(props?: MapProps) {
         </div>
       )}
 
-      {/* Carrier pain-point PC4s (filled red polygons with per-carrier tooltip) */}
-      {activeFilters.showPainPoints && painPointsGeoJSON && painPoints && (
+      {/* Placement-suggestions overlay (top-N PC4 choropleth + suggested pins).
+          Only renders when a single municipality is selected. */}
+      {activeFilters.showSuggestions && placementSuggestions && pc4Data && (() => {
+        const slug = data?.metadata?.slug;
+        if (!slug || slug === 'nederland') return null;
+        const block = placementSuggestions.by_municipality[slug];
+        if (!block) return null;
+        // Map PC4 → record so the GeoJSON style callback can colour by priority.
+        const byPc4: Record<string, typeof block.pc4s[number]> = {};
+        for (const r of block.pc4s) byPc4[r.pc4] = r;
+        // Blue single-hue ramp matching the app's chrome — distinct from the
+        // red/orange pain-points layer so both can be on at once.
+        const priorityFill = (priority: number) => {
+          if (priority >= 1.5)  return '#1e3a8a'; // blue-900
+          if (priority >= 0.75) return '#1d4ed8'; // blue-700
+          if (priority >= 0)    return '#3b82f6'; // blue-500
+          if (priority >= -0.75)return '#93c5fd'; // blue-300
+          return '#dbeafe';                       // blue-100
+        };
+        // Filter pc4Data to just the top-N PC4s of this municipality.
+        const featureCollection = {
+          type: 'FeatureCollection' as const,
+          features: pc4Data.features.filter((f: any) => byPc4[f?.properties?.pc4]),
+        };
+        return (
+          <>
+            <GeoJSON
+              key={`suggestions-${slug}`}
+              data={featureCollection as any}
+              style={(feature) => {
+                const code = String(feature?.properties?.pc4 ?? '');
+                const r = byPc4[code];
+                // Highlight in amber when this PC4 is also flagged as a
+                // pijnpunt (the other layer is on AND the PC4 appears in it).
+                const isDual =
+                  activeFilters.showPainPoints
+                  && !!painPoints
+                  && code in painPoints;
+                return {
+                  color: isDual ? '#f59e0b' : '#1e3a8a', // amber-500 on overlap
+                  weight: isDual ? 4 : 1.5,
+                  opacity: 0.85,
+                  fillColor: r ? priorityFill(r.priority) : '#9ca3af',
+                  fillOpacity: 0.55,
+                };
+              }}
+              onEachFeature={(feature, layer) => {
+                const code = feature?.properties?.pc4;
+                const r = code ? byPc4[code] : null;
+                if (!r) return;
+                layer.bindTooltip(
+                  `<div style="font-size:12px;line-height:1.4">
+                     <div style="font-weight:700">PC4 ${code}</div>
+                     <div>Prioriteit: <strong>${r.priority >= 0 ? '+' : ''}${r.priority.toFixed(2)}</strong></div>
+                     <div>${r.actual} / ${r.predicted.toFixed(1)} pakketpunten (actueel/voorspeld)</div>
+                     <div>${r.population.toLocaleString('nl-NL')} inw. · ${r.coverage_pct_400m.toFixed(1)}% binnen 400m</div>
+                     ${r.suggestion ? `<div style="color:#dc2626;font-weight:600">Suggestie: +${r.suggestion.est_new_pop_within_400m.toLocaleString('nl-NL')} inw. binnen 400m</div>` : ''}
+                   </div>`,
+                  { sticky: true, direction: 'top' },
+                );
+              }}
+            />
+            {/* Suggested-coordinate pins. The selected one is rendered last
+                (so it sits on top), bigger, brighter and pulsing — there's
+                no ambiguity which pin the side panel refers to. */}
+            {block.pc4s
+              .filter((r) => r.suggestion)
+              .sort((a, b) => {
+                // Push the selected PC4 to the end of the render order
+                // (Leaflet's SVG draws later children above earlier ones).
+                if (a.pc4 === selectedSuggestionPc4) return 1;
+                if (b.pc4 === selectedSuggestionPc4) return -1;
+                return 0;
+              })
+              .map((r) => {
+                const isSelected = selectedSuggestionPc4 === r.pc4;
+                return (
+                  <CircleMarker
+                    key={`suggest-${slug}-${r.pc4}`}
+                    center={[r.suggestion!.lat, r.suggestion!.lon]}
+                    radius={isSelected ? 14 : 9}
+                    className={isSelected ? 'suggestion-pin-selected' : undefined}
+                    pathOptions={{
+                      fillColor: isSelected ? '#ea580c' : '#f59e0b', // orange-600 vs amber-500
+                      fillOpacity: 1,
+                      color: '#ffffff',
+                      weight: isSelected ? 4.5 : 2.5,
+                    }}
+                    eventHandlers={{
+                      click: () => setSelectedSuggestionPc4(r.pc4),
+                    }}
+                  />
+                );
+              })}
+          </>
+        );
+      })()}
+
+      {/* Suggestion detail side-panel — opens from the right when a pin is clicked. */}
+      {activeFilters.showSuggestions && placementSuggestions && data?.metadata?.slug && (() => {
+        const slug = data.metadata.slug;
+        if (!slug || slug === 'nederland') return null;
+        const block = placementSuggestions.by_municipality[slug];
+        if (!block) return null;
+        const sel = selectedSuggestionPc4
+          ? block.pc4s.find((r) => r.pc4 === selectedSuggestionPc4)
+          : null;
+        if (!sel || !sel.suggestion) return null;
+        const s = sel.suggestion;
+        const idx = block.pc4s.indexOf(sel) + 1;
+        const streetviewUrl = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${s.lat},${s.lon}`;
+        const mapsUrl = `https://www.google.com/maps?q=${s.lat},${s.lon}`;
+        return (
+          <div className="absolute top-4 right-4 z-[1100] w-[320px] max-h-[calc(100%-2rem)] overflow-y-auto bg-white rounded-lg shadow-xl border border-gray-200 text-sm">
+            <div className="flex items-start justify-between px-4 py-3 border-b border-gray-200 bg-blue-50 rounded-t-lg">
+              <div>
+                <div className="text-xs uppercase tracking-wide text-blue-700 font-semibold">
+                  Voorstel #{idx}
+                </div>
+                <div className="text-lg font-bold text-gray-900 font-mono">PC4 {sel.pc4}</div>
+                <div className="text-xs text-gray-600">
+                  Prioriteit{' '}
+                  <span className="font-mono font-semibold text-blue-800">
+                    {sel.priority >= 0 ? '+' : ''}{sel.priority.toFixed(2)}
+                  </span>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSelectedSuggestionPc4(null)}
+                aria-label="Sluit detailvenster"
+                className="text-gray-400 hover:text-gray-700 text-xl leading-none px-1"
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="px-4 py-3 space-y-3">
+              <div>
+                <div className="text-xs text-gray-500 uppercase tracking-wide">Adres / locatie</div>
+                <div className="font-mono text-xs text-gray-800">
+                  {s.lat.toFixed(5)}, {s.lon.toFixed(5)}
+                </div>
+                {s.bag_gebruiksdoel && (
+                  <div className="text-xs text-gray-700 mt-1">
+                    <span className="text-gray-500">BAG-pand:</span>{' '}
+                    {s.bag_gebruiksdoel}
+                    {s.bag_bouwjaar ? ` (bouwjaar ${s.bag_bouwjaar})` : ''}
+                  </div>
+                )}
+                {s.bag_identificatie && (
+                  <div className="text-[10px] text-gray-500 font-mono mt-0.5">
+                    BAG-id: {s.bag_identificatie}
+                  </div>
+                )}
+              </div>
+
+              {s.nearest_ov && (
+                <div className="border-t border-gray-100 pt-3">
+                  <div className="text-xs text-gray-500 uppercase tracking-wide">OV-halte</div>
+                  <div className="text-xs text-gray-800">
+                    <span className="font-medium">{s.nearest_ov.name}</span>{' '}
+                    <span className="text-gray-500">· {s.nearest_ov.distance_m} m</span>
+                  </div>
+                </div>
+              )}
+
+              <div className="border-t border-gray-100 pt-3 grid grid-cols-2 gap-2 text-xs">
+                <div>
+                  <div className="text-gray-500">Actueel</div>
+                  <div className="font-semibold text-gray-900">{sel.actual} pp</div>
+                </div>
+                <div>
+                  <div className="text-gray-500">Voorspeld</div>
+                  <div className="font-semibold text-gray-900">{sel.predicted.toFixed(1)} pp</div>
+                </div>
+                <div>
+                  <div className="text-gray-500">Inwoners</div>
+                  <div className="font-semibold text-gray-900">{sel.population.toLocaleString('nl-NL')}</div>
+                </div>
+                <div>
+                  <div className="text-gray-500">% binnen 400 m</div>
+                  <div className="font-semibold text-gray-900">{sel.coverage_pct_400m.toFixed(1)}%</div>
+                </div>
+                <div className="col-span-2">
+                  <div className="text-gray-500">Geschat extra bereik (400 m)</div>
+                  <div className="font-semibold text-blue-800">
+                    {s.est_new_pop_within_400m.toLocaleString('nl-NL')} inwoners
+                  </div>
+                </div>
+              </div>
+
+              <div className="border-t border-gray-100 pt-3 flex flex-col gap-1.5">
+                {/* Inline `style` enforces white text + icon stroke; without
+                    it Tailwind v4's preflight + Next.js anchor styling
+                    bleed the page link colour through, leaving low-contrast
+                    blue-on-blue (see prior bug report). */}
+                <a
+                  href={streetviewUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: '#ffffff' }}
+                  className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold bg-blue-700 hover:bg-blue-800 rounded transition no-underline"
+                >
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="#ffffff" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                  Open in Streetview
+                </a>
+                <a
+                  href={mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: '#1f2937' }}
+                  className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold bg-gray-100 hover:bg-gray-200 rounded transition no-underline"
+                >
+                  Open in Google Maps
+                </a>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* Suggestions legend */}
+      {activeFilters.showSuggestions && data?.metadata?.slug && data.metadata.slug !== 'nederland' && (
+        <div className="absolute bottom-4 right-4 z-[1000] bg-white/95 rounded-lg shadow-md p-3 text-xs text-gray-700 border border-gray-200 pointer-events-none">
+          <div className="font-semibold mb-1">Plaatsingsadvies prioriteit</div>
+          <div className="text-[10px] text-gray-500 mb-1">Top-5 PC4s · z-score binnen gemeente</div>
+          <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#1e3a8a'}}/>≥ +1.5 (zeer hoog)</div>
+          <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#1d4ed8'}}/>+0.75 – +1.5</div>
+          <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#3b82f6'}}/>0 – +0.75</div>
+          <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#93c5fd'}}/>−0.75 – 0</div>
+          <div className="flex items-center gap-2 mb-1"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#dbeafe'}}/>&lt; −0.75</div>
+          <div className="flex items-center gap-2 pt-1 border-t border-gray-200">
+            <span className="w-3 h-3 rounded-full inline-block" style={{background:'#f59e0b',border:'2px solid white',boxShadow:'0 0 0 1px #7c2d12'}}/>
+            voorgestelde locatie
+          </div>
+          {activeFilters.showPainPoints && (
+            <div className="flex items-center gap-2 mt-1 pt-1 border-t border-gray-200">
+              <span className="inline-block w-4 h-3 rounded-sm border-2" style={{borderColor:'#f59e0b', background:'#8b5cf6'}}/>
+              ook pijnpunt (carrier-melding)
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Pijnpunten legend (bottom-left so it doesn't clash with the
+          Plaatsingsadvies / Bereik legends on the right). */}
+      {activeFilters.showPainPoints && (
+        <div className="absolute bottom-4 left-4 z-[1000] bg-white/95 rounded-lg shadow-md p-3 text-xs text-gray-700 border border-gray-200 pointer-events-none">
+          <div className="font-semibold mb-1">Pijnpunten vervoerders</div>
+          <div className="text-[10px] text-gray-500 mb-1"># vervoerders dat PC4 als pijnpunt aandraagt</div>
+          <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#4c1d95'}}/>≥ 4 vervoerders</div>
+          <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#6d28d9'}}/>3 vervoerders</div>
+          <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#8b5cf6'}}/>2 vervoerders</div>
+          <div className="flex items-center gap-2 mb-1"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#a78bfa'}}/>1 vervoerder</div>
+          {activeFilters.showSuggestions && (
+            <div className="flex items-center gap-2 pt-1 border-t border-gray-200">
+              <span className="inline-block w-4 h-3 rounded-sm border-2" style={{borderColor:'#f59e0b', background:'#8b5cf6'}}/>
+              ook in plaatsingsadvies
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Carrier pain-point PC4s — violet ramp so they're distinct from the
+          blue Plaatsingsadvies layer when both are toggled on. PC4s flagged
+          in *both* layers get a thick amber stroke (same hue as the
+          suggestion pin) so the overlap is immediately readable. */}
+      {activeFilters.showPainPoints && painPointsGeoJSON && painPoints && (() => {
+        // Build a fast lookup for the active municipality's top-N
+        // Plaatsingsadvies PC4s, used to detect dual-flagged PC4s.
+        const slug = data?.metadata?.slug;
+        const suggestionPc4s = new Set<string>();
+        if (
+          activeFilters.showSuggestions
+          && placementSuggestions
+          && slug && slug !== 'nederland'
+        ) {
+          const block = placementSuggestions.by_municipality[slug];
+          for (const r of block?.pc4s ?? []) suggestionPc4s.add(r.pc4);
+        }
+        return (
         <GeoJSON
-          key="painpoints-layer"
+          key={`painpoints-layer-${suggestionPc4s.size}`}
           data={painPointsGeoJSON as any}
           style={(feature) => {
-            const entry = painPoints[feature?.properties?.pc4];
+            const code = String(feature?.properties?.pc4 ?? '');
+            const entry = painPoints[code];
             const count = entry?.carriers.length ?? 0;
-            // Categorical ramp: yellow → orange → red → dark red
+            // Violet ramp — separates this layer from blue Plaatsingsadvies.
             const fillColor =
-              count >= 4 ? '#7f1d1d' :
-              count === 3 ? '#dc2626' :
-              count === 2 ? '#f97316' :
-              '#fbbf24';
+              count >= 4 ? '#4c1d95' : // violet-900
+              count === 3 ? '#6d28d9' : // violet-700
+              count === 2 ? '#8b5cf6' : // violet-500
+              '#a78bfa';                 // violet-400
             const strokeColor =
-              count >= 4 ? '#450a0a' :
-              count === 3 ? '#991b1b' :
-              count === 2 ? '#c2410c' :
-              '#b45309';
+              count >= 4 ? '#2e1065' : // violet-950
+              count === 3 ? '#4c1d95' : // violet-900
+              count === 2 ? '#6d28d9' : // violet-700
+              '#6d28d9';                 // violet-700
+            const isDual = suggestionPc4s.has(code);
             return {
-              color: strokeColor,
-              weight: 1.5,
+              color: isDual ? '#f59e0b' : strokeColor, // amber-500 on overlap
+              weight: isDual ? 4 : 1.5,
               opacity: 1,
               fillColor,
               fillOpacity: 0.65,
+              dashArray: isDual ? undefined : undefined,
             };
           }}
           onEachFeature={(feature, layer) => {
             const code = feature?.properties?.pc4;
             const entry = code ? painPoints[code] : null;
             if (!entry) return;
+            const isDual = code ? suggestionPc4s.has(String(code)) : false;
+            const baseWeight = isDual ? 4 : 1.5;
             // Permanent PC4-code label, shown via CSS (zoom-gated)
             layer.bindTooltip(String(code), {
               permanent: true,
@@ -1517,13 +1889,14 @@ function MapComponent(props?: MapProps) {
               className: 'pc4-label',
             });
             layer.on({
-              mouseover: (e) => e.target.setStyle({ weight: 3 }),
-              mouseout: (e) => e.target.setStyle({ weight: 1.5 }),
+              mouseover: (e) => e.target.setStyle({ weight: baseWeight + 1.5 }),
+              mouseout: (e) => e.target.setStyle({ weight: baseWeight }),
               click: () => setSelectedPainpointPc4(String(code)),
             });
           }}
         />
-      )}
+        );
+      })()}
 
       {/* Render pakketpunten inside the selected painpoint PC4.
           Source is the nationwide enriched dataset so these appear even when
@@ -1706,7 +2079,7 @@ function MapComponent(props?: MapProps) {
             <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">Gemeld als pijnpunt door</div>
             <div className="flex flex-wrap gap-1 mb-3">
               {selectedPainpointEntry.carriers.map((c) => (
-                <span key={c} className="px-2 py-0.5 text-xs font-semibold bg-red-100 text-red-800 rounded">
+                <span key={c} className="px-2 py-0.5 text-xs font-semibold bg-violet-100 text-violet-800 rounded">
                   {c}
                 </span>
               ))}

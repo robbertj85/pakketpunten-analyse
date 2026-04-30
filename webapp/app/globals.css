@@ -4,6 +4,11 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  /* The page chrome is hard-coded light (Tailwind bg-white / text-gray-*),
+     so pin form-control rendering to light too. Without this, native
+     <select>/<button> controls follow the OS dark-mode preference and
+     render with low-contrast text on the white page background. */
+  color-scheme: light;
 }
 
 @theme inline {
@@ -100,3 +105,15 @@ body {
 }
 .pc4-label::before { display: none; } /* hide tooltip arrow */
 .show-pc4-labels .pc4-label { display: block; }
+
+/* Pulse animation for the currently-selected placement-suggestion pin so
+   the eye instantly maps the side panel to its pin on the map. Targets
+   the SVG path that Leaflet renders for the CircleMarker. */
+@keyframes suggestion-pin-pulse {
+  0%   { filter: drop-shadow(0 0 0px rgba(234, 88, 12, 0.7)); }
+  50%  { filter: drop-shadow(0 0 8px rgba(234, 88, 12, 0.9)); }
+  100% { filter: drop-shadow(0 0 0px rgba(234, 88, 12, 0.7)); }
+}
+.suggestion-pin-selected {
+  animation: suggestion-pin-pulse 1.6s ease-in-out infinite;
+}
