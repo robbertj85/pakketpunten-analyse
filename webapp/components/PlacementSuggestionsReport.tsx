@@ -213,6 +213,34 @@ export default function PlacementSuggestionsReport({
   );
 
   const [slug, setSlug] = useState<string>(() => slugs[0] ?? '');
+
+  // On first client render, prefer the user's last selected gemeente from
+  // localStorage / ?gemeente= so navigating between pages stays sticky.
+  // We only override the lazy-init slugs[0] default when a valid gemeente
+  // slug is found — 'nederland' / 'alle-gemeenten' (the national view) is
+  // not a key in by_municipality, so it's correctly ignored.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    const raw = params.get('gemeente');
+    const candidates = [
+      raw === 'alle-gemeenten' ? null : raw,
+      window.localStorage.getItem('lastSelectedMunicipality'),
+    ].filter((v): v is string => Boolean(v));
+    for (const c of candidates) {
+      if (c && payload.by_municipality[c]) {
+        setSlug(c);
+        return;
+      }
+    }
+    // No persisted choice — keep the alphabetical default.
+  }, [payload]);
+
+  // Persist any change so the main map and other pages pick it up next time.
+  useEffect(() => {
+    if (!slug || typeof window === 'undefined') return;
+    window.localStorage.setItem('lastSelectedMunicipality', slug);
+  }, [slug]);
   // How many PC4s to show in the ranking + mini-maps. Server ships up to 10;
   // default UI is 5 to keep the page focused.
   type TopN = 5 | 10;
