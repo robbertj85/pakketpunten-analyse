@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Zwartewaterland",
     "slug": "zwartewaterland",
-    "generated_at": "2026-04-13T05:28:44.428953Z",
-    "total_points": 28,
+    "generated_at": "2026-05-04T06:15:11.737819Z",
+    "total_points": 27,
     "providers": [
       "Amazon",
       "DHL",
@@ -12,7 +12,6 @@
       "PostNL",
       "VintedGo",
       "GLS",
-      "ViaTim",
       "InPost"
     ],
     "bounds": [
@@ -174,7 +173,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Marskramer Zwartsluis",
         "straatNaam": "Schoolstraat",
-        "straatNr": "9-SP/40",
+        "straatNr": "9-SP/60",
         "vervoerder": "DHL",
         "puntType": "parcelShop",
         "bezettingsgraad": 50,
@@ -580,29 +579,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          6.052321584392566,
-          52.58259441380742
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "ViaTim en boerderijwinkel de Rietstulp",
-        "straatNaam": "Nieuwe Wetering",
-        "straatNr": "18",
-        "vervoerder": "ViaTim",
-        "puntType": "servicepunt",
-        "bezettingsgraad": 50,
-        "latitude": 52.58259441380742,
-        "longitude": 6.052321584392566,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           6.04125,
           52.62157
         ]
@@ -974,6 +950,10 @@
           ],
           [
             [
+              [
+                6.045477269982672,
+                52.62048569330353
+              ],
               [
                 6.045287826547651,
                 52.620247554042194
@@ -1405,10 +1385,6 @@
               [
                 6.045477269982672,
                 52.62048569330353
-              ],
-              [
-                6.045287826547651,
-                52.620247554042194
               ]
             ]
           ],
@@ -3135,6 +3111,10 @@
           [
             [
               [
+                6.0468363156643195,
+                52.62013422524308
+              ],
+              [
                 6.0465837171118935,
                 52.61981670903185
               ],
@@ -3697,10 +3677,6 @@
               [
                 6.0468363156643195,
                 52.62013422524308
-              ],
-              [
-                6.0465837171118935,
-                52.61981670903185
               ]
             ]
           ],

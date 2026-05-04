@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Bunschoten",
     "slug": "bunschoten",
-    "generated_at": "2026-04-13T05:06:02.519427Z",
-    "total_points": 27,
+    "generated_at": "2026-05-04T05:51:33.129109Z",
+    "total_points": 25,
     "providers": [
       "Amazon",
       "DHL",
@@ -35,29 +35,6 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "BP-",
-        "straatNaam": "De Kronkels 3",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 52.23357849,
-        "longitude": 5.367268917,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.367268917,
-          52.23357849
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "BP",
         "straatNaam": "De Kronkels 3",
         "straatNr": "",
         "vervoerder": "Amazon",
@@ -387,29 +364,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.2517262,
         "longitude": 5.378756611,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.367268917,
-          52.23357849
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "BP",
-        "straatNaam": "De Kronkels",
-        "straatNr": "3",
-        "vervoerder": "PostNL",
-        "puntType": "servicepunt",
-        "bezettingsgraad": 50,
-        "latitude": 52.23357849,
-        "longitude": 5.367268917,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1080,6 +1034,18 @@
           [
             [
               [
+                5.37646638569386,
+                52.24277357701034
+              ],
+              [
+                5.376060555508033,
+                52.24268439693969
+              ],
+              [
+                5.375642441245367,
+                52.24262006334515
+              ],
+              [
                 5.375216068912566,
                 52.2425811956865
               ],
@@ -1422,18 +1388,6 @@
               [
                 5.37646638569386,
                 52.24277357701034
-              ],
-              [
-                5.376060555508033,
-                52.24268439693969
-              ],
-              [
-                5.375642441245367,
-                52.24262006334515
-              ],
-              [
-                5.375216068912566,
-                52.2425811956865
               ]
             ]
           ],
@@ -2392,6 +2346,18 @@
           [
             [
               [
+                5.377026871865348,
+                52.241943262419596
+              ],
+              [
+                5.376485773908009,
+                52.24182435789823
+              ],
+              [
+                5.375928298444385,
+                52.24173858143669
+              ],
+              [
                 5.375359813090729,
                 52.241686758917496
               ],
@@ -3002,18 +2968,6 @@
               [
                 5.377026871865348,
                 52.241943262419596
-              ],
-              [
-                5.376485773908009,
-                52.24182435789823
-              ],
-              [
-                5.375928298444385,
-                52.24173858143669
-              ],
-              [
-                5.375359813090729,
-                52.241686758917496
               ]
             ]
           ]
