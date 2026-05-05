@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Rheden",
     "slug": "rheden",
-    "generated_at": "2026-05-04T06:06:35.303035Z",
-    "total_points": 38,
+    "generated_at": "2026-05-04T05:55:10.758005Z",
+    "total_points": 39,
     "providers": [
       "Amazon",
       "DHL",
@@ -882,6 +882,29 @@
         "coordinates": [
           5.9692388,
           51.995934
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "UR248 Pakketautomaat Budbee",
+        "straatNaam": "HOOFDSTRAAT",
+        "straatNr": "232",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 51.995934,
+        "longitude": 5.9692388,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.1018568,
+          52.0504929
         ]
       },
       "properties": {

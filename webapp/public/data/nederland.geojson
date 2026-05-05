@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Nederland",
     "slug": "nederland",
-    "generated_at": "2026-05-04T06:15:28.664361Z",
-    "total_points": 18674,
+    "generated_at": "2026-05-04T06:03:57.315906Z",
+    "total_points": 18722,
     "providers": [
       "Amazon",
       "Budbee",
@@ -26,7 +26,7 @@
     "municipalities_included": 344,
     "provider_stats": {
       "Amazon": 1616,
-      "DHL": 4466,
+      "DHL": 4467,
       "DPD": 2579,
       "PostNL": 4737,
       "VintedGo": 2316,
@@ -34,7 +34,7 @@
       "ViaTim": 402,
       "InPost": 981,
       "DeBuren": 182,
-      "Budbee": 432
+      "Budbee": 479
     }
   },
   "features": [
@@ -16824,6 +16824,75 @@
         "bezettingsgraad": 50,
         "latitude": 52.08811,
         "longitude": 4.382822,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.3626725,
+          52.0678084
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "UR140 Pakketautomaat Budbee",
+        "straatNaam": "WEIGELIA",
+        "straatNr": "48",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 52.08811,
+        "longitude": 4.382822,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.359468,
+          52.0756322
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Budbee",
+        "straatNaam": "",
+        "straatNr": "",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 52.0756322,
+        "longitude": 4.359468,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.3829239,
+          52.0873563
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Budbee",
+        "straatNaam": "",
+        "straatNr": "",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 52.0873563,
+        "longitude": 4.3829239,
         "canPickup": true,
         "canDropoff": true
       }
@@ -52138,6 +52207,98 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          6.5444885,
+          53.2294402
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "UR392 Pakketautomaat Budbee",
+        "straatNaam": "OUDE EBBINGESTRAAT",
+        "straatNr": "19",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 53.219955,
+        "longitude": 6.566862,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.562651,
+          53.224594
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "UR538 Pakketautomaat Budbee",
+        "straatNaam": "NIEUWE EBBINGESTRAAT",
+        "straatNr": "73",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 53.224594,
+        "longitude": 6.562651,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.5607057,
+          53.2164907
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "UR837 Pakketautomaat Budbee",
+        "straatNaam": "DIERENRIEMSTRAAT",
+        "straatNr": "122",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 53.230827,
+        "longitude": 6.544436,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.58957,
+          53.246327
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "VI089 Pakketautomaat Budbee",
+        "straatNaam": "STOEPEMAHEERD",
+        "straatNr": "21",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 53.246327,
+        "longitude": 6.58957,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.6933199,
           52.3016
         ]
@@ -72302,6 +72463,29 @@
         "longitude": 4.31184,
         "canPickup": true,
         "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.6120374,
+          52.3224609
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "DHL - Pakketautomaat Basic-fit Harderwk",
+        "straatNaam": "Kolbaanweg 3-PS/87",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.3224609,
+        "longitude": 5.6120374,
+        "canPickup": true,
+        "canDropoff": false
       }
     },
     {
@@ -126603,6 +126787,98 @@
         "bezettingsgraad": 50,
         "latitude": 52.38879,
         "longitude": 4.66798,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.645140323,
+          52.39840041
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "UR707 Pakketautomaat Budbee",
+        "straatNaam": "SOENDAPLEIN",
+        "straatNr": "18",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 52.39840041,
+        "longitude": 4.645140323,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.635821,
+          52.384468
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "UR764 Pakketautomaat Budbee",
+        "straatNaam": "KRUISSTRAAT",
+        "straatNr": "10",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 52.384468,
+        "longitude": 4.635821,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.646894,
+          52.417032
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "VI066 Pakketautomaat Budbee",
+        "straatNaam": "MARSMANPLEIN",
+        "straatNr": "222",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 52.417032,
+        "longitude": 4.646894,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.645682,
+          52.402462
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "VI098 Pakketautomaat Budbee",
+        "straatNaam": "RIJKSSTRAATWEG",
+        "straatNr": "67",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 52.402462,
+        "longitude": 4.645682,
         "canPickup": true,
         "canDropoff": true
       }
@@ -193151,6 +193427,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.2402395,
+          51.9290068
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "SMOOK MAASSLUIS B.V.",
+        "straatNaam": "LANGE BOONESTRAAT 2",
+        "straatNr": "",
+        "vervoerder": "InPost",
+        "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 51.92296,
+        "longitude": 4.25399,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           5.14413055347953,
           52.706193522017
         ]
@@ -205217,6 +205516,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.11383,
         "longitude": 5.71844,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.6470369,
+          52.0307453
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Budbee Box",
+        "straatNaam": "",
+        "straatNr": "",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 52.0307453,
+        "longitude": 5.6470369,
         "canPickup": true,
         "canDropoff": true
       }
@@ -226892,6 +227214,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.324874,
+          52.092401
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Daily Shop Hoytema",
+        "straatNaam": "Van Hoytemastraat",
+        "straatNr": "39",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 52.092401,
+        "longitude": 4.324874,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.338042341451999,
           52.086566571153455
         ]
@@ -232136,29 +232481,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          4.35890023029383,
-          52.0927574727115
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat",
-        "straatNaam": "Het Kleine Loo",
-        "straatNr": "270PBA",
-        "vervoerder": "PostNL",
-        "puntType": "automaat",
-        "bezettingsgraad": 50,
-        "latitude": 52.0927574727115,
-        "longitude": 4.35890023029383,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           4.285151105,
           52.11148859
         ]
@@ -232196,6 +232518,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.11148859,
         "longitude": 4.285151105,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.35890023029383,
+          52.0927574727115
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat",
+        "straatNaam": "Het Kleine Loo",
+        "straatNr": "270PBA",
+        "vervoerder": "PostNL",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 52.0927574727115,
+        "longitude": 4.35890023029383,
         "canPickup": true,
         "canDropoff": true
       }
@@ -237348,6 +237693,52 @@
         "bezettingsgraad": 50,
         "latitude": 52.08389,
         "longitude": 4.33224,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.3238004,
+          52.1048078
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Budbee",
+        "straatNaam": "",
+        "straatNr": "",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 52.1048078,
+        "longitude": 4.3238004,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.250683,
+          52.0546629
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Budbee",
+        "straatNaam": "",
+        "straatNr": "",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 52.0546629,
+        "longitude": 4.250683,
         "canPickup": true,
         "canDropoff": true
       }
@@ -245490,6 +245881,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.992912,
         "longitude": 4.210508,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.1645118,
+          52.0002866
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Budbee",
+        "straatNaam": "",
+        "straatNr": "",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 52.0002866,
+        "longitude": 4.1645118,
         "canPickup": true,
         "canDropoff": true
       }
@@ -262657,6 +263071,52 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.4858437,
+          51.9163111
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "UR668 Pakketautomaat Budbee",
+        "straatNaam": "VASTELAND",
+        "straatNr": "108",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 51.911266,
+        "longitude": 4.4781,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.4889151,
+          51.9282128
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "VI111 Pakketautomaat Budbee",
+        "straatNaam": "MALTAPLEIN",
+        "straatNr": "52",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 51.9282128,
+        "longitude": 4.4889151,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.998833075,
           52.51235015
         ]
@@ -279447,6 +279907,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.3909462,
+          52.0052856
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "UR829 Pakketautomaat Budbee",
+        "straatNaam": "LANGE BAAN",
+        "straatNr": "6",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 52.0052856,
+        "longitude": 4.3909462,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           5.748637549,
           51.28546382
         ]
@@ -290970,6 +291453,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          6.1018568,
+          52.0504929
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "UR248 Pakketautomaat Budbee",
+        "straatNaam": "HOOFDSTRAAT",
+        "straatNr": "232",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 51.995934,
+        "longitude": 5.9692388,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           6.184092872,
           53.17304811
         ]
@@ -299367,6 +299873,29 @@
         "coordinates": [
           4.4524,
           51.98117
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "ZEBRA LOGISTICS",
+        "straatNaam": "Braillestraat 27",
+        "straatNr": "",
+        "vervoerder": "InPost",
+        "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 51.98117,
+        "longitude": 4.4524,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.5300615,
+          52.0117946
         ]
       },
       "properties": {
@@ -308579,6 +309108,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.063545,
         "longitude": 4.515196,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.4765621,
+          52.0437557
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Budbee",
+        "straatNaam": "",
+        "straatNr": "",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 52.0437557,
+        "longitude": 4.4765621,
         "canPickup": true,
         "canDropoff": true
       }
@@ -354243,6 +354795,52 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.3455389,
+          51.9819273
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "UR131 Pakketautomaat Budbee",
+        "straatNaam": "W.H. VAN LEEUWENLAAN",
+        "straatNr": "1",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 52.014114,
+        "longitude": 4.342489,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.3584351,
+          52.0131495
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "UR878 Pakketautomaat Budbee",
+        "straatNaam": "BASTIAANPOORT",
+        "straatNr": "7",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 52.009533,
+        "longitude": 4.364512,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           5.455785966,
           52.17616371
         ]
@@ -373071,6 +373669,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.01131,
         "longitude": 4.74374,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.7094666,
+          52.0216439
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "UR382 Pakketautomaat Budbee",
+        "straatNaam": "MARKT",
+        "straatNr": "50",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 52.012157,
+        "longitude": 4.709931,
         "canPickup": true,
         "canDropoff": true
       }

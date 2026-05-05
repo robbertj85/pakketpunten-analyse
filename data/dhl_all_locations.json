@@ -9,8 +9,8 @@
       "min_lon": 3.31,
       "max_lon": 7.23
     },
-    "total_locations": 4466,
-    "fetched_at": "2026-05-04T05:45:12.547723+00:00"
+    "total_locations": 4467,
+    "fetched_at": "2026-05-04T05:34:04.149884+00:00"
   },
   "locations": [
     {
@@ -66005,7 +66005,7 @@
         "indication": {
           "from": "07:30",
           "to": "21:00",
-          "type": "Open"
+          "type": "OpeningSoon"
         },
         "days": [
           {
@@ -415980,6 +415980,187 @@
     {
       "openingTimesMeta": {
         "indication": {
+          "from": "08:00",
+          "to": "18:00",
+          "type": "OpeningSoon"
+        },
+        "days": [
+          {
+            "weekDay": 1,
+            "date": "2026-05-04",
+            "holidayClosure": false,
+            "timeCollection": {
+              "time": "16:00",
+              "nextCollection": true
+            },
+            "openingTimes": [
+              {
+                "timeFrom": "08:00",
+                "timeTo": "18:00"
+              }
+            ]
+          },
+          {
+            "weekDay": 2,
+            "date": "2026-05-05",
+            "holidayClosure": false,
+            "timeCollection": {
+              "time": "16:00",
+              "nextCollection": false
+            },
+            "openingTimes": [
+              {
+                "timeFrom": "08:00",
+                "timeTo": "18:00"
+              }
+            ]
+          },
+          {
+            "weekDay": 3,
+            "date": "2026-05-06",
+            "holidayClosure": false,
+            "timeCollection": {
+              "time": "16:00",
+              "nextCollection": false
+            },
+            "openingTimes": [
+              {
+                "timeFrom": "08:00",
+                "timeTo": "18:00"
+              }
+            ]
+          },
+          {
+            "weekDay": 4,
+            "date": "2026-05-07",
+            "holidayClosure": false,
+            "timeCollection": {
+              "time": "16:00",
+              "nextCollection": false
+            },
+            "openingTimes": [
+              {
+                "timeFrom": "08:00",
+                "timeTo": "18:00"
+              }
+            ]
+          },
+          {
+            "weekDay": 5,
+            "date": "2026-05-08",
+            "holidayClosure": false,
+            "timeCollection": {
+              "time": "16:00",
+              "nextCollection": false
+            },
+            "openingTimes": [
+              {
+                "timeFrom": "08:00",
+                "timeTo": "18:00"
+              }
+            ]
+          },
+          {
+            "weekDay": 6,
+            "date": "2026-05-09",
+            "holidayClosure": false,
+            "timeCollection": {
+              "time": "16:00",
+              "nextCollection": false
+            },
+            "openingTimes": [
+              {
+                "timeFrom": "08:00",
+                "timeTo": "17:00"
+              }
+            ]
+          },
+          {
+            "weekDay": 7,
+            "date": "2026-05-10",
+            "holidayClosure": false,
+            "timeCollection": {
+              "time": null,
+              "nextCollection": false
+            },
+            "openingTimes": []
+          }
+        ]
+      },
+      "isXL": true,
+      "id": "8004-NL-259602",
+      "harmonisedId": "NL-259602",
+      "psfKey": "NL-259602",
+      "shopType": "parcelShop",
+      "name": "Daily Shop Hoytema",
+      "keyword": "DHL Parcelshop",
+      "address": {
+        "countryCode": "NL",
+        "zipCode": "2596EN",
+        "city": "Den Haag",
+        "street": "Van Hoytemastraat",
+        "number": "39",
+        "addition": null,
+        "isBusiness": true,
+        "additionalInfo": null,
+        "district": null,
+        "postalCode": "2596EN"
+      },
+      "geoLocation": {
+        "latitude": 52.092401,
+        "longitude": 4.324874
+      },
+      "distance": 7579,
+      "openingTimes": [
+        {
+          "timeFrom": "08:00:00.000",
+          "timeTo": "18:00:00.000",
+          "weekDay": 1
+        },
+        {
+          "timeFrom": "08:00:00.000",
+          "timeTo": "18:00:00.000",
+          "weekDay": 2
+        },
+        {
+          "timeFrom": "08:00:00.000",
+          "timeTo": "18:00:00.000",
+          "weekDay": 3
+        },
+        {
+          "timeFrom": "08:00:00.000",
+          "timeTo": "18:00:00.000",
+          "weekDay": 4
+        },
+        {
+          "timeFrom": "08:00:00.000",
+          "timeTo": "18:00:00.000",
+          "weekDay": 5
+        },
+        {
+          "timeFrom": "08:00:00.000",
+          "timeTo": "17:00:00.000",
+          "weekDay": 6
+        }
+      ],
+      "closurePeriods": [],
+      "collectionSchedule": {
+        "frequency": "Always",
+        "time": "16:00"
+      },
+      "serviceTypes": [
+        "parcel-last-mile",
+        "parcel-first-mile",
+        "self-service"
+      ],
+      "depotCode": "GRA",
+      "allowNrParcels": "100",
+      "servicepointFormat": "Shop",
+      "isPrintless": true
+    },
+    {
+      "openingTimesMeta": {
+        "indication": {
           "from": "10:00",
           "to": "18:00",
           "type": "OpeningSoon"
@@ -672953,7 +673134,7 @@
         "indication": {
           "from": "07:30",
           "to": "17:00",
-          "type": "Open"
+          "type": "OpeningSoon"
         },
         "days": [
           {
@@ -809566,6 +809747,187 @@
       "allowNrParcels": "25",
       "servicepointFormat": "DHL Pakketautomaat",
       "isPrintless": false
+    },
+    {
+      "openingTimesMeta": {
+        "indication": {
+          "from": "08:30",
+          "to": "18:00",
+          "type": "OpeningSoon"
+        },
+        "days": [
+          {
+            "weekDay": 1,
+            "date": "2026-05-04",
+            "holidayClosure": false,
+            "timeCollection": {
+              "time": "16:00",
+              "nextCollection": true
+            },
+            "openingTimes": [
+              {
+                "timeFrom": "08:30",
+                "timeTo": "18:00"
+              }
+            ]
+          },
+          {
+            "weekDay": 2,
+            "date": "2026-05-05",
+            "holidayClosure": false,
+            "timeCollection": {
+              "time": "16:00",
+              "nextCollection": false
+            },
+            "openingTimes": [
+              {
+                "timeFrom": "08:30",
+                "timeTo": "18:00"
+              }
+            ]
+          },
+          {
+            "weekDay": 3,
+            "date": "2026-05-06",
+            "holidayClosure": false,
+            "timeCollection": {
+              "time": "16:00",
+              "nextCollection": false
+            },
+            "openingTimes": [
+              {
+                "timeFrom": "08:30",
+                "timeTo": "18:00"
+              }
+            ]
+          },
+          {
+            "weekDay": 4,
+            "date": "2026-05-07",
+            "holidayClosure": false,
+            "timeCollection": {
+              "time": "16:00",
+              "nextCollection": false
+            },
+            "openingTimes": [
+              {
+                "timeFrom": "08:30",
+                "timeTo": "18:00"
+              }
+            ]
+          },
+          {
+            "weekDay": 5,
+            "date": "2026-05-08",
+            "holidayClosure": false,
+            "timeCollection": {
+              "time": "16:00",
+              "nextCollection": false
+            },
+            "openingTimes": [
+              {
+                "timeFrom": "08:30",
+                "timeTo": "18:00"
+              }
+            ]
+          },
+          {
+            "weekDay": 6,
+            "date": "2026-05-09",
+            "holidayClosure": false,
+            "timeCollection": {
+              "time": "16:00",
+              "nextCollection": false
+            },
+            "openingTimes": [
+              {
+                "timeFrom": "08:30",
+                "timeTo": "17:00"
+              }
+            ]
+          },
+          {
+            "weekDay": 7,
+            "date": "2026-05-10",
+            "holidayClosure": false,
+            "timeCollection": {
+              "time": null,
+              "nextCollection": false
+            },
+            "openingTimes": []
+          }
+        ]
+      },
+      "isXL": true,
+      "id": "8004-NL-226501",
+      "harmonisedId": "NL-226501",
+      "psfKey": "NL-226501",
+      "shopType": "parcelShop",
+      "name": "Care en Beauty by Amber",
+      "keyword": "DHL Parcelshop",
+      "address": {
+        "countryCode": "NL",
+        "zipCode": "2265AE",
+        "city": "Leidschendam",
+        "street": "Damstraat",
+        "number": "47",
+        "addition": null,
+        "isBusiness": true,
+        "additionalInfo": null,
+        "district": null,
+        "postalCode": "2265AE"
+      },
+      "geoLocation": {
+        "latitude": 52.08092,
+        "longitude": 4.39774
+      },
+      "distance": 1266,
+      "openingTimes": [
+        {
+          "timeFrom": "08:30:00.000",
+          "timeTo": "18:00:00.000",
+          "weekDay": 1
+        },
+        {
+          "timeFrom": "08:30:00.000",
+          "timeTo": "18:00:00.000",
+          "weekDay": 2
+        },
+        {
+          "timeFrom": "08:30:00.000",
+          "timeTo": "18:00:00.000",
+          "weekDay": 3
+        },
+        {
+          "timeFrom": "08:30:00.000",
+          "timeTo": "18:00:00.000",
+          "weekDay": 4
+        },
+        {
+          "timeFrom": "08:30:00.000",
+          "timeTo": "18:00:00.000",
+          "weekDay": 5
+        },
+        {
+          "timeFrom": "08:30:00.000",
+          "timeTo": "17:00:00.000",
+          "weekDay": 6
+        }
+      ],
+      "closurePeriods": [],
+      "collectionSchedule": {
+        "frequency": "Always",
+        "time": "16:00"
+      },
+      "serviceTypes": [
+        "parcel-last-mile",
+        "parcel-first-mile",
+        "self-service"
+      ],
+      "depotCode": "VOO",
+      "allowNrParcels": "100",
+      "servicepointFormat": "Shop",
+      "isPrintless": true
     },
     {
       "openingTimesMeta": {

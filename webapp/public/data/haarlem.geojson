@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Haarlem",
     "slug": "haarlem",
-    "generated_at": "2026-05-04T05:56:21.394426Z",
-    "total_points": 115,
+    "generated_at": "2026-05-04T05:45:07.303202Z",
+    "total_points": 116,
     "providers": [
       "Amazon",
       "DeBuren",
@@ -2671,6 +2671,98 @@
     {
       "type": "Feature",
       "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.645140323,
+          52.39840041
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "UR707 Pakketautomaat Budbee",
+        "straatNaam": "SOENDAPLEIN",
+        "straatNr": "18",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 52.39840041,
+        "longitude": 4.645140323,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.635821,
+          52.384468
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "UR764 Pakketautomaat Budbee",
+        "straatNaam": "KRUISSTRAAT",
+        "straatNr": "10",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 52.384468,
+        "longitude": 4.635821,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.646894,
+          52.417032
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "VI066 Pakketautomaat Budbee",
+        "straatNaam": "MARSMANPLEIN",
+        "straatNr": "222",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 52.417032,
+        "longitude": 4.646894,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.645682,
+          52.402462
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "VI098 Pakketautomaat Budbee",
+        "straatNaam": "RIJKSSTRAATWEG",
+        "straatNr": "67",
+        "vervoerder": "Budbee",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 52.402462,
+        "longitude": 4.645682,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
           [
@@ -5194,6 +5286,14 @@
             ],
             [
               [
+                4.632757045934222,
+                52.388079147520216
+              ],
+              [
+                4.632432636668396,
+                52.38800578695463
+              ],
+              [
                 4.632014260489692,
                 52.38793882496885
               ],
@@ -5344,14 +5444,6 @@
               [
                 4.632757045934222,
                 52.388079147520216
-              ],
-              [
-                4.632432636668396,
-                52.38800578695463
-              ],
-              [
-                4.632014260489692,
-                52.38793882496885
               ]
             ]
           ],
@@ -8574,6 +8666,10 @@
           [
             [
               [
+                4.667705452205353,
+                52.35374444149108
+              ],
+              [
                 4.667451497665293,
                 52.35353036111968
               ],
@@ -8852,10 +8948,6 @@
               [
                 4.667705452205353,
                 52.35374444149108
-              ],
-              [
-                4.667451497665293,
-                52.35353036111968
               ]
             ]
           ],
@@ -11126,7 +11218,7 @@
                 52.40073343975255
               ],
               [
-                4.650868503473657,
+                4.6508685034736565,
                 52.40077376093288
               ],
               [
