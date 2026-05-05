@@ -280,6 +280,40 @@ function SegControl<T extends string>({
 
 /* --------------------------------------------------------------- Sections */
 
+interface CoverageCardData {
+  total: Record<Distance, CoverageMetric>;
+  shop: Record<Distance, CoverageMetric>;
+  locker: Record<Distance, CoverageMetric>;
+}
+
+function CoverageCardGrid({ data }: { data: CoverageCardData }) {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {(['total', 'shop', 'locker'] as Subset[]).map((s) => (
+        <div key={s} className="border border-gray-200 rounded-lg p-4">
+          <div className="text-xs uppercase tracking-wide text-gray-500 mb-2">
+            {SUBSET_LABEL[s]}
+          </div>
+          {DISTANCES.map((d) => {
+            const m = data[s][d];
+            return (
+              <div key={d} className="flex items-baseline justify-between py-1">
+                <span className="text-sm text-gray-600 w-14">{d}</span>
+                <div className="flex-1">
+                  <PctBar pct={m.pct} />
+                </div>
+                <span className="text-xs text-gray-500 ml-2 w-28 text-right tabular-nums">
+                  {nlInt(m.covered)} inw.
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function NationalSummary({ nat }: { nat: NationalEntry }) {
   const pop = nat.population;
   return (
@@ -290,29 +324,197 @@ function NationalSummary({ nat }: { nat: NationalEntry }) {
           {nlInt(pop)} inwoners in {nlInt(Object.keys(nat.total).length)} metingen
         </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {(['total', 'shop', 'locker'] as Subset[]).map((s) => (
-          <div key={s} className="border border-gray-200 rounded-lg p-4">
-            <div className="text-xs uppercase tracking-wide text-gray-500 mb-2">
-              {SUBSET_LABEL[s]}
-            </div>
-            {DISTANCES.map((d) => {
-              const m = nat[s][d];
-              return (
-                <div key={d} className="flex items-baseline justify-between py-1">
-                  <span className="text-sm text-gray-600 w-14">{d}</span>
-                  <div className="flex-1">
-                    <PctBar pct={m.pct} />
-                  </div>
-                  <span className="text-xs text-gray-500 ml-2 w-28 text-right tabular-nums">
-                    {nlInt(m.covered)} inw.
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        ))}
+      <CoverageCardGrid data={nat} />
+    </section>
+  );
+}
+
+/* Multi-select municipality comparison: same 3-card layout as the national
+   summary, repeated per selected gemeente. G4/G40 preset buttons quickly
+   fill the selection; individual munis can be added via the search box. */
+function MunicipalityComparison({
+  payload,
+}: {
+  payload: PopulationReachPayload;
+}) {
+  const allNames = useMemo(
+    () => Object.keys(payload.municipalities).sort((a, b) => a.localeCompare(b, 'nl')),
+    [payload]
+  );
+  const [selected, setSelected] = useState<string[]>([]);
+  const [scope, setScope] = useState<Scope>('national');
+  const [query, setQuery] = useState('');
+
+  const selectedSet = useMemo(() => new Set(selected), [selected]);
+
+  const addAll = (names: Iterable<string>) => {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      for (const n of names) {
+        if (allNames.includes(n)) next.add(n);
+      }
+      return [...next].sort((a, b) => a.localeCompare(b, 'nl'));
+    });
+  };
+  const remove = (name: string) =>
+    setSelected((prev) => prev.filter((n) => n !== name));
+  const clear = () => setSelected([]);
+
+  const suggestions = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return [] as string[];
+    return allNames
+      .filter((n) => !selectedSet.has(n) && n.toLowerCase().includes(q))
+      .slice(0, 8);
+  }, [allNames, selectedSet, query]);
+
+  const presetCounts = useMemo(() => ({
+    g4:  allNames.filter((n) => G4_MUNIS.has(n)).length,
+    g40: allNames.filter((n) => G40_MUNIS.has(n)).length,
+  }), [allNames]);
+
+  return (
+    <section className="bg-white rounded-lg shadow-md p-6 mb-6">
+      <div className="flex flex-wrap items-baseline justify-between gap-2 mb-4">
+        <div>
+          <h2 className="text-xl font-bold text-gray-900">Vergelijk gemeenten</h2>
+          <p className="text-sm text-gray-600">
+            Kies één of meer gemeenten en bekijk dezelfde 300m / 400m / 500m
+            grafieken voor shops, automaten en alle pakketpunten samen.
+          </p>
+        </div>
+        <SegControl
+          value={scope}
+          onChange={setScope}
+          options={[
+            { value: 'national', label: 'Nationaal (incl. buren)' },
+            { value: 'strict',   label: 'Strict (alleen eigen pp)' },
+          ]}
+        />
       </div>
+
+      {/* Controls: preset buttons + searchable add + clear */}
+      <div className="flex flex-wrap items-center gap-2 mb-3">
+        <button
+          type="button"
+          onClick={() => addAll(G4_MUNIS)}
+          className="px-3 py-1.5 text-xs font-medium border border-blue-300 bg-blue-50 text-blue-800 rounded hover:bg-blue-100 transition"
+        >
+          + G4 ({presetCounts.g4})
+        </button>
+        <button
+          type="button"
+          onClick={() => addAll(G40_MUNIS)}
+          className="px-3 py-1.5 text-xs font-medium border border-blue-300 bg-blue-50 text-blue-800 rounded hover:bg-blue-100 transition"
+        >
+          + G40 ({presetCounts.g40})
+        </button>
+        {selected.length > 0 && (
+          <button
+            type="button"
+            onClick={clear}
+            className="px-3 py-1.5 text-xs font-medium border border-gray-300 bg-white text-gray-700 rounded hover:bg-gray-100 transition"
+          >
+            Wis selectie
+          </button>
+        )}
+        <div className="relative flex-1 min-w-[200px] max-w-sm">
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Voeg gemeente toe…"
+            className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            list="muni-suggestions"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                const exact = allNames.find(
+                  (n) => n.toLowerCase() === query.trim().toLowerCase()
+                );
+                if (exact && !selectedSet.has(exact)) {
+                  addAll([exact]);
+                  setQuery('');
+                }
+              }
+            }}
+          />
+          {suggestions.length > 0 && (
+            <div className="absolute z-10 left-0 right-0 mt-1 bg-white border border-gray-200 rounded shadow-lg max-h-60 overflow-auto">
+              {suggestions.map((n) => (
+                <button
+                  key={n}
+                  type="button"
+                  onClick={() => {
+                    addAll([n]);
+                    setQuery('');
+                  }}
+                  className="block w-full text-left px-3 py-1.5 text-sm hover:bg-blue-50 hover:text-blue-800"
+                >
+                  {n}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+        <span className="text-xs text-gray-500 ml-auto tabular-nums">
+          {selected.length} geselecteerd
+        </span>
+      </div>
+
+      {/* Selection chips */}
+      {selected.length > 0 && (
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          {selected.map((name) => (
+            <span
+              key={name}
+              className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium bg-blue-100 text-blue-800 rounded"
+            >
+              {name}
+              <button
+                type="button"
+                onClick={() => remove(name)}
+                aria-label={`Verwijder ${name}`}
+                className="text-blue-700 hover:text-blue-900 leading-none"
+              >
+                ×
+              </button>
+            </span>
+          ))}
+        </div>
+      )}
+
+      {/* Per-municipality cards */}
+      {selected.length === 0 ? (
+        <div className="text-sm text-gray-500 italic py-6 text-center">
+          Geen gemeenten geselecteerd. Gebruik de knoppen of de zoekbalk hierboven.
+        </div>
+      ) : (
+        <div className="space-y-6">
+          {selected.map((name) => {
+            const m = payload.municipalities[name];
+            if (!m) return null;
+            const data = scope === 'national' ? m.national : m.strict;
+            const points = m.parcel_points;
+            return (
+              <div
+                key={name}
+                className="border border-gray-200 rounded-lg p-4 bg-gray-50"
+              >
+                <div className="flex flex-wrap items-baseline justify-between gap-2 mb-3">
+                  <h3 className="text-lg font-semibold text-gray-900">{name}</h3>
+                  <p className="text-xs text-gray-600 tabular-nums">
+                    {nlInt(m.population)} inwoners · {nlInt(points.total)} pakketpunten
+                    {' '}({nlInt(points.shop)} shops, {nlInt(points.locker)} automaten)
+                    {' · '}
+                    {scope === 'national' ? 'incl. buurgemeenten' : 'alleen eigen punten'}
+                  </p>
+                </div>
+                <CoverageCardGrid data={data} />
+              </div>
+            );
+          })}
+        </div>
+      )}
     </section>
   );
 }
@@ -627,6 +829,9 @@ export default function PopulationReachReport({
 
       {/* National summary */}
       <NationalSummary nat={payload.national} />
+
+      {/* Multi-select gemeente comparison */}
+      <MunicipalityComparison payload={payload} />
 
       {/* Controls */}
       <div className="bg-white rounded-lg shadow-md p-4 mb-6 flex flex-wrap items-center gap-6">
