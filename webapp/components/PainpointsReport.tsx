@@ -23,6 +23,8 @@ interface PainpointStats {
   points_per_1000_inw: number | null;
   predicted_points: number | null;
   delta_vs_predicted: number | null;
+  predicted_points_k8?: number | null;
+  delta_vs_predicted_k8?: number | null;
   expected_simple_rate: number | null;
 }
 
@@ -49,6 +51,14 @@ export interface ModelMeta {
   coefficients: { population: number; area_km2: number };
   training_size: number;
   nationwide_rates: { points_per_inhabitant: number; points_per_km2: number };
+}
+
+export interface ModelK8Meta {
+  r2: number;
+  features: string[];
+  training_size: number;
+  coverage_pct: number;
+  delta_r2_vs_base?: number;
 }
 
 export interface ScatterPoint {
@@ -99,6 +109,7 @@ export interface PainpointsPayload {
   painpoints: Record<string, Painpoint>;
   gemeente_status?: Record<string, 'ontvangen' | 'openstaand'>;
   model?: ModelMeta;
+  model_k8?: ModelK8Meta | null;
   scatter?: ScatterPoint[];
   mean_area_km2?: number;
 }
@@ -313,6 +324,29 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
 
   const [selectedPc4, setSelectedPc4] = useState<string | null>(null);
 
+  // Welk regressie-model gebruiken we voor "Verwacht" en "Δ"?
+  // - 'base' = α + β₁·population + β₂·area_km2 (R² ≈ 0.44, 100% PC4-dekking)
+  // - 'k8'   = best-subset uit find_best_model.py (R² ≈ 0.54, 99.6% dekking;
+  //           18 PC4s zonder avg_woz_value vallen automatisch terug op base)
+  const [modelChoice, setModelChoice] = useState<'base' | 'k8'>(
+    payload.model_k8 ? 'k8' : 'base'
+  );
+  const k8Available = !!payload.model_k8;
+  const getPredicted = (s?: PainpointStats | null): number | null => {
+    if (!s) return null;
+    if (modelChoice === 'k8') {
+      return s.predicted_points_k8 ?? s.predicted_points ?? null;
+    }
+    return s.predicted_points ?? null;
+  };
+  const getDelta = (s?: PainpointStats | null): number | null => {
+    if (!s) return null;
+    if (modelChoice === 'k8') {
+      return s.delta_vs_predicted_k8 ?? s.delta_vs_predicted ?? null;
+    }
+    return s.delta_vs_predicted ?? null;
+  };
+
   // Sort state for the main "per PC4" table — ordered stack for Excel-style
   // multi-column sorting. stack[0] is the primary key, stack[1] the tiebreaker, etc.
   type PC4Col = 'pc4' | 'city' | 'carriers' | 'count' | 'total' | 'locker' | 'shop'
@@ -456,6 +490,47 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
         {/* Table 1: PC4 → carriers + parcel point counts (clickable rows) */}
         <section>
           <h3 className="text-lg font-semibold text-gray-900 mb-3">Per postcodegebied</h3>
+          {k8Available && (
+            <div className="mb-3 flex flex-wrap items-center gap-3 bg-blue-50 border border-blue-200 rounded-md px-3 py-2 text-sm">
+              <span className="font-semibold text-gray-800">Verwacht-model:</span>
+              <div className="inline-flex rounded border border-blue-300 overflow-hidden">
+                {(['base', 'k8'] as const).map((k) => {
+                  const active = modelChoice === k;
+                  const r2 = k === 'k8' ? payload.model_k8?.r2 : payload.model?.r2;
+                  return (
+                    <button
+                      key={k}
+                      type="button"
+                      onClick={() => setModelChoice(k)}
+                      className={`px-3 py-1 text-xs font-medium transition ${
+                        active
+                          ? 'bg-blue-700 text-white'
+                          : 'bg-white text-blue-800 hover:bg-blue-100'
+                      }`}
+                    >
+                      {k === 'base' ? 'Basis (pop + opp)' : 'K=8 best-subset'}
+                      {r2 != null && (
+                        <span className="ml-1.5 opacity-80 tabular-nums">
+                          R²={r2.toFixed(2)}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+              <a
+                href="/data-export/schatting"
+                className="text-blue-700 hover:text-blue-900 underline underline-offset-2"
+              >
+                uitleg over de modellen →
+              </a>
+              {modelChoice === 'k8' && (
+                <span className="text-xs text-gray-600">
+                  18 PC4&apos;s zonder WOZ-waarde vallen terug op het basismodel.
+                </span>
+              )}
+            </div>
+          )}
           <div className="mb-3">
             <SortBuilder
               stack={pc4SortStack}
@@ -501,8 +576,8 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                         case 'area': return s?.area_km2 ?? -1;
                         case 'density': return s?.points_per_km2 ?? -1;
                         case 'per_capita': return s?.points_per_1000_inw ?? -1;
-                        case 'predicted': return s?.predicted_points ?? -1;
-                        case 'delta': return s?.delta_vs_predicted ?? 0;
+                        case 'predicted': return getPredicted(s) ?? -1;
+                        case 'delta': return getDelta(s) ?? 0;
                       }
                     };
                     for (const { key, dir } of pc4SortStack) {
@@ -541,8 +616,16 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                     <td className="px-3 py-2 text-right tabular-nums text-gray-700">{v.stats?.area_km2 != null ? v.stats.area_km2.toFixed(2) : '—'}</td>
                     <td className="px-3 py-2 text-right tabular-nums text-gray-700">{v.stats?.points_per_km2 != null ? v.stats.points_per_km2.toFixed(1) : '—'}</td>
                     <td className="px-3 py-2 text-right tabular-nums text-gray-700">{v.stats?.points_per_1000_inw != null ? v.stats.points_per_1000_inw.toFixed(2) : '—'}</td>
-                    <td className="px-3 py-2 text-right tabular-nums text-gray-700">{v.stats?.predicted_points != null ? v.stats.predicted_points.toFixed(1) : '—'}</td>
-                    <td className={`px-3 py-2 text-right tabular-nums font-semibold ${v.stats?.delta_vs_predicted != null ? (v.stats.delta_vs_predicted >= 0 ? 'text-emerald-700' : 'text-red-700') : 'text-gray-500'}`}>{v.stats?.delta_vs_predicted != null ? (v.stats.delta_vs_predicted >= 0 ? '+' : '') + v.stats.delta_vs_predicted.toFixed(1) : '—'}</td>
+                    {(() => {
+                      const pred = getPredicted(v.stats);
+                      const delta = getDelta(v.stats);
+                      return (
+                        <>
+                          <td className="px-3 py-2 text-right tabular-nums text-gray-700">{pred != null ? pred.toFixed(1) : '—'}</td>
+                          <td className={`px-3 py-2 text-right tabular-nums font-semibold ${delta != null ? (delta >= 0 ? 'text-emerald-700' : 'text-red-700') : 'text-gray-500'}`}>{delta != null ? (delta >= 0 ? '+' : '') + delta.toFixed(1) : '—'}</td>
+                        </>
+                      );
+                    })()}
                   </tr>
                 ))}
               </tbody>
@@ -751,14 +834,24 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                     <div className="font-semibold text-gray-900">{selected.stats.points_per_km2?.toFixed(1) ?? '—'}</div>
                   </div>
                   <div className="bg-white rounded border border-gray-200 px-2 py-1 col-span-2">
-                    <div className="text-gray-500">Verwacht (regressie) · Δ</div>
+                    <div className="text-gray-500">
+                      Verwacht ({modelChoice === 'k8' ? 'k=8' : 'basis'}) · Δ
+                    </div>
                     <div className="font-semibold text-gray-900">
-                      {selected.stats.predicted_points?.toFixed(1) ?? '—'}
-                      {selected.stats.delta_vs_predicted != null && (
-                        <span className={`ml-2 ${selected.stats.delta_vs_predicted >= 0 ? 'text-emerald-700' : 'text-red-700'}`}>
-                          {selected.stats.delta_vs_predicted >= 0 ? '+' : ''}{selected.stats.delta_vs_predicted.toFixed(1)}
-                        </span>
-                      )}
+                      {(() => {
+                        const pred = getPredicted(selected.stats);
+                        const delta = getDelta(selected.stats);
+                        return (
+                          <>
+                            {pred != null ? pred.toFixed(1) : '—'}
+                            {delta != null && (
+                              <span className={`ml-2 ${delta >= 0 ? 'text-emerald-700' : 'text-red-700'}`}>
+                                {delta >= 0 ? '+' : ''}{delta.toFixed(1)}
+                              </span>
+                            )}
+                          </>
+                        );
+                      })()}
                     </div>
                   </div>
                 </div>

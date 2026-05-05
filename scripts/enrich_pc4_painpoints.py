@@ -160,6 +160,8 @@ def main() -> int:
                 "points_per_1000_inw": stat.get("points_per_1000_inw"),
                 "predicted_points": stat.get("predicted_points"),
                 "delta_vs_predicted": stat.get("delta_vs_predicted"),
+                "predicted_points_k8": stat.get("predicted_points_k8"),
+                "delta_vs_predicted_k8": stat.get("delta_vs_predicted_k8"),
                 "expected_simple_rate": stat.get("expected_simple_rate"),
             }
 

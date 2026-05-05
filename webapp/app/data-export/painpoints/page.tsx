@@ -11,9 +11,14 @@ async function getPainpoints(): Promise<PainpointsPayload> {
   try {
     const stats = JSON.parse(
       await fs.readFile(path.join(root, 'pc4_stats.json'), 'utf-8')
-    ) as { model?: PainpointsPayload['model']; stats?: Record<string, any> };
+    ) as {
+      model?: PainpointsPayload['model'];
+      model_k8?: PainpointsPayload['model_k8'];
+      stats?: Record<string, any>;
+    };
 
     if (stats.model) painpoints.model = stats.model;
+    if (stats.model_k8) painpoints.model_k8 = stats.model_k8;
 
     // Compact scatter data: one row per PC4 with non-zero population.
     // Extra CBS features (income, SES-WOA) travel along so the client-side
