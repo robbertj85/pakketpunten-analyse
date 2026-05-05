@@ -612,10 +612,11 @@ export default function PopulationReachReport({
       <div className="mb-6 p-4 bg-indigo-50 border border-indigo-200 rounded-lg text-sm text-indigo-900">
         <h2 className="font-semibold mb-1">Bereik van inwoners</h2>
         <p>
-          Per PC4 berekenen we welke oppervlakte binnen 300m / 400m / 500m van een pakketpunt
-          ligt. Onder aanname van uniforme inwonersdichtheid binnen de PC4 levert dat
-          een geschat aantal inwoners &quot;binnen bereik&quot; op. De gemeente-waarde is
-          inwonersgewogen gesommeerd over alle PC4s in die gemeente.
+          Per PC4 tellen we de inwoners van CBS Vierkantstatistiek-cellen (100&nbsp;m × 100&nbsp;m)
+          waarvan het centrum binnen 300&nbsp;m / 400&nbsp;m / 500&nbsp;m van een pakketpunt ligt.
+          Onbewoonde ruimte (water, parken, industrieterreinen, akkers) telt als 0 — dus
+          géén uniforme dichtheidsaanname meer. De gemeente-waarde is een grid-sommatie
+          over alle CBS-cellen binnen die gemeente.
         </p>
         <p className="mt-1">
           <strong>Nationaal</strong>: buffer-unie gebouwd uit álle pakketpunten in NL
