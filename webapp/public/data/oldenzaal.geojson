@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Oldenzaal",
     "slug": "oldenzaal",
-    "generated_at": "2026-05-04T05:53:10.264901Z",
-    "total_points": 40,
+    "generated_at": "2026-05-11T06:29:49.074158Z",
+    "total_points": 39,
     "providers": [
       "Amazon",
       "DHL",
@@ -119,29 +119,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          6.923880287,
-          52.30172242
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "SKO",
-        "straatNaam": "Eektestraat 14",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 52.30172242,
-        "longitude": 6.923880287,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           6.9391945,
           52.298503
         ]
@@ -211,29 +188,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          6.923509120941162,
-          52.28558349609375
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "DHL Pakketpunt Oldenzaal",
-        "straatNaam": "Hanzepoort",
-        "straatNr": "12",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 52.28558349609375,
-        "longitude": 6.923509120941162,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           6.9391945,
           52.298503
         ]
@@ -248,6 +202,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.298503,
         "longitude": 6.9391945,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.923509120941162,
+          52.28558349609375
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "DHL Pakketpunt Oldenzaal",
+        "straatNaam": "Hanzepoort",
+        "straatNr": "12",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 52.28558349609375,
+        "longitude": 6.923509120941162,
         "canPickup": true,
         "canDropoff": true
       }
@@ -2890,10 +2867,6 @@
           [
             [
               [
-                6.910283393523024,
-                52.31332414337744
-              ],
-              [
                 6.91005372097426,
                 52.31310010992884
               ],
@@ -2986,7 +2959,7 @@
                 52.31319538261487
               ],
               [
-                6.902708395016315,
+                6.902708395016317,
                 52.31321467767473
               ],
               [
@@ -3180,11 +3153,27 @@
               [
                 6.910283393523024,
                 52.31332414337744
+              ],
+              [
+                6.91005372097426,
+                52.31310010992884
               ]
             ]
           ],
           [
             [
+              [
+                6.938244473495233,
+                52.29587055121592
+              ],
+              [
+                6.9378282102752635,
+                52.29594031683796
+              ],
+              [
+                6.937425102914747,
+                52.29603476120816
+              ],
               [
                 6.937039033000008,
                 52.29615297493057
@@ -3608,18 +3597,6 @@
               [
                 6.938244473495233,
                 52.29587055121592
-              ],
-              [
-                6.9378282102752635,
-                52.29594031683796
-              ],
-              [
-                6.937425102914747,
-                52.29603476120816
-              ],
-              [
-                6.937039033000008,
-                52.29615297493057
               ]
             ]
           ]
@@ -4198,7 +4175,7 @@
                 52.304341037025964
               ],
               [
-                6.9379305081211795,
+                6.937930508121178,
                 52.30413511950977
               ],
               [

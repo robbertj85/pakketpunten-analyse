@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Wijchen",
     "slug": "wijchen",
-    "generated_at": "2026-05-04T06:02:06.299696Z",
-    "total_points": 30,
+    "generated_at": "2026-05-11T06:39:08.245045Z",
+    "total_points": 31,
     "providers": [
       "Amazon",
       "DeBuren",
@@ -64,6 +64,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.7998313,
         "longitude": 5.724615476,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.65474247555547,
+          51.8518386828788
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Actiemarkt",
+        "straatNaam": "'t Blok 8",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.8518386828788,
+        "longitude": 5.65474247555547,
         "canPickup": true,
         "canDropoff": false
       }
@@ -263,11 +286,11 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DHL Pakketpunt XL Wijchen",
+        "locatieNaam": "Pakketautomaat DHL Wijchen",
         "straatNaam": "Bijsterhuizen",
-        "straatNr": "5147",
+        "straatNr": "5147-PS/75",
         "vervoerder": "DHL",
-        "puntType": "parcelShop",
+        "puntType": "packStation",
         "bezettingsgraad": 50,
         "latitude": 51.8259841,
         "longitude": 5.7419309,
@@ -286,11 +309,11 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat DHL Wijchen",
+        "locatieNaam": "DHL Pakketpunt XL Wijchen",
         "straatNaam": "Bijsterhuizen",
-        "straatNr": "5147-PS/75",
+        "straatNr": "5147",
         "vervoerder": "DHL",
-        "puntType": "packStation",
+        "puntType": "parcelShop",
         "bezettingsgraad": 50,
         "latitude": 51.8259841,
         "longitude": 5.7419309,
@@ -1892,10 +1915,6 @@
           [
             [
               [
-                5.668457839936845,
-                51.8499066171561
-              ],
-              [
                 5.668042964331871,
                 51.84984331273373
               ],
@@ -2016,7 +2035,7 @@
                 51.85487296060834
               ],
               [
-                5.665473876881572,
+                5.6654738768815704,
                 51.854960464833745
               ],
               [
@@ -2182,6 +2201,10 @@
               [
                 5.668457839936845,
                 51.8499066171561
+              ],
+              [
+                5.668042964331871,
+                51.84984331273373
               ]
             ]
           ],
@@ -4292,10 +4315,6 @@
           [
             [
               [
-                5.668873754159278,
-                51.849045485161824
-              ],
-              [
                 5.668320596750668,
                 51.848961080882795
               ],
@@ -4582,6 +4601,10 @@
               [
                 5.668873754159278,
                 51.849045485161824
+              ],
+              [
+                5.668320596750668,
+                51.848961080882795
               ]
             ]
           ],

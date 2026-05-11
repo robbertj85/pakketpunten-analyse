@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "De Bilt",
     "slug": "de-bilt",
-    "generated_at": "2026-05-04T05:41:04.555795Z",
+    "generated_at": "2026-05-11T06:17:11.926694Z",
     "total_points": 39,
     "providers": [
       "Amazon",
@@ -29,29 +29,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          5.208554517,
-          52.12907772
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Dapper Bilthoven",
-        "straatNaam": "Julianalaan 36",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 52.12907772,
-        "longitude": 5.208554517,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           5.176153779,
           52.15570053
         ]
@@ -66,6 +43,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.15570053,
         "longitude": 5.176153779,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.208554517,
+          52.12907772
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Dapper Bilthoven",
+        "straatNaam": "Julianalaan 36",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.12907772,
+        "longitude": 5.208554517,
         "canPickup": true,
         "canDropoff": false
       }

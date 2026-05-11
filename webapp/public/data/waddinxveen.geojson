@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Waddinxveen",
     "slug": "waddinxveen",
-    "generated_at": "2026-05-04T06:00:55.962862Z",
+    "generated_at": "2026-05-11T06:37:56.561059Z",
     "total_points": 31,
     "providers": [
       "Amazon",
@@ -96,29 +96,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          4.650961595,
-          52.04055508
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Primera Promenade",
-        "straatNaam": "Promenade 87",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 52.04055508,
-        "longitude": 4.650961595,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           4.6616199515848,
           52.0277408316995
         ]
@@ -133,6 +110,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.0277408316995,
         "longitude": 4.6616199515848,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.650961595,
+          52.04055508
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Primera Promenade",
+        "straatNaam": "Promenade 87",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.04055508,
+        "longitude": 4.650961595,
         "canPickup": true,
         "canDropoff": false
       }

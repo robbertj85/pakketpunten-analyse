@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Baarn",
     "slug": "baarn",
-    "generated_at": "2026-05-04T05:37:56.667292Z",
+    "generated_at": "2026-05-11T06:14:00.155537Z",
     "total_points": 22,
     "providers": [
       "Amazon",
@@ -41,29 +41,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.2114479564314,
         "longitude": 5.28970496928477,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.28504819096178,
-          52.213241594239
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Repro Baarn",
-        "straatNaam": "Laanplein 3",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 52.213241594239,
-        "longitude": 5.28504819096178,
         "canPickup": true,
         "canDropoff": false
       }
@@ -309,7 +286,30 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Repro Baarn",
+        "locatieNaam": "",
+        "straatNaam": "Laanplein",
+        "straatNr": "8",
+        "vervoerder": "PostNL",
+        "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 52.213241594239,
+        "longitude": 5.28504819096178,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.28504819096178,
+          52.213241594239
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "",
         "straatNaam": "Laanplein",
         "straatNr": "3",
         "vervoerder": "PostNL",
