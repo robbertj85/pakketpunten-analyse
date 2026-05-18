@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Steenwijkerland",
     "slug": "steenwijkerland",
-    "generated_at": "2026-05-11T06:34:23.762319Z",
-    "total_points": 66,
+    "generated_at": "2026-05-18T06:46:51.302224Z",
+    "total_points": 65,
     "providers": [
       "Amazon",
       "DHL",
@@ -155,29 +155,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.80313195,
         "longitude": 6.06063077,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          6.063972513,
-          52.82265056
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Dedden IJzerwaren en Gereedschappen",
-        "straatNaam": "Steenwijkerweg 196",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 52.82265056,
-        "longitude": 6.063972513,
         "canPickup": true,
         "canDropoff": false
       }
@@ -523,29 +500,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.7872955,
         "longitude": 6.1176923,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          6.1179451,
-          52.7873479
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Shoeby Steenwijk",
-        "straatNaam": "Oosterstraat",
-        "straatNr": "30",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 52.7873479,
-        "longitude": 6.1179451,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1535,6 +1489,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.78673,
         "longitude": 6.11298,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.10102,
+          52.78913
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "",
+        "straatNaam": "Dolderweg",
+        "straatNr": "10",
+        "vervoerder": "InPost",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 52.78913,
+        "longitude": 6.10102,
         "canPickup": true,
         "canDropoff": true
       }
@@ -4819,6 +4796,14 @@
           [
             [
               [
+                6.102221066762806,
+                52.786287826517615
+              ],
+              [
+                6.101824755639972,
+                52.78617708077474
+              ],
+              [
                 6.101412450389689,
                 52.78609041806969
               ],
@@ -5231,12 +5216,16 @@
                 52.78706267875073
               ],
               [
-                6.1035192468618575,
-                52.78690719043353
+                6.103854939615192,
+                52.787055025147566
               ],
               [
-                6.103504096831933,
-                52.78690180821986
+                6.103806920023071,
+                52.787029160259706
+              ],
+              [
+                6.103476198994426,
+                52.78688351475157
               ],
               [
                 6.103276861676944,
@@ -5253,14 +5242,6 @@
               [
                 6.102221066762806,
                 52.786287826517615
-              ],
-              [
-                6.101824755639972,
-                52.78617708077474
-              ],
-              [
-                6.101412450389689,
-                52.78609041806969
               ]
             ]
           ],
@@ -5795,10 +5776,6 @@
           [
             [
               [
-                6.159502565251432,
-                52.77827541495665
-              ],
-              [
                 6.159078231041483,
                 52.778213876513036
               ],
@@ -6077,6 +6054,10 @@
               [
                 6.159502565251432,
                 52.77827541495665
+              ],
+              [
+                6.159078231041483,
+                52.778213876513036
               ]
             ]
           ],
@@ -9299,8 +9280,16 @@
                 52.786362382243816
               ],
               [
-                6.10448615248215,
-                52.78622362705569
+                6.104783852545793,
+                52.786354728774526
+              ],
+              [
+                6.104735833176704,
+                52.78632886425584
+              ],
+              [
+                6.104464243825691,
+                52.78620926104453
               ],
               [
                 6.104314520611331,
@@ -10815,10 +10804,6 @@
           [
             [
               [
-                6.159917563697553,
-                52.77741271413179
-              ],
-              [
                 6.15935179539636,
                 52.77733066446924
               ],
@@ -11097,6 +11082,10 @@
               [
                 6.159917563697553,
                 52.77741271413179
+              ],
+              [
+                6.15935179539636,
+                52.77733066446924
               ]
             ]
           ],

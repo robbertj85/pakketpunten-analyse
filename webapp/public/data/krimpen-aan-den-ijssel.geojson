@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Krimpen aan den IJssel",
     "slug": "krimpen-aan-den-ijssel",
-    "generated_at": "2026-05-11T06:24:52.260417Z",
+    "generated_at": "2026-05-18T06:38:15.855638Z",
     "total_points": 28,
     "providers": [
       "Amazon",
@@ -141,29 +141,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          4.5837061,
-          51.9164527
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Dierentotaalzaak Ons Schuurtje",
-        "straatNaam": "Noorderstraat",
-        "straatNr": "23-A",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 51.9164527,
-        "longitude": 4.5837061,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           4.6178717,
           51.9147458
         ]
@@ -195,7 +172,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Jumbo de Korf",
         "straatNaam": "De Korf",
-        "straatNr": "8-DB/47",
+        "straatNr": "8-DB/46",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -270,6 +247,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.91505927586567,
         "longitude": 4.589089597981297,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.5837061,
+          51.9164527
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Dierentotaalzaak Ons Schuurtje",
+        "straatNaam": "Noorderstraat",
+        "straatNr": "23-A",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 51.9164527,
+        "longitude": 4.5837061,
         "canPickup": true,
         "canDropoff": true
       }

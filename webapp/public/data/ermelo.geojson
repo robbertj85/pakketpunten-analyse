@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Ermelo",
     "slug": "ermelo",
-    "generated_at": "2026-05-11T06:20:04.651372Z",
-    "total_points": 29,
+    "generated_at": "2026-05-18T06:33:54.879754Z",
+    "total_points": 30,
     "providers": [
       "Amazon",
       "DeBuren",
@@ -65,6 +65,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.29923001,
         "longitude": 5.620416951,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.60010772164228,
+          52.3164977835785
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "'s Heeren Loo Leerwerkplein",
+        "straatNaam": "Zusterkamp 2",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.3164977835785,
+        "longitude": 5.60010772164228,
         "canPickup": true,
         "canDropoff": false
       }
@@ -2164,10 +2187,6 @@
           [
             [
               [
-                5.604167437237591,
-                52.315458571502745
-              ],
-              [
                 5.603981671078663,
                 52.31521971403852
               ],
@@ -2422,6 +2441,10 @@
               [
                 5.604167437237591,
                 52.315458571502745
+              ],
+              [
+                5.603981671078663,
+                52.31521971403852
               ]
             ]
           ],
@@ -3800,10 +3823,6 @@
           [
             [
               [
-                5.605520632870974,
-                52.315112135118255
-              ],
-              [
                 5.605272937340699,
                 52.31479366124882
               ],
@@ -4058,6 +4077,10 @@
               [
                 5.605520632870974,
                 52.315112135118255
+              ],
+              [
+                5.605272937340699,
+                52.31479366124882
               ]
             ]
           ],

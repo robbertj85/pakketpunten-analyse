@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Veenendaal",
     "slug": "veenendaal",
-    "generated_at": "2026-05-11T06:36:24.960261Z",
-    "total_points": 67,
+    "generated_at": "2026-05-18T06:48:42.128791Z",
+    "total_points": 69,
     "providers": [
       "Amazon",
       "DeBuren",
@@ -65,6 +65,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.03268427,
         "longitude": 5.569144611,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.55248377181098,
+          52.035459223697
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pandjeshuisonline PpP",
+        "straatNaam": "Nieuweweg 155",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.035459223697,
+        "longitude": 5.55248377181098,
         "canPickup": true,
         "canDropoff": false
       }
@@ -1054,6 +1077,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.01404623,
         "longitude": 5.560984419,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.55248377181098,
+          52.035459223697
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pandjeshuisonline PpP",
+        "straatNaam": "Nieuweweg",
+        "straatNr": "155",
+        "vervoerder": "PostNL",
+        "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 52.035459223697,
+        "longitude": 5.55248377181098,
         "canPickup": true,
         "canDropoff": true
       }
@@ -4520,7 +4566,7 @@
                 52.03748360210615
               ],
               [
-                5.537108901177856,
+                5.537108901177855,
                 52.037501159433155
               ],
               [
@@ -5084,6 +5130,10 @@
           [
             [
               [
+                5.581296582071488,
+                52.0226887883497
+              ],
+              [
                 5.580872128143565,
                 52.022650660765315
               ],
@@ -5378,10 +5428,6 @@
               [
                 5.581296582071488,
                 52.0226887883497
-              ],
-              [
-                5.580872128143565,
-                52.022650660765315
               ]
             ]
           ],
@@ -8324,6 +8370,10 @@
           [
             [
               [
+                5.58157698675488,
+                52.02180678159932
+              ],
+              [
                 5.581011059170826,
                 52.021755945815826
               ],
@@ -8606,10 +8656,6 @@
               [
                 5.58157698675488,
                 52.02180678159932
-              ],
-              [
-                5.581011059170826,
-                52.021755945815826
               ]
             ]
           ],

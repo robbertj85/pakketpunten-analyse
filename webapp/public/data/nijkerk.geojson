@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Nijkerk",
     "slug": "nijkerk",
-    "generated_at": "2026-05-11T06:28:33.106911Z",
+    "generated_at": "2026-05-18T06:41:34.341699Z",
     "total_points": 53,
     "providers": [
       "Amazon",
@@ -258,29 +258,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          5.485001564025879,
-          52.22222900390625
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat terStal Nijkerk",
-        "straatNaam": "Brede Beek",
-        "straatNr": "10-PS/73",
-        "vervoerder": "DHL",
-        "puntType": "packStation",
-        "bezettingsgraad": 50,
-        "latitude": 52.22222900390625,
-        "longitude": 5.485001564025879,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           5.4785489,
           52.2274533
         ]
@@ -387,6 +364,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.2226487,
         "longitude": 5.4848466,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.485001564025879,
+          52.22222900390625
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat terStal Nijkerk",
+        "straatNaam": "Brede Beek",
+        "straatNr": "10-PS/73",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 52.22222900390625,
+        "longitude": 5.485001564025879,
         "canPickup": true,
         "canDropoff": true
       }

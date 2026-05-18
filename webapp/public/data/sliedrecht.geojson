@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Sliedrecht",
     "slug": "sliedrecht",
-    "generated_at": "2026-05-11T06:33:32.692723Z",
-    "total_points": 21,
+    "generated_at": "2026-05-18T06:46:06.087323Z",
+    "total_points": 22,
     "providers": [
       "Amazon",
       "DeBuren",
@@ -22,6 +22,29 @@
     ]
   },
   "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.794822252,
+          51.82773836
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Druk & Print BV",
+        "straatNaam": "Kubus 31",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.82773836,
+        "longitude": 4.794822252,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
     {
       "type": "Feature",
       "geometry": {
@@ -1245,10 +1268,6 @@
           [
             [
               [
-                4.771270107643069,
-                51.82849079057978
-              ],
-              [
                 4.771090786001971,
                 51.82825062756989
               ],
@@ -1503,6 +1522,10 @@
               [
                 4.771270107643069,
                 51.82849079057978
+              ],
+              [
+                4.771090786001971,
+                51.82825062756989
               ]
             ]
           ],

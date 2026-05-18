@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Borne",
     "slug": "borne",
-    "generated_at": "2026-05-11T06:15:48.482767Z",
-    "total_points": 18,
+    "generated_at": "2026-05-18T06:30:01.060831Z",
+    "total_points": 21,
     "providers": [
       "Amazon",
       "DHL",
@@ -41,6 +41,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.3091401925057,
         "longitude": 6.73590866244878,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.752057544,
+          52.30159303
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Discus Hospers",
+        "straatNaam": "Grotestraat 238",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.30159303,
+        "longitude": 6.752057544,
         "canPickup": true,
         "canDropoff": false
       }
@@ -110,6 +133,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.30003,
         "longitude": 6.75566,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.756875038146973,
+          52.300437927246094
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Sama Markt",
+        "straatNaam": "Marktplein",
+        "straatNr": "19-A",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 52.300437927246094,
+        "longitude": 6.756875038146973,
         "canPickup": true,
         "canDropoff": true
       }
@@ -386,6 +432,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.3092565,
         "longitude": 6.7327849,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.7566578,
+          52.3003118
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Sama Markt",
+        "straatNaam": "Marktplein 19A",
+        "straatNr": "",
+        "vervoerder": "VintedGo",
+        "puntType": "parcel_shop",
+        "bezettingsgraad": 50,
+        "latitude": 52.3003118,
+        "longitude": 6.7566578,
         "canPickup": true,
         "canDropoff": true
       }

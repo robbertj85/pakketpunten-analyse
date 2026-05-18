@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "s-Hertogenbosch",
     "slug": "s-hertogenbosch",
-    "generated_at": "2026-05-11T06:40:57.623114Z",
+    "generated_at": "2026-05-18T06:52:52.612632Z",
     "total_points": 147,
     "providers": [
       "Amazon",
@@ -65,29 +65,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.70051577,
         "longitude": 5.362092323,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.349850642,
-          51.72286686
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Total",
-        "straatNaam": "Westeind 2",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 51.72286686,
-        "longitude": 5.349850642,
         "canPickup": true,
         "canDropoff": false
       }
@@ -249,6 +226,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.70963891,
         "longitude": 5.334438249,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.349850642,
+          51.72286686
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Total",
+        "straatNaam": "Westeind 2",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.72286686,
+        "longitude": 5.349850642,
         "canPickup": true,
         "canDropoff": false
       }
@@ -3163,7 +3163,7 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "BAMYAN TELECOM MAASPOORT",
-        "straatNaam": "LOKERENPASSAGE 122",
+        "straatNaam": "Lokerenpassage 122",
         "straatNr": "",
         "vervoerder": "InPost",
         "puntType": "servicepunt",

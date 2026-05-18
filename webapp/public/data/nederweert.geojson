@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Nederweert",
     "slug": "nederweert",
-    "generated_at": "2026-05-11T06:28:17.697585Z",
-    "total_points": 24,
+    "generated_at": "2026-05-18T06:41:20.577914Z",
+    "total_points": 23,
     "providers": [
       "Amazon",
       "DHL",
@@ -73,20 +73,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          5.74975472624008,
-          51.2781164719837
+          5.770814503,
+          51.28911418
         ]
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Witte Trading",
-        "straatNaam": "Pannenweg 422 424",
+        "locatieNaam": "Janssen diervoeders",
+        "straatNaam": "Kreijel 15",
         "straatNr": "",
         "vervoerder": "Amazon",
         "puntType": "3p",
         "bezettingsgraad": 50,
-        "latitude": 51.2781164719837,
-        "longitude": 5.74975472624008,
+        "latitude": 51.28911418,
+        "longitude": 5.770814503,
         "canPickup": true,
         "canDropoff": false
       }
@@ -119,20 +119,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          5.770814503,
-          51.28911418
+          5.74975472624008,
+          51.2781164719837
         ]
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Janssen diervoeders",
-        "straatNaam": "Kreijel 15",
+        "locatieNaam": "Witte Trading",
+        "straatNaam": "Pannenweg 422 424",
         "straatNr": "",
         "vervoerder": "Amazon",
         "puntType": "3p",
         "bezettingsgraad": 50,
-        "latitude": 51.28911418,
-        "longitude": 5.770814503,
+        "latitude": 51.2781164719837,
+        "longitude": 5.74975472624008,
         "canPickup": true,
         "canDropoff": false
       }
@@ -501,29 +501,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.2988625,
         "longitude": 5.78553579,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.749589,
-          51.2781255
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Home Garden Deco",
-        "straatNaam": "Pannenweg",
-        "straatNr": "422",
-        "vervoerder": "GLS",
-        "puntType": "parcel_shop",
-        "bezettingsgraad": 50,
-        "latitude": 51.2781255,
-        "longitude": 5.749589,
         "canPickup": true,
         "canDropoff": true
       }
