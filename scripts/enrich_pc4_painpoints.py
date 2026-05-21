@@ -21,6 +21,7 @@ PC4_PATH = ROOT / "webapp" / "public" / "data" / "pc4.geojson"
 NEDERLAND_PATH = ROOT / "webapp" / "public" / "data" / "nederland.geojson"
 BOUNDARIES_DIR = ROOT / "webapp" / "public" / "data" / "boundaries"
 PC4_STATS_PATH = ROOT / "webapp" / "public" / "data" / "pc4_stats.json"
+POI_COUNTS_PATH = ROOT / "webapp" / "public" / "data" / "poi_pc4_counts.json"
 
 # Mirror of webapp/types/pakketpunten.ts getPointCategory
 LOCKER_TYPES = {
@@ -123,11 +124,37 @@ def main() -> int:
             })
         total_locker = sum(p["locker"] for p in providers.values())
         total_shop = sum(p["shop"] for p in providers.values())
+
+        # Count GLS points that are co-located with a PostNL point in the same
+        # PC4. Match by exact (straat, nr) first, then by ≤30 m proximity for
+        # the cases where the address strings differ but the physical location
+        # is the same (PostNL servicepunt + GLS ParcelShop sharing a winkel).
+        gls_pts = [pt for pt in pc4_points if pt["vervoerder"] == "GLS"]
+        postnl_pts = [pt for pt in pc4_points if pt["vervoerder"] == "PostNL"]
+        postnl_addr = {
+            (pt["straatNaam"].strip().lower(), pt["straatNr"].strip().lower())
+            for pt in postnl_pts
+            if pt["straatNaam"]
+        }
+        gls_postnl_shared = 0
+        for g in gls_pts:
+            key = (g["straatNaam"].strip().lower(), g["straatNr"].strip().lower())
+            if key in postnl_addr:
+                gls_postnl_shared += 1
+                continue
+            # Geo proximity fallback (~30 m); 30 m ≈ 0.00027° at NL latitudes.
+            gx, gy = g["lng"], g["lat"]
+            for pn in postnl_pts:
+                if abs(pn["lng"] - gx) < 0.0005 and abs(pn["lat"] - gy) < 0.0003:
+                    gls_postnl_shared += 1
+                    break
+
         counts[pc4] = {
             "total": total_locker + total_shop,
             "locker": total_locker,
             "shop": total_shop,
             "by_carrier": providers,
+            "gls_postnl_shared": gls_postnl_shared,
         }
         details[pc4] = pc4_points
 
@@ -140,6 +167,16 @@ def main() -> int:
     else:
         print(f"⚠ {PC4_STATS_PATH.name} missing — run build_pc4_stats.py + fit_pc4_model.py first")
 
+    # Load POI counts per PC4 (so each pijnpunt can show its surrounding
+    # POI density without an extra client-side fetch).
+    poi_counts: dict[str, dict[str, int]] = {}
+    if POI_COUNTS_PATH.exists():
+        with open(POI_COUNTS_PATH) as f:
+            poi_counts = json.load(f).get("counts", {})
+        print(f"Loaded POI counts for {len(poi_counts)} PC4s")
+    else:
+        print(f"⚠ {POI_COUNTS_PATH.name} missing — run fetch_pois.py + build_poi_pc4_counts.py")
+
     # Merge into painpoints payload
     # Keep "city" as the G4 convenant city that reported the PC4, and add
     # "municipality" for the actual municipality the polygon sits in.
@@ -151,6 +188,7 @@ def main() -> int:
             "total": 0, "locker": 0, "shop": 0, "by_carrier": {},
         })
         entry["points"] = details.get(pc4, [])
+        entry["pois"] = poi_counts.get(pc4, {})
         stat = pc4_stats.get(pc4)
         if stat:
             entry["stats"] = {

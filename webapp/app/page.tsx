@@ -113,6 +113,8 @@ export default function Home() {
     pointCategories: ['locker', 'shop'],
     showOnlySharedLocations: false,
     serviceFilters: ['pickup', 'dropoff'],
+    poiCategories: [],
+    poiIconStyle: 'dots',
   });
 
   // Load municipalities on mount
@@ -250,6 +252,8 @@ export default function Home() {
           pointCategories: ['locker', 'shop'],
           showOnlySharedLocations: false,
           serviceFilters: ['pickup', 'dropoff'],
+          poiCategories: filters.poiCategories,
+          poiIconStyle: filters.poiIconStyle,
         });
       })
       .catch((err) => {

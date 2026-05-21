@@ -72,6 +72,13 @@ export interface Filters {
   pointCategories: PointCategory[];
   showOnlySharedLocations: boolean;
   serviceFilters: ServiceFilter[];
+  // Active POI categories (slugs from /data/poi/index.json). When non-empty,
+  // the Map lazy-loads each category and renders it as a coloured CircleMarker
+  // overlay. Empty array means no POI layer is rendered.
+  poiCategories: string[];
+  // 'dots'  → coloured CircleMarker (fastest, used for dense layers like bus stops)
+  // 'icons' → Lucide divIcon with category-specific glyph (prettier, slower)
+  poiIconStyle: 'dots' | 'icons';
 }
 
 // Population-coverage choropleth (data sourced from population_coverage.json)

@@ -47,6 +47,22 @@ OUTPUT = ROOT / "webapp" / "public" / "data" / "pc4_painpoints.json"
 BILATERAL_ADDITIONS: list[tuple[str, str, list[str], str]] = [
     ("Amsterdam", "ViaTim", ["1012", "1013", "1016", "1017", "1018"],
      "Bilateraal gesprek 3 april 2026"),
+    # MyPup-pijnpunten (G4 binnensteden + autoluwe/autovrije zones)
+    ("Amsterdam", "MyPup",
+     ["1011", "1012", "1013", "1014", "1015", "1016", "1017", "1018"],
+     "Binnenstad"),
+    ("Amsterdam", "MyPup", ["1012"], "Autoluw"),
+    ("Amsterdam", "MyPup", ["1015", "1016", "1017"], "Autoluw"),
+    ("Amsterdam", "MyPup", ["1053", "1054"], "Autovrij"),
+    ("Utrecht", "MyPup", ["3511", "3512"], "Binnenstad"),
+    ("Utrecht", "MyPup", ["3511", "3512"], "Autoluw"),
+    ("Den Haag", "MyPup",
+     ["2511", "2512", "2513", "2514", "2515"], "Binnenstad"),
+    ("Den Haag", "MyPup", ["2511", "2512", "2513"], "Autovrij/Autoluw"),
+    ("Rotterdam", "MyPup",
+     ["3011", "3012", "3013", "3014", "3015", "3016"], "Binnenstad"),
+    ("Rotterdam", "MyPup", ["3012"], "Autovrij"),
+    ("Rotterdam", "MyPup", ["3011"], "Autoluw"),
 ]
 
 
@@ -162,6 +178,17 @@ def main() -> int:
         _parse_gemeente_detail(
             df, sections["gemeente_detail"], painpoints, gemeente_status
         )
+
+    # Mirror PostNL pain-points to GLS. GLS NL piggybacks on PostNL's OOH
+    # network (servicepunten + pakketautomaten), so every PostNL-flagged PC4
+    # is implicitly a GLS pain-point too. Tracked via a separate note so the
+    # source remains explicit.
+    for code, entry in painpoints.items():
+        if "PostNL" in entry["carriers"] and "GLS" not in entry["carriers"]:
+            entry["carriers"].append("GLS")
+            entry.setdefault("notes", []).append(
+                "GLS: spiegel van PostNL OOH/locker-netwerk"
+            )
 
     # Merge in out-of-band additions (e.g. bilateral conversations not yet
     # reflected in the Excel). These are still carrier-side sources.

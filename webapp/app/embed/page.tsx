@@ -46,6 +46,8 @@ function EmbedContent() {
     pointCategories: ['locker', 'shop'],
     showOnlySharedLocations: false,
     serviceFilters: ['pickup', 'dropoff'],
+    poiCategories: [],
+    poiIconStyle: 'dots',
   }), [gemeente]);
 
   useEffect(() => {

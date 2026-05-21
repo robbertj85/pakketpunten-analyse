@@ -7,6 +7,123 @@ import {
 } from '@/types/pakketpunten';
 import { BoundaryLoadProgress } from '@/utils/boundaryLoader';
 
+interface PoiCategoryMeta {
+  slug: string;
+  label: string;
+  group: 'ov' | 'publiek' | 'onderwijs' | 'voorzieningen';
+  color: string;
+  count: number;
+}
+
+const POI_GROUP_LABEL: Record<PoiCategoryMeta['group'], string> = {
+  ov: 'OV-locaties',
+  publiek: 'Publieke gebouwen',
+  onderwijs: 'Onderwijs',
+  voorzieningen: 'Voorzieningen',
+};
+const POI_GROUP_ORDER: PoiCategoryMeta['group'][] = ['ov', 'publiek', 'onderwijs', 'voorzieningen'];
+
+function PoiSection({ filters, onChange }: { filters: Filters; onChange: (f: Filters) => void }) {
+  const [open, setOpen] = useState(false);
+  const [categories, setCategories] = useState<PoiCategoryMeta[]>([]);
+  useEffect(() => {
+    if (!open || categories.length > 0) return;
+    fetch('/data/poi/index.json')
+      .then((r) => r.json())
+      .then((d) => setCategories(d.categories || []))
+      .catch((err) => console.error('POI index load failed:', err));
+  }, [open, categories.length]);
+
+  const active = new Set(filters.poiCategories);
+  const toggle = (slug: string) => {
+    const next = new Set(active);
+    if (next.has(slug)) next.delete(slug); else next.add(slug);
+    onChange({ ...filters, poiCategories: [...next] });
+  };
+  const groups: Record<string, PoiCategoryMeta[]> = {};
+  categories.forEach((c) => { (groups[c.group] ||= []).push(c); });
+
+  const summary = active.size > 0
+    ? `${active.size} actief`
+    : 'Geen actief';
+
+  return (
+    <div className="border border-gray-200 rounded">
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className="w-full px-2 py-1.5 text-left text-sm font-medium text-gray-900 hover:bg-gray-50 flex items-center justify-between"
+      >
+        <span className="flex items-center gap-2">
+          <span className="w-3 h-3 rounded-full bg-teal-500" />
+          POI&apos;s (OV, scholen, …)
+        </span>
+        <span className="text-xs text-gray-500">{summary} {open ? '▾' : '▸'}</span>
+      </button>
+      {open && (
+        <div className="px-2 pb-2 space-y-2 max-h-72 overflow-y-auto">
+          <div className="flex items-center justify-between pt-1">
+            <div className="inline-flex rounded border border-gray-200 overflow-hidden text-xs">
+              <button
+                type="button"
+                className={`px-2 py-0.5 ${filters.poiIconStyle === 'dots' ? 'bg-teal-600 text-white' : 'text-gray-600 hover:bg-gray-50'}`}
+                onClick={() => onChange({ ...filters, poiIconStyle: 'dots' })}
+              >
+                Dots
+              </button>
+              <button
+                type="button"
+                className={`px-2 py-0.5 ${filters.poiIconStyle === 'icons' ? 'bg-teal-600 text-white' : 'text-gray-600 hover:bg-gray-50'}`}
+                onClick={() => onChange({ ...filters, poiIconStyle: 'icons' })}
+              >
+                Iconen
+              </button>
+            </div>
+            {active.size > 0 && (
+              <button
+                type="button"
+                className="text-xs text-blue-600 hover:text-blue-800"
+                onClick={() => onChange({ ...filters, poiCategories: [] })}
+              >
+                Alles uit
+              </button>
+            )}
+          </div>
+          {POI_GROUP_ORDER.map((group) => {
+            const list = groups[group] || [];
+            if (list.length === 0) return null;
+            return (
+              <div key={group}>
+                <div className="text-[10px] uppercase tracking-wide text-gray-500 mb-0.5">
+                  {POI_GROUP_LABEL[group]}
+                </div>
+                <div className="space-y-0.5">
+                  {list.map((c) => (
+                    <label key={c.slug} className="flex items-center gap-2 cursor-pointer text-xs px-1 py-0.5 rounded hover:bg-gray-50">
+                      <input
+                        type="checkbox"
+                        checked={active.has(c.slug)}
+                        onChange={() => toggle(c.slug)}
+                        className="w-4 h-4"
+                      />
+                      <span className="inline-block w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: c.color }} />
+                      <span className="flex-1 text-gray-800">{c.label}</span>
+                      <span className="text-gray-400 tabular-nums">{c.count.toLocaleString('nl-NL')}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+          {categories.length === 0 && (
+            <div className="text-xs text-gray-500 py-2">Laden…</div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 interface FilterPanelProps {
   filters: Filters;
   onChange: (filters: Filters) => void;
@@ -477,6 +594,7 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
             <span className="w-3 h-3 rounded-sm bg-blue-600/70 border border-blue-900 flex-shrink-0" />
             <span className="text-sm text-gray-900">Plaatsingsadvies (top-5 PC4s)</span>
           </label>
+          <PoiSection filters={filters} onChange={onChange} />
           {filters.showCoverage && (
             <div className="ml-7 pt-1 pb-1 grid grid-cols-2 gap-2 text-xs">
               <label className="block">
@@ -558,6 +676,8 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
             pointCategories: ['locker', 'shop'],
             showOnlySharedLocations: false,
             serviceFilters: ['pickup', 'dropoff'],
+            poiCategories: [],
+            poiIconStyle: 'dots',
           })
         }
         className="w-full px-4 py-3 md:py-2 text-sm font-medium text-gray-900 bg-gray-100 rounded-lg hover:bg-gray-200 active:bg-gray-300 transition"

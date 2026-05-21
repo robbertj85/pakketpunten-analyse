@@ -41,7 +41,9 @@ interface Painpoint {
     locker: number;
     shop: number;
     by_carrier: ByCarrier;
+    gls_postnl_shared?: number;
   };
+  pois?: Record<string, number>;
   points: PainpointPoint[];
 }
 
@@ -870,6 +872,11 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                   <div className="text-xs text-gray-500">Shops</div>
                 </div>
               </div>
+              {(selected.pakketpunten.gls_postnl_shared ?? 0) > 0 && (
+                <div className="mt-2 text-center text-xs text-gray-600">
+                  Waarvan <span className="font-semibold text-gray-900">{selected.pakketpunten.gls_postnl_shared}</span> GLS/PostNL co-locatie{selected.pakketpunten.gls_postnl_shared === 1 ? '' : 's'}
+                </div>
+              )}
             </div>
 
             {/* Map */}
@@ -918,6 +925,24 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                 </table>
               )}
             </div>
+
+            {/* Publieke POI's in dit PC4 */}
+            {selected.pois && Object.keys(selected.pois).length > 0 && (
+              <div className="px-4 py-3 border-t border-gray-200 max-h-[35%] overflow-y-auto">
+                <div className="text-xs uppercase tracking-wide text-gray-500 mb-2">Publieke POI&apos;s in dit PC4</div>
+                <ul className="text-sm space-y-0.5">
+                  {Object.entries(selected.pois)
+                    .sort(([, a], [, b]) => b - a)
+                    .map(([slug, n]) => (
+                      <li key={slug} className="flex items-center gap-2">
+                        <span className="text-gray-800 flex-1">{slug.replace(/_/g, ' ')}</span>
+                        <span className="font-semibold tabular-nums text-gray-900">{n}</span>
+                      </li>
+                    ))}
+                </ul>
+                <div className="text-[10px] text-gray-400 mt-2">Bron: OpenStreetMap (zie /data-export/pois voor labels)</div>
+              </div>
+            )}
           </aside>
         </>
       )}

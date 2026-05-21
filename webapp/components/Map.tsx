@@ -22,9 +22,10 @@
 'use client';
 
 import { useEffect, useState, useMemo, useRef } from 'react';
-import { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMap, CircleMarker, Circle, Polyline } from 'react-leaflet';
+import { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMap, CircleMarker, Circle, Polyline, Pane } from 'react-leaflet';
 import type { LatLngBoundsExpression } from 'leaflet';
 import L from 'leaflet';
+import { makePoiDivIcon } from '@/utils/poiIcons';
 import 'leaflet/dist/leaflet.css';
 import buffer from '@turf/buffer';
 import union from '@turf/union';
@@ -741,6 +742,8 @@ function MapComponent(props?: MapProps) {
     pointCategories: ['locker', 'shop'],
     showOnlySharedLocations: false,
     serviceFilters: ['pickup', 'dropoff'],
+    poiCategories: [],
+    poiIconStyle: 'dots',
   };
 
   useEffect(() => {
@@ -807,6 +810,55 @@ function MapComponent(props?: MapProps) {
       }))
       .catch((err) => console.error('Failed to load population_coverage:', err));
   }, [activeFilters.showCoverage, coverageData]);
+
+  // POI overlay state — single per-municipality bundle (loaded once per city).
+  // Filtering by active category happens client-side. This keeps the network
+  // payload small (Amsterdam ≈ 440 KB; Den Haag ≈ 22 KB) instead of pulling
+  // the 21 MB nationwide bushaltes file.
+  const [poiIndex, setPoiIndex] = useState<Array<{
+    slug: string; label: string; group: string; color: string; count: number;
+  }> | null>(null);
+  const [poiBundle, setPoiBundle] = useState<{
+    slug: string;
+    features: Array<{ category: string; coordinates: [number, number]; name: string; operator: string }>;
+  } | null>(null);
+  // Fetch the POI category index once a POI filter is ever activated.
+  useEffect(() => {
+    if (poiIndex || activeFilters.poiCategories.length === 0) return;
+    fetch('/data/poi/index.json')
+      .then((r) => r.json())
+      .then((d) => setPoiIndex(d.categories || []))
+      .catch((err) => console.error('POI index load failed:', err));
+  }, [poiIndex, activeFilters.poiCategories.length]);
+  // Load the bundle when (a) a POI category is active and (b) the selected
+  // municipality changes. Skipped for the Nederland view because nationwide
+  // POI rendering is too heavy.
+  const muniSlug = data?.metadata?.slug;
+  useEffect(() => {
+    if (activeFilters.poiCategories.length === 0) return;
+    if (!muniSlug || muniSlug === 'nederland') {
+      setPoiBundle(null);
+      return;
+    }
+    if (poiBundle?.slug === muniSlug) return;
+    fetch(`/data/poi/by-municipality/${muniSlug}.geojson`)
+      .then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      })
+      .then((d) => {
+        setPoiBundle({
+          slug: muniSlug,
+          features: (d.features || []).map((f: any) => ({
+            category: f.properties.category,
+            coordinates: f.geometry.coordinates as [number, number],
+            name: f.properties?.name || '',
+            operator: f.properties?.operator || '',
+          })),
+        });
+      })
+      .catch((err) => console.error(`POI bundle for ${muniSlug} failed:`, err));
+  }, [activeFilters.poiCategories.length, muniSlug, poiBundle?.slug]);
 
   // Lazy-load placement suggestions when the toggle is on. Only meaningful
   // when a single municipality is selected (not the Nederland view).
@@ -1564,6 +1616,68 @@ function MapComponent(props?: MapProps) {
         </div>
       )}
 
+      {/* POI overlays — single per-municipality bundle, filtered client-side
+          by active categories. Two render modes: dots (CircleMarker) or icons
+          (Lucide divIcon). */}
+      {poiBundle && activeFilters.poiCategories.length > 0 && (() => {
+        const activeSet = new Set(activeFilters.poiCategories);
+        const useIcons = activeFilters.poiIconStyle === 'icons';
+        return poiBundle.features
+          .filter((f) => activeSet.has(f.category))
+          .map((f, i) => {
+            const meta = poiIndex?.find((c) => c.slug === f.category);
+            const color = meta?.color ?? '#666';
+            const label = meta?.label ?? f.category;
+            const pos: [number, number] = [f.coordinates[1], f.coordinates[0]];
+            const streetView = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${f.coordinates[1]},${f.coordinates[0]}`;
+            const gmaps = `https://www.google.com/maps/search/?api=1&query=${f.coordinates[1]},${f.coordinates[0]}`;
+            const popup = (
+              <Popup>
+                <div style={{ minWidth: 180, fontSize: 13 }}>
+                  <div style={{ fontWeight: 600 }}>{f.name || label}</div>
+                  <div style={{ fontSize: 11, color: '#4b5563' }}>{label}</div>
+                  {f.operator && (
+                    <div style={{ fontSize: 11, color: '#6b7280', marginTop: 2 }}>{f.operator}</div>
+                  )}
+                  <div style={{ marginTop: 8, display: 'flex', flexDirection: 'column', gap: 4 }}>
+                    <a href={streetView} target="_blank" rel="noopener noreferrer"
+                       style={{ fontSize: 12, textAlign: 'center', padding: '4px 8px', borderRadius: 4,
+                                background: '#2563eb', color: '#fff', textDecoration: 'none' }}>
+                      Street View
+                    </a>
+                    <a href={gmaps} target="_blank" rel="noopener noreferrer"
+                       style={{ fontSize: 12, textAlign: 'center', padding: '4px 8px', borderRadius: 4,
+                                border: '1px solid #d1d5db', color: '#1f2937', textDecoration: 'none' }}>
+                      Google Maps
+                    </a>
+                  </div>
+                </div>
+              </Popup>
+            );
+            if (useIcons) {
+              return (
+                <Marker
+                  key={`poi-${f.category}-${i}`}
+                  position={pos}
+                  icon={makePoiDivIcon(f.category, color, 22)}
+                >
+                  {popup}
+                </Marker>
+              );
+            }
+            return (
+              <CircleMarker
+                key={`poi-${f.category}-${i}`}
+                center={pos}
+                radius={3.5}
+                pathOptions={{ color, fillColor: color, fillOpacity: 0.85, weight: 1 }}
+              >
+                {popup}
+              </CircleMarker>
+            );
+          });
+      })()}
+
       {/* Placement-suggestions overlay (top-N PC4 choropleth + suggested pins).
           Only renders when a single municipality is selected. */}
       {activeFilters.showSuggestions && placementSuggestions && pc4Data && (() => {
@@ -1835,6 +1949,8 @@ function MapComponent(props?: MapProps) {
           blue Plaatsingsadvies layer when both are toggled on. PC4s flagged
           in *both* layers get a thick amber stroke (same hue as the
           suggestion pin) so the overlap is immediately readable. */}
+      {/* Custom pane so the painpoint choropleth sits below POI dots/icons. */}
+      <Pane name="painpoint-pane" style={{ zIndex: 350 }} />
       {activeFilters.showPainPoints && painPointsGeoJSON && painPoints && (() => {
         // Build a fast lookup for the active municipality's top-N
         // Plaatsingsadvies PC4s, used to detect dual-flagged PC4s.
@@ -1851,6 +1967,7 @@ function MapComponent(props?: MapProps) {
         return (
         <GeoJSON
           key={`painpoints-layer-${suggestionPc4s.size}`}
+          pane="painpoint-pane"
           data={painPointsGeoJSON as any}
           style={(feature) => {
             const code = String(feature?.properties?.pc4 ?? '');
