@@ -45,8 +45,6 @@ OUTPUT = ROOT / "webapp" / "public" / "data" / "pc4_painpoints.json"
 # Pain-points reported outside the main Excel (e.g. bilateral gesprekken).
 # Each entry: (city, carrier, [pc4 codes], note)
 BILATERAL_ADDITIONS: list[tuple[str, str, list[str], str]] = [
-    ("Amsterdam", "ViaTim", ["1012", "1013", "1016", "1017", "1018"],
-     "Bilateraal gesprek 3 april 2026"),
     # MyPup-pijnpunten (G4 binnensteden + autoluwe/autovrije zones)
     ("Amsterdam", "MyPup",
      ["1011", "1012", "1013", "1014", "1015", "1016", "1017", "1018"],
