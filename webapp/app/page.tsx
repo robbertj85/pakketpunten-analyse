@@ -463,7 +463,7 @@ export default function Home() {
           {/* Logo */}
           <div className="flex-shrink-0 leading-tight">
             <h1 className="text-lg md:text-xl font-bold text-gray-900">📦 <span className="hidden sm:inline">Pakketpunten</span></h1>
-            <p className="text-xs font-medium text-gray-500 tracking-wide uppercase hidden sm:block">Analyse</p>
+            <p className="text-[10px] md:text-xs font-medium text-gray-500 leading-tight hidden sm:block">Data en Analyse Convenant<br />Duurzame Pakketlogistiek</p>
           </div>
 
           {/* Municipality Selector - always visible but responsive width */}
