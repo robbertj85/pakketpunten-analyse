@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Almelo",
     "slug": "almelo",
-    "generated_at": "2026-05-18T06:27:17.669930Z",
+    "generated_at": "2026-05-25T06:41:30.801212Z",
     "total_points": 122,
     "providers": [
       "Amazon",
@@ -696,6 +696,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          6.65503,
+          52.35024
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Harings Tweewielers",
+        "straatNaam": "Nieuwstraat",
+        "straatNr": "97",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 52.35024,
+        "longitude": 6.65503,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           6.6283098,
           52.3597349
         ]
@@ -1055,29 +1078,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.3509393,
         "longitude": 6.66804,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          6.65503,
-          52.35024
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Harings Tweewielers",
-        "straatNaam": "Nieuwstraat",
-        "straatNr": "97",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 52.35024,
-        "longitude": 6.65503,
         "canPickup": true,
         "canDropoff": true
       }

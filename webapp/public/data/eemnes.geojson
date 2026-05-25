@@ -3,9 +3,10 @@
   "metadata": {
     "gemeente": "Eemnes",
     "slug": "eemnes",
-    "generated_at": "2026-05-18T06:33:09.987597Z",
-    "total_points": 2,
+    "generated_at": "2026-05-25T06:47:40.169063Z",
+    "total_points": 3,
     "providers": [
+      "Amazon",
       "DHL",
       "PostNL"
     ],
@@ -17,6 +18,29 @@
     ]
   },
   "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.264644762,
+          52.25303822
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Primera Eemnes",
+        "straatNaam": "Laarderweg 24 G",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.25303822,
+        "longitude": 5.264644762,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
     {
       "type": "Feature",
       "geometry": {
@@ -69,10 +93,6 @@
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              5.269017713370876,
-              52.252778386484636
-            ],
             [
               5.268955145704888,
               52.25251658223938
@@ -344,6 +364,10 @@
             [
               5.269017713370876,
               52.252778386484636
+            ],
+            [
+              5.268955145704888,
+              52.25251658223938
             ]
           ]
         ]
@@ -359,10 +383,6 @@
         "type": "Polygon",
         "coordinates": [
           [
-            [
-              5.270475351973966,
-              52.252691737981856
-            ],
             [
               5.270391917309561,
               52.2523426666651
@@ -634,6 +654,10 @@
             [
               5.270475351973966,
               52.252691737981856
+            ],
+            [
+              5.270391917309561,
+              52.2523426666651
             ]
           ]
         ]

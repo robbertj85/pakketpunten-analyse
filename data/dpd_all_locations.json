@@ -4,8 +4,8 @@
     "source": "https://pickup.dpd.cz/api/getAll",
     "country": "Netherlands",
     "country_code_iso": 528,
-    "total_locations": 2586,
-    "fetched_at": "2026-05-18T06:25:25.586798+00:00"
+    "total_locations": 2591,
+    "fetched_at": "2026-05-25T06:39:43.282272+00:00"
   },
   "locations": [
     {
@@ -626,8 +626,8 @@
       "cod_allowed": 0,
       "service": 0,
       "open_weekend": 1,
-      "latitude": 51.9599494934,
-      "longitude": 4.4726877213,
+      "latitude": 51.96022,
+      "longitude": 4.47279,
       "hours": [
         {
           "day": 1,
@@ -4153,6 +4153,91 @@
           "closeMorning": "12:30",
           "openAfternoon": "13:00",
           "closeAfternoon": "18:00"
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "09:00",
+          "closeMorning": "17:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "",
+          "closeMorning": "",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
+      "id": "NL10881",
+      "company": "Bloemboetiek Hermien",
+      "street": "NASSAUSTRAAT",
+      "city": "ROERMOND",
+      "country_id": 528,
+      "house_number": "66",
+      "postcode": "6043ED",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "pickup_point",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 51.190279,
+      "longitude": 5.9986867,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "",
+          "closeMorning": "",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "09:00",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "09:00",
+          "closeMorning": "17:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "09:00",
+          "closeMorning": "17:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "09:00",
+          "closeMorning": "17:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
         },
         {
           "day": 6,
@@ -12489,91 +12574,6 @@
           "dayName": "Sobota",
           "openMorning": "10:00",
           "closeMorning": "16:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
-      "id": "NL20107",
-      "company": "ICT Solutions Zeeland",
-      "street": "SINT ANNASTRAAT",
-      "city": "SLUIS",
-      "country_id": 528,
-      "house_number": "29",
-      "postcode": "4524JB",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "pickup_point",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 0,
-      "latitude": 51.30977,
-      "longitude": 3.380466,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "10:00",
-          "closeMorning": "17:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "10:00",
-          "closeMorning": "17:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "10:00",
-          "closeMorning": "17:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "10:00",
-          "closeMorning": "17:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "10:00",
-          "closeMorning": "17:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "",
-          "closeMorning": "",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -29334,6 +29334,91 @@
       "photo": ""
     },
     {
+      "id": "NL21161",
+      "company": "Etelcom",
+      "street": "JONKER FRANSSTRAAT",
+      "city": "ROTTERDAM",
+      "country_id": 528,
+      "house_number": "121",
+      "postcode": "3031AR",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "pickup_point",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 51.925222,
+      "longitude": 4.4863012,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "12:00",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "10:00",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "10:00",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "10:00",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "10:00",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "10:00",
+          "closeMorning": "17:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "",
+          "closeMorning": "",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
       "id": "NL21166",
       "company": "Corio Espresso Service (DPD Shop)",
       "street": "HEERLERBAAN",
@@ -30979,6 +31064,91 @@
           "dayName": "Pondělí",
           "openMorning": "12:00",
           "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "09:00",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "09:00",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "09:00",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "09:00",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "09:00",
+          "closeMorning": "17:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "",
+          "closeMorning": "",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
+      "id": "NL21246",
+      "company": "De Zilveren Hamer",
+      "street": "JAN VAN SCORELSTRAAT",
+      "city": "UTRECHT",
+      "country_id": 528,
+      "house_number": "144",
+      "postcode": "3583CV",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "pickup_point",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 52.0831872,
+      "longitude": 5.1412031,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "",
+          "closeMorning": "",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -36458,91 +36628,6 @@
           "day": 6,
           "dayName": "Sobota",
           "openMorning": "09:00",
-          "closeMorning": "16:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
-      "id": "NL21583",
-      "company": "Pooja Super Store",
-      "street": "1E GRAAF VAN LOONSTRAAT",
-      "city": "VENLO",
-      "country_id": 528,
-      "house_number": "1 E",
-      "postcode": "5921JA",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "pickup_point",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 1,
-      "latitude": 51.3670482,
-      "longitude": 6.1523236,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "12:00",
-          "closeMorning": "17:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "10:30",
-          "closeMorning": "17:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "10:30",
-          "closeMorning": "17:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "10:30",
-          "closeMorning": "14:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "10:30",
-          "closeMorning": "17:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "10:30",
           "closeMorning": "16:00",
           "openAfternoon": "",
           "closeAfternoon": ""
@@ -42911,91 +42996,6 @@
           "dayName": "Pátek",
           "openMorning": "16:00",
           "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
-      "id": "NL21969",
-      "company": "ViaTim & Mooren",
-      "street": "SPORTLAAN",
-      "city": "MONTFORT",
-      "country_id": 528,
-      "house_number": "26",
-      "postcode": "6065AJ",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "pickup_point",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 0,
-      "latitude": 51.1229928,
-      "longitude": 5.9463768,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "13:30",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "13:30",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "13:30",
-          "closeMorning": "20:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "13:30",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "13:30",
-          "closeMorning": "20:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -50669,91 +50669,6 @@
       "photo": ""
     },
     {
-      "id": "NL22309",
-      "company": "Rz installatie Service & Onderhoud",
-      "street": "VOORSTRAAT",
-      "city": "COLIJNSPLAAT",
-      "country_id": 528,
-      "house_number": "11",
-      "postcode": "4486AH",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "pickup_point",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 0,
-      "latitude": 51.5995959,
-      "longitude": 3.8476581,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "09:00",
-          "closeMorning": "12:00",
-          "openAfternoon": "13:00",
-          "closeAfternoon": "18:00"
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "09:00",
-          "closeMorning": "12:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "09:00",
-          "closeMorning": "12:00",
-          "openAfternoon": "13:00",
-          "closeAfternoon": "18:00"
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "09:00",
-          "closeMorning": "12:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "09:00",
-          "closeMorning": "12:00",
-          "openAfternoon": "13:00",
-          "closeAfternoon": "18:00"
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
       "id": "NL22315",
       "company": "ViaTim & Erik Someren",
       "street": "HERDERSVELD",
@@ -53219,91 +53134,6 @@
       "photo": ""
     },
     {
-      "id": "NL22414",
-      "company": "Grens Gas",
-      "street": "WEZERWEG",
-      "city": "WELL",
-      "country_id": 528,
-      "house_number": "28",
-      "postcode": "5855EN",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "pickup_point",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 1,
-      "latitude": 51.5862631,
-      "longitude": 6.123144,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "09:00",
-          "closeMorning": "18:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "09:00",
-          "closeMorning": "18:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "09:00",
-          "closeMorning": "18:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "09:00",
-          "closeMorning": "18:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "09:00",
-          "closeMorning": "15:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
       "id": "NL22415",
       "company": "Schreurs Bie Smidje",
       "street": "GULDEN EIND",
@@ -53814,6 +53644,91 @@
       "photo": ""
     },
     {
+      "id": "NL22439",
+      "company": "De Dunsborg Ruitersport",
+      "street": "SPALSTRAAT",
+      "city": "HENGELO",
+      "country_id": 528,
+      "house_number": "32",
+      "postcode": "7255AC",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "pickup_point",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 52.0499098,
+      "longitude": 6.310024,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "",
+          "closeMorning": "",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "10:00",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "10:00",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "10:00",
+          "closeMorning": "20:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "10:00",
+          "closeMorning": "20:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "10:00",
+          "closeMorning": "16:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "",
+          "closeMorning": "",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
       "id": "NL22443",
       "company": "Phone Fixing",
       "street": "NIEUWE BINNENWEG",
@@ -53977,91 +53892,6 @@
           "dayName": "Neděle",
           "openMorning": "12:00",
           "closeMorning": "17:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
-      "id": "NL22452",
-      "company": "Partsnl",
-      "street": "EXPEDITIEWEG",
-      "city": "KRIMPEN AAN DEN IJSSEL",
-      "country_id": 528,
-      "house_number": "2",
-      "postcode": "2922HN",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "pickup_point",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 0,
-      "latitude": 51.9147304,
-      "longitude": 4.5906295,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "09:00",
-          "closeMorning": "17:30",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "09:00",
-          "closeMorning": "17:30",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "09:00",
-          "closeMorning": "17:30",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "09:00",
-          "closeMorning": "18:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "",
-          "closeMorning": "",
           "openAfternoon": "",
           "closeAfternoon": ""
         }
@@ -64269,91 +64099,6 @@
       "photo": ""
     },
     {
-      "id": "NL22703",
-      "company": "Pakketautomaat - De Buren - Winkelc",
-      "street": "NIEUWE LAAGZIJDE",
-      "city": "SCHAGEN",
-      "country_id": 528,
-      "house_number": "19",
-      "postcode": "1741GE",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "dpd_box",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 1,
-      "latitude": 52.7878911602,
-      "longitude": 4.8014136939,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "00:00",
-          "closeMorning": "23:59",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "00:00",
-          "closeMorning": "23:59",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "00:00",
-          "closeMorning": "23:59",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "00:00",
-          "closeMorning": "23:59",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "00:00",
-          "closeMorning": "23:59",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "00:00",
-          "closeMorning": "23:59",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "00:00",
-          "closeMorning": "23:59",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
       "id": "NL22704",
       "company": "Pakketautomaat - De Buren - Winkelc",
       "street": "DROOGHE BOL",
@@ -67832,6 +67577,91 @@
           "dayName": "Neděle",
           "openMorning": "10:00",
           "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
+      "id": "NL22765",
+      "company": "Pakketautomaat - De Buren - ISH Sur",
+      "street": "DASSENDONK",
+      "city": "DONGEN",
+      "country_id": 528,
+      "house_number": "10",
+      "postcode": "5103GL",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "dpd_box",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 51.6327414,
+      "longitude": 4.9438229,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "00:00",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "00:00",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "00:00",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "00:00",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "00:00",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "00:00",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "00:00",
+          "closeMorning": "23:59",
           "openAfternoon": "",
           "closeAfternoon": ""
         }
@@ -74114,91 +73944,6 @@
           "dayName": "Sobota",
           "openMorning": "09:00",
           "closeMorning": "18:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
-      "id": "NL22996",
-      "company": "Rp Shipping",
-      "street": "BURGEMEESTER VAN HAARENLAAN",
-      "city": "SCHIEDAM",
-      "country_id": 528,
-      "house_number": "784",
-      "postcode": "3119GV",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "pickup_point",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 0,
-      "latitude": 51.9222289,
-      "longitude": 4.3859998,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "10:00",
-          "closeMorning": "13:00",
-          "openAfternoon": "13:30",
-          "closeAfternoon": "17:00"
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "10:00",
-          "closeMorning": "13:00",
-          "openAfternoon": "13:30",
-          "closeAfternoon": "17:00"
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "10:00",
-          "closeMorning": "13:00",
-          "openAfternoon": "13:30",
-          "closeAfternoon": "17:00"
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "10:00",
-          "closeMorning": "13:00",
-          "openAfternoon": "13:30",
-          "closeAfternoon": "17:00"
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "",
-          "closeMorning": "",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -83904,91 +83649,6 @@
       "photo": ""
     },
     {
-      "id": "NL23268",
-      "company": "Business Point - Eurologix",
-      "street": "IMPULS",
-      "city": "PURMEREND",
-      "country_id": 528,
-      "house_number": "145",
-      "postcode": "1446WE",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "pickup_point",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 0,
-      "latitude": 52.5112962,
-      "longitude": 5.0051153,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "12:00",
-          "closeMorning": "17:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "12:00",
-          "closeMorning": "17:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "12:00",
-          "closeMorning": "17:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "12:00",
-          "closeMorning": "17:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
       "id": "NL23271",
       "company": "Marskramer / Top1Toys Wezep",
       "street": "MEIDOORNPLEIN",
@@ -87134,91 +86794,6 @@
       "photo": ""
     },
     {
-      "id": "NL23357",
-      "company": "Pakketautomaat - De Buren - Busstat",
-      "street": "ESCHPARK",
-      "city": "LICHTENVOORDE",
-      "country_id": 528,
-      "house_number": "0",
-      "postcode": "7131TG",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "dpd_box",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 1,
-      "latitude": 51.9927869,
-      "longitude": 6.5643497,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "00:00",
-          "closeMorning": "23:59",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "00:00",
-          "closeMorning": "23:59",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "00:00",
-          "closeMorning": "23:59",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "00:00",
-          "closeMorning": "23:59",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "00:00",
-          "closeMorning": "23:59",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "00:00",
-          "closeMorning": "23:59",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
       "id": "NL23359",
       "company": "Pakketautomaat - De Buren - Oude Gr",
       "street": "OUDE GROENEWOUDSEWEG",
@@ -87722,91 +87297,6 @@
           "dayName": "Neděle",
           "openMorning": "00:00",
           "closeMorning": "23:59",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
-      "id": "NL23368",
-      "company": "Tailor House Kleding Atelier",
-      "street": "OUDE TWEEBERGENPOORT",
-      "city": "MAASTRICHT",
-      "country_id": 528,
-      "house_number": "1B",
-      "postcode": "6211TD",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "pickup_point",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 1,
-      "latitude": 50.8495683,
-      "longitude": 5.6859201,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "13:00",
-          "closeMorning": "18:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "10:00",
-          "closeMorning": "14:30",
-          "openAfternoon": "15:30",
-          "closeAfternoon": "18:00"
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "10:00",
-          "closeMorning": "12:00",
-          "openAfternoon": "13:00",
-          "closeAfternoon": "18:00"
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "10:00",
-          "closeMorning": "14:30",
-          "openAfternoon": "15:30",
-          "closeAfternoon": "18:00"
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "10:00",
-          "closeMorning": "14:30",
-          "openAfternoon": "15:30",
-          "closeAfternoon": "18:00"
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "10:00",
-          "closeMorning": "17:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "",
-          "closeMorning": "",
           "openAfternoon": "",
           "closeAfternoon": ""
         }
@@ -92397,6 +91887,91 @@
           "dayName": "Neděle",
           "openMorning": "12:00",
           "closeMorning": "17:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
+      "id": "NL23495",
+      "company": "Fietsenmaker Sam",
+      "street": "VELVEWEG",
+      "city": "ENSCHEDE",
+      "country_id": 528,
+      "house_number": "63",
+      "postcode": "7533XE",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "pickup_point",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 52.2207618,
+      "longitude": 6.9200913,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "12:15",
+          "closeMorning": "17:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "12:15",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "12:15",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "12:15",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "12:15",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "09:00",
+          "closeMorning": "17:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "",
+          "closeMorning": "",
           "openAfternoon": "",
           "closeAfternoon": ""
         }
@@ -99488,38 +99063,38 @@
           "day": 1,
           "dayName": "Pondělí",
           "openMorning": "09:00",
-          "closeMorning": "17:30",
-          "openAfternoon": "",
-          "closeAfternoon": ""
+          "closeMorning": "13:30",
+          "openAfternoon": "14:30",
+          "closeAfternoon": "17:30"
         },
         {
           "day": 2,
           "dayName": "Úterý",
           "openMorning": "09:00",
-          "closeMorning": "17:30",
-          "openAfternoon": "",
-          "closeAfternoon": ""
+          "closeMorning": "13:30",
+          "openAfternoon": "14:30",
+          "closeAfternoon": "17:30"
         },
         {
           "day": 3,
           "dayName": "Středa",
           "openMorning": "09:00",
-          "closeMorning": "17:30",
-          "openAfternoon": "",
-          "closeAfternoon": ""
+          "closeMorning": "13:30",
+          "openAfternoon": "14:30",
+          "closeAfternoon": "17:30"
         },
         {
           "day": 4,
           "dayName": "Čtvrtek",
           "openMorning": "09:00",
-          "closeMorning": "17:30",
-          "openAfternoon": "",
-          "closeAfternoon": ""
+          "closeMorning": "13:30",
+          "openAfternoon": "14:30",
+          "closeAfternoon": "17:30"
         },
         {
           "day": 5,
           "dayName": "Pátek",
-          "openMorning": "10:00",
+          "openMorning": "09:00",
           "closeMorning": "13:30",
           "openAfternoon": "14:30",
           "closeAfternoon": "17:30"
@@ -100054,6 +99629,91 @@
       "photo": ""
     },
     {
+      "id": "NL23702",
+      "company": "RF Tweewielers Loosdrecht",
+      "street": "LINDELAAN",
+      "city": "LOOSDRECHT",
+      "country_id": 528,
+      "house_number": "96 A",
+      "postcode": "1231CN",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "pickup_point",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 52.200609,
+      "longitude": 5.1403793,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "",
+          "closeMorning": "",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "08:00",
+          "closeMorning": "17:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "08:00",
+          "closeMorning": "17:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "08:00",
+          "closeMorning": "17:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "08:00",
+          "closeMorning": "17:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "10:00",
+          "closeMorning": "16:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "",
+          "closeMorning": "",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
       "id": "NL23704",
       "company": "Trustwatersport",
       "street": "SCHIPHOLDIJK",
@@ -100379,91 +100039,6 @@
           "dayName": "Sobota",
           "openMorning": "",
           "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
-      "id": "NL23714",
-      "company": "ViaTim & Willemse",
-      "street": "BELLEFLEUR",
-      "city": "ZETTEN",
-      "country_id": 528,
-      "house_number": "23",
-      "postcode": "6671DS",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "pickup_point",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 1,
-      "latitude": 51.92783,
-      "longitude": 5.71849,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "15:30",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "15:30",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "15:30",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "15:30",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "15:30",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "14:00",
-          "closeMorning": "19:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -102859,6 +102434,91 @@
       "photo": ""
     },
     {
+      "id": "NL23795",
+      "company": "ViaTim & Yvonne",
+      "street": "SCHOLEKSTERSTRAAT",
+      "city": "ROZENBURG",
+      "country_id": 528,
+      "house_number": "10",
+      "postcode": "3181SR",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "pickup_point",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 51.9074254,
+      "longitude": 4.2381696,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "07:30",
+          "closeMorning": "20:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "10:00",
+          "closeMorning": "20:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "10:00",
+          "closeMorning": "20:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "10:00",
+          "closeMorning": "20:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "10:00",
+          "closeMorning": "20:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "10:00",
+          "closeMorning": "16:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "09:30",
+          "closeMorning": "12:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
       "id": "NL23797",
       "company": "Giggles and Gifts",
       "street": "BERMWEG",
@@ -103822,56 +103482,56 @@
         {
           "day": 1,
           "dayName": "Pondělí",
-          "openMorning": "14:00",
-          "closeMorning": "18:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
+          "openMorning": "10:00",
+          "closeMorning": "14:30",
+          "openAfternoon": "15:00",
+          "closeAfternoon": "17:00"
         },
         {
           "day": 2,
           "dayName": "Úterý",
-          "openMorning": "14:00",
-          "closeMorning": "19:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
+          "openMorning": "10:00",
+          "closeMorning": "14:30",
+          "openAfternoon": "15:00",
+          "closeAfternoon": "19:00"
         },
         {
           "day": 3,
           "dayName": "Středa",
-          "openMorning": "11:00",
-          "closeMorning": "19:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
+          "openMorning": "10:00",
+          "closeMorning": "14:30",
+          "openAfternoon": "15:00",
+          "closeAfternoon": "19:00"
         },
         {
           "day": 4,
           "dayName": "Čtvrtek",
-          "openMorning": "11:00",
-          "closeMorning": "19:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
+          "openMorning": "10:00",
+          "closeMorning": "14:30",
+          "openAfternoon": "15:00",
+          "closeAfternoon": "19:00"
         },
         {
           "day": 5,
           "dayName": "Pátek",
-          "openMorning": "11:00",
-          "closeMorning": "19:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
+          "openMorning": "10:00",
+          "closeMorning": "14:30",
+          "openAfternoon": "15:00",
+          "closeAfternoon": "18:00"
         },
         {
           "day": 6,
           "dayName": "Sobota",
-          "openMorning": "12:00",
-          "closeMorning": "18:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
+          "openMorning": "10:00",
+          "closeMorning": "14:30",
+          "openAfternoon": "15:00",
+          "closeAfternoon": "17:00"
         },
         {
           "day": 7,
           "dayName": "Neděle",
-          "openMorning": "",
-          "closeMorning": "",
+          "openMorning": "12:00",
+          "closeMorning": "14:30",
           "openAfternoon": "",
           "closeAfternoon": ""
         }
@@ -104644,13 +104304,13 @@
       "photo": ""
     },
     {
-      "id": "NL23854",
-      "company": "ViaTim & Ochtenhof",
-      "street": "OCHTENHOF",
-      "city": "AMSTERDAM",
+      "id": "NL23846",
+      "company": "Vergetengoed",
+      "street": "BURG. FRENCKENSTRAAT",
+      "city": "ASTEN",
       "country_id": 528,
-      "house_number": "17",
-      "postcode": "1106TH",
+      "house_number": "71",
+      "postcode": "5721EZ",
       "phone": "",
       "fax": "",
       "email": "",
@@ -104665,55 +104325,55 @@
       "cardpayment_allowed": 0,
       "cod_allowed": 0,
       "service": 0,
-      "open_weekend": 0,
-      "latitude": 52.2986869,
-      "longitude": 4.9637409,
+      "open_weekend": 1,
+      "latitude": 51.405037,
+      "longitude": 5.74686,
       "hours": [
         {
           "day": 1,
           "dayName": "Pondělí",
-          "openMorning": "16:00",
-          "closeMorning": "21:00",
+          "openMorning": "",
+          "closeMorning": "",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
         {
           "day": 2,
           "dayName": "Úterý",
-          "openMorning": "16:00",
-          "closeMorning": "21:00",
+          "openMorning": "13:00",
+          "closeMorning": "17:30",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
         {
           "day": 3,
           "dayName": "Středa",
-          "openMorning": "16:00",
-          "closeMorning": "21:00",
+          "openMorning": "13:00",
+          "closeMorning": "17:30",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
         {
           "day": 4,
           "dayName": "Čtvrtek",
-          "openMorning": "16:00",
-          "closeMorning": "21:00",
+          "openMorning": "13:00",
+          "closeMorning": "17:30",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
         {
           "day": 5,
           "dayName": "Pátek",
-          "openMorning": "16:00",
-          "closeMorning": "21:00",
+          "openMorning": "13:00",
+          "closeMorning": "17:30",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
         {
           "day": 6,
           "dayName": "Sobota",
-          "openMorning": "",
-          "closeMorning": "",
+          "openMorning": "13:00",
+          "closeMorning": "16:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -104722,6 +104382,91 @@
           "dayName": "Neděle",
           "openMorning": "",
           "closeMorning": "",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
+      "id": "NL23850",
+      "company": "ViaTim & Bert",
+      "street": "HUIBERTPLAAT",
+      "city": "DELFZIJL",
+      "country_id": 528,
+      "house_number": "3",
+      "postcode": "9931CA",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "pickup_point",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 53.3354842,
+      "longitude": 6.9050146,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "12:00",
+          "closeMorning": "21:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "12:00",
+          "closeMorning": "21:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "12:00",
+          "closeMorning": "21:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "12:00",
+          "closeMorning": "21:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "12:00",
+          "closeMorning": "21:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "12:00",
+          "closeMorning": "21:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "12:00",
+          "closeMorning": "19:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         }
@@ -111614,91 +111359,6 @@
       "photo": ""
     },
     {
-      "id": "NL24011",
-      "company": "DPD Pakketautomaat - Hismith Europe",
-      "street": "ENERGIEWEG",
-      "city": "ZOETERWOUDE",
-      "country_id": 528,
-      "house_number": "47",
-      "postcode": "2382ND",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "dpd_box",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 0,
-      "latitude": 52.137874,
-      "longitude": 4.52988,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "10:00",
-          "closeMorning": "18:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "10:00",
-          "closeMorning": "18:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "10:00",
-          "closeMorning": "18:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "10:00",
-          "closeMorning": "18:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "10:00",
-          "closeMorning": "18:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
       "id": "NL24012",
       "company": "DPD Pakketautomaat - Wasserette Kru",
       "street": "ADRIANASTRAAT",
@@ -115517,6 +115177,91 @@
           "dayName": "Neděle",
           "openMorning": "12:00",
           "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
+      "id": "NL24086",
+      "company": "Sikan Lederwaren",
+      "street": "JAN EVERTSENSTRAAT",
+      "city": "AMSTERDAM",
+      "country_id": 528,
+      "house_number": "83",
+      "postcode": "1057BR",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "pickup_point",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 52.370838,
+      "longitude": 4.854025,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "13:00",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "10:00",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "10:00",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "10:00",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "10:00",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "10:00",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "",
+          "closeMorning": "",
           "openAfternoon": "",
           "closeAfternoon": ""
         }
@@ -120879,91 +120624,6 @@
       "photo": ""
     },
     {
-      "id": "NL24183",
-      "company": "ViaTim & DOC-S Shop",
-      "street": "KERKSTRAAT",
-      "city": "ZEELAND",
-      "country_id": 528,
-      "house_number": "75",
-      "postcode": "5411EC",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "pickup_point",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 0,
-      "latitude": 51.6995535,
-      "longitude": 5.675089,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "14:30",
-          "closeMorning": "18:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "15:00",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "15:00",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "15:00",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "15:00",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
       "id": "NL24184",
       "company": "DPD Pakketautomaat - Tennisverenigi",
       "street": "AMBACHTSVELD",
@@ -125894,6 +125554,91 @@
       "photo": ""
     },
     {
+      "id": "NL24274",
+      "company": "Buurtservicepunt Michelle",
+      "street": "KLOEKHORSTSTRAAT",
+      "city": "AMSTERDAM",
+      "country_id": 528,
+      "house_number": "248",
+      "postcode": "1104MZ",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "pickup_point",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 0,
+      "latitude": 52.3169528,
+      "longitude": 4.967028,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "12:00",
+          "closeMorning": "20:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "12:00",
+          "closeMorning": "20:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "12:00",
+          "closeMorning": "20:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "12:00",
+          "closeMorning": "20:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "12:00",
+          "closeMorning": "20:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "",
+          "closeMorning": "",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "",
+          "closeMorning": "",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
       "id": "NL24275",
       "company": "Auto & Fiets Togo",
       "street": "REMBRANDTWEG",
@@ -126397,6 +126142,91 @@
           "dayName": "Neděle",
           "openMorning": "07:00",
           "closeMorning": "22:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
+      "id": "NL24284",
+      "company": "DPD Pakketautomaat - Plus Gouda",
+      "street": "THORBECKELAAN",
+      "city": "GOUDA",
+      "country_id": 528,
+      "house_number": "1",
+      "postcode": "2805BX",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "dpd_box",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 52.0216447,
+      "longitude": 4.7095308,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
           "openAfternoon": "",
           "closeAfternoon": ""
         }
@@ -128954,6 +128784,91 @@
       "photo": ""
     },
     {
+      "id": "NL24327",
+      "company": "You Mobile Zwolle",
+      "street": "DIEZERKADE",
+      "city": "ZWOLLE",
+      "country_id": 528,
+      "house_number": "15",
+      "postcode": "8021CW",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "pickup_point",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 52.5152484,
+      "longitude": 6.1016473,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "11:00",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "10:00",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "10:00",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "10:00",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "10:00",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "10:00",
+          "closeMorning": "17:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "",
+          "closeMorning": "",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
       "id": "NL24328",
       "company": "Stichting Philadelphia Zorg",
       "street": "NOORDSE BOSJE",
@@ -130562,6 +130477,91 @@
           "dayName": "Neděle",
           "openMorning": "",
           "closeMorning": "",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
+      "id": "NL24356",
+      "company": "DPD Pakketautomaat - De Speulplats",
+      "street": "MONSEIGNEUR JENNESKENSSTRAAT",
+      "city": "MEERLO",
+      "country_id": 528,
+      "house_number": "7",
+      "postcode": "5864CS",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "dpd_box",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 51.513154,
+      "longitude": 6.0894912,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "00:00",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "00:00",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "00:00",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "00:00",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "00:00",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "00:00",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "00:00",
+          "closeMorning": "23:59",
           "openAfternoon": "",
           "closeAfternoon": ""
         }
@@ -136944,91 +136944,6 @@
       "photo": ""
     },
     {
-      "id": "NL24463",
-      "company": "DPD Pakketautomaat - Plus Jeroen Ju",
-      "street": "GROTESTRAAT",
-      "city": "BEDUM",
-      "country_id": 528,
-      "house_number": "13",
-      "postcode": "9781HA",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "dpd_box",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 1,
-      "latitude": 53.3009268,
-      "longitude": 6.6026521,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "08:00",
-          "closeMorning": "20:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "08:00",
-          "closeMorning": "20:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "08:00",
-          "closeMorning": "20:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "08:00",
-          "closeMorning": "20:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "08:00",
-          "closeMorning": "20:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "08:00",
-          "closeMorning": "20:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "11:00",
-          "closeMorning": "17:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
       "id": "NL24464",
       "company": "Trimsalon de Kapper / Snoeppie",
       "street": "WIGIBALDPLEIN",
@@ -139239,91 +139154,6 @@
       "photo": ""
     },
     {
-      "id": "NL24498",
-      "company": "DPD Pakketautomaat - Depot Maastric",
-      "street": "GALJOENWEG",
-      "city": "MAASTRICHT",
-      "country_id": 528,
-      "house_number": "68",
-      "postcode": "6222NV",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "dpd_box",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 1,
-      "latitude": 50.8755854,
-      "longitude": 5.708234,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "00:01",
-          "closeMorning": "23:59",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "00:01",
-          "closeMorning": "23:59",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "00:01",
-          "closeMorning": "23:59",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "00:01",
-          "closeMorning": "23:59",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "00:01",
-          "closeMorning": "23:59",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "00:01",
-          "closeMorning": "23:59",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "00:01",
-          "closeMorning": "23:59",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
       "id": "NL24499",
       "company": "DPD Pakketautomaat - Supertank De N",
       "street": "DE NOORD",
@@ -139989,6 +139819,91 @@
           "dayName": "Sobota",
           "openMorning": "10:00",
           "closeMorning": "17:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "",
+          "closeMorning": "",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
+      "id": "NL24513",
+      "company": "ViaTim & Jessica",
+      "street": "AUGUSTIJNENKAMP",
+      "city": "DORDRECHT",
+      "country_id": 528,
+      "house_number": "35",
+      "postcode": "3311XC",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "pickup_point",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 0,
+      "latitude": 51.81499,
+      "longitude": 4.67133,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "14:00",
+          "closeMorning": "20:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "14:00",
+          "closeMorning": "20:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "",
+          "closeMorning": "",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "14:00",
+          "closeMorning": "20:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "14:00",
+          "closeMorning": "20:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "",
+          "closeMorning": "",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -142554,91 +142469,6 @@
       "photo": ""
     },
     {
-      "id": "NL24557",
-      "company": "Kringloop Puur Geluk",
-      "street": "DE MORS",
-      "city": "OOTMARSUM",
-      "country_id": 528,
-      "house_number": "105",
-      "postcode": "7631BA",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "pickup_point",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 1,
-      "latitude": 52.412192,
-      "longitude": 6.9084535,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "09:00",
-          "closeMorning": "17:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "09:00",
-          "closeMorning": "17:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "09:00",
-          "closeMorning": "17:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "09:00",
-          "closeMorning": "17:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "09:00",
-          "closeMorning": "17:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "09:00",
-          "closeMorning": "16:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
       "id": "NL24558",
       "company": "Audio Star B.V.",
       "street": "CESAR FRANCKSTRAAT",
@@ -144367,56 +144197,56 @@
         {
           "day": 1,
           "dayName": "Pondělí",
-          "openMorning": "09:00",
-          "closeMorning": "21:00",
+          "openMorning": "10:00",
+          "closeMorning": "20:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
         {
           "day": 2,
           "dayName": "Úterý",
-          "openMorning": "09:00",
-          "closeMorning": "21:00",
+          "openMorning": "10:00",
+          "closeMorning": "20:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
         {
           "day": 3,
           "dayName": "Středa",
-          "openMorning": "09:00",
-          "closeMorning": "21:00",
+          "openMorning": "10:00",
+          "closeMorning": "20:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
         {
           "day": 4,
           "dayName": "Čtvrtek",
-          "openMorning": "09:00",
-          "closeMorning": "21:00",
+          "openMorning": "10:00",
+          "closeMorning": "20:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
         {
           "day": 5,
           "dayName": "Pátek",
-          "openMorning": "09:00",
-          "closeMorning": "21:00",
+          "openMorning": "10:00",
+          "closeMorning": "20:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
         {
           "day": 6,
           "dayName": "Sobota",
-          "openMorning": "16:00",
-          "closeMorning": "21:00",
+          "openMorning": "12:00",
+          "closeMorning": "18:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
         {
           "day": 7,
           "dayName": "Neděle",
-          "openMorning": "16:00",
-          "closeMorning": "21:00",
+          "openMorning": "",
+          "closeMorning": "",
           "openAfternoon": "",
           "closeAfternoon": ""
         }
@@ -151139,6 +150969,91 @@
       "photo": ""
     },
     {
+      "id": "NL24710",
+      "company": "ViaTim & Miranda",
+      "street": "BRAAMGAARDE",
+      "city": "NIEUWEGEIN",
+      "country_id": 528,
+      "house_number": "27",
+      "postcode": "3436GM",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "pickup_point",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 0,
+      "latitude": 52.034941,
+      "longitude": 5.071241,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "16:00",
+          "closeMorning": "20:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "16:00",
+          "closeMorning": "20:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "16:00",
+          "closeMorning": "20:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "16:00",
+          "closeMorning": "20:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "16:00",
+          "closeMorning": "20:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "",
+          "closeMorning": "",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "",
+          "closeMorning": "",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
       "id": "NL24711",
       "company": "ViaTim & Jan",
       "street": "TINNEVELDSTRAAT",
@@ -153208,7 +153123,7 @@
           "day": 1,
           "dayName": "Pondělí",
           "openMorning": "10:00",
-          "closeMorning": "18:00",
+          "closeMorning": "17:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -153216,7 +153131,7 @@
           "day": 2,
           "dayName": "Úterý",
           "openMorning": "10:00",
-          "closeMorning": "18:00",
+          "closeMorning": "17:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -153224,7 +153139,7 @@
           "day": 3,
           "dayName": "Středa",
           "openMorning": "10:00",
-          "closeMorning": "18:00",
+          "closeMorning": "17:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -153232,7 +153147,7 @@
           "day": 4,
           "dayName": "Čtvrtek",
           "openMorning": "10:00",
-          "closeMorning": "18:00",
+          "closeMorning": "17:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -153240,7 +153155,7 @@
           "day": 5,
           "dayName": "Pátek",
           "openMorning": "10:00",
-          "closeMorning": "18:00",
+          "closeMorning": "15:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -153248,15 +153163,15 @@
           "day": 6,
           "dayName": "Sobota",
           "openMorning": "10:00",
-          "closeMorning": "18:00",
+          "closeMorning": "17:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
         {
           "day": 7,
           "dayName": "Neděle",
-          "openMorning": "12:00",
-          "closeMorning": "18:00",
+          "openMorning": "",
+          "closeMorning": "",
           "openAfternoon": "",
           "closeAfternoon": ""
         }
@@ -153767,6 +153682,91 @@
           "dayName": "Neděle",
           "openMorning": "13:00",
           "closeMorning": "22:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
+      "id": "NL24753",
+      "company": "Billy Cars",
+      "street": "TULPENSTRAAT",
+      "city": "RIJNSBURG",
+      "country_id": 528,
+      "house_number": "80",
+      "postcode": "2231GX",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "pickup_point",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 52.1926633,
+      "longitude": 4.4397788,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "09:00",
+          "closeMorning": "17:30",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "09:00",
+          "closeMorning": "17:30",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "09:00",
+          "closeMorning": "17:30",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "09:00",
+          "closeMorning": "17:30",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "09:00",
+          "closeMorning": "17:30",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "10:00",
+          "closeMorning": "17:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "",
+          "closeMorning": "",
           "openAfternoon": "",
           "closeAfternoon": ""
         }
@@ -154617,6 +154617,91 @@
           "dayName": "Neděle",
           "openMorning": "",
           "closeMorning": "",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
+      "id": "NL24767",
+      "company": "DPD Pakketautomaat - SPAR Loenen",
+      "street": "EERBEEKSEWEG",
+      "city": "LOENEN",
+      "country_id": 528,
+      "house_number": "24",
+      "postcode": "7371CH",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "dpd_box",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 52.1144067,
+      "longitude": 6.0201181,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
           "openAfternoon": "",
           "closeAfternoon": ""
         }
@@ -156267,40 +156352,40 @@
         {
           "day": 1,
           "dayName": "Pondělí",
-          "openMorning": "10:00",
-          "closeMorning": "17:00",
+          "openMorning": "11:00",
+          "closeMorning": "18:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
         {
           "day": 2,
           "dayName": "Úterý",
-          "openMorning": "10:00",
-          "closeMorning": "17:00",
+          "openMorning": "11:00",
+          "closeMorning": "18:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
         {
           "day": 3,
           "dayName": "Středa",
-          "openMorning": "10:00",
-          "closeMorning": "17:00",
+          "openMorning": "11:00",
+          "closeMorning": "18:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
         {
           "day": 4,
           "dayName": "Čtvrtek",
-          "openMorning": "10:00",
-          "closeMorning": "17:00",
+          "openMorning": "11:00",
+          "closeMorning": "18:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
         {
           "day": 5,
           "dayName": "Pátek",
-          "openMorning": "10:00",
-          "closeMorning": "17:00",
+          "openMorning": "11:00",
+          "closeMorning": "18:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -163124,91 +163209,6 @@
       "photo": ""
     },
     {
-      "id": "NL24903",
-      "company": "Second hand by things",
-      "street": "KORTE MOLENSTRAAT",
-      "city": "CUIJK",
-      "country_id": 528,
-      "house_number": "18 A",
-      "postcode": "5431DT",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "pickup_point",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 0,
-      "latitude": 51.728972,
-      "longitude": 5.880339,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "10:00",
-          "closeMorning": "17:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "10:00",
-          "closeMorning": "17:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "10:00",
-          "closeMorning": "17:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "10:00",
-          "closeMorning": "17:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
       "id": "NL24904",
       "company": "T&W Online",
       "street": "ZADELMAKERSTRAAT",
@@ -163526,91 +163526,6 @@
           "dayName": "Pátek",
           "openMorning": "16:00",
           "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
-      "id": "NL24910",
-      "company": "ViaTim & Afferden L",
-      "street": "LEEGVELDSEWEG",
-      "city": "AFFERDEN",
-      "country_id": 528,
-      "house_number": "10",
-      "postcode": "5851DK",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "pickup_point",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 0,
-      "latitude": 51.638182,
-      "longitude": 6.0089715,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "16:00",
-          "closeMorning": "20:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "16:00",
-          "closeMorning": "20:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "16:00",
-          "closeMorning": "20:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "16:00",
-          "closeMorning": "20:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "16:00",
-          "closeMorning": "20:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -166949,91 +166864,6 @@
       "photo": ""
     },
     {
-      "id": "NL24956",
-      "company": "Jacobs",
-      "street": "DENNEWEG",
-      "city": "DEN HAAG",
-      "country_id": 528,
-      "house_number": "61 A",
-      "postcode": "2514CD",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "pickup_point",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 1,
-      "latitude": 52.0858973,
-      "longitude": 4.311923,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "10:00",
-          "closeMorning": "19:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "10:00",
-          "closeMorning": "19:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "10:00",
-          "closeMorning": "19:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "10:00",
-          "closeMorning": "19:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "10:00",
-          "closeMorning": "19:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "10:00",
-          "closeMorning": "19:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "10:00",
-          "closeMorning": "19:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
       "id": "NL24957",
       "company": "Nana’s kjoetiek",
       "street": "WAGNERPLEIN",
@@ -167438,91 +167268,6 @@
           "closeMorning": "21:00",
           "openAfternoon": "",
           "closeAfternoon": ""
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
-      "id": "NL24964",
-      "company": "ViaTim & Cristina",
-      "street": "SPECHTLAAN",
-      "city": "VLAARDINGEN",
-      "country_id": 528,
-      "house_number": "267",
-      "postcode": "3136HG",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "pickup_point",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 0,
-      "latitude": 51.929522,
-      "longitude": 4.357796,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "09:00",
-          "closeMorning": "13:00",
-          "openAfternoon": "14:00",
-          "closeAfternoon": "21:00"
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "09:00",
-          "closeMorning": "13:00",
-          "openAfternoon": "14:00",
-          "closeAfternoon": "21:00"
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "09:00",
-          "closeMorning": "13:00",
-          "openAfternoon": "14:00",
-          "closeAfternoon": "21:00"
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "09:00",
-          "closeMorning": "13:00",
-          "openAfternoon": "14:00",
-          "closeAfternoon": "21:00"
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "09:00",
-          "closeMorning": "13:00",
-          "openAfternoon": "14:00",
-          "closeAfternoon": "21:00"
         },
         {
           "day": 6,
@@ -170264,6 +170009,91 @@
       "photo": ""
     },
     {
+      "id": "NL25007",
+      "company": "Rolling Cargo Europe",
+      "street": "ZUID-AFRIKAWEG",
+      "city": "AALSMEER",
+      "country_id": 528,
+      "house_number": "12-K",
+      "postcode": "1432DA",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "pickup_point",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 0,
+      "latitude": 52.2692274,
+      "longitude": 4.7727242,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "09:00",
+          "closeMorning": "17:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "09:00",
+          "closeMorning": "17:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "09:00",
+          "closeMorning": "17:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "09:00",
+          "closeMorning": "17:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "09:00",
+          "closeMorning": "17:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "",
+          "closeMorning": "",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "",
+          "closeMorning": "",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
       "id": "NL25008",
       "company": "DPD Pakketautomaat - Winkelcentrum",
       "street": "NIEUWSTRAAT",
@@ -170342,6 +170172,91 @@
           "dayName": "Neděle",
           "openMorning": "12:00",
           "closeMorning": "17:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
+      "id": "NL25009",
+      "company": "Power Factory Rotterdam",
+      "street": "VLAMBLOEM",
+      "city": "ROTTERDAM",
+      "country_id": 528,
+      "house_number": "165",
+      "postcode": "3068JG",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "pickup_point",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 0,
+      "latitude": 51.9543447,
+      "longitude": 4.5326277,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "09:00",
+          "closeMorning": "14:00",
+          "openAfternoon": "18:00",
+          "closeAfternoon": "20:00"
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "09:00",
+          "closeMorning": "14:00",
+          "openAfternoon": "17:00",
+          "closeAfternoon": "20:00"
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "09:00",
+          "closeMorning": "14:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "09:00",
+          "closeMorning": "20:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "09:00",
+          "closeMorning": "17:30",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "",
+          "closeMorning": "",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "",
+          "closeMorning": "",
           "openAfternoon": "",
           "closeAfternoon": ""
         }
@@ -205685,8 +205600,8 @@
           "day": 5,
           "dayName": "Pátek",
           "openMorning": "10:00",
-          "closeMorning": "12:00",
-          "openAfternoon": "14:00",
+          "closeMorning": "13:00",
+          "openAfternoon": "15:00",
           "closeAfternoon": "18:00"
         },
         {
@@ -206204,91 +206119,6 @@
           "dayName": "Sobota",
           "openMorning": "10:00",
           "closeMorning": "17:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
-      "id": "NL25933",
-      "company": "HealthCorner",
-      "street": "ADMIRAAL DE RUIJTERWEG",
-      "city": "AMSTERDAM",
-      "country_id": 528,
-      "house_number": "54",
-      "postcode": "1056GL",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "pickup_point",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 1,
-      "latitude": 52.37101,
-      "longitude": 4.86252,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "10:00",
-          "closeMorning": "20:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "10:00",
-          "closeMorning": "20:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "10:00",
-          "closeMorning": "20:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "10:00",
-          "closeMorning": "20:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "10:00",
-          "closeMorning": "20:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "11:00",
-          "closeMorning": "20:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -207494,6 +207324,91 @@
       "photo": ""
     },
     {
+      "id": "NL25951",
+      "company": "ViaTim & Dommelen",
+      "street": "DAALDERHOF",
+      "city": "VALKENSWAARD",
+      "country_id": 528,
+      "house_number": "32",
+      "postcode": "5551TV",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "pickup_point",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 0,
+      "latitude": 51.352214,
+      "longitude": 5.4270645,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "16:00",
+          "closeMorning": "21:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "16:00",
+          "closeMorning": "21:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "16:00",
+          "closeMorning": "21:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "16:00",
+          "closeMorning": "21:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "16:00",
+          "closeMorning": "21:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "",
+          "closeMorning": "",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "",
+          "closeMorning": "",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
       "id": "NL25952",
       "company": "ViaTim & Nancy",
       "street": "JOSUA DE GRAVELAAN",
@@ -207556,176 +207471,6 @@
           "dayName": "Pátek",
           "openMorning": "13:00",
           "closeMorning": "20:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
-      "id": "NL25955",
-      "company": "ViaTim & Patrick",
-      "street": "VAN ALKEMADESTRAAT",
-      "city": "TILBURG",
-      "country_id": 528,
-      "house_number": "32",
-      "postcode": "5014ML",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "pickup_point",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 0,
-      "latitude": 51.57118,
-      "longitude": 5.09272,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "16:00",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "16:00",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "16:00",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "16:00",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "14:00",
-          "closeMorning": "20:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
-      "id": "NL25958",
-      "company": "ViaTim & Deborah",
-      "street": "KOEN GORTERSHOEKE",
-      "city": "OPEINDE",
-      "country_id": 528,
-      "house_number": "15",
-      "postcode": "9218RL",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "pickup_point",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 0,
-      "latitude": 53.13499,
-      "longitude": 6.05287,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "09:00",
-          "closeMorning": "12:00",
-          "openAfternoon": "16:00",
-          "closeAfternoon": "21:00"
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "16:00",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "09:00",
-          "closeMorning": "12:00",
-          "openAfternoon": "16:00",
-          "closeAfternoon": "21:00"
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "16:00",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "16:00",
-          "closeMorning": "21:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -208793,6 +208538,91 @@
       "open_weekend": 1,
       "latitude": 52.10069,
       "longitude": 5.08647,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
+      "id": "NL25974",
+      "company": "DPD Pakketautomaat - Selfstorage Cu",
+      "street": "HULSBOS",
+      "city": "CUIJK",
+      "country_id": 528,
+      "house_number": "4A",
+      "postcode": "5431NZ",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "dpd_box",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 51.71958,
+      "longitude": 5.87128,
       "hours": [
         {
           "day": 1,
@@ -211234,91 +211064,6 @@
       "photo": ""
     },
     {
-      "id": "NL26012",
-      "company": "TFEMW B.V.",
-      "street": "WATERTORENWEG",
-      "city": "ROTTERDAM",
-      "country_id": 528,
-      "house_number": "332",
-      "postcode": "3063HA",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "pickup_point",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 1,
-      "latitude": 51.9114,
-      "longitude": 4.52056,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "10:00",
-          "closeMorning": "18:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "10:00",
-          "closeMorning": "18:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "10:00",
-          "closeMorning": "18:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "10:00",
-          "closeMorning": "18:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "10:00",
-          "closeMorning": "18:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "12:00",
-          "closeMorning": "16:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
       "id": "NL26013",
       "company": "Ut Noorder Snuupke",
       "street": "TER HOFSTADLAAN 40",
@@ -211943,7 +211688,7 @@
           "day": 1,
           "dayName": "Pondělí",
           "openMorning": "08:30",
-          "closeMorning": "16:00",
+          "closeMorning": "16:30",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -211951,7 +211696,7 @@
           "day": 2,
           "dayName": "Úterý",
           "openMorning": "08:30",
-          "closeMorning": "16:00",
+          "closeMorning": "16:30",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -211959,7 +211704,7 @@
           "day": 3,
           "dayName": "Středa",
           "openMorning": "08:30",
-          "closeMorning": "16:00",
+          "closeMorning": "16:30",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -211967,7 +211712,7 @@
           "day": 4,
           "dayName": "Čtvrtek",
           "openMorning": "08:30",
-          "closeMorning": "16:00",
+          "closeMorning": "16:30",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -211975,7 +211720,7 @@
           "day": 5,
           "dayName": "Pátek",
           "openMorning": "08:30",
-          "closeMorning": "16:00",
+          "closeMorning": "16:30",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -212594,91 +212339,6 @@
       "photo": ""
     },
     {
-      "id": "NL26028",
-      "company": "ViaTim & Wendy",
-      "street": "DE LAARS",
-      "city": "ENKHUIZEN",
-      "country_id": 528,
-      "house_number": "55",
-      "postcode": "1602MZ",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "pickup_point",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 0,
-      "latitude": 52.71479,
-      "longitude": 5.26929,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "15:00",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "15:00",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "15:00",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "15:00",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "15:00",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
       "id": "NL26029",
       "company": "Parcels by Syllie",
       "street": "KERKSTRAAT",
@@ -213104,91 +212764,6 @@
       "photo": ""
     },
     {
-      "id": "NL26036",
-      "company": "ViaTim & Harold",
-      "street": "MAX PLANCKSTRAAT",
-      "city": "MAASTRICHT",
-      "country_id": 528,
-      "house_number": "5",
-      "postcode": "6227TN",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "pickup_point",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 0,
-      "latitude": 50.83734,
-      "longitude": 5.73097,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "09:00",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "09:00",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "09:00",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "09:00",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "09:00",
-          "closeMorning": "21:00",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
       "id": "NL26037",
       "company": "Schoenmakerij de Haeghe",
       "street": "HAAGWEG",
@@ -213472,48 +213047,48 @@
         {
           "day": 1,
           "dayName": "Pondělí",
-          "openMorning": "09:00",
-          "closeMorning": "19:00",
+          "openMorning": "08:00",
+          "closeMorning": "20:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
         {
           "day": 2,
           "dayName": "Úterý",
-          "openMorning": "09:00",
-          "closeMorning": "19:00",
+          "openMorning": "08:00",
+          "closeMorning": "20:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
         {
           "day": 3,
           "dayName": "Středa",
-          "openMorning": "09:00",
-          "closeMorning": "19:00",
+          "openMorning": "08:00",
+          "closeMorning": "20:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
         {
           "day": 4,
           "dayName": "Čtvrtek",
-          "openMorning": "09:00",
-          "closeMorning": "19:00",
+          "openMorning": "08:00",
+          "closeMorning": "20:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
         {
           "day": 5,
           "dayName": "Pátek",
-          "openMorning": "09:00",
-          "closeMorning": "19:00",
+          "openMorning": "08:00",
+          "closeMorning": "20:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
         {
           "day": 6,
           "dayName": "Sobota",
-          "openMorning": "09:00",
-          "closeMorning": "19:00",
+          "openMorning": "08:00",
+          "closeMorning": "18:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -213607,6 +213182,91 @@
           "dayName": "Neděle",
           "openMorning": "",
           "closeMorning": "",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
+      "id": "NL26043",
+      "company": "DPD Pakketautomaat - Intratuin IJss",
+      "street": "WEG DER VERENIGDE NATIES",
+      "city": "BENSCHOP",
+      "country_id": 528,
+      "house_number": "2",
+      "postcode": "3405AZ",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "dpd_box",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 52.01275,
+      "longitude": 5.02771,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "08:00",
+          "closeMorning": "17:30",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "08:00",
+          "closeMorning": "17:30",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "08:00",
+          "closeMorning": "17:30",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "08:00",
+          "closeMorning": "17:30",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "08:00",
+          "closeMorning": "17:30",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "08:00",
+          "closeMorning": "17:30",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "08:00",
+          "closeMorning": "17:30",
           "openAfternoon": "",
           "closeAfternoon": ""
         }
@@ -214372,91 +214032,6 @@
           "dayName": "Neděle",
           "openMorning": "00:01",
           "closeMorning": "23:59",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        }
-      ],
-      "photo": ""
-    },
-    {
-      "id": "NL26053",
-      "company": "Daston",
-      "street": "TITANIUMWEG",
-      "city": "ALPHEN AAN DEN RIJN",
-      "country_id": 528,
-      "house_number": "474",
-      "postcode": "2401ML",
-      "phone": "",
-      "fax": "",
-      "email": "",
-      "homepage": "",
-      "pickup_network_type": "pickup_point",
-      "pickup_allowed": 1,
-      "return_allowed": 1,
-      "dropoff_allowed": 1,
-      "dropoff_withLabel_allowed": 1,
-      "dropoff_withoutLabel_allowed": 0,
-      "express_allowed": 0,
-      "cardpayment_allowed": 0,
-      "cod_allowed": 0,
-      "service": 0,
-      "open_weekend": 0,
-      "latitude": 52.15287,
-      "longitude": 4.6474,
-      "hours": [
-        {
-          "day": 1,
-          "dayName": "Pondělí",
-          "openMorning": "10:00",
-          "closeMorning": "13:00",
-          "openAfternoon": "14:00",
-          "closeAfternoon": "17:00"
-        },
-        {
-          "day": 2,
-          "dayName": "Úterý",
-          "openMorning": "10:00",
-          "closeMorning": "13:00",
-          "openAfternoon": "14:00",
-          "closeAfternoon": "17:00"
-        },
-        {
-          "day": 3,
-          "dayName": "Středa",
-          "openMorning": "10:00",
-          "closeMorning": "13:00",
-          "openAfternoon": "14:00",
-          "closeAfternoon": "17:00"
-        },
-        {
-          "day": 4,
-          "dayName": "Čtvrtek",
-          "openMorning": "10:00",
-          "closeMorning": "13:00",
-          "openAfternoon": "14:00",
-          "closeAfternoon": "17:00"
-        },
-        {
-          "day": 5,
-          "dayName": "Pátek",
-          "openMorning": "10:00",
-          "closeMorning": "13:00",
-          "openAfternoon": "14:00",
-          "closeAfternoon": "17:00"
-        },
-        {
-          "day": 6,
-          "dayName": "Sobota",
-          "openMorning": "",
-          "closeMorning": "",
-          "openAfternoon": "",
-          "closeAfternoon": ""
-        },
-        {
-          "day": 7,
-          "dayName": "Neděle",
-          "openMorning": "",
-          "closeMorning": "",
           "openAfternoon": "",
           "closeAfternoon": ""
         }
@@ -215314,8 +214889,93 @@
       "photo": ""
     },
     {
+      "id": "NL26068",
+      "company": "Pakketautomaat - De Buren - Mulder",
+      "street": "WESTEINDE",
+      "city": "VRIEZENVEEN",
+      "country_id": 528,
+      "house_number": "281",
+      "postcode": "7671ES",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "dpd_box",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 52.40688,
+      "longitude": 6.61307,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "08:00",
+          "closeMorning": "19:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "08:00",
+          "closeMorning": "19:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "08:00",
+          "closeMorning": "19:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "08:00",
+          "closeMorning": "19:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "08:00",
+          "closeMorning": "19:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "08:00",
+          "closeMorning": "19:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "",
+          "closeMorning": "",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
       "id": "NL26070",
-      "company": "Whashoon",
+      "company": "whashoen-2",
       "street": "HAGEDOORNWEG",
       "city": "AMSTERDAM",
       "country_id": 528,
@@ -215485,7 +215145,7 @@
     },
     {
       "id": "NL26073",
-      "company": "DPD Pakketautomaat - De Opslag Koni",
+      "company": "DPD Pakketautomaat - De Opslagkonin",
       "street": "VEENDERVELD",
       "city": "ROELOFARENDSVEEN",
       "country_id": 528,
@@ -215597,7 +215257,7 @@
         {
           "day": 1,
           "dayName": "Pondělí",
-          "openMorning": "08:30",
+          "openMorning": "10:00",
           "closeMorning": "16:00",
           "openAfternoon": "",
           "closeAfternoon": ""
@@ -215605,7 +215265,7 @@
         {
           "day": 2,
           "dayName": "Úterý",
-          "openMorning": "08:30",
+          "openMorning": "10:00",
           "closeMorning": "16:00",
           "openAfternoon": "",
           "closeAfternoon": ""
@@ -215613,7 +215273,7 @@
         {
           "day": 3,
           "dayName": "Středa",
-          "openMorning": "08:30",
+          "openMorning": "10:00",
           "closeMorning": "16:00",
           "openAfternoon": "",
           "closeAfternoon": ""
@@ -215621,7 +215281,7 @@
         {
           "day": 4,
           "dayName": "Čtvrtek",
-          "openMorning": "08:30",
+          "openMorning": "10:00",
           "closeMorning": "16:00",
           "openAfternoon": "",
           "closeAfternoon": ""
@@ -215629,7 +215289,7 @@
         {
           "day": 5,
           "dayName": "Pátek",
-          "openMorning": "08:30",
+          "openMorning": "10:00",
           "closeMorning": "16:00",
           "openAfternoon": "",
           "closeAfternoon": ""
@@ -216528,6 +216188,91 @@
       "open_weekend": 1,
       "latitude": 51.72241,
       "longitude": 5.29462,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
+      "id": "NL26093",
+      "company": "Pakketautomaat - De Buren - TinQ Wa",
+      "street": "WADWERD",
+      "city": "GRONINGEN",
+      "country_id": 528,
+      "house_number": "3",
+      "postcode": "9746CD",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "dpd_box",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 53.23704,
+      "longitude": 6.51986,
       "hours": [
         {
           "day": 1,
@@ -217779,6 +217524,91 @@
       "photo": ""
     },
     {
+      "id": "NL26117",
+      "company": "DPD Pakketautomaat - Storage Share",
+      "street": "BURGMEESTER RITMEESTERWEG",
+      "city": "DEN HELDER",
+      "country_id": 528,
+      "house_number": "15",
+      "postcode": "1784NV",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "dpd_box",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 52.93387,
+      "longitude": 4.75547,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
       "id": "NL26118",
       "company": "Factor Twee B.V.",
       "street": "JAVASTRAAT",
@@ -218148,7 +217978,7 @@
           "day": 1,
           "dayName": "Pondělí",
           "openMorning": "09:00",
-          "closeMorning": "19:00",
+          "closeMorning": "18:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -218156,7 +217986,7 @@
           "day": 2,
           "dayName": "Úterý",
           "openMorning": "09:00",
-          "closeMorning": "19:00",
+          "closeMorning": "18:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -218164,7 +217994,7 @@
           "day": 3,
           "dayName": "Středa",
           "openMorning": "09:00",
-          "closeMorning": "19:00",
+          "closeMorning": "18:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -218172,7 +218002,7 @@
           "day": 4,
           "dayName": "Čtvrtek",
           "openMorning": "09:00",
-          "closeMorning": "19:00",
+          "closeMorning": "18:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -218180,7 +218010,7 @@
           "day": 5,
           "dayName": "Pátek",
           "openMorning": "09:00",
-          "closeMorning": "19:00",
+          "closeMorning": "18:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -218188,7 +218018,7 @@
           "day": 6,
           "dayName": "Sobota",
           "openMorning": "09:00",
-          "closeMorning": "19:00",
+          "closeMorning": "18:00",
           "openAfternoon": "",
           "closeAfternoon": ""
         },
@@ -219811,6 +219641,601 @@
           "day": 7,
           "dayName": "Neděle",
           "openMorning": "00:00",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
+      "id": "NL26168",
+      "company": "Tabac & Gifts de Parel",
+      "street": "PEARL BUCK-ERF",
+      "city": "DORDRECHT",
+      "country_id": 528,
+      "house_number": "214",
+      "postcode": "3315BE",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "pickup_point",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 51.79838,
+      "longitude": 4.72529,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "09:00",
+          "closeMorning": "19:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "09:00",
+          "closeMorning": "19:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "09:00",
+          "closeMorning": "19:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "09:00",
+          "closeMorning": "19:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "09:00",
+          "closeMorning": "19:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "09:00",
+          "closeMorning": "19:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "12:00",
+          "closeMorning": "18:00",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
+      "id": "NL26174",
+      "company": "Pakketautomaat - De Buren - Tamoil",
+      "street": "DRIEBORGHWEG",
+      "city": "VEENDAM",
+      "country_id": 528,
+      "house_number": "3",
+      "postcode": "9641KM",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "dpd_box",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 53.10174,
+      "longitude": 6.89236,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "00:00",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "00:00",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "00:00",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "00:00",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "00:00",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "00:00",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "00:00",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
+      "id": "NL26184",
+      "company": "Pakketautomaat  - De Buren - Tango",
+      "street": "HOFSTRAAT",
+      "city": "HONSELERSDIJK",
+      "country_id": 528,
+      "house_number": "73",
+      "postcode": "2675BB",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "dpd_box",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 52.00705,
+      "longitude": 4.22301,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
+      "id": "NL26185",
+      "company": "Pakketautomaat - De Buren - Tango H",
+      "street": "HAAGWEG",
+      "city": "LEIDEN",
+      "country_id": 528,
+      "house_number": "233",
+      "postcode": "2324ND",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "dpd_box",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 52.15229,
+      "longitude": 4.46638,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
+      "id": "NL26186",
+      "company": "Pakketautomaat - De Buren - Tango G",
+      "street": "GORDELWEG",
+      "city": "ROTTERDAM",
+      "country_id": 528,
+      "house_number": "260",
+      "postcode": "3039MG",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "dpd_box",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 51.93317,
+      "longitude": 4.45301,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
+      "id": "NL26189",
+      "company": "Pakketautomaat - De Buren - Esso An",
+      "street": "ANTWERPSESTRAATWEG",
+      "city": "HOOGERHEIDE",
+      "country_id": 528,
+      "house_number": "163",
+      "postcode": "4631PN",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "dpd_box",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 51.44784,
+      "longitude": 4.31299,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        }
+      ],
+      "photo": ""
+    },
+    {
+      "id": "NL26192",
+      "company": "Pakketautomaat - De Buren - Texaco",
+      "street": "GUIDO GEZELLESTRAAT",
+      "city": "TERNEUZEN",
+      "country_id": 528,
+      "house_number": "29",
+      "postcode": "4536HG",
+      "phone": "",
+      "fax": "",
+      "email": "",
+      "homepage": "",
+      "pickup_network_type": "dpd_box",
+      "pickup_allowed": 1,
+      "return_allowed": 1,
+      "dropoff_allowed": 1,
+      "dropoff_withLabel_allowed": 1,
+      "dropoff_withoutLabel_allowed": 0,
+      "express_allowed": 0,
+      "cardpayment_allowed": 0,
+      "cod_allowed": 0,
+      "service": 0,
+      "open_weekend": 1,
+      "latitude": 51.30612,
+      "longitude": 3.85463,
+      "hours": [
+        {
+          "day": 1,
+          "dayName": "Pondělí",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 2,
+          "dayName": "Úterý",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 3,
+          "dayName": "Středa",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 4,
+          "dayName": "Čtvrtek",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 5,
+          "dayName": "Pátek",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 6,
+          "dayName": "Sobota",
+          "openMorning": "00:01",
+          "closeMorning": "23:59",
+          "openAfternoon": "",
+          "closeAfternoon": ""
+        },
+        {
+          "day": 7,
+          "dayName": "Neděle",
+          "openMorning": "00:01",
           "closeMorning": "23:59",
           "openAfternoon": "",
           "closeAfternoon": ""

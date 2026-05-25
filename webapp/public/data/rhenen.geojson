@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Rhenen",
     "slug": "rhenen",
-    "generated_at": "2026-05-18T06:44:42.334245Z",
-    "total_points": 27,
+    "generated_at": "2026-05-25T06:59:33.118284Z",
+    "total_points": 28,
     "providers": [
       "Amazon",
       "DHL",
@@ -603,6 +603,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          5.5718,
+          51.95858
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "PELGROS KRINGLOOP",
+        "straatNaam": "ACHTERBERGSESTRAATWEG 27",
+        "straatNr": "",
+        "vervoerder": "InPost",
+        "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 51.95858,
+        "longitude": 5.5718,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           5.5665,
           51.95808
         ]
@@ -1188,7 +1211,7 @@
                 51.971771664186825
               ],
               [
-                5.526781749835675,
+                5.526781749835676,
                 51.971855717371675
               ],
               [
@@ -1324,7 +1347,7 @@
                 51.97441694905697
               ],
               [
-                5.534527311165287,
+                5.534527311165288,
                 51.974332904379416
               ],
               [
@@ -1777,10 +1800,6 @@
               ],
               [
                 5.500583978700107,
-                51.98573306879616
-              ],
-              [
-                5.500583978700108,
                 51.98573306879616
               ],
               [
@@ -3205,10 +3224,6 @@
               ],
               [
                 5.571787380055332,
-                51.95498304880567
-              ],
-              [
-                5.571787380055331,
                 51.95498304880567
               ],
               [

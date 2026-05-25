@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Beesel",
     "slug": "beesel",
-    "generated_at": "2026-05-18T06:28:45.540419Z",
-    "total_points": 20,
+    "generated_at": "2026-05-25T06:43:04.633584Z",
+    "total_points": 21,
     "providers": [
       "DHL",
       "DPD",
@@ -485,6 +485,29 @@
     {
       "type": "Feature",
       "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.07909,
+          51.28489
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "GSM REUVER",
+        "straatNaam": "RIJKSWEG 36",
+        "straatNr": "",
+        "vervoerder": "InPost",
+        "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 51.28489,
+        "longitude": 6.07909,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
           [
@@ -894,7 +917,7 @@
                 51.28241212113979
               ],
               [
-                6.07035239366459,
+                6.070352393664593,
                 51.28241194140837
               ],
               [
@@ -1978,7 +2001,7 @@
                 51.28154955754137
               ],
               [
-                6.070755589882753,
+                6.070755589882758,
                 51.28154937781398
               ],
               [

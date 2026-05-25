@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Bergen (L.)",
     "slug": "bergen-(l.)",
-    "generated_at": "2026-05-18T06:28:59.294977Z",
-    "total_points": 16,
+    "generated_at": "2026-05-25T06:43:19.247852Z",
+    "total_points": 14,
     "providers": [
       "DHL",
       "DPD",
@@ -165,29 +165,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          6.123144,
-          51.5862631
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Grens Gas",
-        "straatNaam": "WEZERWEG",
-        "straatNr": "28",
-        "vervoerder": "DPD",
-        "puntType": "pickup_point",
-        "bezettingsgraad": 50,
-        "latitude": 51.5862631,
-        "longitude": 6.123144,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           6.038059,
           51.6117864
         ]
@@ -202,29 +179,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.6117864,
         "longitude": 6.038059,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          6.0089715,
-          51.638182
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "ViaTim & Afferden L",
-        "straatNaam": "LEEGVELDSEWEG",
-        "straatNr": "10",
-        "vervoerder": "DPD",
-        "puntType": "pickup_point",
-        "bezettingsgraad": 50,
-        "latitude": 51.638182,
-        "longitude": 6.0089715,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1382,6 +1336,10 @@
           [
             [
               [
+                6.127273261002014,
+                51.58545423083042
+              ],
+              [
                 6.127126099055601,
                 51.58520599350716
               ],
@@ -1636,10 +1594,6 @@
               [
                 6.127273261002014,
                 51.58545423083042
-              ],
-              [
-                6.127126099055601,
-                51.58520599350716
               ]
             ]
           ],
@@ -2858,6 +2812,10 @@
           [
             [
               [
+                6.128649647659566,
+                51.58518457420839
+              ],
+              [
                 6.128453423237809,
                 51.58485359338743
               ],
@@ -3112,10 +3070,6 @@
               [
                 6.128649647659566,
                 51.58518457420839
-              ],
-              [
-                6.128453423237809,
-                51.58485359338743
               ]
             ]
           ],
