@@ -61,6 +61,11 @@ BILATERAL_ADDITIONS: list[tuple[str, str, list[str], str]] = [
      ["3011", "3012", "3013", "3014", "3015", "3016"], "Binnenstad"),
     ("Rotterdam", "MyPup", ["3012"], "Autovrij"),
     ("Rotterdam", "MyPup", ["3011"], "Autoluw"),
+    # VintedGo-pijnpunten (G4, bilateraal aangedragen)
+    ("Amsterdam", "VintedGo", ["1095", "1091", "1018", "1098", "1013"], ""),
+    ("Utrecht", "VintedGo", ["3582", "3454", "3533", "3545"], ""),
+    ("Rotterdam", "VintedGo", ["3195", "3075", "3011", "3021"], ""),
+    ("Den Haag", "VintedGo", ["2585", "2596", "2511", "2513"], ""),
 ]
 
 
@@ -198,7 +203,8 @@ def main() -> int:
             entry = painpoints.setdefault(code, _empty_entry(city))
             if carrier not in entry["carriers"]:
                 entry["carriers"].append(carrier)
-            notes.setdefault(code, []).append(f"{carrier}: {note}")
+            if note:
+                notes.setdefault(code, []).append(f"{carrier}: {note}")
     for code, note_list in notes.items():
         existing = painpoints[code].get("notes", [])
         for n in note_list:
