@@ -697,7 +697,7 @@ export default function PlacementSuggestionsReport({
               </div>
             ) : (
               <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-4">
-                <div className="h-[480px] rounded-lg overflow-hidden border border-gray-200">
+                <div className="h-[560px] lg:h-[640px] rounded-lg overflow-hidden border border-gray-200">
                   <SuggestionBigMap
                     municipality={block.gemeente}
                     records={bigMapRecords}
@@ -706,7 +706,7 @@ export default function PlacementSuggestionsReport({
                   />
                 </div>
 
-                <aside className="border border-gray-200 rounded-lg overflow-hidden flex flex-col">
+                <aside className="border border-gray-200 rounded-lg overflow-hidden flex flex-col h-[560px] lg:h-[640px]">
                   {selectedRecord && selectedRecord.suggestion ? (() => {
                     const r = selectedRecord;
                     const s = r.suggestion!;
@@ -733,7 +733,7 @@ export default function PlacementSuggestionsReport({
                           </div>
                         </div>
 
-                        <div className="px-4 py-3 space-y-3 text-xs overflow-y-auto">
+                        <div className="px-4 py-3 space-y-3 text-xs overflow-y-auto flex-1 min-h-0">
                           <div>
                             <div className="text-gray-500 uppercase tracking-wide">
                               Coördinaat
