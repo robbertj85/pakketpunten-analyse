@@ -2057,6 +2057,7 @@ function MapComponent(props?: MapProps) {
           <GeoJSON
             key={`buffer400-merged-${data?.metadata?.slug}-${points.length}-fill${activeFilters.showBufferFill}`}
             data={mergedBuffer400 as any}
+            interactive={false}
             style={() => ({
               color: '#60a5fa',
               fillColor: '#93c5fd',
@@ -2092,6 +2093,7 @@ function MapComponent(props?: MapProps) {
           <GeoJSON
             key={`buffer300-merged-${data?.metadata?.slug}-${points.length}-fill${activeFilters.showBufferFill}`}
             data={mergedBuffer300 as any}
+            interactive={false}
             style={() => ({
               color: '#2563eb',
               fillColor: '#3b82f6',
@@ -2127,6 +2129,7 @@ function MapComponent(props?: MapProps) {
         <GeoJSON
           key={`boundary-${data?.metadata?.slug}-${idx}`}
           data={feature as any}
+          interactive={false}
           style={() => ({
             color: '#6b7280',  // Medium grey color for boundary
             fillColor: '#6b7280',
