@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 
@@ -9,6 +9,15 @@ const SuggestionMiniMap = dynamic(() => import('./SuggestionMiniMap'), {
   loading: () => (
     <div className="w-full h-full flex items-center justify-center bg-gray-50 text-xs text-gray-500">
       Kaart laden...
+    </div>
+  ),
+});
+
+const SuggestionBigMap = dynamic(() => import('./SuggestionBigMap'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full flex items-center justify-center bg-gray-50 text-sm text-gray-500">
+      Kaart laden…
     </div>
   ),
 });
@@ -241,16 +250,28 @@ export default function PlacementSuggestionsReport({
     if (!slug || typeof window === 'undefined') return;
     window.localStorage.setItem('lastSelectedMunicipality', slug);
   }, [slug]);
-  // How many PC4s to show in the ranking + mini-maps. Server ships up to 10;
-  // default UI is 5 to keep the page focused.
+  // How many PC4s to show in the ranking + mini-maps. Server ships up to 10
+  // and that's the default so the big map shows the full advised set.
   type TopN = 5 | 10;
-  const [topN, setTopN] = useState<TopN>(5);
+  const [topN, setTopN] = useState<TopN>(10);
   // Pijnpunten cross-reference threshold — show PC4s with ≥ this many carrier
   // mentions. Default 2 (3 isn't very useful since the dataset's max is 3).
   const [painpointThreshold, setPainpointThreshold] = useState<number>(2);
   // Mini-map filter for the bottom Pijnpunt-locaties grid.
   type PainpointFilter = 'all' | 'carrier' | 'gemeente' | 'both';
   const [painpointFilter, setPainpointFilter] = useState<PainpointFilter>('all');
+
+  // PC4 currently focused on the big map / side panel. Initially set to the
+  // top-ranked PC4 so the side panel is never empty when the page loads.
+  const [selectedPc4, setSelectedPc4] = useState<string | null>(null);
+  const bigMapRef = useRef<HTMLDivElement | null>(null);
+
+  const handleSelectPc4 = (pc4: string, scroll = false) => {
+    setSelectedPc4(pc4);
+    if (scroll && bigMapRef.current) {
+      bigMapRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   // ---- User-adjustable weights + regression model ---- //
   const defaultWeights = payload.weights;
@@ -319,6 +340,33 @@ export default function PlacementSuggestionsReport({
   );
   // The server ships up to TOP_N PC4s — that caps how many the toggle can show.
   const availableTopN = block?.pc4s.length ?? 0;
+
+  // Records to feed into the big map: drop any PC4 without a snapped suggestion
+  // (the white-spot was too small / no inhabited cells). Preserves rank order.
+  const bigMapRecords = useMemo(
+    () => rankedPc4s.filter((r) => r.suggestion),
+    [rankedPc4s],
+  );
+
+  // Keep selectedPc4 valid as the ranking changes — fall back to the top-ranked
+  // record so the side panel is never empty.
+  useEffect(() => {
+    if (bigMapRecords.length === 0) {
+      setSelectedPc4(null);
+      return;
+    }
+    if (selectedPc4 && bigMapRecords.some((r) => r.pc4 === selectedPc4)) return;
+    setSelectedPc4(bigMapRecords[0].pc4);
+  }, [bigMapRecords, selectedPc4]);
+
+  const selectedRecord = useMemo(
+    () => bigMapRecords.find((r) => r.pc4 === selectedPc4) ?? null,
+    [bigMapRecords, selectedPc4],
+  );
+  const selectedRank = useMemo(
+    () => (selectedRecord ? bigMapRecords.indexOf(selectedRecord) + 1 : 0),
+    [bigMapRecords, selectedRecord],
+  );
 
   // PC4s in the selected gemeente flagged as a pijnpunt by either a carrier
   // (≥ threshold carriers) OR by the G4-gemeente itself. Gemeente-flagged
@@ -628,6 +676,194 @@ export default function PlacementSuggestionsReport({
             </div>
           </section>
 
+          {/* Big map + detail panel — overview of all top-N suggestions */}
+          <section
+            ref={bigMapRef}
+            className="bg-white rounded-lg shadow-md p-6 mb-6 scroll-mt-6"
+          >
+            <div className="flex flex-wrap items-baseline justify-between gap-2 mb-3">
+              <h3 className="text-lg font-semibold text-gray-900">
+                Voorgestelde locaties op kaart
+              </h3>
+              <p className="text-xs text-gray-500">
+                Klik een pin op de kaart of een kaartje hieronder om de details
+                in het rechterpaneel te zien.
+              </p>
+            </div>
+
+            {bigMapRecords.length === 0 ? (
+              <div className="p-4 bg-amber-50 border border-amber-200 rounded text-sm text-amber-900">
+                Geen suggesties met snappable BAG-pand voor deze top-{topN}.
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-4">
+                <div className="h-[480px] rounded-lg overflow-hidden border border-gray-200">
+                  <SuggestionBigMap
+                    municipality={block.gemeente}
+                    records={bigMapRecords}
+                    selectedPc4={selectedPc4}
+                    onSelectPc4={(pc4) => handleSelectPc4(pc4, false)}
+                  />
+                </div>
+
+                <aside className="border border-gray-200 rounded-lg overflow-hidden flex flex-col">
+                  {selectedRecord && selectedRecord.suggestion ? (() => {
+                    const r = selectedRecord;
+                    const s = r.suggestion!;
+                    const sv = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${s.lat},${s.lon}`;
+                    const gm = `https://www.google.com/maps?q=${s.lat},${s.lon}`;
+                    const predicted =
+                      model === 'k8' && r.predicted_k8 != null
+                        ? r.predicted_k8 : r.predicted_base;
+                    return (
+                      <>
+                        <div className="px-4 py-3 bg-blue-50 border-b border-blue-100">
+                          <div className="text-[10px] uppercase tracking-wide text-blue-700 font-semibold">
+                            Voorstel #{selectedRank}
+                          </div>
+                          <div className="text-xl font-bold text-gray-900 font-mono">
+                            PC4 {r.pc4}
+                          </div>
+                          <div className="text-xs text-gray-600">
+                            {block.gemeente}
+                            {' · prioriteit '}
+                            <span className="font-mono font-semibold text-blue-800">
+                              {r.priority >= 0 ? '+' : ''}{nlNum1(r.priority)}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="px-4 py-3 space-y-3 text-xs overflow-y-auto">
+                          <div>
+                            <div className="text-gray-500 uppercase tracking-wide">
+                              Coördinaat
+                            </div>
+                            <div className="font-mono text-gray-800">
+                              {s.lat.toFixed(5)}, {s.lon.toFixed(5)}
+                            </div>
+                          </div>
+
+                          <div className="border-t border-gray-100 pt-3">
+                            <div className="text-gray-500 uppercase tracking-wide">
+                              BAG-pand
+                            </div>
+                            {s.snapped_to_bag && s.bag_gebruiksdoel ? (
+                              <>
+                                <div className="text-gray-800">
+                                  {s.bag_gebruiksdoel}
+                                  {s.bag_bouwjaar ? ` · bouwjaar ${s.bag_bouwjaar}` : ''}
+                                </div>
+                                {s.bag_identificatie && (
+                                  <div className="font-mono text-[10px] text-gray-500 mt-0.5">
+                                    BAG-id: {s.bag_identificatie}
+                                  </div>
+                                )}
+                                {s.bag_distance_m != null && (
+                                  <div className="text-[11px] text-gray-500 mt-0.5">
+                                    {s.bag_distance_m} m verschoven t.o.v. dichtste 100 m-cel
+                                  </div>
+                                )}
+                              </>
+                            ) : (
+                              <div className="text-gray-500 italic">
+                                Geen BAG-snap (representatief punt van de witte vlek)
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="border-t border-gray-100 pt-3 grid grid-cols-2 gap-2">
+                            <div>
+                              <div className="text-gray-500">Actueel</div>
+                              <div className="font-semibold text-gray-900">
+                                {r.actual} pp
+                              </div>
+                            </div>
+                            <div>
+                              <div className="text-gray-500">Voorspeld</div>
+                              <div className="font-semibold text-gray-900">
+                                {nlNum1(predicted)} pp
+                              </div>
+                            </div>
+                            <div>
+                              <div className="text-gray-500">Inwoners</div>
+                              <div className="font-semibold text-gray-900">
+                                {nlInt(r.population)}
+                              </div>
+                            </div>
+                            <div>
+                              <div className="text-gray-500">Onbereikt (400 m)</div>
+                              <div className="font-semibold text-gray-900">
+                                {nlInt(r.uncovered_pop)}
+                              </div>
+                            </div>
+                            <div>
+                              <div className="text-gray-500">% binnen 400 m</div>
+                              <div className="font-semibold text-gray-900">
+                                {nlNum1(r.coverage_pct_400m)}%
+                              </div>
+                            </div>
+                            <div>
+                              <div className="text-gray-500">Overlap</div>
+                              <div className="font-semibold text-gray-900">
+                                {nlNum1(r.overlap_pct)}%
+                              </div>
+                            </div>
+                            <div>
+                              <div className="text-gray-500">Dichtheid (oad)</div>
+                              <div className="font-semibold text-gray-900">
+                                {nlInt(r.density)}
+                              </div>
+                            </div>
+                            <div>
+                              <div className="text-gray-500">Wit vlak</div>
+                              <div className="font-semibold text-gray-900">
+                                {nlInt(s.white_spot_area_m2 / 1000)} k m²
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="border-t border-gray-100 pt-3">
+                            <div className="text-gray-500 uppercase tracking-wide">
+                              Geschat extra bereik (400 m)
+                            </div>
+                            <div className="text-lg font-bold text-blue-800">
+                              {nlInt(s.est_new_pop_within_400m)} inwoners
+                            </div>
+                          </div>
+
+                          <div className="border-t border-gray-100 pt-3 flex flex-col gap-1.5">
+                            <a
+                              href={sv}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style={{ color: '#ffffff' }}
+                              className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold bg-blue-700 hover:bg-blue-800 rounded transition no-underline"
+                            >
+                              Open in Streetview
+                            </a>
+                            <a
+                              href={gm}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style={{ color: '#1f2937' }}
+                              className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold bg-gray-100 hover:bg-gray-200 rounded transition no-underline"
+                            >
+                              Open in Google Maps
+                            </a>
+                          </div>
+                        </div>
+                      </>
+                    );
+                  })() : (
+                    <div className="p-4 text-sm text-gray-500">
+                      Selecteer een suggestie op de kaart.
+                    </div>
+                  )}
+                </aside>
+              </div>
+            )}
+          </section>
+
           {/* Mini-maps */}
           <section className="bg-white rounded-lg shadow-md p-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-3">Voorgestelde locaties</h3>
@@ -674,17 +910,44 @@ export default function PlacementSuggestionsReport({
                     </span>
                   );
                 })();
+                const isSelected = selectedPc4 === r.pc4;
                 return (
-                <div key={r.pc4} className="border border-gray-200 rounded-lg overflow-hidden">
-                  <div className="px-3 py-2 bg-gray-50 border-b border-gray-200 flex items-center justify-between gap-2 flex-wrap">
+                <div
+                  key={r.pc4}
+                  className={`border rounded-lg overflow-hidden transition ${
+                    isSelected
+                      ? 'border-blue-500 ring-2 ring-blue-200'
+                      : 'border-gray-200 hover:border-blue-300'
+                  }`}
+                >
+                  <button
+                    type="button"
+                    onClick={() => r.suggestion && handleSelectPc4(r.pc4, true)}
+                    disabled={!r.suggestion}
+                    className={`w-full px-3 py-2 bg-gray-50 border-b border-gray-200 flex items-center justify-between gap-2 flex-wrap text-left ${
+                      r.suggestion
+                        ? 'cursor-pointer hover:bg-blue-50'
+                        : 'cursor-default'
+                    }`}
+                    title={
+                      r.suggestion
+                        ? 'Bekijk op de grote kaart hierboven'
+                        : 'Geen snappable suggestie'
+                    }
+                  >
                     <div className="text-sm flex items-center gap-2 flex-wrap">
                       <span className="font-mono font-semibold text-gray-900">#{newRank} · PC4 {r.pc4}</span>
                       {matchBadge}
+                      {isSelected && (
+                        <span className="text-[10px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded bg-blue-700 text-white">
+                          Geselecteerd
+                        </span>
+                      )}
                     </div>
                     <span className={`text-xs px-2 py-0.5 rounded font-mono tabular-nums ${priorityTone(newScore)}`}>
                       {newScore >= 0 ? '+' : ''}{nlNum1(newScore)}
                     </span>
-                  </div>
+                  </button>
                   <div className="h-56">
                     <SuggestionMiniMap
                       pc4={r.pc4}
@@ -794,7 +1057,7 @@ export default function PlacementSuggestionsReport({
                     <th className="px-2 py-2 text-xs font-semibold text-gray-600 text-right">
                       Bestaande PP
                     </th>
-                    <th className="px-2 py-2 text-xs font-semibold text-gray-600">In top-5 advies?</th>
+                    <th className="px-2 py-2 text-xs font-semibold text-gray-600">In top-{topN} advies?</th>
                     <th className="px-2 py-2 text-xs font-semibold text-gray-600">Detail</th>
                   </tr>
                 </thead>
@@ -881,8 +1144,8 @@ export default function PlacementSuggestionsReport({
             Bronnen: <Link href="/data-export/painpoints" className="text-blue-700 hover:text-blue-900">vervoerder-meldingen</Link>{' '}
             (Convenant Duurzame Pakketlogistiek) en{' '}
             <Link href="/data-export/gemeente-painpoints" className="text-blue-700 hover:text-blue-900">G4-gemeenten</Link>.
-            PC4s die ook in de top-5 prioriteits-PC4s staan (kolom &quot;In
-            top-5 advies?&quot;) zijn dubbel-bevestigde kandidaten — zowel
+            PC4s die ook in de top-{topN} prioriteits-PC4s staan (kolom &quot;In
+            top-{topN} advies?&quot;) zijn dubbel-bevestigde kandidaten — zowel
             data-gedreven als door een externe partij genoemd.
           </p>
         </section>
@@ -985,7 +1248,7 @@ export default function PlacementSuggestionsReport({
                         </div>
                         {inTop5 && (
                           <span className="text-[10px] uppercase tracking-wide font-semibold px-1.5 py-0.5 rounded bg-blue-700 text-white font-mono">
-                            Top-5 #{top5Rank}
+                            Top-{topN} #{top5Rank}
                           </span>
                         )}
                       </div>
