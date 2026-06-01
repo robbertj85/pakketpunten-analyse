@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Dijk en Waard",
     "slug": "dijk-en-waard",
-    "generated_at": "2026-05-25T06:46:32.896020Z",
-    "total_points": 85,
+    "generated_at": "2026-06-01T07:14:26.462915Z",
+    "total_points": 84,
     "providers": [
       "Amazon",
       "DHL",
@@ -144,29 +144,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          4.82407043793381,
-          52.6690804805534
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Steen Tabakshop Heerhugowaard B.V.",
-        "straatNaam": "Stationsplein 16",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 52.6690804805534,
-        "longitude": 4.82407043793381,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           4.844170657,
           52.67070174
         ]
@@ -213,6 +190,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.852457844,
+          52.70648993
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Dagwinkel Groen",
+        "straatNaam": "Middenweg 552",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.70648993,
+        "longitude": 4.852457844,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.808988040164395,
           52.64714423238732
         ]
@@ -221,7 +221,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Brandpunt",
         "straatNaam": "Brandpunt",
-        "straatNr": "65-DB/71",
+        "straatNr": "65",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -336,7 +336,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Tankstation Sijs",
         "straatNaam": "Rustenburgerweg",
-        "straatNr": "38-PS/117",
+        "straatNr": "38",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -359,7 +359,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Lidl Heerhugowaard",
         "straatNaam": "Middenwaard",
-        "straatNr": "55-PS/165",
+        "straatNr": "55",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -405,7 +405,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Expert Woldhuis",
         "straatNaam": "Voorburggracht",
-        "straatNr": "208-PS/133",
+        "straatNr": "208",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -497,7 +497,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat terStal Middenwaard",
         "straatNaam": "Middenwaard",
-        "straatNr": "95-PS/73",
+        "straatNr": "95",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -543,7 +543,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Total Heerhugowaard",
         "straatNaam": "Icaruslaan",
-        "straatNr": "2-PS/87",
+        "straatNr": "2",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -1853,7 +1853,7 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "ELECTRODATA HEERHUGOWAARD",
-        "straatNaam": "MIDDENWEG 217",
+        "straatNaam": "Middenweg 217",
         "straatNr": "",
         "vervoerder": "InPost",
         "puntType": "servicepunt",
@@ -1876,36 +1876,13 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "FOR YOU LIVING",
-        "straatNaam": "MIDDENWAARD 23",
+        "straatNaam": "Middenwaard 23",
         "straatNr": "",
         "vervoerder": "InPost",
         "puntType": "servicepunt",
         "bezettingsgraad": 50,
         "latitude": 52.66295,
         "longitude": 4.82945,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.85142,
-          52.67383
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "REIN CLEANING",
-        "straatNaam": "REMBRANDTSTRAAT 31",
-        "straatNr": "",
-        "vervoerder": "InPost",
-        "puntType": "servicepunt",
-        "bezettingsgraad": 50,
-        "latitude": 52.67383,
-        "longitude": 4.85142,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1922,7 +1899,7 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "NVT",
-        "straatNaam": "HEMELBOOG BINNEN 53A",
+        "straatNaam": "Hemelboog Binnen 53a",
         "straatNr": "",
         "vervoerder": "InPost",
         "puntType": "servicepunt",
@@ -1945,7 +1922,7 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "ISMART REPAIR",
-        "straatNaam": "MIDDENWEG 269",
+        "straatNaam": "Middenweg 269",
         "straatNr": "",
         "vervoerder": "InPost",
         "puntType": "servicepunt",
@@ -3043,7 +3020,7 @@
                 52.65784917527886
               ],
               [
-                4.81670867078674,
+                4.8167086707867375,
                 52.65784905640429
               ],
               [
@@ -4991,6 +4968,10 @@
           [
             [
               [
+                4.829578012015207,
+                52.652697529107606
+              ],
+              [
                 4.829321551092893,
                 52.65248380718103
               ],
@@ -5261,10 +5242,6 @@
               [
                 4.829578012015207,
                 52.652697529107606
-              ],
-              [
-                4.829321551092893,
-                52.65248380718103
               ]
             ]
           ],
@@ -5587,7 +5564,7 @@
                 52.66603829101855
               ],
               [
-                4.823441586196497,
+                4.8234415861964965,
                 52.66612115077617
               ],
               [
@@ -5715,7 +5692,7 @@
                 52.671368112010676
               ],
               [
-                4.821741737699693,
+                4.821741737699694,
                 52.671371226462
               ],
               [
@@ -6139,6 +6116,10 @@
           [
             [
               [
+                4.837668703685646,
+                52.67808018889951
+              ],
+              [
                 4.837412055688496,
                 52.677866485505625
               ],
@@ -6409,15 +6390,15 @@
               [
                 4.837668703685646,
                 52.67808018889951
-              ],
-              [
-                4.837412055688496,
-                52.677866485505625
               ]
             ]
           ],
           [
             [
+              [
+                4.847191178143013,
+                52.66166978379691
+              ],
               [
                 4.846934579292373,
                 52.661456100148996
@@ -6979,28 +6960,20 @@
                 52.676460289904824
               ],
               [
-                4.850468398683373,
-                52.67646180235723
+                4.8508825372652895,
+                52.676501052215436
               ],
               [
-                4.850522444600704,
-                52.676470290431794
+                4.851317136690385,
+                52.676515993016025
               ],
               [
-                4.850952541426416,
-                52.676511052489474
+                4.8517520526854,
+                52.67650496839137
               ],
               [
-                4.851387140975126,
-                52.67652599303441
-              ],
-              [
-                4.851822057052484,
-                52.676514968153924
-              ],
-              [
-                4.851823567638671,
-                52.676514838896814
+                4.851794140374204,
+                52.67650136707003
               ],
               [
                 4.8520291830971916,
@@ -7393,19 +7366,11 @@
               [
                 4.847191178143013,
                 52.66166978379691
-              ],
-              [
-                4.846934579292373,
-                52.661456100148996
               ]
             ]
           ],
           [
             [
-              [
-                4.861222590238544,
-                52.66384104704328
-              ],
               [
                 4.860965910446127,
                 52.663627393682276
@@ -7661,6 +7626,10 @@
               [
                 4.861222590238544,
                 52.66384104704328
+              ],
+              [
+                4.860965910446127,
+                52.663627393682276
               ]
             ]
           ],
@@ -8927,7 +8896,7 @@
                 52.65695553466947
               ],
               [
-                4.816865125417222,
+                4.816865125417219,
                 52.65695541579946
               ],
               [
@@ -10591,6 +10560,10 @@
           [
             [
               [
+                4.830812993577582,
+                52.65220401152323
+              ],
+              [
                 4.830471042044235,
                 52.651919052341285
               ],
@@ -11045,10 +11018,6 @@
               [
                 4.820628685366619,
                 52.67204235331358
-              ],
-              [
-                4.821047356618417,
-                52.67216517136451
               ],
               [
                 4.8210473566184175,
@@ -11663,24 +11632,16 @@
                 52.67734038317921
               ],
               [
-                4.850169188035266,
-                52.677341895671894
+                4.850726703146619,
+                52.67739473402682
               ],
               [
-                4.85022323497611,
-                52.67735038388193
+                4.851306180823452,
+                52.67741465551181
               ],
               [
-                4.850796708694892,
-                52.67740473439217
-              ],
-              [
-                4.851376186536552,
-                52.67742465553629
-              ],
-              [
-                4.851392370466299,
-                52.67742424532171
+                4.851362621944369,
+                52.6774132249202
               ],
               [
                 4.851694259499346,
@@ -12225,15 +12186,15 @@
               [
                 4.830812993577582,
                 52.65220401152323
-              ],
-              [
-                4.830471042044235,
-                52.651919052341285
               ]
             ]
           ],
           [
             [
+              [
+                4.8389043090553745,
+                52.67758659122488
+              ],
               [
                 4.838562108086973,
                 52.67730165675545
@@ -12505,19 +12466,11 @@
               [
                 4.8389043090553745,
                 52.67758659122488
-              ],
-              [
-                4.838562108086973,
-                52.67730165675545
               ]
             ]
           ],
           [
             [
-              [
-                4.862457531141538,
-                52.66334720211175
-              ],
               [
                 4.862115287790598,
                 52.66306233435266
@@ -12773,6 +12726,10 @@
               [
                 4.862457531141538,
                 52.66334720211175
+              ],
+              [
+                4.862115287790598,
+                52.66306233435266
               ]
             ]
           ],

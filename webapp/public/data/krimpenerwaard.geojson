@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Krimpenerwaard",
     "slug": "krimpenerwaard",
-    "generated_at": "2026-05-25T06:53:00.275563Z",
-    "total_points": 52,
+    "generated_at": "2026-06-01T07:20:41.352096Z",
+    "total_points": 53,
     "providers": [
       "Amazon",
       "DHL",
@@ -41,6 +41,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.8929290280853,
         "longitude": 4.62855119096964,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.770636918,
+          51.97313758
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "PLUS de Jong Stolwijk",
+        "straatNaam": "Goudseweg 22",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.97313758,
+        "longitude": 4.770636918,
         "canPickup": true,
         "canDropoff": false
       }
@@ -265,7 +288,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Boons Gouderak",
         "straatNaam": "Kranepoort",
-        "straatNr": "14-PS/94",
+        "straatNr": "14",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -334,7 +357,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Hubo Haastrecht",
         "straatNaam": "Kuiperstraat",
-        "straatNr": "6-DB/86",
+        "straatNr": "6",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -357,7 +380,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Lidl Schoonhoven",
         "straatNaam": "Albert Plesmanstraat",
-        "straatNr": "21-PS/89",
+        "straatNr": "21",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -380,7 +403,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat KlusWijs Schoonhove",
         "straatNaam": "De Diamant",
-        "straatNr": "2-PS/165",
+        "straatNr": "2",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -3538,6 +3561,10 @@
                 51.97502320061148
               ],
               [
+                4.767516665877452,
+                51.97502320061148
+              ],
+              [
                 4.76752352640952,
                 51.975027956225055
               ],
@@ -3717,10 +3744,6 @@
           ],
           [
             [
-              [
-                4.77752586270313,
-                51.99892003132984
-              ],
               [
                 4.777139876699206,
                 51.99880489036959
@@ -4144,6 +4167,10 @@
               [
                 4.77752586270313,
                 51.99892003132984
+              ],
+              [
+                4.777139876699206,
+                51.99880489036959
               ]
             ]
           ],
@@ -4526,10 +4553,6 @@
           [
             [
               [
-                4.854650354552961,
-                51.94279969272482
-              ],
-              [
                 4.854335222807994,
                 51.942620554872846
               ],
@@ -4714,10 +4737,6 @@
                 51.94896061334178
               ],
               [
-                4.85103467458571,
-                51.94896061334178
-              ],
-              [
                 4.85129701142119,
                 51.94901996902642
               ],
@@ -4888,6 +4907,10 @@
               [
                 4.854650354552961,
                 51.94279969272482
+              ],
+              [
+                4.854335222807994,
+                51.942620554872846
               ]
             ]
           ],
@@ -7818,10 +7841,6 @@
           [
             [
               [
-                4.776618579515045,
-                51.99776717393879
-              ],
-              [
                 4.776053908376172,
                 51.99771247217134
               ],
@@ -8192,6 +8211,10 @@
               [
                 4.776618579515045,
                 51.99776717393879
+              ],
+              [
+                4.776053908376172,
+                51.99771247217134
               ]
             ]
           ],
@@ -8545,10 +8568,6 @@
           ],
           [
             [
-              [
-                4.855266039402493,
-                51.941929956918834
-              ],
               [
                 4.854810012522387,
                 51.941717711794404
@@ -9300,6 +9319,10 @@
               [
                 4.855266039402493,
                 51.941929956918834
+              ],
+              [
+                4.854810012522387,
+                51.941717711794404
               ]
             ]
           ]

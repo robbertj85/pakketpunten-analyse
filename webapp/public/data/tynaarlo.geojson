@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Tynaarlo",
     "slug": "tynaarlo",
-    "generated_at": "2026-05-25T07:02:52.561628Z",
+    "generated_at": "2026-06-01T07:30:13.691023Z",
     "total_points": 70,
     "providers": [
       "Amazon",
@@ -129,7 +129,7 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "DHL - Pakketautomaat AH Eelderwolde",
-        "straatNaam": "Borchsingel 25-PS/87",
+        "straatNaam": "Borchsingel 25",
         "straatNr": "",
         "vervoerder": "Amazon",
         "puntType": "3p",
@@ -337,7 +337,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat terStal Zuidlaren",
         "straatNaam": "Stationsweg",
-        "straatNr": "42-PS/73",
+        "straatNr": "42",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -406,7 +406,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Zuidlaren",
         "straatNaam": "Verlengde Stationsweg",
-        "straatNr": "57-DB/58",
+        "straatNr": "57",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -429,7 +429,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Jumbo Eelde",
         "straatNaam": "Stoffer Holtjerweg",
-        "straatNr": "1-PS/87",
+        "straatNr": "1",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -452,7 +452,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Lidl Eelde",
         "straatNaam": "Hoofdweg",
-        "straatNr": "93-PS/89",
+        "straatNr": "93",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -521,7 +521,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat AH Eelderwolde",
         "straatNaam": "Borchsingel",
-        "straatNr": "25-PS/87",
+        "straatNr": "25",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -1341,52 +1341,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          6.727512,
-          53.1155849
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Autobedrijf Mark5",
-        "straatNaam": "Molenkamp",
-        "straatNr": "21",
-        "vervoerder": "GLS",
-        "puntType": "parcel_shop",
-        "bezettingsgraad": 50,
-        "latitude": 53.1155849,
-        "longitude": 6.727512,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          6.6817035,
-          53.094441
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Tissingh Zuidlaren",
-        "straatNaam": "Koningstraat",
-        "straatNr": "12",
-        "vervoerder": "GLS",
-        "puntType": "parcel_shop",
-        "bezettingsgraad": 50,
-        "latitude": 53.094441,
-        "longitude": 6.6817035,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           6.57531359,
           53.0761683
         ]
@@ -1456,6 +1410,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          6.6817035,
+          53.094441
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Tissingh Zuidlaren",
+        "straatNaam": "Koningstraat",
+        "straatNr": "12",
+        "vervoerder": "GLS",
+        "puntType": "parcel_shop",
+        "bezettingsgraad": 50,
+        "latitude": 53.094441,
+        "longitude": 6.6817035,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           6.68623291,
           53.0939875
         ]
@@ -1470,6 +1447,29 @@
         "bezettingsgraad": 50,
         "latitude": 53.0939875,
         "longitude": 6.68623291,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.727512,
+          53.1155849
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Autobedrijf Mark5",
+        "straatNaam": "Molenkamp",
+        "straatNr": "21",
+        "vervoerder": "GLS",
+        "puntType": "parcel_shop",
+        "bezettingsgraad": 50,
+        "latitude": 53.1155849,
+        "longitude": 6.727512,
         "canPickup": true,
         "canDropoff": true
       }

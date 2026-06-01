@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Kerkrade",
     "slug": "kerkrade",
-    "generated_at": "2026-05-25T06:52:46.041769Z",
+    "generated_at": "2026-06-01T07:20:27.695824Z",
     "total_points": 43,
     "providers": [
       "Amazon",
@@ -75,29 +75,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          6.0633891876955,
-          50.8657190991626
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Boekhandel Deurenberg",
-        "straatNaam": "Niersprinkstraat 2",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 50.8657190991626,
-        "longitude": 6.0633891876955,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           6.067711092,
           50.87274115
         ]
@@ -112,6 +89,29 @@
         "bezettingsgraad": 50,
         "latitude": 50.87274115,
         "longitude": 6.067711092,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.0633891876955,
+          50.8657190991626
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Boekhandel Deurenberg",
+        "straatNaam": "Niersprinkstraat 2",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 50.8657190991626,
+        "longitude": 6.0633891876955,
         "canPickup": true,
         "canDropoff": false
       }
@@ -175,7 +175,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Lidl Kerkrade",
         "straatNaam": "Locht",
-        "straatNr": "117-PS/75",
+        "straatNr": "117",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -244,7 +244,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Kerkrade",
         "straatNaam": "Hoofdstraat",
-        "straatNr": "42-DB/80",
+        "straatNr": "42",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,

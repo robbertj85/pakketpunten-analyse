@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Venray",
     "slug": "venray",
-    "generated_at": "2026-05-25T07:04:09.526575Z",
-    "total_points": 48,
+    "generated_at": "2026-06-01T07:31:27.571875Z",
+    "total_points": 49,
     "providers": [
       "Amazon",
       "DHL",
@@ -125,9 +125,9 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat AVIA Venray",
+        "locatieNaam": "Locker AVIA SHIP WITH QR-CODE",
         "straatNaam": "Langstraat",
-        "straatNr": "110-PS/87",
+        "straatNr": "110",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -171,9 +171,9 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat Energy Expr Leunen",
+        "locatieNaam": "Locker Energy SHIP WITH QR-CODE",
         "straatNaam": "Albionstraat",
-        "straatNr": "5-PS/73",
+        "straatNr": "5",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -286,9 +286,9 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat Andalucia",
+        "locatieNaam": "Locker Andalucia SHIP WITH QR-CODE",
         "straatNaam": "Julianasingel",
-        "straatNr": "7-PS/85",
+        "straatNr": "7",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -309,9 +309,9 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat GAMMA Venray",
+        "locatieNaam": "Locker GAMMA SHIP WITH QR-CODE",
         "straatNaam": "Plataanstraat",
-        "straatNr": "17-PS/87",
+        "straatNr": "17",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -355,9 +355,9 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat PLUS Venray",
+        "locatieNaam": "Locker PLUS SHIP WITH QR-CODE",
         "straatNaam": "Kruidenlaan",
-        "straatNr": "159-PS/75",
+        "straatNr": "159",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -1076,6 +1076,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.5260861,
         "longitude": 5.9744232,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9741306,
+          51.5268077
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "1DR8",
+        "straatNaam": "De Bleek",
+        "straatNr": "2",
+        "vervoerder": "GLS",
+        "puntType": "parcel_shop",
+        "bezettingsgraad": 50,
+        "latitude": 51.5268077,
+        "longitude": 5.9741306,
         "canPickup": true,
         "canDropoff": true
       }
@@ -2574,14 +2597,6 @@
           [
             [
               [
-                5.983108859586785,
-                51.51410055117762
-              ],
-              [
-                5.982698306238865,
-                51.51416694735374
-              ],
-              [
                 5.982300158644851,
                 51.51425813080889
               ],
@@ -2868,6 +2883,14 @@
               [
                 5.983108859586785,
                 51.51410055117762
+              ],
+              [
+                5.982698306238865,
+                51.51416694735374
+              ],
+              [
+                5.982300158644851,
+                51.51425813080889
               ]
             ]
           ],
@@ -3318,6 +3341,22 @@
           [
             [
               [
+                6.027629956795484,
+                51.523104840398034
+              ],
+              [
+                6.027264203585231,
+                51.522970794812004
+              ],
+              [
+                6.026879151849276,
+                51.52285975756665
+              ],
+              [
+                6.026478509375889,
+                51.5227727978408
+              ],
+              [
                 6.026066134002385,
                 51.52271075296544
               ],
@@ -3584,27 +3623,15 @@
               [
                 6.027629956795484,
                 51.523104840398034
-              ],
-              [
-                6.027264203585231,
-                51.522970794812004
-              ],
-              [
-                6.026879151849276,
-                51.52285975756665
-              ],
-              [
-                6.026478509375889,
-                51.5227727978408
-              ],
-              [
-                6.026066134002385,
-                51.52271075296544
               ]
             ]
           ],
           [
             [
+              [
+                6.114957919110153,
+                51.524848328921195
+              ],
               [
                 6.114736204633312,
                 51.5246227214206
@@ -3876,10 +3903,6 @@
               [
                 6.114957919110153,
                 51.524848328921195
-              ],
-              [
-                6.114736204633312,
-                51.5246227214206
               ]
             ]
           ],
@@ -4026,7 +4049,7 @@
                 51.53081405957643
               ],
               [
-                5.988547061978408,
+                5.988547061978406,
                 51.53090813154741
               ],
               [
@@ -4310,10 +4333,6 @@
           [
             [
               [
-                6.08571172873193,
-                51.53531567630231
-              ],
-              [
                 6.08549010788107,
                 51.53509001330744
               ],
@@ -4568,6 +4587,10 @@
               [
                 6.08571172873193,
                 51.53531567630231
+              ],
+              [
+                6.08549010788107,
+                51.53509001330744
               ]
             ]
           ]
@@ -6722,7 +6745,7 @@
                 51.53130729674024
               ],
               [
-                5.986459290210614,
+                5.9864592902106155,
                 51.53136292405618
               ],
               [
@@ -6801,6 +6824,22 @@
           ],
           [
             [
+              [
+                6.028419889420639,
+                51.522353108652126
+              ],
+              [
+                6.027932223938418,
+                51.522174384228016
+              ],
+              [
+                6.027418828884127,
+                51.522026337200366
+              ],
+              [
+                6.026884647696466,
+                51.521910393039796
+              ],
               [
                 6.0263348238212835,
                 51.52182766810538
@@ -7068,27 +7107,15 @@
               [
                 6.028419889420639,
                 51.522353108652126
-              ],
-              [
-                6.027932223938418,
-                51.522174384228016
-              ],
-              [
-                6.027418828884127,
-                51.522026337200366
-              ],
-              [
-                6.026884647696466,
-                51.521910393039796
-              ],
-              [
-                6.0263348238212835,
-                51.52182766810538
               ]
             ]
           ],
           [
             [
+              [
+                6.11622184323706,
+                51.52441671007581
+              ],
               [
                 6.11592621889714,
                 51.52411590317941
@@ -7360,19 +7387,11 @@
               [
                 6.11622184323706,
                 51.52441671007581
-              ],
-              [
-                6.11592621889714,
-                51.52411590317941
               ]
             ]
           ],
           [
             [
-              [
-                6.086976222745192,
-                51.534884373223434
-              ],
               [
                 6.0866807232279925,
                 51.534583492333766
@@ -7628,6 +7647,10 @@
               [
                 6.086976222745192,
                 51.534884373223434
+              ],
+              [
+                6.0866807232279925,
+                51.534583492333766
               ]
             ]
           ]

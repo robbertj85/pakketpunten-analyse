@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Vlaardingen",
     "slug": "vlaardingen",
-    "generated_at": "2026-05-25T07:04:20.538704Z",
+    "generated_at": "2026-06-01T07:31:37.185701Z",
     "total_points": 61,
     "providers": [
       "Amazon",
@@ -312,7 +312,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Basic-Fit Vlaarding",
         "straatNaam": "Hoogstraat",
-        "straatNr": "219-PS/129",
+        "straatNr": "219",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -387,6 +387,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.9102613,
         "longitude": 4.3614238,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.366732,
+          51.910572
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat Rosorum",
+        "straatNaam": "Zwembaan",
+        "straatNr": "83",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 51.910572,
+        "longitude": 4.366732,
         "canPickup": true,
         "canDropoff": true
       }
@@ -473,7 +496,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Lidl Reigerlaan",
         "straatNaam": "Reigerlaan",
-        "straatNr": "50-PS/93",
+        "straatNr": "50",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -502,29 +525,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.919803,
         "longitude": 4.356192,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.366732,
-          51.910572
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat Rosorum",
-        "straatNaam": "Zwembaan",
-        "straatNr": "83-DB/79",
-        "vervoerder": "DHL",
-        "puntType": "packStation",
-        "bezettingsgraad": 50,
-        "latitude": 51.910572,
-        "longitude": 4.366732,
         "canPickup": true,
         "canDropoff": true
       }
@@ -565,7 +565,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat terStal Vlaardingen",
         "straatNaam": "Liesveld",
-        "straatNr": "128-PS/73",
+        "straatNr": "128",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -1369,7 +1369,7 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "YOU & MY PERSONALITY",
-        "straatNaam": "ENERGIEWEG 20",
+        "straatNaam": "Energieweg 20",
         "straatNr": "",
         "vervoerder": "InPost",
         "puntType": "servicepunt",
@@ -1392,7 +1392,7 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "HYBK REPARATIE",
-        "straatNaam": "SCHOUTPLEIN 31",
+        "straatNaam": "Schoutplein 31",
         "straatNr": "",
         "vervoerder": "InPost",
         "puntType": "servicepunt",

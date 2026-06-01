@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Oldenzaal",
     "slug": "oldenzaal",
-    "generated_at": "2026-05-25T06:57:31.171252Z",
+    "generated_at": "2026-06-01T07:25:04.080752Z",
     "total_points": 40,
     "providers": [
       "Amazon",
@@ -211,29 +211,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          6.923509120941162,
-          52.28558349609375
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "DHL Pakketpunt Oldenzaal",
-        "straatNaam": "Hanzepoort",
-        "straatNr": "12",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 52.28558349609375,
-        "longitude": 6.923509120941162,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           6.9391945,
           52.298503
         ]
@@ -257,6 +234,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          6.923509120941162,
+          52.28558349609375
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "DHL Pakketpunt Oldenzaal",
+        "straatNaam": "Hanzepoort",
+        "straatNr": "12",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 52.28558349609375,
+        "longitude": 6.923509120941162,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           6.92557920414593,
           52.29753411849182
         ]
@@ -265,7 +265,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat GAMMA Oldenzaal",
         "straatNaam": "Nijverheidsstraat",
-        "straatNr": "2-PS/87",
+        "straatNr": "2",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -357,7 +357,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat terStal Oldenzaal",
         "straatNaam": "Bisschopstraat",
-        "straatNr": "37-PS/73",
+        "straatNr": "37",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -380,7 +380,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Basic-Fit Oldenzaal",
         "straatNaam": "Nagelstraat",
-        "straatNr": "40-PS/145",
+        "straatNr": "40",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,

@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Roosendaal",
     "slug": "roosendaal",
-    "generated_at": "2026-05-25T07:00:01.089150Z",
-    "total_points": 72,
+    "generated_at": "2026-06-01T07:27:31.471994Z",
+    "total_points": 71,
     "providers": [
       "Amazon",
       "DeBuren",
@@ -357,7 +357,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Shell Vijfhuizenbrg",
         "straatNaam": "Vijfhuizenberg",
-        "straatNr": "211-PS/75",
+        "straatNr": "211",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -380,7 +380,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Lidl Roosendaal",
         "straatNaam": "President Kennedylaan",
-        "straatNr": "118-PS/59",
+        "straatNr": "118",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -449,7 +449,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat terStal Roosendaal",
         "straatNaam": "Roselaar",
-        "straatNr": "19-PS/73",
+        "straatNr": "19",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -495,7 +495,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Praxis Roosendaal",
         "straatNaam": "Laan van Belgïe",
-        "straatNr": "53-PS/108",
+        "straatNr": "53",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -541,7 +541,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat P Nieuwe Markt",
         "straatNaam": "Nieuwe Markt",
-        "straatNr": "81-DB/60",
+        "straatNr": "81",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -679,7 +679,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat TinQ Roosendaal",
         "straatNaam": "Gastelseweg",
-        "straatNr": "50-DB/23",
+        "straatNr": "50",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -1614,29 +1614,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          4.46237,
-          51.53566
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "DE BOEKENWURM",
-        "straatNaam": "MOLENSTRAAT 91",
-        "straatNr": "",
-        "vervoerder": "InPost",
-        "puntType": "servicepunt",
-        "bezettingsgraad": 50,
-        "latitude": 51.53566,
-        "longitude": 4.46237,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           4.45172,
           51.53379
         ]
@@ -1644,7 +1621,7 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "TABAKSHOP KLAVER",
-        "straatNaam": "KADE 7",
+        "straatNaam": "Kade 7",
         "straatNr": "",
         "vervoerder": "InPost",
         "puntType": "servicepunt",
@@ -2707,10 +2684,6 @@
               ],
               [
                 4.387292311794768,
-                51.52375669226907
-              ],
-              [
-                4.38729231179477,
                 51.52375669226907
               ],
               [
@@ -4006,10 +3979,6 @@
           [
             [
               [
-                4.46372686137063,
-                51.48107224032486
-              ],
-              [
                 4.463478733950903,
                 51.48085771169496
               ],
@@ -4264,11 +4233,19 @@
               [
                 4.46372686137063,
                 51.48107224032486
+              ],
+              [
+                4.463478733950903,
+                51.48085771169496
               ]
             ]
           ],
           [
             [
+              [
+                4.460400291933549,
+                51.51979138550779
+              ],
               [
                 4.460151970098619,
                 51.519576849916916
@@ -4556,27 +4533,11 @@
               [
                 4.460400291933549,
                 51.51979138550779
-              ],
-              [
-                4.460151970098619,
-                51.519576849916916
               ]
             ]
           ],
           [
             [
-              [
-                4.462546582701092,
-                51.54373828654387
-              ],
-              [
-                4.462265593823864,
-                51.54353997395206
-              ],
-              [
-                4.461954786755841,
-                51.54335978886118
-              ],
               [
                 4.461617154689114,
                 51.54319946632752
@@ -4876,6 +4837,18 @@
               [
                 4.462546582701092,
                 51.54373828654387
+              ],
+              [
+                4.462265593823864,
+                51.54353997395206
+              ],
+              [
+                4.461954786755841,
+                51.54335978886118
+              ],
+              [
+                4.461617154689114,
+                51.54319946632752
               ]
             ]
           ],
@@ -7822,10 +7795,6 @@
                 51.52240825865247
               ],
               [
-                4.382492543272878,
-                51.52240825865247
-              ],
-              [
                 4.382496119958153,
                 51.52241477648388
               ],
@@ -8322,7 +8291,7 @@
                 51.53693877269964
               ],
               [
-                4.448937394924959,
+                4.448937394924958,
                 51.53693881172026
               ],
               [
@@ -9082,7 +9051,7 @@
                 51.52466165634472
               ],
               [
-                4.459261545845104,
+                4.459261545845103,
                 51.52458781407266
               ],
               [
@@ -9382,10 +9351,6 @@
           [
             [
               [
-                4.464933807035206,
-                51.480582370786266
-              ],
-              [
                 4.464602966929268,
                 51.480296335897776
               ],
@@ -9640,6 +9605,10 @@
               [
                 4.464933807035206,
                 51.480582370786266
+              ],
+              [
+                4.464602966929268,
+                51.480296335897776
               ]
             ]
           ],
