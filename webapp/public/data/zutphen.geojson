@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Zutphen",
     "slug": "zutphen",
-    "generated_at": "2026-06-01T07:34:56.499978Z",
-    "total_points": 60,
+    "generated_at": "2026-06-08T07:25:15.805184Z",
+    "total_points": 61,
     "providers": [
       "Amazon",
       "DeBuren",
@@ -12,7 +12,6 @@
       "DPD",
       "PostNL",
       "VintedGo",
-      "GLS",
       "InPost"
     ],
     "bounds": [
@@ -65,6 +64,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.1192534187865,
         "longitude": 6.22467873221353,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.19482475255793,
+          52.1438112067053
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "The Smartphone Zutphen",
+        "straatNaam": "Stationsstraat 3",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.1438112067053,
+        "longitude": 6.19482475255793,
         "canPickup": true,
         "canDropoff": false
       }
@@ -971,6 +993,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          6.19482475255793,
+          52.1438112067053
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "The Smartphone Zutphen",
+        "straatNaam": "Stationsstraat",
+        "straatNr": "3",
+        "vervoerder": "PostNL",
+        "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 52.1438112067053,
+        "longitude": 6.19482475255793,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           6.199638713,
           52.15224514
         ]
@@ -1261,29 +1306,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.1444712,
         "longitude": 6.194165,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          6.23520029,
-          52.1266205
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat",
-        "straatNaam": "Leestenseweg",
-        "straatNr": "10",
-        "vervoerder": "GLS",
-        "puntType": "locker",
-        "bezettingsgraad": 50,
-        "latitude": 52.1266205,
-        "longitude": 6.23520029,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1674,14 +1696,6 @@
           ],
           [
             [
-              [
-                6.195500032099611,
-                52.138949952904746
-              ],
-              [
-                6.195109258214441,
-                52.13883949073979
-              ],
               [
                 6.1947027712915155,
                 52.138753126940934
@@ -2719,7 +2733,7 @@
                 52.13901760485106
               ],
               [
-                6.204325384123814,
+                6.204325384123815,
                 52.13895236099631
               ],
               [
@@ -3133,6 +3147,14 @@
               [
                 6.195500032099611,
                 52.138949952904746
+              ],
+              [
+                6.195109258214441,
+                52.13883949073979
+              ],
+              [
+                6.1947027712915155,
+                52.138753126940934
               ]
             ]
           ],
@@ -4471,6 +4493,14 @@
           [
             [
               [
+                6.243938275215715,
+                52.12337385682499
+              ],
+              [
+                6.243509184026982,
+                52.12338995932054
+              ],
+              [
                 6.2430847225396136,
                 52.12343187058308
               ],
@@ -4993,14 +5023,6 @@
               [
                 6.243938275215715,
                 52.12337385682499
-              ],
-              [
-                6.243509184026982,
-                52.12338995932054
-              ],
-              [
-                6.2430847225396136,
-                52.12343187058308
               ]
             ]
           ],
@@ -5834,10 +5856,6 @@
           ],
           [
             [
-              [
-                6.195111196138392,
-                52.13789019824809
-              ],
               [
                 6.194553491962911,
                 52.13780828802779
@@ -7525,6 +7543,10 @@
               [
                 6.195111196138392,
                 52.13789019824809
+              ],
+              [
+                6.194553491962911,
+                52.13780828802779
               ]
             ]
           ],
@@ -8075,6 +8097,14 @@
           [
             [
               [
+                6.243921034361569,
+                52.12247514083556
+              ],
+              [
+                6.2433489242053,
+                52.122496610377034
+              ],
+              [
                 6.242782986483685,
                 52.12255249093568
               ],
@@ -8517,14 +8547,6 @@
               [
                 6.243921034361569,
                 52.12247514083556
-              ],
-              [
-                6.2433489242053,
-                52.122496610377034
-              ],
-              [
-                6.242782986483685,
-                52.12255249093568
               ]
             ]
           ],

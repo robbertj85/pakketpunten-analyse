@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Culemborg",
     "slug": "culemborg",
-    "generated_at": "2026-06-01T07:13:24.881997Z",
-    "total_points": 22,
+    "generated_at": "2026-06-08T07:02:08.424206Z",
+    "total_points": 20,
     "providers": [
       "Amazon",
       "DHL",
@@ -79,29 +79,6 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "Sun4Seasons+",
-        "straatNaam": "Prijssestraat 56",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 51.9541385545596,
-        "longitude": 5.22468499851943,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.22468499851943,
-          51.9541385545596
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Sun4Seasons",
         "straatNaam": "Prijssestraat 56",
         "straatNr": "",
         "vervoerder": "Amazon",
@@ -362,29 +339,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.94807071,
         "longitude": 5.224110589,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.22468499851943,
-          51.9541385545596
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Sun4Seasons",
-        "straatNaam": "Prijssestraat",
-        "straatNr": "56",
-        "vervoerder": "PostNL",
-        "puntType": "servicepunt",
-        "bezettingsgraad": 50,
-        "latitude": 51.9541385545596,
-        "longitude": 5.22468499851943,
         "canPickup": true,
         "canDropoff": true
       }
@@ -991,6 +945,14 @@
           [
             [
               [
+                5.208211670999647,
+                51.94713582951229
+              ],
+              [
+                5.207844928716165,
+                51.94699922974107
+              ],
+              [
                 5.207458288050109,
                 51.946885500591904
               ],
@@ -1257,14 +1219,6 @@
               [
                 5.208211670999647,
                 51.94713582951229
-              ],
-              [
-                5.207844928716165,
-                51.94699922974107
-              ],
-              [
-                5.207458288050109,
-                51.946885500591904
               ]
             ]
           ],
@@ -2639,6 +2593,14 @@
           [
             [
               [
+                5.2090226980835,
+                51.946389715760574
+              ],
+              [
+                5.20853371369618,
+                51.94620758583411
+              ],
+              [
                 5.2080181999995805,
                 51.946055949692386
               ],
@@ -2905,14 +2867,6 @@
               [
                 5.2090226980835,
                 51.946389715760574
-              ],
-              [
-                5.20853371369618,
-                51.94620758583411
-              ],
-              [
-                5.2080181999995805,
-                51.946055949692386
               ]
             ]
           ],

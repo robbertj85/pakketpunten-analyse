@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Uithoorn",
     "slug": "uithoorn",
-    "generated_at": "2026-06-01T07:30:27.633027Z",
-    "total_points": 31,
+    "generated_at": "2026-06-08T07:20:25.764119Z",
+    "total_points": 32,
     "providers": [
       "Amazon",
       "DHL",
@@ -165,6 +165,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.844287824,
+          52.24155468
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Adas  V.O.F.",
+        "straatNaam": "Ondernemingsweg 56 N",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.24155468,
+        "longitude": 4.844287824,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.8291344893217305,
           52.23263869506766
         ]
@@ -173,7 +196,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat AH Jos van den Berg",
         "straatNaam": "Amstelplein",
-        "straatNr": "37-PS/113",
+        "straatNr": "37",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -217,7 +240,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat COOP De Kwakel",
+        "locatieNaam": "Pakketautomaat Coop De Kwakel",
         "straatNaam": "Kerklaan",
         "straatNr": "24",
         "vervoerder": "DHL",
@@ -265,7 +288,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat terStal Uithoorn",
         "straatNaam": "Zijdelwaardplein",
-        "straatNr": "96",
+        "straatNr": "96-Kast",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -311,7 +334,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Praxis Uithoorn",
         "straatNaam": "Wiegerbruinlaan",
-        "straatNr": "4-PS/87",
+        "straatNr": "4",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -1839,7 +1862,7 @@
                 52.237167438878025
               ],
               [
-                4.797160997400429,
+                4.797160997400428,
                 52.23707641969126
               ],
               [
@@ -2126,6 +2149,10 @@
           ],
           [
             [
+              [
+                4.829774769287807,
+                52.22959388848019
+              ],
               [
                 4.829349014022348,
                 52.22955305205186
@@ -2497,10 +2524,6 @@
               [
                 4.829774769287807,
                 52.22959388848019
-              ],
-              [
-                4.829349014022348,
-                52.22955305205186
               ]
             ]
           ],
@@ -3595,10 +3618,6 @@
                 52.22968303004345
               ],
               [
-                4.833637097775279,
-                52.22968303004345
-              ],
-              [
                 4.8334027121518535,
                 52.229574576375384
               ],
@@ -3615,7 +3634,7 @@
                 52.229116219484126
               ],
               [
-                4.831741669123071,
+                4.83174166912307,
                 52.22909818825265
               ],
               [
@@ -3747,6 +3766,10 @@
           [
             [
               [
+                4.797201687866463,
+                52.235754547198056
+              ],
+              [
                 4.796742937326883,
                 52.23554208273391
               ],
@@ -3867,7 +3890,7 @@
                 52.24077266332224
               ],
               [
-                4.788968149917632,
+                4.788968149917631,
                 52.24082450596507
               ],
               [
@@ -4033,10 +4056,6 @@
               [
                 4.797201687866463,
                 52.235754547198056
-              ],
-              [
-                4.796742937326883,
-                52.23554208273391
               ]
             ]
           ],

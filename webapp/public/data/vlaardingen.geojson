@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Vlaardingen",
     "slug": "vlaardingen",
-    "generated_at": "2026-06-01T07:31:37.185701Z",
+    "generated_at": "2026-06-08T07:21:41.532087Z",
     "total_points": 61,
     "providers": [
       "Amazon",
@@ -220,7 +220,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat GAMMA Vlaardingen",
         "straatNaam": "Deltaweg",
-        "straatNr": "82-PS/108",
+        "straatNr": "82",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -243,7 +243,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Praxis Vlaardingen",
         "straatNaam": "Zevenmanshaven Oost",
-        "straatNr": "4-PS/128",
+        "straatNr": "4",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -266,7 +266,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Hoogvliet Vlaardngn",
         "straatNaam": "Parallelweg",
-        "straatNr": "8-PS/109",
+        "straatNr": "8",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -396,29 +396,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          4.366732,
-          51.910572
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat Rosorum",
-        "straatNaam": "Zwembaan",
-        "straatNr": "83",
-        "vervoerder": "DHL",
-        "puntType": "packStation",
-        "bezettingsgraad": 50,
-        "latitude": 51.910572,
-        "longitude": 4.366732,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           4.3118513,
           51.9153474
         ]
@@ -450,7 +427,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Maxi Zoo Vlaard",
         "straatNaam": "Dirk de Derdelaan",
-        "straatNr": "5-PS/109",
+        "straatNr": "5",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -534,6 +511,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.366732,
+          51.910572
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat Rosorum",
+        "straatNaam": "Zwembaan",
+        "straatNr": "83",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 51.910572,
+        "longitude": 4.366732,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.3397611,
           51.9107992
         ]
@@ -565,7 +565,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat terStal Vlaardingen",
         "straatNaam": "Liesveld",
-        "straatNr": "128",
+        "straatNr": "128-Kast",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -588,7 +588,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Hema Vlaardingen",
         "straatNaam": "Veerplein",
-        "straatNr": "130-PS/93",
+        "straatNr": "130",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,

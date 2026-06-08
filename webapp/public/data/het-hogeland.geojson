@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Het Hogeland",
     "slug": "het-hogeland",
-    "generated_at": "2026-06-01T07:18:55.108176Z",
-    "total_points": 89,
+    "generated_at": "2026-06-08T07:08:03.789955Z",
+    "total_points": 90,
     "providers": [
       "Amazon",
       "DHL",
@@ -404,7 +404,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat terStal Winsum",
         "straatNaam": "Obergon",
-        "straatNr": "5",
+        "straatNr": "5-Kast",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -450,7 +450,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat terStal Bedum",
         "straatNaam": "Noordwolderweg",
-        "straatNr": "7",
+        "straatNr": "7-Kast",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -657,7 +657,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Lidl Uithuizen",
         "straatNaam": "Molenerf",
-        "straatNr": "13-PS/101",
+        "straatNr": "13",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -1836,6 +1836,29 @@
         "bezettingsgraad": 50,
         "latitude": 53.3300933,
         "longitude": 6.51519713,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.51565153,
+          53.3348336
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat",
+        "straatNaam": "Obergon",
+        "straatNr": "2",
+        "vervoerder": "GLS",
+        "puntType": "locker",
+        "bezettingsgraad": 50,
+        "latitude": 53.3348336,
+        "longitude": 6.51565153,
         "canPickup": true,
         "canDropoff": true
       }
@@ -6150,7 +6173,7 @@
                 53.28783637216382
               ],
               [
-                6.603687658356391,
+                6.603687658356388,
                 53.287792890065425
               ],
               [
@@ -6177,6 +6200,10 @@
           ],
           [
             [
+              [
+                6.537032347572321,
+                53.293214920531604
+              ],
               [
                 6.536763723071157,
                 53.29300499705383
@@ -6432,19 +6459,11 @@
               [
                 6.537032347572321,
                 53.293214920531604
-              ],
-              [
-                6.536763723071157,
-                53.29300499705383
               ]
             ]
           ],
           [
             [
-              [
-                6.563037578175204,
-                53.39193805126838
-              ],
               [
                 6.562768207112113,
                 53.391728195246614
@@ -6780,6 +6799,10 @@
               [
                 6.563037578175204,
                 53.39193805126838
+              ],
+              [
+                6.562768207112113,
+                53.391728195246614
               ]
             ]
           ],
@@ -11830,6 +11853,10 @@
                 53.303437431744
               ],
               [
+                6.5939152113233,
+                53.30345011103153
+              ],
+              [
                 6.593915211323305,
                 53.30345011103153
               ],
@@ -12246,6 +12273,10 @@
           [
             [
               [
+                6.538265737252635,
+                53.29270386717014
+              ],
+              [
                 6.537907568127393,
                 53.29242397269948
               ],
@@ -12500,19 +12531,11 @@
               [
                 6.538265737252635,
                 53.29270386717014
-              ],
-              [
-                6.537907568127393,
-                53.29242397269948
               ]
             ]
           ],
           [
             [
-              [
-                6.564273477721377,
-                53.39142674140499
-              ],
               [
                 6.563914313173742,
                 53.39114693688461
@@ -12828,6 +12851,10 @@
               [
                 6.564273477721377,
                 53.39142674140499
+              ],
+              [
+                6.563914313173742,
+                53.39114693688461
               ]
             ]
           ],

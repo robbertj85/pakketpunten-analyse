@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Noordenveld",
     "slug": "noordenveld",
-    "generated_at": "2026-06-01T07:24:18.096608Z",
-    "total_points": 43,
+    "generated_at": "2026-06-08T07:13:49.552162Z",
+    "total_points": 45,
     "providers": [
       "Amazon",
       "DHL",
@@ -126,7 +126,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DA Drogisterij Parfumerie Ina",
+        "locatieNaam": "Drogisterij Parfumerie Ina",
         "straatNaam": "Oosteind",
         "straatNr": "16",
         "vervoerder": "DHL",
@@ -197,7 +197,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Poiesz Nieuw Roden",
         "straatNaam": "Roderweg",
-        "straatNr": "15-PS/58",
+        "straatNr": "15",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -289,7 +289,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat PLUS Peize",
         "straatNaam": "Hoofdstraat",
-        "straatNr": "5-PS/57",
+        "straatNr": "5",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -410,6 +410,29 @@
         "bezettingsgraad": 50,
         "latitude": 53.1388583,
         "longitude": 6.4299321,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.45774,
+          53.0669
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "DPD Pakketautomaat - PLUS Figeland",
+        "straatNaam": "WESTEINDE",
+        "straatNr": "3",
+        "vervoerder": "DPD",
+        "puntType": "dpd_box",
+        "bezettingsgraad": 50,
+        "latitude": 53.0669,
+        "longitude": 6.45774,
         "canPickup": true,
         "canDropoff": true
       }
@@ -939,6 +962,29 @@
         "bezettingsgraad": 50,
         "latitude": 53.0637342,
         "longitude": 6.4597814,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.46310071,
+          53.067407
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat",
+        "straatNaam": "Brinkhofweide",
+        "straatNr": "6",
+        "vervoerder": "GLS",
+        "puntType": "locker",
+        "bezettingsgraad": 50,
+        "latitude": 53.067407,
+        "longitude": 6.46310071,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1536,7 +1582,7 @@
                 53.130474666242904
               ],
               [
-                6.403681481554444,
+                6.403681481554446,
                 53.13039185399596
               ],
               [
@@ -1627,6 +1673,10 @@
           ],
           [
             [
+              [
+                6.419077551521846,
+                53.13377903691946
+              ],
               [
                 6.418846035972333,
                 53.13355410457828
@@ -1882,10 +1932,6 @@
               [
                 6.419077551521846,
                 53.13377903691946
-              ],
-              [
-                6.418846035972333,
-                53.13355410457828
               ]
             ]
           ],
@@ -2364,7 +2410,7 @@
                 53.0645549386308
               ],
               [
-                6.455521607109337,
+                6.455521607109338,
                 53.06455947670106
               ],
               [
@@ -2375,6 +2421,10 @@
           ],
           [
             [
+              [
+                6.435922161462828,
+                53.13601488732935
+              ],
               [
                 6.435690546708799,
                 53.13578998794604
@@ -2842,19 +2892,11 @@
               [
                 6.435922161462828,
                 53.13601488732935
-              ],
-              [
-                6.435690546708799,
-                53.13578998794604
               ]
             ]
           ],
           [
             [
-              [
-                6.434826319883172,
-                53.14673561510626
-              ],
               [
                 6.434594653104289,
                 53.14651071450307
@@ -3110,6 +3152,10 @@
               [
                 6.434826319883172,
                 53.14673561510626
+              ],
+              [
+                6.434594653104289,
+                53.14651071450307
               ]
             ]
           ],
@@ -4308,6 +4354,10 @@
           [
             [
               [
+                6.420384988168815,
+                53.13334415253308
+              ],
+              [
                 6.420076295399924,
                 53.1330442459819
               ],
@@ -4562,10 +4612,6 @@
               [
                 6.420384988168815,
                 53.13334415253308
-              ],
-              [
-                6.420076295399924,
-                53.1330442459819
               ]
             ]
           ],
@@ -4995,6 +5041,10 @@
           ],
           [
             [
+              [
+                6.437229495060927,
+                53.13557981975353
+              ],
               [
                 6.436920670024553,
                 53.135279957147354
@@ -5586,10 +5636,6 @@
               [
                 6.437229495060927,
                 53.13557981975353
-              ],
-              [
-                6.436920670024553,
-                53.135279957147354
               ]
             ]
           ],

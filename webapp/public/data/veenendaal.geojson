@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Veenendaal",
     "slug": "veenendaal",
-    "generated_at": "2026-06-01T07:31:04.656308Z",
+    "generated_at": "2026-06-08T07:21:06.026901Z",
     "total_points": 69,
     "providers": [
       "Amazon",
@@ -289,7 +289,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Jumbo Petenbos",
         "straatNaam": "Paddestolenlaan",
-        "straatNr": "40-PS/87",
+        "straatNr": "40",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -335,7 +335,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Praxis Veenendaal",
         "straatNaam": "Groeneveldselaan",
-        "straatNr": "49-PS/77",
+        "straatNr": "49",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -410,29 +410,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.025632,
         "longitude": 5.5584862,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.5562135,
-          52.0260684
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Taartdecoratief",
-        "straatNaam": "Tuinstraat",
-        "straatNr": "75",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 52.0260684,
-        "longitude": 5.5562135,
         "canPickup": true,
         "canDropoff": true
       }
@@ -542,12 +519,35 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat HEMA Veenendaal",
         "straatNaam": "Tuinstraat",
-        "straatNr": "85",
+        "straatNr": "85-Kast",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
         "latitude": 52.0260781,
         "longitude": 5.556177,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.5562135,
+          52.0260684
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Taartdecoratief",
+        "straatNaam": "Tuinstraat",
+        "straatNr": "75",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 52.0260684,
+        "longitude": 5.5562135,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1507,7 +1507,7 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "COMFORTWHEELS",
-        "straatNaam": "DE SMALLE ZIJDE 3",
+        "straatNaam": "De Smalle Zijde 3",
         "straatNr": "",
         "vervoerder": "InPost",
         "puntType": "servicepunt",

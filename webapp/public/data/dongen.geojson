@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Dongen",
     "slug": "dongen",
-    "generated_at": "2026-06-01T07:14:43.969686Z",
+    "generated_at": "2026-06-08T07:03:33.080459Z",
     "total_points": 29,
     "providers": [
       "Amazon",
@@ -174,7 +174,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat terStal Dongen",
         "straatNaam": "Looiersplein",
-        "straatNr": "49",
+        "straatNr": "49-Kast",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -580,6 +580,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.9449326,
+          51.6251346
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Bloembinderij John Flora",
+        "straatNaam": "Hoge Ham",
+        "straatNr": "170",
+        "vervoerder": "GLS",
+        "puntType": "parcel_shop",
+        "bezettingsgraad": 50,
+        "latitude": 51.6251346,
+        "longitude": 4.9449326,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.93094093,
           51.6151101
         ]
@@ -626,29 +649,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          4.9449326,
-          51.6251346
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Bloembinderij John Flora",
-        "straatNaam": "Hoge Ham",
-        "straatNr": "170",
-        "vervoerder": "GLS",
-        "puntType": "parcel_shop",
-        "bezettingsgraad": 50,
-        "latitude": 51.6251346,
-        "longitude": 4.9449326,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           4.94359,
           51.62491
         ]
@@ -656,7 +656,7 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "TOKO TINEKE (SUPERETTE)",
-        "straatNaam": "SINT JOSEPHSTRAAT 161A",
+        "straatNaam": "Sint Josephstraat 161A",
         "straatNr": "",
         "vervoerder": "InPost",
         "puntType": "servicepunt",
@@ -679,7 +679,7 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "BENTHLEY'S FRIETPALEIS 2.0",
-        "straatNaam": "MEESTER JANSSENWEG 44",
+        "straatNaam": "Meester Janssenweg 44",
         "straatNr": "",
         "vervoerder": "InPost",
         "puntType": "servicepunt",

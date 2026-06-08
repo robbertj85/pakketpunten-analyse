@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Halderberge",
     "slug": "halderberge",
-    "generated_at": "2026-06-01T07:17:37.691060Z",
-    "total_points": 41,
+    "generated_at": "2026-06-08T07:06:40.068201Z",
+    "total_points": 42,
     "providers": [
       "Amazon",
       "DHL",
@@ -901,6 +901,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.52195,
+          51.5894132
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Kluswijs Oudenbosch",
+        "straatNaam": "Zandeweg 29",
+        "straatNr": "",
+        "vervoerder": "VintedGo",
+        "puntType": "locker",
+        "bezettingsgraad": 50,
+        "latitude": 51.5894132,
+        "longitude": 4.52195,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.583858,
           51.5804762
         ]
@@ -931,7 +954,7 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "STYVO-BEKERPALEIS",
-        "straatNaam": "AKKERLINGEN 22",
+        "straatNaam": "Akkerlingen 22",
         "straatNr": "",
         "vervoerder": "InPost",
         "puntType": "servicepunt",
@@ -954,7 +977,7 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "ERTONGA MARKET",
-        "straatNaam": "FENKELSTRAAT 20",
+        "straatNaam": "Fenkelstraat 20",
         "straatNr": "",
         "vervoerder": "InPost",
         "puntType": "servicepunt",
@@ -2333,6 +2356,10 @@
           [
             [
               [
+                4.547424422687178,
+                51.558929061665154
+              ],
+              [
                 4.547210380812146,
                 51.558700532730256
               ],
@@ -2587,10 +2614,6 @@
               [
                 4.547424422687178,
                 51.558929061665154
-              ],
-              [
-                4.547210380812146,
-                51.558700532730256
               ]
             ]
           ],
@@ -4873,6 +4896,10 @@
           [
             [
               [
+                4.548703892975617,
+                51.558514507856046
+              ],
+              [
                 4.548418498272883,
                 51.558209805623605
               ],
@@ -5127,10 +5154,6 @@
               [
                 4.548703892975617,
                 51.558514507856046
-              ],
-              [
-                4.548418498272883,
-                51.558209805623605
               ]
             ]
           ],

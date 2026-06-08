@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Oldenzaal",
     "slug": "oldenzaal",
-    "generated_at": "2026-06-01T07:25:04.080752Z",
+    "generated_at": "2026-06-08T07:14:38.522980Z",
     "total_points": 40,
     "providers": [
       "Amazon",
@@ -211,29 +211,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          6.9391945,
-          52.298503
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat FC Berghuizen",
-        "straatNaam": "Schapendijk",
-        "straatNr": "37-VC/87",
-        "vervoerder": "DHL",
-        "puntType": "packStation",
-        "bezettingsgraad": 50,
-        "latitude": 52.298503,
-        "longitude": 6.9391945,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           6.923509120941162,
           52.28558349609375
         ]
@@ -248,6 +225,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.28558349609375,
         "longitude": 6.923509120941162,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.9391945,
+          52.298503
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat FC Berghuizen",
+        "straatNaam": "Schapendijk",
+        "straatNr": "37-VC/87",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 52.298503,
+        "longitude": 6.9391945,
         "canPickup": true,
         "canDropoff": true
       }
@@ -357,7 +357,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat terStal Oldenzaal",
         "straatNaam": "Bisschopstraat",
-        "straatNr": "37",
+        "straatNr": "37-Kast",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
