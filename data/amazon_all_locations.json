@@ -3,8 +3,8 @@
     "method": "playwright-scraping-municipality-autocomplete",
     "source": "https://www.amazon.nl/ulp",
     "country": "Netherlands",
-    "total_locations": 1676,
-    "fetched_at": "2026-06-08T05:42:07.116234+00:00"
+    "total_locations": 1707,
+    "fetched_at": "2026-06-15T06:06:04.922349+00:00"
   },
   "locations": [
     {
@@ -170,8 +170,8 @@
       "straatNr": "",
       "postcode": "1432ED",
       "city": "Aalsmeer",
-      "latitude": 52.2893499,
-      "longitude": 4.82172,
+      "latitude": 52.28976,
+      "longitude": 4.8216517,
       "puntType": "locker",
       "apisType": "CORE_LOCKER",
       "vervoerder": "Amazon"
@@ -788,6 +788,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "87c359c1-5959-43a4-b354-5b546f56e7c0",
+      "locatieNaam": "DHL - Pakketautomaat Lukoil Alblasserdam",
+      "straatNaam": "Nieuwland Parc 421",
+      "straatNr": "",
+      "postcode": "2952DE",
+      "city": "Alblasserdam",
+      "latitude": 51.84631733015778,
+      "longitude": 4.671065594795626,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "872b6c93-5397-4cf4-b4d4-85cf3570eb3f",
       "locatieNaam": "KARWEI Papendrecht",
       "straatNaam": "Burgemeester Keijzerweg 24",
@@ -983,19 +996,6 @@
       "vervoerder": "Amazon"
     },
     {
-      "id": "38e29830-f58b-4416-b0e2-8115fb221378",
-      "locatieNaam": "Post en Proviand",
-      "straatNaam": "Pruimendijk 8 D",
-      "straatNr": "",
-      "postcode": "2988XN",
-      "city": "RIDDERKERK",
-      "latitude": 51.8496478234412,
-      "longitude": 4.59840933961793,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
       "id": "cb9b49bc-8e6c-4b16-9178-0afd3c58d10c",
       "locatieNaam": "Intratuin Rhoon",
       "straatNaam": "Stationsstraat 5",
@@ -1113,19 +1113,6 @@
       "vervoerder": "Amazon"
     },
     {
-      "id": "4179de5c-ff54-4448-8ba5-46dc1a9814c6",
-      "locatieNaam": "All in Shop Charlois",
-      "straatNaam": "Wolphaertsbocht 37",
-      "straatNr": "",
-      "postcode": "3082AB",
-      "city": "Rotterdam",
-      "latitude": 51.89415949,
-      "longitude": 4.467338229,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
       "id": "b88c072a-ce09-438d-8f7a-96d1724dc06f",
       "locatieNaam": "DHL - Pakketautomaat Tango Sluisjesdk",
       "straatNaam": "Sluisjesdijk 41",
@@ -1147,19 +1134,6 @@
       "city": "ROTTERDAM",
       "latitude": 51.8753972,
       "longitude": 4.493775002,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
-      "id": "d2327bd2-6f73-4d47-89f7-6fc10ec8365e",
-      "locatieNaam": "Primera Carnisse Veste",
-      "straatNaam": "Van Beuningenhaven 24",
-      "straatNr": "",
-      "postcode": "2993EH",
-      "city": "Barendrecht",
-      "latitude": 51.84757468,
-      "longitude": 4.499406694,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -1256,6 +1230,32 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "601123a9-0ddd-49a6-a37d-f60b8f7376eb",
+      "locatieNaam": "APK KEURINGSSTATION SPIJKENISSE",
+      "straatNaam": "Stationsstraat 11",
+      "straatNr": "",
+      "postcode": "3201AS",
+      "city": "SPIJKENISSE",
+      "latitude": 51.8525990360571,
+      "longitude": 4.32606889856029,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "b1136433-6121-4e04-9ff2-5c35673f3a32",
+      "locatieNaam": "Mukto Bazar",
+      "straatNaam": "Pretorialaan 32 B",
+      "straatNr": "",
+      "postcode": "3072EN",
+      "city": "ROTTERDAM",
+      "latitude": 51.901146644178,
+      "longitude": 4.4980730957488,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "f13d81d2-7139-4808-90df-188348f64d0f",
       "locatieNaam": "Primera",
       "straatNaam": "Magdalenenstraat 17 A",
@@ -1277,6 +1277,19 @@
       "city": "ALKMAAR",
       "latitude": 52.63456881,
       "longitude": 4.766148402,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "cb8b61c6-4aaa-4f49-a569-2c13081312b4",
+      "locatieNaam": "Cigo Kuijper",
+      "straatNaam": "Breedstraat 27",
+      "straatNr": "",
+      "postcode": "1811HE",
+      "city": "Alkmaar",
+      "latitude": 52.63110263,
+      "longitude": 4.746374955,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -1412,6 +1425,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "f461b97c-4f56-4b7d-8def-4420b2869c61",
+      "locatieNaam": "Amazon Counter - ViaTim en Hanna",
+      "straatNaam": "Hemelboog Binnen 53 A",
+      "straatNr": "",
+      "postcode": "1705SL",
+      "city": "Heerhugowaard",
+      "latitude": 52.64729147,
+      "longitude": 4.806397115,
+      "puntType": "helix",
+      "apisType": "HELIX",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "312c3458-d5ed-4b06-9479-1f2f8154a252",
       "locatieNaam": "GAMMA Heerhugowaard",
       "straatNaam": "J.J.P. Oudweg 16",
@@ -1422,6 +1448,19 @@
       "longitude": 4.808517357,
       "puntType": "3p",
       "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "772fb2b5-0091-4fab-9022-742119f0b032",
+      "locatieNaam": "Amazon Counter - ViaTim en Morillo",
+      "straatNaam": "Turkoois 1",
+      "straatNr": "",
+      "postcode": "1703BG",
+      "city": "Heerhugowaard",
+      "latitude": 52.6605517,
+      "longitude": 4.8163,
+      "puntType": "helix",
+      "apisType": "HELIX",
       "vervoerder": "Amazon"
     },
     {
@@ -1472,45 +1511,6 @@
       "city": "Broek op Langedijk",
       "latitude": 52.67761147,
       "longitude": 4.798528672,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
-      "id": "51231922",
-      "locatieNaam": "Amazon Locker - Daan",
-      "straatNaam": "WC MIddenwaard 1",
-      "straatNr": "",
-      "postcode": "1703 SE",
-      "city": "Heerhugowaard",
-      "latitude": 52.6632148,
-      "longitude": 4.8306749,
-      "puntType": "locker",
-      "apisType": "CORE_LOCKER",
-      "vervoerder": "Amazon"
-    },
-    {
-      "id": "056bb732-4c1c-4c4d-9d61-bcb5664411c6",
-      "locatieNaam": "Tabakshop Raadhuisplein",
-      "straatNaam": "Raadhuisplein 10",
-      "straatNr": "",
-      "postcode": "1701EJ",
-      "city": "HEERHUGOWAARD",
-      "latitude": 52.67070174,
-      "longitude": 4.844170657,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
-      "id": "0ec648a5-c3a1-496a-8133-bce1fa2d2552",
-      "locatieNaam": "iSmart Specialist",
-      "straatNaam": "Middenweg 269",
-      "straatNr": "",
-      "postcode": "1701GD",
-      "city": "HEERHUGOWAARD",
-      "latitude": 52.67271653,
-      "longitude": 4.848492453,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -1880,19 +1880,6 @@
       "vervoerder": "Amazon"
     },
     {
-      "id": "6f4128bc-a7a2-4953-b42b-18ab971aaf63",
-      "locatieNaam": "Sanitair-land",
-      "straatNaam": "Middenhof 56 C",
-      "straatNr": "",
-      "postcode": "1354EG",
-      "city": "ALMERE",
-      "latitude": 52.3379420704664,
-      "longitude": 5.21835300871715,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
       "id": "fb00533c-104f-467f-b4ac-b2c0251e4bea",
       "locatieNaam": "DHL - Pakketautomaat Basic-Fit Sumatra",
       "straatNaam": "Sumatraweg 2",
@@ -2055,8 +2042,8 @@
       "straatNr": "",
       "postcode": "2481 AR",
       "city": "Woubrugge",
-      "latitude": 52.16808,
-      "longitude": 4.6362,
+      "latitude": 52.1680417,
+      "longitude": 4.6360483,
       "puntType": "locker",
       "apisType": "CORE_LOCKER",
       "vervoerder": "Amazon"
@@ -2413,19 +2400,6 @@
       "vervoerder": "Amazon"
     },
     {
-      "id": "c61ebe70-69b8-40cc-9771-9a8adadbc334",
-      "locatieNaam": "Nena's Dogs & Cats",
-      "straatNaam": "Nieuwe Es 157",
-      "straatNr": "",
-      "postcode": "4254AW",
-      "city": "SLEEUWIJK",
-      "latitude": 51.8130246831923,
-      "longitude": 4.94602270850895,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
       "id": "69de58dd-3454-47cd-a38c-ae6d05f1f964",
       "locatieNaam": "Hubo Werkendam",
       "straatNaam": "Vierlinghstraat 9 -11",
@@ -2673,6 +2647,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "c4434231-2de7-41ef-8165-460849e735a6",
+      "locatieNaam": "Your Inkstation Amersfoort",
+      "straatNaam": "Leusderweg 196",
+      "straatNr": "",
+      "postcode": "3817KE",
+      "city": "AMERSFOORT",
+      "latitude": 52.1424608444428,
+      "longitude": 5.37996017612468,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "1643829a-c58f-4907-aab7-a42f6efff7a0",
       "locatieNaam": "Intratuin Amersfoort",
       "straatNaam": "Amsterdamseweg 139",
@@ -2803,6 +2790,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "0cc89317-4a16-4490-8997-f09311acac3d",
+      "locatieNaam": "DHL - Pakketautomaat Esso Soest",
+      "straatNaam": "Beukenlaan 27",
+      "straatNr": "",
+      "postcode": "3762AE",
+      "city": "Soest",
+      "latitude": 52.17655027886819,
+      "longitude": 5.2894599133682645,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "e21dac3f-bea7-4433-9b14-ae6d81d7f18d",
       "locatieNaam": "PostNL Businesspoint Soest",
       "straatNaam": "Nijverheidsweg 12",
@@ -2863,32 +2863,6 @@
       "city": "Zwartebroek",
       "latitude": 52.177364349365234,
       "longitude": 5.50795841217041,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
-      "id": "7abaae69-0bc8-43c8-b6c7-7650558ab880",
-      "locatieNaam": "Boons Zwartebroek",
-      "straatNaam": "Albert van Meerveldstraat 90",
-      "straatNr": "",
-      "postcode": "3785LS",
-      "city": "Zwartebroek",
-      "latitude": 52.17718221,
-      "longitude": 5.508097187,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
-      "id": "433422f5-8979-43b7-ac56-84f5638567b5",
-      "locatieNaam": "BP-",
-      "straatNaam": "De Kronkels 3",
-      "straatNr": "",
-      "postcode": "3752LM",
-      "city": "Bunschoten-Spakenburg",
-      "latitude": 52.23357849,
-      "longitude": 5.367268917,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -3258,14 +3232,14 @@
       "vervoerder": "Amazon"
     },
     {
-      "id": "c890642c-c8df-413c-aaf3-a3a0d207e548",
-      "locatieNaam": "All Around Logistics",
-      "straatNaam": "Nieuwe Hemweg 4 C",
+      "id": "cfc6cdfa-3fd6-4b78-88e1-09a345ce9cfb",
+      "locatieNaam": "Tabakshop Linnaeus",
+      "straatNaam": "Linnaeusstraat 77",
       "straatNr": "",
-      "postcode": "1013BG",
-      "city": "AMSTERDAM",
-      "latitude": 52.39497943,
-      "longitude": 4.86889907,
+      "postcode": "1093EK",
+      "city": "Amsterdam",
+      "latitude": 52.35973172,
+      "longitude": 4.92588815,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -4090,19 +4064,6 @@
       "vervoerder": "Amazon"
     },
     {
-      "id": "f3935be4-2cd8-4423-841f-ac94ad83c242",
-      "locatieNaam": "Lektura-",
-      "straatNaam": "Jan Deckersstraat 19 A",
-      "straatNr": "",
-      "postcode": "5591HN",
-      "city": "Heeze",
-      "latitude": 51.37878507,
-      "longitude": 5.578307969,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
       "id": "b4e3baf1-695a-4a6f-9d0b-8a7f7c791ad9",
       "locatieNaam": "Lektura",
       "straatNaam": "Jan Deckersstraat 19 A",
@@ -4124,6 +4085,32 @@
       "city": "Heeze",
       "latitude": 51.37878507,
       "longitude": 5.578307969,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "f3935be4-2cd8-4423-841f-ac94ad83c242",
+      "locatieNaam": "Lektura-",
+      "straatNaam": "Jan Deckersstraat 19 A",
+      "straatNr": "",
+      "postcode": "5591HN",
+      "city": "Heeze",
+      "latitude": 51.37878507,
+      "longitude": 5.578307969,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "ec416c63-6075-4064-9c04-148a1dec42f5",
+      "locatieNaam": "DHL - Pakketautomaat Carpro Helmond",
+      "straatNaam": "Europaweg 152",
+      "straatNr": "",
+      "postcode": "5707CL",
+      "city": "Helmond",
+      "latitude": 51.475716263662655,
+      "longitude": 5.6344591301592475,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -4220,19 +4207,6 @@
       "vervoerder": "Amazon"
     },
     {
-      "id": "2c9dd725-4502-4914-bae2-6dace128a4e0",
-      "locatieNaam": "Janssen diervoeders",
-      "straatNaam": "Kreijel 15",
-      "straatNr": "",
-      "postcode": "6031AA",
-      "city": "Nederweert",
-      "latitude": 51.28911418,
-      "longitude": 5.770814503,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
       "id": "a8fa8bd9-d477-4720-b61b-ff135d7b94ec",
       "locatieNaam": "Bruna Baarn",
       "straatNaam": "Laanstraat 39",
@@ -4254,6 +4228,19 @@
       "city": "BAARN",
       "latitude": 52.2157340426786,
       "longitude": 5.29977736336674,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "433422f5-8979-43b7-ac56-84f5638567b5",
+      "locatieNaam": "BP-",
+      "straatNaam": "De Kronkels 3",
+      "straatNr": "",
+      "postcode": "3752LM",
+      "city": "Bunschoten-Spakenburg",
+      "latitude": 52.23357849,
+      "longitude": 5.367268917,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -4345,19 +4332,6 @@
       "city": "Den Dolder",
       "latitude": 52.13934287,
       "longitude": 5.241949881,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
-      "id": "71fe7bcd-d0fe-4908-9c33-5f3885347110",
-      "locatieNaam": "Sell Designs",
-      "straatNaam": "Franciscusweg 349 a",
-      "straatNr": "",
-      "postcode": "1216SL",
-      "city": "HILVERSUM",
-      "latitude": 52.2122578229538,
-      "longitude": 5.14608205821415,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -4506,6 +4480,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "38e29830-f58b-4416-b0e2-8115fb221378",
+      "locatieNaam": "Post en Proviand",
+      "straatNaam": "Pruimendijk 8 D",
+      "straatNr": "",
+      "postcode": "2988XN",
+      "city": "RIDDERKERK",
+      "latitude": 51.8496478234412,
+      "longitude": 4.59840933961793,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "648cdd18-c0f4-4e93-9643-4fda6cb75005",
       "locatieNaam": "DHL - Pakketautomaat Wash4All Rdam",
       "straatNaam": "Polderlaan 31",
@@ -4514,6 +4501,19 @@
       "city": "Rotterdam",
       "latitude": 51.8968726,
       "longitude": 4.50841,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "1378835b-fd0e-4acb-be95-c973b3874250",
+      "locatieNaam": "DHL - Pakketautomaat Praxis Stadionweg",
+      "straatNaam": "Stadionweg 31",
+      "straatNr": "",
+      "postcode": "3077AP",
+      "city": "Rotterdam",
+      "latitude": 51.89662282971596,
+      "longitude": 4.534240869388808,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -4636,6 +4636,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "7abaae69-0bc8-43c8-b6c7-7650558ab880",
+      "locatieNaam": "Boons Zwartebroek",
+      "straatNaam": "Albert van Meerveldstraat 90",
+      "straatNr": "",
+      "postcode": "3785LS",
+      "city": "Zwartebroek",
+      "latitude": 52.17718221,
+      "longitude": 5.508097187,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "8128e4cf-572d-4822-96be-ff98d7f29f8e",
       "locatieNaam": "Het Rokertje B.V.",
       "straatNaam": "Vendelier 1 A",
@@ -4662,6 +4675,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "9508dc27-1790-482e-9faf-056cf9d92eef",
+      "locatieNaam": "DHL - Pakketautomaat Esso Scherpenzeel",
+      "straatNaam": "Het Zwarte Land 31",
+      "straatNr": "",
+      "postcode": "3925CK",
+      "city": "Scherpenzeel",
+      "latitude": 52.084961521228905,
+      "longitude": 5.476510260221034,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "81615d4f-a910-48cc-9a71-0092a23d42d9",
       "locatieNaam": "Your Inkstation Nijkerk",
       "straatNaam": "Langestraat 50",
@@ -4683,19 +4709,6 @@
       "city": "HARSKAMP",
       "latitude": 52.1337416408136,
       "longitude": 5.74992166378821,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
-      "id": "0ddbcd53-8436-4091-be02-54f9671f5389",
-      "locatieNaam": "Primera  Nijkerk",
-      "straatNaam": "Singel 4",
-      "straatNr": "",
-      "postcode": "3861AE",
-      "city": "NIJKERK GLD",
-      "latitude": 52.22386795,
-      "longitude": 5.485817683,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -5403,6 +5416,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "7ab43de4-6fd3-4157-9242-884ac11fa867",
+      "locatieNaam": "DHL - Pakketautomaat Tango Nijmegen",
+      "straatNaam": "Hatertseweg 615",
+      "straatNr": "",
+      "postcode": "6533GL",
+      "city": "Nijmegen",
+      "latitude": 51.81332581545313,
+      "longitude": 5.835573493862274,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "1a1b1295-97db-434a-a98f-458840e8db2b",
       "locatieNaam": "DHL - Pakketautomaat Basic-Fit Jonkerbos",
       "straatNaam": "Weg door Jonkerbos 26",
@@ -5463,19 +5489,6 @@
       "city": "Weurt",
       "latitude": 51.8558438,
       "longitude": 5.813986168,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
-      "id": "8fef5bad-81f4-4d98-b293-7a4dff421466",
-      "locatieNaam": "024 Outlet",
-      "straatNaam": "Passage 4",
-      "straatNr": "",
-      "postcode": "6581WK",
-      "city": "MALDEN",
-      "latitude": 51.7825120020024,
-      "longitude": 5.85278248634572,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -5715,6 +5728,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "7ebabc7e-f009-411d-b519-790955fcf3fc",
+      "locatieNaam": "Business & Premium Postkantoor",
+      "straatNaam": "Nieuwhuisweg 7",
+      "straatNr": "",
+      "postcode": "5804AN",
+      "city": "Venray",
+      "latitude": 51.5385131840358,
+      "longitude": 5.98372498598204,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "11c9dc27-9e8b-4fd0-851a-55a16f9e09b3",
       "locatieNaam": "Boerderijwinkel Verdaasdonk",
       "straatNaam": "Steenstraat 106 R",
@@ -5866,6 +5892,19 @@
       "city": "Groet",
       "latitude": 52.72177175,
       "longitude": 4.667270706,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "d0b29273-2372-4826-a240-77581905a932",
+      "locatieNaam": "DHL - Pakketautomaat Total Egmond",
+      "straatNaam": "Heilooer Zeeweg 25",
+      "straatNr": "",
+      "postcode": "1934PZ",
+      "city": "Egmond",
+      "latitude": 52.61743699570336,
+      "longitude": 4.648183796849849,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -6586,19 +6625,6 @@
       "vervoerder": "Amazon"
     },
     {
-      "id": "cbab842e-8d32-4f01-95b6-a8a4b0063a86",
-      "locatieNaam": "Furndaily",
-      "straatNaam": "Industrieweg 5",
-      "straatNr": "",
-      "postcode": "5688DP",
-      "city": "OIRSCHOT",
-      "latitude": 51.5026083011453,
-      "longitude": 5.32242135723543,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
       "id": "062b25bf-ae5e-41bd-b41e-4f49266563a7",
       "locatieNaam": "Hema Son en Breugel",
       "straatNaam": "Airbornestraat 3",
@@ -6768,6 +6794,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "ce2796fb-a5a5-4461-af02-068a317779ca",
+      "locatieNaam": "DHL - Pakketautomaat Tango Eindhoven",
+      "straatNaam": "John F Kennedylaan 10",
+      "straatNr": "",
+      "postcode": "5631ET",
+      "city": "Eindhoven",
+      "latitude": 51.46246035996578,
+      "longitude": 5.486832053424574,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "a7fd6bca-1bf1-4c3f-8889-b29e11e90ca9",
       "locatieNaam": "City Tabakshop",
       "straatNaam": "Willemstraat 31",
@@ -6893,19 +6932,6 @@
       "city": "Wijchen",
       "latitude": 51.7998313,
       "longitude": 5.724615476,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
-      "id": "57fe6156-dc95-48d6-948b-05751ff09572",
-      "locatieNaam": "Actiemarkt",
-      "straatNaam": "'t Blok 8",
-      "straatNr": "",
-      "postcode": "6617KN",
-      "city": "BERGHAREN",
-      "latitude": 51.8518386828788,
-      "longitude": 5.65474247555547,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -7301,6 +7327,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "b7cd9cc2-bf18-4de3-9324-dcd79a366c47",
+      "locatieNaam": "Amazon Counter - ViaTim en Rosalie",
+      "straatNaam": "Biezenmeent 47",
+      "straatNr": "",
+      "postcode": "1218BT",
+      "city": "Hilversum",
+      "latitude": 52.27240342,
+      "longitude": 5.14117626,
+      "puntType": "helix",
+      "apisType": "HELIX",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "e51d3f16-8994-49d5-9212-8ce4a763b87a",
       "locatieNaam": "Albert Heijn",
       "straatNaam": "De Meent 19",
@@ -7309,6 +7348,19 @@
       "city": "Hilversum",
       "latitude": 52.2704896333412,
       "longitude": 5.13785267623418,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "71fe7bcd-d0fe-4908-9c33-5f3885347110",
+      "locatieNaam": "Sell Designs",
+      "straatNaam": "Franciscusweg 349 a",
+      "straatNr": "",
+      "postcode": "1216SL",
+      "city": "HILVERSUM",
+      "latitude": 52.2122578229538,
+      "longitude": 5.14608205821415,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -7639,6 +7691,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "15fed5ed-05c6-4206-9c02-3ef847414021",
+      "locatieNaam": "Sama markt PpP",
+      "straatNaam": "Marktplein 19 A",
+      "straatNr": "",
+      "postcode": "7622CL",
+      "city": "Borne",
+      "latitude": 52.3005510416528,
+      "longitude": 6.75665878308424,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "429c3db1-4b94-4c45-9555-9df290ba0a75",
       "locatieNaam": "GAMMA Hengelo",
       "straatNaam": "Wegtersweg 5 -21",
@@ -7647,6 +7712,19 @@
       "city": "HENGELO OV",
       "latitude": 52.27459767,
       "longitude": 6.778425929,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "a2316d59-074c-4f08-b82e-3f97e2a0242f",
+      "locatieNaam": "Primera Slangenbeek",
+      "straatNaam": "Straatsburg 8",
+      "straatNr": "",
+      "postcode": "7559NM",
+      "city": "HENGELO OV",
+      "latitude": 52.29484605,
+      "longitude": 6.805947063,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -7769,19 +7847,6 @@
       "vervoerder": "Amazon"
     },
     {
-      "id": "5a6e59ee-2f2f-4092-aa04-23ab5a2bcf38",
-      "locatieNaam": "Spar Campus Enschede",
-      "straatNaam": "De Hems 16 -90",
-      "straatNr": "",
-      "postcode": "7522NL",
-      "city": "Enschede",
-      "latitude": 52.24360249,
-      "longitude": 6.851406919,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
       "id": "e381e35f-b717-48bd-bc7b-14069398c2d6",
       "locatieNaam": "BuurtGemak Toby van Liere",
       "straatNaam": "Hoofdstraat 47",
@@ -7816,19 +7881,6 @@
       "city": "Goes",
       "latitude": 51.50713046,
       "longitude": 3.875094896,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
-      "id": "2c04178d-020d-4b29-b020-ae9fef0e239d",
-      "locatieNaam": "Parcelhouse bv PpP",
-      "straatNaam": "Beukenhof 10",
-      "straatNr": "",
-      "postcode": "4462EN",
-      "city": "GOES",
-      "latitude": 51.4932006929247,
-      "longitude": 3.8936175147222,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -8336,6 +8388,19 @@
       "city": "HENGELO GLD",
       "latitude": 52.05363037,
       "longitude": 6.308700559,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "0d334395-a308-46ae-83af-799595ece54d",
+      "locatieNaam": "REDMIJNPC",
+      "straatNaam": "Doetinchemseweg 59 A",
+      "straatNr": "",
+      "postcode": "7007CB",
+      "city": "Doetinchem",
+      "latitude": 51.94779707,
+      "longitude": 6.282061063,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -8991,6 +9056,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "0ddbcd53-8436-4091-be02-54f9671f5389",
+      "locatieNaam": "Primera  Nijkerk",
+      "straatNaam": "Singel 4",
+      "straatNr": "",
+      "postcode": "3861AE",
+      "city": "NIJKERK GLD",
+      "latitude": 52.22386795,
+      "longitude": 5.485817683,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "cd2615a2-de50-4de8-8f68-5833ea635b46",
       "locatieNaam": "Cigo Boshuis",
       "straatNaam": "Rijksstraatweg 30",
@@ -9155,6 +9233,19 @@
       "city": "WAARDENBURG",
       "latitude": 51.83307523,
       "longitude": 5.261333471,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "f1089e17-21f5-4a4c-b502-ebf4f0f34ddc",
+      "locatieNaam": "Bertina's Boetiek",
+      "straatNaam": "Voorstraat 66",
+      "straatNr": "",
+      "postcode": "4153AM",
+      "city": "BEESD",
+      "latitude": 51.8846398720637,
+      "longitude": 5.19404198232559,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -9688,6 +9779,19 @@
       "city": "VIANEN UT",
       "latitude": 51.98297871,
       "longitude": 5.100602913,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "3f64db34-ee71-45bb-8810-b00c4db874e1",
+      "locatieNaam": "TijdVrij Fulfilment",
+      "straatNaam": "Laanakkerweg 2 A",
+      "straatNr": "",
+      "postcode": "4131PA",
+      "city": "VIANEN UT",
+      "latitude": 51.9769480346349,
+      "longitude": 5.09710465854641,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -10577,6 +10681,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "031bdb49-76dc-40d4-98cd-399895588b8a",
+      "locatieNaam": "Amazon Counter - ViaTim en Anneke",
+      "straatNaam": "Diepenbrockstraat 136",
+      "straatNr": "",
+      "postcode": "2625VZ",
+      "city": "Delft",
+      "latitude": 51.9939453,
+      "longitude": 4.3470029,
+      "puntType": "helix",
+      "apisType": "HELIX",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "637ae5ca-3913-4635-a05c-a6e1c6f85aac",
       "locatieNaam": "Groenrijk `t Haantje",
       "straatNaam": "Laan van 't Haantje 22",
@@ -10733,19 +10850,6 @@
       "vervoerder": "Amazon"
     },
     {
-      "id": "d06ba275-3b60-4da8-b02a-b21901e062ee",
-      "locatieNaam": "Tabakshop Henri Dunant",
-      "straatNaam": "Henri Dunantlaan 86 -88",
-      "straatNr": "",
-      "postcode": "2286GE",
-      "city": "RIJSWIJK ZH",
-      "latitude": 52.02847182,
-      "longitude": 4.314735804,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
       "id": "457ce750-2f7c-49d9-b024-d0c00e861cfd",
       "locatieNaam": "Mercado",
       "straatNaam": "Scheveningseveer 13",
@@ -10832,6 +10936,19 @@
       "city": "'S-GRAVENHAGE",
       "latitude": 52.0744960717732,
       "longitude": 4.30902303387021,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "acd382ba-771b-48c3-80e7-a61683c32320",
+      "locatieNaam": "Saman Telecom PpP",
+      "straatNaam": "Theresiastraat 129",
+      "straatNr": "",
+      "postcode": "2593AG",
+      "city": "'S-GRAVENHAGE",
+      "latitude": 52.0858366377876,
+      "longitude": 4.33653092292439,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -10988,19 +11105,6 @@
       "city": "'S-GRAVENHAGE",
       "latitude": 52.06921335,
       "longitude": 4.288876297,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
-      "id": "6a6351e4-7e16-4180-a70f-41e4b159d095",
-      "locatieNaam": "MYdesign Fashion",
-      "straatNaam": "Koningin Julianalaan 136",
-      "straatNr": "",
-      "postcode": "2274JN",
-      "city": "VOORBURG",
-      "latitude": 52.0772663939194,
-      "longitude": 4.35232698021617,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -11513,16 +11617,55 @@
       "vervoerder": "Amazon"
     },
     {
-      "id": "4ce960e9-ddcd-4fca-8f4d-d1365764e06a",
-      "locatieNaam": "DHL - Pakketautomaat Basic-Fit Picoweg",
-      "straatNaam": "Picoweg 1",
+      "id": "67762694-2f99-477b-898d-f0a6b5afc9a7",
+      "locatieNaam": "Amazon Counter - ViaTim en Leo & Mariska",
+      "straatNaam": "Ruysdaelstraat 9",
       "straatNr": "",
-      "postcode": "1105BS",
-      "city": "Amsterdam",
-      "latitude": 52.297175905560515,
-      "longitude": 4.950502540813507,
+      "postcode": "1701KJ",
+      "city": "Heerhugowaard",
+      "latitude": 52.6731567,
+      "longitude": 4.8522583,
+      "puntType": "helix",
+      "apisType": "HELIX",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "0ec648a5-c3a1-496a-8133-bce1fa2d2552",
+      "locatieNaam": "iSmart Specialist",
+      "straatNaam": "Middenweg 269",
+      "straatNr": "",
+      "postcode": "1701GD",
+      "city": "HEERHUGOWAARD",
+      "latitude": 52.67271653,
+      "longitude": 4.848492453,
       "puntType": "3p",
       "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "056bb732-4c1c-4c4d-9d61-bcb5664411c6",
+      "locatieNaam": "Tabakshop Raadhuisplein",
+      "straatNaam": "Raadhuisplein 10",
+      "straatNr": "",
+      "postcode": "1701EJ",
+      "city": "HEERHUGOWAARD",
+      "latitude": 52.67070174,
+      "longitude": 4.844170657,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "51231922",
+      "locatieNaam": "Amazon Locker - Daan",
+      "straatNaam": "WC MIddenwaard 1",
+      "straatNr": "",
+      "postcode": "1703 SE",
+      "city": "Heerhugowaard",
+      "latitude": 52.6632148,
+      "longitude": 4.8306749,
+      "puntType": "locker",
+      "apisType": "CORE_LOCKER",
       "vervoerder": "Amazon"
     },
     {
@@ -12189,19 +12332,6 @@
       "vervoerder": "Amazon"
     },
     {
-      "id": "1c93153e-7159-4ec9-b810-306c93dd52a3",
-      "locatieNaam": "Bas E-Bikes",
-      "straatNaam": "Tomatenmarkt 10 A",
-      "straatNr": "",
-      "postcode": "1681PH",
-      "city": "ZWAAGDIJK-OOST",
-      "latitude": 52.706193522017,
-      "longitude": 5.14413055347953,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
       "id": "aaf4bacf-fd27-4f2d-9ddf-4036b7ee3c5b",
       "locatieNaam": "GAMMA Grootebroek",
       "straatNaam": "Industrieweg 15 A",
@@ -12345,6 +12475,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "464a16c8-c64d-4a72-a848-f8db168827cf",
+      "locatieNaam": "DHL - Pakketautomaat De Vlielanden",
+      "straatNaam": "Droge Wijmersweg 5",
+      "straatNr": "",
+      "postcode": "1693HP",
+      "city": "Wervershoof",
+      "latitude": 52.75143997296599,
+      "longitude": 5.116649255818548,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "b9107406-7932-40c4-be77-9488635f8ec2",
       "locatieNaam": "Tien Fulfilment PpP",
       "straatNaam": "Diodeweg 4",
@@ -12384,6 +12527,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "6477abd0-11ca-4bdb-8fea-0eab0733cea4",
+      "locatieNaam": "Tabaksshop Brigitte",
+      "straatNaam": "Grote Beer 5 H",
+      "straatNr": "",
+      "postcode": "1622ES",
+      "city": "HOORN NH",
+      "latitude": 52.6392235860865,
+      "longitude": 5.03655281204682,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "9dcb36da-15fc-4356-9c9d-9d0cd3dd7db8",
       "locatieNaam": "Herwe",
       "straatNaam": "Gedempte Turfhaven 66",
@@ -12418,19 +12574,6 @@
       "city": "Wognum",
       "latitude": 52.68191721,
       "longitude": 5.023287961,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
-      "id": "6477abd0-11ca-4bdb-8fea-0eab0733cea4",
-      "locatieNaam": "Tabaksshop Brigitte",
-      "straatNaam": "Grote Beer 5 H",
-      "straatNr": "",
-      "postcode": "1622ES",
-      "city": "HOORN NH",
-      "latitude": 52.6392235860865,
-      "longitude": 5.03655281204682,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -12600,6 +12743,19 @@
       "city": "Horssen",
       "latitude": 51.85315787,
       "longitude": 5.612992055,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "57fe6156-dc95-48d6-948b-05751ff09572",
+      "locatieNaam": "Actiemarkt",
+      "straatNaam": "'t Blok 8",
+      "straatNr": "",
+      "postcode": "6617KN",
+      "city": "BERGHAREN",
+      "latitude": 51.8518386828788,
+      "longitude": 5.65474247555547,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -13008,6 +13164,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "68692bb7-b4f3-4597-bbce-03b097c65457",
+      "locatieNaam": "DHL - Pakketautomaat Tango Bennekom",
+      "straatNaam": "Kaardebol 10",
+      "straatNr": "",
+      "postcode": "6721RX",
+      "city": "Bennekom",
+      "latitude": 52.001712233741785,
+      "longitude": 5.659307682424355,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "c671420e-ed30-4b5f-b300-3406903464d8",
       "locatieNaam": "Tabac & Gifts Edwin en Janet",
       "straatNaam": "Ronde Erf 56",
@@ -13055,6 +13224,19 @@
       "city": "VEENENDAAL",
       "latitude": 52.0243309,
       "longitude": 5.553214878,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "5b42d036-5062-44d1-a86d-ee6b37ad8083",
+      "locatieNaam": "WorkNat Services Multidiensten",
+      "straatNaam": "Herenstraat 35",
+      "straatNr": "",
+      "postcode": "6701DH",
+      "city": "WAGENINGEN",
+      "latitude": 51.9662007089956,
+      "longitude": 5.6647225759364,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -13491,12 +13673,12 @@
     {
       "id": "61c54735-80f5-47ec-a196-277a73232179",
       "locatieNaam": "DHL - Pakketautomaat AVIA Bunde",
-      "straatNaam": "Maastrichterlaan 1",
+      "straatNaam": "Sportlaan 22",
       "straatNr": "",
       "postcode": "6241AA",
       "city": "Bunde",
-      "latitude": 50.893637534944894,
-      "longitude": 5.72762516943721,
+      "latitude": 50.89369408183897,
+      "longitude": 5.727634224809312,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -13523,6 +13705,19 @@
       "city": "Eindhoven",
       "latitude": 51.43459788,
       "longitude": 5.510232508,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "e2b78fb5-c6f1-4eec-83dd-d6eb3b512106",
+      "locatieNaam": "DHL - Pakketautomaat Carpro Nuenen",
+      "straatNaam": "Collseweg 22",
+      "straatNr": "",
+      "postcode": "5674TR",
+      "city": "Nuenen",
+      "latitude": 51.4480236,
+      "longitude": 5.5461034,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -13731,6 +13926,19 @@
       "city": "EMMEN",
       "latitude": 52.755775284924,
       "longitude": 6.93574484805253,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "57f5fb9b-16d1-45c2-88f8-7d9316b06d4f",
+      "locatieNaam": "DHL - Pakketautomaat James Cookstraat",
+      "straatNaam": "James Cookstraat 20",
+      "straatNr": "",
+      "postcode": "7825AN",
+      "city": "Emmen",
+      "latitude": 52.7489335,
+      "longitude": 6.953231,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -14017,6 +14225,19 @@
       "city": "ENSCHEDE",
       "latitude": 52.1874042620276,
       "longitude": 6.88776169585975,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "5a6e59ee-2f2f-4092-aa04-23ab5a2bcf38",
+      "locatieNaam": "Spar Campus Enschede",
+      "straatNaam": "De Hems 16 -90",
+      "straatNr": "",
+      "postcode": "7522NL",
+      "city": "Enschede",
+      "latitude": 52.24360249,
+      "longitude": 6.851406919,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -15335,6 +15556,32 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "8ef45769-56b4-44f1-a43a-bbab9f1e2de3",
+      "locatieNaam": "DHL - Pakketautomaat Beinsdorp",
+      "straatNaam": "Rietkraag 5",
+      "straatNr": "",
+      "postcode": "2144KA",
+      "city": "Beinsdorp",
+      "latitude": 52.28706711385158,
+      "longitude": 4.594652697287234,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "e021379c-9cfc-43cb-8b4f-0393de96d3e9",
+      "locatieNaam": "Tinq Bemand Badhoevedorp",
+      "straatNaam": "Swammerdamstraat 2",
+      "straatNr": "",
+      "postcode": "1171XJ",
+      "city": "BADHOEVEDORP",
+      "latitude": 52.34104086,
+      "longitude": 4.782952027,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "da0600c0-427e-4688-9449-f98d5a236ba6",
       "locatieNaam": "Gemakshop de Dukaat",
       "straatNaam": "Pieter Calandlaan 812",
@@ -15748,19 +15995,6 @@
       "longitude": 4.561966872,
       "puntType": "helix",
       "apisType": "HELIX",
-      "vervoerder": "Amazon"
-    },
-    {
-      "id": "ae42b6a0-b8c7-4d6f-9dbe-8c4edb2fb1b2",
-      "locatieNaam": "Primera Lisse",
-      "straatNaam": "Kanaalstraat 70",
-      "straatNr": "",
-      "postcode": "2161JN",
-      "city": "Lisse",
-      "latitude": 52.25950388,
-      "longitude": 4.557919201,
-      "puntType": "3p",
-      "apisType": "3P",
       "vervoerder": "Amazon"
     },
     {
@@ -16219,6 +16453,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "a3118c6b-b3dc-40c6-bbb4-86d0b059fb24",
+      "locatieNaam": "Dagwinkel Aduard",
+      "straatNaam": "Burg Seinenstraat 32",
+      "straatNr": "",
+      "postcode": "9831PW",
+      "city": "Aduard",
+      "latitude": 53.2558403,
+      "longitude": 6.460405449,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "8ffb67f9-5eb5-4606-afce-d224e0b8bcaf",
       "locatieNaam": "Kapsalon de Kolk",
       "straatNaam": "Hoofdstraat 44 C",
@@ -16318,6 +16565,19 @@
       "city": "WAALWIJK",
       "latitude": 51.6825983932272,
       "longitude": 5.05726174136195,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "ae42b6a0-b8c7-4d6f-9dbe-8c4edb2fb1b2",
+      "locatieNaam": "Primera Lisse",
+      "straatNaam": "Kanaalstraat 70",
+      "straatNr": "",
+      "postcode": "2161JN",
+      "city": "Lisse",
+      "latitude": 52.25950388,
+      "longitude": 4.557919201,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -17103,6 +17363,32 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "53421162",
+      "locatieNaam": "Amazon Locker - Lotte",
+      "straatNaam": "Pakketautomaten Katwijk",
+      "straatNr": "",
+      "postcode": "2223 BH",
+      "city": "Katwijk aan Zee",
+      "latitude": 52.1934299,
+      "longitude": 4.4222799,
+      "puntType": "locker",
+      "apisType": "CORE_LOCKER",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "4bf2cef7-53ca-44ce-b6d0-fc57a98c24b4",
+      "locatieNaam": "DHL - Pakketautomaat Abswoude",
+      "straatNaam": "Nieuwe Offemweg 6",
+      "straatNr": "",
+      "postcode": "2201AP",
+      "city": "Noordwijk",
+      "latitude": 52.23180521692144,
+      "longitude": 4.449405493900235,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "4c71803f-33b0-4eb2-a44d-e7b6cf8a8fd0",
       "locatieNaam": "Praxis Hoge Morsweg",
       "straatNaam": "Hoge Morsweg 152 A",
@@ -17187,8 +17473,8 @@
       "straatNr": "",
       "postcode": "2321VB",
       "city": "Leiden",
-      "latitude": 52.15135886,
-      "longitude": 4.478670066,
+      "latitude": 52.1513414,
+      "longitude": 4.4783052,
       "puntType": "helix",
       "apisType": "HELIX",
       "vervoerder": "Amazon"
@@ -17402,6 +17688,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "f7333e3e-4d7a-4e94-b85a-1d124db89ca7",
+      "locatieNaam": "Amazon Counter - ViaTim en Sabina",
+      "straatNaam": "Morgensterstraat 4",
+      "straatNr": "",
+      "postcode": "1505TB",
+      "city": "Zaandam",
+      "latitude": 52.43253509,
+      "longitude": 4.836833179,
+      "puntType": "helix",
+      "apisType": "HELIX",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "6239b899-321d-47d6-8177-df3174cc0ed4",
       "locatieNaam": "KARWEI Zaandam",
       "straatNaam": "Stormhoek 21",
@@ -17423,6 +17722,19 @@
       "city": "AMSTERDAM",
       "latitude": 52.3952312304758,
       "longitude": 4.86484114995137,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "c890642c-c8df-413c-aaf3-a3a0d207e548",
+      "locatieNaam": "All Around Logistics",
+      "straatNaam": "Nieuwe Hemweg 4 C",
+      "straatNr": "",
+      "postcode": "1013BG",
+      "city": "AMSTERDAM",
+      "latitude": 52.39497943,
+      "longitude": 4.86889907,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -17553,19 +17865,6 @@
       "city": "Rotterdam",
       "latitude": 51.93180787,
       "longitude": 4.463194026,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
-      "id": "81d2aad7-449f-406d-8c9e-fa23cfde8c84",
-      "locatieNaam": "HR Transport & Logistiek B.V.",
-      "straatNaam": "Industrieweg 27",
-      "straatNr": "",
-      "postcode": "2712LA",
-      "city": "ZOETERMEER",
-      "latitude": 52.0475451531743,
-      "longitude": 4.51131999828949,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -17948,6 +18247,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "6a6351e4-7e16-4180-a70f-41e4b159d095",
+      "locatieNaam": "MYdesign Fashion",
+      "straatNaam": "Koningin Julianalaan 136",
+      "straatNr": "",
+      "postcode": "2274JN",
+      "city": "VOORBURG",
+      "latitude": 52.0772663939194,
+      "longitude": 4.35232698021617,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "aced0413-07ad-4022-a53a-e7acb415f96b",
       "locatieNaam": "Bruna Nootdorp",
       "straatNaam": "Lange Baan 22 -24",
@@ -18229,6 +18541,19 @@
       "city": "Baexem",
       "latitude": 51.22835902,
       "longitude": 5.882460426,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "2c9dd725-4502-4914-bae2-6dace128a4e0",
+      "locatieNaam": "Janssen diervoeders",
+      "straatNaam": "Kreijel 15",
+      "straatNr": "",
+      "postcode": "6031AA",
+      "city": "Nederweert",
+      "latitude": 51.28911418,
+      "longitude": 5.770814503,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -18559,32 +18884,6 @@
       "vervoerder": "Amazon"
     },
     {
-      "id": "34f3d142-1731-432b-9a13-2b80b46f22af",
-      "locatieNaam": "Webshop Dierenbenodigheden Schiedam",
-      "straatNaam": "Rembrandtlaan 8 B",
-      "straatNr": "",
-      "postcode": "3117VJ",
-      "city": "Schiedam",
-      "latitude": 51.91190474,
-      "longitude": 4.384013279,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
-      "id": "59901fd8-36fc-4b0b-8a32-5e152db15d40",
-      "locatieNaam": "VOF Videotheken Kethel PpP",
-      "straatNaam": "Schiedamseweg 22",
-      "straatNr": "",
-      "postcode": "3121JH",
-      "city": "SCHIEDAM",
-      "latitude": 51.9353132182426,
-      "longitude": 4.37789188120082,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
       "id": "1a82953c-7ada-44c2-bc88-1dfc5d3da40f",
       "locatieNaam": "DHL - Pakketautomaat PLUS Nieuwland",
       "straatNaam": "Monseigneur Nolenslaan 460",
@@ -18611,6 +18910,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "026f2d0a-aa51-4125-992f-bd245038ea63",
+      "locatieNaam": "DHL - Pakketautomaat Jumbo Naaldwijk",
+      "straatNaam": "Patijnenburg 43",
+      "straatNr": "",
+      "postcode": "2671JD",
+      "city": "Naaldwijk",
+      "latitude": 51.99250522875715,
+      "longitude": 4.204470103909006,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "85f1565b-c403-4100-a872-c8521ad1466c",
       "locatieNaam": "Buurtwinkel Schiedam",
       "straatNaam": "Sint Liduinastraat 55 A",
@@ -18619,6 +18931,19 @@
       "city": "SCHIEDAM",
       "latitude": 51.9123923751765,
       "longitude": 4.39273765294659,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "e42b3164-01ac-464f-b4fa-70b8210c40c5",
+      "locatieNaam": "Primera Naaldwijk",
+      "straatNaam": "De Tuinen 9",
+      "straatNr": "",
+      "postcode": "2671NX",
+      "city": "NAALDWIJK",
+      "latitude": 51.9929169062024,
+      "longitude": 4.20544763141833,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -18858,6 +19183,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "14ba10f7-c730-4633-85af-1b3c339304b2",
+      "locatieNaam": "DHL - Pakketautomaat Stationspl Steenw",
+      "straatNaam": "Stationsplein 1",
+      "straatNr": "",
+      "postcode": "8331GM",
+      "city": "Steenwijk",
+      "latitude": 52.79034,
+      "longitude": 6.11484,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "a25be3c1-c309-4527-9041-9b9e24a242f1",
       "locatieNaam": "Primera Giethoorn",
       "straatNaam": "Bartus Warnersweg 2",
@@ -18892,6 +19230,19 @@
       "city": "MOERKAPELLE",
       "latitude": 52.04415896678,
       "longitude": 4.57565632046725,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "d06ba275-3b60-4da8-b02a-b21901e062ee",
+      "locatieNaam": "Tabakshop Henri Dunant",
+      "straatNaam": "Henri Dunantlaan 86 -88",
+      "straatNr": "",
+      "postcode": "2286GE",
+      "city": "RIJSWIJK ZH",
+      "latitude": 52.02847182,
+      "longitude": 4.314735804,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -19014,6 +19365,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "f68330fd-99d3-40b7-bf7c-039dee78eed1",
+      "locatieNaam": "DHL - Pakketautomaat PLUS van der Luit",
+      "straatNaam": "Hoofdweg 42",
+      "straatNr": "",
+      "postcode": "9617AH",
+      "city": "Harkstede",
+      "latitude": 53.21352795869203,
+      "longitude": 6.699241656074117,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "5f78b2a2-6b1e-45b3-ad07-1f275ecd27ac",
       "locatieNaam": "DHL - Pakketautomaat Tamoil Drieborghweg",
       "straatNaam": "Drieborghweg 3",
@@ -19079,19 +19443,6 @@
       "vervoerder": "Amazon"
     },
     {
-      "id": "4fe1a78d-ff7f-4eb9-b923-a5e3445527de",
-      "locatieNaam": "MvM Services PpP",
-      "straatNaam": "Houttuinlaan 18",
-      "straatNr": "",
-      "postcode": "3447GM",
-      "city": "WOERDEN",
-      "latitude": 52.0812643915534,
-      "longitude": 4.88772439193862,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
       "id": "8ac64f9d-8f45-4ea1-822a-35a245614e8c",
       "locatieNaam": "Primera Kalverstraat",
       "straatNaam": "Kalverstraat 6",
@@ -19102,6 +19453,19 @@
       "longitude": 4.963491989,
       "puntType": "3p",
       "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "aec2ecf0-b41b-4d37-8fb3-59a33508e92f",
+      "locatieNaam": "Amazon Counter - ViaTim en Laurens",
+      "straatNaam": "Prof. Titus Brandsmalaan 24",
+      "straatNr": "",
+      "postcode": "3451ZX",
+      "city": "Vleuten",
+      "latitude": 52.10368121,
+      "longitude": 5.006208875,
+      "puntType": "helix",
+      "apisType": "HELIX",
       "vervoerder": "Amazon"
     },
     {
@@ -19170,6 +19534,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "b3350a4a-ce2a-4bf8-bb49-7705ec3f765d",
+      "locatieNaam": "DHL - Pakketautomaat De Schalm",
+      "straatNaam": "Wanraaij 4",
+      "straatNr": "",
+      "postcode": "6673DN",
+      "city": "Andelst",
+      "latitude": 51.9142504,
+      "longitude": 5.7182574,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "101da59c-1996-4d37-8e65-f361864f0854",
       "locatieNaam": "Primera",
       "straatNaam": "Verbrughweg 38",
@@ -19217,19 +19594,6 @@
       "city": "Valburg",
       "latitude": 51.91078699,
       "longitude": 5.791952394,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
-      "id": "601123a9-0ddd-49a6-a37d-f60b8f7376eb",
-      "locatieNaam": "APK KEURINGSSTATION SPIJKENISSE",
-      "straatNaam": "Stationsstraat 11",
-      "straatNr": "",
-      "postcode": "3201AS",
-      "city": "SPIJKENISSE",
-      "latitude": 51.8525990360571,
-      "longitude": 4.32606889856029,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -19308,6 +19672,19 @@
       "city": "SPIJKENISSE",
       "latitude": 51.83387257,
       "longitude": 4.362217341,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "6625365e-74ad-4bbd-8e18-e40d1378979d",
+      "locatieNaam": "Primera de Gorzen",
+      "straatNaam": "Groenelaan 103",
+      "straatNr": "",
+      "postcode": "3114CD",
+      "city": "Schiedam",
+      "latitude": 51.90715965,
+      "longitude": 4.402198014,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -19534,6 +19911,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "faa4a838-01e5-4cf8-9981-cfb3d6426a3b",
+      "locatieNaam": "DHL - Pakketautomaat PLUS Greidanus",
+      "straatNaam": "Wittesteijn 14",
+      "straatNr": "",
+      "postcode": "8303XV",
+      "city": "Emmeloord",
+      "latitude": 52.70613873896649,
+      "longitude": 5.737050268458731,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "ece4c76a-c65c-45ea-bd24-e98eab4c162a",
       "locatieNaam": "GAMMA Emmeloord",
       "straatNaam": "Randweg 32",
@@ -19547,6 +19937,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "d6ebb8a5-2cc6-439b-a69a-b9951f905885",
+      "locatieNaam": "DHL - Pakketautomaat Poiesz de Zuidert",
+      "straatNaam": "Sondelstraat 27",
+      "straatNr": "",
+      "postcode": "8304GB",
+      "city": "Emmeloord",
+      "latitude": 52.703860721886194,
+      "longitude": 5.763402612874717,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "1444e9a3-8984-4bfd-97aa-89c93c818302",
       "locatieNaam": "KARWEI Emmeloord",
       "straatNaam": "Traktieweg 14",
@@ -19555,6 +19958,19 @@
       "city": "Emmeloord",
       "latitude": 52.69531118,
       "longitude": 5.758442763,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "2d400d0d-3189-4ea6-a317-e5f29dd0bf32",
+      "locatieNaam": "DHL - Pakketautomaat Assemblageweg",
+      "straatNaam": "Assemblageweg 13",
+      "straatNr": "",
+      "postcode": "8304BB",
+      "city": "Emmeloord",
+      "latitude": 52.6915866,
+      "longitude": 5.7546519,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -19898,6 +20314,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "4ce960e9-ddcd-4fca-8f4d-d1365764e06a",
+      "locatieNaam": "DHL - Pakketautomaat Basic-Fit Picoweg",
+      "straatNaam": "Picoweg 1",
+      "straatNr": "",
+      "postcode": "1105BS",
+      "city": "Amsterdam",
+      "latitude": 52.297175905560515,
+      "longitude": 4.950502540813507,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "93588228-d005-4fa9-b085-9d4b54516702",
       "locatieNaam": "GAMMA Amsterdam-Zuidoost",
       "straatNaam": "Sijsjesbergweg 10",
@@ -20184,6 +20613,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "b8abb1f4-7800-4d23-8226-7c925551b766",
+      "locatieNaam": "DHL - Pakketautomaat P Museumpark",
+      "straatNaam": "Museumpark 32",
+      "straatNr": "",
+      "postcode": "3015CX",
+      "city": "Rotterdam",
+      "latitude": 51.913674,
+      "longitude": 4.470578,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "81be8197-d7e7-4c91-815a-32952c8e8ba3",
       "locatieNaam": "Sigaren van La Palma",
       "straatNaam": "Vierambachtsstraat 15 A",
@@ -20301,6 +20743,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "65c8f399-557d-4307-8309-ca3d76937c61",
+      "locatieNaam": "DHL - Pakketautomaat P-Garage Boompjes",
+      "straatNaam": "Terwenakker 18",
+      "straatNr": "",
+      "postcode": "3011XS",
+      "city": "Rotterdam",
+      "latitude": 51.914309,
+      "longitude": 4.486299,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "6573c58f-0080-4ff6-b0f2-2a044e6b80f0",
       "locatieNaam": "Lucky Tabakshop",
       "straatNaam": "Grote Visserijstraat 4 C",
@@ -20314,34 +20769,8 @@
       "vervoerder": "Amazon"
     },
     {
-      "id": "d5ed67a4-14c8-4a1c-82ac-eededf64e8ec",
-      "locatieNaam": "Turor b.v.",
-      "straatNaam": "Goudsesingel 103",
-      "straatNr": "",
-      "postcode": "3031EE",
-      "city": "ROTTERDAM",
-      "latitude": 51.9245786579694,
-      "longitude": 4.48958435058506,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
       "id": "c75bd235-b46e-41c0-96a0-8399b6e71995",
       "locatieNaam": "Gewoon Coop",
-      "straatNaam": "Pastoor de Bakkerstraat 15",
-      "straatNr": "",
-      "postcode": "4885AK",
-      "city": "Achtmaal",
-      "latitude": 51.45380221,
-      "longitude": 4.584900027,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
-      "id": "5e0a2f77-3b48-450c-b176-d2997260d686",
-      "locatieNaam": "Coop Van Bedaf",
       "straatNaam": "Pastoor de Bakkerstraat 15",
       "straatNr": "",
       "postcode": "4885AK",
@@ -20392,6 +20821,19 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "f13ec3dd-ee43-4bb3-93e9-cc4585e9c414",
+      "locatieNaam": "DHL - Pakketautomaat Total De Banne",
+      "straatNaam": "Cornelis de Vriesweg 53",
+      "straatNr": "",
+      "postcode": "1746CM",
+      "city": "Dirkshorn",
+      "latitude": 52.7320149,
+      "longitude": 4.7787192,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "d60781b1-0091-455a-8a12-194f3b0c4859",
       "locatieNaam": "All4Beauty by Linh",
       "straatNaam": "Broersveld 137",
@@ -20426,19 +20868,6 @@
       "city": "SCHIEDAM",
       "latitude": 51.92130537,
       "longitude": 4.407252264,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
-      "id": "6625365e-74ad-4bbd-8e18-e40d1378979d",
-      "locatieNaam": "Primera de Gorzen",
-      "straatNaam": "Groenelaan 103",
-      "straatNr": "",
-      "postcode": "3114CD",
-      "city": "Schiedam",
-      "latitude": 51.90715965,
-      "longitude": 4.402198014,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -20509,19 +20938,6 @@
       "vervoerder": "Amazon"
     },
     {
-      "id": "5c063e6e-ca18-4e0f-a551-471594346006",
-      "locatieNaam": "Telecom 2B Sure Electronica",
-      "straatNaam": "Burgemeester Baumannlaan 149 A",
-      "straatNr": "",
-      "postcode": "3042AC",
-      "city": "ROTTERDAM",
-      "latitude": 51.9364948110059,
-      "longitude": 4.4277599938791,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
       "id": "79940f52-b344-478d-9c7f-045e88d0de9e",
       "locatieNaam": "DHL - Pakketautomaat Tango Vierhaven",
       "straatNaam": "Vierhavensstraat 44",
@@ -20556,6 +20972,19 @@
       "city": "Rotterdam",
       "latitude": 51.9362162,
       "longitude": 4.436912,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "55774fd7-7f55-4949-8c54-1213cb27ff65",
+      "locatieNaam": "Tabak & Gemakswinkel",
+      "straatNaam": "Nieuwe Binnenweg 460",
+      "straatNr": "",
+      "postcode": "3023EZ",
+      "city": "Rotterdam",
+      "latitude": 51.91020018,
+      "longitude": 4.450863076,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -21211,19 +21640,6 @@
       "vervoerder": "Amazon"
     },
     {
-      "id": "f092c772-fc8f-4aeb-9384-417a4be36aaf",
-      "locatieNaam": "Parcelhouse bv PpP",
-      "straatNaam": "Elektraweg 17",
-      "straatNr": "",
-      "postcode": "4338PK",
-      "city": "MIDDELBURG",
-      "latitude": 51.4888667691612,
-      "longitude": 3.64691982573417,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
       "id": "de6f3c4c-9270-46eb-b5cf-b83827f30d18",
       "locatieNaam": "KARWEI Middelburg",
       "straatNaam": "Mortiereboulevard 8",
@@ -21406,14 +21822,14 @@
       "vervoerder": "Amazon"
     },
     {
-      "id": "684e8b9b-4cc4-4986-a814-8d8b153d6be3",
-      "locatieNaam": "Etos Duinzicht",
-      "straatNaam": "Willem Royaardsplein 3 4",
+      "id": "abc847b5-2497-46a5-a229-748571e8cf8d",
+      "locatieNaam": "Ouden-Heijn",
+      "straatNaam": "Molenweg 5",
       "straatNr": "",
-      "postcode": "2597GS",
-      "city": "'S-GRAVENHAGE",
-      "latitude": 52.104669069539,
-      "longitude": 4.3241369878551,
+      "postcode": "3227AR",
+      "city": "OUDENHOORN",
+      "latitude": 51.82926067,
+      "longitude": 4.190272641,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -21458,6 +21874,45 @@
       "vervoerder": "Amazon"
     },
     {
+      "id": "796f6b94-085c-4830-9dba-f10d63b0ee88",
+      "locatieNaam": "Primera Nesselande",
+      "straatNaam": "Maltaplein 57",
+      "straatNr": "",
+      "postcode": "3059XW",
+      "city": "Rotterdam",
+      "latitude": 51.98035922,
+      "longitude": 4.582312923,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "684e8b9b-4cc4-4986-a814-8d8b153d6be3",
+      "locatieNaam": "Etos Duinzicht",
+      "straatNaam": "Willem Royaardsplein 3 4",
+      "straatNr": "",
+      "postcode": "2597GS",
+      "city": "'S-GRAVENHAGE",
+      "latitude": 52.104669069539,
+      "longitude": 4.3241369878551,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "8c03b378-c73d-4912-b0ff-08728555dbbc",
+      "locatieNaam": "Amazon Counter - ViaTim Parcelshop XL Den Haag",
+      "straatNaam": "Willem Royaardsplein 11",
+      "straatNr": "",
+      "postcode": "2597GV",
+      "city": "Den Haag",
+      "latitude": 52.1043165,
+      "longitude": 4.3243067,
+      "puntType": "helix",
+      "apisType": "HELIX",
+      "vervoerder": "Amazon"
+    },
+    {
       "id": "7d2376be-68b8-4aa5-9a7f-4eab11f39492",
       "locatieNaam": "Primera Scheveningen",
       "straatNaam": "Gentsestraat 56 A",
@@ -21466,19 +21921,6 @@
       "city": "'S-GRAVENHAGE",
       "latitude": 52.11063879,
       "longitude": 4.290413168,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
-      "id": "1324ee6f-4dff-43cc-9d2f-adb1c09ad8b0",
-      "locatieNaam": "Royal Supermarkt",
-      "straatNaam": "Gevers Deynootweg 128 C",
-      "straatNr": "",
-      "postcode": "2586BP",
-      "city": "'S-GRAVENHAGE",
-      "latitude": 52.11159423,
-      "longitude": 4.281075237,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -21505,19 +21947,6 @@
       "city": "Bourtange",
       "latitude": 53.008408,
       "longitude": 7.188763,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
-      "id": "e42b3164-01ac-464f-b4fa-70b8210c40c5",
-      "locatieNaam": "Primera Naaldwijk",
-      "straatNaam": "De Tuinen 9",
-      "straatNr": "",
-      "postcode": "2671NX",
-      "city": "NAALDWIJK",
-      "latitude": 51.9929169062024,
-      "longitude": 4.20544763141833,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -21551,7 +21980,7 @@
     {
       "id": "01093b06-fbdd-4bfd-bea9-8e88fa11fa7f",
       "locatieNaam": "DHL - Pakketautomaat Tango Hofstraat",
-      "straatNaam": "Hofstraat 73",
+      "straatNaam": "Hofstraat 73-A",
       "straatNr": "",
       "postcode": "2675BB",
       "city": "Honselersdijk",
@@ -21583,6 +22012,19 @@
       "city": "HONSELERSDIJK",
       "latitude": 52.0075931922648,
       "longitude": 4.22776872555722,
+      "puntType": "3p",
+      "apisType": "3P",
+      "vervoerder": "Amazon"
+    },
+    {
+      "id": "652266db-b6e2-4e0d-9202-6e2c4312d3f9",
+      "locatieNaam": "Bureau Think Positive",
+      "straatNaam": "Stationsweg 59 A",
+      "straatNr": "",
+      "postcode": "2675AM",
+      "city": "HONSELERSDIJK",
+      "latitude": 52.0048240952305,
+      "longitude": 4.22044140921513,
       "puntType": "3p",
       "apisType": "3P",
       "vervoerder": "Amazon"
@@ -21692,32 +22134,6 @@
       "vervoerder": "Amazon"
     },
     {
-      "id": "123dfd8f-820a-4531-b6d1-0d1b0dae66fd",
-      "locatieNaam": "Supermarkt Houtwijk",
-      "straatNaam": "Hildo Kroplaan 96",
-      "straatNr": "",
-      "postcode": "2552XT",
-      "city": "'S-GRAVENHAGE",
-      "latitude": 52.0544053697515,
-      "longitude": 4.25061492121788,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
-      "id": "645a6e42-8091-46b8-92ec-b44f750af994",
-      "locatieNaam": "ALLSAFE Mini Opslag Den Haag Zuid",
-      "straatNaam": "Kerketuinenweg 2 -4",
-      "straatNr": "",
-      "postcode": "2544CW",
-      "city": "'S-GRAVENHAGE",
-      "latitude": 52.05216065,
-      "longitude": 4.2592888,
-      "puntType": "3p",
-      "apisType": "3P",
-      "vervoerder": "Amazon"
-    },
-    {
       "id": "4a5a6615-83a8-46f3-be70-37104e7d92e2",
       "locatieNaam": "Primera Hart van Grave",
       "straatNaam": "Hoofdwagt 8",
@@ -21767,19 +22183,6 @@
       "longitude": 4.4868357,
       "puntType": "locker",
       "apisType": "CORE_LOCKER",
-      "vervoerder": "Amazon"
-    },
-    {
-      "id": "796f6b94-085c-4830-9dba-f10d63b0ee88",
-      "locatieNaam": "Primera Nesselande",
-      "straatNaam": "Maltaplein 57",
-      "straatNr": "",
-      "postcode": "3059XW",
-      "city": "Rotterdam",
-      "latitude": 51.98035922,
-      "longitude": 4.582312923,
-      "puntType": "3p",
-      "apisType": "3P",
       "vervoerder": "Amazon"
     },
     {
