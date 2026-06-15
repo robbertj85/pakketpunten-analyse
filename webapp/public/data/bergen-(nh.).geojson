@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Bergen (NH.)",
     "slug": "bergen-(nh.)",
-    "generated_at": "2026-06-08T06:59:56.477747Z",
-    "total_points": 35,
+    "generated_at": "2026-06-15T07:37:26.700493Z",
+    "total_points": 36,
     "providers": [
       "Amazon",
       "DHL",
@@ -88,6 +88,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.72177175,
         "longitude": 4.667270706,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.648183796849849,
+          52.61743699570336
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "DHL - Pakketautomaat Total Egmond",
+        "straatNaam": "Heilooer Zeeweg 25",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.61743699570336,
+        "longitude": 4.648183796849849,
         "canPickup": true,
         "canDropoff": false
       }
@@ -1704,7 +1727,7 @@
                 52.6219242655131
               ],
               [
-                4.658128368074226,
+                4.6581283680742285,
                 52.62192420181264
               ],
               [
@@ -4428,7 +4451,7 @@
                 52.622624671387676
               ],
               [
-                4.659053643333352,
+                4.659053643333354,
                 52.62262460768629
               ],
               [

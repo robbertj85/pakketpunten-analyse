@@ -3,10 +3,77 @@
     "method": "api-public-servicepoints",
     "source": "https://production.viapunt-api.viatim.nl/public/servicepoints",
     "country": "Netherlands",
-    "total_locations": 414,
-    "fetched_at": "2026-06-08T06:55:24.925123+00:00"
+    "total_locations": 410,
+    "fetched_at": "2026-06-15T07:32:33.482263+00:00"
   },
   "locations": [
+    {
+      "viacode": "VIP-LCG68-NL",
+      "locatieNaam": "ViaTim en Denise",
+      "straatNaam": "Hofkamp",
+      "straatNr": "10",
+      "postcode": "7582GA",
+      "city": "Losser",
+      "latitude": 52.25391277,
+      "longitude": 7.00247888,
+      "email": "viaverbinder@viatim.nl",
+      "phone": "+31 (0)10 26 13 505",
+      "transporters": [
+        "UPS"
+      ],
+      "hours": [
+        {
+          "week": 25,
+          "monday": [
+            "16:00",
+            "20:00"
+          ],
+          "tuesday": [
+            "16:00",
+            "20:00"
+          ],
+          "wednesday": [
+            "16:00",
+            "20:00"
+          ],
+          "thursday": [
+            "16:00",
+            "20:00"
+          ],
+          "friday": [
+            "16:00",
+            "20:00"
+          ],
+          "saturday": [],
+          "sunday": []
+        },
+        {
+          "week": 26,
+          "monday": [
+            "16:00",
+            "20:00"
+          ],
+          "tuesday": [
+            "16:00",
+            "20:00"
+          ],
+          "wednesday": [
+            "16:00",
+            "20:00"
+          ],
+          "thursday": [
+            "16:00",
+            "20:00"
+          ],
+          "friday": [
+            "16:00",
+            "20:00"
+          ],
+          "saturday": [],
+          "sunday": []
+        }
+      ]
+    },
     {
       "viacode": "VIP-RCWBS-NL",
       "locatieNaam": "ViaTim en Eveline",
@@ -23,7 +90,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "17:00",
             "20:00"
@@ -39,7 +106,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "17:00",
             "20:00"
@@ -57,6 +124,85 @@
       ]
     },
     {
+      "viacode": "VIP-RNCQT-NL",
+      "locatieNaam": "ViaTim en Desi Bazar",
+      "straatNaam": "Pretorialaan",
+      "straatNr": "32B",
+      "postcode": "3072EN",
+      "city": "Rotterdam",
+      "latitude": 51.90114602,
+      "longitude": 4.49806489,
+      "email": "viaverbinder@viatim.nl",
+      "phone": "+31 (0)10 26 13 505",
+      "transporters": [
+        "UPS"
+      ],
+      "hours": [
+        {
+          "week": 25,
+          "monday": [
+            "10:00",
+            "20:00"
+          ],
+          "tuesday": [
+            "10:00",
+            "20:00"
+          ],
+          "wednesday": [
+            "10:00",
+            "20:00"
+          ],
+          "thursday": [
+            "10:00",
+            "20:00"
+          ],
+          "friday": [
+            "10:00",
+            "20:00"
+          ],
+          "saturday": [
+            "10:00",
+            "20:00"
+          ],
+          "sunday": [
+            "10:00",
+            "20:00"
+          ]
+        },
+        {
+          "week": 26,
+          "monday": [
+            "10:00",
+            "20:00"
+          ],
+          "tuesday": [
+            "10:00",
+            "20:00"
+          ],
+          "wednesday": [
+            "10:00",
+            "20:00"
+          ],
+          "thursday": [
+            "10:00",
+            "20:00"
+          ],
+          "friday": [
+            "10:00",
+            "20:00"
+          ],
+          "saturday": [
+            "10:00",
+            "20:00"
+          ],
+          "sunday": [
+            "10:00",
+            "20:00"
+          ]
+        }
+      ]
+    },
+    {
       "viacode": "VIP-ZMWHR-NL",
       "locatieNaam": "ViaTim en Buurtpunt Streefkerk",
       "straatNaam": "Bosstraat",
@@ -68,11 +214,12 @@
       "email": "viaverbinder@viatim.nl",
       "phone": "+31 (0)10 26 13 505",
       "transporters": [
+        "UPS",
         "STATIEGELDNL"
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "21:00"
@@ -97,7 +244,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "21:00"
@@ -139,7 +286,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "17:00",
             "20:00"
@@ -155,7 +302,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "17:00",
             "20:00"
@@ -188,7 +335,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "18:00"
@@ -207,7 +354,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "18:00"
@@ -239,11 +386,12 @@
       "email": "viaverbinder@viatim.nl",
       "phone": "+31 (0)10 26 13 505",
       "transporters": [
+        "UPS",
         "STATIEGELDNL"
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -268,7 +416,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -310,28 +458,6 @@
       ],
       "hours": [
         {
-          "week": 24,
-          "monday": [
-            "16:00",
-            "20:00"
-          ],
-          "tuesday": [
-            "16:00",
-            "20:00"
-          ],
-          "wednesday": [
-            "16:00",
-            "20:00"
-          ],
-          "thursday": [
-            "17:00",
-            "20:00"
-          ],
-          "friday": [],
-          "saturday": [],
-          "sunday": []
-        },
-        {
           "week": 25,
           "monday": [
             "16:00",
@@ -345,10 +471,26 @@
             "16:00",
             "20:00"
           ],
-          "thursday": [
-            "17:00",
+          "thursday": [],
+          "friday": [],
+          "saturday": [],
+          "sunday": []
+        },
+        {
+          "week": 26,
+          "monday": [
+            "16:00",
             "20:00"
           ],
+          "tuesday": [
+            "16:00",
+            "20:00"
+          ],
+          "wednesday": [
+            "16:00",
+            "20:00"
+          ],
+          "thursday": [],
           "friday": [],
           "saturday": [],
           "sunday": []
@@ -371,7 +513,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:30"
@@ -399,7 +541,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:30"
@@ -444,7 +586,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [
             "11:00",
@@ -460,7 +602,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [
             "11:00",
@@ -493,7 +635,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [],
           "wednesday": [
@@ -509,7 +651,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [],
           "wednesday": [
@@ -542,7 +684,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "17:00",
             "21:00"
@@ -561,7 +703,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "17:00",
             "21:00"
@@ -598,7 +740,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "22:00"
@@ -629,7 +771,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "22:00"
@@ -678,7 +820,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -703,7 +845,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -745,7 +887,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "14:00",
             "17:00"
@@ -764,7 +906,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "14:00",
             "17:00"
@@ -800,8 +942,11 @@
       ],
       "hours": [
         {
-          "week": 24,
-          "monday": [],
+          "week": 25,
+          "monday": [
+            "13:00",
+            "16:00"
+          ],
           "tuesday": [],
           "wednesday": [],
           "thursday": [
@@ -813,7 +958,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "13:00",
             "16:00"
@@ -846,7 +991,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [
             "16:00",
@@ -865,7 +1010,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [
             "16:00",
@@ -901,7 +1046,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "21:00"
@@ -926,7 +1071,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "21:00"
@@ -968,7 +1113,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "17:30",
             "21:00"
@@ -990,7 +1135,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "17:30",
             "21:00"
@@ -1029,7 +1174,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "10:00",
             "13:00"
@@ -1048,7 +1193,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "10:00",
             "13:00"
@@ -1084,23 +1229,17 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [],
-          "wednesday": [
-            "17:00",
-            "20:00"
-          ],
-          "thursday": [
-            "17:00",
-            "20:00"
-          ],
+          "wednesday": [],
+          "thursday": [],
           "friday": [],
           "saturday": [],
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [],
           "wednesday": [],
@@ -1127,7 +1266,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "18:00",
             "21:00"
@@ -1143,7 +1282,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "18:00",
             "21:00"
@@ -1179,7 +1318,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -1204,7 +1343,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -1249,7 +1388,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -1274,7 +1413,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -1316,7 +1455,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [],
           "wednesday": [
@@ -1332,7 +1471,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [],
           "wednesday": [
@@ -1365,7 +1504,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "12:00"
@@ -1381,7 +1520,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "12:00"
@@ -1414,7 +1553,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [
             "10:00",
@@ -1439,7 +1578,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [
             "10:00",
@@ -1482,7 +1621,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -1507,7 +1646,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -1549,7 +1688,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "13:00",
             "21:00"
@@ -1574,7 +1713,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "13:00",
             "21:00"
@@ -1617,7 +1756,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -1642,7 +1781,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -1686,7 +1825,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -1711,7 +1850,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -1753,7 +1892,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "18:00",
             "21:00"
@@ -1772,7 +1911,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "18:00",
             "21:00"
@@ -1808,7 +1947,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "08:30",
             "18:00"
@@ -1836,7 +1975,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "08:30",
             "18:00"
@@ -1881,7 +2020,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [],
           "wednesday": [],
@@ -1900,7 +2039,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [],
           "wednesday": [],
@@ -1936,7 +2075,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "11:00",
             "17:00"
@@ -1961,7 +2100,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "11:00",
             "17:00"
@@ -2003,7 +2142,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "12:00",
             "15:00"
@@ -2031,7 +2170,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "12:00",
             "15:00"
@@ -2078,7 +2217,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -2103,7 +2242,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -2145,7 +2284,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "10:00",
             "15:00"
@@ -2167,7 +2306,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "10:00",
             "15:00"
@@ -2206,7 +2345,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:30",
             "13:00"
@@ -2231,7 +2370,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:30",
             "13:00"
@@ -2273,7 +2412,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "19:00"
@@ -2298,7 +2437,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "19:00"
@@ -2340,7 +2479,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "08:00",
             "13:30",
@@ -2375,7 +2514,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "08:00",
             "13:30",
@@ -2427,7 +2566,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "12:00"
@@ -2446,7 +2585,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "12:00"
@@ -2482,7 +2621,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "12:00",
             "15:00"
@@ -2501,7 +2640,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "12:00",
             "15:00"
@@ -2537,7 +2676,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "12:00",
             "15:00"
@@ -2562,7 +2701,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "12:00",
             "15:00"
@@ -2605,7 +2744,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -2635,7 +2774,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -2682,7 +2821,20 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
+          "monday": [],
+          "tuesday": [
+            "09:00",
+            "21:00"
+          ],
+          "wednesday": [],
+          "thursday": [],
+          "friday": [],
+          "saturday": [],
+          "sunday": []
+        },
+        {
+          "week": 26,
           "monday": [],
           "tuesday": [
             "09:00",
@@ -2700,19 +2852,6 @@
             "09:00",
             "21:00"
           ],
-          "saturday": [],
-          "sunday": []
-        },
-        {
-          "week": 25,
-          "monday": [],
-          "tuesday": [
-            "09:00",
-            "21:00"
-          ],
-          "wednesday": [],
-          "thursday": [],
-          "friday": [],
           "saturday": [],
           "sunday": []
         }
@@ -2735,29 +2874,17 @@
       ],
       "hours": [
         {
-          "week": 24,
-          "monday": [
-            "16:00",
-            "20:00"
-          ],
-          "tuesday": [
-            "16:00",
-            "20:00"
-          ],
-          "wednesday": [
-            "16:00",
-            "20:00"
-          ],
-          "thursday": [
-            "16:00",
-            "20:00"
-          ],
+          "week": 25,
+          "monday": [],
+          "tuesday": [],
+          "wednesday": [],
+          "thursday": [],
           "friday": [],
           "saturday": [],
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [],
           "wednesday": [],
@@ -2784,7 +2911,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "17:00",
             "21:00"
@@ -2806,7 +2933,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "17:00",
             "21:00"
@@ -2851,7 +2978,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "12:00",
             "18:00"
@@ -2882,7 +3009,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "12:00",
             "18:00"
@@ -2930,7 +3057,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "11:00",
             "19:00"
@@ -2958,7 +3085,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "11:00",
             "19:00"
@@ -3003,7 +3130,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [],
           "wednesday": [
@@ -3025,7 +3152,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [],
           "wednesday": [
@@ -3064,7 +3191,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [],
           "wednesday": [
@@ -3083,7 +3210,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [],
           "wednesday": [
@@ -3119,7 +3246,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [
             "09:30",
@@ -3140,7 +3267,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [
             "09:30",
@@ -3156,76 +3283,6 @@
             "13:30",
             "15:00",
             "18:00"
-          ],
-          "saturday": [],
-          "sunday": []
-        }
-      ]
-    },
-    {
-      "viacode": "VIP-VW474-NL",
-      "locatieNaam": "ViaTim en Samantha",
-      "straatNaam": "Flemingstraat",
-      "straatNr": "248",
-      "postcode": "2041VP",
-      "city": "Zandvoort",
-      "latitude": 52.37818135,
-      "longitude": 4.55097211,
-      "email": "viaverbinder@viatim.nl",
-      "phone": "+31 (0)10 26 13 505",
-      "transporters": [
-        "UPS",
-        "STATIEGELDNL",
-        "DPD",
-        "GLSNL"
-      ],
-      "hours": [
-        {
-          "week": 24,
-          "monday": [
-            "16:00",
-            "20:00"
-          ],
-          "tuesday": [
-            "16:00",
-            "20:00"
-          ],
-          "wednesday": [
-            "16:00",
-            "20:00"
-          ],
-          "thursday": [
-            "16:00",
-            "20:00"
-          ],
-          "friday": [
-            "16:00",
-            "20:00"
-          ],
-          "saturday": [],
-          "sunday": []
-        },
-        {
-          "week": 25,
-          "monday": [
-            "16:00",
-            "20:00"
-          ],
-          "tuesday": [
-            "16:00",
-            "20:00"
-          ],
-          "wednesday": [
-            "16:00",
-            "20:00"
-          ],
-          "thursday": [
-            "16:00",
-            "20:00"
-          ],
-          "friday": [
-            "16:00",
-            "20:00"
           ],
           "saturday": [],
           "sunday": []
@@ -3248,7 +3305,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "14:00"
@@ -3273,7 +3330,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "14:00"
@@ -3315,7 +3372,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:30",
             "20:30"
@@ -3340,7 +3397,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:30",
             "20:30"
@@ -3382,7 +3439,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "19:00"
@@ -3398,7 +3455,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "19:00"
@@ -3431,7 +3488,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "17:00",
             "20:00"
@@ -3450,7 +3507,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "17:00",
             "20:00"
@@ -3486,7 +3543,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "11:00",
             "21:00"
@@ -3517,7 +3574,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "11:00",
             "21:00"
@@ -3565,32 +3622,17 @@
       ],
       "hours": [
         {
-          "week": 24,
-          "monday": [
-            "13:00",
-            "17:30"
-          ],
-          "tuesday": [
-            "13:00",
-            "17:30"
-          ],
-          "wednesday": [
-            "09:30",
-            "17:30"
-          ],
-          "thursday": [
-            "09:30",
-            "17:30"
-          ],
-          "friday": [
-            "09:30",
-            "17:30"
-          ],
+          "week": 25,
+          "monday": [],
+          "tuesday": [],
+          "wednesday": [],
+          "thursday": [],
+          "friday": [],
           "saturday": [],
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [],
           "wednesday": [],
@@ -3619,7 +3661,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -3644,7 +3686,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -3686,7 +3728,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "17:00",
             "21:00"
@@ -3702,7 +3744,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "17:00",
             "21:00"
@@ -3736,7 +3778,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "13:00",
             "21:00"
@@ -3761,7 +3803,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "13:00",
             "21:00"
@@ -3803,7 +3845,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "19:00"
@@ -3819,7 +3861,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "19:00"
@@ -3852,7 +3894,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [
             "12:00",
@@ -3868,7 +3910,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [
             "12:00",
@@ -3903,7 +3945,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -3928,7 +3970,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -3970,7 +4012,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "11:00",
             "21:00"
@@ -3995,27 +4037,12 @@
           "sunday": []
         },
         {
-          "week": 25,
-          "monday": [
-            "11:00",
-            "21:00"
-          ],
-          "tuesday": [
-            "11:00",
-            "21:00"
-          ],
-          "wednesday": [
-            "11:00",
-            "21:00"
-          ],
-          "thursday": [
-            "11:00",
-            "21:00"
-          ],
-          "friday": [
-            "11:00",
-            "21:00"
-          ],
+          "week": 26,
+          "monday": [],
+          "tuesday": [],
+          "wednesday": [],
+          "thursday": [],
+          "friday": [],
           "saturday": [],
           "sunday": []
         }
@@ -4037,28 +4064,6 @@
       ],
       "hours": [
         {
-          "week": 24,
-          "monday": [
-            "17:00",
-            "21:00"
-          ],
-          "tuesday": [
-            "17:00",
-            "21:00"
-          ],
-          "wednesday": [],
-          "thursday": [
-            "17:00",
-            "21:00"
-          ],
-          "friday": [
-            "17:00",
-            "21:00"
-          ],
-          "saturday": [],
-          "sunday": []
-        },
-        {
           "week": 25,
           "monday": [
             "17:00",
@@ -4073,6 +4078,16 @@
             "17:00",
             "21:00"
           ],
+          "friday": [],
+          "saturday": [],
+          "sunday": []
+        },
+        {
+          "week": 26,
+          "monday": [],
+          "tuesday": [],
+          "wednesday": [],
+          "thursday": [],
           "friday": [],
           "saturday": [],
           "sunday": []
@@ -4095,7 +4110,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "15:00"
@@ -4120,7 +4135,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "15:00"
@@ -4162,7 +4177,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "13:00",
             "18:00"
@@ -4193,7 +4208,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "13:00",
             "18:00"
@@ -4244,17 +4259,32 @@
       ],
       "hours": [
         {
-          "week": 24,
-          "monday": [],
-          "tuesday": [],
-          "wednesday": [],
-          "thursday": [],
-          "friday": [],
+          "week": 25,
+          "monday": [
+            "09:00",
+            "21:00"
+          ],
+          "tuesday": [
+            "09:00",
+            "21:00"
+          ],
+          "wednesday": [
+            "09:00",
+            "21:00"
+          ],
+          "thursday": [
+            "09:00",
+            "21:00"
+          ],
+          "friday": [
+            "09:00",
+            "21:00"
+          ],
           "saturday": [],
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "21:00"
@@ -4296,7 +4326,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "16:00"
@@ -4327,7 +4357,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "16:00"
@@ -4375,7 +4405,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -4400,7 +4430,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -4443,7 +4473,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -4452,20 +4482,20 @@
             "16:00",
             "21:00"
           ],
-          "wednesday": [
-            "16:00",
-            "21:00"
-          ],
+          "wednesday": [],
           "thursday": [
             "16:00",
             "21:00"
           ],
-          "friday": [],
+          "friday": [
+            "16:00",
+            "21:00"
+          ],
           "saturday": [],
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -4504,7 +4534,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "19:00"
@@ -4529,7 +4559,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "19:00"
@@ -4571,7 +4601,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "13:00"
@@ -4599,7 +4629,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "13:00"
@@ -4644,7 +4674,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "08:00",
             "17:00"
@@ -4672,7 +4702,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "08:00",
             "17:00"
@@ -4720,7 +4750,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -4745,7 +4775,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -4790,7 +4820,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "13:00",
             "21:00"
@@ -4818,7 +4848,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "13:00",
             "21:00"
@@ -4866,7 +4896,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -4891,7 +4921,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -4933,7 +4963,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [
             "10:00",
@@ -4952,7 +4982,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [
             "10:00",
@@ -4988,7 +5018,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [
             "12:00",
@@ -5007,7 +5037,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [
             "12:00",
@@ -5046,7 +5076,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [],
           "wednesday": [],
@@ -5056,12 +5086,27 @@
           "sunday": []
         },
         {
-          "week": 25,
-          "monday": [],
-          "tuesday": [],
-          "wednesday": [],
-          "thursday": [],
-          "friday": [],
+          "week": 26,
+          "monday": [
+            "15:00",
+            "20:00"
+          ],
+          "tuesday": [
+            "15:00",
+            "20:00"
+          ],
+          "wednesday": [
+            "15:00",
+            "20:00"
+          ],
+          "thursday": [
+            "15:00",
+            "20:00"
+          ],
+          "friday": [
+            "15:00",
+            "20:00"
+          ],
           "saturday": [],
           "sunday": []
         }
@@ -5086,7 +5131,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "21:00"
@@ -5117,7 +5162,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "21:00"
@@ -5166,7 +5211,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -5191,7 +5236,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -5233,7 +5278,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "11:00",
             "19:00"
@@ -5264,7 +5309,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "11:00",
             "19:00"
@@ -5313,7 +5358,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -5338,7 +5383,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -5355,10 +5400,7 @@
             "16:00",
             "20:00"
           ],
-          "friday": [
-            "16:00",
-            "20:00"
-          ],
+          "friday": [],
           "saturday": [],
           "sunday": []
         }
@@ -5380,7 +5422,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "08:30",
             "20:00"
@@ -5408,7 +5450,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "08:30",
             "20:00"
@@ -5455,7 +5497,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "17:00"
@@ -5483,7 +5525,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "17:00"
@@ -5500,14 +5542,8 @@
             "09:00",
             "17:00"
           ],
-          "friday": [
-            "09:00",
-            "17:00"
-          ],
-          "saturday": [
-            "10:00",
-            "18:00"
-          ],
+          "friday": [],
+          "saturday": [],
           "sunday": []
         }
       ]
@@ -5529,7 +5565,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "14:00",
             "18:00"
@@ -5554,7 +5590,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "14:00",
             "18:00"
@@ -5596,7 +5632,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "08:30",
             "21:30"
@@ -5624,7 +5660,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "08:30",
             "21:30"
@@ -5669,7 +5705,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "07:00",
             "18:00"
@@ -5697,7 +5733,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "07:00",
             "18:00"
@@ -5743,7 +5779,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "17:00"
@@ -5771,7 +5807,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "17:00"
@@ -5819,7 +5855,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -5850,7 +5886,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -5900,7 +5936,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "12:00",
@@ -5929,7 +5965,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "12:00",
@@ -5975,7 +6011,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -6000,7 +6036,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -6045,7 +6081,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [],
           "wednesday": [],
@@ -6055,7 +6091,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [],
           "wednesday": [],
@@ -6084,7 +6120,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -6093,14 +6129,23 @@
             "16:00",
             "21:00"
           ],
-          "wednesday": [],
-          "thursday": [],
-          "friday": [],
+          "wednesday": [
+            "16:00",
+            "21:00"
+          ],
+          "thursday": [
+            "16:00",
+            "21:00"
+          ],
+          "friday": [
+            "16:00",
+            "21:00"
+          ],
           "saturday": [],
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -6142,7 +6187,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "10:00",
             "13:00",
@@ -6183,7 +6228,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "10:00",
             "13:00",
@@ -6241,7 +6286,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [
             "10:00",
@@ -6266,7 +6311,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [
             "10:00",
@@ -6310,7 +6355,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "13:00",
             "21:00"
@@ -6338,7 +6383,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "13:00",
             "21:00"
@@ -6385,7 +6430,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [
             "09:00",
@@ -6410,7 +6455,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [
             "09:00",
@@ -6454,9 +6499,19 @@
       ],
       "hours": [
         {
-          "week": 24,
-          "monday": [],
-          "tuesday": [],
+          "week": 25,
+          "monday": [
+            "09:00",
+            "13:00",
+            "14:00",
+            "21:00"
+          ],
+          "tuesday": [
+            "09:00",
+            "13:00",
+            "14:00",
+            "21:00"
+          ],
           "wednesday": [
             "09:00",
             "13:00",
@@ -6479,7 +6534,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "13:00",
@@ -6531,7 +6586,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "08:00",
             "17:00"
@@ -6544,7 +6599,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "08:00",
             "17:00"
@@ -6574,7 +6629,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "00:00",
             "22:00"
@@ -6587,7 +6642,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "00:00",
             "22:00"
@@ -6617,7 +6672,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "08:30",
             "16:30"
@@ -6630,7 +6685,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "08:30",
             "16:30"
@@ -6660,7 +6715,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "10:00",
             "15:00"
@@ -6685,7 +6740,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "10:00",
             "15:00"
@@ -6727,7 +6782,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "00:00",
             "01:00"
@@ -6740,7 +6795,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "00:00",
             "01:00"
@@ -6770,7 +6825,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "16:00"
@@ -6801,7 +6856,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "16:00"
@@ -6849,7 +6904,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "15:00"
@@ -6874,7 +6929,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "15:00"
@@ -6918,7 +6973,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -6943,7 +6998,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -6988,7 +7043,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "13:00",
             "21:00"
@@ -7019,7 +7074,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "13:00",
             "21:00"
@@ -7068,7 +7123,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "11:00",
             "17:00"
@@ -7096,7 +7151,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "11:00",
             "17:00"
@@ -7144,7 +7199,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -7169,7 +7224,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -7215,7 +7270,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "14:00",
             "21:30"
@@ -7246,7 +7301,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "14:00",
             "21:30"
@@ -7297,7 +7352,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -7325,7 +7380,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -7373,7 +7428,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -7398,7 +7453,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -7442,7 +7497,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -7467,7 +7522,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -7513,7 +7568,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "12:00",
             "17:00",
@@ -7551,7 +7606,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "12:00",
             "17:00",
@@ -7613,7 +7668,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "10:00",
             "19:00"
@@ -7641,7 +7696,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "10:00",
             "19:00"
@@ -7684,11 +7739,12 @@
       "transporters": [
         "DHL",
         "STATIEGELDNL",
-        "DPD"
+        "DPD",
+        "UPS"
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "13:00",
             "21:00"
@@ -7709,17 +7765,14 @@
             "13:00",
             "21:00"
           ],
-          "saturday": [
-            "16:00",
-            "21:00"
-          ],
+          "saturday": [],
           "sunday": [
             "16:00",
             "21:00"
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "13:00",
             "21:00"
@@ -7768,7 +7821,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "10:00",
             "19:00"
@@ -7796,7 +7849,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "10:00",
             "19:00"
@@ -7845,7 +7898,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "20:00"
@@ -7870,7 +7923,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "20:00"
@@ -7915,7 +7968,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -7940,7 +7993,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -7983,7 +8036,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [
             "10:00",
@@ -8008,7 +8061,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [
             "10:00",
@@ -8052,12 +8105,15 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
           ],
-          "tuesday": [],
+          "tuesday": [
+            "16:00",
+            "20:00"
+          ],
           "wednesday": [
             "16:00",
             "20:00"
@@ -8066,12 +8122,18 @@
             "16:00",
             "20:00"
           ],
-          "friday": [],
-          "saturday": [],
+          "friday": [
+            "16:00",
+            "20:00"
+          ],
+          "saturday": [
+            "16:00",
+            "20:00"
+          ],
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -8116,7 +8178,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -8144,7 +8206,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -8190,7 +8252,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "13:00",
             "18:00"
@@ -8218,7 +8280,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "13:00",
             "18:00"
@@ -8243,77 +8305,6 @@
             "10:00",
             "16:00"
           ],
-          "sunday": []
-        }
-      ]
-    },
-    {
-      "viacode": "VIP-2LWRX-NL",
-      "locatieNaam": "ViaTim en Tina",
-      "straatNaam": "Yvo Janszlaan",
-      "straatNr": "22",
-      "postcode": "1679XC",
-      "city": "Midwoud",
-      "latitude": 52.71445499410509,
-      "longitude": 5.071886558487037,
-      "email": "viaverbinder@viatim.nl",
-      "phone": "+31 (0)10 26 13 505",
-      "transporters": [
-        "UPS",
-        "DPD",
-        "DHL",
-        "STATIEGELDNL",
-        "GLSNL"
-      ],
-      "hours": [
-        {
-          "week": 24,
-          "monday": [
-            "16:00",
-            "21:00"
-          ],
-          "tuesday": [
-            "16:00",
-            "21:00"
-          ],
-          "wednesday": [
-            "16:00",
-            "21:00"
-          ],
-          "thursday": [
-            "16:00",
-            "21:00"
-          ],
-          "friday": [
-            "16:00",
-            "21:00"
-          ],
-          "saturday": [],
-          "sunday": []
-        },
-        {
-          "week": 25,
-          "monday": [
-            "16:00",
-            "21:00"
-          ],
-          "tuesday": [
-            "16:00",
-            "21:00"
-          ],
-          "wednesday": [
-            "16:00",
-            "21:00"
-          ],
-          "thursday": [
-            "16:00",
-            "21:00"
-          ],
-          "friday": [
-            "16:00",
-            "21:00"
-          ],
-          "saturday": [],
           "sunday": []
         }
       ]
@@ -8335,7 +8326,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "17:30"
@@ -8363,7 +8354,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "17:30"
@@ -8411,7 +8402,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -8436,7 +8427,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -8478,7 +8469,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "13:00",
             "17:30"
@@ -8506,7 +8497,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "13:00",
             "17:30"
@@ -8555,7 +8546,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -8583,7 +8574,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -8631,7 +8622,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "20:00"
@@ -8656,7 +8647,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "20:00"
@@ -8702,7 +8693,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "10:00",
             "20:00"
@@ -8730,7 +8721,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "10:00",
             "20:00"
@@ -8775,7 +8766,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "18:00"
@@ -8800,7 +8791,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "18:00"
@@ -8841,11 +8832,12 @@
         "DHL",
         "UPS",
         "DPD",
-        "STATIEGELDNL"
+        "STATIEGELDNL",
+        "AMAZON"
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -8858,13 +8850,19 @@
             "16:00",
             "20:00"
           ],
-          "thursday": [],
-          "friday": [],
+          "thursday": [
+            "16:00",
+            "20:00"
+          ],
+          "friday": [
+            "16:00",
+            "20:00"
+          ],
           "saturday": [],
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -8908,7 +8906,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -8936,7 +8934,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -8962,73 +8960,6 @@
             "16:00",
             "21:00"
           ]
-        }
-      ]
-    },
-    {
-      "viacode": "VIP-ZVDRK-NL",
-      "locatieNaam": "ViaTim en Schouwse Schatten",
-      "straatNaam": "Ring",
-      "straatNr": "7",
-      "postcode": "4328AE",
-      "city": "Burgh-Haamstede",
-      "latitude": 51.698265967116846,
-      "longitude": 3.743459808129327,
-      "email": "viaverbinder@viatim.nl",
-      "phone": "+31 (0)10 26 13 505",
-      "transporters": [
-        "UPS"
-      ],
-      "hours": [
-        {
-          "week": 24,
-          "monday": [],
-          "tuesday": [
-            "10:00",
-            "17:00"
-          ],
-          "wednesday": [
-            "10:00",
-            "17:00"
-          ],
-          "thursday": [
-            "10:00",
-            "17:00"
-          ],
-          "friday": [
-            "10:00",
-            "17:00"
-          ],
-          "saturday": [
-            "10:00",
-            "17:00"
-          ],
-          "sunday": []
-        },
-        {
-          "week": 25,
-          "monday": [],
-          "tuesday": [
-            "10:00",
-            "17:00"
-          ],
-          "wednesday": [
-            "10:00",
-            "17:00"
-          ],
-          "thursday": [
-            "10:00",
-            "17:00"
-          ],
-          "friday": [
-            "10:00",
-            "17:00"
-          ],
-          "saturday": [
-            "10:00",
-            "17:00"
-          ],
-          "sunday": []
         }
       ]
     },
@@ -9051,7 +8982,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "13:00",
@@ -9081,7 +9012,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "13:00",
@@ -9131,7 +9062,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -9156,7 +9087,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -9199,7 +9130,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -9224,7 +9155,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -9267,7 +9198,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "10:00",
             "19:00"
@@ -9298,7 +9229,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "10:00",
             "19:00"
@@ -9349,7 +9280,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "21:00"
@@ -9380,7 +9311,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "21:00"
@@ -9429,7 +9360,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "13:00",
             "21:00"
@@ -9460,7 +9391,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "13:00",
             "21:00"
@@ -9510,7 +9441,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -9538,7 +9469,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -9583,7 +9514,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [
             "09:00",
@@ -9611,7 +9542,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [
             "09:00",
@@ -9658,7 +9589,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "14:00",
             "20:00"
@@ -9683,7 +9614,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "14:00",
             "20:00"
@@ -9725,7 +9656,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "21:00"
@@ -9753,7 +9684,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "21:00"
@@ -9799,7 +9730,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -9824,7 +9755,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -9867,7 +9798,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -9892,7 +9823,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -9935,7 +9866,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -9960,7 +9891,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -9982,81 +9913,6 @@
             "21:00"
           ],
           "saturday": [],
-          "sunday": []
-        }
-      ]
-    },
-    {
-      "viacode": "VIP-PJNTF-NL",
-      "locatieNaam": "ViaTim en Johnny",
-      "straatNaam": "Sem Dresdenlaan",
-      "straatNr": "10",
-      "postcode": "6952DB",
-      "city": "Dieren",
-      "latitude": 52.05144550660581,
-      "longitude": 6.0905132099664945,
-      "email": "viaverbinder@viatim.nl",
-      "phone": "+31 (0)10 26 13 505",
-      "transporters": [
-        "UPS",
-        "DHL",
-        "STATIEGELDNL"
-      ],
-      "hours": [
-        {
-          "week": 24,
-          "monday": [
-            "16:00",
-            "21:00"
-          ],
-          "tuesday": [
-            "16:00",
-            "21:00"
-          ],
-          "wednesday": [
-            "16:00",
-            "21:00"
-          ],
-          "thursday": [
-            "16:00",
-            "21:00"
-          ],
-          "friday": [
-            "16:00",
-            "21:00"
-          ],
-          "saturday": [
-            "16:00",
-            "21:00"
-          ],
-          "sunday": []
-        },
-        {
-          "week": 25,
-          "monday": [
-            "16:00",
-            "21:00"
-          ],
-          "tuesday": [
-            "16:00",
-            "21:00"
-          ],
-          "wednesday": [
-            "16:00",
-            "21:00"
-          ],
-          "thursday": [
-            "16:00",
-            "21:00"
-          ],
-          "friday": [
-            "16:00",
-            "21:00"
-          ],
-          "saturday": [
-            "16:00",
-            "21:00"
-          ],
           "sunday": []
         }
       ]
@@ -10078,7 +9934,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:30"
@@ -10106,7 +9962,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:30"
@@ -10150,11 +10006,12 @@
         "DHL",
         "DPD",
         "UPS",
-        "STATIEGELDNL"
+        "STATIEGELDNL",
+        "AMAZON"
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -10182,7 +10039,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -10226,11 +10083,12 @@
         "DHL",
         "DPD",
         "UPS",
-        "STATIEGELDNL"
+        "STATIEGELDNL",
+        "AMAZON"
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -10258,7 +10116,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -10305,7 +10163,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -10330,7 +10188,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -10375,26 +10233,26 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
-            "14:00",
-            "21:00"
+            "11:00",
+            "20:00"
           ],
           "tuesday": [
-            "14:00",
-            "21:00"
+            "11:00",
+            "20:00"
           ],
           "wednesday": [
-            "14:00",
-            "21:00"
+            "11:00",
+            "20:00"
           ],
           "thursday": [
-            "14:00",
-            "21:00"
+            "11:00",
+            "20:00"
           ],
           "friday": [
             "14:00",
-            "21:00"
+            "20:00"
           ],
           "saturday": [],
           "sunday": [
@@ -10403,26 +10261,26 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
-            "14:00",
-            "21:00"
+            "11:00",
+            "20:00"
           ],
           "tuesday": [
-            "14:00",
-            "21:00"
+            "11:00",
+            "20:00"
           ],
           "wednesday": [
-            "14:00",
-            "21:00"
+            "11:00",
+            "20:00"
           ],
           "thursday": [
-            "14:00",
-            "21:00"
+            "11:00",
+            "20:00"
           ],
           "friday": [
             "14:00",
-            "21:00"
+            "20:00"
           ],
           "saturday": [],
           "sunday": [
@@ -10451,7 +10309,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -10479,7 +10337,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -10524,7 +10382,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "12:00",
             "18:00"
@@ -10552,7 +10410,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "12:00",
             "18:00"
@@ -10597,7 +10455,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "12:30",
             "18:00"
@@ -10622,7 +10480,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "12:30",
             "18:00"
@@ -10666,7 +10524,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -10691,7 +10549,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -10713,81 +10571,6 @@
             "20:00"
           ],
           "saturday": [],
-          "sunday": []
-        }
-      ]
-    },
-    {
-      "viacode": "VIP-D6HPH-NL",
-      "locatieNaam": "ViaTim en Shirley",
-      "straatNaam": "Kampeerveld",
-      "straatNr": "12",
-      "postcode": "8256GP",
-      "city": "Biddinghuizen",
-      "latitude": 52.45053992785904,
-      "longitude": 5.698013695207549,
-      "email": "viaverbinder@viatim.nl",
-      "phone": "+31 (0)10 26 13 505",
-      "transporters": [
-        "DHL",
-        "DPD",
-        "UPS"
-      ],
-      "hours": [
-        {
-          "week": 24,
-          "monday": [
-            "16:00",
-            "20:00"
-          ],
-          "tuesday": [
-            "16:00",
-            "20:00"
-          ],
-          "wednesday": [
-            "16:00",
-            "20:00"
-          ],
-          "thursday": [
-            "16:00",
-            "20:00"
-          ],
-          "friday": [
-            "16:00",
-            "20:00"
-          ],
-          "saturday": [
-            "10:00",
-            "14:00"
-          ],
-          "sunday": []
-        },
-        {
-          "week": 25,
-          "monday": [
-            "16:00",
-            "20:00"
-          ],
-          "tuesday": [
-            "16:00",
-            "20:00"
-          ],
-          "wednesday": [
-            "16:00",
-            "20:00"
-          ],
-          "thursday": [
-            "16:00",
-            "20:00"
-          ],
-          "friday": [
-            "16:00",
-            "20:00"
-          ],
-          "saturday": [
-            "10:00",
-            "14:00"
-          ],
           "sunday": []
         }
       ]
@@ -10808,34 +10591,10 @@
         "DPD",
         "UPS",
         "GLSNL",
-        "STATIEGELDNL"
+        "STATIEGELDNL",
+        "AMAZON"
       ],
       "hours": [
-        {
-          "week": 24,
-          "monday": [
-            "16:00",
-            "21:00"
-          ],
-          "tuesday": [
-            "16:00",
-            "21:00"
-          ],
-          "wednesday": [
-            "16:00",
-            "21:00"
-          ],
-          "thursday": [
-            "16:00",
-            "21:00"
-          ],
-          "friday": [
-            "16:00",
-            "21:00"
-          ],
-          "saturday": [],
-          "sunday": []
-        },
         {
           "week": 25,
           "monday": [
@@ -10850,6 +10609,16 @@
             "16:00",
             "21:00"
           ],
+          "thursday": [],
+          "friday": [],
+          "saturday": [],
+          "sunday": []
+        },
+        {
+          "week": 26,
+          "monday": [],
+          "tuesday": [],
+          "wednesday": [],
           "thursday": [],
           "friday": [],
           "saturday": [],
@@ -10875,7 +10644,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -10900,7 +10669,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -10942,7 +10711,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -10967,7 +10736,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -11013,7 +10782,17 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
+          "monday": [],
+          "tuesday": [],
+          "wednesday": [],
+          "thursday": [],
+          "friday": [],
+          "saturday": [],
+          "sunday": []
+        },
+        {
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -11034,16 +10813,6 @@
             "16:00",
             "21:00"
           ],
-          "saturday": [],
-          "sunday": []
-        },
-        {
-          "week": 25,
-          "monday": [],
-          "tuesday": [],
-          "wednesday": [],
-          "thursday": [],
-          "friday": [],
           "saturday": [],
           "sunday": []
         }
@@ -11063,11 +10832,31 @@
       "transporters": [
         "DHL",
         "DPD",
-        "STATIEGELDNL"
+        "STATIEGELDNL",
+        "AMAZON"
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
+          "monday": [
+            "16:00",
+            "20:00"
+          ],
+          "tuesday": [
+            "16:00",
+            "20:00"
+          ],
+          "wednesday": [],
+          "thursday": [],
+          "friday": [
+            "16:00",
+            "20:00"
+          ],
+          "saturday": [],
+          "sunday": []
+        },
+        {
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -11084,25 +10873,6 @@
             "16:00",
             "20:00"
           ],
-          "friday": [
-            "16:00",
-            "20:00"
-          ],
-          "saturday": [],
-          "sunday": []
-        },
-        {
-          "week": 25,
-          "monday": [
-            "16:00",
-            "20:00"
-          ],
-          "tuesday": [
-            "16:00",
-            "20:00"
-          ],
-          "wednesday": [],
-          "thursday": [],
           "friday": [
             "16:00",
             "20:00"
@@ -11132,7 +10902,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -11157,7 +10927,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -11200,7 +10970,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "17:30",
@@ -11235,7 +11005,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "17:30",
@@ -11254,18 +11024,8 @@
             "18:30",
             "21:00"
           ],
-          "thursday": [
-            "16:00",
-            "17:30",
-            "18:30",
-            "21:00"
-          ],
-          "friday": [
-            "16:00",
-            "21:00",
-            "18:30",
-            "21:00"
-          ],
+          "thursday": [],
+          "friday": [],
           "saturday": [],
           "sunday": []
         }
@@ -11291,7 +11051,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "10:00",
             "21:00"
@@ -11321,7 +11081,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "10:00",
             "21:00"
@@ -11370,7 +11130,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [
             "09:00",
@@ -11395,7 +11155,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [
             "09:00",
@@ -11441,7 +11201,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:30",
             "21:00"
@@ -11468,7 +11228,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:30",
             "21:00"
@@ -11487,10 +11247,7 @@
             "16:00",
             "21:00"
           ],
-          "friday": [
-            "09:30",
-            "21:00"
-          ],
+          "friday": [],
           "saturday": [],
           "sunday": []
         }
@@ -11511,11 +11268,12 @@
         "DHL",
         "DPD",
         "UPS",
-        "STATIEGELDNL"
+        "STATIEGELDNL",
+        "AMAZON"
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "12:00",
             "17:00"
@@ -11543,7 +11301,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "12:00",
             "17:00"
@@ -11590,17 +11348,32 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
-          "tuesday": [],
-          "wednesday": [],
-          "thursday": [],
-          "friday": [],
-          "saturday": [],
+          "tuesday": [
+            "13:00",
+            "19:00"
+          ],
+          "wednesday": [
+            "13:00",
+            "19:00"
+          ],
+          "thursday": [
+            "13:00",
+            "19:00"
+          ],
+          "friday": [
+            "13:00",
+            "19:00"
+          ],
+          "saturday": [
+            "13:00",
+            "19:00"
+          ],
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [
             "13:00",
@@ -11645,7 +11418,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "14:00",
             "20:00"
@@ -11670,7 +11443,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "14:00",
             "20:00"
@@ -11716,7 +11489,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -11744,7 +11517,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -11789,7 +11562,29 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
+          "monday": [
+            "15:00",
+            "21:00"
+          ],
+          "tuesday": [
+            "15:00",
+            "21:00"
+          ],
+          "wednesday": [
+            "15:00",
+            "21:00"
+          ],
+          "thursday": [
+            "15:00",
+            "20:30"
+          ],
+          "friday": [],
+          "saturday": [],
+          "sunday": []
+        },
+        {
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -11810,28 +11605,6 @@
             "15:00",
             "20:30"
           ],
-          "saturday": [],
-          "sunday": []
-        },
-        {
-          "week": 25,
-          "monday": [
-            "15:00",
-            "21:00"
-          ],
-          "tuesday": [
-            "15:00",
-            "21:00"
-          ],
-          "wednesday": [
-            "15:00",
-            "21:00"
-          ],
-          "thursday": [
-            "15:00",
-            "20:30"
-          ],
-          "friday": [],
           "saturday": [],
           "sunday": []
         }
@@ -11853,11 +11626,12 @@
         "DPD",
         "STATIEGELDNL",
         "GLSNL",
-        "UPS"
+        "UPS",
+        "AMAZON"
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -11878,11 +11652,14 @@
             "16:00",
             "21:00"
           ],
-          "saturday": [],
+          "saturday": [
+            "10:00",
+            "17:00"
+          ],
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -11928,7 +11705,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "13:00",
             "19:00"
@@ -11953,7 +11730,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "13:00",
             "19:00"
@@ -11995,7 +11772,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -12020,7 +11797,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -12065,7 +11842,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "14:15",
             "21:00"
@@ -12094,7 +11871,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "14:15",
             "21:00"
@@ -12143,7 +11920,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -12171,7 +11948,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -12219,7 +11996,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -12247,7 +12024,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -12295,7 +12072,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [
             "14:00",
@@ -12323,7 +12100,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [
             "14:00",
@@ -12372,7 +12149,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -12397,7 +12174,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -12440,7 +12217,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [],
           "wednesday": [],
@@ -12450,7 +12227,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [],
           "wednesday": [],
@@ -12479,7 +12256,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "17:00",
             "21:30"
@@ -12504,7 +12281,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "17:00",
             "21:30"
@@ -12550,7 +12327,35 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
+          "monday": [
+            "07:30",
+            "20:00"
+          ],
+          "tuesday": [
+            "10:00",
+            "20:00"
+          ],
+          "wednesday": [
+            "10:00",
+            "20:00"
+          ],
+          "thursday": [
+            "10:00",
+            "20:00"
+          ],
+          "friday": [
+            "10:00",
+            "20:00"
+          ],
+          "saturday": [],
+          "sunday": [
+            "09:30",
+            "12:00"
+          ]
+        },
+        {
+          "week": 26,
           "monday": [
             "07:30",
             "20:00"
@@ -12579,34 +12384,6 @@
             "09:30",
             "12:00"
           ]
-        },
-        {
-          "week": 25,
-          "monday": [
-            "07:30",
-            "20:00"
-          ],
-          "tuesday": [
-            "10:00",
-            "20:00"
-          ],
-          "wednesday": [
-            "10:00",
-            "20:00"
-          ],
-          "thursday": [
-            "10:00",
-            "20:00"
-          ],
-          "friday": [
-            "10:00",
-            "20:00"
-          ],
-          "saturday": [],
-          "sunday": [
-            "09:30",
-            "12:00"
-          ]
         }
       ]
     },
@@ -12626,7 +12403,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -12651,7 +12428,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -12694,7 +12471,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "20:00"
@@ -12722,7 +12499,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "20:00"
@@ -12768,7 +12545,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "14:00",
             "20:00"
@@ -12799,7 +12576,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "14:00",
             "20:00"
@@ -12850,7 +12627,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -12875,7 +12652,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -12919,7 +12696,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [
             "11:00",
@@ -12944,7 +12721,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [
             "11:00",
@@ -12989,7 +12766,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -13025,7 +12802,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -13082,7 +12859,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "13:00",
@@ -13123,7 +12900,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "13:00",
@@ -13188,7 +12965,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "10:00",
             "19:00"
@@ -13216,7 +12993,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "10:00",
             "19:00"
@@ -13262,7 +13039,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -13287,7 +13064,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -13329,7 +13106,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [],
           "wednesday": [],
@@ -13342,7 +13119,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [],
           "wednesday": [],
@@ -13372,7 +13149,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [],
           "wednesday": [],
@@ -13385,7 +13162,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [],
           "wednesday": [],
@@ -13418,7 +13195,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -13443,7 +13220,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -13487,7 +13264,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -13518,7 +13295,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -13567,7 +13344,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -13598,7 +13375,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -13647,7 +13424,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -13678,7 +13455,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -13730,7 +13507,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -13761,7 +13538,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -13807,11 +13584,12 @@
       "transporters": [
         "UPS",
         "GLSNL",
-        "STATIEGELDNL"
+        "STATIEGELDNL",
+        "AMAZON"
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             null,
             null
@@ -13842,7 +13620,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             null,
             null
@@ -13890,7 +13668,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             null,
             "20:00"
@@ -13921,7 +13699,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             null,
             "20:00"
@@ -13970,7 +13748,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "18:00"
@@ -14001,7 +13779,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "18:00"
@@ -14049,7 +13827,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "13:00",
             "18:00"
@@ -14080,7 +13858,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "13:00",
             "18:00"
@@ -14128,7 +13906,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "12:00",
             "19:00"
@@ -14159,7 +13937,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "12:00",
             "19:00"
@@ -14211,7 +13989,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -14242,7 +14020,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -14290,7 +14068,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             null,
             null
@@ -14321,7 +14099,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             null,
             null
@@ -14374,7 +14152,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -14405,7 +14183,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -14455,7 +14233,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -14486,7 +14264,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -14534,7 +14312,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             null,
             null
@@ -14565,7 +14343,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             null,
             null
@@ -14615,7 +14393,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -14643,7 +14421,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -14692,7 +14470,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -14723,7 +14501,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -14771,7 +14549,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             null,
             null
@@ -14802,7 +14580,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             null,
             null
@@ -14850,7 +14628,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             null,
             null
@@ -14881,7 +14659,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             null,
             null
@@ -14933,7 +14711,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -14964,7 +14742,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -15014,7 +14792,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -15045,7 +14823,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -15093,11 +14871,12 @@
         "DHL",
         "DPD",
         "GLSNL",
-        "STATIEGELDNL"
+        "STATIEGELDNL",
+        "AMAZON"
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -15128,7 +14907,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -15176,7 +14955,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:30",
             "15:30"
@@ -15207,7 +14986,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:30",
             "15:30"
@@ -15255,7 +15034,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             null,
             null
@@ -15283,7 +15062,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             null,
             null
@@ -15328,7 +15107,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             null,
             null
@@ -15359,7 +15138,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             null,
             null
@@ -15411,7 +15190,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "20:00"
@@ -15442,7 +15221,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "20:00"
@@ -15494,7 +15273,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "20:00"
@@ -15525,7 +15304,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "20:00"
@@ -15573,7 +15352,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             null,
             null
@@ -15604,7 +15383,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             null,
             null
@@ -15654,20 +15433,17 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [],
           "wednesday": [],
           "thursday": [],
           "friday": [],
           "saturday": [],
-          "sunday": [
-            null,
-            null
-          ]
+          "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [],
           "wednesday": [],
@@ -15696,7 +15472,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -15727,7 +15503,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -15776,7 +15552,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "18:00"
@@ -15807,7 +15583,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "18:00"
@@ -15855,7 +15631,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             null,
             null
@@ -15886,7 +15662,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             null,
             null
@@ -15938,7 +15714,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -15969,7 +15745,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -16020,7 +15796,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -16051,7 +15827,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -16100,7 +15876,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -16131,7 +15907,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -16181,7 +15957,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "14:00",
             "20:00"
@@ -16212,7 +15988,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "14:00",
             "20:00"
@@ -16261,7 +16037,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:30",
             "22:00"
@@ -16292,7 +16068,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:30",
             "22:00"
@@ -16345,7 +16121,17 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
+          "monday": [],
+          "tuesday": [],
+          "wednesday": [],
+          "thursday": [],
+          "friday": [],
+          "saturday": [],
+          "sunday": []
+        },
+        {
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -16362,17 +16148,10 @@
             "16:00",
             "21:00"
           ],
-          "friday": [],
-          "saturday": [],
-          "sunday": []
-        },
-        {
-          "week": 25,
-          "monday": [],
-          "tuesday": [],
-          "wednesday": [],
-          "thursday": [],
-          "friday": [],
+          "friday": [
+            "11:00",
+            "16:00"
+          ],
           "saturday": [],
           "sunday": []
         }
@@ -16395,7 +16174,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "",
             ""
@@ -16426,7 +16205,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "",
             ""
@@ -16476,7 +16255,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -16507,7 +16286,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -16555,7 +16334,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "07:00",
             "18:00"
@@ -16586,7 +16365,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "07:00",
             "18:00"
@@ -16615,84 +16394,6 @@
             "00:00",
             ""
           ]
-        }
-      ]
-    },
-    {
-      "viacode": "VIP-RLCL7-NL",
-      "locatieNaam": "ViaTim en 040 Fietskoerier",
-      "straatNaam": "Frederik Hendrikplein",
-      "straatNr": "9",
-      "postcode": "5615RB",
-      "city": "Eindhoven",
-      "latitude": 51.430226532450384,
-      "longitude": 5.465272913994877,
-      "email": "viaverbinder@viatim.nl",
-      "phone": "+31 (0)10 26 13 505",
-      "transporters": [
-        "DPD",
-        "DHL",
-        "UPS",
-        "OCHAMA",
-        "GLSNL",
-        "STATIEGELDNL"
-      ],
-      "hours": [
-        {
-          "week": 24,
-          "monday": [
-            "12:00",
-            "20:00"
-          ],
-          "tuesday": [
-            "12:00",
-            "20:00"
-          ],
-          "wednesday": [
-            "12:00",
-            "20:00"
-          ],
-          "thursday": [
-            "12:00",
-            "20:00"
-          ],
-          "friday": [
-            "12:00",
-            "20:00"
-          ],
-          "saturday": [
-            "09:30",
-            "16:00"
-          ],
-          "sunday": []
-        },
-        {
-          "week": 25,
-          "monday": [
-            "12:00",
-            "20:00"
-          ],
-          "tuesday": [
-            "12:00",
-            "20:00"
-          ],
-          "wednesday": [
-            "12:00",
-            "20:00"
-          ],
-          "thursday": [
-            "12:00",
-            "20:00"
-          ],
-          "friday": [
-            "12:00",
-            "20:00"
-          ],
-          "saturday": [
-            "09:30",
-            "16:00"
-          ],
-          "sunday": []
         }
       ]
     },
@@ -16715,7 +16416,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "21:00"
@@ -16746,7 +16447,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "21:00"
@@ -16794,7 +16495,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "18:00"
@@ -16825,7 +16526,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "18:00"
@@ -16875,7 +16576,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "08:00",
             "23:00"
@@ -16906,7 +16607,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "08:00",
             "23:00"
@@ -16957,7 +16658,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -16988,7 +16689,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -17039,7 +16740,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "14:30",
             "21:00"
@@ -17064,7 +16765,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "14:30",
             "21:00"
@@ -17108,7 +16809,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "21:00"
@@ -17139,7 +16840,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "21:00"
@@ -17188,7 +16889,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "12:00",
             "18:00"
@@ -17216,7 +16917,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "12:00",
             "18:00"
@@ -17263,7 +16964,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "10:00",
             "17:00"
@@ -17291,7 +16992,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "10:00",
             "17:00"
@@ -17339,7 +17040,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "11:00",
             "20:00"
@@ -17364,7 +17065,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "11:00",
             "20:00"
@@ -17406,7 +17107,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "16:00"
@@ -17437,7 +17138,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "16:00"
@@ -17488,7 +17189,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -17519,7 +17220,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -17569,7 +17270,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "14:00",
             "20:00"
@@ -17600,7 +17301,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "14:00",
             "20:00"
@@ -17652,7 +17353,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -17669,12 +17370,15 @@
             "16:00",
             "21:00"
           ],
-          "friday": [],
+          "friday": [
+            "16:00",
+            "21:00"
+          ],
           "saturday": [],
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -17716,7 +17420,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "13:00",
             "16:00"
@@ -17747,7 +17451,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "13:00",
             "16:00"
@@ -17797,7 +17501,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "20:00"
@@ -17828,7 +17532,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "20:00"
@@ -17880,7 +17584,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -17911,7 +17615,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -17959,7 +17663,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "10:00",
             "20:00"
@@ -17990,7 +17694,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "10:00",
             "20:00"
@@ -18042,7 +17746,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "10:00",
             "20:00"
@@ -18073,7 +17777,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "10:00",
             "20:00"
@@ -18125,7 +17829,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -18150,7 +17854,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -18195,7 +17899,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "20:30"
@@ -18212,12 +17916,15 @@
             "15:00",
             "20:30"
           ],
-          "friday": [],
+          "friday": [
+            "15:00",
+            "20:30"
+          ],
           "saturday": [],
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "20:30"
@@ -18262,7 +17969,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "21:00"
@@ -18290,7 +17997,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "21:00"
@@ -18337,7 +18044,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "08:30",
             "20:30"
@@ -18368,7 +18075,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "08:30",
             "20:30"
@@ -18419,7 +18126,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -18450,7 +18157,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -18501,7 +18208,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "14:00",
             "17:30",
@@ -18536,7 +18243,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "14:00",
             "17:30",
@@ -18588,7 +18295,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -18619,7 +18326,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -18671,7 +18378,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -18702,7 +18409,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -18754,7 +18461,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "20:00"
@@ -18785,7 +18492,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "20:00"
@@ -18836,7 +18543,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -18864,7 +18571,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -18912,7 +18619,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -18943,7 +18650,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -18994,7 +18701,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -19025,7 +18732,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -19077,7 +18784,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -19108,7 +18815,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -19156,7 +18863,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -19187,7 +18894,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -19239,7 +18946,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "20:00"
@@ -19270,7 +18977,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "20:00"
@@ -19322,7 +19029,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -19350,7 +19057,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -19399,7 +19106,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -19430,7 +19137,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -19478,7 +19185,26 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
+          "monday": [
+            "15:30",
+            "21:00"
+          ],
+          "tuesday": [],
+          "wednesday": [],
+          "thursday": [],
+          "friday": [],
+          "saturday": [
+            "",
+            ""
+          ],
+          "sunday": [
+            "",
+            ""
+          ]
+        },
+        {
+          "week": 26,
           "monday": [
             "15:30",
             "21:00"
@@ -19499,25 +19225,6 @@
             "15:30",
             "21:00"
           ],
-          "saturday": [
-            "",
-            ""
-          ],
-          "sunday": [
-            "",
-            ""
-          ]
-        },
-        {
-          "week": 25,
-          "monday": [
-            "15:30",
-            "21:00"
-          ],
-          "tuesday": [],
-          "wednesday": [],
-          "thursday": [],
-          "friday": [],
           "saturday": [
             "",
             ""
@@ -19548,7 +19255,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "20:00"
@@ -19573,7 +19280,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "20:00"
@@ -19618,7 +19325,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "14:00",
             "20:00"
@@ -19643,7 +19350,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "14:00",
             "20:00"
@@ -19689,7 +19396,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "20:00"
@@ -19714,7 +19421,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "20:00"
@@ -19757,7 +19464,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "21:00"
@@ -19788,7 +19495,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "21:00"
@@ -19836,11 +19543,12 @@
         "DPD",
         "GLSNL",
         "STATIEGELDNL",
-        "GOFO"
+        "GOFO",
+        "AMAZON"
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "21:00"
@@ -19871,7 +19579,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "21:00"
@@ -19923,7 +19631,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "21:00"
@@ -19954,7 +19662,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "21:00"
@@ -19971,14 +19679,8 @@
             "15:30",
             "21:00"
           ],
-          "friday": [
-            "15:30",
-            "21:00"
-          ],
-          "saturday": [
-            "",
-            ""
-          ],
+          "friday": [],
+          "saturday": [],
           "sunday": [
             "",
             ""
@@ -20005,7 +19707,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -20036,7 +19738,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -20053,10 +19755,7 @@
             "15:00",
             "21:00"
           ],
-          "friday": [
-            "15:00",
-            "21:00"
-          ],
+          "friday": [],
           "saturday": [
             "",
             ""
@@ -20085,7 +19784,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -20116,7 +19815,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -20165,7 +19864,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -20196,7 +19895,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -20246,7 +19945,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -20277,7 +19976,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -20329,7 +20028,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -20360,7 +20059,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -20409,7 +20108,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -20440,7 +20139,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -20492,7 +20191,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "10:00",
             "21:00"
@@ -20517,7 +20216,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "10:00",
             "21:00"
@@ -20562,7 +20261,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -20593,7 +20292,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -20641,7 +20340,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -20672,7 +20371,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -20723,7 +20422,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -20754,7 +20453,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -20802,7 +20501,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -20833,7 +20532,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -20878,11 +20577,12 @@
       "phone": "+31 (0)10 26 13 505",
       "transporters": [
         "DHL",
-        "STATIEGELDNL"
+        "STATIEGELDNL",
+        "AMAZON"
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -20913,7 +20613,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -20964,7 +20664,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -20995,7 +20695,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -21045,7 +20745,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "10:00",
             "20:00"
@@ -21073,7 +20773,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "10:00",
             "20:00"
@@ -21120,7 +20820,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -21151,7 +20851,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -21170,6 +20870,86 @@
           ],
           "friday": [
             "15:00",
+            "21:00"
+          ],
+          "saturday": [
+            "",
+            ""
+          ],
+          "sunday": [
+            "",
+            ""
+          ]
+        }
+      ]
+    },
+    {
+      "viacode": "VIP-KCNM2-NL",
+      "locatieNaam": "ViaTim en Nanny",
+      "straatNaam": "Rozenstraat",
+      "straatNr": "22",
+      "postcode": "4142XZ",
+      "city": "Leerdam",
+      "latitude": 51.8858216180371,
+      "longitude": 5.08145976458747,
+      "email": "viaverbinder@viatim.nl",
+      "phone": "+31 (0)10 26 13 505",
+      "transporters": [
+        "DHL",
+        "STATIEGELDNL"
+      ],
+      "hours": [
+        {
+          "week": 25,
+          "monday": [
+            "16:00",
+            "21:00"
+          ],
+          "tuesday": [
+            "16:00",
+            "21:00"
+          ],
+          "wednesday": [
+            "16:00",
+            "21:00"
+          ],
+          "thursday": [
+            "16:00",
+            "21:00"
+          ],
+          "friday": [
+            "16:00",
+            "21:00"
+          ],
+          "saturday": [
+            "",
+            ""
+          ],
+          "sunday": [
+            "",
+            ""
+          ]
+        },
+        {
+          "week": 26,
+          "monday": [
+            "16:00",
+            "21:00"
+          ],
+          "tuesday": [
+            "16:00",
+            "21:00"
+          ],
+          "wednesday": [
+            "16:00",
+            "21:00"
+          ],
+          "thursday": [
+            "16:00",
+            "21:00"
+          ],
+          "friday": [
+            "16:00",
             "21:00"
           ],
           "saturday": [
@@ -21200,7 +20980,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "14:00",
             "21:00"
@@ -21228,7 +21008,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "14:00",
             "21:00"
@@ -21254,86 +21034,6 @@
             "21:00"
           ],
           "sunday": []
-        }
-      ]
-    },
-    {
-      "viacode": "VIP-KCNM2-NL",
-      "locatieNaam": "ViaTim en Nanny",
-      "straatNaam": "Rozenstraat",
-      "straatNr": "22",
-      "postcode": "4142XZ",
-      "city": "Leerdam",
-      "latitude": 51.8858216180371,
-      "longitude": 5.08145976458747,
-      "email": "viaverbinder@viatim.nl",
-      "phone": "+31 (0)10 26 13 505",
-      "transporters": [
-        "DHL",
-        "STATIEGELDNL"
-      ],
-      "hours": [
-        {
-          "week": 24,
-          "monday": [
-            "16:00",
-            "21:00"
-          ],
-          "tuesday": [
-            "16:00",
-            "21:00"
-          ],
-          "wednesday": [
-            "16:00",
-            "21:00"
-          ],
-          "thursday": [
-            "16:00",
-            "21:00"
-          ],
-          "friday": [
-            "16:00",
-            "21:00"
-          ],
-          "saturday": [
-            "",
-            ""
-          ],
-          "sunday": [
-            "",
-            ""
-          ]
-        },
-        {
-          "week": 25,
-          "monday": [
-            "16:00",
-            "21:00"
-          ],
-          "tuesday": [
-            "16:00",
-            "21:00"
-          ],
-          "wednesday": [
-            "16:00",
-            "21:00"
-          ],
-          "thursday": [
-            "16:00",
-            "21:00"
-          ],
-          "friday": [
-            "16:00",
-            "21:00"
-          ],
-          "saturday": [
-            "",
-            ""
-          ],
-          "sunday": [
-            "",
-            ""
-          ]
         }
       ]
     },
@@ -21355,7 +21055,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [
             "09:30",
@@ -21380,7 +21080,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [
             "09:30",
@@ -21423,7 +21123,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "21:00"
@@ -21440,10 +21140,7 @@
             "15:30",
             "21:00"
           ],
-          "friday": [
-            "15:30",
-            "21:00"
-          ],
+          "friday": [],
           "saturday": [
             "",
             ""
@@ -21454,7 +21151,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "21:00"
@@ -21503,15 +21200,12 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
           ],
-          "tuesday": [
-            "15:00",
-            "21:00"
-          ],
+          "tuesday": [],
           "wednesday": [
             "15:00",
             "21:00"
@@ -21520,10 +21214,7 @@
             "15:00",
             "21:00"
           ],
-          "friday": [
-            "15:00",
-            "21:00"
-          ],
+          "friday": [],
           "saturday": [
             "15:00",
             "21:00"
@@ -21534,7 +21225,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -21583,7 +21274,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -21614,7 +21305,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -21663,7 +21354,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -21694,7 +21385,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -21743,7 +21434,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "21:00"
@@ -21774,7 +21465,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "21:00"
@@ -21824,16 +21515,6 @@
       ],
       "hours": [
         {
-          "week": 24,
-          "monday": [],
-          "tuesday": [],
-          "wednesday": [],
-          "thursday": [],
-          "friday": [],
-          "saturday": [],
-          "sunday": []
-        },
-        {
           "week": 25,
           "monday": [],
           "tuesday": [],
@@ -21848,6 +21529,37 @@
             ""
           ],
           "sunday": []
+        },
+        {
+          "week": 26,
+          "monday": [
+            "15:30",
+            "21:00"
+          ],
+          "tuesday": [
+            "15:30",
+            "21:00"
+          ],
+          "wednesday": [
+            "15:30",
+            "21:00"
+          ],
+          "thursday": [
+            "15:30",
+            "21:00"
+          ],
+          "friday": [
+            "15:30",
+            "21:00"
+          ],
+          "saturday": [
+            "",
+            ""
+          ],
+          "sunday": [
+            "",
+            ""
+          ]
         }
       ]
     },
@@ -21869,7 +21581,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "10:00",
             "21:00"
@@ -21897,7 +21609,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "10:00",
             "21:00"
@@ -21945,7 +21657,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -21970,7 +21682,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -22012,7 +21724,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -22043,7 +21755,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -22094,7 +21806,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "10:00",
             "21:00"
@@ -22125,7 +21837,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "10:00",
             "21:00"
@@ -22176,7 +21888,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -22207,7 +21919,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -22257,7 +21969,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "21:00"
@@ -22288,7 +22000,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "21:00"
@@ -22341,7 +22053,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -22372,7 +22084,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -22420,7 +22132,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "20:00"
@@ -22445,7 +22157,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "20:00"
@@ -22491,7 +22203,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "10:00",
             "21:00"
@@ -22522,7 +22234,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "10:00",
             "21:00"
@@ -22573,7 +22285,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -22601,7 +22313,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -22647,7 +22359,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -22678,7 +22390,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -22728,7 +22440,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -22759,7 +22471,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -22810,7 +22522,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "21:00"
@@ -22841,7 +22553,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "21:00"
@@ -22893,7 +22605,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "21:00"
@@ -22924,7 +22636,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "21:00"
@@ -22975,7 +22687,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -23003,7 +22715,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -23053,7 +22765,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -23084,7 +22796,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -23135,7 +22847,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -23163,7 +22875,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -23209,7 +22921,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "20:00"
@@ -23240,7 +22952,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "20:00"
@@ -23291,7 +23003,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -23322,7 +23034,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -23374,7 +23086,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "12:00",
             "21:00"
@@ -23405,7 +23117,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "12:00",
             "21:00"
@@ -23455,7 +23167,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -23480,7 +23192,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -23527,7 +23239,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -23558,7 +23270,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -23607,7 +23319,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "21:00"
@@ -23638,7 +23350,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "21:00"
@@ -23690,7 +23402,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "14:00",
             "21:00"
@@ -23721,7 +23433,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "14:00",
             "21:00"
@@ -23771,7 +23483,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -23802,7 +23514,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -23815,10 +23527,7 @@
             "16:00",
             "21:00"
           ],
-          "thursday": [
-            "16:00",
-            "21:00"
-          ],
+          "thursday": [],
           "friday": [
             "16:00",
             "21:00"
@@ -23854,7 +23563,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -23885,7 +23594,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -23933,7 +23642,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -23964,7 +23673,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -24016,7 +23725,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -24041,7 +23750,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -24086,7 +23795,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -24117,7 +23826,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -24169,7 +23878,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "21:00"
@@ -24200,7 +23909,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "21:00"
@@ -24248,11 +23957,12 @@
         "UPS",
         "DPD",
         "GLSNL",
-        "STATIEGELDNL"
+        "STATIEGELDNL",
+        "AMAZON"
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "21:00"
@@ -24280,7 +23990,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "21:00"
@@ -24328,7 +24038,32 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
+          "monday": [
+            "14:00",
+            "21:00"
+          ],
+          "tuesday": [
+            "14:00",
+            "21:00"
+          ],
+          "wednesday": [
+            "14:00",
+            "21:00"
+          ],
+          "thursday": [
+            "14:00",
+            "21:00"
+          ],
+          "friday": [
+            "14:00",
+            "21:00"
+          ],
+          "saturday": [],
+          "sunday": []
+        },
+        {
+          "week": 26,
           "monday": [
             "14:00",
             "21:00"
@@ -24354,31 +24089,6 @@
             "19:00"
           ],
           "sunday": []
-        },
-        {
-          "week": 25,
-          "monday": [
-            "14:00",
-            "21:00"
-          ],
-          "tuesday": [
-            "14:00",
-            "21:00"
-          ],
-          "wednesday": [
-            "14:00",
-            "21:00"
-          ],
-          "thursday": [
-            "14:00",
-            "21:00"
-          ],
-          "friday": [
-            "14:00",
-            "21:00"
-          ],
-          "saturday": [],
-          "sunday": []
         }
       ]
     },
@@ -24402,7 +24112,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "13:30",
             "21:00"
@@ -24427,7 +24137,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "13:30",
             "21:00"
@@ -24472,7 +24182,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -24497,7 +24207,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -24543,7 +24253,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -24574,7 +24284,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -24620,11 +24330,12 @@
       "transporters": [
         "DHL",
         "STATIEGELDNL",
-        "GOFO"
+        "GOFO",
+        "AMAZON"
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "21:00"
@@ -24655,7 +24366,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "21:00"
@@ -24690,9 +24401,9 @@
     {
       "viacode": "VIP-XDGMG-NL",
       "locatieNaam": "ViaTim en van den Heuvel",
-      "straatNaam": "van Wenastraat",
-      "straatNr": "21",
-      "postcode": "3381BK",
+      "straatNaam": "Nijverheidsweg",
+      "straatNr": "10",
+      "postcode": "3381lm",
       "city": "Giessenburg",
       "latitude": 51.8509665088839,
       "longitude": 4.89147495579089,
@@ -24705,7 +24416,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "09:00",
             "21:00"
@@ -24733,7 +24444,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "09:00",
             "21:00"
@@ -24784,7 +24495,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -24809,7 +24520,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -24854,7 +24565,17 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
+          "monday": [],
+          "tuesday": [],
+          "wednesday": [],
+          "thursday": [],
+          "friday": [],
+          "saturday": [],
+          "sunday": []
+        },
+        {
+          "week": 26,
           "monday": [
             "15:30",
             "21:00"
@@ -24875,20 +24596,10 @@
             "15:30",
             "21:00"
           ],
-          "saturday": [],
-          "sunday": [
+          "saturday": [
             "",
             ""
-          ]
-        },
-        {
-          "week": 25,
-          "monday": [],
-          "tuesday": [],
-          "wednesday": [],
-          "thursday": [],
-          "friday": [],
-          "saturday": [],
+          ],
           "sunday": []
         }
       ]
@@ -24913,7 +24624,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -24944,7 +24655,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -24992,11 +24703,28 @@
         "UPS",
         "DPD",
         "GLSNL",
-        "STATIEGELDNL"
+        "STATIEGELDNL",
+        "AMAZON"
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
+          "monday": [],
+          "tuesday": [],
+          "wednesday": [],
+          "thursday": [],
+          "friday": [],
+          "saturday": [
+            "",
+            ""
+          ],
+          "sunday": [
+            "",
+            ""
+          ]
+        },
+        {
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -25025,22 +24753,6 @@
             "",
             ""
           ]
-        },
-        {
-          "week": 25,
-          "monday": [],
-          "tuesday": [],
-          "wednesday": [],
-          "thursday": [],
-          "friday": [],
-          "saturday": [
-            "",
-            ""
-          ],
-          "sunday": [
-            "",
-            ""
-          ]
         }
       ]
     },
@@ -25061,7 +24773,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -25092,7 +24804,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -25142,7 +24854,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -25173,7 +24885,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -25186,10 +24898,7 @@
             "16:00",
             "21:00"
           ],
-          "thursday": [
-            "16:00",
-            "21:00"
-          ],
+          "thursday": [],
           "friday": [
             "16:00",
             "21:00"
@@ -25221,7 +24930,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "14:00",
             "21:00"
@@ -25252,7 +24961,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "14:00",
             "21:00"
@@ -25300,7 +25009,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "08:00",
             "17:00"
@@ -25325,7 +25034,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "08:00",
             "17:00"
@@ -25368,7 +25077,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "21:00"
@@ -25399,7 +25108,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "21:00"
@@ -25448,7 +25157,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "13:00",
             "20:00"
@@ -25479,7 +25188,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "13:00",
             "20:00"
@@ -25530,7 +25239,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -25555,7 +25264,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -25598,7 +25307,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "14:00",
             "20:00"
@@ -25626,7 +25335,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "14:00",
             "20:00"
@@ -25671,7 +25380,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "21:00"
@@ -25702,7 +25411,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "21:00"
@@ -25754,7 +25463,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "10:00",
             "20:00"
@@ -25779,7 +25488,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "10:00",
             "20:00"
@@ -25820,11 +25529,12 @@
         "DHL",
         "UPS",
         "DPD",
-        "STATIEGELDNL"
+        "STATIEGELDNL",
+        "AMAZON"
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "14:00",
             "20:00"
@@ -25849,7 +25559,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "14:00",
             "20:00"
@@ -25896,7 +25606,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -25927,7 +25637,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -25980,7 +25690,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -26011,7 +25721,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -26063,7 +25773,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "20:00"
@@ -26094,7 +25804,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "20:00"
@@ -26148,7 +25858,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "12:00",
             "21:00"
@@ -26176,7 +25886,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "12:00",
             "21:00"
@@ -26221,7 +25931,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -26252,7 +25962,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -26300,7 +26010,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -26325,7 +26035,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -26371,7 +26081,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -26402,7 +26112,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -26454,7 +26164,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "11:00",
             "22:00"
@@ -26482,7 +26192,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "11:00",
             "22:00"
@@ -26529,7 +26239,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -26554,7 +26264,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -26597,7 +26307,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "14:30",
             "21:00"
@@ -26628,7 +26338,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "14:30",
             "21:00"
@@ -26678,7 +26388,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -26709,7 +26419,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -26761,7 +26471,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -26786,7 +26496,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -26832,7 +26542,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -26863,7 +26573,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -26912,7 +26622,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "13:00",
             "17:30"
@@ -26943,7 +26653,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "13:00",
             "17:30"
@@ -26991,7 +26701,23 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
+          "monday": [],
+          "tuesday": [],
+          "wednesday": [],
+          "thursday": [],
+          "friday": [
+            "16:00",
+            "20:00"
+          ],
+          "saturday": [
+            "",
+            ""
+          ],
+          "sunday": []
+        },
+        {
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -27012,27 +26738,14 @@
             "16:00",
             "20:00"
           ],
-          "saturday": [],
-          "sunday": [
-            "",
-            ""
-          ]
-        },
-        {
-          "week": 25,
-          "monday": [],
-          "tuesday": [],
-          "wednesday": [],
-          "thursday": [],
-          "friday": [
-            "16:00",
-            "20:00"
-          ],
           "saturday": [
             "",
             ""
           ],
-          "sunday": []
+          "sunday": [
+            "",
+            ""
+          ]
         }
       ]
     },
@@ -27053,7 +26766,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "13:00",
             "20:00"
@@ -27078,7 +26791,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "13:00",
             "20:00"
@@ -27123,7 +26836,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "20:00"
@@ -27154,7 +26867,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "20:00"
@@ -27205,7 +26918,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "14:00",
             "21:00"
@@ -27236,7 +26949,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "14:00",
             "21:00"
@@ -27287,7 +27000,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "21:00"
@@ -27318,7 +27031,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "21:00"
@@ -27369,7 +27082,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:30"
@@ -27394,7 +27107,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:30"
@@ -27441,7 +27154,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "12:00",
             "21:00"
@@ -27472,7 +27185,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "12:00",
             "21:00"
@@ -27524,7 +27237,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "12:00",
             "21:00"
@@ -27555,7 +27268,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "12:00",
             "21:00"
@@ -27608,7 +27321,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -27639,7 +27352,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -27687,7 +27400,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -27718,7 +27431,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -27769,7 +27482,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "21:00"
@@ -27800,7 +27513,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "21:00"
@@ -27852,7 +27565,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "21:00"
@@ -27883,7 +27596,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "21:00"
@@ -27900,10 +27613,7 @@
             "15:30",
             "21:00"
           ],
-          "friday": [
-            "15:30",
-            "21:00"
-          ],
+          "friday": [],
           "saturday": [
             "",
             ""
@@ -27934,7 +27644,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -27962,7 +27672,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -28010,7 +27720,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -28041,7 +27751,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -28092,7 +27802,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -28123,7 +27833,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -28173,7 +27883,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -28204,7 +27914,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -28258,7 +27968,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "13:00",
             "21:00"
@@ -28289,7 +27999,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "13:00",
             "21:00"
@@ -28341,7 +28051,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "20:00"
@@ -28350,7 +28060,10 @@
             "15:00",
             "20:00"
           ],
-          "wednesday": [],
+          "wednesday": [
+            "15:00",
+            "20:00"
+          ],
           "thursday": [
             "15:00",
             "20:00"
@@ -28369,7 +28082,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "20:00"
@@ -28419,7 +28132,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -28450,7 +28163,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -28500,7 +28213,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -28531,7 +28244,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -28582,11 +28295,8 @@
       ],
       "hours": [
         {
-          "week": 24,
-          "monday": [
-            "16:00",
-            "21:00"
-          ],
+          "week": 25,
+          "monday": [],
           "tuesday": [
             "16:00",
             "21:00"
@@ -28613,8 +28323,11 @@
           ]
         },
         {
-          "week": 25,
-          "monday": [],
+          "week": 26,
+          "monday": [
+            "16:00",
+            "21:00"
+          ],
           "tuesday": [
             "16:00",
             "21:00"
@@ -28659,7 +28372,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -28690,7 +28403,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -28743,7 +28456,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "14:00",
             "22:00"
@@ -28774,7 +28487,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "14:00",
             "22:00"
@@ -28824,7 +28537,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -28855,7 +28568,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -28905,7 +28618,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -28933,7 +28646,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -28982,7 +28695,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "13:00",
             "21:00"
@@ -29007,7 +28720,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "13:00",
             "21:00"
@@ -29047,11 +28760,12 @@
       "transporters": [
         "DHL",
         "BOXO",
-        "STATIEGELDNL"
+        "STATIEGELDNL",
+        "AMAZON"
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -29076,7 +28790,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"
@@ -29119,19 +28833,6 @@
       ],
       "hours": [
         {
-          "week": 24,
-          "monday": [],
-          "tuesday": [],
-          "wednesday": [],
-          "thursday": [],
-          "friday": [],
-          "saturday": [],
-          "sunday": [
-            "",
-            ""
-          ]
-        },
-        {
           "week": 25,
           "monday": [],
           "tuesday": [],
@@ -29143,6 +28844,37 @@
             ""
           ],
           "sunday": []
+        },
+        {
+          "week": 26,
+          "monday": [
+            "16:00",
+            "21:00"
+          ],
+          "tuesday": [
+            "16:00",
+            "21:00"
+          ],
+          "wednesday": [
+            "16:00",
+            "21:00"
+          ],
+          "thursday": [
+            "16:00",
+            "21:00"
+          ],
+          "friday": [
+            "16:00",
+            "21:00"
+          ],
+          "saturday": [
+            "",
+            ""
+          ],
+          "sunday": [
+            "",
+            ""
+          ]
         }
       ]
     },
@@ -29166,7 +28898,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "21:00"
@@ -29194,7 +28926,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "21:00"
@@ -29242,7 +28974,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -29273,7 +29005,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -29325,7 +29057,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [],
           "tuesday": [
             "16:00",
@@ -29355,7 +29087,7 @@
           "sunday": []
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [],
           "tuesday": [
             "16:00",
@@ -29406,7 +29138,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -29437,7 +29169,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -29487,7 +29219,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "10:00",
             "17:00"
@@ -29518,7 +29250,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "10:00",
             "17:00"
@@ -29567,7 +29299,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "21:00"
@@ -29598,7 +29330,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "21:00"
@@ -29650,7 +29382,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -29681,7 +29413,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -29732,7 +29464,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "21:00"
@@ -29763,7 +29495,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "21:00"
@@ -29813,7 +29545,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:30",
             "21:00"
@@ -29844,7 +29576,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:30",
             "21:00"
@@ -29894,7 +29626,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "15:00",
             "21:00"
@@ -29925,7 +29657,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "15:00",
             "21:00"
@@ -29975,7 +29707,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "21:00"
@@ -30006,7 +29738,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "21:00"
@@ -30055,7 +29787,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "",
             ""
@@ -30086,7 +29818,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "",
             ""
@@ -30139,7 +29871,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "10:00",
             "20:00"
@@ -30170,7 +29902,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "10:00",
             "20:00"
@@ -30222,7 +29954,7 @@
       ],
       "hours": [
         {
-          "week": 24,
+          "week": 25,
           "monday": [
             "16:00",
             "20:00"
@@ -30253,7 +29985,7 @@
           ]
         },
         {
-          "week": 25,
+          "week": 26,
           "monday": [
             "16:00",
             "20:00"

@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Purmerend",
     "slug": "purmerend",
-    "generated_at": "2026-06-08T07:16:07.354174Z",
-    "total_points": 88,
+    "generated_at": "2026-06-15T07:54:46.208579Z",
+    "total_points": 89,
     "providers": [
       "Amazon",
       "DHL",
@@ -1584,6 +1584,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.5107193,
         "longitude": 4.9466585,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9476741,
+          52.5094426
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pearls And Swines Purmerend",
+        "straatNaam": "Breedstraat 35",
+        "straatNr": "",
+        "vervoerder": "VintedGo",
+        "puntType": "parcel_shop",
+        "bezettingsgraad": 50,
+        "latitude": 52.5094426,
+        "longitude": 4.9476741,
         "canPickup": true,
         "canDropoff": true
       }
@@ -5852,10 +5875,6 @@
           [
             [
               [
-                5.007555711865535,
-                52.50944245893437
-              ],
-              [
                 5.007299218874211,
                 52.509229114160036
               ],
@@ -5996,7 +6015,7 @@
                 52.51084012989518
               ],
               [
-                4.995046742321463,
+                4.995046742321461,
                 52.51096609643033
               ],
               [
@@ -6028,7 +6047,7 @@
                 52.51257801157773
               ],
               [
-                4.994163439924847,
+                4.994163439924848,
                 52.51282884887733
               ],
               [
@@ -6446,6 +6465,10 @@
               [
                 5.007555711865535,
                 52.50944245893437
+              ],
+              [
+                5.007299218874211,
+                52.509229114160036
               ]
             ]
           ],

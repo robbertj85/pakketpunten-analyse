@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Nijkerk",
     "slug": "nijkerk",
-    "generated_at": "2026-06-08T07:13:24.571317Z",
+    "generated_at": "2026-06-15T07:51:52.868128Z",
     "total_points": 52,
     "providers": [
       "Amazon",
@@ -97,29 +97,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          5.485817683,
-          52.22386795
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Primera  Nijkerk",
-        "straatNaam": "Singel 4",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 52.22386795,
-        "longitude": 5.485817683,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           5.46992147,
           52.23040533
         ]
@@ -157,6 +134,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.21499571,
         "longitude": 5.476082223,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.485817683,
+          52.22386795
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Primera  Nijkerk",
+        "straatNaam": "Singel 4",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.22386795,
+        "longitude": 5.485817683,
         "canPickup": true,
         "canDropoff": false
       }

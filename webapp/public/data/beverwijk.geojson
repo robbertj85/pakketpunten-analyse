@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Beverwijk",
     "slug": "beverwijk",
-    "generated_at": "2026-06-08T07:00:26.187536Z",
-    "total_points": 56,
+    "generated_at": "2026-06-15T07:37:58.000118Z",
+    "total_points": 57,
     "providers": [
       "Amazon",
       "DeBuren",
@@ -1169,6 +1169,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.4835593,
         "longitude": 4.6603076,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.663867,
+          52.4965005
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Sindbad Markt ",
+        "straatNaam": "President Kennedyplein 5",
+        "straatNr": "",
+        "vervoerder": "VintedGo",
+        "puntType": "parcel_shop",
+        "bezettingsgraad": 50,
+        "latitude": 52.4965005,
+        "longitude": 4.663867,
         "canPickup": true,
         "canDropoff": true
       }
