@@ -172,6 +172,10 @@ export default function BeleidsprincipesPage() {
           Geen beleidsprincipes beschikbaar voor deze gemeente.
         </div>
       )}
+
+      <p className="text-xs text-gray-500 italic">
+        Aan de informatie op deze pagina kunnen geen rechten worden ontleend.
+      </p>
     </div>
   );
 }
