@@ -19,6 +19,7 @@ export default function DataExportLayout({
   const isBereik = pathname === '/data-export/bereik';
   const isSuggesties = pathname === '/data-export/suggesties';
   const isPois = pathname === '/data-export/pois';
+  const isBeleidsprincipes = pathname === '/data-export/beleidsprincipes';
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -106,6 +107,19 @@ export default function DataExportLayout({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 21h18M5 21V7l8-4 8 4v14M9 9h.01M9 12h.01M9 15h.01M9 18h.01M13 9h.01M13 12h.01M13 15h.01M13 18h.01" />
               </svg>
               Pijnpunten (gemeenten)
+            </Link>
+            <Link
+              href="/data-export/beleidsprincipes"
+              className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
+                isBeleidsprincipes
+                  ? 'border-blue-600 text-blue-600'
+                  : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+              }`}
+            >
+              <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              Beleidsprincipes
             </Link>
             <Link
               href="/data-export/schatting"
