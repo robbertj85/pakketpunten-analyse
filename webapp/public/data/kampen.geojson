@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Kampen",
     "slug": "kampen",
-    "generated_at": "2026-05-25T06:52:32.319945Z",
+    "generated_at": "2026-06-15T07:47:37.771760Z",
     "total_points": 63,
     "providers": [
       "Amazon",
@@ -36,7 +36,7 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "DHL - Pakketautomaat Plaza N50",
-        "straatNaam": "Zambonistraat 9-DB/94",
+        "straatNaam": "Zambonistraat 9",
         "straatNr": "",
         "vervoerder": "Amazon",
         "puntType": "3p",
@@ -151,7 +151,7 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "DHL - Pakketautomaat Basic-Fit De Maten",
-        "straatNaam": "De Maten 10-PS/104",
+        "straatNaam": "De Maten 10",
         "straatNr": "",
         "vervoerder": "Amazon",
         "puntType": "3p",
@@ -244,7 +244,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Basic-Fit De Maten",
         "straatNaam": "De Maten",
-        "straatNr": "10-PS/104",
+        "straatNr": "10",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -267,7 +267,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Praxis IJsselmuiden",
         "straatNaam": "Veldoven",
-        "straatNr": "9-PS/88",
+        "straatNr": "9",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -428,7 +428,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Praxis Kampen",
         "straatNaam": "Eastmanstraat",
-        "straatNr": "1-PS/87",
+        "straatNr": "1",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -451,7 +451,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Plaza N50",
         "straatNaam": "Zambonistraat",
-        "straatNr": "9-DB/94",
+        "straatNr": "9",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -474,7 +474,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Karwei Kampen",
         "straatNaam": "Ambachtsstraat",
-        "straatNr": "1-PS/108",
+        "straatNr": "1",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -520,7 +520,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Lidl Hanzeplein",
         "straatNaam": "Hanzeplein",
-        "straatNr": "29-PS/75",
+        "straatNr": "29",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -1340,6 +1340,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          5.8923298,
+          52.5631104
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat",
+        "straatNaam": "Ambachtsstraat",
+        "straatNr": "1",
+        "vervoerder": "GLS",
+        "puntType": "locker",
+        "bezettingsgraad": 50,
+        "latitude": 52.5631104,
+        "longitude": 5.8923298,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           5.88559592,
           52.5571084
         ]
@@ -1400,29 +1423,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.55584904350756,
         "longitude": 5.932564529948912,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.91856,
-          52.55563
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "ZOETELIEF KAMPEN",
-        "straatNaam": "GEERSTRAAT 16",
-        "straatNr": "",
-        "vervoerder": "InPost",
-        "puntType": "servicepunt",
-        "bezettingsgraad": 50,
-        "latitude": 52.55563,
-        "longitude": 5.91856,
         "canPickup": true,
         "canDropoff": true
       }
@@ -2910,7 +2910,7 @@
               ],
               [
                 5.903517577526407,
-                52.55754680230292
+                52.557546802302895
               ],
               [
                 5.903487746135655,
@@ -4761,20 +4761,12 @@
                 52.55527573582599
               ],
               [
-                5.922933308026489,
-                52.55524607260223
+                5.922885273358188,
+                52.55518533799618
               ],
               [
-                5.922891983991815,
-                52.55508452439148
-              ],
-              [
-                5.922783392697341,
-                52.55482835013295
-              ],
-              [
-                5.922751571671871,
-                52.55477538307933
+                5.92282428852864,
+                52.554946927961126
               ],
               [
                 5.922715697968827,
@@ -9027,20 +9019,16 @@
                 52.55525693348382
               ],
               [
-                5.924361900092306,
-                52.55500408123204
+                5.924314786788128,
+                52.55492566528794
               ],
               [
-                5.924335953966505,
-                52.554902662666926
+                5.924306736086968,
+                52.554915486488014
               ],
               [
-                5.924191155280981,
-                52.5545610987242
-              ],
-              [
-                5.924159332760211,
-                52.55450813204673
+                5.924268254282586,
+                52.55476506705997
               ],
               [
                 5.92412345657667,

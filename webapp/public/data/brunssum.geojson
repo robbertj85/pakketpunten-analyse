@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Brunssum",
     "slug": "brunssum",
-    "generated_at": "2026-05-25T06:44:51.836575Z",
-    "total_points": 30,
+    "generated_at": "2026-06-15T07:39:05.377414Z",
+    "total_points": 31,
     "providers": [
       "Amazon",
       "DHL",
@@ -22,6 +22,29 @@
     ]
   },
   "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.949331455,
+          50.93265941
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "GAMMA Brunssum",
+        "straatNaam": "Pijler 38",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 50.93265941,
+        "longitude": 5.949331455,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
     {
       "type": "Feature",
       "geometry": {
@@ -81,7 +104,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat GAMMA Brunssum",
         "straatNaam": "De Pijler",
-        "straatNr": "38-PS/88",
+        "straatNr": "38",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -104,7 +127,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Basic-Fit Brunssum",
         "straatNaam": "Haefland",
-        "straatNr": "2-PS/73",
+        "straatNr": "2",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -196,7 +219,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Lidl Brunssum",
         "straatNaam": "Rumpenerstraat",
-        "straatNr": "116-PS/58",
+        "straatNr": "116",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -609,7 +632,7 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "WLL E-COMMERCE",
-        "straatNaam": "MOLENVAART 3 A",
+        "straatNaam": "Molenvaart 3 a",
         "straatNr": "",
         "vervoerder": "InPost",
         "puntType": "servicepunt",
@@ -632,7 +655,7 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "EVERY DAY DRINK SLIJTERIJ",
-        "straatNaam": "HET WINKELCENTRUM 15",
+        "straatNaam": "Het Winkelcentrum 15",
         "straatNr": "",
         "vervoerder": "InPost",
         "puntType": "servicepunt",
@@ -924,7 +947,7 @@
                 50.934571844829904
               ],
               [
-                5.946330330235919,
+                5.946330330235917,
                 50.93457607822871
               ],
               [
@@ -2936,7 +2959,7 @@
                 50.93521227826365
               ],
               [
-                5.94533217482983,
+                5.945332174829827,
                 50.935216511727184
               ],
               [
@@ -2944,7 +2967,7 @@
                 50.93522119875819
               ],
               [
-                5.945693981676455,
+                5.945693981676458,
                 50.93542140064717
               ],
               [
@@ -3184,7 +3207,7 @@
                 50.93032922828702
               ],
               [
-                5.953369443275685,
+                5.953369443275689,
                 50.930129051027635
               ],
               [
@@ -3192,7 +3215,7 @@
                 50.930097490724215
               ],
               [
-                5.953315964295665,
+                5.953315964295664,
                 50.93009325777895
               ],
               [
@@ -4088,8 +4111,8 @@
                 50.95005026783674
               ],
               [
-                5.965247700752522,
-                50.94995820757672
+                5.965247700752524,
+                50.949958207576714
               ],
               [
                 5.965263475528853,

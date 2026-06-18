@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Teylingen",
     "slug": "teylingen",
-    "generated_at": "2026-05-25T07:02:23.882837Z",
+    "generated_at": "2026-06-15T07:58:30.717284Z",
     "total_points": 25,
     "providers": [
       "Amazon",
@@ -126,7 +126,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Sassenheim Oosteind",
         "straatNaam": "Oosteinde",
-        "straatNr": "32-DB/83",
+        "straatNr": "32",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -172,58 +172,12 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Kringloop Hoofdstr",
         "straatNaam": "Hoofdstraat",
-        "straatNr": "204-PS/121",
+        "straatNr": "204",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
         "latitude": 52.22535944708358,
         "longitude": 4.520788515223109,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.520773887634277,
-          52.22544860839844
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Boekhandel Wagner",
-        "straatNaam": "Hoofdstraat",
-        "straatNr": "181",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 52.22544860839844,
-        "longitude": 4.520773887634277,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.5219159,
-          52.2263002
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat terStal Sassenheim",
-        "straatNaam": "Hoofdstraat",
-        "straatNr": "197-PS/73",
-        "vervoerder": "DHL",
-        "puntType": "packStation",
-        "bezettingsgraad": 50,
-        "latitude": 52.2263002,
-        "longitude": 4.5219159,
         "canPickup": true,
         "canDropoff": true
       }
@@ -241,7 +195,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat PLUS Voorhout",
         "straatNaam": "Herenstraat",
-        "straatNr": "45-PS/117",
+        "straatNr": "45",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -270,6 +224,52 @@
         "bezettingsgraad": 50,
         "latitude": 52.2274843,
         "longitude": 4.5254721,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.5219159,
+          52.2263002
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat terStal Sassenheim",
+        "straatNaam": "Hoofdstraat",
+        "straatNr": "197-Kast",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 52.2263002,
+        "longitude": 4.5219159,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.520773887634277,
+          52.22544860839844
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Boekhandel Wagner",
+        "straatNaam": "Hoofdstraat",
+        "straatNr": "181",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 52.22544860839844,
+        "longitude": 4.520773887634277,
         "canPickup": true,
         "canDropoff": true
       }
@@ -585,7 +585,7 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "STOMERIJ SASSEN",
-        "straatNaam": "HERENSTRAAT 10",
+        "straatNaam": "Herenstraat 10",
         "straatNr": "",
         "vervoerder": "InPost",
         "puntType": "servicepunt",

@@ -3,10 +3,9 @@
   "metadata": {
     "gemeente": "Laarbeek",
     "slug": "laarbeek",
-    "generated_at": "2026-05-25T06:53:05.269861Z",
-    "total_points": 20,
+    "generated_at": "2026-06-15T07:48:14.462674Z",
+    "total_points": 19,
     "providers": [
-      "Amazon",
       "DHL",
       "DPD",
       "PostNL",
@@ -21,29 +20,6 @@
     ]
   },
   "features": [
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.64818567713509,
-          51.5067116520417
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Foamworld",
-        "straatNaam": "De Duivenakker 1 A",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 51.5067116520417,
-        "longitude": 5.64818567713509,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
     {
       "type": "Feature",
       "geometry": {
@@ -149,7 +125,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat AVIA Beek en Donk",
         "straatNaam": "Brugstraat",
-        "straatNr": "2-PS/75",
+        "straatNr": "2",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -785,14 +761,6 @@
           [
             [
               [
-                5.6290135025928265,
-                51.5354090080274
-              ],
-              [
-                5.628593568814573,
-                51.53537104755813
-              ],
-              [
                 5.628169691376445,
                 51.535358938353525
               ],
@@ -1103,6 +1071,14 @@
               [
                 5.6290135025928265,
                 51.5354090080274
+              ],
+              [
+                5.628593568814573,
+                51.53537104755813
+              ],
+              [
+                5.628169691376445,
+                51.535358938353525
               ]
             ]
           ],
@@ -2789,14 +2765,6 @@
           [
             [
               [
-                5.629289981394999,
-                51.53452684141828
-              ],
-              [
-                5.62873008041164,
-                51.53447622843854
-              ],
-              [
                 5.628164921626082,
                 51.534460083142854
               ],
@@ -3095,6 +3063,14 @@
               [
                 5.629289981394999,
                 51.53452684141828
+              ],
+              [
+                5.62873008041164,
+                51.53447622843854
+              ],
+              [
+                5.628164921626082,
+                51.534460083142854
               ]
             ]
           ],

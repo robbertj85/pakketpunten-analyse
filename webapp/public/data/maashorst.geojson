@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Maashorst",
     "slug": "maashorst",
-    "generated_at": "2026-05-25T06:54:45.069900Z",
+    "generated_at": "2026-06-15T07:50:06.331372Z",
     "total_points": 67,
     "providers": [
       "Amazon",
@@ -87,29 +87,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.65812437,
         "longitude": 5.613983603,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.619069198,
-          51.65501335
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Plus Lex Smits",
-        "straatNaam": "Botermarkt 9",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 51.65501335,
-        "longitude": 5.619069198,
         "canPickup": true,
         "canDropoff": false
       }
@@ -265,7 +242,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat PLUS Uden Zuid",
         "straatNaam": "Sesterlaan",
-        "straatNr": "4-PS/87",
+        "straatNr": "4",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -288,7 +265,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Maxi Zoo Uden",
         "straatNaam": "Mr.Coothstraat",
-        "straatNr": "1-PS/89",
+        "straatNr": "1",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -426,7 +403,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Polski Sklep Uden",
         "straatNaam": "Monseigneur Bosstraat",
-        "straatNr": "47-PS/73",
+        "straatNr": "47",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -472,7 +449,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Praxis Uden",
         "straatNaam": "Industrielaan",
-        "straatNr": "9-PS/87",
+        "straatNr": "9",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -495,7 +472,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Basic-Fit Uden",
         "straatNaam": "Industrielaan",
-        "straatNr": "14-PS/209",
+        "straatNr": "14",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -1252,7 +1229,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Goblin Speelgoed",
+        "locatieNaam": "Goblin Speelgoed (Top1Toys Uden)",
         "straatNaam": "St. Janstraat 25",
         "straatNr": "",
         "vervoerder": "VintedGo",
@@ -1398,6 +1375,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.6584779,
         "longitude": 5.6136217,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.6159171,
+          51.6575596
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Omdat",
+        "straatNaam": "Sacramentsweg 20",
+        "straatNr": "",
+        "vervoerder": "VintedGo",
+        "puntType": "parcel_shop",
+        "bezettingsgraad": 50,
+        "latitude": 51.6575596,
+        "longitude": 5.6159171,
         "canPickup": true,
         "canDropoff": true
       }
@@ -2219,12 +2219,16 @@
                 51.65810209533147
               ],
               [
-                5.620222915139369,
-                51.65783774677205
+                5.6202206255830465,
+                51.65786876007016
               ],
               [
-                5.620213998598672,
-                51.6577317859892
+                5.620233072346146,
+                51.657815394260176
+              ],
+              [
+                5.62023907764177,
+                51.657734048744665
               ],
               [
                 5.620493683844081,

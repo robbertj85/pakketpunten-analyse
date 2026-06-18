@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Culemborg",
     "slug": "culemborg",
-    "generated_at": "2026-05-25T06:45:29.637296Z",
-    "total_points": 22,
+    "generated_at": "2026-06-15T07:39:48.502445Z",
+    "total_points": 20,
     "providers": [
       "Amazon",
       "DHL",
@@ -95,29 +95,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          5.22468499851943,
-          51.9541385545596
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Sun4Seasons",
-        "straatNaam": "Prijssestraat 56",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 51.9541385545596,
-        "longitude": 5.22468499851943,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           5.223331283,
           51.94638882
         ]
@@ -172,7 +149,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat GAMMA Culemborg",
         "straatNaam": "Parallelweg West",
-        "straatNr": "5-PS/95",
+        "straatNr": "5",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -195,7 +172,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat PLUS Chopinplein",
         "straatNaam": "Chopinplein",
-        "straatNr": "10-PS/117",
+        "straatNr": "10",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -371,29 +348,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          5.22468499851943,
-          51.9541385545596
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Sun4Seasons",
-        "straatNaam": "Prijssestraat",
-        "straatNr": "56",
-        "vervoerder": "PostNL",
-        "puntType": "servicepunt",
-        "bezettingsgraad": 50,
-        "latitude": 51.9541385545596,
-        "longitude": 5.22468499851943,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           5.225080674,
           51.95736587
         ]
@@ -516,7 +470,7 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "RAMZI",
-        "straatNaam": "HET JACH 30",
+        "straatNaam": "Het Jach 30",
         "straatNr": "",
         "vervoerder": "InPost",
         "puntType": "servicepunt",
@@ -991,6 +945,14 @@
           [
             [
               [
+                5.208211670999647,
+                51.94713582951229
+              ],
+              [
+                5.207844928716165,
+                51.94699922974107
+              ],
+              [
                 5.207458288050109,
                 51.946885500591904
               ],
@@ -1257,14 +1219,6 @@
               [
                 5.208211670999647,
                 51.94713582951229
-              ],
-              [
-                5.207844928716165,
-                51.94699922974107
-              ],
-              [
-                5.207458288050109,
-                51.946885500591904
               ]
             ]
           ],
@@ -2639,6 +2593,14 @@
           [
             [
               [
+                5.2090226980835,
+                51.946389715760574
+              ],
+              [
+                5.20853371369618,
+                51.94620758583411
+              ],
+              [
                 5.2080181999995805,
                 51.946055949692386
               ],
@@ -2905,14 +2867,6 @@
               [
                 5.2090226980835,
                 51.946389715760574
-              ],
-              [
-                5.20853371369618,
-                51.94620758583411
-              ],
-              [
-                5.2080181999995805,
-                51.946055949692386
               ]
             ]
           ],

@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Veenendaal",
     "slug": "veenendaal",
-    "generated_at": "2026-05-25T07:03:44.645481Z",
-    "total_points": 69,
+    "generated_at": "2026-06-15T08:00:03.176152Z",
+    "total_points": 68,
     "providers": [
       "Amazon",
       "DeBuren",
@@ -289,7 +289,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Jumbo Petenbos",
         "straatNaam": "Paddestolenlaan",
-        "straatNr": "40-PS/87",
+        "straatNr": "40",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -312,7 +312,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Gulf Veenendaal",
         "straatNaam": "De Smalle Zijde",
-        "straatNr": "1-DB/38",
+        "straatNr": "1",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -335,7 +335,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Praxis Veenendaal",
         "straatNaam": "Groeneveldselaan",
-        "straatNr": "49-PS/77",
+        "straatNr": "49",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -381,58 +381,12 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Lidl Veenendaal",
         "straatNaam": "Stuivenbergheem",
-        "straatNr": "1-PS/165",
+        "straatNr": "1",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
         "latitude": 52.0253348,
         "longitude": 5.5804553,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.5584862,
-          52.025632
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat Basic-Fit Wolweg",
-        "straatNaam": "Wolweg",
-        "straatNr": "101-PS/41",
-        "vervoerder": "DHL",
-        "puntType": "packStation",
-        "bezettingsgraad": 50,
-        "latitude": 52.025632,
-        "longitude": 5.5584862,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.5562135,
-          52.0260684
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Taartdecoratief",
-        "straatNaam": "Tuinstraat",
-        "straatNr": "75",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 52.0260684,
-        "longitude": 5.5562135,
         "canPickup": true,
         "canDropoff": true
       }
@@ -450,7 +404,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Tinq Gildetrom",
         "straatNaam": "Gildetrom",
-        "straatNr": "2-DB/23",
+        "straatNr": "2",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -542,12 +496,58 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat HEMA Veenendaal",
         "straatNaam": "Tuinstraat",
-        "straatNr": "85-PS/149",
+        "straatNr": "85-Kast",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
         "latitude": 52.0260781,
         "longitude": 5.556177,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.5562135,
+          52.0260684
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Taartdecoratief",
+        "straatNaam": "Tuinstraat",
+        "straatNr": "75",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 52.0260684,
+        "longitude": 5.5562135,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.5584862,
+          52.025632
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat Basic-Fit Wolweg",
+        "straatNaam": "Wolweg",
+        "straatNr": "101",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 52.025632,
+        "longitude": 5.5584862,
         "canPickup": true,
         "canDropoff": true
       }
@@ -611,7 +611,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat GAMMA Veenendaal",
         "straatNaam": "Einsteinstraat",
-        "straatNr": "2-PS/75",
+        "straatNr": "2",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -663,29 +663,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.0272017,
         "longitude": 5.5570812,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.5648575,
-          52.0454592
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Business Point - Wouter Reclame",
-        "straatNaam": "KAZEMAT",
-        "straatNr": "10",
-        "vervoerder": "DPD",
-        "puntType": "pickup_point",
-        "bezettingsgraad": 50,
-        "latitude": 52.0454592,
-        "longitude": 5.5648575,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1507,7 +1484,7 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "COMFORTWHEELS",
-        "straatNaam": "DE SMALLE ZIJDE 3",
+        "straatNaam": "De Smalle Zijde 3",
         "straatNr": "",
         "vervoerder": "InPost",
         "puntType": "servicepunt",
@@ -3578,10 +3555,6 @@
                 52.03443550347015
               ],
               [
-                5.566049703842359,
-                52.034588069814625
-              ],
-              [
                 5.56604970384236,
                 52.034588069814625
               ],
@@ -3914,7 +3887,7 @@
                 52.03077279465068
               ],
               [
-                5.571953749268436,
+                5.571953749268437,
                 52.03062024261048
               ],
               [
@@ -5530,7 +5503,7 @@
                 52.04717484798225
               ],
               [
-                5.5614844948595055,
+                5.561484494859505,
                 52.04717532931364
               ],
               [
@@ -7994,6 +7967,10 @@
                 52.04107371499931
               ],
               [
+                5.569175096375599,
+                52.04107371499931
+              ],
+              [
                 5.569309273601961,
                 52.04108577655394
               ],
@@ -8758,7 +8735,7 @@
                 52.04774670777624
               ],
               [
-                5.560359864723619,
+                5.560359864723618,
                 52.04774718911437
               ],
               [

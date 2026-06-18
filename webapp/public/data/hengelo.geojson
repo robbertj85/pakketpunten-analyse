@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Hengelo",
     "slug": "hengelo",
-    "generated_at": "2026-05-25T06:51:07.273047Z",
-    "total_points": 121,
+    "generated_at": "2026-06-15T07:46:01.358840Z",
+    "total_points": 122,
     "providers": [
       "Amazon",
       "DeBuren",
@@ -288,29 +288,6 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Moerdijk | Vlasweg | Wupperman | GESLOTEN EXPLOITATIE",
-        "straatNaam": "Demmersweg",
-        "straatNr": "104",
-        "vervoerder": "DeBuren",
-        "puntType": "Buitenkluis",
-        "bezettingsgraad": 50,
-        "latitude": 52.2839749,
-        "longitude": 6.778898,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          6.778898,
-          52.2839749
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
         "locatieNaam": "Hengelo | Demmersweg | BU2026031-DA",
         "straatNaam": "Demmersweg",
         "straatNr": "104",
@@ -351,29 +328,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          6.778898,
-          52.2839749
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Spijkenisse | Zuidpassage | Reinis | Pakketautomaat",
-        "straatNaam": "Demmersweg",
-        "straatNr": "104",
-        "vervoerder": "DeBuren",
-        "puntType": "Afhaalpunt",
-        "bezettingsgraad": 50,
-        "latitude": 52.2839749,
-        "longitude": 6.778898,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           6.76636,
           52.28934
         ]
@@ -382,7 +336,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat MediaMarkt Hengelo",
         "straatNaam": "Het Plein",
-        "straatNr": "130-PS/89",
+        "straatNr": "130",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -405,7 +359,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat PLUS Oelerweg",
         "straatNaam": "Agathaplein",
-        "straatNr": "98-PS/153",
+        "straatNr": "98",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -428,7 +382,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat GAMMA Hengelo",
         "straatNaam": "Wegtersweg",
-        "straatNr": "5-PS/67",
+        "straatNr": "5",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -474,7 +428,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Demmersweg",
         "straatNaam": "Demmersweg",
-        "straatNr": "104-DB/82",
+        "straatNr": "104",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -497,7 +451,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Maxi Zoo Hengelo",
         "straatNaam": "Boekeloseweg",
-        "straatNr": "24-PS/105",
+        "straatNr": "24",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -543,7 +497,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Hubo Hengelo",
         "straatNaam": "Boekeloseweg",
-        "straatNr": "91-PS/87",
+        "straatNr": "91",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -572,6 +526,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.2957145,
         "longitude": 6.7819653,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.7934381,
+          52.264147
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Shoeby Hengelo",
+        "straatNaam": "Markt",
+        "straatNr": "3",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 52.264147,
+        "longitude": 6.7934381,
         "canPickup": true,
         "canDropoff": true
       }
@@ -635,7 +612,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat terStal Uitslagweg",
         "straatNaam": "Uitslagsweg",
-        "straatNr": "93-PS/73",
+        "straatNr": "93-Kast",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -750,7 +727,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Lidl Waarbekenweg",
         "straatNaam": "Waarbekenweg",
-        "straatNr": "19-PS/73",
+        "straatNr": "19",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -773,7 +750,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Karwei Hengelo",
         "straatNaam": "Enschedesestraat",
-        "straatNr": "127-PS/108",
+        "straatNr": "127",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -842,7 +819,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat terStal Groot Drien",
         "straatNaam": "Willem de Mérodestraat",
-        "straatNr": "20-PS/73",
+        "straatNr": "20-Kast",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -911,7 +888,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Lidl Enschedesestr.",
         "straatNaam": "Enschedesestraat",
-        "straatNr": "230-PS/66",
+        "straatNr": "230",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -934,7 +911,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat terStal Hasselo",
         "straatNaam": "C. Langefeldstraat",
-        "straatNr": "61-PS/73",
+        "straatNr": "61-Kast",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -2750,7 +2727,7 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "MIA'S SECONDHANDSTORE",
-        "straatNaam": "MOLENSTRAAT 7",
+        "straatNaam": "Molenstraat 7",
         "straatNr": "",
         "vervoerder": "InPost",
         "puntType": "servicepunt",
@@ -2803,6 +2780,52 @@
         "bezettingsgraad": 50,
         "latitude": 52.25321,
         "longitude": 6.78849,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.78466,
+          52.25605
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "HAIRSHOPONLINE/HOUSEOFDIVA",
+        "straatNaam": "MEIJERSWEG 3",
+        "straatNr": "",
+        "vervoerder": "InPost",
+        "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 52.25605,
+        "longitude": 6.78466,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.80706,
+          52.25826
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "STICHTING LEMON",
+        "straatNaam": "Enschedesestraat 218",
+        "straatNr": "",
+        "vervoerder": "InPost",
+        "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 52.25826,
+        "longitude": 6.80706,
         "canPickup": true,
         "canDropoff": true
       }
@@ -4459,8 +4482,12 @@
                 52.26359538994725
               ],
               [
-                6.789093495819788,
-                52.263809071421015
+                6.7890880232639645,
+                52.263789103419256
+              ],
+              [
+                6.789071586041061,
+                52.263867512105826
               ],
               [
                 6.789006645372971,
@@ -5059,7 +5086,7 @@
                 52.25547234884706
               ],
               [
-                6.8082533481032765,
+                6.808253348103277,
                 52.255481511784126
               ],
               [
@@ -5463,7 +5490,7 @@
                 52.25323545689958
               ],
               [
-                6.7831742934274715,
+                6.78317429342747,
                 52.2532633816974
               ],
               [
@@ -5478,6 +5505,10 @@
           ],
           [
             [
+              [
+                6.777303663908977,
+                52.268492333013846
+              ],
               [
                 6.777040159811441,
                 52.268282873448015
@@ -5749,15 +5780,15 @@
               [
                 6.777303663908977,
                 52.268492333013846
-              ],
-              [
-                6.777040159811441,
-                52.268282873448015
               ]
             ]
           ],
           [
             [
+              [
+                6.778772700333386,
+                52.27190990713998
+              ],
               [
                 6.778341585047369,
                 52.271901998904404
@@ -6061,10 +6092,6 @@
               [
                 6.778772700333386,
                 52.27190990713998
-              ],
-              [
-                6.778341585047369,
-                52.271901998904404
               ]
             ]
           ],
@@ -6173,10 +6200,6 @@
               [
                 6.774570624276769,
                 52.283499695700804
-              ],
-              [
-                6.774565659453872,
-                52.28352333137054
               ],
               [
                 6.774565659453872,
@@ -7679,6 +7702,10 @@
           [
             [
               [
+                6.809290831079909,
+                52.29309511716563
+              ],
+              [
                 6.808994829016942,
                 52.29290259384322
               ],
@@ -7957,10 +7984,6 @@
               [
                 6.809290831079909,
                 52.29309511716563
-              ],
-              [
-                6.808994829016942,
-                52.29290259384322
               ]
             ]
           ],
@@ -11515,7 +11538,7 @@
                 52.27673355914429
               ],
               [
-                6.7985233489086925,
+                6.798523348908694,
                 52.276568983723564
               ],
               [
@@ -12313,6 +12336,10 @@
           [
             [
               [
+                6.778505838535789,
+                52.26797878497672
+              ],
+              [
                 6.778154496863541,
                 52.26769950898138
               ],
@@ -12763,10 +12790,6 @@
               [
                 6.778505838535789,
                 52.26797878497672
-              ],
-              [
-                6.778154496863541,
-                52.26769950898138
               ]
             ]
           ],
@@ -12877,7 +12900,7 @@
                 52.28334125763056
               ],
               [
-                6.773123219333469,
+                6.7731232193334705,
                 52.28336489324306
               ],
               [
@@ -13701,6 +13724,10 @@
           [
             [
               [
+                6.81040536079313,
+                52.29251145060361
+              ],
+              [
                 6.810010690760074,
                 52.29225475636927
               ],
@@ -13971,10 +13998,6 @@
               [
                 6.81040536079313,
                 52.29251145060361
-              ],
-              [
-                6.810010690760074,
-                52.29225475636927
               ]
             ]
           ],

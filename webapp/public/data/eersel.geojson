@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Eersel",
     "slug": "eersel",
-    "generated_at": "2026-05-25T06:47:49.964089Z",
-    "total_points": 25,
+    "generated_at": "2026-06-15T07:42:22.815339Z",
+    "total_points": 27,
     "providers": [
       "Amazon",
       "DHL",
@@ -21,6 +21,29 @@
     ]
   },
   "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.314623386,
+          51.36172411
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Primera",
+        "straatNaam": "Nieuwstraat 35 B",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.36172411,
+        "longitude": 5.314623386,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
     {
       "type": "Feature",
       "geometry": {
@@ -149,7 +172,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat terStal Eersel",
         "straatNaam": "Nieuwstraat",
-        "straatNr": "12-PS/73",
+        "straatNr": "12-Kast",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -218,7 +241,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Coop Wintelre",
         "straatNaam": "Willibrordusstraat",
-        "straatNr": "36-PS/89",
+        "straatNr": "36",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -270,6 +293,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.338992,
         "longitude": 5.332504,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.339576,
+          51.442284
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "DPD Pakketautomaat - Coop Tholen",
+        "straatNaam": "WILLIBRORDUSSTRAAT",
+        "straatNr": "36A",
+        "vervoerder": "DPD",
+        "puntType": "dpd_box",
+        "bezettingsgraad": 50,
+        "latitude": 51.442284,
+        "longitude": 5.339576,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1308,10 +1354,6 @@
           [
             [
               [
-                5.298830881789089,
-                51.37870673653505
-              ],
-              [
                 5.29865054686337,
                 51.37846737439865
               ],
@@ -1566,6 +1608,10 @@
               [
                 5.298830881789089,
                 51.37870673653505
+              ],
+              [
+                5.29865054686337,
+                51.37846737439865
               ]
             ]
           ],
@@ -2156,6 +2202,10 @@
           [
             [
               [
+                5.358063902166055,
+                51.376171652238845
+              ],
+              [
                 5.357883266683097,
                 51.375932381749266
               ],
@@ -2410,15 +2460,15 @@
               [
                 5.358063902166055,
                 51.376171652238845
-              ],
-              [
-                5.357883266683097,
-                51.375932381749266
               ]
             ]
           ],
           [
             [
+              [
+                5.343313307927247,
+                51.44082202255055
+              ],
               [
                 5.343095834231798,
                 51.44059495833507
@@ -2698,10 +2748,6 @@
               [
                 5.343313307927247,
                 51.44082202255055
-              ],
-              [
-                5.343095834231798,
-                51.44059495833507
               ]
             ]
           ]
@@ -3296,10 +3342,6 @@
           [
             [
               [
-                5.3001585353004455,
-                51.37836375060711
-              ],
-              [
                 5.2999180816740346,
                 51.37804460376074
               ],
@@ -3554,6 +3596,10 @@
               [
                 5.3001585353004455,
                 51.37836375060711
+              ],
+              [
+                5.2999180816740346,
+                51.37804460376074
               ]
             ]
           ],
@@ -4128,6 +4174,10 @@
           [
             [
               [
+                5.35939103671301,
+                51.37582799157513
+              ],
+              [
                 5.359150182360578,
                 51.37550896692909
               ],
@@ -4382,15 +4432,15 @@
               [
                 5.35939103671301,
                 51.37582799157513
-              ],
-              [
-                5.359150182360578,
-                51.37550896692909
               ]
             ]
           ],
           [
             [
+              [
+                5.344582162883322,
+                51.44039876792024
+              ],
               [
                 5.344292192698672,
                 51.440096018687335
@@ -4674,10 +4724,6 @@
               [
                 5.344582162883322,
                 51.44039876792024
-              ],
-              [
-                5.344292192698672,
-                51.440096018687335
               ]
             ]
           ]

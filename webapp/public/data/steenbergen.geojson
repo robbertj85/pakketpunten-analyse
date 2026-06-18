@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Steenbergen",
     "slug": "steenbergen",
-    "generated_at": "2026-05-25T07:01:45.511255Z",
-    "total_points": 31,
+    "generated_at": "2026-06-15T07:57:48.383222Z",
+    "total_points": 30,
     "providers": [
       "Amazon",
       "DHL",
@@ -104,7 +104,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Lidl Steenbergen",
         "straatNaam": "Burgemeester van Loonstraat",
-        "straatNr": "72-PS/66",
+        "straatNr": "72",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -150,7 +150,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat AH Steenbergen",
         "straatNaam": "Lindenburghlaan",
-        "straatNr": "1-PS/75",
+        "straatNr": "1",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -173,7 +173,7 @@
         "type": "pakketpunt",
         "locatieNaam": "Pakketautomaat Karwei Steenbergen",
         "straatNaam": "Houtzagerij",
-        "straatNr": "4-PS/75",
+        "straatNr": "4",
         "vervoerder": "DHL",
         "puntType": "packStation",
         "bezettingsgraad": 50,
@@ -570,29 +570,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.5880007,
         "longitude": 4.3199502,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.309318,
-          51.588465
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Mcdartshop.nl",
-        "straatNaam": "Graaf Hendrikstraat 5A1",
-        "straatNr": "",
-        "vervoerder": "VintedGo",
-        "puntType": "parcel_shop",
-        "bezettingsgraad": 50,
-        "latitude": 51.588465,
-        "longitude": 4.309318,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1711,6 +1688,10 @@
           [
             [
               [
+                4.414157700965899,
+                51.568501648946786
+              ],
+              [
                 4.4139812958121745,
                 51.56826094340311
               ],
@@ -1965,10 +1946,6 @@
               [
                 4.414157700965899,
                 51.568501648946786
-              ],
-              [
-                4.4139812958121745,
-                51.56826094340311
               ]
             ]
           ],
@@ -3831,6 +3808,10 @@
           [
             [
               [
+                4.415497451264557,
+                51.56816879321716
+              ],
+              [
                 4.415262237026639,
                 51.5678478551005
               ],
@@ -4085,10 +4066,6 @@
               [
                 4.415497451264557,
                 51.56816879321716
-              ],
-              [
-                4.415262237026639,
-                51.5678478551005
               ]
             ]
           ],
