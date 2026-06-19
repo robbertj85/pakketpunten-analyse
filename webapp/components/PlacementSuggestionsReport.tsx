@@ -832,6 +832,16 @@ export default function PlacementSuggestionsReport({
                           </div>
 
                           <div className="border-t border-gray-100 pt-3 flex flex-col gap-1.5">
+                            <Link
+                              href={`/data-export/suggesties/3d/${slug}/${r.pc4}`}
+                              style={{ color: '#ffffff' }}
+                              className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 rounded transition no-underline"
+                            >
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                              </svg>
+                              Bekijk in 3D
+                            </Link>
                             <a
                               href={sv}
                               target="_blank"
