@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Papendrecht",
     "slug": "papendrecht",
-    "generated_at": "2026-06-15T07:54:25.192593Z",
-    "total_points": 26,
+    "generated_at": "2026-06-22T07:55:45.178107Z",
+    "total_points": 28,
     "providers": [
       "Amazon",
       "DeBuren",
@@ -22,6 +22,29 @@
     ]
   },
   "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.681434126341514,
+          51.84616419210635
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "DHL - Pakketautomaat Total Papendrecht",
+        "straatNaam": "Burgemeester Keijzerweg 2",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.84616419210635,
+        "longitude": 4.681434126341514,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
     {
       "type": "Feature",
       "geometry": {
@@ -248,6 +271,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.8446530150751,
         "longitude": 4.682925917149824,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.681434126341514,
+          51.84616419210635
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat Total Papendrecht",
+        "straatNaam": "Burgemeester Keijzerweg",
+        "straatNr": "2",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 51.84616419210635,
+        "longitude": 4.681434126341514,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1384,6 +1430,10 @@
           [
             [
               [
+                4.683371317736952,
+                51.84191619084183
+              ],
+              [
                 4.682949366757707,
                 51.84187483115351
               ],
@@ -1452,7 +1502,7 @@
                 51.84426525382563
               ],
               [
-                4.678143493581001,
+                4.6781434935810005,
                 51.844361090214896
               ],
               [
@@ -1708,7 +1758,7 @@
                 51.84208035838446
               ],
               [
-                4.684165670843062,
+                4.684165670843065,
                 51.842069988270765
               ],
               [
@@ -1718,10 +1768,6 @@
               [
                 4.683371317736952,
                 51.84191619084183
-              ],
-              [
-                4.682949366757707,
-                51.84187483115351
               ]
             ]
           ],

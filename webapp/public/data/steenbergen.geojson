@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Steenbergen",
     "slug": "steenbergen",
-    "generated_at": "2026-06-15T07:57:48.383222Z",
-    "total_points": 30,
+    "generated_at": "2026-06-22T07:58:56.153651Z",
+    "total_points": 31,
     "providers": [
       "Amazon",
       "DHL",
@@ -27,29 +27,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          4.315663507,
-          51.58632721
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Steenbergse Boekhandel",
-        "straatNaam": "Kaaistraat 17",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 51.58632721,
-        "longitude": 4.315663507,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           4.410138332,
           51.56950012
         ]
@@ -64,6 +41,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.56950012,
         "longitude": 4.410138332,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.315663507,
+          51.58632721
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Steenbergse Boekhandel",
+        "straatNaam": "Kaaistraat 17",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.58632721,
+        "longitude": 4.315663507,
         "canPickup": true,
         "canDropoff": false
       }
@@ -708,6 +708,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.58798,
         "longitude": 4.31987,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.32089,
+          51.58494
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "WEVO STEENBERGEN",
+        "straatNaam": "Wouwsestraat 77",
+        "straatNr": "",
+        "vervoerder": "InPost",
+        "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 51.58494,
+        "longitude": 4.32089,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1688,10 +1711,6 @@
           [
             [
               [
-                4.414157700965899,
-                51.568501648946786
-              ],
-              [
                 4.4139812958121745,
                 51.56826094340311
               ],
@@ -1946,6 +1965,10 @@
               [
                 4.414157700965899,
                 51.568501648946786
+              ],
+              [
+                4.4139812958121745,
+                51.56826094340311
               ]
             ]
           ],
@@ -3808,10 +3831,6 @@
           [
             [
               [
-                4.415497451264557,
-                51.56816879321716
-              ],
-              [
                 4.415262237026639,
                 51.5678478551005
               ],
@@ -4066,6 +4085,10 @@
               [
                 4.415497451264557,
                 51.56816879321716
+              ],
+              [
+                4.415262237026639,
+                51.5678478551005
               ]
             ]
           ],

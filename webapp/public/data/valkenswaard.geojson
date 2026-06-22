@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Valkenswaard",
     "slug": "valkenswaard",
-    "generated_at": "2026-06-15T07:59:52.267365Z",
+    "generated_at": "2026-06-22T08:00:52.654987Z",
     "total_points": 30,
     "providers": [
       "Amazon",
@@ -66,6 +66,29 @@
         "longitude": 5.46285321976322,
         "canPickup": true,
         "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.4270645,
+          51.352214
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "DHL Buurtpunt ViaTim & Dommelen",
+        "straatNaam": "Daalderhof",
+        "straatNr": "32",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 51.352214,
+        "longitude": 5.4270645,
+        "canPickup": true,
+        "canDropoff": true
       }
     },
     {
@@ -340,29 +363,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.3525931,
         "longitude": 5.4737621,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.4270645,
-          51.352214
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "ViaTim & Dommelen",
-        "straatNaam": "DAALDERHOF",
-        "straatNr": "32",
-        "vervoerder": "DPD",
-        "puntType": "pickup_point",
-        "bezettingsgraad": 50,
-        "latitude": 51.352214,
-        "longitude": 5.4270645,
         "canPickup": true,
         "canDropoff": true
       }

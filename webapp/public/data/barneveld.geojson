@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Barneveld",
     "slug": "barneveld",
-    "generated_at": "2026-06-15T07:36:50.250120Z",
+    "generated_at": "2026-06-22T07:39:19.567362Z",
     "total_points": 71,
     "providers": [
       "Amazon",
@@ -23,29 +23,6 @@
     ]
   },
   "features": [
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.50795841217041,
-          52.177364349365234
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "DHL - Pakketautomaat COOP Zwartebroek",
-        "straatNaam": "Albert van Meerveldstraat 90",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 52.177364349365234,
-        "longitude": 5.50795841217041,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
     {
       "type": "Feature",
       "geometry": {
@@ -249,6 +226,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.17718221,
         "longitude": 5.508097187,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.50795841217041,
+          52.177364349365234
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "DHL - Pakketautomaat COOP Zwartebroek",
+        "straatNaam": "Albert van Meerveldstraat 90",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.177364349365234,
+        "longitude": 5.50795841217041,
         "canPickup": true,
         "canDropoff": false
       }

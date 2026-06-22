@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Lansingerland",
     "slug": "lansingerland",
-    "generated_at": "2026-06-15T07:48:35.789938Z",
+    "generated_at": "2026-06-22T07:50:15.759192Z",
     "total_points": 35,
     "providers": [
       "Amazon",
@@ -302,29 +302,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          4.455036640167236,
-          51.990020751953125
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Het Bloemenhart",
-        "straatNaam": "Westpolderplein",
-        "straatNr": "2",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 51.990020751953125,
-        "longitude": 4.455036640167236,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           4.4529499,
           51.9824761
         ]
@@ -339,6 +316,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.9824761,
         "longitude": 4.4529499,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.455036640167236,
+          51.990020751953125
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Het Bloemenhart",
+        "straatNaam": "Westpolderplein",
+        "straatNr": "2",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 51.990020751953125,
+        "longitude": 4.455036640167236,
         "canPickup": true,
         "canDropoff": true
       }

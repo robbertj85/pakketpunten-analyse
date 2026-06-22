@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Zeist",
     "slug": "zeist",
-    "generated_at": "2026-06-15T08:04:02.090706Z",
-    "total_points": 51,
+    "generated_at": "2026-06-22T08:04:43.469167Z",
+    "total_points": 53,
     "providers": [
       "Amazon",
       "DHL",
@@ -42,6 +42,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.13934287,
         "longitude": 5.241949881,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.21019100629884,
+          52.0882925703063
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Kwikstaart fuels&more PpP",
+        "straatNaam": "Kwikstaartlaan 12",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.0882925703063,
+        "longitude": 5.21019100629884,
         "canPickup": true,
         "canDropoff": false
       }
@@ -870,6 +893,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.0835420772491,
         "longitude": 5.21919673930555,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.21019100629884,
+          52.0882925703063
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Kwikstaart fuels&more PpP",
+        "straatNaam": "Kwikstaartlaan",
+        "straatNr": "12",
+        "vervoerder": "PostNL",
+        "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 52.0882925703063,
+        "longitude": 5.21019100629884,
         "canPickup": true,
         "canDropoff": true
       }
@@ -2280,10 +2326,6 @@
           [
             [
               [
-                5.214056264052378,
-                52.087027160957255
-              ],
-              [
                 5.213836312464143,
                 52.08679987126686
               ],
@@ -2570,6 +2612,10 @@
               [
                 5.214056264052378,
                 52.087027160957255
+              ],
+              [
+                5.213836312464143,
+                52.08679987126686
               ]
             ]
           ],
@@ -4428,7 +4474,7 @@
                 52.07740608924621
               ],
               [
-                5.266771842915156,
+                5.266771842915155,
                 52.077227128315556
               ],
               [
@@ -6192,10 +6238,6 @@
           [
             [
               [
-                5.215344636303208,
-                52.08660535170004
-              ],
-              [
                 5.215051362043466,
                 52.08630230187016
               ],
@@ -6482,6 +6524,10 @@
               [
                 5.215344636303208,
                 52.08660535170004
+              ],
+              [
+                5.215051362043466,
+                52.08630230187016
               ]
             ]
           ],
@@ -7970,10 +8016,6 @@
               [
                 5.264865544678018,
                 52.079488668226944
-              ],
-              [
-                5.264891890244661,
-                52.07947897602381
               ],
               [
                 5.2648918902446615,

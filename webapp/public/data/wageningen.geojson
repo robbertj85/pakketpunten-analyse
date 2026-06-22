@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Wageningen",
     "slug": "wageningen",
-    "generated_at": "2026-06-15T08:01:47.586808Z",
-    "total_points": 33,
+    "generated_at": "2026-06-22T08:02:37.967818Z",
+    "total_points": 34,
     "providers": [
       "Amazon",
       "DHL",
@@ -663,6 +663,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.9760342,
         "longitude": 5.6783634,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.66416853,
+          51.96642902
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "ViaTim en WorkNat Services",
+        "straatNaam": "Herenstraat",
+        "straatNr": "35",
+        "vervoerder": "ViaTim",
+        "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 51.96642902,
+        "longitude": 5.66416853,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1878,6 +1901,10 @@
           [
             [
               [
+                5.666239123464133,
+                51.97670918274186
+              ],
+              [
                 5.665920531104269,
                 51.976532231395495
               ],
@@ -2568,10 +2595,6 @@
               [
                 5.666239123464133,
                 51.97670918274186
-              ],
-              [
-                5.665920531104269,
-                51.976532231395495
               ]
             ]
           ]

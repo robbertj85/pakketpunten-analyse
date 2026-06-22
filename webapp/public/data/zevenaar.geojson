@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Zevenaar",
     "slug": "zevenaar",
-    "generated_at": "2026-06-15T08:04:07.340593Z",
+    "generated_at": "2026-06-22T08:04:48.399950Z",
     "total_points": 53,
     "providers": [
       "Amazon",
@@ -949,6 +949,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          6.07527244,
+          51.9273653
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat",
+        "straatNaam": "Masiusplein",
+        "straatNr": "24",
+        "vervoerder": "GLS",
+        "puntType": "locker",
+        "bezettingsgraad": 50,
+        "latitude": 51.9273653,
+        "longitude": 6.07527244,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           6.08593117,
           51.9386908
         ]
@@ -1009,29 +1032,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.9299593,
         "longitude": 6.0775137,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          6.07527244,
-          51.9273653
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat",
-        "straatNaam": "Masiusplein",
-        "straatNr": "24",
-        "vervoerder": "GLS",
-        "puntType": "locker",
-        "bezettingsgraad": 50,
-        "latitude": 51.9273653,
-        "longitude": 6.07527244,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1186,7 +1186,7 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "AUTOBEDRIJF THEO VAN HUET VOF",
-        "straatNaam": "AERDTSESTRAAT 44A",
+        "straatNaam": "Aerdtsestraat 44a",
         "straatNr": "",
         "vervoerder": "InPost",
         "puntType": "servicepunt",

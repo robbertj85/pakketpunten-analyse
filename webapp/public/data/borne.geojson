@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Borne",
     "slug": "borne",
-    "generated_at": "2026-06-15T07:38:33.644258Z",
-    "total_points": 22,
+    "generated_at": "2026-06-22T07:40:54.406564Z",
+    "total_points": 23,
     "providers": [
       "Amazon",
       "DHL",
@@ -267,6 +267,29 @@
         "straatNr": "2",
         "vervoerder": "PostNL",
         "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 52.3091401925057,
+        "longitude": 6.73590866244878,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.73590866244878,
+          52.3091401925057
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat",
+        "straatNaam": "Ambachtstraat",
+        "straatNr": "2PBA",
+        "vervoerder": "PostNL",
+        "puntType": "automaat",
         "bezettingsgraad": 50,
         "latitude": 52.3091401925057,
         "longitude": 6.73590866244878,
