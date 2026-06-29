@@ -2,8 +2,8 @@
   "metadata": {
     "method": "direct-api",
     "grid_points": 20,
-    "total_locations": 967,
-    "fetched_at": "2026-06-22T04:17:50.913561+00:00"
+    "total_locations": 969,
+    "fetched_at": "2026-06-29T03:58:23.703353+00:00"
   },
   "locations": [
     {
@@ -87,6 +87,18 @@
       "city": "LEEUWARDEN",
       "latitude": 53.2051668,
       "longitude": 5.8134134,
+      "vervoerder": "GLS",
+      "puntType": "locker"
+    },
+    {
+      "id": "M3iRFhrGxhXeiH",
+      "locatieNaam": "Pakketautomaat",
+      "straatNaam": "Bilgaardpassage",
+      "straatNr": "31",
+      "postcode": "8918HR",
+      "city": "Leeuwarden",
+      "latitude": 53.2154012,
+      "longitude": 5.79540096,
       "vervoerder": "GLS",
       "puntType": "locker"
     },
@@ -595,18 +607,6 @@
       "puntType": "locker"
     },
     {
-      "id": "M3jL9NLhcle2u8",
-      "locatieNaam": "Pakketautomaat",
-      "straatNaam": "It Achterom",
-      "straatNr": "1",
-      "postcode": "8491BV",
-      "city": "AKKRUM",
-      "latitude": 53.0480333,
-      "longitude": 5.8370872,
-      "vervoerder": "GLS",
-      "puntType": "locker"
-    },
-    {
       "id": "97130038",
       "locatieNaam": "Wasserette en Stomerij Groningen",
       "straatNaam": "Nieuweweg",
@@ -1015,18 +1015,6 @@
       "puntType": "parcel_shop"
     },
     {
-      "id": "96150013",
-      "locatieNaam": "ViaTim & Lia",
-      "straatNaam": "Wilgenlaan",
-      "straatNr": "6",
-      "postcode": "9615BA",
-      "city": "Kolham",
-      "latitude": 53.1834318,
-      "longitude": 6.7440429,
-      "vervoerder": "GLS",
-      "puntType": "parcel_shop"
-    },
-    {
       "id": "98040006",
       "locatieNaam": "Hubo Noordhorn",
       "straatNaam": "Transportweg",
@@ -1073,6 +1061,18 @@
       "longitude": 6.74370457,
       "vervoerder": "GLS",
       "puntType": "locker"
+    },
+    {
+      "id": "93510075",
+      "locatieNaam": "Jouw Snuffelkast",
+      "straatNaam": "Tolberterstraat",
+      "straatNr": "9",
+      "postcode": "9351BA",
+      "city": "LEEK",
+      "latitude": 53.1628515,
+      "longitude": 6.3914506,
+      "vervoerder": "GLS",
+      "puntType": "parcel_shop"
     },
     {
       "id": "M39EonnoGwrZAe",
@@ -1399,6 +1399,18 @@
       "puntType": "locker"
     },
     {
+      "id": "17130031",
+      "locatieNaam": "ViaTim & Lily",
+      "straatNaam": "Bosstraat",
+      "straatNr": "28",
+      "postcode": "1713JJ",
+      "city": "Obdam",
+      "latitude": 52.6759037,
+      "longitude": 4.9057464,
+      "vervoerder": "GLS",
+      "puntType": "parcel_shop"
+    },
+    {
       "id": "16930013",
       "locatieNaam": "Pets En Co De Moel Wervershoof",
       "straatNaam": "Zijdwerk",
@@ -1423,16 +1435,28 @@
       "puntType": "locker"
     },
     {
-      "id": "17130031",
-      "locatieNaam": "ViaTim & Lily",
-      "straatNaam": "Bosstraat",
-      "straatNr": "28",
-      "postcode": "1713JJ",
-      "city": "Obdam",
-      "latitude": 52.6759037,
-      "longitude": 4.9057464,
+      "id": "16360017",
+      "locatieNaam": "GreenMillpc",
+      "straatNaam": "Oosteinde",
+      "straatNr": "17A",
+      "postcode": "1636XR",
+      "city": "Schermerhorn",
+      "latitude": 52.6005528,
+      "longitude": 4.8910067,
       "vervoerder": "GLS",
       "puntType": "parcel_shop"
+    },
+    {
+      "id": "M3wrmAK0DRE14T",
+      "locatieNaam": "Pakketautomaat",
+      "straatNaam": "Burg Hoogenboomlaan",
+      "straatNr": "33",
+      "postcode": "1718BH",
+      "city": "HOOGWOUD",
+      "latitude": 52.7183353,
+      "longitude": 4.93733929,
+      "vervoerder": "GLS",
+      "puntType": "locker"
     },
     {
       "id": "M30hLzEmrES3g4",
@@ -1471,30 +1495,6 @@
       "puntType": "locker"
     },
     {
-      "id": "M3wrmAK0DRE14T",
-      "locatieNaam": "Pakketautomaat",
-      "straatNaam": "Burg Hoogenboomlaan",
-      "straatNr": "33",
-      "postcode": "1718BH",
-      "city": "HOOGWOUD",
-      "latitude": 52.7183353,
-      "longitude": 4.93733929,
-      "vervoerder": "GLS",
-      "puntType": "locker"
-    },
-    {
-      "id": "16360017",
-      "locatieNaam": "GreenMillpc",
-      "straatNaam": "Oosteinde",
-      "straatNr": "17A",
-      "postcode": "1636XR",
-      "city": "Schermerhorn",
-      "latitude": 52.6005528,
-      "longitude": 4.8910067,
-      "vervoerder": "GLS",
-      "puntType": "parcel_shop"
-    },
-    {
       "id": "16280071",
       "locatieNaam": "Pakketpunt Medemblik",
       "straatNaam": "Schootsvel",
@@ -1507,18 +1507,6 @@
       "puntType": "parcel_shop"
     },
     {
-      "id": "M3WZoAM4HtVb00",
-      "locatieNaam": "Pakketautomaat",
-      "straatNaam": "Murillostraat",
-      "straatNr": "22",
-      "postcode": "1611DC",
-      "city": "BOVENKARSPEL",
-      "latitude": 52.6936481,
-      "longitude": 5.25182236,
-      "vervoerder": "GLS",
-      "puntType": "locker"
-    },
-    {
       "id": "M3LStUZEIVsqKP",
       "locatieNaam": "Pakketautomaat",
       "straatNaam": "Insulindeweg",
@@ -1527,6 +1515,18 @@
       "city": "MIDDENBEEMSTER",
       "latitude": 52.5514178,
       "longitude": 4.90331765,
+      "vervoerder": "GLS",
+      "puntType": "locker"
+    },
+    {
+      "id": "M3WZoAM4HtVb00",
+      "locatieNaam": "Pakketautomaat",
+      "straatNaam": "Murillostraat",
+      "straatNr": "22",
+      "postcode": "1611DC",
+      "city": "BOVENKARSPEL",
+      "latitude": 52.6936481,
+      "longitude": 5.25182236,
       "vervoerder": "GLS",
       "puntType": "locker"
     },
@@ -1555,18 +1555,6 @@
       "puntType": "locker"
     },
     {
-      "id": "17010902",
-      "locatieNaam": "ViaTim en Leo & Mariska",
-      "straatNaam": "Ruysdaelstraat",
-      "straatNr": "9",
-      "postcode": "1701KJ",
-      "city": "HEERHUGOWAARD",
-      "latitude": 52.6732709,
-      "longitude": 4.8523048,
-      "vervoerder": "GLS",
-      "puntType": "parcel_shop"
-    },
-    {
       "id": "M3e50bNB8fPg9R",
       "locatieNaam": "Pakketautomaat",
       "straatNaam": "Cantekoogweg",
@@ -1577,6 +1565,18 @@
       "longitude": 4.97359753,
       "vervoerder": "GLS",
       "puntType": "locker"
+    },
+    {
+      "id": "17010902",
+      "locatieNaam": "ViaTim en Leo & Mariska",
+      "straatNaam": "Ruysdaelstraat",
+      "straatNr": "9",
+      "postcode": "1701KJ",
+      "city": "HEERHUGOWAARD",
+      "latitude": 52.6732709,
+      "longitude": 4.8523048,
+      "vervoerder": "GLS",
+      "puntType": "parcel_shop"
     },
     {
       "id": "M3aaSxf09SBpHW",
@@ -1627,30 +1627,6 @@
       "puntType": "locker"
     },
     {
-      "id": "M3A98j1Bx8KLZL",
-      "locatieNaam": "Pakketautomaat",
-      "straatNaam": "Gildeplein",
-      "straatNr": "58",
-      "postcode": "1445BM",
-      "city": "PURMEREND",
-      "latitude": 52.5061378,
-      "longitude": 4.98473339,
-      "vervoerder": "GLS",
-      "puntType": "locker"
-    },
-    {
-      "id": "16190011",
-      "locatieNaam": "ViaTim en Andijk",
-      "straatNaam": "Sorghvlietlaan",
-      "straatNr": "43",
-      "postcode": "1619XA",
-      "city": "ANDIJK",
-      "latitude": 52.7467719,
-      "longitude": 5.220584,
-      "vervoerder": "GLS",
-      "puntType": "parcel_shop"
-    },
-    {
       "id": "M3m2EB4OzJk62d",
       "locatieNaam": "Pakketautomaat",
       "straatNaam": "John F. Kennedyplein",
@@ -1663,26 +1639,14 @@
       "puntType": "locker"
     },
     {
-      "id": "16020076",
-      "locatieNaam": "ViaTim en Wendy",
-      "straatNaam": "De Laars",
-      "straatNr": "55",
-      "postcode": "1602MZ",
-      "city": "ENKHUIZEN",
-      "latitude": 52.714742,
-      "longitude": 5.2692276,
-      "vervoerder": "GLS",
-      "puntType": "parcel_shop"
-    },
-    {
-      "id": "M3JUTYBcaNHDPs",
+      "id": "M3A98j1Bx8KLZL",
       "locatieNaam": "Pakketautomaat",
-      "straatNaam": "Westerstraat",
-      "straatNr": "188",
-      "postcode": "1601AP",
-      "city": "ENKHUIZEN",
-      "latitude": 52.7030345,
-      "longitude": 5.2826993,
+      "straatNaam": "Gildeplein",
+      "straatNr": "58",
+      "postcode": "1445BM",
+      "city": "PURMEREND",
+      "latitude": 52.5061378,
+      "longitude": 4.98473339,
       "vervoerder": "GLS",
       "puntType": "locker"
     },
@@ -1711,30 +1675,6 @@
       "puntType": "locker"
     },
     {
-      "id": "M3To4CBsqIJtg0",
-      "locatieNaam": "Pakketautomaat",
-      "straatNaam": "Heideweg",
-      "straatNr": "1",
-      "postcode": "1132DA",
-      "city": "VOLENDAM",
-      "latitude": 52.4925819,
-      "longitude": 5.05651934,
-      "vervoerder": "GLS",
-      "puntType": "locker"
-    },
-    {
-      "id": "M3bAJyrIbjAkn7",
-      "locatieNaam": "Pakketautomaat",
-      "straatNaam": "Julianaweg",
-      "straatNr": "1",
-      "postcode": "1131CX",
-      "city": "VOLENDAM",
-      "latitude": 52.4922294,
-      "longitude": 5.06232325,
-      "vervoerder": "GLS",
-      "puntType": "locker"
-    },
-    {
       "id": "M3POGT2Ed4zkQw",
       "locatieNaam": "Pakketautomaat",
       "straatNaam": "Middenwaard",
@@ -1759,6 +1699,30 @@
       "puntType": "parcel_shop"
     },
     {
+      "id": "M3To4CBsqIJtg0",
+      "locatieNaam": "Pakketautomaat",
+      "straatNaam": "Heideweg",
+      "straatNr": "1",
+      "postcode": "1132DA",
+      "city": "VOLENDAM",
+      "latitude": 52.4925819,
+      "longitude": 5.05651934,
+      "vervoerder": "GLS",
+      "puntType": "locker"
+    },
+    {
+      "id": "M3bAJyrIbjAkn7",
+      "locatieNaam": "Pakketautomaat",
+      "straatNaam": "Julianaweg",
+      "straatNr": "1",
+      "postcode": "1131CX",
+      "city": "VOLENDAM",
+      "latitude": 52.4922294,
+      "longitude": 5.06232325,
+      "vervoerder": "GLS",
+      "puntType": "locker"
+    },
+    {
       "id": "14410021",
       "locatieNaam": "Masala Bazaar",
       "straatNaam": "Westerstraat",
@@ -1767,6 +1731,18 @@
       "city": "PURMEREND",
       "latitude": 52.509701,
       "longitude": 4.9445004,
+      "vervoerder": "GLS",
+      "puntType": "parcel_shop"
+    },
+    {
+      "id": "16190011",
+      "locatieNaam": "ViaTim en Andijk",
+      "straatNaam": "Sorghvlietlaan",
+      "straatNr": "43",
+      "postcode": "1619XA",
+      "city": "ANDIJK",
+      "latitude": 52.7467719,
+      "longitude": 5.220584,
       "vervoerder": "GLS",
       "puntType": "parcel_shop"
     },
@@ -1783,16 +1759,28 @@
       "puntType": "locker"
     },
     {
-      "id": "16020013",
-      "locatieNaam": "Bijl Tweewielers",
-      "straatNaam": "Piet Smitstraat",
-      "straatNr": "1-3",
-      "postcode": "1602VA",
-      "city": "ENKHUIZEN",
-      "latitude": 52.7120278,
-      "longitude": 5.2831519,
+      "id": "M37LFXiFn9PTnw",
+      "locatieNaam": "Pakketautomaat",
+      "straatNaam": "Neckerstraat",
+      "straatNr": "14",
+      "postcode": "1456BD",
+      "city": "Wijdewormer",
+      "latitude": 52.510551,
+      "longitude": 4.93257771,
       "vervoerder": "GLS",
-      "puntType": "parcel_shop"
+      "puntType": "locker"
+    },
+    {
+      "id": "M3JUTYBcaNHDPs",
+      "locatieNaam": "Pakketautomaat",
+      "straatNaam": "Westerstraat",
+      "straatNr": "188",
+      "postcode": "1601AP",
+      "city": "ENKHUIZEN",
+      "latitude": 52.7030345,
+      "longitude": 5.2826993,
+      "vervoerder": "GLS",
+      "puntType": "locker"
     },
     {
       "id": "17310048",
@@ -1803,6 +1791,18 @@
       "city": "Winkel",
       "latitude": 52.7534615,
       "longitude": 4.8998732,
+      "vervoerder": "GLS",
+      "puntType": "parcel_shop"
+    },
+    {
+      "id": "16020013",
+      "locatieNaam": "Bijl Tweewielers",
+      "straatNaam": "Piet Smitstraat",
+      "straatNr": "1-3",
+      "postcode": "1602VA",
+      "city": "ENKHUIZEN",
+      "latitude": 52.7120278,
+      "longitude": 5.2831519,
       "vervoerder": "GLS",
       "puntType": "parcel_shop"
     },
@@ -2839,6 +2839,18 @@
       "puntType": "parcel_shop"
     },
     {
+      "id": "M3tXJEuuZyZwsV",
+      "locatieNaam": "Pakketautomaat",
+      "straatNaam": "Stipeplein",
+      "straatNr": "6",
+      "postcode": "8431WE",
+      "city": "OOSTERWOLDE",
+      "latitude": 52.9904174,
+      "longitude": 6.29030202,
+      "vervoerder": "GLS",
+      "puntType": "locker"
+    },
+    {
       "id": "84310049",
       "locatieNaam": "ViaTIm en Fam. Bijlsma",
       "straatNaam": "Dorprichterstraat",
@@ -2847,18 +2859,6 @@
       "city": "Oosterwolde",
       "latitude": 52.9856887,
       "longitude": 6.2880598,
-      "vervoerder": "GLS",
-      "puntType": "parcel_shop"
-    },
-    {
-      "id": "94730003",
-      "locatieNaam": "Autobedrijf Mark5",
-      "straatNaam": "Molenkamp",
-      "straatNr": "21",
-      "postcode": "9473TP",
-      "city": "DE GROEVE",
-      "latitude": 53.1155849,
-      "longitude": 6.727512,
       "vervoerder": "GLS",
       "puntType": "parcel_shop"
     },
@@ -3211,6 +3211,18 @@
       "puntType": "locker"
     },
     {
+      "id": "M3Y1zmJQ6w157J",
+      "locatieNaam": "Pakketautomaat",
+      "straatNaam": "Leeuwendalersweg",
+      "straatNr": "23",
+      "postcode": "1055JE",
+      "city": "AMSTERDAM",
+      "latitude": 52.3792353,
+      "longitude": 4.84533477,
+      "vervoerder": "GLS",
+      "puntType": "locker"
+    },
+    {
       "id": "M3xyCN3hXml7tQ",
       "locatieNaam": "Pakketautomaat",
       "straatNaam": "Transformatorweg",
@@ -3279,18 +3291,6 @@
       "city": "AMSTERDAM",
       "latitude": 52.372917,
       "longitude": 4.83913,
-      "vervoerder": "GLS",
-      "puntType": "parcel_shop"
-    },
-    {
-      "id": "10620062",
-      "locatieNaam": "GSM1 Allebeplein",
-      "straatNaam": "August Allebeplein",
-      "straatNr": "18",
-      "postcode": "1062AC",
-      "city": "AMSTERDAM",
-      "latitude": 52.3635643,
-      "longitude": 4.8372897,
       "vervoerder": "GLS",
       "puntType": "parcel_shop"
     },
@@ -3751,6 +3751,18 @@
       "puntType": "locker"
     },
     {
+      "id": "M3ChjuC2pjsUWV",
+      "locatieNaam": "Pakketautomaat",
+      "straatNaam": "Euroweg",
+      "straatNr": "23",
+      "postcode": "3825HA",
+      "city": "AMERSFOORT",
+      "latitude": 52.1920544,
+      "longitude": 5.40828028,
+      "vervoerder": "GLS",
+      "puntType": "locker"
+    },
+    {
       "id": "M3IH0sdzxeuFAB",
       "locatieNaam": "Pakketautomaat",
       "straatNaam": "Klokhoek",
@@ -3797,18 +3809,6 @@
       "longitude": 5.4683271,
       "vervoerder": "GLS",
       "puntType": "locker"
-    },
-    {
-      "id": "37610055",
-      "locatieNaam": "Aran Smartphone Repair",
-      "straatNaam": "Van Weedestraat",
-      "straatNr": "55",
-      "postcode": "3761CD",
-      "city": "SOEST",
-      "latitude": 52.1852535,
-      "longitude": 5.2973,
-      "vervoerder": "GLS",
-      "puntType": "parcel_shop"
     },
     {
       "id": "38160602",
@@ -4975,18 +4975,6 @@
       "puntType": "parcel_shop"
     },
     {
-      "id": "75470732",
-      "locatieNaam": "ViaTim en Topdealproducts",
-      "straatNaam": "Usselerhalte",
-      "straatNr": "140",
-      "postcode": "7547SH",
-      "city": "ENSCHEDE",
-      "latitude": 52.218344,
-      "longitude": 6.8384499,
-      "vervoerder": "GLS",
-      "puntType": "parcel_shop"
-    },
-    {
       "id": "M3PRSRIUatubty",
       "locatieNaam": "Pakketautomaat",
       "straatNaam": "Kevelhamhoek",
@@ -5319,6 +5307,18 @@
       "city": "HAAKSBERGEN",
       "latitude": 52.1725441,
       "longitude": 6.7477405,
+      "vervoerder": "GLS",
+      "puntType": "locker"
+    },
+    {
+      "id": "M3KfOrDBji2sY7",
+      "locatieNaam": "Pakketautomaat",
+      "straatNaam": "Veldmaterstraat",
+      "straatNr": "174",
+      "postcode": "7481AD",
+      "city": "HAAKSBERGEN",
+      "latitude": 52.1643149,
+      "longitude": 6.75510514,
       "vervoerder": "GLS",
       "puntType": "locker"
     },
@@ -5683,18 +5683,6 @@
       "puntType": "locker"
     },
     {
-      "id": "25610001",
-      "locatieNaam": "Rofa Repair",
-      "straatNaam": "Copernicuslaan",
-      "straatNr": "217",
-      "postcode": "2561VG",
-      "city": "Den Haag",
-      "latitude": 52.0734032,
-      "longitude": 4.2677365,
-      "vervoerder": "GLS",
-      "puntType": "parcel_shop"
-    },
-    {
       "id": "M3u4d7TAkpYDvD",
       "locatieNaam": "Pakketautomaat",
       "straatNaam": "Badhuisstraat",
@@ -5919,6 +5907,18 @@
       "city": "RIJSWIJK ZH",
       "latitude": 52.0382068,
       "longitude": 4.31475046,
+      "vervoerder": "GLS",
+      "puntType": "locker"
+    },
+    {
+      "id": "M3LDVT0y1yheC2",
+      "locatieNaam": "Pakketautomaat",
+      "straatNaam": "Prinses Beatrixlaan",
+      "straatNr": "911",
+      "postcode": "2284BK",
+      "city": "RIJSWIJK ZH",
+      "latitude": 52.0374038,
+      "longitude": 4.31344334,
       "vervoerder": "GLS",
       "puntType": "locker"
     },
@@ -6739,6 +6739,18 @@
       "puntType": "locker"
     },
     {
+      "id": "68620088",
+      "locatieNaam": "De Dierenspeciaalzaak Oosterbeek",
+      "straatNaam": "Weverstraat",
+      "straatNr": "91",
+      "postcode": "6862DL",
+      "city": "OOSTERBEEK",
+      "latitude": 51.9841899,
+      "longitude": 5.8410019,
+      "vervoerder": "GLS",
+      "puntType": "parcel_shop"
+    },
+    {
       "id": "M36bSi5f3JrA7C",
       "locatieNaam": "Pakketautomaat",
       "straatNaam": "Oostburgwal",
@@ -6795,6 +6807,18 @@
       "city": "VELP GLD",
       "latitude": 51.987252,
       "longitude": 5.98019432,
+      "vervoerder": "GLS",
+      "puntType": "locker"
+    },
+    {
+      "id": "M3pJlKaZ7tuEcH",
+      "locatieNaam": "Pakketautomaat",
+      "straatNaam": "Langestraat",
+      "straatNr": "82",
+      "postcode": "6851AS",
+      "city": "HUISSEN",
+      "latitude": 51.9395421,
+      "longitude": 5.94140406,
       "vervoerder": "GLS",
       "puntType": "locker"
     },
@@ -7099,30 +7123,6 @@
       "puntType": "locker"
     },
     {
-      "id": "66910055",
-      "locatieNaam": "Gendt kleding reparatie",
-      "straatNaam": "Dorpstraat",
-      "straatNr": "18a",
-      "postcode": "6691AX",
-      "city": "GENDT",
-      "latitude": 51.8767479,
-      "longitude": 5.9716038,
-      "vervoerder": "GLS",
-      "puntType": "parcel_shop"
-    },
-    {
-      "id": "M3F7dyeOYbb883",
-      "locatieNaam": "Pakketautomaat",
-      "straatNaam": "Masiusplein",
-      "straatNr": "24",
-      "postcode": "6901CH",
-      "city": "Zevenaar",
-      "latitude": 51.9273653,
-      "longitude": 6.07527244,
-      "vervoerder": "GLS",
-      "puntType": "locker"
-    },
-    {
       "id": "M3Zp2WZDuI0s4b",
       "locatieNaam": "Pakketautomaat",
       "straatNaam": "Stationsstraat",
@@ -7411,6 +7411,30 @@
       "puntType": "parcel_shop"
     },
     {
+      "id": "M316yJ6SfJIh4E",
+      "locatieNaam": "Pakketautomaat",
+      "straatNaam": "Breedestraat",
+      "straatNr": "37",
+      "postcode": "6983AC",
+      "city": "DOESBURG",
+      "latitude": 52.0031975,
+      "longitude": 6.12624363,
+      "vervoerder": "GLS",
+      "puntType": "locker"
+    },
+    {
+      "id": "70810004",
+      "locatieNaam": "By Josa",
+      "straatNaam": "Grotestraat",
+      "straatNr": "49",
+      "postcode": "7081CB",
+      "city": "GENDRINGEN",
+      "latitude": 51.871967,
+      "longitude": 6.3764518,
+      "vervoerder": "GLS",
+      "puntType": "parcel_shop"
+    },
+    {
       "id": "M3x1lZFl60mkHu",
       "locatieNaam": "Pakketautomaat",
       "straatNaam": "Spoorstraat",
@@ -7505,6 +7529,18 @@
       "longitude": 6.0775137,
       "vervoerder": "GLS",
       "puntType": "parcel_shop"
+    },
+    {
+      "id": "M3F7dyeOYbb883",
+      "locatieNaam": "Pakketautomaat",
+      "straatNaam": "Masiusplein",
+      "straatNr": "24",
+      "postcode": "6901CH",
+      "city": "Zevenaar",
+      "latitude": 51.9273653,
+      "longitude": 6.07527244,
+      "vervoerder": "GLS",
+      "puntType": "locker"
     },
     {
       "id": "72510012",
@@ -7649,30 +7685,6 @@
       "longitude": 6.47575945,
       "vervoerder": "GLS",
       "puntType": "locker"
-    },
-    {
-      "id": "70910044",
-      "locatieNaam": "Baron Computers",
-      "straatNaam": "Hogestraat",
-      "straatNr": "60",
-      "postcode": "7091BM",
-      "city": "Dinxperlo",
-      "latitude": 51.8613511,
-      "longitude": 6.4886574,
-      "vervoerder": "GLS",
-      "puntType": "parcel_shop"
-    },
-    {
-      "id": "71310099",
-      "locatieNaam": "Gulf Lichtenvoorde",
-      "straatNaam": "Varsseveldseweg",
-      "straatNr": "48",
-      "postcode": "7131JA",
-      "city": "Lichtenvoorde",
-      "latitude": 51.9841281,
-      "longitude": 6.5551088,
-      "vervoerder": "GLS",
-      "puntType": "parcel_shop"
     },
     {
       "id": "43310118",
@@ -8143,6 +8155,18 @@
       "puntType": "locker"
     },
     {
+      "id": "44860035",
+      "locatieNaam": "RZ Installatie Service",
+      "straatNaam": "Voorstraat",
+      "straatNr": "11",
+      "postcode": "4486AH",
+      "city": "COLIJNSPLAAT",
+      "latitude": 51.5996052,
+      "longitude": 3.847665,
+      "vervoerder": "GLS",
+      "puntType": "parcel_shop"
+    },
+    {
       "id": "M3YAKDc3WwSWnh",
       "locatieNaam": "Pakketautomaat",
       "straatNaam": "Bergweg",
@@ -8213,18 +8237,6 @@
       "longitude": 3.9087047,
       "vervoerder": "GLS",
       "puntType": "parcel_shop"
-    },
-    {
-      "id": "M3bnL3hqlmpHiO",
-      "locatieNaam": "Pakketautomaat",
-      "straatNaam": "Mariastraat",
-      "straatNr": "44",
-      "postcode": "4506AE",
-      "city": "CADZAND",
-      "latitude": 51.3654034,
-      "longitude": 3.41247997,
-      "vervoerder": "GLS",
-      "puntType": "locker"
     },
     {
       "id": "45010001",
@@ -8767,6 +8779,18 @@
       "puntType": "locker"
     },
     {
+      "id": "51260035",
+      "locatieNaam": "DA-The Read Shop-Thuis bij Hapers",
+      "straatNaam": "Nieuwstraat",
+      "straatNr": "30",
+      "postcode": "5126CE",
+      "city": "GILZE",
+      "latitude": 51.543998,
+      "longitude": 4.9413545,
+      "vervoerder": "GLS",
+      "puntType": "parcel_shop"
+    },
+    {
       "id": "M3bDEqDS6ExQES",
       "locatieNaam": "Pakketautomaat",
       "straatNaam": "Julianastraat",
@@ -8861,18 +8885,6 @@
       "longitude": 4.9449326,
       "vervoerder": "GLS",
       "puntType": "parcel_shop"
-    },
-    {
-      "id": "M3wLFBj6DSwMyH",
-      "locatieNaam": "Pakketautomaat",
-      "straatNaam": "De Hak",
-      "straatNr": "15",
-      "postcode": "5107RG",
-      "city": "Dongen",
-      "latitude": 51.6151101,
-      "longitude": 4.93094093,
-      "vervoerder": "GLS",
-      "puntType": "locker"
     },
     {
       "id": "M3vLW4kwWfzIdV",
@@ -8993,6 +9005,18 @@
       "longitude": 5.46700246,
       "vervoerder": "GLS",
       "puntType": "locker"
+    },
+    {
+      "id": "56430005",
+      "locatieNaam": "Quickpuntje",
+      "straatNaam": "Heezerweg",
+      "straatNr": "212",
+      "postcode": "5643KH",
+      "city": "EINDHOVEN",
+      "latitude": 51.4251898,
+      "longitude": 5.4953282,
+      "vervoerder": "GLS",
+      "puntType": "parcel_shop"
     },
     {
       "id": "M3RomQB2ofeoEj",
@@ -9461,18 +9485,6 @@
       "longitude": 5.41524495,
       "vervoerder": "GLS",
       "puntType": "locker"
-    },
-    {
-      "id": "56830090",
-      "locatieNaam": "Delivery Time Tugra",
-      "straatNaam": "Fabrieksweg",
-      "straatNr": "46",
-      "postcode": "5683PP",
-      "city": "BEST",
-      "latitude": 51.5020784,
-      "longitude": 5.4072203,
-      "vervoerder": "GLS",
-      "puntType": "parcel_shop"
     },
     {
       "id": "58030160",
@@ -10351,18 +10363,6 @@
       "puntType": "parcel_shop"
     },
     {
-      "id": "48230016",
-      "locatieNaam": "ViaTim en Elly",
-      "straatNaam": "Vijftigbunder",
-      "straatNr": "64",
-      "postcode": "4823BG",
-      "city": "Breda",
-      "latitude": 51.6231696,
-      "longitude": 4.7404494,
-      "vervoerder": "GLS",
-      "puntType": "parcel_shop"
-    },
-    {
       "id": "M3K1k8EO4CcZ4u",
       "locatieNaam": "Pakketautomaat",
       "straatNaam": "Chaamseweg",
@@ -10553,6 +10553,18 @@
       "longitude": 4.8534132,
       "vervoerder": "GLS",
       "puntType": "parcel_shop"
+    },
+    {
+      "id": "M3wLFBj6DSwMyH",
+      "locatieNaam": "Pakketautomaat",
+      "straatNaam": "De Hak",
+      "straatNr": "15",
+      "postcode": "5107RG",
+      "city": "Dongen",
+      "latitude": 51.6151101,
+      "longitude": 4.93094093,
+      "vervoerder": "GLS",
+      "puntType": "locker"
     },
     {
       "id": "48720015",
@@ -10985,6 +10997,18 @@
       "longitude": 5.85452864,
       "vervoerder": "GLS",
       "puntType": "locker"
+    },
+    {
+      "id": "61140004",
+      "locatieNaam": "Bloemenhuis Majo",
+      "straatNaam": "Dieterderweg",
+      "straatNr": "5",
+      "postcode": "6114JJ",
+      "city": "Susteren",
+      "latitude": 51.064343,
+      "longitude": 5.8521847,
+      "vervoerder": "GLS",
+      "puntType": "parcel_shop"
     },
     {
       "id": "M3agGJXxIQKouX",
