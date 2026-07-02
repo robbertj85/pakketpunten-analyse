@@ -49,6 +49,8 @@ export interface Suggestion {
   lon: number;
   white_spot_area_m2: number;
   est_new_pop_within_400m: number;
+  /** Iteration rank within the PC4 (plek 1/2/3). */
+  rank?: number;
   /** True when the coordinate has been snapped to a real BAG pand. */
   snapped_to_bag?: boolean;
   /** Distance (m) from the densest-cell centroid to the snapped building. */
@@ -59,6 +61,10 @@ export interface Suggestion {
   bag_identificatie?: string | null;
   pre_snap_lat?: number;
   pre_snap_lon?: number;
+  /** POI (supermarkt, station, ...) that drove the snap target, if any. */
+  poi_category?: string | null;
+  poi_naam?: string | null;
+  poi_distance_m?: number | null;
 }
 
 export interface PC4Record {
@@ -83,7 +89,10 @@ export interface PC4Record {
   overlap_pct: number;
   coverage_pct_400m: number;
   population: number;
+  /** Plek 1 — kept for backward compat; equals suggestions[0]. */
   suggestion: Suggestion | null;
+  /** Iteratively derived spots (plek 1/2/3) within this PC4. */
+  suggestions?: Suggestion[];
 }
 
 export interface MunicipalityBlock {
@@ -91,6 +100,32 @@ export interface MunicipalityBlock {
   pc4s: PC4Record[];
   pc4_count_evaluated: number;
 }
+
+/** All spots of a PC4 (plek 1/2/3), falling back to the legacy single field. */
+export function spotsOf(r: PC4Record): Suggestion[] {
+  if (r.suggestions && r.suggestions.length > 0) return r.suggestions;
+  return r.suggestion ? [r.suggestion] : [];
+}
+
+/** POI feature as shown on the suggestion maps (toggleable icon layer). */
+export interface PoiFeatureLite {
+  category: string;
+  name: string;
+  lat: number;
+  lon: number;
+}
+
+/** category slug → color/label, from /data/poi/index.json. */
+export type PoiCategoryMeta = Record<string, { color: string; label: string }>;
+
+/** Categories shown on the plaatsingsadvies maps — the same set the snap
+ * step targets, so the map explains where suggestions gravitate to. */
+export const PLAATSING_POI_CATEGORIES = new Set([
+  'supermarkt', 'winkelcentrum',
+  'ns_station', 'metro_station', 'ov_knooppunt', 'tram_halte',
+  'parkeergarage', 'fietsenstalling',
+  'bibliotheek', 'gemeentehuis',
+]);
 
 export interface PainpointEntry {
   city?: string;
@@ -173,29 +208,36 @@ function downloadCsv(filename: string, rows: (string | number | null | undefined
 
 function exportAllCsv(payload: PlacementSuggestionsPayload) {
   const header = [
-    'gemeente_slug', 'gemeente', 'rank', 'pc4', 'priority',
+    'gemeente_slug', 'gemeente', 'rank', 'pc4', 'plek', 'priority',
     'actual', 'predicted', 'underservice',
     'population', 'uncovered_pop', 'coverage_pct_400m', 'overlap_pct', 'density',
     'sug_lat', 'sug_lon', 'sug_white_spot_m2', 'sug_est_new_pop_400m',
     'sug_bag_id', 'sug_bag_use', 'sug_bag_year', 'sug_snap_distance_m',
+    'sug_poi_category', 'sug_poi_naam', 'sug_poi_distance_m',
   ];
   const rows: (string | number | null)[][] = [header];
   for (const [slug, block] of Object.entries(payload.by_municipality)) {
     block.pc4s.forEach((r, idx) => {
-      rows.push([
-        slug, block.gemeente, idx + 1, r.pc4, r.priority,
-        r.actual, r.predicted, r.underservice,
-        r.population, r.uncovered_pop, r.coverage_pct_400m, r.overlap_pct, r.density,
-        r.suggestion?.lat ?? null,
-        r.suggestion?.lon ?? null,
-        r.suggestion?.white_spot_area_m2 ?? null,
-        r.suggestion?.est_new_pop_within_400m ?? null,
-        r.suggestion?.bag_identificatie ?? null,
-        r.suggestion?.bag_gebruiksdoel ?? null,
-        r.suggestion?.bag_bouwjaar ?? null,
-        r.suggestion?.bag_distance_m ?? null,
-
-      ]);
+      const spots = spotsOf(r);
+      const spotRows: (Suggestion | null)[] = spots.length > 0 ? spots : [null];
+      spotRows.forEach((s, spotIdx) => {
+        rows.push([
+          slug, block.gemeente, idx + 1, r.pc4, s ? spotIdx + 1 : null, r.priority,
+          r.actual, r.predicted, r.underservice,
+          r.population, r.uncovered_pop, r.coverage_pct_400m, r.overlap_pct, r.density,
+          s?.lat ?? null,
+          s?.lon ?? null,
+          s?.white_spot_area_m2 ?? null,
+          s?.est_new_pop_within_400m ?? null,
+          s?.bag_identificatie ?? null,
+          s?.bag_gebruiksdoel ?? null,
+          s?.bag_bouwjaar ?? null,
+          s?.bag_distance_m ?? null,
+          s?.poi_category ?? null,
+          s?.poi_naam ?? null,
+          s?.poi_distance_m ?? null,
+        ]);
+      });
     });
   }
   downloadCsv('plaatsingsadvies.csv', rows);
@@ -265,6 +307,103 @@ export default function PlacementSuggestionsReport({
   // top-ranked PC4 so the side panel is never empty when the page loads.
   const [selectedPc4, setSelectedPc4] = useState<string | null>(null);
   const bigMapRef = useRef<HTMLDivElement | null>(null);
+
+  // Chosen spot (plek 1/2/3) per PC4 — lets the user iterate through the
+  // iteratively derived placements within a PC4. Reset on gemeente switch.
+  const [spotRankByPc4, setSpotRankByPc4] = useState<Record<string, number>>({});
+  const setSpotRank = (pc4: string, rank: number) =>
+    setSpotRankByPc4((m) => ({ ...m, [pc4]: rank }));
+  useEffect(() => {
+    setSpotRankByPc4({});
+  }, [slug]);
+  const activeSpotOf = (r: PC4Record): Suggestion | null => {
+    const spots = spotsOf(r);
+    if (spots.length === 0) return null;
+    const rank = spotRankByPc4[r.pc4] ?? 1;
+    return spots[Math.min(spots.length, Math.max(1, rank)) - 1];
+  };
+
+  // Toggleable POI layers (voorzieningen) on the suggestion maps. Lazily
+  // fetched per gemeente the first time the master toggle goes on. Every
+  // category in the bundle becomes its own layer; the snap-target categories
+  // are on by default and rendering defaults to icons.
+  const [showPois, setShowPois] = useState(false);
+  const [poiFeatures, setPoiFeatures] = useState<PoiFeatureLite[] | null>(null);
+  const [poiMeta, setPoiMeta] = useState<PoiCategoryMeta>({});
+  const [poiOrder, setPoiOrder] = useState<string[]>([]);
+  const [poiSelected, setPoiSelected] = useState<Record<string, boolean>>({});
+  const [poiStyle, setPoiStyle] = useState<'icons' | 'dots'>('icons');
+  const [poiLoading, setPoiLoading] = useState(false);
+  useEffect(() => {
+    setPoiFeatures(null);
+    setPoiSelected({});
+  }, [slug]);
+  useEffect(() => {
+    if (!showPois || !slug || poiFeatures !== null) return;
+    let cancelled = false;
+    setPoiLoading(true);
+    Promise.all([
+      fetch(`/data/poi/by-municipality/${slug}.geojson`).then((r) => (r.ok ? r.json() : null)),
+      fetch('/data/poi/index.json').then((r) => (r.ok ? r.json() : null)),
+    ])
+      .then(([bundle, index]) => {
+        if (cancelled) return;
+        const feats: PoiFeatureLite[] = [];
+        for (const f of bundle?.features ?? []) {
+          const cat = f?.properties?.category as string | undefined;
+          const c = f?.geometry?.coordinates as [number, number] | undefined;
+          if (!cat || !c) continue;
+          feats.push({
+            category: cat,
+            name: (f.properties?.name as string) || '',
+            lat: c[1],
+            lon: c[0],
+          });
+        }
+        setPoiFeatures(feats);
+        const meta: PoiCategoryMeta = {};
+        const order: string[] = [];
+        for (const cat of index?.categories ?? []) {
+          meta[cat.slug] = { color: cat.color, label: cat.label };
+          order.push(cat.slug);
+        }
+        setPoiMeta(meta);
+        setPoiOrder(order);
+        const present = new Set(feats.map((f) => f.category));
+        setPoiSelected((prev) => {
+          const next: Record<string, boolean> = {};
+          for (const cat of present) {
+            next[cat] = prev[cat] ?? PLAATSING_POI_CATEGORIES.has(cat);
+          }
+          return next;
+        });
+      })
+      .catch(() => !cancelled && setPoiFeatures([]))
+      .finally(() => !cancelled && setPoiLoading(false));
+    return () => {
+      cancelled = true;
+    };
+  }, [showPois, slug, poiFeatures]);
+
+  // Categories present in this gemeente (index order) with feature counts.
+  const poiCategories = useMemo(() => {
+    if (!poiFeatures) return [];
+    const counts = new Map<string, number>();
+    for (const f of poiFeatures) counts.set(f.category, (counts.get(f.category) ?? 0) + 1);
+    const known = poiOrder.filter((c) => counts.has(c));
+    const unknown = [...counts.keys()].filter((c) => !poiOrder.includes(c)).sort();
+    return [...known, ...unknown].map((c) => ({
+      category: c,
+      count: counts.get(c) ?? 0,
+      label: poiMeta[c]?.label ?? c,
+      color: poiMeta[c]?.color ?? '#64748b',
+    }));
+  }, [poiFeatures, poiOrder, poiMeta]);
+
+  const visiblePoiFeatures = useMemo(
+    () => (poiFeatures ?? []).filter((f) => poiSelected[f.category]),
+    [poiFeatures, poiSelected],
+  );
 
   const handleSelectPc4 = (pc4: string, scroll = false) => {
     setSelectedPc4(pc4);
@@ -419,7 +558,7 @@ export default function PlacementSuggestionsReport({
   return (
     <>
       {/* Intro */}
-      <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-900">
+      <div data-tour="intro" className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-900">
         <h2 className="font-semibold mb-1">Plaatsingsadvies pakketpunten</h2>
         <p>
           Per gemeente rangschikken we de PC4s op een prioriteitsscore die vier
@@ -438,7 +577,7 @@ export default function PlacementSuggestionsReport({
       </div>
 
       {/* Controls */}
-      <div className="bg-white rounded-lg shadow-md p-4 mb-6 flex flex-wrap items-center gap-4">
+      <div data-tour="gemeente-bar" className="bg-white rounded-lg shadow-md p-4 mb-6 flex flex-wrap items-center gap-4">
         <div className="flex items-center gap-3 flex-1 min-w-[280px]">
           <label className="text-sm font-medium text-gray-700">Gemeente</label>
           <select
@@ -474,7 +613,7 @@ export default function PlacementSuggestionsReport({
       {block ? (
         <>
           {/* Summary card */}
-          <section className="bg-white rounded-lg shadow-md p-6 mb-6">
+          <section data-tour="ranking" className="bg-white rounded-lg shadow-md p-6 mb-6">
             <div className="flex items-baseline justify-between mb-2 gap-3 flex-wrap">
               <h2 className="text-xl font-bold text-gray-900">{block.gemeente}</h2>
               <div className="flex items-center gap-3">
@@ -528,7 +667,7 @@ export default function PlacementSuggestionsReport({
 
           {/* Adjustable weights + model toggle. Re-ranks the existing top-N
               client-side; doesn't fetch new PC4s. */}
-          <section className="bg-white rounded-lg shadow-md p-6 mb-6">
+          <section data-tour="gewichten" className="bg-white rounded-lg shadow-md p-6 mb-6">
             <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3">
               <h3 className="text-lg font-semibold text-gray-900">
                 Gewichten & regressiemodel
@@ -678,6 +817,7 @@ export default function PlacementSuggestionsReport({
 
           {/* Big map + detail panel — overview of all top-N suggestions */}
           <section
+            data-tour="grote-kaart"
             ref={bigMapRef}
             className="bg-white rounded-lg shadow-md p-6 mb-6 scroll-mt-6"
           >
@@ -685,11 +825,92 @@ export default function PlacementSuggestionsReport({
               <h3 className="text-lg font-semibold text-gray-900">
                 Voorgestelde locaties op kaart
               </h3>
-              <p className="text-xs text-gray-500">
-                Klik een pin op de kaart of een kaartje hieronder om de details
-                in het rechterpaneel te zien.
-              </p>
+              <div className="flex flex-wrap items-center gap-3">
+                <label data-tour="poi-toggle" className="flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={showPois}
+                    onChange={(e) => setShowPois(e.target.checked)}
+                    className="rounded border-gray-300"
+                  />
+                  Voorzieningen tonen
+                  {poiLoading && <span className="text-gray-400">(laden…)</span>}
+                  {showPois && poiFeatures && !poiLoading && (
+                    <span className="text-gray-400">({visiblePoiFeatures.length})</span>
+                  )}
+                </label>
+                <p className="text-xs text-gray-500">
+                  Klik een pin op de kaart of een kaartje hieronder om de details
+                  in het rechterpaneel te zien.
+                </p>
+              </div>
             </div>
+
+            {/* POI layer panel: one toggle per category + render style. */}
+            {showPois && poiFeatures && (
+              <div className="mb-3 p-3 bg-gray-50 border border-gray-200 rounded-lg">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                  <label className="flex items-center gap-1.5 text-xs text-gray-700">
+                    Weergave
+                    <select
+                      value={poiStyle}
+                      onChange={(e) => setPoiStyle(e.target.value as 'icons' | 'dots')}
+                      className="px-2 py-1 text-xs border border-gray-300 rounded bg-white"
+                    >
+                      <option value="icons">Iconen</option>
+                      <option value="dots">Stippen</option>
+                    </select>
+                  </label>
+                  <div className="flex gap-2 text-[11px]">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setPoiSelected(Object.fromEntries(poiCategories.map((c) => [c.category, true])))
+                      }
+                      className="text-blue-700 hover:text-blue-900 font-semibold"
+                    >
+                      Alles aan
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setPoiSelected(Object.fromEntries(poiCategories.map((c) => [c.category, false])))
+                      }
+                      className="text-blue-700 hover:text-blue-900 font-semibold"
+                    >
+                      Alles uit
+                    </button>
+                  </div>
+                </div>
+                <div className="mt-2 flex flex-wrap gap-1.5">
+                  {poiCategories.map((c) => {
+                    const active = !!poiSelected[c.category];
+                    return (
+                      <button
+                        key={c.category}
+                        type="button"
+                        onClick={() =>
+                          setPoiSelected((prev) => ({ ...prev, [c.category]: !active }))
+                        }
+                        className={`flex items-center gap-1.5 px-2 py-1 rounded-full border text-[11px] transition ${
+                          active
+                            ? 'bg-white border-gray-300 text-gray-800 shadow-sm'
+                            : 'bg-gray-100 border-gray-200 text-gray-400'
+                        }`}
+                        title={`${c.label} (${c.count})`}
+                      >
+                        <span
+                          className="inline-block w-2.5 h-2.5 rounded-full"
+                          style={{ background: active ? c.color : '#9ca3af' }}
+                        />
+                        {c.label}
+                        <span className={active ? 'text-gray-400' : 'text-gray-300'}>{c.count}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
 
             {bigMapRecords.length === 0 ? (
               <div className="p-4 bg-amber-50 border border-amber-200 rounded text-sm text-amber-900">
@@ -703,13 +924,20 @@ export default function PlacementSuggestionsReport({
                     records={bigMapRecords}
                     selectedPc4={selectedPc4}
                     onSelectPc4={(pc4) => handleSelectPc4(pc4, false)}
+                    spotRankByPc4={spotRankByPc4}
+                    onSelectSpot={setSpotRank}
+                    poiFeatures={showPois ? visiblePoiFeatures : null}
+                    poiMeta={poiMeta}
+                    poiStyle={poiStyle}
                   />
                 </div>
 
-                <aside className="border border-gray-200 rounded-lg overflow-hidden flex flex-col h-[560px] lg:h-[640px]">
-                  {selectedRecord && selectedRecord.suggestion ? (() => {
+                <aside data-tour="detailpaneel" className="border border-gray-200 rounded-lg overflow-hidden flex flex-col h-[560px] lg:h-[640px]">
+                  {selectedRecord && activeSpotOf(selectedRecord) ? (() => {
                     const r = selectedRecord;
-                    const s = r.suggestion!;
+                    const spots = spotsOf(r);
+                    const activeRank = spotRankByPc4[r.pc4] ?? 1;
+                    const s = activeSpotOf(r)!;
                     const sv = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${s.lat},${s.lon}`;
                     const gm = `https://www.google.com/maps?q=${s.lat},${s.lon}`;
                     const predicted =
@@ -731,6 +959,32 @@ export default function PlacementSuggestionsReport({
                               {r.priority >= 0 ? '+' : ''}{nlNum1(r.priority)}
                             </span>
                           </div>
+                          {spots.length > 1 && (
+                            <div className="mt-2 flex items-center gap-1.5">
+                              <span className="text-[10px] uppercase tracking-wide text-gray-500 font-semibold">
+                                Plek
+                              </span>
+                              <div className="inline-flex rounded overflow-hidden border border-blue-200">
+                                {spots.map((_, i) => (
+                                  <button
+                                    key={i}
+                                    type="button"
+                                    onClick={() => setSpotRank(r.pc4, i + 1)}
+                                    className={`px-2.5 py-1 text-xs font-semibold transition ${
+                                      activeRank === i + 1
+                                        ? 'bg-blue-700 text-white'
+                                        : 'bg-white text-blue-700 hover:bg-blue-50'
+                                    }`}
+                                  >
+                                    {i + 1}
+                                  </button>
+                                ))}
+                              </div>
+                              <span className="text-[10px] text-gray-500">
+                                iteratief afgeleid binnen deze PC4
+                              </span>
+                            </div>
+                          )}
                         </div>
 
                         <div className="px-4 py-3 space-y-3 text-xs overflow-y-auto flex-1 min-h-0">
@@ -749,6 +1003,12 @@ export default function PlacementSuggestionsReport({
                             </div>
                             {s.snapped_to_bag && s.bag_gebruiksdoel ? (
                               <>
+                                {s.poi_naam && (
+                                  <div className="text-pink-700 font-semibold">
+                                    Bij {s.poi_category?.replaceAll('_', ' ')}: {s.poi_naam}
+                                    {s.poi_distance_m != null ? ` (${s.poi_distance_m} m)` : ''}
+                                  </div>
+                                )}
                                 <div className="text-gray-800">
                                   {s.bag_gebruiksdoel}
                                   {s.bag_bouwjaar ? ` · bouwjaar ${s.bag_bouwjaar}` : ''}
@@ -832,6 +1092,16 @@ export default function PlacementSuggestionsReport({
                           </div>
 
                           <div className="border-t border-gray-100 pt-3 flex flex-col gap-1.5">
+                            <Link
+                              href={`/data-export/suggesties/3d/${slug}/${r.pc4}${activeRank > 1 ? `?rank=${activeRank}` : ''}`}
+                              style={{ color: '#ffffff' }}
+                              className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 rounded transition no-underline"
+                            >
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                              </svg>
+                              Bekijk in 3D
+                            </Link>
                             <a
                               href={sv}
                               target="_blank"
@@ -865,7 +1135,7 @@ export default function PlacementSuggestionsReport({
           </section>
 
           {/* Mini-maps */}
-          <section className="bg-white rounded-lg shadow-md p-6">
+          <section data-tour="minimaps" className="bg-white rounded-lg shadow-md p-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-3">Voorgestelde locaties</h3>
             {muniLoading && (
               <p className="text-sm text-gray-500 mb-3">Gemeente-data laden...</p>
@@ -911,6 +1181,12 @@ export default function PlacementSuggestionsReport({
                   );
                 })();
                 const isSelected = selectedPc4 === r.pc4;
+                const cardSpots = spotsOf(r);
+                const cardRank = Math.min(
+                  Math.max(1, spotRankByPc4[r.pc4] ?? 1),
+                  Math.max(1, cardSpots.length),
+                );
+                const cardSpot = cardSpots[cardRank - 1] ?? null;
                 return (
                 <div
                   key={r.pc4}
@@ -922,15 +1198,15 @@ export default function PlacementSuggestionsReport({
                 >
                   <button
                     type="button"
-                    onClick={() => r.suggestion && handleSelectPc4(r.pc4, true)}
-                    disabled={!r.suggestion}
+                    onClick={() => cardSpot && handleSelectPc4(r.pc4, true)}
+                    disabled={!cardSpot}
                     className={`w-full px-3 py-2 bg-gray-50 border-b border-gray-200 flex items-center justify-between gap-2 flex-wrap text-left ${
-                      r.suggestion
+                      cardSpot
                         ? 'cursor-pointer hover:bg-blue-50'
                         : 'cursor-default'
                     }`}
                     title={
-                      r.suggestion
+                      cardSpot
                         ? 'Bekijk op de grote kaart hierboven'
                         : 'Geen snappable suggestie'
                     }
@@ -951,25 +1227,61 @@ export default function PlacementSuggestionsReport({
                   <div className="h-56">
                     <SuggestionMiniMap
                       pc4={r.pc4}
-                      suggestion={r.suggestion}
+                      suggestion={cardSpot}
+                      spots={r.suggestions}
                       muniGeojson={muniGeojson}
                     />
                   </div>
                   <div className="px-3 py-2 text-xs text-gray-600 bg-white border-t border-gray-100">
-                    {r.suggestion ? (
+                    {cardSpot ? (
                       <>
+                        {cardSpots.length > 1 && (
+                          <div className="flex items-center gap-1.5 mb-1.5">
+                            <span className="text-[10px] uppercase tracking-wide text-gray-500 font-semibold">
+                              Plek
+                            </span>
+                            <div className="inline-flex rounded overflow-hidden border border-blue-200">
+                              {cardSpots.map((_, i) => (
+                                <button
+                                  key={i}
+                                  type="button"
+                                  onClick={() => setSpotRank(r.pc4, i + 1)}
+                                  className={`px-2 py-0.5 text-[11px] font-semibold transition ${
+                                    cardRank === i + 1
+                                      ? 'bg-blue-700 text-white'
+                                      : 'bg-white text-blue-700 hover:bg-blue-50'
+                                  }`}
+                                >
+                                  {i + 1}
+                                </button>
+                              ))}
+                            </div>
+                            <Link
+                              href={`/data-export/suggesties/3d/${slug}/${r.pc4}${cardRank > 1 ? `?rank=${cardRank}` : ''}`}
+                              className="ml-auto text-[11px] font-semibold text-indigo-700 hover:text-indigo-900"
+                            >
+                              Bekijk in 3D
+                            </Link>
+                          </div>
+                        )}
                         <div>
-                          Coördinaat: <span className="font-mono">{r.suggestion.lat.toFixed(5)}, {r.suggestion.lon.toFixed(5)}</span>
+                          Coördinaat: <span className="font-mono">{cardSpot.lat.toFixed(5)}, {cardSpot.lon.toFixed(5)}</span>
                           {' · '}
-                          Wit vlak: {nlInt(r.suggestion.white_spot_area_m2 / 1000)} k m²
+                          Wit vlak: {nlInt(cardSpot.white_spot_area_m2 / 1000)} k m²
                           {' · '}
-                          Schat. nieuw bereikt: <strong>{nlInt(r.suggestion.est_new_pop_within_400m)}</strong> inw.
+                          Schat. nieuw bereikt: <strong>{nlInt(cardSpot.est_new_pop_within_400m)}</strong> inw.
                         </div>
-                        {r.suggestion.snapped_to_bag && r.suggestion.bag_gebruiksdoel && (
+                        {cardSpot.poi_naam && (
+                          <div className="text-[11px] text-pink-700 mt-0.5">
+                            Bij {cardSpot.poi_category?.replaceAll('_', ' ')}: {cardSpot.poi_naam}
+                            {cardSpot.poi_distance_m != null ? ` (${cardSpot.poi_distance_m} m)` : ''}
+                          </div>
+                        )}
+                        {cardSpot.snapped_to_bag && cardSpot.bag_gebruiksdoel && (
                           <div className="text-[11px] text-blue-700 mt-0.5">
-                            BAG-pand: {r.suggestion.bag_gebruiksdoel}
-                            {r.suggestion.bag_bouwjaar ? ` (bouwjaar ${r.suggestion.bag_bouwjaar})` : ''}
-                            {r.suggestion.bag_distance_m != null && `, ${r.suggestion.bag_distance_m} m verschoven`}
+                            BAG-pand: {cardSpot.bag_gebruiksdoel}
+                            {cardSpot.bag_bouwjaar ? ` (bouwjaar ${cardSpot.bag_bouwjaar})` : ''}
+                            {cardSpot.bag_distance_m != null && `, ${cardSpot.bag_distance_m} m verschoven`}
                           </div>
                         )}
                       </>

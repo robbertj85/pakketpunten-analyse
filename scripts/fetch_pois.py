@@ -237,6 +237,17 @@ CATEGORIES: list[dict] = [
         """,
     },
     {
+        "slug": "supermarkt",
+        "label": "Supermarkten",
+        "group": "voorzieningen",
+        "color": "#DB2777",
+        "icon": "supermarket",
+        "query": """
+          node[shop=supermarket]({bbox});
+          way[shop=supermarket]({bbox});
+        """,
+    },
+    {
         "slug": "fietsenstalling",
         "label": "Fietsenstallingen (overdekt)",
         "group": "voorzieningen",

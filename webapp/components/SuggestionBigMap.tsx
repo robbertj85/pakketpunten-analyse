@@ -1,12 +1,14 @@
 'use client';
 
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
-import { MapContainer, GeoJSON, CircleMarker, Circle, Popup, Tooltip, useMap } from 'react-leaflet';
+import { MapContainer, GeoJSON, CircleMarker, Circle, Marker, Popup, Tooltip, useMap } from 'react-leaflet';
 import type { LatLngBoundsExpression } from 'leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-import type { PC4Record } from './PlacementSuggestionsReport';
+import type { PC4Record, PoiFeatureLite, PoiCategoryMeta, Suggestion } from './PlacementSuggestionsReport';
+import { spotsOf } from './PlacementSuggestionsReport';
+import { makePoiDivIcon } from '@/utils/poiIcons';
 
 function ImperativeTileLayer({ url, attribution }: { url: string; attribution: string }) {
   const map = useMap();
@@ -28,11 +30,11 @@ interface PC4Feature {
 
 function FitOrFlyTo({
   records,
-  selected,
+  selectedLatLon,
   fitTrigger,
 }: {
   records: PC4Record[];
-  selected: PC4Record | null;
+  selectedLatLon: [number, number] | null;
   fitTrigger: number;
 }) {
   const map = useMap();
@@ -56,18 +58,14 @@ function FitOrFlyTo({
     map.fitBounds(L.latLngBounds(pts), { padding: [60, 60], maxZoom: 14 });
   }, [records, fitTrigger, map]);
 
-  // Whenever the user picks a pin (or the default selection updates after the
-  // initial fit), fly to that coordinate. Skipped on the same render as the
-  // fit so we don't get a snap-then-fly jitter.
+  // Whenever the user picks a pin / another spot (or the default selection
+  // updates after the initial fit), fly to that coordinate. Skipped on the
+  // same render as the fit so we don't get a snap-then-fly jitter.
   useEffect(() => {
-    if (!selected?.suggestion) return;
+    if (!selectedLatLon) return;
     if (lastFitTrigger.current !== fitTrigger) return; // fit hasn't run yet
-    map.flyTo(
-      [selected.suggestion.lat, selected.suggestion.lon],
-      16,
-      { duration: 0.8 },
-    );
-  }, [selected, fitTrigger, map]);
+    map.flyTo(selectedLatLon, 16, { duration: 0.8 });
+  }, [selectedLatLon, fitTrigger, map]);
 
   return null;
 }
@@ -80,6 +78,14 @@ interface Props {
   records: PC4Record[];
   selectedPc4: string | null;
   onSelectPc4: (pc4: string) => void;
+  /** Chosen spot (plek 1/2/3) per PC4; default plek 1. */
+  spotRankByPc4?: Record<string, number>;
+  onSelectSpot?: (pc4: string, rank: number) => void;
+  /** Toggleable POI layer (voorzieningen), null = hidden. */
+  poiFeatures?: PoiFeatureLite[] | null;
+  poiMeta?: PoiCategoryMeta;
+  /** POI render style — icons (default) or small dots, like the main map. */
+  poiStyle?: 'icons' | 'dots';
 }
 
 export default function SuggestionBigMap({
@@ -87,6 +93,11 @@ export default function SuggestionBigMap({
   records,
   selectedPc4,
   onSelectPc4,
+  spotRankByPc4,
+  onSelectSpot,
+  poiFeatures,
+  poiMeta,
+  poiStyle = 'icons',
 }: Props) {
   const [mounted, setMounted] = useState(false);
   const [pc4Features, setPc4Features] = useState<PC4Feature[] | null>(null);
@@ -138,6 +149,20 @@ export default function SuggestionBigMap({
     [records, selectedPc4],
   );
 
+  // Active spot per record (plek 1/2/3) — the primary marker position.
+  const activeSpot = (r: PC4Record): Suggestion | null => {
+    const spots = spotsOf(r);
+    if (spots.length === 0) return null;
+    const rank = spotRankByPc4?.[r.pc4] ?? 1;
+    return spots[Math.min(spots.length, Math.max(1, rank)) - 1];
+  };
+
+  const selectedLatLon = useMemo<[number, number] | null>(() => {
+    const s = selectedRecord ? activeSpot(selectedRecord) : null;
+    return s ? [s.lat, s.lon] : null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedRecord, spotRankByPc4]);
+
   if (!mounted) {
     return (
       <div className="w-full h-full flex items-center justify-center bg-gray-50 text-sm text-gray-500">
@@ -180,14 +205,52 @@ export default function SuggestionBigMap({
 
         <FitOrFlyTo
           records={records}
-          selected={selectedRecord}
+          selectedLatLon={selectedLatLon}
           fitTrigger={fitTriggerNum}
         />
 
+        {/* Toggleable POI layers (voorzieningen) — icons or dots per category. */}
+        {poiFeatures?.map((p, i) => {
+          const meta = poiMeta?.[p.category];
+          const color = meta?.color ?? '#64748b';
+          const tooltip = (
+            <Tooltip direction="top" offset={[0, -8]} opacity={0.95}>
+              <span className="text-xs">
+                {meta?.label ?? p.category}
+                {p.name ? ` · ${p.name}` : ''}
+              </span>
+            </Tooltip>
+          );
+          if (poiStyle === 'dots') {
+            return (
+              <CircleMarker
+                key={`poi-${i}`}
+                center={[p.lat, p.lon]}
+                radius={3.5}
+                pathOptions={{ color: '#ffffff', weight: 1, fillColor: color, fillOpacity: 0.9 }}
+              >
+                {tooltip}
+              </CircleMarker>
+            );
+          }
+          return (
+            <Marker
+              key={`poi-${i}`}
+              position={[p.lat, p.lon]}
+              icon={makePoiDivIcon(p.category, color, 18)}
+              zIndexOffset={-500}
+            >
+              {tooltip}
+            </Marker>
+          );
+        })}
+
         {records.map((r, idx) => {
-          if (!r.suggestion) return null;
+          const s = activeSpot(r);
+          if (!s) return null;
           const isSelected = r.pc4 === selectedPc4;
-          const s = r.suggestion;
+          const spots = spotsOf(r);
+          const activeIdx = spots.indexOf(s);
           const streetviewUrl = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${s.lat},${s.lon}`;
           const mapsUrl = `https://www.google.com/maps?q=${s.lat},${s.lon}`;
           return (
@@ -205,6 +268,35 @@ export default function SuggestionBigMap({
                   }}
                 />
               )}
+              {/* Alternative spots (plek 2/3) of the selected PC4 — dimmed,
+                  clickable to switch the active spot. */}
+              {isSelected &&
+                spots.map((alt, ai) => {
+                  if (ai === activeIdx) return null;
+                  return (
+                    <CircleMarker
+                      key={`alt-${r.pc4}-${ai}`}
+                      center={[alt.lat, alt.lon]}
+                      radius={7}
+                      pathOptions={{
+                        color: '#92400e',
+                        weight: 1.5,
+                        fillColor: '#fcd34d',
+                        fillOpacity: 0.65,
+                        dashArray: '2,3',
+                      }}
+                      eventHandlers={{
+                        click: () => onSelectSpot?.(r.pc4, ai + 1),
+                      }}
+                    >
+                      <Tooltip direction="top" offset={[0, -8]} opacity={0.95}>
+                        <span className="font-mono text-xs">
+                          Plek {ai + 1} · +{nlInt(alt.est_new_pop_within_400m)} inw. — klik om te kiezen
+                        </span>
+                      </Tooltip>
+                    </CircleMarker>
+                  );
+                })}
               <CircleMarker
                 center={[s.lat, s.lon]}
                 radius={isSelected ? 13 : 9}
@@ -221,12 +313,14 @@ export default function SuggestionBigMap({
                 <Tooltip direction="top" offset={[0, -8]} opacity={0.95}>
                   <span className="font-mono text-xs">
                     #{idx + 1} · PC4 {r.pc4}
+                    {spots.length > 1 ? ` · plek ${activeIdx + 1}` : ''}
                   </span>
                 </Tooltip>
                 <Popup>
                   <div className="text-sm" style={{ minWidth: 200 }}>
                     <div className="font-semibold text-gray-900">
                       #{idx + 1} · PC4 {r.pc4}
+                      {spots.length > 1 ? ` · plek ${activeIdx + 1}` : ''}
                     </div>
                     <div className="text-xs text-gray-600 mt-0.5">
                       {municipality}
@@ -236,6 +330,11 @@ export default function SuggestionBigMap({
                       <strong>{nlInt(s.est_new_pop_within_400m)}</strong>{' '}
                       inwoners
                     </div>
+                    {s.poi_naam && (
+                      <div className="text-xs text-pink-700 mt-1">
+                        Bij {s.poi_category?.replaceAll('_', ' ')}: {s.poi_naam}
+                      </div>
+                    )}
                     {s.bag_gebruiksdoel && (
                       <div className="text-xs text-blue-800 mt-1">
                         BAG: {s.bag_gebruiksdoel}

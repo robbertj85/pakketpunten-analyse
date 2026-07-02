@@ -37,7 +37,11 @@ interface MuniGeojson {
 
 interface Props {
   pc4: string;
+  /** The active spot (plek 1/2/3 as chosen by the user). */
   suggestion: Suggestion | null;
+  /** All spots of the PC4 — non-active ones render dimmed for context.
+   * Pass the payload array itself so React.memo stays effective. */
+  spots?: Suggestion[];
   muniGeojson: unknown | null;
 }
 
@@ -49,7 +53,11 @@ function FitToBounds({ bounds }: { bounds: LatLngBoundsExpression | null }) {
   return null;
 }
 
-function SuggestionMiniMapImpl({ pc4, suggestion, muniGeojson }: Props) {
+function SuggestionMiniMapImpl({ pc4, suggestion, spots, muniGeojson }: Props) {
+  const altSpots = useMemo(
+    () => (spots ?? []).filter((s) => s !== suggestion),
+    [spots, suggestion],
+  );
   const [polygon, setPolygon] = useState<MuniGeojsonFeature | null>(null);
   const [loading, setLoading] = useState(true);
   // Defer the MapContainer until after first commit. React 19's concurrent
@@ -139,6 +147,30 @@ function SuggestionMiniMapImpl({ pc4, suggestion, muniGeojson }: Props) {
           />
         )}
         <FitToBounds bounds={bounds} />
+        {altSpots.map((alt, i) => (
+          <CircleMarker
+            key={`alt-${i}-${alt.lat}`}
+            center={[alt.lat, alt.lon]}
+            radius={5}
+            pathOptions={{
+              fillColor: '#fcd34d',
+              fillOpacity: 0.6,
+              color: '#92400e',
+              weight: 1.5,
+              dashArray: '2,3',
+            }}
+          >
+            <Popup>
+              <div className="text-xs">
+                <div className="font-semibold">Alternatieve plek · PC4 {pc4}</div>
+                <div className="text-gray-600 mt-0.5">
+                  Geschat extra bereik (400m):{' '}
+                  <strong>{alt.est_new_pop_within_400m.toLocaleString('nl-NL')}</strong> inw.
+                </div>
+              </div>
+            </Popup>
+          </CircleMarker>
+        ))}
         {suggestion && (
           <>
             <Circle

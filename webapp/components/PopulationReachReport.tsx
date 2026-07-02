@@ -317,7 +317,7 @@ function CoverageCardGrid({ data }: { data: CoverageCardData }) {
 function NationalSummary({ nat }: { nat: NationalEntry }) {
   const pop = nat.population;
   return (
-    <section className="bg-white rounded-lg shadow-md p-6 mb-6">
+    <section data-tour="landelijk" className="bg-white rounded-lg shadow-md p-6 mb-6">
       <div className="flex flex-wrap items-baseline justify-between gap-2 mb-4">
         <h2 className="text-xl font-bold text-gray-900">Landelijk bereik</h2>
         <p className="text-sm text-gray-600">
@@ -374,7 +374,7 @@ function MunicipalityComparison({
   }), [allNames]);
 
   return (
-    <section className="bg-white rounded-lg shadow-md p-6 mb-6">
+    <section data-tour="vergelijk" className="bg-white rounded-lg shadow-md p-6 mb-6">
       <div className="flex flex-wrap items-baseline justify-between gap-2 mb-4">
         <div>
           <h2 className="text-xl font-bold text-gray-900">Vergelijk gemeenten</h2>
@@ -586,7 +586,7 @@ function MunicipalityTable({
   }), [rows]);
 
   return (
-    <section className="bg-white rounded-lg shadow-md p-6 mb-6">
+    <section data-tour="per-gemeente" className="bg-white rounded-lg shadow-md p-6 mb-6">
       <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
         <div>
           <h2 className="text-xl font-bold text-gray-900">Per gemeente</h2>
@@ -722,7 +722,7 @@ function PC4Table({
   const shown = filteredSorted.slice(0, MAX_ROWS);
 
   return (
-    <section className="bg-white rounded-lg shadow-md p-6">
+    <section data-tour="per-pc4" className="bg-white rounded-lg shadow-md p-6">
       <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
         <div>
           <h2 className="text-xl font-bold text-gray-900">Per PC4</h2>
@@ -811,7 +811,7 @@ export default function PopulationReachReport({
   return (
     <>
       {/* Intro / methodology */}
-      <div className="mb-6 p-4 bg-indigo-50 border border-indigo-200 rounded-lg text-sm text-indigo-900">
+      <div data-tour="intro" className="mb-6 p-4 bg-indigo-50 border border-indigo-200 rounded-lg text-sm text-indigo-900">
         <h2 className="font-semibold mb-1">Bereik van inwoners</h2>
         <p>
           Per PC4 tellen we de inwoners van CBS Vierkantstatistiek-cellen (100&nbsp;m × 100&nbsp;m)
@@ -834,7 +834,7 @@ export default function PopulationReachReport({
       <MunicipalityComparison payload={payload} />
 
       {/* Controls */}
-      <div className="bg-white rounded-lg shadow-md p-4 mb-6 flex flex-wrap items-center gap-6">
+      <div data-tour="controls" className="bg-white rounded-lg shadow-md p-4 mb-6 flex flex-wrap items-center gap-6">
         <div className="flex items-center gap-3">
           <span className="text-sm font-medium text-gray-700">Afstand</span>
           <SegControl

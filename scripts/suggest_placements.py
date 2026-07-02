@@ -13,10 +13,16 @@ Suggestion derivation (in order):
      farmland, golf courses — anywhere CBS recorded < 5 inhabitants.
   3. Pick the populated white-spot polygon with the highest CBS-grid headcount
      and use its representative point as a candidate.
-  4. Snap to the nearest OSM building footprint (Overpass) so the coordinate
-     lands on a real address rather than mid-block.
+  4. Snap to a nearby preferred POI (supermarkt, winkelcentrum, station, ...)
+     when one sits within POI_SNAP_RADIUS_M, else to the nearest BAG pand via
+     PDOK WFS, so the coordinate lands on a real, publicly accessible address.
   5. ``est_new_pop_within_400m`` = sum of CBS cells inside both the candidate's
      400 m buffer and the white-spot. Bounded — no uniform-density assumption.
+
+Per PC4 up to MAX_SUGGESTIONS_PER_PC4 (3) spots are derived iteratively:
+after spot k a 400 m buffer around it joins the exclusion union, so spot k+1
+lands in the next-best uncovered pocket and its est_new_pop is a true
+marginal gain (no double counting between spots).
 
 Output → webapp/public/data/placement_suggestions.json
 
@@ -79,6 +85,21 @@ TOP_N = 10                       # PC4s shipped per municipality (UI offers 5 / 
 MIN_PC4_POPULATION = 50          # exclude industrial / water PC4s
 MIN_WHITE_SPOT_AREA_M2 = 5_000   # discard slivers
 SNAP_BBOX_M = 300                # search radius for BAG building snap
+MAX_SUGGESTIONS_PER_PC4 = 3      # iterative spots per PC4 (plek 1/2/3 in UI)
+
+# POI snapping: when a preferred public POI sits within this radius of the
+# candidate cell, the snap target shifts to the POI itself (the BAG pand it
+# occupies is then found at that coordinate). Bus stops are deliberately
+# excluded — GTFS OV stops already cover transit and bus stops are too dense
+# to be a meaningful "same building" signal.
+POI_SNAP_RADIUS_M = 250
+POI_DIR = DATA_DIR / "poi" / "by-municipality"
+_POI_SNAP_TIER: dict[str, int] = {
+    "supermarkt": 0, "winkelcentrum": 0,
+    "ns_station": 1, "metro_station": 1, "ov_knooppunt": 1,
+    "bibliotheek": 2, "gemeentehuis": 2,
+    "tram_halte": 3, "parkeergarage": 3, "fietsenstalling": 3,
+}
 
 # CBS grid is loaded once in the parent process and inherited by workers via
 # `multiprocessing.fork()`. Workers read these module-level globals rather
@@ -241,19 +262,33 @@ def process_municipality(args: tuple) -> tuple[str, dict | None]:
 
     df = df.sort_values("priority", ascending=False).reset_index(drop=True)
 
-    # Suggest a concrete point for the top-N PC4s. The CBS-grid mask + BAG
-    # snap happen here; both are skipped gracefully if their inputs are missing.
+    # Suggest concrete points for the top-N PC4s. Up to MAX_SUGGESTIONS_PER_PC4
+    # spots are derived iteratively per PC4: after spot k, a 400 m buffer
+    # around it joins the exclusion union so spot k+1 targets the next-best
+    # uncovered pocket and its est_new_pop is a true marginal gain. The buffer
+    # is taken around the pre-snap point; the later BAG/POI snap moves spots
+    # by well under 400 m, so the exclusion stays representative.
     top = df.head(TOP_N).copy()
-    suggestions: list[dict | None] = []
+    suggestion_lists: list[list[dict]] = []
     for _, row in top.iterrows():
-        suggestions.append(
-            white_spot_suggestion(
-                pc4_polys[row["pc4"]],
-                buffer_union,
-                pc4_area_m2=row["pc4_area_m2"],
+        poly = pc4_polys[row["pc4"]]
+        exclusion = buffer_union
+        spots: list[dict] = []
+        for rank in range(1, MAX_SUGGESTIONS_PER_PC4 + 1):
+            sug = white_spot_suggestion(
+                poly, exclusion, pc4_area_m2=row["pc4_area_m2"],
             )
-        )
-    top["suggestion"] = suggestions
+            if sug is None:
+                break
+            sug["rank"] = rank
+            spots.append(sug)
+            spot_buffer = Point(sug["_rd_x"], sug["_rd_y"]).buffer(400)
+            exclusion = (
+                spot_buffer if exclusion is None
+                else exclusion.union(spot_buffer)
+            )
+        suggestion_lists.append(spots)
+    top["suggestions"] = suggestion_lists
 
     pc4_records = []
     for _, row in top.iterrows():
@@ -290,7 +325,10 @@ def process_municipality(args: tuple) -> tuple[str, dict | None]:
             "overlap_pct": round(float(row["overlap_penalty"]) * 100, 1),
             "coverage_pct_400m": round(float(row["coverage_pct_400m"]), 1),
             "population": int(row["population"]),
-            "suggestion": row["suggestion"],
+            # `suggestion` (plek 1) kept for backward compat — same dict object
+            # as suggestions[0], so the BAG/POI snap pass updates both.
+            "suggestion": row["suggestions"][0] if row["suggestions"] else None,
+            "suggestions": row["suggestions"],
         })
 
     return slug, {
@@ -457,6 +495,72 @@ _USE_TIER: dict[str, int] = {
 _DEFAULT_TIER = 4
 
 
+def _load_poi_snap_index(slug: str) -> dict | None:
+    """Load the per-municipality POI bundle and return a snap index (numpy
+    arrays in RD + per-POI props) limited to the categories in
+    ``_POI_SNAP_TIER``. Returns None when the bundle is missing or empty."""
+    path = POI_DIR / f"{slug}.geojson"
+    if not path.exists():
+        return None
+    try:
+        with open(path) as f:
+            payload = json.load(f)
+    except Exception:
+        return None
+    lons, lats, props = [], [], []
+    for feat in payload.get("features", []):
+        p = feat.get("properties", {})
+        cat = p.get("category")
+        if cat not in _POI_SNAP_TIER:
+            continue
+        coords = (feat.get("geometry") or {}).get("coordinates")
+        if not coords:
+            continue
+        lons.append(float(coords[0]))
+        lats.append(float(coords[1]))
+        props.append({
+            "category": cat,
+            "name": str(p.get("name") or ""),
+            "osm_id": str(p.get("osm_id") or ""),
+            "tier": _POI_SNAP_TIER[cat],
+        })
+    if not props:
+        return None
+    pts = gpd.GeoSeries(gpd.points_from_xy(lons, lats), crs=WGS84).to_crs(RD)
+    return {
+        "x": pts.x.to_numpy(),
+        "y": pts.y.to_numpy(),
+        "tier": np.array([p["tier"] for p in props], dtype=int),
+        "props": props,
+    }
+
+
+def _nearest_snap_poi(
+    rd_x: float, rd_y: float, poi_index: dict | None, max_dist_m: float,
+) -> dict | None:
+    """Best preferred POI within ``max_dist_m`` of (rd_x, rd_y), ranked by
+    (tier, distance) so a supermarket beats a closer tram stop."""
+    if poi_index is None:
+        return None
+    dx = poi_index["x"] - rd_x
+    dy = poi_index["y"] - rd_y
+    d2 = dx * dx + dy * dy
+    in_range = np.nonzero(d2 <= max_dist_m * max_dist_m)[0]
+    if in_range.size == 0:
+        return None
+    order = sorted(in_range, key=lambda i: (int(poi_index["tier"][i]), float(d2[i])))
+    best = order[0]
+    p = poi_index["props"][best]
+    return {
+        "category": p["category"],
+        "name": p["name"],
+        "osm_id": p["osm_id"],
+        "rd_x": float(poi_index["x"][best]),
+        "rd_y": float(poi_index["y"][best]),
+        "distance_m": int(round(float(np.sqrt(d2[best])))),
+    }
+
+
 def _load_bag_cache() -> dict[str, dict]:
     if BAG_CACHE_PATH.exists():
         try:
@@ -525,34 +629,51 @@ def _nearest_ov_stop(rd_x: float, rd_y: float, max_dist_m: float) -> dict | None
 def snap_to_nearest_bag_pand(
     rd_x: float, rd_y: float, cache: dict[str, dict],
     *, session: requests.Session, timeout: int = 30,
+    poi_index: dict | None = None,
 ) -> dict | None:
     """Query PDOK BAG WFS for ``bag:pand`` footprints within ``SNAP_BBOX_M``
     metres of (rd_x, rd_y) in EPSG:28992 and return the best one.
 
-    Ranking: tier (lower = better) then distance. Tier comes from
-    ``_use_score(gebruiksdoel)`` minus 1 if the pand is within
-    ``OV_PROXIMITY_BONUS_M`` of any OV-halte (parcel points cluster at transit).
+    Snap-target resolution, in order:
+      1. Preferred POI (supermarkt, winkelcentrum, station, ...) within
+         ``POI_SNAP_RADIUS_M`` — the bbox centres on the POI so we find the
+         pand the POI occupies; the POI is reported in the result.
+      2. OV-halte within ``OV_TARGET_SHIFT_M`` (existing behaviour).
+      3. The original candidate point.
+
+    Ranking of panden: tier (lower = better) then distance, where tier comes
+    from ``_use_score(gebruiksdoel)``.
 
     Returns ``{"rd_x", "rd_y", "lat", "lon", "distance_m", "bouwjaar",
-    "gebruiksdoel", "identificatie", "nearest_ov": {...} | None}`` or None on
-    failure / no footprints. Cached on disk so reruns don't re-hit PDOK.
+    "gebruiksdoel", "identificatie", "nearest_ov": {...} | None,
+    "poi": {...} | None}`` or None on failure / no footprints. Cached on disk
+    so reruns don't re-hit PDOK.
     """
+    # A POI shift changes the snap target, so it gets its own cache slot —
+    # plain keys written by earlier runs (without POI logic) stay valid for
+    # the no-POI case.
+    rep_poi = _nearest_snap_poi(rd_x, rd_y, poi_index, POI_SNAP_RADIUS_M)
     key = _cache_key(rd_x, rd_y)
+    if rep_poi is not None and rep_poi["osm_id"]:
+        key = f"{key}|{rep_poi['osm_id']}"
     if key in cache:
         return cache[key] or None
 
-    # Resolve the snap target FIRST: shift to a nearby OV-halte if one is
-    # within OV_TARGET_SHIFT_M, so the PDOK bbox follows the target — not
-    # just the sort order. Without this, buildings near the OV stop would
-    # be outside the search bbox and never seen.
-    rep_ov = _nearest_ov_stop(rd_x, rd_y, OV_TARGET_SHIFT_M)
-    if rep_ov is not None:
-        ov_pt = gpd.GeoSeries(
-            [Point(rep_ov["lon"], rep_ov["lat"])], crs=WGS84,
-        ).to_crs(RD).iloc[0]
-        target_x, target_y = float(ov_pt.x), float(ov_pt.y)
+    # Resolve the snap target FIRST: shift to a nearby preferred POI, else a
+    # nearby OV-halte, so the PDOK bbox follows the target — not just the
+    # sort order. Without this, buildings near the POI/stop would be outside
+    # the search bbox and never seen.
+    if rep_poi is not None:
+        target_x, target_y = rep_poi["rd_x"], rep_poi["rd_y"]
     else:
-        target_x, target_y = rd_x, rd_y
+        rep_ov = _nearest_ov_stop(rd_x, rd_y, OV_TARGET_SHIFT_M)
+        if rep_ov is not None:
+            ov_pt = gpd.GeoSeries(
+                [Point(rep_ov["lon"], rep_ov["lat"])], crs=WGS84,
+            ).to_crs(RD).iloc[0]
+            target_x, target_y = float(ov_pt.x), float(ov_pt.y)
+        else:
+            target_x, target_y = rd_x, rd_y
 
     bbox = (
         target_x - SNAP_BBOX_M, target_y - SNAP_BBOX_M,
@@ -598,7 +719,7 @@ def snap_to_nearest_bag_pand(
 
     # Sort by (use-tier, distance-to-target). Tier dominates so a shop always
     # beats a warehouse. The target shift above already biases distance
-    # toward OV-haltes when one is nearby.
+    # toward POIs/OV-haltes when one is nearby.
     candidates.sort(key=lambda t: (t[0], t[1]))
     tier, d2, cx, cy, props = candidates[0]
     # Reported nearest OV uses a wider radius so the UI can show it as a
@@ -617,6 +738,16 @@ def snap_to_nearest_bag_pand(
         "gebruiksdoel": props.get("gebruiksdoel"),
         "identificatie": props.get("identificatie"),
         "nearest_ov": ov_near,
+        # POI that drove the snap target (distance from the pre-snap
+        # candidate point), or None when the snap was BAG/OV-only.
+        "poi": (
+            {
+                "category": rep_poi["category"],
+                "name": rep_poi["name"],
+                "distance_m": rep_poi["distance_m"],
+            }
+            if rep_poi is not None else None
+        ),
     }
     cache[key] = result
     return result
@@ -767,34 +898,43 @@ def main() -> int:
         session.headers["User-Agent"] = "pakketpunten-analyse/1.0 (placement-suggestions)"
         try:
             for slug, payload in results.items():
+                # POI snap index per municipality — small files, loaded once
+                # per slug for all its suggestions.
+                poi_index = _load_poi_snap_index(slug)
                 for r in payload["pc4s"]:
-                    sug = r.get("suggestion")
-                    if not sug:
-                        continue
-                    rd_x = sug.pop("_rd_x", None)
-                    rd_y = sug.pop("_rd_y", None)
-                    if rd_x is None or rd_y is None:
-                        continue
-                    snap = snap_to_nearest_bag_pand(rd_x, rd_y, cache, session=session)
-                    bag_snaps_done += 1
-                    if snap:
-                        sug["snapped_to_bag"] = True
-                        sug["pre_snap_lat"] = sug["lat"]
-                        sug["pre_snap_lon"] = sug["lon"]
-                        sug["lat"] = snap["lat"]
-                        sug["lon"] = snap["lon"]
-                        sug["bag_distance_m"] = snap["distance_m"]
-                        sug["bag_gebruiksdoel"] = snap.get("gebruiksdoel")
-                        sug["bag_bouwjaar"] = snap.get("bouwjaar")
-                        sug["bag_identificatie"] = snap.get("identificatie")
-                        sug["nearest_ov"] = snap.get("nearest_ov")
-                        bag_snaps_changed += 1
-                    else:
-                        sug["snapped_to_bag"] = False
-                        bag_unsnapped += 1
-                    # Light politeness throttle when calls are uncached.
-                    if len(cache) != cache_size_at_start:
-                        time.sleep(0.05)
+                    for sug in r.get("suggestions") or []:
+                        rd_x = sug.pop("_rd_x", None)
+                        rd_y = sug.pop("_rd_y", None)
+                        if rd_x is None or rd_y is None:
+                            continue
+                        snap = snap_to_nearest_bag_pand(
+                            rd_x, rd_y, cache,
+                            session=session, poi_index=poi_index,
+                        )
+                        bag_snaps_done += 1
+                        if snap:
+                            sug["snapped_to_bag"] = True
+                            sug["pre_snap_lat"] = sug["lat"]
+                            sug["pre_snap_lon"] = sug["lon"]
+                            sug["lat"] = snap["lat"]
+                            sug["lon"] = snap["lon"]
+                            sug["bag_distance_m"] = snap["distance_m"]
+                            sug["bag_gebruiksdoel"] = snap.get("gebruiksdoel")
+                            sug["bag_bouwjaar"] = snap.get("bouwjaar")
+                            sug["bag_identificatie"] = snap.get("identificatie")
+                            sug["nearest_ov"] = snap.get("nearest_ov")
+                            poi = snap.get("poi")
+                            if poi:
+                                sug["poi_category"] = poi.get("category")
+                                sug["poi_naam"] = poi.get("name")
+                                sug["poi_distance_m"] = poi.get("distance_m")
+                            bag_snaps_changed += 1
+                        else:
+                            sug["snapped_to_bag"] = False
+                            bag_unsnapped += 1
+                        # Light politeness throttle when calls are uncached.
+                        if len(cache) != cache_size_at_start:
+                            time.sleep(0.05)
         finally:
             _save_bag_cache(cache)
         print(f"  {bag_snaps_done} suggestions processed: "
@@ -804,14 +944,16 @@ def main() -> int:
         # Strip RD coords even when we're skipping the snap — they're internal.
         for payload in results.values():
             for r in payload["pc4s"]:
-                if r.get("suggestion"):
-                    r["suggestion"].pop("_rd_x", None)
-                    r["suggestion"].pop("_rd_y", None)
+                for sug in r.get("suggestions") or []:
+                    sug.pop("_rd_x", None)
+                    sug.pop("_rd_y", None)
 
     out = {
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "weights": weights,
         "top_n_per_municipality": TOP_N,
+        "suggestions_per_pc4": MAX_SUGGESTIONS_PER_PC4,
+        "poi_snap_radius_m": POI_SNAP_RADIUS_M,
         "min_pc4_population": MIN_PC4_POPULATION,
         "min_white_spot_area_m2": MIN_WHITE_SPOT_AREA_M2,
         "cbs_grid_used": _CBS_GRID is not None,

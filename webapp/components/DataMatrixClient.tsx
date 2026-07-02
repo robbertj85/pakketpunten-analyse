@@ -85,7 +85,7 @@ export default function DataMatrixClient({
   return (
     <div className="space-y-6">
       {/* Summary Stats with Trends */}
-      <div className="bg-white rounded-lg shadow-md p-6">
+      <div data-tour="overzicht" className="bg-white rounded-lg shadow-md p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-bold text-gray-900">Overzicht</h2>
           {latestSnapshot && (
@@ -155,7 +155,7 @@ export default function DataMatrixClient({
       </div>
 
       {/* Data Matrix Table */}
-      <div className="bg-white rounded-lg shadow-md overflow-hidden">
+      <div data-tour="matrix-tabel" className="bg-white rounded-lg shadow-md overflow-hidden">
         <div className="p-6 border-b border-gray-200">
           <h2 className="text-lg font-bold text-gray-900">Pakketpunten per Gemeente en Vervoerder</h2>
           <p className="text-sm text-gray-600 mt-1">
@@ -273,7 +273,7 @@ export default function DataMatrixClient({
       </div>
 
       {/* Legend */}
-      <div className="bg-white rounded-lg shadow-md p-6">
+      <div data-tour="leeswijzer" className="bg-white rounded-lg shadow-md p-6">
         <h3 className="font-semibold text-gray-900 mb-3">Leeswijzer</h3>
         <ul className="text-sm text-gray-700 space-y-2">
           <li className="flex items-center">

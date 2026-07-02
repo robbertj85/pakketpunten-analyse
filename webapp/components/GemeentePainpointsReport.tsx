@@ -98,7 +98,7 @@ export default function GemeentePainpointsReport({ payload }: { payload: Painpoi
     <>
       <div className="space-y-8">
         {/* Intro */}
-        <section>
+        <section data-tour="intro">
           <h2 className="text-xl font-bold text-gray-900 mb-2">PC4-Pijnpunten — gemeld door G4-gemeenten</h2>
           <p className="text-sm text-gray-600">
             Knelpuntgebieden zoals aangeleverd door de <strong>G4-gemeenten</strong> zelf
@@ -118,7 +118,7 @@ export default function GemeentePainpointsReport({ payload }: { payload: Painpoi
         </section>
 
         {/* Status per gemeente — also shows openstaande gemeenten */}
-        <section>
+        <section data-tour="status-g4">
           <h3 className="text-lg font-semibold text-gray-900 mb-3">Status per G4-gemeente</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {G4.map((city) => {
@@ -165,7 +165,7 @@ export default function GemeentePainpointsReport({ payload }: { payload: Painpoi
         </section>
 
         {/* Summary cards */}
-        <section className="grid grid-cols-2 md:grid-cols-3 gap-3">
+        <section data-tour="samenvatting" className="grid grid-cols-2 md:grid-cols-3 gap-3">
           <div className="bg-white border border-gray-200 rounded-lg p-4">
             <div className="text-2xl font-bold text-gray-900">{totalPC4}</div>
             <div className="text-xs text-gray-500 mt-1">Unieke PC4-gebieden</div>
@@ -181,7 +181,7 @@ export default function GemeentePainpointsReport({ payload }: { payload: Painpoi
         </section>
 
         {/* Per-PC4 table */}
-        <section>
+        <section data-tour="pc4-tabel">
           <h3 className="text-lg font-semibold text-gray-900 mb-3">Per postcodegebied</h3>
           {k8Available && (
             <div className="mb-3 flex flex-wrap items-center gap-3 bg-blue-50 border border-blue-200 rounded-md px-3 py-2 text-sm">
