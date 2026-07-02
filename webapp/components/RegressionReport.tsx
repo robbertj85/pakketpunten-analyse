@@ -429,7 +429,7 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
   return (
     <div className="space-y-8">
       {/* Page intro */}
-      <section>
+      <section data-tour="intro">
         <h2 className="text-xl font-bold text-gray-900 mb-2">Schatting pakketpunten per PC4</h2>
         <p className="text-sm text-gray-600">
           Hoeveel pakketpunten zou er in een postcodegebied zitten op basis van bevolking, welvaart,
@@ -441,7 +441,7 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
 
       {/* Netherlands-wide regression model + scatterplot */}
       {payload.model && (
-        <section className="bg-white border border-gray-200 rounded-lg p-4 md:p-5 space-y-3">
+        <section data-tour="basismodel" className="bg-white border border-gray-200 rounded-lg p-4 md:p-5 space-y-3">
           <div>
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
@@ -449,6 +449,7 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                 <h3 className="text-lg font-semibold text-gray-900">Regressiemodel voor verwachte pakketpunten per PC4</h3>
               </div>
               <button
+                data-tour="grafiek-knop"
                 type="button"
                 onClick={() => setShowScatter((v) => !v)}
                 aria-expanded={showScatter}
@@ -589,7 +590,7 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
 
       {/* Interactive model builder */}
       {(payload.scatter?.length ?? 0) > 0 && (
-        <section className="bg-white border border-gray-200 rounded-lg p-4 md:p-5 space-y-4">
+        <section data-tour="zelf-bouwen" className="bg-white border border-gray-200 rounded-lg p-4 md:p-5 space-y-4">
           <div>
             <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">Zelf een model bouwen</div>
             <h3 className="text-lg font-semibold text-gray-900">Kies variabelen voor de regressie</h3>
@@ -602,7 +603,7 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
           </div>
 
           {/* Quick presets + advanced toggle */}
-          <div className="flex flex-wrap items-center gap-2 text-xs bg-indigo-50/60 border border-indigo-200 rounded px-3 py-2">
+          <div data-tour="snelkeuze" className="flex flex-wrap items-center gap-2 text-xs bg-indigo-50/60 border border-indigo-200 rounded px-3 py-2">
             <span className="text-indigo-900 font-semibold uppercase tracking-wide">Snelkeuze</span>
             {MODEL_PRESETS.map((preset) => {
               const active =
@@ -642,7 +643,7 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
           </div>
 
           {/* Feature checkboxes, grouped */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+          <div data-tour="variabelen" className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
             {(['basis', 'inkomen', 'ses', 'stedelijk', 'voorzieningen', 'verkeer', 'verkeersveiligheid'] as const).map((grp) => (
               <fieldset key={grp} className="border border-gray-200 rounded p-3">
                 <legend className="px-1 text-xs font-semibold text-gray-700 uppercase tracking-wide">
@@ -793,7 +794,7 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                     </div>
                   )}
 
-                  <div className="overflow-x-auto">
+                  <div data-tour="resultaten" className="overflow-x-auto">
                     <table className="w-full text-sm">
                       <thead className="bg-gray-50">
                         <tr>

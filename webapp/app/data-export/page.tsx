@@ -89,7 +89,7 @@ export default function DownloadsPage() {
 
         {/* National data */}
         {nationalData && (
-          <section className="mb-8">
+          <section data-tour="landelijk" className="mb-8">
             <h2 className="text-xl font-bold text-gray-900 mb-4">Landelijke Data</h2>
             <div className="bg-white rounded-lg shadow-md p-6">
               <div className="flex items-start justify-between">
@@ -140,6 +140,7 @@ export default function DownloadsPage() {
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="mb-4">
               <input
+                data-tour="gemeente-zoek"
                 type="text"
                 placeholder="Zoek gemeente..."
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -155,7 +156,7 @@ export default function DownloadsPage() {
               />
             </div>
 
-            <div className="space-y-2 max-h-96 overflow-y-auto">
+            <div data-tour="gemeente-lijst" className="space-y-2 max-h-96 overflow-y-auto">
               {cityData.map(municipality => (
                 <div
                   key={municipality.slug}
@@ -192,7 +193,7 @@ export default function DownloadsPage() {
         </section>
 
         {/* Rate limit notice */}
-        <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+        <div data-tour="limiet" className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
           <h3 className="font-semibold text-blue-900 mb-2 flex items-center">
             <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />

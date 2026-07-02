@@ -298,10 +298,18 @@ export async function fetchBuildingScene(
 
 /**
  * Derive candidate locker placements flush against the target building's walls.
- * For each footprint edge it computes the midpoint, the outward normal and a
- * locker centre offset clear of the wall, facing outward. Candidates are ordered
- * best-first: nearest the suggestion point (scene origin), then longest walls.
+ * For each footprint edge the locker centre is the point ON that wall nearest
+ * the suggestion coordinate (scene origin) — not the wall midpoint — offset
+ * outward, facing away from the building. Large panden (shopping blocks) have
+ * walls whose midpoints sit 50+ m from the suggestion; sliding along the wall
+ * keeps the 3D placement true to the 2D advice.
+ *
+ * Ranking balances distance against facing the open white-spot (10 m of extra
+ * distance is worth one full unit of openness), and candidates farther than
+ * MAX_SNAP_DIST_M from the suggestion are dropped whenever a nearer wall exists.
  */
+const MAX_SNAP_DIST_M = 40;
+
 function computeSnapCandidates(
   footprint: { x: number; z: number }[],
   openPoint: { x: number; z: number } | null,
@@ -331,13 +339,18 @@ function computeSnapCandidates(
     const len = Math.hypot(ex, ez);
     if (len < 1.0) continue; // too short to host a locker
 
-    const mx = (a.x + b.x) / 2;
-    const mz = (a.z + b.z) / 2;
+    // Point on this wall nearest the suggestion point (scene origin), kept
+    // ~2 m clear of the corners so the cabinet doesn't overhang the façade.
+    const tRaw = (-a.x * ex + -a.z * ez) / (len * len);
+    const margin = Math.min(0.45, 2.0 / len);
+    const t = Math.min(1 - margin, Math.max(margin, tRaw));
+    const px = a.x + ex * t;
+    const pz = a.z + ez * t;
 
     // Two normal candidates; pick the one pointing away from the centroid.
     let nx = ez / len;
     let nz = -ex / len;
-    if (nx * (mx - cx) + nz * (mz - cz) < 0) {
+    if (nx * (px - cx) + nz * (pz - cz) < 0) {
       nx = -nx;
       nz = -nz;
     }
@@ -353,29 +366,23 @@ function computeSnapCandidates(
     }
 
     candidates.push({
-      x: mx + nx * (LOCKER_DEPTH / 2 + GAP),
-      z: mz + nz * (LOCKER_DEPTH / 2 + GAP),
+      x: px + nx * (LOCKER_DEPTH / 2 + GAP),
+      z: pz + nz * (LOCKER_DEPTH / 2 + GAP),
       rotationY: Math.atan2(nx, nz),
       wallLength: len,
       openness,
     });
   }
 
-  // Best first: walls facing the open white-spot, then longest walls. Without an
-  // open-space hint, fall back to the wall nearest the suggestion point.
-  candidates.sort((p, q) => {
-    if (openPoint && Math.abs(q.openness - p.openness) > 0.15) {
-      return q.openness - p.openness;
-    }
-    if (!openPoint) {
-      const dp = Math.hypot(p.x, p.z);
-      const dq = Math.hypot(q.x, q.z);
-      if (Math.abs(dp - dq) > 1.5) return dp - dq;
-    }
-    return q.wallLength - p.wallLength;
-  });
+  // Lower is better: metres from the suggestion, with a bonus for facing the
+  // open white-spot (1.0 openness ≈ 10 m closer). Longest wall breaks ties.
+  const score = (p: SnapPose) =>
+    Math.hypot(p.x, p.z) - (openPoint ? p.openness * 10 : 0);
+  candidates.sort((p, q) => score(p) - score(q) || q.wallLength - p.wallLength);
 
-  return candidates.slice(0, 8);
+  // Cap the displacement: never present a far wall while a near one exists.
+  const near = candidates.filter((p) => Math.hypot(p.x, p.z) <= MAX_SNAP_DIST_M);
+  return (near.length > 0 ? near : candidates).slice(0, 8);
 }
 
 function stripPrefix(id: string): string {

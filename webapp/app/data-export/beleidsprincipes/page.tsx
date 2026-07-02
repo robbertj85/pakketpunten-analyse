@@ -53,7 +53,7 @@ export default function BeleidsprincipesPage() {
 
   return (
     <div className="space-y-6">
-      <section className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+      <section data-tour="convenant" className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-100 bg-blue-50">
           <h2 className="font-semibold text-blue-900">
             Uitgangspunten Convenant Duurzame Stadslogistiek
@@ -81,7 +81,7 @@ export default function BeleidsprincipesPage() {
         </div>
       </section>
 
-      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+      <div data-tour="gemeente-select" className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div>
           <h2 className="text-xl font-bold text-gray-900">Beleidsprincipes</h2>
           <p className="text-sm text-gray-600 mt-1 max-w-2xl">
@@ -110,7 +110,7 @@ export default function BeleidsprincipesPage() {
       {beleid ? (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
           {beleid.voorkeur && (
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+            <div data-tour="voorkeur" className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
               <div className="px-6 py-4 border-b border-gray-100 bg-blue-50">
                 <h3 className="font-semibold text-blue-700">
                   {beleid.voorkeur.titel}
@@ -146,7 +146,7 @@ export default function BeleidsprincipesPage() {
             </div>
           )}
 
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+          <div data-tour="uitgangspunten" className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
             <div className="px-6 py-4 border-b border-gray-100 bg-blue-50">
               <h3 className="font-semibold text-blue-900">
                 Uitgangspunten voor plaatsing kluis buiten

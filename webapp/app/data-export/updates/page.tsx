@@ -60,7 +60,7 @@ export default function UpdatesPage() {
   return (
     <div className="space-y-6">
       {/* Header section */}
-      <section className="bg-white rounded-lg shadow-md p-6">
+      <section data-tour="status" className="bg-white rounded-lg shadow-md p-6">
         <h2 className="text-xl font-bold text-gray-900 mb-2">Update Status</h2>
         <p className="text-sm text-gray-600 mb-4">
           Data wordt wekelijks geüpdatet via geautomatiseerde GitHub Actions scripts.
@@ -84,7 +84,7 @@ export default function UpdatesPage() {
         </div>
 
         {/* Overall status summary */}
-        <div className="bg-gray-50 rounded-lg p-4">
+        <div data-tour="status-overzicht" className="bg-gray-50 rounded-lg p-4">
           <div className="flex items-center justify-between mb-3">
             <span className="text-sm font-semibold text-gray-900">Overzicht</span>
             <span className={`text-xs px-2 py-1 rounded-full ${
@@ -115,7 +115,7 @@ export default function UpdatesPage() {
       </section>
 
       {/* Carrier status list */}
-      <section className="bg-white rounded-lg shadow-md p-6">
+      <section data-tour="per-vervoerder" className="bg-white rounded-lg shadow-md p-6">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Status per vervoerder</h3>
         <div className="space-y-3">
           {Object.entries(updateStatus.carrier_stats).map(([carrier, stats]) => {
@@ -193,7 +193,7 @@ export default function UpdatesPage() {
       </section>
 
       {/* GitHub Actions link */}
-      <section className="bg-white rounded-lg shadow-md p-6">
+      <section data-tour="logs" className="bg-white rounded-lg shadow-md p-6">
         <h3 className="text-lg font-semibold text-gray-900 mb-2">Volledige Logs</h3>
         <p className="text-sm text-gray-600 mb-4">
           Bekijk de volledige output van de laatste GitHub Actions workflow voor gedetailleerde informatie over eventuele fouten.

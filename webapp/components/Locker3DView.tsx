@@ -12,6 +12,14 @@ import { BuildingLoadStatus } from '@/components/locker3d/BuildingContext';
 import type { NearbyPoint } from '@/components/locker3d/CoverageContext';
 import type { Google3DError } from '@/lib/google3d';
 
+// Google Photorealistic 3D Tiles are BLOCKED for EEA (incl. NL) billing accounts
+// since Google's 8 July 2025 EEA policy change — the Map Tiles API returns 403,
+// so the toggle would only ever fall back to 3DBAG. The renderer + proxy code is
+// kept intact (see components/locker3d/GoogleTiles.tsx) for a future non-EEA
+// billing account or a Cesium-ion route; flip NEXT_PUBLIC_ENABLE_GOOGLE_3D=true
+// to bring the toggle back. Default off → 3DBAG is the intended view.
+const GOOGLE_3D_ENABLED = process.env.NEXT_PUBLIC_ENABLE_GOOGLE_3D === 'true';
+
 const Locker3DScene = dynamic(() => import('@/components/locker3d/Locker3DScene'), {
   ssr: false,
   loading: () => <SceneSkeleton label="3D-omgeving laden…" />,
@@ -36,10 +44,22 @@ export interface Locker3DViewProps {
   preSnapLon?: number | null;
   bagDistanceM?: number | null;
   nearbyPoints?: NearbyPoint[];
+  // POI the placement snapped to (supermarkt, station, ...), when applicable.
+  poiCategory?: string | null;
+  poiNaam?: string | null;
+  poiDistanceM?: number | null;
+  // Generic-entry overrides (netwerkplanner 3D route). Defaults keep the
+  // plaatsingsadvies behaviour unchanged.
+  backHref?: string;
+  backLabel?: string;
+  heading?: string;
+  initialColumns?: number;
 }
 
 export default function Locker3DView(props: Locker3DViewProps) {
-  const [columns, setColumns] = useState(6); // 6 kol / 302 cm — matches the reference example
+  const [columns, setColumns] = useState(() =>
+    Math.min(17, Math.max(4, props.initialColumns ?? 6)),
+  ); // default 6 kol / 302 cm — matches the reference example
   const [skinId, setSkinId] = useState('whitelabel');
   const [rotationY, setRotationY] = useState(0);
   const [showLabels, setShowLabels] = useState(true);
@@ -67,8 +87,12 @@ export default function Locker3DView(props: Locker3DViewProps) {
   // Frozen export location (the locker's lat/lon captured by "Locatie vastleggen").
   const [frozen, setFrozen] = useState<{ lat: number; lon: number } | null>(null);
 
-  // Placement-advice context overlay (nearby points + coverage rings + displacement).
-  const [showContext, setShowContext] = useState(false);
+  // Placement-advice context overlay (nearby points + merged buffer zone +
+  // displacement). On by default so the coverage zone and neighbouring parcel
+  // points are visible without extra clicks. The zone radius is selectable
+  // (300/400/500 m), matching the "Samengevoegde buffers" on the main map.
+  const [showContext, setShowContext] = useState(true);
+  const [bufferRadius, setBufferRadius] = useState(400);
   const [contextNonce, setContextNonce] = useState(0);
 
   // Keyboard shortcuts: C = camera, A = automaat (select the locker). Ignored
@@ -128,7 +152,8 @@ export default function Locker3DView(props: Locker3DViewProps) {
     setSideIndex((i) => i + 1);
   };
 
-  const backHref = `/data-export/suggesties?gemeente=${props.slug}`;
+  const backHref = props.backHref ?? `/data-export/suggesties?gemeente=${props.slug}`;
+  const backLabel = props.backLabel ?? 'Terug naar plaatsingsadvies';
   const gm = `https://www.google.com/maps?q=${props.lat},${props.lon}`;
 
   return (
@@ -137,10 +162,10 @@ export default function Locker3DView(props: Locker3DViewProps) {
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div>
           <Link href={backHref} className="text-sm text-blue-600 hover:text-blue-800">
-            ← Terug naar plaatsingsadvies
+            ← {backLabel}
           </Link>
           <h2 className="text-xl font-bold text-gray-900 mt-1">
-            Locker in beeld — PC4 {props.pc4}
+            {props.heading ?? `Locker in beeld — PC4 ${props.pc4}`}
           </h2>
           <p className="text-sm text-gray-600">
             {props.gemeente}
@@ -149,8 +174,15 @@ export default function Locker3DView(props: Locker3DViewProps) {
               {props.lat.toFixed(5)}, {props.lon.toFixed(5)}
             </span>
           </p>
-          {(props.bagGebruiksdoel || props.bagBouwjaar || props.estNewPop != null) && (
+          {(props.bagGebruiksdoel || props.bagBouwjaar || props.estNewPop != null || props.poiNaam) && (
             <p className="text-xs text-gray-500 mt-0.5">
+              {props.poiNaam && (
+                <span>
+                  Bij {props.poiCategory ? `${props.poiCategory.replaceAll('_', ' ')}: ` : ''}
+                  {props.poiNaam}
+                  {' · '}
+                </span>
+              )}
               {props.bagGebruiksdoel && <span>BAG-pand: {props.bagGebruiksdoel}</span>}
               {props.bagBouwjaar && <span> · bouwjaar {props.bagBouwjaar}</span>}
               {props.estNewPop != null && (
@@ -199,6 +231,7 @@ export default function Locker3DView(props: Locker3DViewProps) {
             followLocker={followLocker}
             onFollowLocker={setFollowLocker}
             onRecenter={() => setRecenterNonce((n) => n + 1)}
+            showPhotoreal={GOOGLE_3D_ENABLED}
             photoreal={photoreal}
             onPhotoreal={(b) => {
               setPhotoError(null);
@@ -214,6 +247,8 @@ export default function Locker3DView(props: Locker3DViewProps) {
               if (b) setContextNonce((n) => n + 1);
             }}
             nearbyCount={props.nearbyPoints?.length ?? 0}
+            bufferRadius={bufferRadius}
+            onBufferRadius={setBufferRadius}
           />
         </aside>
 
@@ -250,6 +285,7 @@ export default function Locker3DView(props: Locker3DViewProps) {
               showContext={showContext}
               nearbyPoints={props.nearbyPoints}
               bagDistanceM={props.bagDistanceM}
+              bufferRadius={bufferRadius}
               contextNonce={contextNonce}
             />
 

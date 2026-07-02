@@ -134,10 +134,24 @@ export async function GET(
 
     if (!upstream.ok) {
       // 404 = no Photorealistic 3D coverage at this location (common for small
-      // municipalities); surface it so the client can fall back to 3DBAG.
+      // municipalities). 401/403 = the account/region can't be served 3D Tiles
+      // at all (billing off, Map Tiles API disabled, or the EEA availability
+      // restriction — https://developers.google.com/maps/comms/eea/map-tiles).
+      // Both are permanent for this key, so pass 403 through with Google's own
+      // message rather than masking it as a transient 502. Everything else is a
+      // genuine upstream fault → 502.
+      let googleMessage: string | undefined;
+      try {
+        const body = await upstream.json();
+        googleMessage = body?.error?.message;
+      } catch {
+        /* non-JSON error body — ignore */
+      }
+      const isAuth = upstream.status === 401 || upstream.status === 403;
+      const status = upstream.status === 404 ? 404 : isAuth ? 403 : 502;
       return NextResponse.json(
-        { error: `google ${upstream.status}` },
-        { status: upstream.status === 404 ? 404 : 502 },
+        { error: `google ${upstream.status}`, message: googleMessage },
+        { status },
       );
     }
 

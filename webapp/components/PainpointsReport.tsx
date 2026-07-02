@@ -443,7 +443,7 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
     <>
       <div className="space-y-8">
         {/* Intro */}
-        <section>
+        <section data-tour="intro">
           <h2 className="text-xl font-bold text-gray-900 mb-2">PC4-Pijnpunten — gemeld door carriers</h2>
           <p className="text-sm text-gray-600">
             Probleemgebieden zoals aangeleverd door <strong>vervoerders</strong> in het kader van het
@@ -466,7 +466,7 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
 
 
         {/* Summary cards */}
-        <section className="grid grid-cols-2 md:grid-cols-5 gap-3">
+        <section data-tour="samenvatting" className="grid grid-cols-2 md:grid-cols-5 gap-3">
           <div className="bg-white border border-gray-200 rounded-lg p-4">
             <div className="text-2xl font-bold text-gray-900">{totalPC4}</div>
             <div className="text-xs text-gray-500 mt-1">Unieke PC4-gebieden</div>
@@ -490,10 +490,10 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
         </section>
 
         {/* Table 1: PC4 → carriers + parcel point counts (clickable rows) */}
-        <section>
+        <section data-tour="pc4-tabel">
           <h3 className="text-lg font-semibold text-gray-900 mb-3">Per postcodegebied</h3>
           {k8Available && (
-            <div className="mb-3 flex flex-wrap items-center gap-3 bg-blue-50 border border-blue-200 rounded-md px-3 py-2 text-sm">
+            <div data-tour="model-toggle" className="mb-3 flex flex-wrap items-center gap-3 bg-blue-50 border border-blue-200 rounded-md px-3 py-2 text-sm">
               <span className="font-semibold text-gray-800">Verwacht-model:</span>
               <div className="inline-flex rounded border border-blue-300 overflow-hidden">
                 {(['base', 'k8'] as const).map((k) => {
@@ -533,7 +533,7 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
               )}
             </div>
           )}
-          <div className="mb-3">
+          <div data-tour="sorteer" className="mb-3">
             <SortBuilder
               stack={pc4SortStack}
               options={PC4_SORT_OPTIONS}
@@ -646,7 +646,7 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
         </section>
 
         {/* Table 2: carrier → PC4 painpoints (clickable rows) */}
-        <section>
+        <section data-tour="per-vervoerder">
           <h3 className="text-lg font-semibold text-gray-900 mb-3">Per vervoerder</h3>
           <div className="space-y-4">
             {carrierList.map(([carrier, rows]) => {
@@ -705,7 +705,7 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
         </section>
 
         {/* Per-city breakdown — PC4 chips are clickable */}
-        <section>
+        <section data-tour="per-stad">
           <h3 className="text-lg font-semibold text-gray-900 mb-3">Per stad</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {[...byCity.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([city, codes]) => {

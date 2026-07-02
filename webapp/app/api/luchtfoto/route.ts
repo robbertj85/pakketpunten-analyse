@@ -9,6 +9,8 @@ const BBOX_RE = /^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$/;
 
 export async function GET(req: NextRequest) {
   const bbox = req.nextUrl.searchParams.get('bbox');
+  // PDOK rejects sizes above ~2500 px with an XML ServiceException, so clamp
+  // to the known-good 2048.
   const size = Math.min(2048, Math.max(256, Number(req.nextUrl.searchParams.get('size')) || 1536));
   if (!bbox || !BBOX_RE.test(bbox)) {
     return NextResponse.json(
@@ -25,6 +27,12 @@ export async function GET(req: NextRequest) {
     const upstream = await fetch(url, { next: { revalidate: 86400 } });
     if (!upstream.ok) {
       return NextResponse.json({ error: `PDOK WMS ${upstream.status}` }, { status: 502 });
+    }
+    // PDOK returns ServiceExceptions as XML with HTTP 200 — surface those as
+    // errors instead of handing XML to the texture loader.
+    const contentType = upstream.headers.get('content-type') ?? '';
+    if (!contentType.startsWith('image/')) {
+      return NextResponse.json({ error: 'PDOK WMS returned a non-image response' }, { status: 502 });
     }
     const buf = await upstream.arrayBuffer();
     return new NextResponse(buf, {

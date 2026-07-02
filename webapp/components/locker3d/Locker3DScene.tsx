@@ -49,16 +49,21 @@ interface Locker3DSceneProps {
   preSnapLat?: number | null;
   preSnapLon?: number | null;
   onBuildingStatus?: (s: BuildingLoadStatus) => void;
-  /** Placement-advice context overlay: nearby points + coverage rings + displacement. */
+  /** Placement-advice context overlay: nearby points + merged buffer zone + displacement. */
   showContext?: boolean;
   nearbyPoints?: NearbyPoint[];
   bagDistanceM?: number | null;
+  /** Walking-distance radius (m) of the merged coverage zone: 300/400/500. */
+  bufferRadius?: number;
   /** Bumping this frames a wide overview to reveal the context overlay. */
   contextNonce?: number;
 }
 
 /** Half-size (metres) of the aerial ground tile around the suggestion point. */
 const GROUND_HALF_M = 120;
+/** Wider half-size when the context overlay is on — a 1.5 km aerial view so
+ * the 300/400/500 m rings and the next few parcel points are visible. */
+const CONTEXT_GROUND_HALF_M = 750;
 
 export default function Locker3DScene({
   spec,
@@ -90,6 +95,7 @@ export default function Locker3DScene({
   showContext = false,
   nearbyPoints,
   bagDistanceM,
+  bufferRadius = 400,
   contextNonce = 0,
 }: Locker3DSceneProps) {
   const frame = framePosition ?? lockerPosition;
@@ -111,11 +117,11 @@ export default function Locker3DScene({
     <Canvas
       shadows
       dpr={[1, 2]}
-      camera={{ position: [10, 7, 13], fov: 45, near: 0.1, far: 2000 }}
+      camera={{ position: [10, 7, 13], fov: 45, near: 0.1, far: 4000 }}
       style={{ background: 'linear-gradient(#bcd6f0, #e8f0f8)' }}
       onPointerMissed={() => onDeselect?.()}
     >
-      <Sky sunPosition={[60, 40, 30]} distance={1000} />
+      <Sky sunPosition={[60, 40, 30]} distance={3000} />
       <ambientLight intensity={0.55} />
       <hemisphereLight intensity={1.05} groundColor="#b9bcc2" />
       <directionalLight
@@ -140,7 +146,7 @@ export default function Locker3DScene({
           onGround={(g) => (groundObjRef.current = g)}
         />
       ) : showAerial ? (
-        <AerialGround lat={lat} lon={lon} halfM={showContext ? 600 : GROUND_HALF_M} />
+        <AerialGround lat={lat} lon={lon} halfM={showContext ? CONTEXT_GROUND_HALF_M : GROUND_HALF_M} />
       ) : (
         <>
           <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.01, 0]} receiveShadow>
@@ -207,6 +213,7 @@ export default function Locker3DScene({
           preSnapLat={preSnapLat}
           preSnapLon={preSnapLon}
           bagDistanceM={bagDistanceM}
+          bufferRadius={bufferRadius}
         />
       )}
 
@@ -232,7 +239,7 @@ export default function Locker3DScene({
         makeDefault
         target={[frame[0], 1, frame[2]]}
         minDistance={2}
-        maxDistance={showContext ? 1600 : 140}
+        maxDistance={showContext ? 2400 : 140}
         maxPolarAngle={Math.PI / 2.05}
         enableDamping
         screenSpacePanning={false}
@@ -411,6 +418,9 @@ function AerialGround({ lat, lon, halfM }: { lat: number; lon: number; halfM: nu
 
   useEffect(() => {
     let cancelled = false;
+    // 2048 px is the practical PDOK WMS ceiling (larger sizes return an
+    // "image size too large" ServiceException); at the 1.5 km context plane
+    // that is ~0.73 m/px — fine for an overview backdrop.
     const url = `/api/luchtfoto?bbox=${bbox.minx},${bbox.miny},${bbox.maxx},${bbox.maxy}&size=2048`;
     const loader = new THREE.TextureLoader();
     loader.load(
@@ -427,7 +437,7 @@ function AerialGround({ lat, lon, halfM }: { lat: number; lon: number; halfM: nu
     return () => {
       cancelled = true;
     };
-  }, [bbox]);
+  }, [bbox, halfM]);
 
   // Plane is centred on the RD origin (scene 0,0), so it sits at [0, y, 0].
   // The orthophoto uses an unlit material so it always shows its true colours
@@ -514,10 +524,11 @@ function CameraRig({
   }, [recenterNonce]);
 
   // Pull back to a wide oblique overview when the context overlay is enabled,
-  // so the ~650 m of nearby points and coverage rings come into view.
+  // so the coverage rings and the next few parcel points (≤1.5 km) come
+  // into view.
   useEffect(() => {
     if (contextNonce > 0) {
-      camera.position.set(260, 520, 620);
+      camera.position.set(330, 650, 780);
       camera.lookAt(0, 0, 0);
       if (controls) {
         controls.target.set(0, 0, 0);

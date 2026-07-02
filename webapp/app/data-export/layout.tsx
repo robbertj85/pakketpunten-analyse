@@ -1,7 +1,10 @@
 'use client';
 
+import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import GuidedTour from '@/components/GuidedTour';
+import { TOUR_STEPS } from '@/lib/tourSteps';
 
 export default function DataExportLayout({
   children,
@@ -9,6 +12,8 @@ export default function DataExportLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const [tourOpen, setTourOpen] = useState(false);
+  const tourSteps = TOUR_STEPS[pathname];
 
   const isDownloads = pathname === '/data-export';
   const isMatrix = pathname === '/data-export/matrix';
@@ -17,7 +22,8 @@ export default function DataExportLayout({
   const isGemeentePainpoints = pathname === '/data-export/gemeente-painpoints';
   const isSchatting = pathname === '/data-export/schatting';
   const isBereik = pathname === '/data-export/bereik';
-  const isSuggesties = pathname === '/data-export/suggesties';
+  const isSuggesties = pathname.startsWith('/data-export/suggesties');
+  const isNetwerkplanner = pathname.startsWith('/data-export/netwerkplanner');
   const isPois = pathname === '/data-export/pois';
   const isBeleidsprincipes = pathname === '/data-export/beleidsprincipes';
 
@@ -33,16 +39,27 @@ export default function DataExportLayout({
                 Download pakketpunten data, bekijk statistieken en update status
               </p>
             </div>
-            <Link
-              href="/"
-              className="px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-800"
-            >
-              ← Terug naar kaart
-            </Link>
+            <div className="flex items-center gap-2">
+              {tourSteps && (
+                <button
+                  type="button"
+                  onClick={() => setTourOpen(true)}
+                  className="px-4 py-2 text-sm font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-md"
+                >
+                  Rondleiding
+                </button>
+              )}
+              <Link
+                href="/"
+                className="px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-800"
+              >
+                ← Terug naar kaart
+              </Link>
+            </div>
           </div>
 
           {/* Tab Navigation */}
-          <nav className="flex gap-2 border-b border-gray-200">
+          <nav data-tour="tabs" className="flex gap-2 border-b border-gray-200">
             <Link
               href="/data-export"
               className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
@@ -133,6 +150,7 @@ export default function DataExportLayout({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3v18h18M7 14l4-4 3 3 5-5" />
               </svg>
               Schatting pakketpunten
+              <span className="ml-1 px-1 py-px text-[9px] font-semibold uppercase tracking-wide rounded bg-amber-100 text-amber-700 border border-amber-200 align-middle">beta</span>
             </Link>
             <Link
               href="/data-export/bereik"
@@ -146,6 +164,7 @@ export default function DataExportLayout({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
               Bereik inwoners
+              <span className="ml-1 px-1 py-px text-[9px] font-semibold uppercase tracking-wide rounded bg-amber-100 text-amber-700 border border-amber-200 align-middle">beta</span>
             </Link>
             <Link
               href="/data-export/pois"
@@ -159,6 +178,7 @@ export default function DataExportLayout({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
               </svg>
               Publieke POI&apos;s
+              <span className="ml-1 px-1 py-px text-[9px] font-semibold uppercase tracking-wide rounded bg-amber-100 text-amber-700 border border-amber-200 align-middle">beta</span>
             </Link>
             <Link
               href="/data-export/suggesties"
@@ -172,6 +192,21 @@ export default function DataExportLayout({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2v2m0 16v2m10-10h-2M4 12H2m15.07-7.07l-1.41 1.41M6.34 17.66l-1.41 1.41m12.14 0l-1.41-1.41M6.34 6.34L4.93 4.93M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
               </svg>
               Plaatsingsadvies
+              <span className="ml-1 px-1 py-px text-[9px] font-semibold uppercase tracking-wide rounded bg-amber-100 text-amber-700 border border-amber-200 align-middle">beta</span>
+            </Link>
+            <Link
+              href="/data-export/netwerkplanner"
+              className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
+                isNetwerkplanner
+                  ? 'border-blue-600 text-blue-600'
+                  : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+              }`}
+            >
+              <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v3m0 12v3m9-9h-3M6 12H3m13.5-6.5L14 8m-4 8l-2.5 2.5M16 16l2.5 2.5M8 8L5.5 5.5M12 12m-3 0a3 3 0 106 0 3 3 0 10-6 0" />
+              </svg>
+              Netwerkplanner
+              <span className="ml-1 px-1 py-px text-[9px] font-semibold uppercase tracking-wide rounded bg-amber-100 text-amber-700 border border-amber-200 align-middle">beta</span>
             </Link>
           </nav>
         </div>
@@ -181,6 +216,10 @@ export default function DataExportLayout({
       <main className="max-w-[1600px] mx-auto px-4 py-8">
         {children}
       </main>
+
+      {tourOpen && tourSteps && (
+        <GuidedTour steps={tourSteps} onClose={() => setTourOpen(false)} />
+      )}
     </div>
   );
 }

@@ -66,6 +66,16 @@ export async function probeGoogle3D(signal?: AbortSignal): Promise<Google3DError
   if (res.status === 404) {
     return { kind: 'no_coverage', message: 'Geen fotorealistische 3D-dekking op deze locatie.' };
   }
+  if (res.status === 403) {
+    // Account/region can't be served 3D Tiles (billing off, Map Tiles API
+    // disabled, or Google's EEA availability restriction). Permanent for this
+    // key, so treat like a config problem and fall back to 3DBAG.
+    return {
+      kind: 'not_configured',
+      message:
+        'Fotorealistische 3D-tegels zijn niet beschikbaar voor dit account/deze regio (Google-beperking).',
+    };
+  }
   if (res.status === 500) {
     return { kind: 'not_configured', message: 'Google 3D-tegels zijn niet geconfigureerd.' };
   }

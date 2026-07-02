@@ -33,6 +33,8 @@ interface LockerConfigPanelProps {
   followLocker: boolean;
   onFollowLocker: (b: boolean) => void;
   onRecenter: () => void;
+  /** Whether to show the Google photoreal toggle (off for EEA billing accounts). */
+  showPhotoreal: boolean;
   photoreal: boolean;
   onPhotoreal: (b: boolean) => void;
   onFreezeLocation: () => void;
@@ -40,6 +42,9 @@ interface LockerConfigPanelProps {
   showContext: boolean;
   onShowContext: (b: boolean) => void;
   nearbyCount: number;
+  /** Walking-distance radius (m) of the merged coverage zone. */
+  bufferRadius: number;
+  onBufferRadius: (r: number) => void;
 }
 
 export default function LockerConfigPanel(props: LockerConfigPanelProps) {
@@ -170,16 +175,20 @@ export default function LockerConfigPanel(props: LockerConfigPanelProps) {
 
       {/* Scene controls */}
       <div className="space-y-2 border-t border-gray-100 pt-4">
-        <Toggle
-          checked={props.photoreal}
-          onChange={props.onPhotoreal}
-          label="Fotorealistisch (Google 3D) — beta"
-        />
-        {props.photoreal && (
-          <p className="text-[11px] text-gray-500">
-            Echte 3D-beelden van Google. Niet overal beschikbaar (vooral grote
-            steden); buiten dekking val je terug op 3DBAG.
-          </p>
+        {props.showPhotoreal && (
+          <>
+            <Toggle
+              checked={props.photoreal}
+              onChange={props.onPhotoreal}
+              label="Fotorealistisch (Google 3D) — beta"
+            />
+            {props.photoreal && (
+              <p className="text-[11px] text-gray-500">
+                Echte 3D-beelden van Google. Niet overal beschikbaar (vooral grote
+                steden); buiten dekking val je terug op 3DBAG.
+              </p>
+            )}
+          </>
         )}
         {!props.photoreal && (
           <>
@@ -216,18 +225,34 @@ export default function LockerConfigPanel(props: LockerConfigPanelProps) {
         <Toggle
           checked={props.showContext}
           onChange={props.onShowContext}
-          label={`Omgeving & dekking (${props.nearbyCount} punten ≤650 m)`}
+          label={`Omgeving & dekking (${props.nearbyCount} punten ≤1,5 km)`}
         />
         {props.showContext && (
-          <div className="pl-6 space-y-1">
+          <div className="pl-6 space-y-1.5">
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] text-gray-600">Loopafstand</span>
+              <select
+                value={props.bufferRadius}
+                onChange={(e) => props.onBufferRadius(Number(e.target.value))}
+                className="px-2 py-1 text-xs border border-gray-300 rounded bg-white"
+              >
+                <option value={300}>300 m</option>
+                <option value={400}>400 m</option>
+                <option value={500}>500 m</option>
+              </select>
+            </div>
             <p className="text-[11px] text-gray-500">
-              Bestaande pakketpunten + hun dekkingscirkels. De roze stippellijn toont de
-              verschuiving van de dichtste 100 m-cel naar het BAG-pand.
+              Gekleurd vlak: samengevoegde bufferzone van de bestaande pakketpunten
+              (zoals op de hoofdkaart). Paarse cirkel: het bereik van de nieuwe kluis.
+              De roze stippellijn toont de verschuiving van de dichtste 100 m-cel
+              naar het BAG-pand.
             </p>
             <div className="flex flex-wrap gap-x-3 gap-y-0.5 text-[10px] text-gray-600">
-              <LegendDot color="#2563eb" label="300 m" />
-              <LegendDot color="#16a34a" label="400 m" />
-              <LegendDot color="#f59e0b" label="500 m" />
+              <LegendDot
+                color={props.bufferRadius === 300 ? '#2563eb' : props.bufferRadius === 500 ? '#f59e0b' : '#16a34a'}
+                label={`Gedekt gebied (${props.bufferRadius} m)`}
+              />
+              <LegendDot color="#7c3aed" label="Nieuwe kluis" />
             </div>
           </div>
         )}

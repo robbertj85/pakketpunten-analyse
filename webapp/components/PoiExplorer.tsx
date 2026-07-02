@@ -214,7 +214,7 @@ export default function PoiExplorer() {
   return (
     <div className="flex flex-col lg:flex-row gap-4 h-[calc(100vh-220px)] min-h-[600px]">
       {/* Sidebar */}
-      <aside className="lg:w-80 w-full lg:flex-shrink-0 bg-white rounded-lg shadow-md p-4 overflow-y-auto">
+      <aside data-tour="sidebar" className="lg:w-80 w-full lg:flex-shrink-0 bg-white rounded-lg shadow-md p-4 overflow-y-auto">
         <h2 className="text-lg font-semibold text-gray-900 mb-2">Publieke POI&apos;s</h2>
         <p className="text-xs text-gray-600 mb-3">
           Data uit OpenStreetMap, gefilterd op de geselecteerde gemeente.
@@ -222,6 +222,7 @@ export default function PoiExplorer() {
 
         <label className="block text-xs font-medium text-gray-700 mb-1">Gemeente</label>
         <select
+          data-tour="gemeente-select"
           value={selectedMuni}
           onChange={(e) => { setSelectedMuni(e.target.value); setActive(new Set()); }}
           className="w-full mb-3 px-2 py-1.5 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-teal-500"
@@ -239,7 +240,7 @@ export default function PoiExplorer() {
 
         <div className="mb-3">
           <label className="block text-xs font-medium text-gray-700 mb-1">Weergave</label>
-          <div className="inline-flex w-full rounded border border-gray-200 overflow-hidden text-xs">
+          <div data-tour="weergave" className="inline-flex w-full rounded border border-gray-200 overflow-hidden text-xs">
             <button
               type="button"
               className={`flex-1 px-2 py-1 ${iconStyle === 'dots' ? 'bg-teal-600 text-white' : 'text-gray-600 hover:bg-gray-50'}`}
@@ -257,7 +258,7 @@ export default function PoiExplorer() {
           </div>
         </div>
 
-        <div className="mb-4 p-2 rounded bg-violet-50 border border-violet-200">
+        <div data-tour="pijnpunten" className="mb-4 p-2 rounded bg-violet-50 border border-violet-200">
           <label className="flex items-center gap-2 cursor-pointer">
             <input
               type="checkbox"
@@ -293,7 +294,7 @@ export default function PoiExplorer() {
           const anyPresent = list.some((c) => (present[c.slug] ?? 0) > 0);
           if (!anyPresent) return null;
           return (
-            <div key={group} className="mb-4">
+            <div key={group} data-tour={group === GROUP_ORDER[0] ? 'categorieen' : undefined} className="mb-4">
               <div className="flex items-center justify-between mb-1">
                 <h3 className="text-xs uppercase tracking-wide font-semibold text-gray-500">
                   {GROUP_LABEL[group]}
@@ -378,7 +379,7 @@ export default function PoiExplorer() {
       </aside>
 
       {/* Map */}
-      <div className="flex-1 bg-white rounded-lg shadow-md overflow-hidden min-h-[400px]">
+      <div data-tour="kaart" className="flex-1 bg-white rounded-lg shadow-md overflow-hidden min-h-[400px]">
         <MapContainer
           center={[52.15, 5.3]}
           zoom={8}
