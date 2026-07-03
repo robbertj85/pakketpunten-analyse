@@ -8,6 +8,7 @@ import {
   MAX_COLUMNS,
 } from '@/lib/lockerCatalog';
 import { BuildingLoadStatus } from './BuildingContext';
+import type { GroundMode } from './Locker3DScene';
 
 interface LockerConfigPanelProps {
   spec: LockerSpec;
@@ -21,8 +22,8 @@ interface LockerConfigPanelProps {
   onShowLabels: (b: boolean) => void;
   showBuildings: boolean;
   onShowBuildings: (b: boolean) => void;
-  showAerial: boolean;
-  onShowAerial: (b: boolean) => void;
+  groundMode: GroundMode;
+  onGroundMode: (m: GroundMode) => void;
   buildingStatus: BuildingLoadStatus | null;
   autoSnap: boolean;
   onAutoSnap: (b: boolean) => void;
@@ -197,11 +198,18 @@ export default function LockerConfigPanel(props: LockerConfigPanelProps) {
               onChange={props.onShowBuildings}
               label="Gebouwen tonen (3DBAG, LoD 2.2)"
             />
-            <Toggle
-              checked={props.showAerial}
-              onChange={props.onShowAerial}
-              label="Luchtfoto als ondergrond (PDOK)"
-            />
+            <div>
+              <div className="text-[11px] text-gray-600 mb-1">Ondergrond</div>
+              <div className="grid grid-cols-3 gap-1">
+                <GroundButton active={props.groundMode === 'aerial'} onClick={() => props.onGroundMode('aerial')} label="Luchtfoto" />
+                <GroundButton active={props.groundMode === 'map'} onClick={() => props.onGroundMode('map')} label="Kaart" />
+                <GroundButton active={props.groundMode === 'none'} onClick={() => props.onGroundMode('none')} label="Geen" />
+              </div>
+              <p className="mt-1 text-[11px] text-gray-500">
+                &ldquo;Kaart&rdquo; toont de PDOK-achtergrondkaart met straatnamen — handig
+                om de plek te herkennen.
+              </p>
+            </div>
             <Toggle
               checked={props.autoSnap}
               onChange={props.onAutoSnap}
@@ -269,6 +277,29 @@ export default function LockerConfigPanel(props: LockerConfigPanelProps) {
         )}
       </div>
     </div>
+  );
+}
+
+function GroundButton({
+  active,
+  onClick,
+  label,
+}: {
+  active: boolean;
+  onClick: () => void;
+  label: string;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={`px-2 py-1.5 text-xs font-semibold rounded border transition ${
+        active
+          ? 'border-blue-500 ring-1 ring-blue-300 bg-blue-50 text-blue-800'
+          : 'border-gray-200 text-gray-600 hover:border-gray-300'
+      }`}
+    >
+      {label}
+    </button>
   );
 }
 

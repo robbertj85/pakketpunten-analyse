@@ -14,6 +14,9 @@ import GoogleTiles from './GoogleTiles';
 import CoverageContext, { type NearbyPoint } from './CoverageContext';
 import type { NavInput, NavMode } from './NavControls';
 
+/** Ground backdrop under the 3D scene. */
+export type GroundMode = 'aerial' | 'map' | 'none';
+
 interface Locker3DSceneProps {
   spec: LockerSpec;
   skin: CarrierSkin;
@@ -25,7 +28,8 @@ interface Locker3DSceneProps {
   faceDir?: [number, number];
   showLabels: boolean;
   showBuildings: boolean;
-  showAerial: boolean;
+  /** Ground backdrop: PDOK aerial photo, PDOK street map (BRT), or a neutral grid. */
+  groundMode: GroundMode;
   /** When true, replace the 3DBAG/PDOK ground with Google Photorealistic 3D Tiles. */
   photoreal?: boolean;
   onPhotoError?: (e: Google3DError) => void;
@@ -59,11 +63,15 @@ interface Locker3DSceneProps {
   contextNonce?: number;
 }
 
-/** Half-size (metres) of the aerial ground tile around the suggestion point. */
-const GROUND_HALF_M = 120;
-/** Wider half-size when the context overlay is on — a 1.5 km aerial view so
- * the 300/400/500 m rings and the next few parcel points are visible. */
-const CONTEXT_GROUND_HALF_M = 750;
+/** Half-size (metres) of the ground tile around the suggestion point. Sized so
+ * the building block and its immediate street context fill the (larger) canvas. */
+const GROUND_HALF_M = 180;
+/** Fallback half-size when the context overlay is on but no nearby points are
+ * known. The real extent is computed from the farthest nearby point so the
+ * merged buffer zone always sits ON the map rather than floating past its edge. */
+const CONTEXT_GROUND_HALF_M = 900;
+/** Hard ceiling on the context ground half-size (keeps the draped texture sane). */
+const CONTEXT_GROUND_MAX_M = 2300;
 
 export default function Locker3DScene({
   spec,
@@ -74,7 +82,7 @@ export default function Locker3DScene({
   faceDir,
   showLabels,
   showBuildings,
-  showAerial,
+  groundMode,
   photoreal = false,
   onPhotoError,
   onPhotoReady,
@@ -99,6 +107,19 @@ export default function Locker3DScene({
   contextNonce = 0,
 }: Locker3DSceneProps) {
   const frame = framePosition ?? lockerPosition;
+
+  // Size the ground so it always contains the whole context overlay: the farthest
+  // nearby parcel point plus its walking-distance buffer. Otherwise the merged
+  // buffer zone spills past the edge of the map and floats in the void.
+  const groundHalf = useMemo(() => {
+    if (!showContext) return GROUND_HALF_M;
+    const maxDist = (nearbyPoints ?? []).reduce((m, p) => Math.max(m, p.distanceM), 0);
+    return Math.min(
+      CONTEXT_GROUND_MAX_M,
+      Math.max(CONTEXT_GROUND_HALF_M, maxDist + bufferRadius + 120),
+    );
+  }, [showContext, nearbyPoints, bufferRadius]);
+
   const handleStatus = useCallback(
     (s: BuildingLoadStatus) => onBuildingStatus?.(s),
     [onBuildingStatus],
@@ -117,7 +138,11 @@ export default function Locker3DScene({
     <Canvas
       shadows
       dpr={[1, 2]}
-      camera={{ position: [10, 7, 13], fov: 45, near: 0.1, far: 4000 }}
+      // A logarithmic depth buffer keeps both the ~2 m locker and the up-to-4 km
+      // ground/buffer overlay z-fight-free; without it the large near/far range
+      // makes the near-coplanar coverage zone flicker while the camera moves.
+      gl={{ logarithmicDepthBuffer: true }}
+      camera={{ position: [10, 7, 13], fov: 45, near: 0.5, far: 16000 }}
       style={{ background: 'linear-gradient(#bcd6f0, #e8f0f8)' }}
       onPointerMissed={() => onDeselect?.()}
     >
@@ -136,7 +161,8 @@ export default function Locker3DScene({
         shadow-camera-bottom={-40}
       />
 
-      {/* Ground: Google photoreal tiles, a PDOK aerial photo, or a neutral grid. */}
+      {/* Ground: Google photoreal tiles, a PDOK aerial photo, a PDOK street
+          map (BRT, with street names), or a neutral grid. */}
       {photoreal ? (
         <GoogleTiles
           lat={lat}
@@ -145,8 +171,10 @@ export default function Locker3DScene({
           onReady={onPhotoReady}
           onGround={(g) => (groundObjRef.current = g)}
         />
-      ) : showAerial ? (
-        <AerialGround lat={lat} lon={lon} halfM={showContext ? CONTEXT_GROUND_HALF_M : GROUND_HALF_M} />
+      ) : groundMode === 'aerial' ? (
+        <AerialGround lat={lat} lon={lon} halfM={groundHalf} />
+      ) : groundMode === 'map' ? (
+        <MapGround lat={lat} lon={lon} halfM={groundHalf} />
       ) : (
         <>
           <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.01, 0]} receiveShadow>
@@ -239,7 +267,7 @@ export default function Locker3DScene({
         makeDefault
         target={[frame[0], 1, frame[2]]}
         minDistance={2}
-        maxDistance={showContext ? 2400 : 140}
+        maxDistance={showContext ? groundHalf * 3.5 : 200}
         maxPolarAngle={Math.PI / 2.05}
         enableDamping
         screenSpacePanning={false}
@@ -251,6 +279,7 @@ export default function Locker3DScene({
         faceDir={faceDir}
         recenterNonce={recenterNonce}
         contextNonce={contextNonce}
+        contextHalf={groundHalf}
         photoreal={photoreal}
       />
     </Canvas>
@@ -452,6 +481,128 @@ function AerialGround({ lat, lon, halfM }: { lat: number; lon: number; halfM: nu
         key={texture ? 'aerial' : 'plain'}
         map={texture ?? undefined}
         color={texture ? '#ffffff' : failed ? '#b8b4ac' : '#9aa0a6'}
+        polygonOffset
+        polygonOffsetFactor={1}
+        polygonOffsetUnits={1}
+      />
+    </mesh>
+  );
+}
+
+// Standard Nederlandse WMTS grid (EPSG:28992) used by the PDOK BRT tiles.
+const WMTS_ORIGIN_X = -285401.92;
+const WMTS_ORIGIN_Y = 903401.92;
+const WMTS_TILE_PX = 256;
+const wmtsRes = (z: number) => 3440.64 / 2 ** z; // metres / pixel at zoom z
+
+/**
+ * Drapes the PDOK BRT-Achtergrondkaart (street map with names) over the ground
+ * plane. The BRT WMTS is tiled in RD (EPSG:28992), so the tiles line up exactly
+ * with the 3D geometry. Individual tiles are fetched via the same-origin
+ * /api/basiskaart proxy (keeps the canvas untainted) and stitched into a single
+ * CanvasTexture cropped to the requested bbox — the same one-plane approach as
+ * AerialGround, so the ground clamp and framing behave identically.
+ */
+function MapGround({ lat, lon, halfM }: { lat: number; lon: number; halfM: number }) {
+  const [texture, setTexture] = useState<THREE.Texture | null>(null);
+  const [failed, setFailed] = useState(false);
+
+  const bbox = useMemo(() => {
+    const o = wgs84ToRd(lat, lon);
+    return { minx: o.x - halfM, miny: o.y - halfM, maxx: o.x + halfM, maxy: o.y + halfM };
+  }, [lat, lon, halfM]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    // Pick the finest zoom whose full-bbox stitch still fits a 4096 px canvas —
+    // this keeps street names as sharp as possible for the given extent while
+    // bounding both the texture size and the tile count.
+    let z = 14;
+    for (; z > 6; z--) {
+      const r = wmtsRes(z);
+      if ((bbox.maxx - bbox.minx) / r <= 4096 && (bbox.maxy - bbox.miny) / r <= 4096) break;
+    }
+
+    const res = wmtsRes(z);
+    const span = res * WMTS_TILE_PX;
+    const colMin = Math.floor((bbox.minx - WMTS_ORIGIN_X) / span);
+    const colMax = Math.floor((bbox.maxx - WMTS_ORIGIN_X) / span);
+    const rowMin = Math.floor((WMTS_ORIGIN_Y - bbox.maxy) / span);
+    const rowMax = Math.floor((WMTS_ORIGIN_Y - bbox.miny) / span);
+
+    const outW = Math.min(4096, Math.round((bbox.maxx - bbox.minx) / res));
+    const outH = Math.min(4096, Math.round((bbox.maxy - bbox.miny) / res));
+    const canvas = document.createElement('canvas');
+    canvas.width = outW;
+    canvas.height = outH;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      setFailed(true);
+      return;
+    }
+    // Pixels-per-metre of the output canvas (may differ slightly from 1/res
+    // after the min() clamp), so tiles land in the right spot regardless.
+    const ppmX = outW / (bbox.maxx - bbox.minx);
+    const ppmY = outH / (bbox.maxy - bbox.miny);
+
+    const jobs: Promise<void>[] = [];
+    let anyDrawn = false;
+    for (let col = colMin; col <= colMax; col++) {
+      for (let row = rowMin; row <= rowMax; row++) {
+        const tileMinX = WMTS_ORIGIN_X + col * span;
+        const tileMaxY = WMTS_ORIGIN_Y - row * span;
+        const dx = (tileMinX - bbox.minx) * ppmX;
+        const dy = (bbox.maxy - tileMaxY) * ppmY;
+        const dw = span * ppmX;
+        const dh = span * ppmY;
+        jobs.push(
+          new Promise<void>((resolve) => {
+            const img = new Image();
+            img.onload = () => {
+              if (!cancelled) {
+                ctx.drawImage(img, dx, dy, dw, dh);
+                anyDrawn = true;
+              }
+              resolve();
+            };
+            img.onerror = () => resolve(); // grid-edge 404s are fine to skip
+            img.src = `/api/basiskaart?style=standaard&z=${z}&col=${col}&row=${row}`;
+          }),
+        );
+      }
+    }
+
+    Promise.all(jobs).then(() => {
+      if (cancelled) return;
+      if (!anyDrawn) {
+        setFailed(true);
+        return;
+      }
+      const tex = new THREE.CanvasTexture(canvas);
+      tex.colorSpace = THREE.SRGBColorSpace;
+      tex.anisotropy = 8;
+      tex.needsUpdate = true;
+      setTexture(tex);
+      setFailed(false);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [bbox]);
+
+  const size = halfM * 2;
+  return (
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.02, 0]}>
+      <planeGeometry args={[size, size]} />
+      <meshBasicMaterial
+        key={texture ? 'map' : 'plain'}
+        map={texture ?? undefined}
+        color={texture ? '#ffffff' : failed ? '#e5e7eb' : '#eef1f4'}
+        polygonOffset
+        polygonOffsetFactor={1}
+        polygonOffsetUnits={1}
       />
     </mesh>
   );
@@ -468,6 +619,7 @@ function CameraRig({
   faceDir,
   recenterNonce,
   contextNonce,
+  contextHalf,
   photoreal,
 }: {
   framePosition: [number, number, number];
@@ -475,6 +627,7 @@ function CameraRig({
   faceDir?: [number, number];
   recenterNonce: number;
   contextNonce: number;
+  contextHalf: number;
   photoreal: boolean;
 }) {
   const camera = useThree((s) => s.camera);
@@ -528,7 +681,10 @@ function CameraRig({
   // into view.
   useEffect(() => {
     if (contextNonce > 0) {
-      camera.position.set(330, 650, 780);
+      // Oblique bird's-eye framing scaled to the ground extent, so the whole
+      // merged buffer zone and the surrounding parcel points fit in view.
+      const h = contextHalf;
+      camera.position.set(h * 0.5, h * 1.0, h * 1.15);
       camera.lookAt(0, 0, 0);
       if (controls) {
         controls.target.set(0, 0, 0);

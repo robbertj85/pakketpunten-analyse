@@ -162,20 +162,31 @@ export default function CoverageContext({
             <meshBasicMaterial
               color={zoneColor}
               transparent
-              opacity={0.18}
+              opacity={0.32}
               side={THREE.DoubleSide}
               depthWrite={false}
             />
           </mesh>
           {zone.outlines.map((pts, i) => (
-            <Line key={`zo-${i}`} points={pts} color={zoneColor} lineWidth={1.5} transparent opacity={0.8} />
+            <Line key={`zo-${i}`} points={pts} color={zoneColor} lineWidth={2.5} transparent opacity={0.95} />
           ))}
         </>
       )}
 
-      {/* The new locker's own reach at the same walking distance. */}
+      {/* The new locker's own reach at the same walking distance — faint filled
+          disc plus a crisp outline ring. */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.045, 0]}>
+        <circleGeometry args={[bufferRadius, 96]} />
+        <meshBasicMaterial
+          color="#7c3aed"
+          transparent
+          opacity={0.1}
+          side={THREE.DoubleSide}
+          depthWrite={false}
+        />
+      </mesh>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.05, 0]}>
-        <ringGeometry args={[bufferRadius - 2.2, bufferRadius + 2.2, 128]} />
+        <ringGeometry args={[bufferRadius - bufferRadius * 0.008, bufferRadius + bufferRadius * 0.008, 128]} />
         <meshBasicMaterial
           color="#7c3aed"
           transparent
@@ -185,18 +196,21 @@ export default function CoverageContext({
         />
       </mesh>
 
-      {/* Existing parcel points. */}
+      {/* Existing parcel points — pin size scales with the walking distance so
+          they stay visible in the (large) context overview. */}
       {nearbyPoints.map((p, i) => {
         const [x, z] = toScene(p.lat, p.lon);
         const c = carrierColor(p.vervoerder);
+        const stem = bufferRadius * 0.055; // ~22 m tall at 400 m
+        const head = bufferRadius * 0.022; // ~9 m head at 400 m
         return (
           <group key={`pt-${i}`} position={[x, 0, z]}>
-            <mesh position={[0, 4, 0]}>
-              <cylinderGeometry args={[0.5, 0.5, 8, 8]} />
+            <mesh position={[0, stem / 2, 0]}>
+              <cylinderGeometry args={[head * 0.15, head * 0.15, stem, 8]} />
               <meshBasicMaterial color={c} />
             </mesh>
-            <mesh position={[0, 8.5, 0]}>
-              <sphereGeometry args={[3.2, 16, 16]} />
+            <mesh position={[0, stem + head * 0.6, 0]}>
+              <sphereGeometry args={[head, 16, 16]} />
               <meshBasicMaterial color={c} />
             </mesh>
           </group>

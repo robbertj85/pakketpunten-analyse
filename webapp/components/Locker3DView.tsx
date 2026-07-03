@@ -20,6 +20,8 @@ import type { Google3DError } from '@/lib/google3d';
 // to bring the toggle back. Default off → 3DBAG is the intended view.
 const GOOGLE_3D_ENABLED = process.env.NEXT_PUBLIC_ENABLE_GOOGLE_3D === 'true';
 
+import type { GroundMode } from '@/components/locker3d/Locker3DScene';
+
 const Locker3DScene = dynamic(() => import('@/components/locker3d/Locker3DScene'), {
   ssr: false,
   loading: () => <SceneSkeleton label="3D-omgeving laden…" />,
@@ -64,7 +66,8 @@ export default function Locker3DView(props: Locker3DViewProps) {
   const [rotationY, setRotationY] = useState(0);
   const [showLabels, setShowLabels] = useState(true);
   const [showBuildings, setShowBuildings] = useState(true);
-  const [showAerial, setShowAerial] = useState(true);
+  // Ground backdrop: aerial photo (default), PDOK street map, or a plain grid.
+  const [groundMode, setGroundMode] = useState<GroundMode>('aerial');
   const [buildingStatus, setBuildingStatus] = useState<BuildingLoadStatus | null>(null);
 
   // Auto-snap to a building wall
@@ -219,8 +222,8 @@ export default function Locker3DView(props: Locker3DViewProps) {
             onShowLabels={setShowLabels}
             showBuildings={showBuildings}
             onShowBuildings={setShowBuildings}
-            showAerial={showAerial}
-            onShowAerial={setShowAerial}
+            groundMode={groundMode}
+            onGroundMode={setGroundMode}
             buildingStatus={buildingStatus}
             autoSnap={autoSnap}
             onAutoSnap={setAutoSnap}
@@ -254,7 +257,7 @@ export default function Locker3DView(props: Locker3DViewProps) {
 
         {/* Scene */}
         <div className="bg-white rounded-lg shadow-md overflow-hidden">
-          <div className="h-[600px] lg:h-[720px] relative">
+          <div className="h-[680px] lg:h-[860px] relative">
             <Locker3DScene
               spec={spec}
               skin={skin}
@@ -264,7 +267,7 @@ export default function Locker3DView(props: Locker3DViewProps) {
               faceDir={faceDir}
               showLabels={showLabels}
               showBuildings={showBuildings}
-              showAerial={showAerial}
+              groundMode={groundMode}
               photoreal={photoreal}
               onPhotoError={setPhotoError}
               onPhotoReady={() => setPhotoError(null)}
@@ -318,7 +321,13 @@ export default function Locker3DView(props: Locker3DViewProps) {
           <div className="px-4 py-2 text-[11px] text-gray-500 border-t border-gray-100">
             {photoreal
               ? 'Fotorealistische 3D-tegels © Google · '
-              : 'Gebouwen © 3DBAG (TU Delft, CC BY 4.0) · Luchtfoto © PDOK · '}
+              : `Gebouwen © 3DBAG (TU Delft, CC BY 4.0) · ${
+                  groundMode === 'map'
+                    ? 'BRT-Achtergrondkaart © PDOK/Kadaster'
+                    : groundMode === 'aerial'
+                      ? 'Luchtfoto © PDOK'
+                      : 'Rasterondergrond'
+                } · `}
             Afmetingen uit standaard automaat-tabel
           </div>
         </div>

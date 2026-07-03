@@ -4,6 +4,10 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { MapContainer, GeoJSON, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import buffer from '@turf/buffer';
+import union from '@turf/union';
+import { featureCollection, point } from '@turf/helpers';
+import type { Feature, Polygon, MultiPolygon } from 'geojson';
 
 import type { LockerNetworkPayload, NetworkScenario, CapacityDefaults } from '@/lib/lockerNetwork';
 import { columnsNeeded, metersNeeded, nlInt, nlPct1, LOCKER_TYPES, carrierColor } from '@/lib/lockerNetwork';
@@ -30,6 +34,74 @@ function cellColor(rank: number, n: number): string {
   if (rank === 0) return COLOR_START;
   if (rank > 0 && rank <= n) return COLOR_NEW;
   return COLOR_UNCOVERED;
+}
+
+// Merged-buffer colour per loopafstand — matches the coverage-circle colours.
+const MERGED_COLORS: Record<number, string> = {
+  300: '#2563eb',
+  400: '#16a34a',
+  500: '#f59e0b',
+};
+
+type Poly = Feature<Polygon | MultiPolygon>;
+
+// Pairwise merge (same approach as the hoofdkaart's "Samengevoegde buffers"
+// and the 3D coverage overlay).
+function pairwiseUnion(features: Poly[]): Poly | null {
+  if (features.length === 0) return null;
+  if (features.length === 1) return features[0];
+  const next: Poly[] = [];
+  for (let i = 0; i < features.length; i += 2) {
+    if (i + 1 < features.length) {
+      const result = union(featureCollection([features[i], features[i + 1]]));
+      next.push((result as Poly) ?? features[i]);
+    } else {
+      next.push(features[i]);
+    }
+  }
+  return pairwiseUnion(next);
+}
+
+/** Buffer a set of [lon, lat] points by `distance` m and union them into one
+ * (multi)polygon — null if there are no points. */
+function bufferUnion(points: [number, number][], distance: number): Poly | null {
+  if (points.length === 0) return null;
+  try {
+    const fc = featureCollection(points.map((c) => point(c)));
+    const buffered = buffer(fc, distance / 1000, { units: 'kilometers', steps: 24 });
+    if (!buffered || buffered.features.length === 0) return null;
+    return pairwiseUnion(buffered.features as Poly[]);
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * The live-calculated merged coverage zone ("samengevoegde buffers"): the union
+ * of the walking-distance buffers of the existing parcel points AND the selected
+ * new lockers, rendered as one translucent polygon. Managed imperatively so a
+ * slider drag just swaps the layer without remounting React children.
+ */
+function MergedBuffers({ geojson, color }: { geojson: Poly | null; color: string }) {
+  const map = useMap();
+  useEffect(() => {
+    if (!geojson) return;
+    const layer = L.geoJSON(geojson as never, {
+      interactive: false,
+      style: {
+        color,
+        weight: 2,
+        opacity: 0.85,
+        fillColor: color,
+        fillOpacity: 0.2,
+      },
+    });
+    layer.addTo(map);
+    return () => {
+      layer.remove();
+    };
+  }, [map, geojson, color]);
+  return null;
 }
 
 /**
@@ -338,6 +410,7 @@ export default function NetworkPlannerMap({
   const [existingStyle, setExistingStyle] = useState<'punten' | 'iconen'>('punten');
   const [existingCircles300, setExistingCircles300] = useState(false);
   const [existingCircles400, setExistingCircles400] = useState(false);
+  const [showMergedBuffers, setShowMergedBuffers] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -387,6 +460,44 @@ export default function NetworkPlannerMap({
     [showExisting, showExistingShops, existingLockers, existingShops],
   );
 
+  // Merged coverage zone of the EXISTING points — heavy, so it is cached apart
+  // from the slider (recomputes only on toggle / distance / visible-set change).
+  const existingUnion = useMemo(() => {
+    if (!showMergedBuffers) return null;
+    return bufferUnion(
+      visibleExisting.map((p) => [p.lon, p.lat] as [number, number]),
+      distance,
+    );
+  }, [showMergedBuffers, visibleExisting, distance]);
+
+  // Combined zone: existing union + the top-N proposed lockers. The pick part is
+  // small (≤ n), so folding it into the cached existing union stays cheap while
+  // dragging the slider.
+  const mergedBuffer = useMemo(() => {
+    if (!showMergedBuffers) return null;
+    const parts: Poly[] = [];
+    if (existingUnion) parts.push(existingUnion);
+    const picks = scenario.picks.slice(0, Math.min(n, scenario.picks.length));
+    if (picks.length > 0) {
+      const pickUnion = bufferUnion(
+        picks.map((pk) => {
+          const cand = payload.candidates[pk.c];
+          return [cand.lon, cand.lat] as [number, number];
+        }),
+        distance,
+      );
+      if (pickUnion) parts.push(pickUnion);
+    }
+    if (parts.length === 0) return null;
+    try {
+      return pairwiseUnion(parts);
+    } catch {
+      return existingUnion;
+    }
+  }, [showMergedBuffers, existingUnion, scenario, n, payload, distance]);
+
+  const mergedColor = MERGED_COLORS[distance] ?? '#16a34a';
+
   const legend = useMemo(
     () => [
       { color: COLOR_START, label: 'Al gedekt bij start' },
@@ -431,6 +542,7 @@ export default function NetworkPlannerMap({
           />
         )}
         <FitToCells payload={payload} />
+        {showMergedBuffers && <MergedBuffers geojson={mergedBuffer} color={mergedColor} />}
         <CellGrid payload={payload} scenario={scenario} n={n} />
         {visibleExisting.length > 0 && (
           <ExistingLockers
@@ -535,6 +647,21 @@ export default function NetworkPlannerMap({
             />
             <span className="text-gray-700">Dekkingscirkels 400 m</span>
             <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: '#16a34a' }} />
+          </label>
+          <label className="flex items-center gap-1.5 cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={showMergedBuffers}
+              onChange={(e) => setShowMergedBuffers(e.target.checked)}
+              className="rounded border-gray-300"
+            />
+            <span className="text-gray-700">
+              Samengevoegde buffers ({distance} m · bestaand + nieuw)
+            </span>
+            <span
+              className="inline-block w-2.5 h-2.5 rounded-full"
+              style={{ background: mergedColor }}
+            />
           </label>
         </div>
       </div>
