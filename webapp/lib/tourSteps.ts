@@ -357,14 +357,14 @@ export const TOUR_STEPS: Record<string, TourStep[]> = {
       body: 'Het netwerk is voorberekend voor alle gemeenten. Kies er een — de aanpak is overal identiek, dus resultaten zijn onderling vergelijkbaar.',
     },
     {
-      target: '[data-tour="loopafstand"]',
-      title: 'De loopafstand-norm',
-      body: 'Hoe ver mag een inwoner maximaal van een kluis wonen? 300, 400 of 500 meter (hemelsbreed). Een strengere norm betekent veel meer kluizen voor dezelfde dekking — dit is de belangrijkste beleidskeuze, en je ziet het effect direct.',
-    },
-    {
       target: '[data-tour="startsituatie"]',
       title: 'Drie startsituaties',
       body: 'Greenfield: de stad heeft nog niets, waar begin je? Bestaande automaten: bouw voort op de kluizen die er al staan. Alle bestaande pakketpunten: ook servicepunten in winkels tellen als gedekt. Vergelijk ze om te zien wat het bestaande netwerk al waard is.',
+    },
+    {
+      target: '[data-tour="loopafstand"]',
+      title: 'De loopafstand-norm',
+      body: 'Hoe ver mag een inwoner maximaal van een kluis wonen? 300, 400 of 500 meter (hemelsbreed). Een strengere norm betekent veel meer kluizen voor dezelfde dekking — dit is de belangrijkste beleidskeuze, en je ziet het effect direct.',
     },
     {
       target: '[data-tour="ooh-slider"]',

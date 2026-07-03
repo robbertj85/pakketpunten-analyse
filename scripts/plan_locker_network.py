@@ -89,11 +89,13 @@ TYPE_META: dict[str, dict] = {
 }
 
 # Transparent capacity assumptions — the webapp computes live capacity from
-# these together with the out-of-home slider. Sources: ~24 parcels per
-# inhabitant per year is the rough NL average (ACM post- en pakkettenmonitor
-# orde van grootte), 1.5 days average dwell time per parcel in a locker,
+# these together with the out-of-home slider. Sources: ACM Post- en
+# pakketmonitor 2024 counts 606M parcels in the total NL market (~34 per
+# inhabitant incl. B2B); 24 per inhabitant per year is a conservative
+# estimate of the consumer share. 1.5 days average dwell time per parcel,
 # 85% practical occupancy ceiling, and the cabinet column layout from
-# webapp/lib/lockerCatalog.ts.
+# webapp/lib/lockerCatalog.ts. ACM publishes national totals only — no
+# per-municipality split exists.
 CAPACITY_DEFAULTS = {
     "pakketten_pp_jaar": 24,
     "verblijf_dagen": 1.5,

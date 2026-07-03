@@ -44,8 +44,10 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
 
   const [distance, setDistance] = useState(400);
   const [start, setStart] = useState<string>('alle-punten');
-  const [n, setN] = useState(25);
+  const [n, setN] = useState(0);
   const [oohPct, setOohPct] = useState(80);
+  const [targetPct, setTargetPct] = useState(80);
+  const [targetMsg, setTargetMsg] = useState<string | null>(null);
   const [showAssumptions, setShowAssumptions] = useState(false);
 
   // Sticky gemeente selection, shared with the rest of the app.
@@ -100,6 +102,36 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
     setN((cur) => Math.min(Math.max(0, cur), scenario.picks.length));
   }, [scenario]);
 
+  // Doelberekening: kleinste aantal kluizen waarmee de dekking het doel haalt.
+  useEffect(() => {
+    setTargetMsg(null);
+  }, [slug, distance, start]);
+  const applyTarget = () => {
+    if (!payload || !scenario) return;
+    const pop = payload.population_total;
+    const goal = (targetPct / 100) * pop;
+    if (scenario.start_covered >= goal) {
+      setN(0);
+      setTargetMsg(
+        `De startdekking is al ${nlPct1((scenario.start_covered / pop) * 100)}% — geen extra kluizen nodig.`,
+      );
+      return;
+    }
+    const idx = scenario.picks.findIndex((pick) => pick.cum >= goal);
+    if (idx === -1) {
+      const maxPct = scenario.picks.length
+        ? (scenario.picks[scenario.picks.length - 1].cum / pop) * 100
+        : (scenario.start_covered / pop) * 100;
+      setN(scenario.picks.length);
+      setTargetMsg(
+        `${targetPct}% is niet haalbaar met zinvolle locaties — maximum is ${nlPct1(maxPct)}% met ${scenario.picks.length} kluizen.`,
+      );
+    } else {
+      setN(idx + 1);
+      setTargetMsg(`${idx + 1} kluizen nodig voor ${targetPct}% dekking.`);
+    }
+  };
+
   const oohShare = oohPct / 100;
 
   const stats = useMemo(() => {
@@ -143,6 +175,12 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
   // the payload is loading so gemeente switching always stays possible.
   const controlsPanel = (
     <aside className="bg-white rounded-lg shadow-md p-4 h-fit lg:sticky lg:top-4 space-y-5">
+      <p className="text-[11px] text-gray-500 bg-blue-50 border border-blue-100 rounded p-2">
+        Kies eerst de <strong>startsituatie</strong> en het{' '}
+        <strong>out-of-home-aandeel</strong>. Stel daarna het dekkingsdoel in en
+        laat het benodigde aantal kluizen berekenen — of schuif zelf.
+      </p>
+
       <div data-tour="gemeente">
         <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
           Gemeente
@@ -155,6 +193,23 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
           {municipalities.map((m) => (
             <option key={m.slug} value={m.slug}>
               {m.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div data-tour="startsituatie">
+        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+          Startsituatie
+        </label>
+        <select
+          value={start}
+          onChange={(e) => setStart(e.target.value)}
+          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md bg-white"
+        >
+          {(payload?.params.starts ?? Object.keys(START_LABELS)).map((s) => (
+            <option key={s} value={s}>
+              {START_LABELS[s] ?? s}
             </option>
           ))}
         </select>
@@ -182,23 +237,6 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
         </div>
       </div>
 
-      <div data-tour="startsituatie">
-        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
-          Startsituatie
-        </label>
-        <select
-          value={start}
-          onChange={(e) => setStart(e.target.value)}
-          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md bg-white"
-        >
-          {(payload?.params.starts ?? Object.keys(START_LABELS)).map((s) => (
-            <option key={s} value={s}>
-              {START_LABELS[s] ?? s}
-            </option>
-          ))}
-        </select>
-      </div>
-
       <div data-tour="ooh-slider">
         <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
           Aandeel out-of-home: <span className="text-blue-800">{oohPct}%</span>
@@ -215,6 +253,36 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
         <p className="text-[11px] text-gray-400 mt-0.5">
           Bepaalt alleen de capaciteitsschatting (kolommen/kasten), niet de locaties.
         </p>
+      </div>
+
+      <div>
+        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+          Dekkingsdoel: <span className="text-blue-800">{targetPct}%</span>
+        </label>
+        <div className="flex items-center gap-2">
+          <input
+            type="range"
+            min={50}
+            max={100}
+            step={5}
+            value={targetPct}
+            onChange={(e) => setTargetPct(Number(e.target.value))}
+            className="flex-1 accent-blue-600"
+          />
+        </div>
+        <button
+          type="button"
+          onClick={applyTarget}
+          disabled={!scenario}
+          className="mt-2 w-full px-3 py-2 text-xs font-semibold rounded bg-blue-700 text-white hover:bg-blue-800 disabled:opacity-40"
+        >
+          Bereken benodigde kluizen
+        </button>
+        {targetMsg && (
+          <p className="text-[11px] text-blue-800 bg-blue-50 border border-blue-100 rounded p-2 mt-2">
+            {targetMsg}
+          </p>
+        )}
       </div>
 
       <div data-tour="n-slider" className="mt-5">
@@ -412,14 +480,58 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
                 <div className="space-y-1.5">
                   <p className="font-semibold text-gray-800">Capaciteitsmodel</p>
                   <p>
-                    {payload.capacity_defaults.pakketten_pp_jaar} pakketten per inwoner per jaar ·
-                    verblijftijd {payload.capacity_defaults.verblijf_dagen.toLocaleString('nl-NL')} dagen ·
-                    max. bezetting {Math.round(payload.capacity_defaults.bezetting_max * 100)}% ·
-                    {' '}{payload.capacity_defaults.vakken_per_kolom.toLocaleString('nl-NL')} vakken per kolom ·
-                    max. {payload.capacity_defaults.kolommen_per_kast_max} kolommen per kast.
-                    Strekkende meters volgen de maatvoering uit de 3D-viewer:
+                    De capaciteit is volledig gebaseerd op <strong>inwoners</strong>, niet op
+                    bestaande pakketpunten of werkelijke pakketvolumes. Rekenketen per kluis:
+                    elke kluis krijgt de inwoners toegewezen die hij als eerste binnen
+                    loopafstand brengt (CBS 100 m-grid, geen dubbeltelling). Pakketten per dag =
+                    inwoners x {payload.capacity_defaults.pakketten_pp_jaar} pakketten per
+                    inwoner per jaar / 365 x het out-of-home-aandeel. Bezette vakken =
+                    pakketten per dag x {payload.capacity_defaults.verblijf_dagen.toLocaleString('nl-NL')} dagen
+                    verblijftijd / {Math.round(payload.capacity_defaults.bezetting_max * 100)}% maximale
+                    bezetting. Kolommen = bezette vakken /
+                    {' '}{payload.capacity_defaults.vakken_per_kolom.toLocaleString('nl-NL')} vakken per kolom
+                    (naar boven afgerond); max. {payload.capacity_defaults.kolommen_per_kast_max} kolommen
+                    per kast. Strekkende meters volgen de maatvoering uit de 3D-viewer:
                     49 cm per kolom plus 8 cm frame per kast.
                   </p>
+                  <p>
+                    De aanname van {payload.capacity_defaults.pakketten_pp_jaar} pakketten per
+                    inwoner per jaar is een conservatieve schatting van het consumentendeel.
+                    Ter referentie: de ACM Post- en pakketmonitor 2024 telt 606 miljoen
+                    pakketten in de totale Nederlandse markt (circa 34 per inwoner, inclusief
+                    zakelijke zendingen). De ACM publiceert alleen landelijke totalen — geen
+                    uitsplitsing per gemeente.
+                  </p>
+                  <p>
+                    Rol van bestaande pakketpunten: die bepalen alleen wie er bij de start al
+                    gedekt is (de startsituatie). Inwoners binnen bereik van een bestaand punt
+                    genereren in het model geen vraag voor nieuwe kluizen; de capaciteit of
+                    drukte van bestaande punten wordt niet gemodelleerd.
+                  </p>
+                  <p>
+                    Bewuste versimpelingen: uniform pakketgedrag per inwoner (geen correctie
+                    voor demografie of inkomen), geen seizoenspiek (het vierde kwartaal ligt in
+                    werkelijkheid 1,5 tot 2 keer boven het jaargemiddelde) en een lineair
+                    out-of-home-aandeel. De uitkomst is daarmee een indicatieve ondergrens voor
+                    de benodigde kluisruimte, geen operationeel dimensioneringsmodel.
+                  </p>
+                  <p className="font-semibold text-gray-800 pt-1">Bronnen</p>
+                  <ul className="list-disc pl-4 space-y-0.5">
+                    <li>
+                      <a
+                        href="https://www.acm.nl/nl/publicaties/acm-post-en-pakketmonitor-2024-meer-pakketten-minder-post-en-dalende-betrouwbaarheid"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-700 hover:text-blue-900 underline"
+                      >
+                        ACM Post- en pakketmonitor 2024
+                      </a>{' '}
+                      — pakketvolumes Nederlandse markt (606 mln in 2024)
+                    </li>
+                    <li>CBS Vierkantstatistieken 100 m (2024) — inwoners per cel</li>
+                    <li>OpenStreetMap (Overpass) — kandidaat-locaties</li>
+                    <li>Maatvoering automaten — standaard kluizentabel (zie 3D-viewer)</li>
+                  </ul>
                   <p>
                     Bestaand netwerk in deze gemeente: {nlInt(payload.existing.alle_punten)} pakketpunten,
                     waarvan {nlInt(payload.existing.automaten)} automaten.
