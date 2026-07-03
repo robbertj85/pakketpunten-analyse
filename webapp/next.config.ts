@@ -4,6 +4,21 @@ const nextConfig: NextConfig = {
   // Enable compression for all responses
   compress: true,
 
+  // Keep the big client-side data directories OUT of the serverless function
+  // bundles. The dynamic routes (3D viewers, download/v1 API) fs-read
+  // per-gemeente geojsons, so Vercel's file tracing pulls public/data into
+  // the function; with boundaries/ (49 MB), poi/ (44 MB) and locker_network/
+  // (24 MB) included that crossed the 250 MB uncompressed function limit and
+  // the deployment failed. These three are only ever fetched by the browser
+  // as static assets, never fs-read at request time.
+  outputFileTracingExcludes: {
+    '*': [
+      './public/data/boundaries/**',
+      './public/data/poi/**',
+      './public/data/locker_network/**',
+    ],
+  },
+
   async headers() {
     const securityHeaders = [
       {
