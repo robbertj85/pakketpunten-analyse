@@ -139,6 +139,102 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
     };
   }, [payload, scenario, oohShare, distance]);
 
+  // Vertical controls panel — rendered left of the map, and standalone while
+  // the payload is loading so gemeente switching always stays possible.
+  const controlsPanel = (
+    <aside className="bg-white rounded-lg shadow-md p-4 h-fit lg:sticky lg:top-4 space-y-5">
+      <div data-tour="gemeente">
+        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+          Gemeente
+        </label>
+        <select
+          value={slug}
+          onChange={(e) => setSlug(e.target.value)}
+          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md bg-white"
+        >
+          {municipalities.map((m) => (
+            <option key={m.slug} value={m.slug}>
+              {m.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div data-tour="loopafstand">
+        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+          Loopafstand
+        </label>
+        <div className="inline-flex rounded-md overflow-hidden border border-blue-200">
+          {(payload?.params.distances ?? [300, 400, 500]).map((d) => (
+            <button
+              key={d}
+              type="button"
+              onClick={() => setDistance(d)}
+              className={`px-4 py-2 text-sm font-semibold transition ${
+                distance === d
+                  ? 'bg-blue-700 text-white'
+                  : 'bg-white text-blue-700 hover:bg-blue-50'
+              }`}
+            >
+              {d} m
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div data-tour="startsituatie">
+        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+          Startsituatie
+        </label>
+        <select
+          value={start}
+          onChange={(e) => setStart(e.target.value)}
+          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md bg-white"
+        >
+          {(payload?.params.starts ?? Object.keys(START_LABELS)).map((s) => (
+            <option key={s} value={s}>
+              {START_LABELS[s] ?? s}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div data-tour="ooh-slider">
+        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+          Aandeel out-of-home: <span className="text-blue-800">{oohPct}%</span>
+        </label>
+        <input
+          type="range"
+          min={10}
+          max={100}
+          step={5}
+          value={oohPct}
+          onChange={(e) => setOohPct(Number(e.target.value))}
+          className="w-full accent-blue-600"
+        />
+        <p className="text-[11px] text-gray-400 mt-0.5">
+          Bepaalt alleen de capaciteitsschatting (kolommen/kasten), niet de locaties.
+        </p>
+      </div>
+
+      <div data-tour="n-slider" className="mt-5">
+        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+          Aantal kluizen: <span className="text-blue-800 text-sm">{n}</span>
+          {maxN > 0 && <span className="text-gray-400 font-normal"> / {maxN}</span>}
+        </label>
+        <input
+          type="range"
+          min={0}
+          max={maxN}
+          value={Math.min(n, maxN)}
+          onChange={(e) => setN(Number(e.target.value))}
+          disabled={maxN === 0}
+          className="w-full accent-blue-600"
+        />
+      </div>
+    </aside>
+  );
+
   return (
     <div className="space-y-6">
       {/* Intro */}
@@ -158,110 +254,19 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
         </p>
       </section>
 
-      {/* Controls */}
-      <section className="bg-white rounded-lg shadow-md p-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
-          <div data-tour="gemeente">
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
-              Gemeente
-            </label>
-            <select
-              value={slug}
-              onChange={(e) => setSlug(e.target.value)}
-              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md bg-white"
-            >
-              {municipalities.map((m) => (
-                <option key={m.slug} value={m.slug}>
-                  {m.name}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div data-tour="loopafstand">
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
-              Loopafstand
-            </label>
-            <div className="inline-flex rounded-md overflow-hidden border border-blue-200">
-              {(payload?.params.distances ?? [300, 400, 500]).map((d) => (
-                <button
-                  key={d}
-                  type="button"
-                  onClick={() => setDistance(d)}
-                  className={`px-4 py-2 text-sm font-semibold transition ${
-                    distance === d
-                      ? 'bg-blue-700 text-white'
-                      : 'bg-white text-blue-700 hover:bg-blue-50'
-                  }`}
-                >
-                  {d} m
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div data-tour="startsituatie">
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
-              Startsituatie
-            </label>
-            <select
-              value={start}
-              onChange={(e) => setStart(e.target.value)}
-              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md bg-white"
-            >
-              {(payload?.params.starts ?? Object.keys(START_LABELS)).map((s) => (
-                <option key={s} value={s}>
-                  {START_LABELS[s] ?? s}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div data-tour="ooh-slider">
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
-              Aandeel out-of-home: <span className="text-blue-800">{oohPct}%</span>
-            </label>
-            <input
-              type="range"
-              min={10}
-              max={100}
-              step={5}
-              value={oohPct}
-              onChange={(e) => setOohPct(Number(e.target.value))}
-              className="w-full accent-blue-600"
-            />
-            <p className="text-[11px] text-gray-400 mt-0.5">
-              Bepaalt alleen de capaciteitsschatting (kolommen/kasten), niet de locaties.
-            </p>
-          </div>
-        </div>
-
-        <div data-tour="n-slider" className="mt-5">
-          <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
-            Aantal kluizen: <span className="text-blue-800 text-sm">{n}</span>
-            {maxN > 0 && <span className="text-gray-400 font-normal"> / {maxN}</span>}
-          </label>
-          <input
-            type="range"
-            min={0}
-            max={maxN}
-            value={Math.min(n, maxN)}
-            onChange={(e) => setN(Number(e.target.value))}
-            disabled={maxN === 0}
-            className="w-full accent-blue-600"
-          />
-        </div>
-      </section>
-
-      {loading && (
-        <div className="p-6 bg-white rounded-lg shadow-md text-sm text-gray-500">
-          Netwerkdata laden…
-        </div>
-      )}
       {error && (
         <div className="p-6 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-900">
           {error}
         </div>
+      )}
+
+      {!payload && (
+        <section className="grid grid-cols-1 lg:grid-cols-[280px_minmax(0,1fr)] gap-4">
+          {controlsPanel}
+          <div className="bg-white rounded-lg shadow-md p-6 text-sm text-gray-500">
+            {loading ? 'Netwerkdata laden…' : 'Geen netwerkdata beschikbaar voor deze gemeente.'}
+          </div>
+        </section>
       )}
 
       {payload && scenario && stats && (
@@ -291,8 +296,9 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
             />
           </section>
 
-          {/* Map + picks list */}
-          <section className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-4">
+          {/* Controls + map + picks list */}
+          <section className="grid grid-cols-1 lg:grid-cols-[280px_minmax(0,1fr)_340px] gap-4">
+            {controlsPanel}
             <div data-tour="kaart" className="bg-white rounded-lg shadow-md overflow-hidden h-[560px] lg:h-[640px]">
               <NetworkPlannerMap
                 payload={payload}

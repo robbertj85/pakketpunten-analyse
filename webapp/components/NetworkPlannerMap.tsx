@@ -331,8 +331,10 @@ export default function NetworkPlannerMap({
   const [mounted, setMounted] = useState(false);
   const [boundary, setBoundary] = useState<BoundaryFeature | null>(null);
   const [existingLockers, setExistingLockers] = useState<ExistingLockerPoint[]>([]);
+  const [existingShops, setExistingShops] = useState<ExistingLockerPoint[]>([]);
   const [showRadius, setShowRadius] = useState(false);
   const [showExisting, setShowExisting] = useState(true);
+  const [showExistingShops, setShowExistingShops] = useState(false);
   const [existingStyle, setExistingStyle] = useState<'punten' | 'iconen'>('punten');
   const [existingCircles300, setExistingCircles300] = useState(false);
   const [existingCircles400, setExistingCircles400] = useState(false);
@@ -346,6 +348,7 @@ export default function NetworkPlannerMap({
     let cancelled = false;
     setBoundary(null);
     setExistingLockers([]);
+    setExistingShops([]);
     fetch(`/data/${payload.slug}.geojson`)
       .then((r) => (r.ok ? r.json() : null))
       .then((g) => {
@@ -353,25 +356,36 @@ export default function NetworkPlannerMap({
         const feats = g.features as BoundaryFeature[];
         setBoundary(feats.find((f) => f.properties?.type === 'boundary') ?? null);
         const lockers: ExistingLockerPoint[] = [];
+        const shops: ExistingLockerPoint[] = [];
         for (const f of feats) {
           if (f.properties?.type !== 'pakketpunt') continue;
-          if (!LOCKER_TYPES.has(f.properties?.puntType ?? '')) continue;
           const c = f.geometry?.coordinates;
           if (!c) continue;
-          lockers.push({
+          const point = {
             lat: c[1],
             lon: c[0],
             vervoerder: f.properties?.vervoerder ?? 'onbekend',
             naam: f.properties?.locatieNaam ?? '',
-          });
+          };
+          if (LOCKER_TYPES.has(f.properties?.puntType ?? '')) lockers.push(point);
+          else shops.push(point);
         }
         setExistingLockers(lockers);
+        setExistingShops(shops);
       })
       .catch(() => setBoundary(null));
     return () => {
       cancelled = true;
     };
   }, [payload.slug]);
+
+  const visibleExisting = useMemo(
+    () => [
+      ...(showExisting ? existingLockers : []),
+      ...(showExistingShops ? existingShops : []),
+    ],
+    [showExisting, showExistingShops, existingLockers, existingShops],
+  );
 
   const legend = useMemo(
     () => [
@@ -418,9 +432,9 @@ export default function NetworkPlannerMap({
         )}
         <FitToCells payload={payload} />
         <CellGrid payload={payload} scenario={scenario} n={n} />
-        {showExisting && existingLockers.length > 0 && (
+        {visibleExisting.length > 0 && (
           <ExistingLockers
-            points={existingLockers}
+            points={visibleExisting}
             style={existingStyle}
             circles300={existingCircles300}
             circles400={existingCircles400}
@@ -489,22 +503,33 @@ export default function NetworkPlannerMap({
               ))}
             </div>
           </div>
-          <label className={`flex items-center gap-1.5 select-none ${showExisting ? 'cursor-pointer' : 'opacity-40'}`}>
+          <label className="flex items-center gap-1.5 cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={showExistingShops}
+              onChange={(e) => setShowExistingShops(e.target.checked)}
+              className="rounded border-gray-300"
+            />
+            <span className="text-gray-700">
+              Bestaande pakketpunten - overig ({nlInt(existingShops.length)})
+            </span>
+          </label>
+          <label className={`flex items-center gap-1.5 select-none ${visibleExisting.length > 0 ? 'cursor-pointer' : 'opacity-40'}`}>
             <input
               type="checkbox"
               checked={existingCircles300}
-              disabled={!showExisting}
+              disabled={visibleExisting.length === 0}
               onChange={(e) => setExistingCircles300(e.target.checked)}
               className="rounded border-gray-300"
             />
             <span className="text-gray-700">Dekkingscirkels 300 m</span>
             <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: '#2563eb' }} />
           </label>
-          <label className={`flex items-center gap-1.5 select-none ${showExisting ? 'cursor-pointer' : 'opacity-40'}`}>
+          <label className={`flex items-center gap-1.5 select-none ${visibleExisting.length > 0 ? 'cursor-pointer' : 'opacity-40'}`}>
             <input
               type="checkbox"
               checked={existingCircles400}
-              disabled={!showExisting}
+              disabled={visibleExisting.length === 0}
               onChange={(e) => setExistingCircles400(e.target.checked)}
               className="rounded border-gray-300"
             />
