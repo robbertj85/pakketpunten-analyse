@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Nijkerk",
     "slug": "nijkerk",
-    "generated_at": "2026-06-22T07:53:21.515062Z",
-    "total_points": 53,
+    "generated_at": "2026-07-06T06:55:55.555594Z",
+    "total_points": 54,
     "providers": [
       "Amazon",
       "DHL",
@@ -88,6 +88,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.192501449661,
         "longitude": 5.47292220182827,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.48653239315468,
+          52.2227888082376
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Your Inkstation Nijkerk",
+        "straatNaam": "Langestraat 50",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.2227888082376,
+        "longitude": 5.48653239315468,
         "canPickup": true,
         "canDropoff": false
       }
@@ -2166,7 +2189,7 @@
                 52.17842941274266
               ],
               [
-                5.467478234094492,
+                5.467478234094491,
                 52.1784472168077
               ],
               [
@@ -3890,7 +3913,7 @@
                 52.21299514167357
               ],
               [
-                5.478883804070277,
+                5.478883804070276,
                 52.21292098957375
               ],
               [

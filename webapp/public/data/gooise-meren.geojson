@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Gooise Meren",
     "slug": "gooise-meren",
-    "generated_at": "2026-06-22T07:45:53.697125Z",
+    "generated_at": "2026-07-06T06:48:14.428784Z",
     "total_points": 45,
     "providers": [
       "Amazon",
@@ -109,29 +109,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.27601271,
         "longitude": 5.161927494,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.16244726496989,
-          52.2746385745147
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Your Inkstation Bussum",
-        "straatNaam": "Brinklaan 70",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 52.2746385745147,
-        "longitude": 5.16244726496989,
         "canPickup": true,
         "canDropoff": false
       }
@@ -615,6 +592,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.33438,
         "longitude": 5.02344,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.16143,
+          52.2759
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Warme koffie",
+        "straatNaam": "VEERSTRAAT",
+        "straatNr": "4",
+        "vervoerder": "DPD",
+        "puntType": "pickup_point",
+        "bezettingsgraad": 50,
+        "latitude": 52.2759,
+        "longitude": 5.16143,
         "canPickup": true,
         "canDropoff": true
       }

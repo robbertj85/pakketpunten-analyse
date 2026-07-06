@@ -3,13 +3,14 @@
   "metadata": {
     "gemeente": "Gulpen-Wittem",
     "slug": "gulpen-wittem",
-    "generated_at": "2026-06-22T07:46:13.378524Z",
-    "total_points": 14,
+    "generated_at": "2026-07-06T06:48:34.665473Z",
+    "total_points": 15,
     "providers": [
       "Amazon",
       "DHL",
       "DPD",
       "PostNL",
+      "VintedGo",
       "GLS"
     ],
     "bounds": [
@@ -315,6 +316,29 @@
         "bezettingsgraad": 50,
         "latitude": 50.76886261,
         "longitude": 5.861208307,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8930191,
+          50.8153641
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Tin Mobile",
+        "straatNaam": "Rijksweg 33",
+        "straatNr": "",
+        "vervoerder": "VintedGo",
+        "puntType": "parcel_shop",
+        "bezettingsgraad": 50,
+        "latitude": 50.8153641,
+        "longitude": 5.8930191,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1230,10 +1254,6 @@
           [
             [
               [
-                5.916848635687547,
-                50.77541562544776
-              ],
-              [
                 5.9167051940739475,
                 50.77516711403244
               ],
@@ -1488,6 +1508,10 @@
               [
                 5.916848635687547,
                 50.77541562544776
+              ],
+              [
+                5.9167051940739475,
+                50.77516711403244
               ]
             ]
           ],
@@ -3178,10 +3202,6 @@
           [
             [
               [
-                5.91820219793563,
-                50.77514847456522
-              ],
-              [
                 5.918010934250466,
                 50.77481712822902
               ],
@@ -3436,6 +3456,10 @@
               [
                 5.91820219793563,
                 50.77514847456522
+              ],
+              [
+                5.918010934250466,
+                50.77481712822902
               ]
             ]
           ],

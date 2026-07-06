@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Tubbergen",
     "slug": "tubbergen",
-    "generated_at": "2026-06-22T07:59:54.654265Z",
+    "generated_at": "2026-07-06T07:02:47.113906Z",
     "total_points": 32,
     "providers": [
       "Amazon",
@@ -72,29 +72,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          6.781345244,
-          52.40782196
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Phone Connect",
-        "straatNaam": "Raadhuisplein 8",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 52.40782196,
-        "longitude": 6.781345244,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           6.78090895,
           52.40610127
         ]
@@ -109,6 +86,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.40610127,
         "longitude": 6.78090895,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.781345244,
+          52.40782196
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Phone Connect",
+        "straatNaam": "Raadhuisplein 8",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.40782196,
+        "longitude": 6.781345244,
         "canPickup": true,
         "canDropoff": false
       }

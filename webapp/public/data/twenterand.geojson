@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Twenterand",
     "slug": "twenterand",
-    "generated_at": "2026-06-22T07:59:59.501826Z",
-    "total_points": 59,
+    "generated_at": "2026-07-06T07:02:52.142352Z",
+    "total_points": 58,
     "providers": [
       "Amazon",
       "DHL",
@@ -72,29 +72,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          6.508908427,
-          52.45923452
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "GroenRijk",
-        "straatNaam": "Daarleseweg 15",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 52.45923452,
-        "longitude": 6.508908427,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           6.672643287,
           52.4367364
         ]
@@ -118,20 +95,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          6.61896401,
-          52.45949891
+          6.508908427,
+          52.45923452
         ]
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "De Dorpshoek",
-        "straatNaam": "Kervelplein 43",
+        "locatieNaam": "GroenRijk",
+        "straatNaam": "Daarleseweg 15",
         "straatNr": "",
         "vervoerder": "Amazon",
         "puntType": "3p",
         "bezettingsgraad": 50,
-        "latitude": 52.45949891,
-        "longitude": 6.61896401,
+        "latitude": 52.45923452,
+        "longitude": 6.508908427,
         "canPickup": true,
         "canDropoff": false
       }
@@ -4230,6 +4207,10 @@
           [
             [
               [
+                6.613727714169159,
+                52.46250717847414
+              ],
+              [
                 6.61329821657832,
                 52.462472794833474
               ],
@@ -4528,10 +4509,6 @@
               [
                 6.613727714169159,
                 52.46250717847414
-              ],
-              [
-                6.61329821657832,
-                52.462472794833474
               ]
             ]
           ],

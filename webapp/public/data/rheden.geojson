@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Rheden",
     "slug": "rheden",
-    "generated_at": "2026-06-22T07:56:38.259146Z",
-    "total_points": 35,
+    "generated_at": "2026-07-06T06:59:19.761532Z",
+    "total_points": 36,
     "providers": [
       "Amazon",
       "DHL",
@@ -810,6 +810,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          5.97904,
+          51.99728
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "HET AARDAPPELPAKHUIS",
+        "straatNaam": "Nieuw Schoonoord 1",
+        "straatNr": "",
+        "vervoerder": "InPost",
+        "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 51.99728,
+        "longitude": 5.97904,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           5.9692388,
           51.995934
         ]
@@ -1512,7 +1535,7 @@
                 51.998630336599795
               ],
               [
-                5.9694043101558165,
+                5.969404310155818,
                 51.99862573200336
               ],
               [
@@ -3888,7 +3911,7 @@
                 51.99952911392718
               ],
               [
-                5.969344306196723,
+                5.9693443061967235,
                 51.999527038593975
               ],
               [
@@ -4782,6 +4805,10 @@
               [
                 6.096071346109764,
                 52.06536818689728
+              ],
+              [
+                6.096086261612764,
+                52.065352504233886
               ],
               [
                 6.096086261612765,

@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Goes",
     "slug": "goes",
-    "generated_at": "2026-06-22T07:45:43.800545Z",
-    "total_points": 76,
+    "generated_at": "2026-07-06T06:48:04.782692Z",
+    "total_points": 77,
     "providers": [
       "Amazon",
       "DHL",
@@ -43,6 +43,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.50713046,
         "longitude": 3.875094896,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.89134507768963,
+          51.482158905759
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Autopoetsbedrijf Goes",
+        "straatNaam": "Eberhardtweg 3 N",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.482158905759,
+        "longitude": 3.89134507768963,
         "canPickup": true,
         "canDropoff": false
       }
@@ -558,29 +581,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          3.9087097,
-          51.4950437
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "ViaTim & Renda",
-        "straatNaam": "THEO THIJSSENLAAN",
-        "straatNr": "7",
-        "vervoerder": "DPD",
-        "puntType": "pickup_point",
-        "bezettingsgraad": 50,
-        "latitude": 51.4950437,
-        "longitude": 3.9087097,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           3.8747421,
           51.5071163
         ]
@@ -963,6 +963,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.5021224851179,
         "longitude": 3.90166467381767,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.89134507768963,
+          51.482158905759
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Autopoetsbedrijf Goes",
+        "straatNaam": "Eberhardtweg",
+        "straatNr": "3N",
+        "vervoerder": "PostNL",
+        "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 51.482158905759,
+        "longitude": 3.89134507768963,
         "canPickup": true,
         "canDropoff": true
       }
@@ -3624,7 +3647,7 @@
                 51.502674322825726
               ],
               [
-                3.909120070504694,
+                3.9091200705046956,
                 51.50248834786306
               ],
               [
@@ -3648,7 +3671,7 @@
                 51.5014277829724
               ],
               [
-                3.9084542737401673,
+                3.9084542737401664,
                 51.501201900579964
               ],
               [
@@ -4052,7 +4075,7 @@
                 51.49611170775107
               ],
               [
-                3.896814882849805,
+                3.8968148828498057,
                 51.49609296385254
               ],
               [
@@ -5580,7 +5603,7 @@
                 51.48000771126867
               ],
               [
-                3.8882777831663864,
+                3.8882777831663873,
                 51.4800774741747
               ],
               [
@@ -5736,7 +5759,7 @@
                 51.48443363853717
               ],
               [
-                3.8938169220159944,
+                3.893816922015992,
                 51.4843698812544
               ],
               [
@@ -8026,18 +8049,6 @@
             ],
             [
               [
-                3.8885435345720434,
-                51.49420561027362
-              ],
-              [
-                3.888699177131786,
-                51.49449581582833
-              ],
-              [
-                3.888863634955603,
-                51.49472493683825
-              ],
-              [
                 3.8885210823330496,
                 51.49455943190722
               ],
@@ -8052,6 +8063,18 @@
               [
                 3.8885435345720434,
                 51.49420561027362
+              ],
+              [
+                3.888699177131786,
+                51.49449581582833
+              ],
+              [
+                3.888863634955603,
+                51.49472493683825
+              ],
+              [
+                3.8885210823330496,
+                51.49455943190722
               ]
             ]
           ],
@@ -8742,7 +8765,7 @@
                 51.479250270338774
               ],
               [
-                3.887502864814247,
+                3.887502864814249,
                 51.47932003220968
               ],
               [
@@ -8898,7 +8921,7 @@
                 51.48519104002606
               ],
               [
-                3.8945920310335795,
+                3.8945920310335764,
                 51.48512728179724
               ],
               [

@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Capelle aan den IJssel",
     "slug": "capelle-aan-den-ijssel",
-    "generated_at": "2026-06-22T07:41:43.086688Z",
+    "generated_at": "2026-07-06T06:43:56.992815Z",
     "total_points": 51,
     "providers": [
       "Amazon",
@@ -23,6 +23,29 @@
     ]
   },
   "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.5896244,
+          51.9300947
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Amazon Locker - Bamboe",
+        "straatNaam": "WC De Koperwiek",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "locker",
+        "bezettingsgraad": 50,
+        "latitude": 51.9300947,
+        "longitude": 4.5896244,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
     {
       "type": "Feature",
       "geometry": {
@@ -65,29 +88,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.91803976,
         "longitude": 4.566494712,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.5896244,
-          51.9300947
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Amazon Locker - Bamboe",
-        "straatNaam": "WC De Koperwiek",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "locker",
-        "bezettingsgraad": 50,
-        "latitude": 51.9300947,
-        "longitude": 4.5896244,
         "canPickup": true,
         "canDropoff": false
       }
@@ -218,7 +218,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat Tango",
+        "locatieNaam": "Pakketautomaat Tango Abr.Rijck.weg",
         "straatNaam": "Abram van Rijckevorselweg",
         "straatNr": "8",
         "vervoerder": "DHL",
@@ -1093,7 +1093,7 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "HET BAKKERTJE",
-        "straatNaam": "DOORMANSTRAAT 54",
+        "straatNaam": "Doormanstraat 54",
         "straatNr": "",
         "vervoerder": "InPost",
         "puntType": "servicepunt",

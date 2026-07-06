@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Harlingen",
     "slug": "harlingen",
-    "generated_at": "2026-06-22T07:46:54.694082Z",
-    "total_points": 31,
+    "generated_at": "2026-07-06T06:49:15.825600Z",
+    "total_points": 32,
     "providers": [
       "Amazon",
       "DHL",
@@ -41,6 +41,29 @@
         "bezettingsgraad": 50,
         "latitude": 53.17493776,
         "longitude": 5.41887075,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.43982124,
+          53.17310628
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "GAMMA Harlingen",
+        "straatNaam": "Roordaweg 1",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 53.17310628,
+        "longitude": 5.43982124,
         "canPickup": true,
         "canDropoff": false
       }
@@ -724,7 +747,7 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "SPORTCENTRUM VAN HURCK",
-        "straatNaam": "STEENHOUWERSSTRAAT 3",
+        "straatNaam": "Steenhouwersstraat 3",
         "straatNr": "",
         "vervoerder": "InPost",
         "puntType": "servicepunt",
@@ -2623,7 +2646,7 @@
                 53.16761888886559
               ],
               [
-                5.417326781980204,
+                5.417326781980203,
                 53.167678831101234
               ],
               [
