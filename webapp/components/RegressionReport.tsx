@@ -178,21 +178,21 @@ function fmtDelta(v: number): string {
 // zijn k; Vracht/bestel × kwetsbaar is het consistente BRON-signaal — zit in
 // alle winnaars van k=4 t/m k=8.
 const MODEL_PRESETS: Array<{ name: string; keys: FeatureKey[]; note: string }> = [
-  { name: 'Basis', keys: ['pop', 'area'], note: 'Oorspronkelijke Python-baseline (R² ≈ 0.44)' },
+  { name: 'Basis', keys: ['pop', 'area'], note: 'Oorspronkelijke Python-baseline' },
   {
     name: 'Ockham (k=4)',
     keys: ['pop', 'pct_high_income', 'ov_stops', 'crashes_freight_vs_vulnerable'],
-    note: 'Beste 4-variabelenmodel (R² = 0.479) — eerste verschijning van BRON',
+    note: 'Beste 4-variabelenmodel — eerste verschijning van BRON',
   },
   {
     name: 'Beste k=6',
     keys: ['pop', 'pct_high_income', 'oad', 'supermarket_1km', 'ov_stops', 'crashes_freight_vs_vulnerable'],
-    note: 'Beste 6-variabelenmodel (R² = 0.520)',
+    note: 'Beste 6-variabelenmodel',
   },
   {
     name: 'Beste k=8',
     keys: ['pop', 'avg_woz', 'oad', 'horeca_1km', 'supermarket_1km', 'ov_stops', 'crashes_freight', 'crashes_freight_vs_vulnerable'],
-    note: 'Laagste BIC over alle 19,5M subsets (R² = 0.539); 2 BRON-variabelen',
+    note: 'Laagste BIC over alle 19,5M subsets; 2 BRON-variabelen',
   },
 ];
 
@@ -1121,6 +1121,11 @@ function PC4DetailPanel({
             <p className="text-[10px] text-gray-500 -mt-2">
               PC4-grens (rood) en carrier-gerapporteerde pakketpunten.
             </p>
+            {!painpointEntry && point.actual > 0 && (
+              <p className="text-[10px] text-gray-500 -mt-2">
+                Locaties van pakketpunten alleen beschikbaar voor pijnpunt-PC4&apos;s.
+              </p>
+            )}
 
             {/* Outcome vs predictions */}
             <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-sm space-y-1">

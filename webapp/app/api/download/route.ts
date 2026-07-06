@@ -39,7 +39,7 @@ function convertGeoJSONToCSV(geojson: any): string {
     return 'Geen pakketpunten gevonden';
   }
 
-  // CSV header
+  // CSV header (bezettingsgraad is willekeurig gegenereerde demo-data)
   const headers = [
     'locatieNaam',
     'straatNaam',
@@ -48,7 +48,7 @@ function convertGeoJSONToCSV(geojson: any): string {
     'longitude',
     'vervoerder',
     'puntType',
-    'bezettingsgraad',
+    'bezettingsgraad_mock',
   ];
 
   const rows = features.map((feature: any) => {
@@ -63,11 +63,16 @@ function convertGeoJSONToCSV(geojson: any): string {
       coords[0], // longitude
       props.vervoerder || '',
       props.puntType || '',
-      props.bezettingsgraad || '',
+      props.bezettingsgraad ?? '',
     ]
       .map((value) => {
         // Escape CSV values
-        const stringValue = String(value);
+        let stringValue = String(value);
+        // Formula-injection bescherming: spreadsheet-formules onschadelijk
+        // maken in tekstvelden afkomstig van derden (alleen strings).
+        if (typeof value === 'string' && /^[=+\-@]/.test(stringValue)) {
+          stringValue = `'${stringValue}`;
+        }
         if (stringValue.includes(',') || stringValue.includes('"') || stringValue.includes('\n')) {
           return `"${stringValue.replace(/"/g, '""')}"`;
         }

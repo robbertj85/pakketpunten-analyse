@@ -53,8 +53,8 @@ def get_current_totals(data_dir):
     for file_path in geojson_files:
         slug = file_path.stem
 
-        # Skip nederland to avoid double-counting
-        if slug == 'nederland':
+        # Skip nederland and nederland-boundaries to avoid double-counting
+        if slug in ('nederland', 'nederland-boundaries'):
             continue
 
         try:

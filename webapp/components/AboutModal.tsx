@@ -306,6 +306,9 @@ export default function AboutModal({ isOpen, onClose }: AboutModalProps) {
 - InPost / Mondial Relay (https://inpost.nl)
 - Budbee / Instabee (https://budbee.com)
 - Gemeente grenzen © OpenStreetMap contributors
+- Verkeersongevallen (BRON 2022-2024) © Rijkswaterstaat (publiek domein) — geo.rijkswaterstaat.nl
+
+Bezettingsgraad data is willekeurig gegenereerd voor demonstratie (niet echt)
 
 Project: Pakketpunten Nederland
 Repository: github.com/Ida-BirdsEye/pakketpunten

@@ -244,9 +244,12 @@ def main() -> int:
         else:
             v["predicted_points_k8"] = None
             v["delta_vs_predicted_k8"] = None
-        # Simple-rate alternative: what the nationwide ratio would yield
+        # Simple-rate alternative: 50/50 convex combination of the per-capita
+        # and per-km2 expectations. Each rate alone already distributes the
+        # full national total, so summing both would double-count; the 0.5
+        # weights keep the nationwide sum equal to the national total.
         v["expected_simple_rate"] = round(
-            rate_per_cap * pop + rate_per_km2 * area, 2
+            0.5 * rate_per_cap * pop + 0.5 * rate_per_km2 * area, 2
         ) if pop or area else 0.0
 
     payload["model"] = {

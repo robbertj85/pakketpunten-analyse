@@ -92,6 +92,8 @@ function PctBar({ pct, tone }: { pct: number; tone?: string }) {
 
 function csvCell(v: unknown): string {
   if (v == null) return '';
+  // NL-Excel: komma als decimaalteken (scheidingsteken is ';').
+  if (typeof v === 'number') return String(v).replace('.', ',');
   const s = String(v);
   return /[",;\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 }
@@ -321,7 +323,7 @@ function NationalSummary({ nat }: { nat: NationalEntry }) {
       <div className="flex flex-wrap items-baseline justify-between gap-2 mb-4">
         <h2 className="text-xl font-bold text-gray-900">Landelijk bereik</h2>
         <p className="text-sm text-gray-600">
-          {nlInt(pop)} inwoners in {nlInt(Object.keys(nat.total).length)} metingen
+          {nlInt(pop)} inwoners, {Object.keys(nat.total).length} loopafstanden ({Object.keys(nat.total).map((d) => d.replace('m', '')).join('/')} m)
         </p>
       </div>
       <CoverageCardGrid data={nat} />
@@ -868,7 +870,7 @@ export default function PopulationReachReport({
         <p>
           <strong>Methodologie</strong>: {payload.methodology.apportionment}.{' '}
           Buffer-cirkels met {payload.methodology.buffer_circle_segments} segmenten.{' '}
-          PC4→gemeente via centroid (conform pc4_stats.json).
+          PC4→gemeente: {payload.methodology.pc4_to_municipality || 'via centroid (conform pc4_stats.json)'}.
         </p>
         <p>
           <strong>Bronnen</strong>: parcel-locations uit {payload.sources.parcel_points}.

@@ -29,10 +29,11 @@ def get_data_deburen(gemeente):
 
     cols = ["naam","lat","lon","id","straat","nummer","postcode","city","flag_a","type","flag_b","flag_c"]
     df = pd.DataFrame(rows, columns=cols)
-    df["city"] = df["city"].str.lower()
 
-    df_ = df[df["city"] == gemeente.lower()]
-    gdf = df_to_gdf(df_, "DeBuren")
+    # Geen pre-filter op plaatsnaam: die mist punten in meergemeentelijke
+    # gemeenten (bijv. Sneek in Súdwest-Fryslân). De polygon-filter in
+    # get_data_pakketpunten() doet de echte gemeentefiltering.
+    gdf = df_to_gdf(df, "DeBuren")
     # DeBuren: All locations support both pickup and dropoff
     gdf['canPickup'] = True
     gdf['canDropoff'] = True
@@ -270,6 +271,9 @@ def get_data_dpd(gemeente):
                 # Convert to DataFrame
                 rows = []
                 for loc in locations:
+                    # Budbee-boxen in de DPD-feed worden door get_data_budbee() uitgegeven; hier overslaan om dubbeltelling te voorkomen
+                    if 'budbee' in (loc.get('company') or '').lower():
+                        continue
                     rows.append({
                         'locatieNaam': loc.get('company', ''),
                         'straatNaam': loc.get('street', ''),
@@ -325,6 +329,10 @@ def get_data_dpd(gemeente):
     # Convert to dataframe with standardized columns
     rows = []
     for loc in items:
+        # Budbee-boxen in de DPD-feed worden door get_data_budbee() uitgegeven; hier overslaan om dubbeltelling te voorkomen
+        if 'budbee' in (loc.get('company') or '').lower():
+            continue
+
         street = loc.get('street', '')
         house_number = loc.get('house_number', '')
 
@@ -853,19 +861,23 @@ def get_data_pakketpunten(gemeente, return_carrier_status=False):
     try:
         gemeente_polygon = get_gemeente_polygon(gemeente)
         gemeente_geom = gemeente_polygon.geometry.iloc[0]
-
-        # Filter: behoud alleen punten binnen de gemeentegrens
-        gdf_filtered = gdf[gdf.geometry.within(gemeente_geom)].copy()
-
-        removed_count = len(gdf) - len(gdf_filtered)
-        print(f"  ✂️  {removed_count} pakketpunten buiten gemeentegrens verwijderd")
-        print(f"  ✅ {len(gdf_filtered)} pakketpunten binnen gemeentegrens '{gemeente}'")
-
-        gdf = gdf_filtered
-
     except Exception as e:
-        print(f"  ⚠️  Boundary filter overgeslagen voor '{gemeente}': {e}")
-        print(f"  ℹ️  Gebruik data zonder boundary filter ({len(gdf)} punten)")
+        # Zonder gemeentepolygoon zou de ongefilterde set (incl. landelijke
+        # caches met ~19k punten) als gemeentedata worden gepubliceerd.
+        # Hard falen; batch_generate.py vangt dit per gemeente af.
+        raise RuntimeError(
+            f"Gemeentegrens voor '{gemeente}' kon niet worden opgehaald; "
+            f"afgebroken om te voorkomen dat ongefilterde landelijke data wordt gepubliceerd ({e})"
+        ) from e
+
+    # Filter: behoud alleen punten binnen de gemeentegrens
+    gdf_filtered = gdf[gdf.geometry.within(gemeente_geom)].copy()
+
+    removed_count = len(gdf) - len(gdf_filtered)
+    print(f"  ✂️  {removed_count} pakketpunten buiten gemeentegrens verwijderd")
+    print(f"  ✅ {len(gdf_filtered)} pakketpunten binnen gemeentegrens '{gemeente}'")
+
+    gdf = gdf_filtered
 
     desired_order = [
     "locatieNaam",

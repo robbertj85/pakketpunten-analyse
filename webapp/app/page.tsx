@@ -11,6 +11,7 @@ import ShareModal from '@/components/ShareModal';
 import NearestPointsFinder from '@/components/NearestPointsFinder';
 import { Municipality, PakketpuntData, Filters, PakketpuntProperties, PakketpuntFeature, PointCategory, ServiceFilter, getPointCategory } from '@/types/pakketpunten';
 import { loadProvincialBoundaries, BoundaryLoadProgress } from '@/utils/boundaryLoader';
+import { matchesServiceFilters } from '@/utils/pointFilters';
 
 // Mobile menu icon component
 function MenuIcon({ className }: { className?: string }) {
@@ -55,6 +56,7 @@ export default function Home() {
   const [selectedMunicipality, setSelectedMunicipality] = useState<string>('');
   const [data, setData] = useState<PakketpuntData | null>(null);
   const [loading, setLoading] = useState(false);
+  const [dataError, setDataError] = useState<string | null>(null);
   const [showAbout, setShowAbout] = useState(false);
   const [showShare, setShowShare] = useState(false);
   const [boundariesLoaded, setBoundariesLoaded] = useState(false);
@@ -192,8 +194,12 @@ export default function Home() {
       return;
     }
 
+    // Abort in-flight fetches when the municipality changes again, so a slow
+    // response (e.g. Nederland) can never overwrite a faster later selection
+    const controller = new AbortController();
     setLoading(true);
-    fetch(`/data/${selectedMunicipality}.geojson`)
+    setDataError(null);
+    fetch(`/data/${selectedMunicipality}.geojson`, { signal: controller.signal })
       .then(async (res) => {
         console.log('Response status:', res.status);
         console.log('Content-Type:', res.headers.get('content-type'));
@@ -257,10 +263,18 @@ export default function Home() {
         });
       })
       .catch((err) => {
+        // Aborted = superseded by a newer selection; not an error
+        if (err instanceof DOMException && err.name === 'AbortError') return;
         console.error('Error loading data:', err);
         console.error('Failed to load:', `/data/${selectedMunicipality}.geojson`);
+        setData(null);
+        setDataError('Kon gegevens voor deze gemeente niet laden.');
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        if (!controller.signal.aborted) setLoading(false);
+      });
+
+    return () => controller.abort();
   }, [selectedMunicipality]);
 
   // Load boundaries separately when user enables them for Nederland view
@@ -281,13 +295,16 @@ export default function Home() {
     })
       .then((boundariesData) => {
         console.log(`Boundaries loaded: ${boundariesData.metadata.total_boundaries} boundaries from ${boundariesData.metadata.provinces_loaded} provinces`);
-        // Merge boundary features into existing data
-        if (data) {
-          setData({
-            ...data,
-            features: [...data.features, ...boundariesData.features]
-          });
-        }
+        // Merge boundary features into existing data (functional update so we
+        // never merge into a stale closure; bail out if the user has since
+        // switched away from the Nederland view)
+        setData((prev) => {
+          if (!prev || prev.metadata?.slug !== 'nederland') return prev;
+          return {
+            ...prev,
+            features: [...prev.features, ...boundariesData.features]
+          };
+        });
         setBoundariesLoaded(true);
         setBoundaryLoadProgress(null);
       })
@@ -296,25 +313,7 @@ export default function Home() {
         setBoundaryLoadProgress(null);
       })
       .finally(() => setBoundariesLoading(false));
-  }, [selectedMunicipality, filters.showBoundary, data, boundariesLoaded, boundariesLoading]);
-
-  // Helper: Check if a point matches service filters
-  const matchesServiceFilters = (props: PakketpuntProperties): boolean => {
-    const wantsPickup = filters.serviceFilters.includes('pickup');
-    const wantsDropoff = filters.serviceFilters.includes('dropoff');
-
-    // If both filters selected, show locations that support at least one
-    // If only pickup selected, show locations that support pickup
-    // If only dropoff selected, show locations that support dropoff
-    if (wantsPickup && wantsDropoff) {
-      return props.canPickup || props.canDropoff;
-    } else if (wantsPickup) {
-      return props.canPickup;
-    } else if (wantsDropoff) {
-      return props.canDropoff;
-    }
-    return false; // No service filters selected
-  };
+  }, [selectedMunicipality, filters.showBoundary, boundariesLoaded, boundariesLoading]);
 
   // Calculate provider counts for filtered data (considering category + service filters)
   const providerCounts = useMemo(() => {
@@ -327,7 +326,7 @@ export default function Home() {
       return (
         filters.providers.includes(props.vervoerder) &&
         filters.pointCategories.includes(category) &&
-        matchesServiceFilters(props) &&
+        matchesServiceFilters(props, filters.serviceFilters) &&
         props.bezettingsgraad >= filters.minOccupancy &&
         props.bezettingsgraad <= filters.maxOccupancy
       );
@@ -351,7 +350,7 @@ export default function Home() {
       return (
         filters.providers.includes(props.vervoerder) &&
         filters.pointCategories.includes(category) &&
-        matchesServiceFilters(props) &&
+        matchesServiceFilters(props, filters.serviceFilters) &&
         props.bezettingsgraad >= filters.minOccupancy &&
         props.bezettingsgraad <= filters.maxOccupancy
       );
@@ -394,12 +393,15 @@ export default function Home() {
     if (!data) return 0;
 
     const points = data.features.filter(f => f.properties.type === 'pakketpunt');
+    // Same filter set as the map (Map.tsx groups shared locations AFTER
+    // service filtering), so the count matches what is actually rendered
     const filteredPoints = points.filter((feature) => {
       const props = feature.properties as PakketpuntProperties;
       const category = getPointCategory(props.puntType);
       return (
         filters.providers.includes(props.vervoerder) &&
         filters.pointCategories.includes(category) &&
+        matchesServiceFilters(props, filters.serviceFilters) &&
         props.bezettingsgraad >= filters.minOccupancy &&
         props.bezettingsgraad <= filters.maxOccupancy
       );
@@ -725,6 +727,12 @@ export default function Home() {
 
         {/* Map */}
         <main className="flex-1 relative">
+          {/* Data load error banner */}
+          {dataError && !loading && (
+            <div className="absolute top-3 left-1/2 -translate-x-1/2 z-20 px-4 py-2 bg-amber-50 border border-amber-300 rounded-lg shadow-md text-sm font-medium text-amber-900">
+              {dataError}
+            </div>
+          )}
           <MapView
             data={data}
             filters={filters}

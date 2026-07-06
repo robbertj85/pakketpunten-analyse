@@ -88,7 +88,8 @@ export default function TotalOverviewModal({
     const latestCount = latestSnapshot?.totals.providers[provider] || 0;
     const firstCount = firstSnapshot?.totals.providers[provider] || 0;
     const change = latestCount - firstCount;
-    const percentageChange = firstCount > 0 ? ((change / firstCount) * 100) : 0;
+    // null = geen baseline (vervoerder was er nog niet in de eerste snapshot)
+    const percentageChange = firstCount > 0 ? ((change / firstCount) * 100) : null;
     const marketShare = latestSnapshot?.totals.total > 0
       ? ((latestCount / latestSnapshot.totals.total) * 100)
       : 0;
@@ -241,9 +242,13 @@ export default function TotalOverviewModal({
                         {item.change >= 0 ? '+' : ''}{item.change}
                       </span>
                       <span className={`text-xs px-2 py-0.5 rounded ${
-                        item.percentageChange >= 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                        item.percentageChange == null
+                          ? 'bg-gray-100 text-gray-600'
+                          : item.percentageChange >= 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
                       }`}>
-                        {item.percentageChange >= 0 ? '+' : ''}{item.percentageChange.toFixed(1)}%
+                        {item.percentageChange == null
+                          ? (item.current > 0 ? 'nieuw' : '—')
+                          : `${item.percentageChange >= 0 ? '+' : ''}${item.percentageChange.toFixed(1)}%`}
                       </span>
                     </div>
                   </div>

@@ -33,6 +33,8 @@ export default function NetworkCoverageChart({ payload, distance, start, n }: Pr
     const active = payload.scenarios[scenarioKey(distance, start)];
     if (!active) return { data: [], flatteningAt: null as number | null };
     const pop = payload.population_total;
+    // No population data means every percentage would be NaN — render nothing.
+    if (!(pop > 0)) return { data: [], flatteningAt: null as number | null };
     const others = payload.params.distances.filter((d) => d !== distance);
     const maxLen = Math.max(
       active.picks.length,
@@ -59,13 +61,14 @@ export default function NetworkCoverageChart({ payload, distance, start, n }: Pr
       }
       rows.push(row);
     }
-    // Diminishing-returns marker: first pick whose gain drops below 5% of
-    // the first pick's gain (or min_gain, whichever is larger).
+    // Diminishing-returns marker: picks[idx] is the FIRST pick whose gain
+    // drops below 5% of the first pick's gain (or min_gain, whichever is
+    // larger), so the last worthwhile locker count is idx (1-based n = idx).
     let flat: number | null = null;
     if (active.picks.length > 1) {
       const threshold = Math.max(payload.params.min_gain, active.picks[0].gain * 0.05);
       const idx = active.picks.findIndex((p) => p.gain < threshold);
-      if (idx > 0) flat = idx + 1;
+      if (idx > 0) flat = idx;
     }
     return { data: rows, flatteningAt: flat };
   }, [payload, distance, start]);

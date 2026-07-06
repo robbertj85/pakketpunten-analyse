@@ -77,6 +77,9 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
     let cancelled = false;
     setLoading(true);
     setError(null);
+    // Clear the previous municipality's payload so its UI (tiles, map,
+    // picks) does not stay visible while the new data loads.
+    setPayload(null);
     fetch(`/data/locker_network/${slug}.json`)
       .then((r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
@@ -107,7 +110,7 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
     setTargetMsg(null);
   }, [slug, distance, start]);
   const applyTarget = () => {
-    if (!payload || !scenario) return;
+    if (!payload || !scenario || !(payload.population_total > 0)) return;
     const pop = payload.population_total;
     const goal = (targetPct / 100) * pop;
     if (scenario.start_covered >= goal) {
@@ -137,6 +140,9 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
   const stats = useMemo(() => {
     if (!payload || !scenario) return null;
     const pop = payload.population_total;
+    // Without population data every percentage would be NaN — render the
+    // explicit "Geen inwonersdata beschikbaar" state instead.
+    if (!(pop > 0)) return null;
     const covered = n === 0
       ? scenario.start_covered
       : scenario.picks[Math.min(n, scenario.picks.length) - 1]?.cum ?? scenario.start_covered;
@@ -328,11 +334,24 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
         </div>
       )}
 
-      {!payload && (
+      {(!payload || !scenario) && (
         <section className="grid grid-cols-1 lg:grid-cols-[280px_minmax(0,1fr)] gap-4">
           {controlsPanel}
           <div className="bg-white rounded-lg shadow-md p-6 text-sm text-gray-500">
-            {loading ? 'Netwerkdata laden…' : 'Geen netwerkdata beschikbaar voor deze gemeente.'}
+            {loading
+              ? 'Netwerkdata laden…'
+              : !payload
+                ? 'Geen netwerkdata beschikbaar voor deze gemeente.'
+                : 'Geen scenario beschikbaar voor deze combinatie van startsituatie en loopafstand.'}
+          </div>
+        </section>
+      )}
+
+      {payload && scenario && !stats && (
+        <section className="grid grid-cols-1 lg:grid-cols-[280px_minmax(0,1fr)] gap-4">
+          {controlsPanel}
+          <div className="bg-white rounded-lg shadow-md p-6 text-sm text-gray-500">
+            Geen inwonersdata beschikbaar voor deze gemeente.
           </div>
         </section>
       )}

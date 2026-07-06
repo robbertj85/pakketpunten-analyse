@@ -24,6 +24,11 @@ def main(gemeente, filename, format):
         print(f"  ⚠️  Kon gemeentegrens niet ophalen: {e}")
         gdf_boundary = None
 
+    # Dekkingsgraad-lagen komen uit get_bufferzones() in RD (EPSG:28992);
+    # converteer naar WGS84 zodat de GeoJSON-output geldig is (RFC 7946)
+    gdf_buffers300 = gdf_buffers300.to_crs(epsg=4326)
+    gdf_buffers400 = gdf_buffers400.to_crs(epsg=4326)
+
     # data opslaan als geopackage of als losse geojsons
     kaartlagen = { "pakketpunten": gdf_pakketpunten,
                   "buffer_300m": gdf_bufferunion300,

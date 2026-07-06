@@ -567,13 +567,17 @@ def get_gemeente_geometry(gemeente_naam: str, mode: str = "bbox", country_hint: 
 
         if mode == "bbox":
             # Create a generous bbox around the center point (~20km radius)
-            # 1 degree ≈ 111 km, so 0.18 degrees ≈ 20 km
+            # 1 degree latitude ≈ 111 km, so 0.18 degrees ≈ 20 km.
+            # Longitude degrees shrink with cos(lat) (~0.61 at 52N), so divide
+            # the longitude offset by cos(lat) to keep both axes ~20 km.
+            import math
             bbox_radius_deg = 0.18
+            lon_radius_deg = bbox_radius_deg / math.cos(math.radians(lat))
             return (
                 lat - bbox_radius_deg,  # bottom_left_lat
-                lon - bbox_radius_deg,  # bottom_left_lon
+                lon - lon_radius_deg,   # bottom_left_lon
                 lat + bbox_radius_deg,  # top_right_lat
-                lon + bbox_radius_deg   # top_right_lon
+                lon + lon_radius_deg    # top_right_lon
             )
         elif mode == "circle":
             # Return center with 20km radius (generous to capture all points)

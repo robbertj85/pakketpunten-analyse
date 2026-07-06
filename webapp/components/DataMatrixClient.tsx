@@ -97,8 +97,8 @@ export default function DataMatrixClient({
 
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           <div className="text-center p-4 bg-blue-50 rounded-lg">
-            <div className="text-2xl font-bold text-blue-900">{data.length}</div>
-            <div className="text-sm text-blue-700">Locaties</div>
+            <div className="text-2xl font-bold text-blue-900">{data.filter(m => m.slug !== 'nederland').length}</div>
+            <div className="text-sm text-blue-700">Gemeenten</div>
           </div>
           <div
             className="group text-center p-4 bg-green-50 rounded-lg cursor-pointer hover:bg-green-100 hover:shadow-md transition-all"
@@ -134,7 +134,7 @@ export default function DataMatrixClient({
           <div className="group mt-4 pt-4 border-t border-gray-200 cursor-default">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm gap-2">
               <span className="text-gray-600">
-                Trend over {snapshots.length} weken (sinds {snapshots[0].week_label})
+                Trend over {snapshots.length - 1} weken (sinds {snapshots[0].week_label})
               </span>
               <div className="flex items-center gap-2">
                 <span className="text-gray-900 font-medium">
@@ -285,11 +285,15 @@ export default function DataMatrixClient({
             <strong className="mr-1">Klikbare rijen</strong> - Klik op een gemeente voor historische data en trends
           </li>
           <li className="flex items-center">
-            <span className="text-green-600 mr-2 cursor-pointer">📊</span>
+            <svg className="w-4 h-4 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
             <strong className="mr-1">Totaal Pakketpunten</strong> - Klik voor marktaandeel en groei van alle vervoerders
           </li>
           <li className="flex items-center">
-            <span className="text-blue-600 mr-2 cursor-pointer">📈</span>
+            <svg className="w-4 h-4 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+            </svg>
             <strong className="mr-1">Klikbare vervoerders</strong> - Klik op een vervoerdernaam voor historische data en grafieken
           </li>
           <li className="flex items-center">

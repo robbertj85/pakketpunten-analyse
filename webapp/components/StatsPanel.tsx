@@ -1,6 +1,7 @@
 'use client';
 
 import { PakketpuntData, Filters, PakketpuntProperties, PakketpuntFeature, getPointCategory } from '@/types/pakketpunten';
+import { matchesServiceFilters } from '@/utils/pointFilters';
 
 interface StatsPanelProps {
   data: PakketpuntData | null;
@@ -14,7 +15,8 @@ export default function StatsPanel({ data, filters }: StatsPanelProps) {
 
   const isNationalView = data.metadata.slug === 'nederland';
 
-  // Calculate filtered stats
+  // Calculate filtered stats (same filter set as Map.tsx so the count
+  // matches the markers actually shown on the map)
   const points = data.features.filter(f => f.properties.type === 'pakketpunt');
   let filteredPoints = points.filter((feature) => {
     const props = feature.properties as PakketpuntProperties;
@@ -22,6 +24,7 @@ export default function StatsPanel({ data, filters }: StatsPanelProps) {
     return (
       filters.providers.includes(props.vervoerder) &&
       filters.pointCategories.includes(category) &&
+      matchesServiceFilters(props, filters.serviceFilters) &&
       props.bezettingsgraad >= filters.minOccupancy &&
       props.bezettingsgraad <= filters.maxOccupancy
     );

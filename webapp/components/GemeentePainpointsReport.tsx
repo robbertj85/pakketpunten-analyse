@@ -271,14 +271,21 @@ export default function GemeentePainpointsReport({ payload }: { payload: Painpoi
                         case 'total': return v.pakketpunten.total;
                         case 'locker': return v.pakketpunten.locker;
                         case 'shop': return v.pakketpunten.shop;
-                        case 'population': return s?.population ?? -1;
-                        case 'area': return s?.area_km2 ?? -1;
-                        case 'density': return s?.points_per_km2 ?? -1;
-                        case 'predicted': return getPredicted(s) ?? -1;
-                        case 'delta': return getDelta(s) ?? 0;
+                        case 'population': return s?.population ?? null;
+                        case 'area': return s?.area_km2 ?? null;
+                        case 'density': return s?.points_per_km2 ?? null;
+                        case 'predicted': return getPredicted(s) ?? null;
+                        case 'delta': return getDelta(s) ?? null;
                       }
                     };
-                    const d = cmp(get(aPc4, av, sort.key), get(bPc4, bv, sort.key));
+                    const a = get(aPc4, av, sort.key);
+                    const b = get(bPc4, bv, sort.key);
+                    // Ontbrekende waarden altijd onderaan, ongeacht sorteerrichting.
+                    if (a == null || b == null) {
+                      if (a == null && b == null) return 0;
+                      return a == null ? 1 : -1;
+                    }
+                    const d = cmp(a, b);
                     return sort.dir === 'asc' ? d : -d;
                   })
                   .map(([pc4, v]) => (

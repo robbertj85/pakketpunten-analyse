@@ -141,7 +141,7 @@ def load_inputs() -> tuple[dict, dict, gpd.GeoDataFrame, list[dict]]:
 
 
 def load_buffer_union_400m(slug: str) -> BaseGeometry | None:
-    """Read the 300 m buffer union (in RD) for a municipality, or None if
+    """Read the 400 m buffer union (in RD) for a municipality, or None if
     the municipality has no parcel points."""
     path = DATA_DIR / f"{slug}.geojson"
     if not path.exists():
@@ -384,8 +384,8 @@ def white_spot_suggestion(
     representative point plus the estimated CBS-grid population the new
     parcel point would newly cover within 400 m.
 
-    Falls back to the geometric-largest white-spot if the CBS grid is unavailable
-    (with a uniform-density population estimate, like the original behaviour).
+    Requires the CBS 100m inhabited-cell grid — main() hard-fails at startup
+    when the grid file is missing, so ``_CBS_GRID`` is always loaded here.
     """
     if pc4_area_m2 == 0:
         return None
@@ -394,25 +394,19 @@ def white_spot_suggestion(
         return None
 
     # Score every white-spot part by total inhabitants in covered CBS cells.
-    grid_available = _CBS_GRID is not None
     best_part: BaseGeometry | None = None
     best_pop = -1.0
     best_part_grid: gpd.GeoDataFrame | None = None
-    if grid_available:
-        for p in parts:
-            cells = _grid_cells_in(p)
-            pop = float(cells["aantal_inwoners"].sum()) if len(cells) else 0.0
-            if pop > best_pop:
-                best_pop = pop
-                best_part = p
-                best_part_grid = cells
-        if best_part is None or best_pop <= 0:
-            # No populated white-spot — drop suggestion (parks, water, etc.).
-            return None
-    else:
-        # Fallback: geometric-largest part.
-        best_part = max(parts, key=lambda p: p.area)
-        best_part_grid = None
+    for p in parts:
+        cells = _grid_cells_in(p)
+        pop = float(cells["aantal_inwoners"].sum()) if len(cells) else 0.0
+        if pop > best_pop:
+            best_pop = pop
+            best_part = p
+            best_part_grid = cells
+    if best_part is None or best_pop <= 0:
+        # No populated white-spot — drop suggestion (parks, water, etc.).
+        return None
 
     rep = best_part.representative_point()
 
@@ -434,18 +428,9 @@ def white_spot_suggestion(
 
     # est_new_pop = inhabitants in cells covered by both the 400 m buffer and
     # the white-spot. Grid-based, no uniform-density assumption.
-    if grid_available:
-        buffer400 = rep.buffer(400)
-        covered_cells = _grid_cells_in(buffer400.intersection(best_part))
-        est_new_pop = int(round(float(covered_cells["aantal_inwoners"].sum())))
-    else:
-        # Fallback: uniform-density estimate (legacy behaviour).
-        try:
-            covered_area = rep.buffer(400).intersection(best_part).area
-        except Exception:
-            covered_area = 0.0
-        # `pc4_population` is no longer in scope; caller uses the result as-is.
-        est_new_pop = 0  # caller decides; replaced if grid unavailable
+    buffer400 = rep.buffer(400)
+    covered_cells = _grid_cells_in(buffer400.intersection(best_part))
+    est_new_pop = int(round(float(covered_cells["aantal_inwoners"].sum())))
 
     return {
         "lat": round(lat, 6),
@@ -804,9 +789,13 @@ def main() -> int:
         _CBS_SINDEX = _CBS_GRID.sindex
         print(f"    {len(_CBS_GRID):,} inhabited cells loaded")
     else:
-        print(f"  ⚠️  CBS grid {args.cbs_grid.relative_to(ROOT)} not found — "
-              f"running without inhabited-cell mask (run "
-              f"`python scripts/fetch_cbs_100m_grid.py` to enable).")
+        # Hard requirement: without the inhabited-cell grid every suggestion
+        # would silently get est_new_pop_within_400m = 0 and land on
+        # unpopulated white-spots (parks, water). Refuse to run instead.
+        print(f"ERROR: CBS grid {args.cbs_grid.relative_to(ROOT)} not found. "
+              f"Run `python scripts/fetch_cbs_100m_grid.py` first.",
+              file=sys.stderr)
+        return 1
 
     # OV-haltes (GTFS). Stored as a small RD-projected GeoDataFrame so the
     # snap step can hand a tier-bonus to BAG panden near transit.

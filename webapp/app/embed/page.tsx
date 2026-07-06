@@ -22,6 +22,7 @@ function EmbedContent() {
 
   const [data, setData] = useState<PakketpuntData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   const filters = useMemo<Filters>(() => ({
     providers: ['DHL', 'PostNL', 'VintedGo', 'DeBuren', 'DPD', 'Amazon', 'GLS', 'ViaTim', 'InPost', 'Budbee'],
@@ -52,6 +53,7 @@ function EmbedContent() {
 
   useEffect(() => {
     setLoading(true);
+    setError(false);
     fetch(`/data/${gemeente}.geojson`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -60,7 +62,10 @@ function EmbedContent() {
       .then((data) => {
         setData(data);
       })
-      .catch((err) => console.error('Error loading data:', err))
+      .catch((err) => {
+        console.error('Error loading data:', err);
+        setError(true);
+      })
       .finally(() => setLoading(false));
   }, [gemeente]);
 
@@ -68,12 +73,22 @@ function EmbedContent() {
 
   return (
     <div className="w-full h-screen relative">
-      <MapView data={data} filters={filters} />
+      {error && !data ? (
+        <div className="w-full h-full flex items-center justify-center bg-gray-100">
+          <p className="text-gray-500">Gemeente niet gevonden</p>
+        </div>
+      ) : (
+        <MapView data={data} filters={filters} />
+      )}
 
       {/* Attribution bar */}
       <div className="absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-gray-200 px-3 py-1.5 flex items-center justify-between z-[1000]">
         <span className="text-xs text-gray-600">
-          {loading ? 'Laden...' : `${municipalityName} — Pakketpunten`}
+          {loading
+            ? 'Laden...'
+            : error && !data
+              ? 'Gemeente niet gevonden'
+              : `${municipalityName} — Pakketpunten`}
         </span>
         <a
           href={`${typeof window !== 'undefined' ? window.location.origin : ''}/?gemeente=${gemeente === 'nederland' ? 'alle-gemeenten' : gemeente}`}

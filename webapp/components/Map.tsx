@@ -31,6 +31,7 @@ import buffer from '@turf/buffer';
 import union from '@turf/union';
 import { featureCollection, point } from '@turf/helpers';
 import { PakketpuntData, PakketpuntFeature, Filters, PakketpuntProperties, getPointCategory } from '@/types/pakketpunten';
+import { matchesServiceFilters } from '@/utils/pointFilters';
 
 interface MapProps {
   data?: PakketpuntData | null;
@@ -84,6 +85,10 @@ function FitBounds({
           }
         }, 1000);
       }
+    } else {
+      // Clear the ref when target is cleared so re-clicking the same
+      // search result zooms again
+      lastTargetRef.current = null;
     }
   }, [targetCoordinates, map, onZoomedToTarget]);
 
@@ -896,22 +901,6 @@ function MapComponent(props?: MapProps) {
     return { type: 'FeatureCollection', features };
   }, [activeFilters.showPainPoints, pc4Data, painPoints]);
 
-  // Helper to check if point matches service filters
-  const matchesServiceFilters = (props: PakketpuntProperties): boolean => {
-    const wantsPickup = activeFilters.serviceFilters.includes('pickup');
-    const wantsDropoff = activeFilters.serviceFilters.includes('dropoff');
-
-    // If both filters selected, show locations that support at least one
-    if (wantsPickup && wantsDropoff) {
-      return props.canPickup || props.canDropoff;
-    } else if (wantsPickup) {
-      return props.canPickup;
-    } else if (wantsDropoff) {
-      return props.canDropoff;
-    }
-    return false; // No service filters selected
-  };
-
   // Filter features based on selected filters (do this before early returns to maintain hook order)
   const filteredFeatures = useMemo(() => {
     if (!data) return [];
@@ -931,7 +920,7 @@ function MapComponent(props?: MapProps) {
       }
 
       // Service capability filter (pickup vs dropoff)
-      if (!matchesServiceFilters(props)) {
+      if (!matchesServiceFilters(props, activeFilters.serviceFilters)) {
         return false;
       }
 
@@ -1003,10 +992,16 @@ function MapComponent(props?: MapProps) {
     return pairwiseUnion(next);
   };
 
+  // Buffers are gated on the dataset's TOTAL point count — the same
+  // denominator FilterPanel uses to disable the buffer checkboxes — so the
+  // expensive union computation can never run while the checkboxes are
+  // disabled (e.g. Nederland view with providers filtered down to <=3000)
+  const buffersOverLimit = (data?.metadata?.total_points ?? 0) > 3000;
+
   // Compute merged buffer union polygons from filtered points using Turf.js (deferred for loading UX)
   // Compute merged buffer union polygons from filtered points using Turf.js
   const mergedBuffer300 = useMemo(() => {
-    if (!activeFilters.bufferMerged || !activeFilters.showBuffer300 || points.length === 0 || points.length > 3000) return null;
+    if (!activeFilters.bufferMerged || !activeFilters.showBuffer300 || points.length === 0 || buffersOverLimit) return null;
     try {
       const pts = featureCollection(
         points.map(f => point(f.geometry.coordinates as [number, number]))
@@ -1015,10 +1010,10 @@ function MapComponent(props?: MapProps) {
       if (!buffered || buffered.features.length === 0) return null;
       return pairwiseUnion(buffered.features);
     } catch { return null; }
-  }, [points, activeFilters.bufferMerged, activeFilters.showBuffer300]);
+  }, [points, activeFilters.bufferMerged, activeFilters.showBuffer300, buffersOverLimit]);
 
   const mergedBuffer400 = useMemo(() => {
-    if (!activeFilters.bufferMerged || !activeFilters.showBuffer400 || points.length === 0 || points.length > 3000) return null;
+    if (!activeFilters.bufferMerged || !activeFilters.showBuffer400 || points.length === 0 || buffersOverLimit) return null;
     try {
       const pts = featureCollection(
         points.map(f => point(f.geometry.coordinates as [number, number]))
@@ -1027,7 +1022,7 @@ function MapComponent(props?: MapProps) {
       if (!buffered || buffered.features.length === 0) return null;
       return pairwiseUnion(buffered.features);
     } catch { return null; }
-  }, [points, activeFilters.bufferMerged, activeFilters.showBuffer400]);
+  }, [points, activeFilters.bufferMerged, activeFilters.showBuffer400, buffersOverLimit]);
 
   // Group markers by exact coordinates and spread them at high zoom (manual spiderfy)
   const spreadPoints = useMemo(
@@ -1105,7 +1100,6 @@ function MapComponent(props?: MapProps) {
   }, [data, bounds]);
 
   // Use simple markers based on user preference from filters
-  const markerCount = points.length;
   const useSimpleMarkers = activeFilters.useSimpleMarkers;
 
   // Helper to check if a point is highlighted
@@ -1333,7 +1327,7 @@ function MapComponent(props?: MapProps) {
   useEffect(() => {
     if (!activeFilters.showPainPoints) setSelectedPainpointPc4(null);
     if (!activeFilters.showSuggestions) setSelectedSuggestionPc4(null);
-  }, [activeFilters.showPainPoints]);
+  }, [activeFilters.showPainPoints, activeFilters.showSuggestions]);
 
   // Early returns AFTER all hooks to maintain hook order
   if (!mounted) {
@@ -1448,7 +1442,7 @@ function MapComponent(props?: MapProps) {
         };
         return (
           <GeoJSON
-            key={`pop-layer-${features.length}`}
+            key={`pop-layer-${muniSlug}-${features.length}`}
             data={{ type: 'FeatureCollection', features } as any}
             style={(feature) => {
               const s = pc4Stats[feature?.properties?.pc4];
@@ -1966,7 +1960,7 @@ function MapComponent(props?: MapProps) {
         }
         return (
         <GeoJSON
-          key={`painpoints-layer-${suggestionPc4s.size}`}
+          key={`painpoints-layer-${slug}-${suggestionPc4s.size}`}
           pane="painpoint-pane"
           data={painPointsGeoJSON as any}
           style={(feature) => {
@@ -2052,7 +2046,7 @@ function MapComponent(props?: MapProps) {
 
       {/* Render buffer zones - merged union polygons or individual circles */}
       {/* 400m buffers rendered first (underneath) */}
-      {activeFilters.showBuffer400 && markerCount <= 3000 && (
+      {activeFilters.showBuffer400 && !buffersOverLimit && (
         activeFilters.bufferMerged && mergedBuffer400 ? (
           <GeoJSON
             key={`buffer400-merged-${data?.metadata?.slug}-${points.length}-fill${activeFilters.showBufferFill}`}
@@ -2088,7 +2082,7 @@ function MapComponent(props?: MapProps) {
         ) : null
       )}
       {/* 300m buffers rendered on top */}
-      {activeFilters.showBuffer300 && markerCount <= 3000 && (
+      {activeFilters.showBuffer300 && !buffersOverLimit && (
         activeFilters.bufferMerged && mergedBuffer300 ? (
           <GeoJSON
             key={`buffer300-merged-${data?.metadata?.slug}-${points.length}-fill${activeFilters.showBufferFill}`}

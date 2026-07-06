@@ -669,7 +669,10 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
             coverageSubset: 'total',
             coverageDistance: '300m',
             coverageScope: 'national',
-            useSimpleMarkers: false,
+            // Keep simple markers on large datasets (Nederland view): resetting
+            // to DOM markers with 3000+ points would hang the browser. Same
+            // threshold as buffersDisabled and page.tsx's initial filter state.
+            useSimpleMarkers: (totalPoints ?? 0) > 3000,
             minOccupancy: 0,
             maxOccupancy: 100,
             showMockData: false,

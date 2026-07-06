@@ -44,6 +44,7 @@ def fetch_all_inpost_locations() -> List[Dict]:
     page = 1
     per_page = 100
     total_pages = None
+    reported_total = None
 
     try:
         while True:
@@ -65,6 +66,7 @@ def fetch_all_inpost_locations() -> List[Dict]:
             total_count = data.get("count", 0)
 
             if page == 1:
+                reported_total = total_count
                 print(f"   Total locations reported: {total_count}")
                 print(f"   Total pages: {total_pages}")
 
@@ -92,6 +94,15 @@ def fetch_all_inpost_locations() -> List[Dict]:
         traceback.print_exc()
         if not all_items:
             return []
+
+    # Guard against saving a partial cache: if we ended up more than ~2%
+    # short of the API-reported total (e.g. a mid-pagination network error),
+    # abort so the existing cache is not overwritten with an incomplete set.
+    if reported_total and len(all_items) < 0.98 * reported_total:
+        print()
+        print(f"ERROR: fetched {len(all_items)} of {reported_total} reported locations "
+              f"(more than 2% short) - aborting without saving")
+        return []
 
     # Filter to operating points only, exclude test items
     operating = []

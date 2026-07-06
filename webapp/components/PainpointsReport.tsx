@@ -574,16 +574,23 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                         case 'total': return v.pakketpunten.total;
                         case 'locker': return v.pakketpunten.locker;
                         case 'shop': return v.pakketpunten.shop;
-                        case 'population': return s?.population ?? -1;
-                        case 'area': return s?.area_km2 ?? -1;
-                        case 'density': return s?.points_per_km2 ?? -1;
-                        case 'per_capita': return s?.points_per_1000_inw ?? -1;
-                        case 'predicted': return getPredicted(s) ?? -1;
-                        case 'delta': return getDelta(s) ?? 0;
+                        case 'population': return s?.population ?? null;
+                        case 'area': return s?.area_km2 ?? null;
+                        case 'density': return s?.points_per_km2 ?? null;
+                        case 'per_capita': return s?.points_per_1000_inw ?? null;
+                        case 'predicted': return getPredicted(s) ?? null;
+                        case 'delta': return getDelta(s) ?? null;
                       }
                     };
                     for (const { key, dir } of pc4SortStack) {
-                      const d = cmp(getVal(aPc4, av, key), getVal(bPc4, bv, key));
+                      const a = getVal(aPc4, av, key);
+                      const b = getVal(bPc4, bv, key);
+                      // Ontbrekende waarden altijd onderaan, ongeacht sorteerrichting.
+                      if (a == null || b == null) {
+                        if (a == null && b == null) continue;
+                        return a == null ? 1 : -1;
+                      }
+                      const d = cmp(a, b);
                       if (d !== 0) return dir === 'asc' ? d : -d;
                     }
                     return 0;

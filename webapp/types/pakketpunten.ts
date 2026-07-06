@@ -109,7 +109,7 @@ export type PointCategory = 'locker' | 'shop';
 //   - Amazon: 3p (3rd party counter)
 //   - VintedGo: parcel_shop, social
 //   - DeBuren: Afhaalpunt, Afhaalcentrum
-//   - GLS: parcel_shop, locker
+//   - GLS: parcel_shop
 //   - ViaTim: servicepunt (all are staffed shops)
 //   - InPost: servicepunt (PUDO shops), automaat (parcel lockers)
 //   - Budbee: automaat (all are parcel lockers)

@@ -16,7 +16,7 @@ Outputs ``data/bron_pc4_accidents.json``::
           "crashes_total_per_km2": 45.6,
           "crashes_freight": 4,
           "crashes_van": 18,
-          "crashes_freight_van_share": 0.18,
+          "crashes_freight_van_share": 17.89,
           "crashes_freight_vs_vulnerable": 5,
           "crashes_injury": 22,
           "crashes_urban": 110
@@ -31,6 +31,10 @@ Definitions:
   - injury   = verkeersongeval_afloop in {Letsel, Dodelijk} (filters out UMS — the
                severity band with the weakest police-reporting coverage)
   - urban    = bebouwde_kom == 'Binnen'
+
+``crashes_freight_van_share`` is a percentage (0-100), and is ``null`` for
+PC4s with fewer than 10 crashes total — a ratio on such a tiny denominator
+is statistically meaningless. Count fields stay zero-filled.
 """
 from __future__ import annotations
 
@@ -148,16 +152,25 @@ def main() -> int:
         zero_row["crashes_freight_van_share"] = 0.0
         grouped = pd.concat([grouped, zero_row]).sort_index()
 
-    # Cast & round for compact JSON. Shares are unit-less ratios [0,1]; density
+    # Cast & round for compact JSON. The share is a percentage (0-100); density
     # is accidents per km²; absolute counts stay integer.
+    MIN_CRASHES_FOR_SHARE = 10
     out: dict[str, dict] = {}
     for pc4_code, row in grouped.iterrows():
+        total = int(row["crashes_total"])
+        # A ratio on a tiny denominator is statistically meaningless; emit
+        # null so downstream complete-case masks drop these PC4s instead of
+        # treating an undefined share as 0.
+        if total >= MIN_CRASHES_FOR_SHARE:
+            share = round(float(row["crashes_freight_van_share"] or 0.0), 2)
+        else:
+            share = None
         out[pc4_code] = {
-            "crashes_total": int(row["crashes_total"]),
+            "crashes_total": total,
             "crashes_total_per_km2": round(float(row["crashes_total_per_km2"] or 0.0), 2),
             "crashes_freight": int(row["crashes_freight"]),
             "crashes_van": int(row["crashes_van"]),
-            "crashes_freight_van_share": round(float(row["crashes_freight_van_share"] or 0.0), 2),
+            "crashes_freight_van_share": share,
             "crashes_freight_vs_vulnerable": int(row["crashes_freight_vs_vulnerable"]),
             "crashes_injury": int(row["crashes_injury"]),
             "crashes_urban": int(row["crashes_urban"]),

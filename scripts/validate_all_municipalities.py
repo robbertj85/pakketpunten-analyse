@@ -12,6 +12,8 @@ import json
 from pathlib import Path
 from typing import List, Dict, Any
 
+import pandas as pd
+
 def validate_geojson(file_path: Path) -> Dict[str, Any]:
     """Validate a single GeoJSON file"""
     result = {
@@ -100,7 +102,7 @@ def main():
     data_dir = Path("webapp/public/data")
     geojson_files = sorted([
         f for f in data_dir.glob("*.geojson")
-        if f.name not in ['nederland.geojson']
+        if f.name not in ['nederland.geojson', 'nederland-boundaries.geojson']
     ])
 
     print(f"Found {len(geojson_files)} municipality files\n")
@@ -185,7 +187,7 @@ def main():
 
     report_file = Path("validation_report.json")
     with open(report_file, 'w', encoding='utf-8') as f:
-        json.dump(report, null=2)
+        json.dump(report, f, indent=2)
 
     print(f"\n📊 Detailed report saved to: {report_file}")
 
@@ -194,6 +196,5 @@ def main():
 
 
 if __name__ == "__main__":
-    import pandas as pd
     import sys
     sys.exit(main())

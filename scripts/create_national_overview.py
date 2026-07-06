@@ -14,8 +14,12 @@ def create_national_overview():
     print("🇳🇱 Creating National Overview...")
 
     data_dir = Path("webapp/public/data")
-    # Exclude nederland.geojson to avoid processing it during aggregation
-    geojson_files = [f for f in data_dir.glob("*.geojson") if f.name != "nederland.geojson"]
+    # Exclude nederland.geojson and nederland-boundaries.geojson (own outputs)
+    # to avoid re-ingesting them during aggregation
+    geojson_files = [
+        f for f in data_dir.glob("*.geojson")
+        if f.name not in ("nederland.geojson", "nederland-boundaries.geojson")
+    ]
 
     if not geojson_files:
         print("❌ No GeoJSON files found!")

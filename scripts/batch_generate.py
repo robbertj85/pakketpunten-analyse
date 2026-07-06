@@ -80,6 +80,12 @@ def process_municipality(gemeente_data):
         # Add placeholder occupancy data (fixed at 50)
         gdf_pakketpunten["bezettingsgraad"] = 50
 
+        # canPickup/canDropoff: NaN (API fallback paths) means unknown; default to True
+        # before the global fillna("") below turns it into "" (and bool("") -> False)
+        for col in ("canPickup", "canDropoff"):
+            if col in gdf_pakketpunten.columns:
+                gdf_pakketpunten[col] = gdf_pakketpunten[col].fillna(True)
+
         # Replace NaN values with None for valid JSON
         gdf_pakketpunten = gdf_pakketpunten.fillna("")
 

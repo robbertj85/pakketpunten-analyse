@@ -189,6 +189,8 @@ function priorityTone(priority: number): string {
 
 function csvCell(v: unknown): string {
   if (v == null) return '';
+  // NL-Excel: komma als decimaalteken (scheidingsteken is ';').
+  if (typeof v === 'number') return String(v).replace('.', ',');
   const s = String(v);
   return /[",;\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 }
@@ -225,8 +227,9 @@ function exportAllCsv(payload: PlacementSuggestionsPayload) {
           slug, block.gemeente, idx + 1, r.pc4, s ? spotIdx + 1 : null, r.priority,
           r.actual, r.predicted, r.underservice,
           r.population, r.uncovered_pop, r.coverage_pct_400m, r.overlap_pct, r.density,
-          s?.lat ?? null,
-          s?.lon ?? null,
+          // Coördinaten als string zodat ze de punt als decimaalteken houden.
+          s ? String(s.lat) : null,
+          s ? String(s.lon) : null,
           s?.white_spot_area_m2 ?? null,
           s?.est_new_pop_within_400m ?? null,
           s?.bag_identificatie ?? null,
@@ -1077,7 +1080,7 @@ export default function PlacementSuggestionsReport({
                             <div>
                               <div className="text-gray-500">Wit vlak</div>
                               <div className="font-semibold text-gray-900">
-                                {nlInt(s.white_spot_area_m2 / 1000)} k m²
+                                {nlNum1(s.white_spot_area_m2 / 10000)} ha
                               </div>
                             </div>
                           </div>
@@ -1267,7 +1270,7 @@ export default function PlacementSuggestionsReport({
                         <div>
                           Coördinaat: <span className="font-mono">{cardSpot.lat.toFixed(5)}, {cardSpot.lon.toFixed(5)}</span>
                           {' · '}
-                          Wit vlak: {nlInt(cardSpot.white_spot_area_m2 / 1000)} k m²
+                          Wit vlak: {nlNum1(cardSpot.white_spot_area_m2 / 10000)} ha
                           {' · '}
                           Schat. nieuw bereikt: <strong>{nlInt(cardSpot.est_new_pop_within_400m)}</strong> inw.
                         </div>

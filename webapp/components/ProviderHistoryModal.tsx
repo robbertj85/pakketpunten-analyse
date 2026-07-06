@@ -69,9 +69,10 @@ export default function ProviderHistoryModal({
   const firstEntry = chartData[0];
   const lastEntry = chartData[chartData.length - 1];
   const totalChange = lastEntry ? lastEntry.count - (firstEntry?.count || 0) : 0;
+  // null = geen baseline (vervoerder was er nog niet in de eerste snapshot)
   const percentageChange = firstEntry?.count > 0
     ? ((totalChange / firstEntry.count) * 100).toFixed(1)
-    : '0';
+    : null;
 
   // Calculate weekly changes for bar chart
   const weeklyChanges = chartData.map((entry, idx) => {
@@ -146,11 +147,13 @@ export default function ProviderHistoryModal({
                 Sinds {firstEntry?.week}
               </div>
             </div>
-            <div className={`rounded-lg p-3 sm:p-4 ${Number(percentageChange) >= 0 ? 'bg-green-50' : 'bg-red-50'}`}>
-              <div className={`text-xl sm:text-2xl font-bold ${Number(percentageChange) >= 0 ? 'text-green-900' : 'text-red-900'}`}>
-                {Number(percentageChange) >= 0 ? '+' : ''}{percentageChange}%
+            <div className={`rounded-lg p-3 sm:p-4 ${percentageChange == null ? 'bg-gray-50' : Number(percentageChange) >= 0 ? 'bg-green-50' : 'bg-red-50'}`}>
+              <div className={`text-xl sm:text-2xl font-bold ${percentageChange == null ? 'text-gray-900' : Number(percentageChange) >= 0 ? 'text-green-900' : 'text-red-900'}`}>
+                {percentageChange == null
+                  ? (lastEntry?.count > 0 ? 'nieuw' : '—')
+                  : `${Number(percentageChange) >= 0 ? '+' : ''}${percentageChange}%`}
               </div>
-              <div className={`text-xs sm:text-sm ${Number(percentageChange) >= 0 ? 'text-green-700' : 'text-red-700'}`}>
+              <div className={`text-xs sm:text-sm ${percentageChange == null ? 'text-gray-700' : Number(percentageChange) >= 0 ? 'text-green-700' : 'text-red-700'}`}>
                 Groei percentage
               </div>
             </div>
