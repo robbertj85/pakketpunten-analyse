@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Rhenen",
     "slug": "rhenen",
-    "generated_at": "2026-07-06T06:59:25.092409Z",
+    "generated_at": "2026-07-13T06:07:54.977939Z",
     "total_points": 28,
     "providers": [
       "Amazon",
@@ -180,29 +180,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.95820759040115,
         "longitude": 5.56653028434451,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.5660448,
-          51.9580125
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat HEMA Rhenen",
-        "straatNaam": "Frederik van de Paltshof",
-        "straatNr": "39-Kast",
-        "vervoerder": "DHL",
-        "puntType": "packStation",
-        "bezettingsgraad": 50,
-        "latitude": 51.9580125,
-        "longitude": 5.5660448,
         "canPickup": true,
         "canDropoff": true
       }
@@ -610,7 +587,7 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "ZIE JE ZO RHENEN",
-        "straatNaam": "FREDERIK VAN DE PALTSHOF 36",
+        "straatNaam": "Frederik van de Paltshof 36",
         "straatNr": "",
         "vervoerder": "InPost",
         "puntType": "servicepunt",
@@ -640,6 +617,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.95858,
         "longitude": 5.5718,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.5665,
+          51.95808
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "MOBIELPUNT RHENEN",
+        "straatNaam": "Molenstraat 3",
+        "straatNr": "",
+        "vervoerder": "InPost",
+        "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 51.95808,
+        "longitude": 5.5665,
         "canPickup": true,
         "canDropoff": true
       }

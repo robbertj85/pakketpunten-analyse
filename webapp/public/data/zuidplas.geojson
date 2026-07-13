@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Zuidplas",
     "slug": "zuidplas",
-    "generated_at": "2026-07-06T07:08:05.069441Z",
+    "generated_at": "2026-07-13T06:16:09.363845Z",
     "total_points": 38,
     "providers": [
       "Amazon",
@@ -28,6 +28,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.62587903390858,
+          51.9658091341054
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Vente Dierenspeciaalzaak",
+        "straatNaam": "'s-Gravenweg 312",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.9658091341054,
+        "longitude": 4.62587903390858,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.59573157482367,
           51.966455074076
         ]
@@ -42,29 +65,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.966455074076,
         "longitude": 4.59573157482367,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.59616076379987,
-          51.9676983825904
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Beauty Studio Aylin",
-        "straatNaam": "Steenbakkerij 7",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 51.9676983825904,
-        "longitude": 4.59616076379987,
         "canPickup": true,
         "canDropoff": false
       }
@@ -905,10 +905,6 @@
           [
             [
               [
-                4.610891501915583,
-                51.96439746611493
-              ],
-              [
                 4.610675216873762,
                 51.96416905913642
               ],
@@ -1187,15 +1183,15 @@
               [
                 4.610891501915583,
                 51.96439746611493
+              ],
+              [
+                4.610675216873762,
+                51.96416905913642
               ]
             ]
           ],
           [
             [
-              [
-                4.598851578383574,
-                51.96456926767779
-              ],
               [
                 4.598537320203346,
                 51.96438944726759
@@ -1503,6 +1499,10 @@
               [
                 4.598851578383574,
                 51.96456926767779
+              ],
+              [
+                4.598537320203346,
+                51.96438944726759
               ]
             ]
           ],
@@ -4565,10 +4565,6 @@
           [
             [
               [
-                4.612181954597462,
-                51.96398225838967
-              ],
-              [
                 4.6118935689095455,
                 51.963677718796895
               ],
@@ -5459,6 +5455,10 @@
               [
                 4.612181954597462,
                 51.96398225838967
+              ],
+              [
+                4.6118935689095455,
+                51.963677718796895
               ]
             ]
           ],

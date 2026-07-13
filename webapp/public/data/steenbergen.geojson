@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Steenbergen",
     "slug": "steenbergen",
-    "generated_at": "2026-07-06T07:01:43.354124Z",
-    "total_points": 28,
+    "generated_at": "2026-07-13T06:10:08.173308Z",
+    "total_points": 26,
     "providers": [
       "Amazon",
       "DHL",
@@ -110,29 +110,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.5844718,
         "longitude": 4.3143088,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.3198648,
-          51.587977
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Studio Sunshine Sun & Beauty",
-        "straatNaam": "Oostdam",
-        "straatNr": "28-A",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 51.587977,
-        "longitude": 4.3198648,
         "canPickup": true,
         "canDropoff": true
       }
@@ -646,29 +623,6 @@
     {
       "type": "Feature",
       "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.32089,
-          51.58494
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "WEVO STEENBERGEN",
-        "straatNaam": "Wouwsestraat 77",
-        "straatNr": "",
-        "vervoerder": "InPost",
-        "puntType": "servicepunt",
-        "bezettingsgraad": 50,
-        "latitude": 51.58494,
-        "longitude": 4.32089,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
           [
@@ -912,10 +866,6 @@
               [
                 4.302048844338241,
                 51.58411737615518
-              ],
-              [
-                4.301842835215843,
-                51.58423026012395
               ],
               [
                 4.301842835215843,

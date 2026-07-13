@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Maashorst",
     "slug": "maashorst",
-    "generated_at": "2026-07-06T06:54:09.647565Z",
+    "generated_at": "2026-07-13T06:02:50.369652Z",
     "total_points": 66,
     "providers": [
       "Amazon",
@@ -142,29 +142,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          5.6740752634576,
-          51.6969398315348
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Eijsermans Tabak & Gemak",
-        "straatNaam": "Kerkstraat 47 A",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 51.6969398315348,
-        "longitude": 5.6740752634576,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           5.65494665849042,
           51.6445189718134
         ]
@@ -202,6 +179,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.6550510134327,
         "longitude": 5.65606388872172,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.6740752634576,
+          51.6969398315348
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Eijsermans Tabak & Gemak",
+        "straatNaam": "Kerkstraat 47 A",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.6969398315348,
+        "longitude": 5.6740752634576,
         "canPickup": true,
         "canDropoff": false
       }

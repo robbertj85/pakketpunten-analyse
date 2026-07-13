@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Veenendaal",
     "slug": "veenendaal",
-    "generated_at": "2026-07-06T07:03:53.337568Z",
-    "total_points": 71,
+    "generated_at": "2026-07-13T06:12:13.753696Z",
+    "total_points": 70,
     "providers": [
       "Amazon",
       "DeBuren",
@@ -419,6 +419,52 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          5.5584862,
+          52.025632
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat Basic-Fit Wolweg",
+        "straatNaam": "Wolweg",
+        "straatNr": "101",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 52.025632,
+        "longitude": 5.5584862,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.5562135,
+          52.0260684
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Taartdecoratief",
+        "straatNaam": "Tuinstraat",
+        "straatNr": "75",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 52.0260684,
+        "longitude": 5.5562135,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           5.541298023676141,
           52.03827237230561
         ]
@@ -525,52 +571,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.0260781,
         "longitude": 5.556177,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.5562135,
-          52.0260684
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Taartdecoratief",
-        "straatNaam": "Tuinstraat",
-        "straatNr": "75",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 52.0260684,
-        "longitude": 5.5562135,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.5584862,
-          52.025632
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat Basic-Fit Wolweg",
-        "straatNaam": "Wolweg",
-        "straatNr": "101",
-        "vervoerder": "DHL",
-        "puntType": "packStation",
-        "bezettingsgraad": 50,
-        "latitude": 52.025632,
-        "longitude": 5.5584862,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1530,36 +1530,13 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "TAARTDECORATIEF",
-        "straatNaam": "TUINSTRAAT 75",
+        "straatNaam": "Tuinstraat 75",
         "straatNr": "",
         "vervoerder": "InPost",
         "puntType": "servicepunt",
         "bezettingsgraad": 50,
         "latitude": 52.0261,
         "longitude": 5.55629,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.55957,
-          52.01006
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "COMFORTWHEELS",
-        "straatNaam": "De Smalle Zijde 3",
-        "straatNr": "",
-        "vervoerder": "InPost",
-        "puntType": "servicepunt",
-        "bezettingsgraad": 50,
-        "latitude": 52.01006,
-        "longitude": 5.55957,
         "canPickup": true,
         "canDropoff": true
       }

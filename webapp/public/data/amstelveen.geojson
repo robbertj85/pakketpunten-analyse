@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Amstelveen",
     "slug": "amstelveen",
-    "generated_at": "2026-07-06T06:40:39.616786Z",
+    "generated_at": "2026-07-13T05:49:42.831962Z",
     "total_points": 58,
     "providers": [
       "Amazon",
@@ -144,6 +144,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.838087986830078,
+          52.28826843355686
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat GAMMA Amstelveen",
+        "straatNaam": "Zetterij",
+        "straatNr": "12",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 52.28826843355686,
+        "longitude": 4.838087986830078,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.839989185333252,
           52.28836441040039
         ]
@@ -181,29 +204,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.2884903,
         "longitude": 4.8400398,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.838087986830078,
-          52.28826843355686
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat GAMMA Amstelveen",
-        "straatNaam": "Zetterij",
-        "straatNr": "12",
-        "vervoerder": "DHL",
-        "puntType": "packStation",
-        "bezettingsgraad": 50,
-        "latitude": 52.28826843355686,
-        "longitude": 4.838087986830078,
         "canPickup": true,
         "canDropoff": true
       }
