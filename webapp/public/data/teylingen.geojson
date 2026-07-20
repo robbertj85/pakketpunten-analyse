@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Teylingen",
     "slug": "teylingen",
-    "generated_at": "2026-07-13T06:10:48.840959Z",
+    "generated_at": "2026-07-20T06:12:26.606182Z",
     "total_points": 25,
     "providers": [
       "Amazon",
@@ -163,6 +163,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.520788515223109,
+          52.22535944708358
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat Kringloop Hoofdstr",
+        "straatNaam": "Hoofdstraat",
+        "straatNr": "204",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 52.22535944708358,
+        "longitude": 4.520788515223109,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.4816367,
           52.2210454
         ]
@@ -246,29 +269,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.22544860839844,
         "longitude": 4.520773887634277,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.520788515223109,
-          52.22535944708358
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat Kringloop Hoofdstr",
-        "straatNaam": "Hoofdstraat",
-        "straatNr": "204",
-        "vervoerder": "DHL",
-        "puntType": "packStation",
-        "bezettingsgraad": 50,
-        "latitude": 52.22535944708358,
-        "longitude": 4.520788515223109,
         "canPickup": true,
         "canDropoff": true
       }

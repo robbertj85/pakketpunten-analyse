@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Ouder-Amstel",
     "slug": "ouder-amstel",
-    "generated_at": "2026-07-13T06:06:40.602995Z",
-    "total_points": 16,
+    "generated_at": "2026-07-20T06:08:29.725203Z",
+    "total_points": 17,
     "providers": [
       "Amazon",
       "DHL",
@@ -22,6 +22,29 @@
     ]
   },
   "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.938950003,
+          52.3324592
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Cigo Diana",
+        "straatNaam": "Dorpsplein 55",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.3324592,
+        "longitude": 4.938950003,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
     {
       "type": "Feature",
       "geometry": {
@@ -79,7 +102,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Lavinnio Studios",
+        "locatieNaam": "Lavitos Kitchen",
         "straatNaam": "Entrada",
         "straatNr": "400",
         "vervoerder": "DHL",
@@ -1412,6 +1435,10 @@
               [
                 4.9368511991765445,
                 52.334829182611344
+              ],
+              [
+                4.937233261421949,
+                52.3349416612504
               ],
               [
                 4.937233261421949,

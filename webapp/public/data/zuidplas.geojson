@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Zuidplas",
     "slug": "zuidplas",
-    "generated_at": "2026-07-13T06:16:09.363845Z",
-    "total_points": 38,
+    "generated_at": "2026-07-20T06:17:37.747843Z",
+    "total_points": 39,
     "providers": [
       "Amazon",
       "DHL",
@@ -180,6 +180,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.04415896678,
         "longitude": 4.57565632046725,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.57251447,
+          52.04365421
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Amazon Counter - ViaTim en Sabine",
+        "straatNaam": "Hollevoeterlaan 15",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "helix",
+        "bezettingsgraad": 50,
+        "latitude": 52.04365421,
+        "longitude": 4.57251447,
         "canPickup": true,
         "canDropoff": false
       }
@@ -2669,7 +2692,7 @@
                 52.04634040025991
               ],
               [
-                4.573062742486808,
+                4.573062742486806,
                 52.04632617852674
               ],
               [
@@ -6621,7 +6644,7 @@
                 52.041885705373325
               ],
               [
-                4.580020389775399,
+                4.580020389775398,
                 52.04178149652618
               ],
               [
@@ -6661,7 +6684,7 @@
                 52.04056402679415
               ],
               [
-                4.575502062790535,
+                4.5755020627905365,
                 52.04056915881328
               ],
               [

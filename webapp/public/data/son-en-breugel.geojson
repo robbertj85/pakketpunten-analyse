@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Son en Breugel",
     "slug": "son-en-breugel",
-    "generated_at": "2026-07-13T06:09:48.489087Z",
+    "generated_at": "2026-07-20T06:11:29.301835Z",
     "total_points": 19,
     "providers": [
       "Amazon",
@@ -179,29 +179,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.49924,
         "longitude": 5.493286,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.4939439,
-          51.5114638
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Voor n Prikkie",
-        "straatNaam": "Nieuwstraat",
-        "straatNr": "23-A",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 51.5114638,
-        "longitude": 5.4939439,
         "canPickup": true,
         "canDropoff": true
       }
@@ -432,6 +409,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.5118055,
         "longitude": 5.4917375,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.5121615,
+          51.5190892
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat",
+        "straatNaam": "Van Gentlaan",
+        "straatNr": "8",
+        "vervoerder": "GLS",
+        "puntType": "locker",
+        "bezettingsgraad": 50,
+        "latitude": 51.5190892,
+        "longitude": 5.5121615,
         "canPickup": true,
         "canDropoff": true
       }

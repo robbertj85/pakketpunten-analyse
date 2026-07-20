@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Zundert",
     "slug": "zundert",
-    "generated_at": "2026-07-13T06:16:14.060586Z",
-    "total_points": 36,
+    "generated_at": "2026-07-20T06:17:42.043662Z",
+    "total_points": 37,
     "providers": [
       "Amazon",
       "DHL",
@@ -35,6 +35,29 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "Gewoon Coop",
+        "straatNaam": "Pastoor de Bakkerstraat 15",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.45380221,
+        "longitude": 4.584900027,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.584900027,
+          51.45380221
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Coop Van Bedaf",
         "straatNaam": "Pastoor de Bakkerstraat 15",
         "straatNr": "",
         "vervoerder": "Amazon",
@@ -310,7 +333,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - Albert Heijn Z",
+        "locatieNaam": "Pakketautomaat Albert Heijn Zundert",
         "straatNaam": "MOLENSTRAAT",
         "straatNr": "58",
         "vervoerder": "DPD",
@@ -333,7 +356,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - Café-Bar de Le",
+        "locatieNaam": "Pakketautomaat Café-Bar de Leeuweri",
         "straatNaam": "LEEUWERIKSTRAAT",
         "straatNr": "27",
         "vervoerder": "DPD",
@@ -2319,6 +2342,22 @@
           [
             [
               [
+                4.661434584073717,
+                51.46768020851695
+              ],
+              [
+                4.661153194677113,
+                51.46748237288815
+              ],
+              [
+                4.660842116120578,
+                51.467302715819
+              ],
+              [
+                4.660504344206445,
+                51.467142967281106
+              ],
+              [
                 4.660143131669304,
                 51.46700466552362
               ],
@@ -2503,7 +2542,7 @@
                 51.47304263188255
               ],
               [
-                4.659485205100707,
+                4.659485205100706,
                 51.473048384462764
               ],
               [
@@ -2747,7 +2786,7 @@
                 51.46955645535208
               ],
               [
-                4.665791207357526,
+                4.665791207357527,
                 51.46952414570192
               ],
               [
@@ -2813,31 +2852,11 @@
               [
                 4.661434584073717,
                 51.46768020851695
-              ],
-              [
-                4.661153194677113,
-                51.46748237288815
-              ],
-              [
-                4.660842116120578,
-                51.467302715819
-              ],
-              [
-                4.660504344206445,
-                51.467142967281106
-              ],
-              [
-                4.660143131669304,
-                51.46700466552362
               ]
             ]
           ],
           [
             [
-              [
-                4.702812676335791,
-                51.51322182425722
-              ],
               [
                 4.702393759675154,
                 51.513180538594554
@@ -3257,6 +3276,10 @@
               [
                 4.702812676335791,
                 51.51322182425722
+              ],
+              [
+                4.702393759675154,
+                51.513180538594554
               ]
             ]
           ],
@@ -5239,7 +5262,7 @@
                 51.4690270351932
               ],
               [
-                4.666863194010054,
+                4.6668631940100544,
                 51.468897392148946
               ],
               [
@@ -5398,10 +5421,6 @@
           ],
           [
             [
-              [
-                4.703106963848927,
-                51.5123419295035
-              ],
               [
                 4.702548418912888,
                 51.512286883042556
@@ -5785,6 +5804,10 @@
               [
                 4.703106963848927,
                 51.5123419295035
+              ],
+              [
+                4.702548418912888,
+                51.512286883042556
               ]
             ]
           ],

@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Nissewaard",
     "slug": "nissewaard",
-    "generated_at": "2026-07-13T06:04:41.427045Z",
-    "total_points": 77,
+    "generated_at": "2026-07-20T06:06:35.739211Z",
+    "total_points": 76,
     "providers": [
       "Amazon",
       "DHL",
@@ -23,29 +23,6 @@
     ]
   },
   "features": [
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.32606889856029,
-          51.8525990360571
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "APK KEURINGSSTATION SPIJKENISSE",
-        "straatNaam": "Stationsstraat 11",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 51.8525990360571,
-        "longitude": 4.32606889856029,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
     {
       "type": "Feature",
       "geometry": {
@@ -88,6 +65,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.84859483,
         "longitude": 4.328601616,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.322589764,
+          51.85856667
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Amazon Counter - ViaTim en Jubisay",
+        "straatNaam": "Orchideestraat 9",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "helix",
+        "bezettingsgraad": 50,
+        "latitude": 51.85856667,
+        "longitude": 4.322589764,
         "canPickup": true,
         "canDropoff": false
       }
@@ -456,29 +456,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.8585667,
         "longitude": 4.3225897,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.3618643,
-          51.8333677
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Zinnia 2.0",
-        "straatNaam": "Hadewychplaats",
-        "straatNr": "86",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 51.8333677,
-        "longitude": 4.3618643,
         "canPickup": true,
         "canDropoff": true
       }
@@ -2998,7 +2975,7 @@
                 51.85617027885569
               ],
               [
-                4.320401716310433,
+                4.320401716310431,
                 51.856239118812624
               ],
               [
@@ -6054,28 +6031,24 @@
                 51.833768633674026
               ],
               [
-                4.357572125054807,
-                51.8338011829212
+                4.3576576581447455,
+                51.83402620234682
               ],
               [
-                4.357584044612151,
-                51.83385633453332
+                4.357795843821236,
+                51.83427658531315
               ],
               [
-                4.357681950388664,
-                51.834113903184004
+                4.357972979503671,
+                51.834517371111005
               ],
               [
-                4.357820136465999,
-                51.83436428612012
+                4.358012395506695,
+                51.834559451323656
               ],
               [
-                4.357997272620131,
-                51.834605071880034
-              ],
-              [
-                4.358070568303806,
-                51.83468332148626
+                4.358034950215677,
+                51.83461878560881
               ],
               [
                 4.358173139787213,
@@ -10110,28 +10083,16 @@
                 51.8339314755448
               ],
               [
-                4.356145354342742,
-                51.833964024939085
+                4.356263513392275,
+                51.83427490197478
               ],
               [
-                4.356157272193951,
-                51.834019176690454
+                4.356447751957185,
+                51.83460874804641
               ],
               [
-                4.356287803050648,
-                51.8343626030909
-              ],
-              [
-                4.356472042149984,
-                51.83469644912233
-              ],
-              [
-                4.356708216206003,
-                51.83501749942104
-              ],
-              [
-                4.356745608156432,
-                51.835057419931786
+                4.356648898527492,
+                51.83488218376948
               ],
               [
                 4.356825032909977,
