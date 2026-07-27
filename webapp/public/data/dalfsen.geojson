@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Dalfsen",
     "slug": "dalfsen",
-    "generated_at": "2026-07-20T05:55:31.027098Z",
-    "total_points": 44,
+    "generated_at": "2026-07-27T06:08:40.773105Z",
+    "total_points": 49,
     "providers": [
       "Amazon",
       "DeBuren",
@@ -24,6 +24,29 @@
     ]
   },
   "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.260022677,
+          52.50545011
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "The Read Shop",
+        "straatNaam": "Bloemendalstraat 10",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.50545011,
+        "longitude": 6.260022677,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
     {
       "type": "Feature",
       "geometry": {
@@ -66,6 +89,52 @@
         "bezettingsgraad": 50,
         "latitude": 52.5306149822986,
         "longitude": 6.31577138331151,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.291833801,
+          52.57355444
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Readshop Nieuwleusen",
+        "straatNaam": "Grote Markt 2",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.57355444,
+        "longitude": 6.291833801,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.282912254,
+          52.59041099
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Kantoorboekhandel Nico de Graaf",
+        "straatNaam": "Burg. Backxlaan 340",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.59041099,
+        "longitude": 6.282912254,
         "canPickup": true,
         "canDropoff": false
       }
@@ -472,7 +541,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - De Goldkamp te",
+        "locatieNaam": "Pakketautomaat De Goldkamp te Dalfs",
         "straatNaam": "GOLDKAMPSTRAAT",
         "straatNr": "41",
         "vervoerder": "DPD",
@@ -480,6 +549,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.5089491,
         "longitude": 6.2660338,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.291288,
+          52.57345
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Het Bakhok",
+        "straatNaam": "GROTE MARKT",
+        "straatNr": "21B",
+        "vervoerder": "DPD",
+        "puntType": "pickup_point",
+        "bezettingsgraad": 50,
+        "latitude": 52.57345,
+        "longitude": 6.291288,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1032,6 +1124,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.50431,
         "longitude": 6.26039,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.29128,
+          52.57342
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "HET BAKHOK",
+        "straatNaam": "Grote Markt 21-B",
+        "straatNr": "",
+        "vervoerder": "InPost",
+        "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 52.57342,
+        "longitude": 6.29128,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1716,7 +1831,7 @@
                 52.50257452490778
               ],
               [
-                6.263540215566637,
+                6.263540215566636,
                 52.50242274771188
               ],
               [
@@ -1771,6 +1886,10 @@
           ],
           [
             [
+              [
+                6.295591875614115,
+                52.57157202537256
+              ],
               [
                 6.295363967639026,
                 52.57134681191027
@@ -2082,15 +2201,15 @@
               [
                 6.295591875614115,
                 52.57157202537256
-              ],
-              [
-                6.295363967639026,
-                52.57134681191027
               ]
             ]
           ],
           [
             [
+              [
+                6.289534931770722,
+                52.58544288101602
+              ],
               [
                 6.2893069825072505,
                 52.58521765675051
@@ -2666,19 +2785,11 @@
               [
                 6.289534931770722,
                 52.58544288101602
-              ],
-              [
-                6.2893069825072505,
-                52.58521765675051
               ]
             ]
           ],
           [
             [
-              [
-                6.346883469361406,
-                52.444137701484244
-              ],
               [
                 6.3466559616436165,
                 52.44391257916053
@@ -2974,6 +3085,10 @@
               [
                 6.346883469361406,
                 52.444137701484244
+              ],
+              [
+                6.3466559616436165,
+                52.44391257916053
               ]
             ]
           ],
@@ -4140,6 +4255,10 @@
           [
             [
               [
+                6.296883868499892,
+                52.57113845661412
+              ],
+              [
                 6.296579985944536,
                 52.570838175186154
               ],
@@ -4438,15 +4557,15 @@
               [
                 6.296883868499892,
                 52.57113845661412
-              ],
-              [
-                6.296579985944536,
-                52.570838175186154
               ]
             ]
           ],
           [
             [
+              [
+                6.290827390505283,
+                52.58500937850532
+              ],
               [
                 6.290523452892925,
                 52.58470908267363
@@ -4584,7 +4703,7 @@
                 52.58845090953196
               ],
               [
-                6.277771247020085,
+                6.277771247020083,
                 52.58865282738197
               ],
               [
@@ -4626,6 +4745,10 @@
               [
                 6.274622881579399,
                 52.5912011511171
+              ],
+              [
+                6.274610537478478,
+                52.59125650178962
               ],
               [
                 6.274610537478478,
@@ -4942,19 +5065,11 @@
               [
                 6.290827390505283,
                 52.58500937850532
-              ],
-              [
-                6.290523452892925,
-                52.58470908267363
               ]
             ]
           ],
           [
             [
-              [
-                6.348171240924587,
-                52.44370357264589
-              ],
               [
                 6.347867892097383,
                 52.44340341272959
@@ -5000,7 +5115,7 @@
                 52.44184543922898
               ],
               [
-                6.342711801058721,
+                6.342711801058723,
                 52.44185422564052
               ],
               [
@@ -5246,6 +5361,10 @@
               [
                 6.348171240924587,
                 52.44370357264589
+              ],
+              [
+                6.347867892097383,
+                52.44340341272959
               ]
             ]
           ],

@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Midden-Drenthe",
     "slug": "midden-drenthe",
-    "generated_at": "2026-07-20T06:05:31.857048Z",
-    "total_points": 60,
+    "generated_at": "2026-07-27T06:20:03.373890Z",
+    "total_points": 63,
     "providers": [
       "Amazon",
       "DHL",
@@ -110,6 +110,75 @@
         "bezettingsgraad": 50,
         "latitude": 52.81762553,
         "longitude": 6.518085672,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.505850933,
+          52.86301911
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Poiesz Supermarkt (150)",
+        "straatNaam": "Reigerlaan 15",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.86301911,
+        "longitude": 6.505850933,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.49955714,
+          52.85553765
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "GAMMA Beilen",
+        "straatNaam": "Dambroeken 1",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.85553765,
+        "longitude": 6.49955714,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.613268889,
+          52.84952476
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Borker Boekwinkel",
+        "straatNaam": "Hoofdstraat 39 A",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.84952476,
+        "longitude": 6.613268889,
         "canPickup": true,
         "canDropoff": false
       }
@@ -2974,7 +3043,7 @@
                 52.97810403131165
               ],
               [
-                6.475332885069853,
+                6.475332885069855,
                 52.97810476247903
               ],
               [
@@ -3798,8 +3867,8 @@
                 52.8565563716226
               ],
               [
-                6.513713297552859,
-                52.8565582310303
+                6.513713297552861,
+                52.85655823103029
               ],
               [
                 6.513685812168652,
@@ -7806,7 +7875,7 @@
                 52.97777270804743
               ],
               [
-                6.473949042022669,
+                6.473949042022671,
                 52.977773439210125
               ],
               [
@@ -8023,10 +8092,6 @@
               ],
               [
                 6.480613500271074,
-                52.97557022968277
-              ],
-              [
-                6.4806135002710725,
                 52.97557022968277
               ],
               [

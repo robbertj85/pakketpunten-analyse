@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Stede Broec",
     "slug": "stede-broec",
-    "generated_at": "2026-07-20T06:11:43.590682Z",
-    "total_points": 26,
+    "generated_at": "2026-07-27T06:27:06.787211Z",
+    "total_points": 27,
     "providers": [
       "Amazon",
       "DHL",
@@ -43,6 +43,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.69333552,
         "longitude": 5.231337366,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.235842198,
+          52.69522858
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Primera Bovenkarspel",
+        "straatNaam": "Stationslaan 49",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.69522858,
+        "longitude": 5.235842198,
         "canPickup": true,
         "canDropoff": false
       }
@@ -1498,10 +1521,6 @@
           [
             [
               [
-                5.2432506649663235,
-                52.688959888660825
-              ],
-              [
                 5.243065282889066,
                 52.68872048636763
               ],
@@ -1756,6 +1775,10 @@
               [
                 5.2432506649663235,
                 52.688959888660825
+              ],
+              [
+                5.243065282889066,
+                52.68872048636763
               ]
             ]
           ],
@@ -2046,7 +2069,7 @@
                 52.694178988265506
               ],
               [
-                5.256228569190749,
+                5.256228569190748,
                 52.693953946476505
               ],
               [

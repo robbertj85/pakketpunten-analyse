@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Eijsden-Margraten",
     "slug": "eijsden-margraten",
-    "generated_at": "2026-07-20T05:57:49.676300Z",
-    "total_points": 30,
+    "generated_at": "2026-07-27T06:11:18.956459Z",
+    "total_points": 31,
     "providers": [
       "Amazon",
       "DHL",
@@ -21,6 +21,29 @@
     ]
   },
   "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.720605545,
+          50.81345342
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "KARWEI Maastricht-Zuid",
+        "straatNaam": "Burgemeester Frans Cortenraadstraat 14",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 50.81345342,
+        "longitude": 5.720605545,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
     {
       "type": "Feature",
       "geometry": {
@@ -2343,10 +2366,6 @@
           [
             [
               [
-                5.812344827740792,
-                50.78986383934943
-              ],
-              [
                 5.8121641405562485,
                 50.78962527494967
               ],
@@ -2601,6 +2620,10 @@
               [
                 5.812344827740792,
                 50.78986383934943
+              ],
+              [
+                5.8121641405562485,
+                50.78962527494967
               ]
             ]
           ],
@@ -5211,10 +5234,6 @@
           [
             [
               [
-                5.813651770272052,
-                50.7895150319207
-              ],
-              [
                 5.813410847309005,
                 50.789196948729135
               ],
@@ -5469,6 +5488,10 @@
               [
                 5.813651770272052,
                 50.7895150319207
+              ],
+              [
+                5.813410847309005,
+                50.789196948729135
               ]
             ]
           ],

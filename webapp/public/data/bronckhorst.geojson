@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Bronckhorst",
     "slug": "bronckhorst",
-    "generated_at": "2026-07-20T05:54:39.475380Z",
-    "total_points": 52,
+    "generated_at": "2026-07-27T06:07:39.279607Z",
+    "total_points": 55,
     "providers": [
       "Amazon",
       "DHL",
@@ -22,6 +22,29 @@
     ]
   },
   "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.346955107,
+          52.00720397
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Jumbo",
+        "straatNaam": "Bergstraat 1",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.00720397,
+        "longitude": 6.346955107,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
     {
       "type": "Feature",
       "geometry": {
@@ -73,6 +96,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          6.234235907,
+          52.00566949
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Spar Hummelo",
+        "straatNaam": "Dorpsstraat 20",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.00566949,
+        "longitude": 6.234235907,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           6.311842813,
           52.10267422
         ]
@@ -87,6 +133,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.10267422,
         "longitude": 6.311842813,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.309207791,
+          52.10513076
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Plus van der Voort Vorden",
+        "straatNaam": "Zutphenseweg 26",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.10513076,
+        "longitude": 6.309207791,
         "canPickup": true,
         "canDropoff": false
       }
@@ -585,7 +654,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - Spar Hummelo",
+        "locatieNaam": "Pakketautomaat Spar Hummelo",
         "straatNaam": "DORPSSTRAAT",
         "straatNr": "20",
         "vervoerder": "DPD",
@@ -1278,7 +1347,7 @@
                 52.00298935500805
               ],
               [
-                6.233752311688866,
+                6.233752311688862,
                 52.002989819543714
               ],
               [
@@ -1414,7 +1483,7 @@
                 52.00835013967355
               ],
               [
-                6.234713658816376,
+                6.234713658816371,
                 52.008349675098906
               ],
               [
@@ -1505,6 +1574,10 @@
           ],
           [
             [
+              [
+                6.305547467126986,
+                52.012229031372385
+              ],
               [
                 6.305322376722355,
                 52.012003806506684
@@ -1776,10 +1849,6 @@
               [
                 6.305547467126986,
                 52.012229031372385
-              ],
-              [
-                6.305322376722355,
-                52.012003806506684
               ]
             ]
           ],
@@ -4442,7 +4511,7 @@
                 52.00209597468357
               ],
               [
-                6.233592690800241,
+                6.23359269080024,
                 52.00209643921268
               ],
               [
@@ -4578,7 +4647,7 @@
                 52.009243517569764
               ],
               [
-                6.234873325027757,
+                6.234873325027754,
                 52.00924305298861
               ],
               [
@@ -4669,6 +4738,10 @@
           ],
           [
             [
+              [
+                6.306823239122426,
+                52.011795346265785
+              ],
               [
                 6.306523113480574,
                 52.01149504959373
@@ -4940,10 +5013,6 @@
               [
                 6.306823239122426,
                 52.011795346265785
-              ],
-              [
-                6.306523113480574,
-                52.01149504959373
               ]
             ]
           ],
@@ -6178,7 +6247,7 @@
                 52.10224597792159
               ],
               [
-                6.305242940426233,
+                6.3052429404262345,
                 52.10224842242385
               ],
               [

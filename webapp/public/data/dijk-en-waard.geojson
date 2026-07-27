@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Dijk en Waard",
     "slug": "dijk-en-waard",
-    "generated_at": "2026-07-20T05:56:28.728154Z",
-    "total_points": 84,
+    "generated_at": "2026-07-27T06:09:47.146858Z",
+    "total_points": 86,
     "providers": [
       "Amazon",
       "DHL",
@@ -24,98 +24,6 @@
     ]
   },
   "features": [
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.808517357,
-          52.66240926
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "GAMMA Heerhugowaard",
-        "straatNaam": "J.J.P. Oudweg 16",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 52.66240926,
-        "longitude": 4.808517357,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.79437363,
-          52.6743285
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "BaTeco",
-        "straatNaam": "Vreekesweid 11",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 52.6743285,
-        "longitude": 4.79437363,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.828633235,
-          52.6625144
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Primera Middenwaard",
-        "straatNaam": "Middenwaard 59 A",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 52.6625144,
-        "longitude": 4.828633235,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.798528672,
-          52.67761147
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "KARWEI Broek op Langedijk",
-        "straatNaam": "Middelmoot 10",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 52.67761147,
-        "longitude": 4.798528672,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
     {
       "type": "Feature",
       "geometry": {
@@ -167,6 +75,52 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.828155166,
+          52.66407592
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Bruna",
+        "straatNaam": "Middenwaard 78",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.66407592,
+        "longitude": 4.828155166,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.828633235,
+          52.6625144
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Primera Middenwaard",
+        "straatNaam": "Middenwaard 59 A",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.6625144,
+        "longitude": 4.828633235,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.8306749,
           52.6632148
         ]
@@ -181,6 +135,98 @@
         "bezettingsgraad": 50,
         "latitude": 52.6632148,
         "longitude": 4.8306749,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.808517357,
+          52.66240926
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "GAMMA Heerhugowaard",
+        "straatNaam": "J.J.P. Oudweg 16",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.66240926,
+        "longitude": 4.808517357,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.811484297,
+          52.70336004
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Primera Langedijk",
+        "straatNaam": "Dorpsstraat 614",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.70336004,
+        "longitude": 4.811484297,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.798528672,
+          52.67761147
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "KARWEI Broek op Langedijk",
+        "straatNaam": "Middelmoot 10",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.67761147,
+        "longitude": 4.798528672,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.79437363,
+          52.6743285
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "BaTeco",
+        "straatNaam": "Vreekesweid 11",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.6743285,
+        "longitude": 4.79437363,
         "canPickup": true,
         "canDropoff": false
       }
@@ -250,6 +296,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.654178,
         "longitude": 4.8258729,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.809349611250636,
+          52.66156655933363
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat MediaMarkt Heerhgwd",
+        "straatNaam": "Th. van Doesburgweg",
+        "straatNr": "1",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 52.66156655933363,
+        "longitude": 4.809349611250636,
         "canPickup": true,
         "canDropoff": true
       }
@@ -388,29 +457,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.679170939565324,
         "longitude": 4.804529937235691,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.809349611250636,
-          52.66156655933363
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat MediaMarkt Heerhgwd",
-        "straatNaam": "Th. van Doesburgweg",
-        "straatNr": "1",
-        "vervoerder": "DHL",
-        "puntType": "packStation",
-        "bezettingsgraad": 50,
-        "latitude": 52.66156655933363,
-        "longitude": 4.809349611250636,
         "canPickup": true,
         "canDropoff": true
       }
@@ -627,29 +673,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          4.8386698,
-          52.6692571
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Business Point - Sasusa Textielbedr",
-        "straatNaam": "ERASMUSLAAN",
-        "straatNr": "3a",
-        "vervoerder": "DPD",
-        "puntType": "pickup_point",
-        "bezettingsgraad": 50,
-        "latitude": 52.6692571,
-        "longitude": 4.8386698,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           4.8027553558,
           52.7074584961
         ]
@@ -817,7 +840,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - Winkelcentrum",
+        "locatieNaam": "Pakketautomaat Winkelcentrum Broeke",
         "straatNaam": "MARKTPLEIN",
         "straatNr": "1",
         "vervoerder": "DPD",
@@ -840,7 +863,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - Fitness Club N",
+        "locatieNaam": "Pakketautomaat Fitness Club Noord S",
         "straatNaam": "WILLEM DE ZWIJGERSTRAAT",
         "straatNr": "2",
         "vervoerder": "DPD",
@@ -886,7 +909,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - Winkelcentrum",
+        "locatieNaam": "Pakketautomaat Winkelcentrum Midden",
         "straatNaam": "MIDDENWAARD",
         "straatNr": "2",
         "vervoerder": "DPD",
@@ -1915,6 +1938,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.80642,
+          52.64731
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "NVT",
+        "straatNaam": "Hemelboog Binnen 53a",
+        "straatNr": "",
+        "vervoerder": "InPost",
+        "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 52.64731,
+        "longitude": 4.80642,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.84854,
           52.67273
         ]
@@ -2468,20 +2514,20 @@
                 52.64989930972132
               ],
               [
-                4.8051803973251435,
-                52.64988148638723
+                4.8051400179126,
+                52.64989005121202
               ],
               [
-                4.805497405888845,
-                52.64993143213664
+                4.805520291513118,
+                52.64994996458887
               ],
               [
-                4.805927200813582,
-                52.64997235682126
+                4.805950086640522,
+                52.64999088919094
               ],
               [
-                4.806158904418675,
-                52.649980415165494
+                4.806227417879164,
+                52.6500005342927
               ],
               [
                 4.806513645498395,
@@ -3020,7 +3066,7 @@
                 52.65784917527886
               ],
               [
-                4.8167086707867375,
+                4.81670867078674,
                 52.65784905640429
               ],
               [
@@ -3099,10 +3145,6 @@
           ],
           [
             [
-              [
-                4.787445984810545,
-                52.66023179799643
-              ],
               [
                 4.787189685284071,
                 52.66001798585759
@@ -3486,15 +3528,15 @@
               [
                 4.787445984810545,
                 52.66023179799643
+              ],
+              [
+                4.787189685284071,
+                52.66001798585759
               ]
             ]
           ],
           [
             [
-              [
-                4.798081500164341,
-                52.67284902212919
-              ],
               [
                 4.797825075479914,
                 52.67263523339594
@@ -4078,6 +4120,10 @@
               [
                 4.798081500164341,
                 52.67284902212919
+              ],
+              [
+                4.797825075479914,
+                52.67263523339594
               ]
             ]
           ],
@@ -4452,7 +4498,7 @@
                 52.70528151007399
               ],
               [
-                4.8147278541713145,
+                4.814727854171317,
                 52.70519568506873
               ],
               [
@@ -4679,10 +4725,6 @@
           ],
           [
             [
-              [
-                4.806465746522526,
-                52.70597877286273
-              ],
               [
                 4.806209088121598,
                 52.70576500363935
@@ -4938,6 +4980,10 @@
               [
                 4.806465746522526,
                 52.70597877286273
+              ],
+              [
+                4.806209088121598,
+                52.70576500363935
               ]
             ]
           ],
@@ -6372,10 +6418,6 @@
           [
             [
               [
-                4.847191178143013,
-                52.66166978379691
-              ],
-              [
                 4.846934579292373,
                 52.661456100148996
               ],
@@ -6544,32 +6586,32 @@
                 52.666432871298916
               ],
               [
-                4.839074363034374,
-                52.66657390826028
+                4.839072129139803,
+                52.666576724322525
               ],
               [
-                4.838703434340334,
-                52.666561115342724
+                4.838703634330945,
+                52.666564015344576
               ],
               [
-                4.83826861365159,
-                52.66657209241479
+                4.83826881361356,
+                52.66657499241735
               ],
               [
-                4.837837655921147,
-                52.66660892605752
+                4.837837855854841,
+                52.66661182606071
               ],
               [
-                4.837414710769076,
-                52.66667126160529
+                4.8374149106751325,
+                52.666674161609144
               ],
               [
-                4.83700385070509,
-                52.666758498837645
+                4.837333093260926,
+                52.6666915339043
               ],
               [
-                4.836997196227069,
-                52.66676037474224
+                4.837294917087237,
+                52.66669716036633
               ],
               [
                 4.836884056544788,
@@ -7346,6 +7388,10 @@
               [
                 4.847191178143013,
                 52.66166978379691
+              ],
+              [
+                4.846934579292373,
+                52.661456100148996
               ]
             ]
           ],
@@ -8116,20 +8162,20 @@
                 52.65084433593133
               ],
               [
-                4.805186068030104,
-                52.65080961922934
+                4.80513707971557,
+                52.65081682783891
               ],
               [
-                4.80519747820815,
-                52.65081141691879
+                4.80522036416228,
+                52.6508299494253
               ],
               [
-                4.80577054937145,
-                52.65086598426984
+                4.805793435595814,
+                52.650884516666196
               ],
               [
-                4.805781548934789,
-                52.650866366837384
+                4.80585006360042,
+                52.650886486179424
               ],
               [
                 4.805937217513042,
@@ -8612,7 +8658,7 @@
                 52.65695553466947
               ],
               [
-                4.816865125417219,
+                4.816865125417222,
                 52.65695541579946
               ],
               [
@@ -8683,10 +8729,6 @@
           ],
           [
             [
-              [
-                4.788681649329102,
-                52.65973872000886
-              ],
               [
                 4.788339912973694,
                 52.659453640542765
@@ -9042,15 +9084,15 @@
               [
                 4.788681649329102,
                 52.65973872000886
+              ],
+              [
+                4.788339912973694,
+                52.659453640542765
               ]
             ]
           ],
           [
             [
-              [
-                4.799317401085733,
-                52.67235583551274
-              ],
               [
                 4.7989754978544505,
                 52.67207078725553
@@ -9500,7 +9542,7 @@
                 52.67506713465798
               ],
               [
-                4.802569960029339,
+                4.802569960029338,
                 52.67499263152942
               ],
               [
@@ -9550,6 +9592,10 @@
               [
                 4.799317401085733,
                 52.67235583551274
+              ],
+              [
+                4.7989754978544505,
+                52.67207078725553
               ]
             ]
           ],
@@ -10096,7 +10142,7 @@
                 52.705921980431704
               ],
               [
-                4.815716313126881,
+                4.815716313126882,
                 52.70586874926666
               ],
               [
@@ -11040,28 +11086,28 @@
                 52.66542028747874
               ],
               [
-                4.838223681807223,
-                52.6656748465262
+                4.838219965168583,
+                52.6656778453975
               ],
               [
-                4.838134895228881,
-                52.66567708776717
+                4.838135095178174,
+                52.6656799877706
               ],
               [
-                4.837560296318293,
-                52.66572619832415
+                4.837560496229887,
+                52.66572909832841
               ],
               [
-                4.836996379994352,
-                52.665809310770896
+                4.836996579869097,
+                52.66581221077599
               ],
               [
-                4.836448575864814,
-                52.66592562487542
+                4.836914763896205,
+                52.66582958278905
               ],
               [
-                4.836441921489426,
-                52.66592750074948
+                4.836876588418454,
+                52.66583520911893
               ],
               [
                 4.836328783651009,

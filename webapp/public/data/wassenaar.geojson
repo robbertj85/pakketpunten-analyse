@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Wassenaar",
     "slug": "wassenaar",
-    "generated_at": "2026-07-20T06:15:23.531676Z",
-    "total_points": 12,
+    "generated_at": "2026-07-27T06:31:17.793796Z",
+    "total_points": 13,
     "providers": [
       "Amazon",
       "DHL",
@@ -20,6 +20,29 @@
     ]
   },
   "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.394770311,
+          52.14534249
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Bruna",
+        "straatNaam": "Van Hogendorpstraat 135",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.14534249,
+        "longitude": 4.394770311,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
     {
       "type": "Feature",
       "geometry": {
@@ -1176,10 +1199,6 @@
           [
             [
               [
-                4.414325970555041,
-                52.138440990238635
-              ],
-              [
                 4.414186538976729,
                 52.13819068169448
               ],
@@ -1434,6 +1453,10 @@
               [
                 4.414325970555041,
                 52.138440990238635
+              ],
+              [
+                4.414186538976729,
+                52.13819068169448
               ]
             ]
           ]

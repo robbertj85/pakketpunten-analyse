@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Schagen",
     "slug": "schagen",
-    "generated_at": "2026-07-20T06:10:29.697776Z",
-    "total_points": 62,
+    "generated_at": "2026-07-27T06:25:41.604496Z",
+    "total_points": 66,
     "providers": [
       "Amazon",
       "DeBuren",
@@ -74,6 +74,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.811198398,
+          52.78154553
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "GAMMA Schagen",
+        "straatNaam": "Witte Paal 201",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.78154553,
+        "longitude": 4.811198398,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.80110974742899,
           52.7878410955694
         ]
@@ -88,6 +111,52 @@
         "bezettingsgraad": 50,
         "latitude": 52.7878410955694,
         "longitude": 4.80110974742899,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.811893734,
+          52.7827711
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "KARWEI Schagen",
+        "straatNaam": "Witte Paal 203",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.7827711,
+        "longitude": 4.811893734,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.69601768,
+          52.83622976
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Albert Heijn",
+        "straatNaam": "Schoolstraat 3",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.83622976,
+        "longitude": 4.69601768,
         "canPickup": true,
         "canDropoff": false
       }
@@ -157,6 +226,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.7320149,
         "longitude": 4.7787192,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.749081035,
+          52.73884643
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Primera Tuitjenhorn",
+        "straatNaam": "Dorpsstraat 44",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.73884643,
+        "longitude": 4.749081035,
         "canPickup": true,
         "canDropoff": false
       }
@@ -632,7 +724,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - MultIT",
+        "locatieNaam": "Pakketautomaat MultIT",
         "straatNaam": "PASTOOR VELZEBOERSTRAAT",
         "straatNr": "2",
         "vervoerder": "DPD",
@@ -655,7 +747,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - Fitness Club S",
+        "locatieNaam": "Pakketautomaat Fitness Club Schagen",
         "straatNaam": "KAAGWEG",
         "straatNr": "21",
         "vervoerder": "DPD",
@@ -701,7 +793,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - Jumbo Kooistra",
+        "locatieNaam": "Pakketautomaat Jumbo Kooistra",
         "straatNaam": "LANGESTRAAT",
         "straatNr": "9",
         "vervoerder": "DPD",
@@ -747,7 +839,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - SPAR de Vogel",
+        "locatieNaam": "Pakketautomaat SPAR de Vogel",
         "straatNaam": "DORPSTRAAT",
         "straatNr": "36-38",
         "vervoerder": "DPD",
@@ -1457,10 +1549,6 @@
           [
             [
               [
-                4.727620723680134,
-                52.708027913650014
-              ],
-              [
                 4.727400197022061,
                 52.70779974785007
               ],
@@ -1715,6 +1803,10 @@
               [
                 4.727620723680134,
                 52.708027913650014
+              ],
+              [
+                4.727400197022061,
+                52.70779974785007
               ]
             ]
           ],
@@ -3277,7 +3369,7 @@
                 52.833600808796106
               ],
               [
-                4.753521027863338,
+                4.753521027863336,
                 52.83364600660512
               ],
               [
@@ -3417,7 +3509,7 @@
                 52.83879065870417
               ],
               [
-                4.756205302401578,
+                4.756205302401576,
                 52.838745457568784
               ],
               [
@@ -5221,7 +5313,7 @@
                 52.78507451098238
               ],
               [
-                4.802318708838192,
+                4.802318708838191,
                 52.78508511707262
               ],
               [
@@ -5721,7 +5813,7 @@
                 52.79451650394769
               ],
               [
-                4.784644049614417,
+                4.784644049614418,
                 52.79451454500169
               ],
               [
@@ -5836,6 +5928,14 @@
           ],
           [
             [
+              [
+                4.834562740867476,
+                52.72518817260309
+              ],
+              [
+                4.834153573013406,
+                52.72509713749605
+              ],
               [
                 4.833731679939886,
                 52.725030888763264
@@ -6103,14 +6203,6 @@
               [
                 4.834562740867476,
                 52.72518817260309
-              ],
-              [
-                4.834153573013406,
-                52.72509713749605
-              ],
-              [
-                4.833731679939886,
-                52.725030888763264
               ]
             ]
           ]
@@ -6128,10 +6220,6 @@
         "coordinates": [
           [
             [
-              [
-                4.728931914898404,
-                52.70761152102521
-              ],
               [
                 4.728637873538797,
                 52.707307303062926
@@ -6387,6 +6475,10 @@
               [
                 4.728931914898404,
                 52.70761152102521
+              ],
+              [
+                4.728637873538797,
+                52.707307303062926
               ]
             ]
           ],
@@ -9209,6 +9301,10 @@
                 52.7865147203699
               ],
               [
+                4.81237582011979,
+                52.78635242974777
+              ],
+              [
                 4.812375820119791,
                 52.78635242974777
               ],
@@ -9933,7 +10029,7 @@
                 52.79502197853789
               ],
               [
-                4.785869831118865,
+                4.785869831118867,
                 52.79502001957176
               ],
               [
@@ -10036,6 +10132,14 @@
           ],
           [
             [
+              [
+                4.835139610475607,
+                52.72436055602045
+              ],
+              [
+                4.834594062390276,
+                52.72423917819528
+              ],
               [
                 4.834031548673742,
                 52.724150848295494
@@ -10303,14 +10407,6 @@
               [
                 4.835139610475607,
                 52.72436055602045
-              ],
-              [
-                4.834594062390276,
-                52.72423917819528
-              ],
-              [
-                4.834031548673742,
-                52.724150848295494
               ]
             ]
           ]

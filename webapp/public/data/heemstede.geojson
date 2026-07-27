@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Heemstede",
     "slug": "heemstede",
-    "generated_at": "2026-07-20T06:00:19.564263Z",
-    "total_points": 16,
+    "generated_at": "2026-07-27T06:14:13.315594Z",
+    "total_points": 18,
     "providers": [
       "Amazon",
       "DHL",
@@ -21,6 +21,52 @@
     ]
   },
   "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.607985775,
+          52.35223271
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Spar Adema",
+        "straatNaam": "Te Winkelhof 25",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.35223271,
+        "longitude": 4.607985775,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.621775565,
+          52.35181937
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "B & B Print en Office",
+        "straatNaam": "Binnenweg 68",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.35181937,
+        "longitude": 4.621775565,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
     {
       "type": "Feature",
       "geometry": {
@@ -170,7 +216,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - Fijn Timmerwer",
+        "locatieNaam": "Pakketautomaat Fijn Timmerwerk",
         "straatNaam": "LEIDSEVAARTWEG",
         "straatNr": "5",
         "vervoerder": "DPD",
@@ -2013,10 +2059,6 @@
           [
             [
               [
-                4.608533558020058,
-                52.3588650966193
-              ],
-              [
                 4.608352990938595,
                 52.35862470333702
               ],
@@ -2271,6 +2313,10 @@
               [
                 4.608533558020058,
                 52.3588650966193
+              ],
+              [
+                4.608352990938595,
+                52.35862470333702
               ]
             ]
           ]
@@ -3761,10 +3807,6 @@
           [
             [
               [
-                4.6098957027058995,
-                52.35853009596266
-              ],
-              [
                 4.6096549389797055,
                 52.35820957425724
               ],
@@ -4019,6 +4061,10 @@
               [
                 4.6098957027058995,
                 52.35853009596266
+              ],
+              [
+                4.6096549389797055,
+                52.35820957425724
               ]
             ]
           ]

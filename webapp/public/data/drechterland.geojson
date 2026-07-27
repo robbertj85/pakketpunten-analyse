@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Drechterland",
     "slug": "drechterland",
-    "generated_at": "2026-07-20T05:56:56.341046Z",
-    "total_points": 22,
+    "generated_at": "2026-07-27T06:10:19.377091Z",
+    "total_points": 23,
     "providers": [
       "Amazon",
       "DHL",
@@ -42,6 +42,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.69557899,
         "longitude": 5.176643113,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.20016534,
+          52.66362468
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "DA Drogisterij Graaf",
+        "straatNaam": "Twijver 60",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.66362468,
+        "longitude": 5.20016534,
         "canPickup": true,
         "canDropoff": false
       }
@@ -172,7 +195,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - Intratuin Hoor",
+        "locatieNaam": "Pakketautomaat Intratuin Hoorn",
         "straatNaam": "NOORDERDRACHT",
         "straatNr": "20 A",
         "vervoerder": "DPD",
@@ -1421,10 +1444,6 @@
           [
             [
               [
-                5.2042664523482385,
-                52.6625993055984
-              ],
-              [
                 5.20408139368069,
                 52.66235984116472
               ],
@@ -1679,6 +1698,10 @@
               [
                 5.2042664523482385,
                 52.6625993055984
+              ],
+              [
+                5.20408139368069,
+                52.66235984116472
               ]
             ]
           ],
@@ -2865,10 +2888,6 @@
           [
             [
               [
-                5.2056334467998875,
-                52.66225748119053
-              ],
-              [
                 5.205386694341744,
                 52.661938198017786
               ],
@@ -3123,6 +3142,10 @@
               [
                 5.2056334467998875,
                 52.66225748119053
+              ],
+              [
+                5.205386694341744,
+                52.661938198017786
               ]
             ]
           ],
@@ -3191,10 +3214,6 @@
               [
                 5.18619899937908,
                 52.67090714322351
-              ],
-              [
-                5.1861152100611925,
-                52.670925208616325
               ],
               [
                 5.18611521006119,

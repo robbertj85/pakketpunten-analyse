@@ -3,9 +3,10 @@
   "metadata": {
     "gemeente": "Best",
     "slug": "best",
-    "generated_at": "2026-07-20T05:53:37.975494Z",
-    "total_points": 35,
+    "generated_at": "2026-07-27T06:06:29.057137Z",
+    "total_points": 38,
     "providers": [
+      "Amazon",
       "DHL",
       "DPD",
       "PostNL",
@@ -22,6 +23,75 @@
     ]
   },
   "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.393066627,
+          51.51175848
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Bruna",
+        "straatNaam": "Boterhoek 94",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.51175848,
+        "longitude": 5.393066627,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.393974168,
+          51.51178539
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Best Telefoonmaken",
+        "straatNaam": "Boterhoek 14",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.51178539,
+        "longitude": 5.393974168,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.394202311,
+          51.49690919
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Primera Wilhelminaplein",
+        "straatNaam": "Wilhelminaplein 20",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.49690919,
+        "longitude": 5.394202311,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
     {
       "type": "Feature",
       "geometry": {
@@ -240,7 +310,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - Groencentrum d",
+        "locatieNaam": "Pakketautomaat Groencentrum de Mort",
         "straatNaam": "AARLESEWEG",
         "straatNr": "50",
         "vervoerder": "DPD",
@@ -263,7 +333,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - CarPro Carwash",
+        "locatieNaam": "Pakketautomaat CarPro Carwash Best",
         "straatNaam": "ZANDSTRAAT",
         "straatNr": "18 A",
         "vervoerder": "DPD",
@@ -1931,18 +2001,6 @@
           [
             [
               [
-                5.370970034150203,
-                51.51609832296721
-              ],
-              [
-                5.370586654546453,
-                51.51598512539877
-              ],
-              [
-                5.370187339453289,
-                51.51589591707788
-              ],
-              [
                 5.36977593393426,
                 51.51583155698651
               ],
@@ -2223,12 +2281,24 @@
                 51.51615891681084
               ],
               [
-                5.371038713814973,
+                5.371038713814972,
                 51.51612401939934
               ],
               [
                 5.370970034150203,
                 51.51609832296721
+              ],
+              [
+                5.370586654546453,
+                51.51598512539877
+              ],
+              [
+                5.370187339453289,
+                51.51589591707788
+              ],
+              [
+                5.36977593393426,
+                51.51583155698651
               ]
             ]
           ],
@@ -3999,18 +4069,6 @@
           [
             [
               [
-                5.371649430927259,
-                51.51530568808921
-              ],
-              [
-                5.371138265202016,
-                51.51515476068307
-              ],
-              [
-                5.370605853706092,
-                51.51503581845929
-              ],
-              [
                 5.370057322859348,
                 51.51495000664264
               ],
@@ -4293,6 +4351,18 @@
               [
                 5.371649430927259,
                 51.51530568808921
+              ],
+              [
+                5.371138265202016,
+                51.51515476068307
+              ],
+              [
+                5.370605853706092,
+                51.51503581845929
+              ],
+              [
+                5.370057322859348,
+                51.51495000664264
               ]
             ]
           ],

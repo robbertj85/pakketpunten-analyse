@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Velsen",
     "slug": "velsen",
-    "generated_at": "2026-07-20T06:14:03.261768Z",
-    "total_points": 62,
+    "generated_at": "2026-07-27T06:29:44.105127Z",
+    "total_points": 64,
     "providers": [
       "Amazon",
       "DHL",
@@ -110,6 +110,75 @@
         "bezettingsgraad": 50,
         "latitude": 52.4601448610314,
         "longitude": 4.6085722220701,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.65897298,
+          52.43475124
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Bruna Velserbroek 2042",
+        "straatNaam": "Galle Promenade 5",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.43475124,
+        "longitude": 4.65897298,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.602257967,
+          52.45611265
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Primera Planetenweg",
+        "straatNaam": "Planetenweg 62",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.45611265,
+        "longitude": 4.602257967,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.597143066,
+          52.44923897
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Primera Zeewijkplein",
+        "straatNaam": "Zeewijkplein 23",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.44923897,
+        "longitude": 4.597143066,
         "canPickup": true,
         "canDropoff": false
       }
@@ -769,7 +838,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - Alles ijmuiden",
+        "locatieNaam": "Pakketautomaat Alles ijmuiden",
         "straatNaam": "LANGE NIEUWSTRAAT",
         "straatNr": "495",
         "vervoerder": "DPD",
@@ -1384,29 +1453,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          4.64553,
-          52.47257
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "MOBILE HUB VELSEN",
-        "straatNaam": "Wijkerstraatweg 173A",
-        "straatNr": "",
-        "vervoerder": "InPost",
-        "puntType": "servicepunt",
-        "bezettingsgraad": 50,
-        "latitude": 52.47257,
-        "longitude": 4.64553,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           4.61898,
           52.45875
         ]
@@ -1455,10 +1501,6 @@
         "coordinates": [
           [
             [
-              [
-                4.598239299985515,
-                52.44654839833692
-              ],
               [
                 4.597820423230217,
                 52.446481315346446
@@ -3124,6 +3166,10 @@
                 52.447122076287165
               ],
               [
+                4.5998683903884245,
+                52.447122076287165
+              ],
+              [
                 4.59974877778513,
                 52.44705437358112
               ],
@@ -3142,6 +3188,10 @@
               [
                 4.598239299985515,
                 52.44654839833692
+              ],
+              [
+                4.597820423230217,
+                52.446481315346446
               ]
             ],
             [
@@ -4644,40 +4694,32 @@
                 52.473385142267176
               ],
               [
-                4.641409414371909,
-                52.47353321027288
+                4.641478985205782,
+                52.47362548071791
               ],
               [
-                4.641433758855709,
-                52.47357614689673
+                4.641697903822616,
+                52.47385381519587
               ],
               [
-                4.6416149720763915,
-                52.47381648513245
+                4.64190233278,
+                52.474025806034135
               ],
               [
-                4.641833892337698,
-                52.47404481935294
+                4.641980969943427,
+                52.47410782391732
               ],
               [
-                4.642088411691945,
-                52.47425895037517
+                4.642235490372843,
+                52.474321954622866
               ],
               [
-                4.642376079216445,
-                52.474456815782155
+                4.6425231589659735,
+                52.47451981967229
               ],
               [
-                4.642694124608084,
-                52.474636509793875
-              ],
-              [
-                4.643039484859304,
-                52.474796301629446
-              ],
-              [
-                4.643096789767762,
-                52.47481776701014
+                4.642841205409414,
+                52.47469951328897
               ],
               [
                 4.64318656668546,
@@ -6108,10 +6150,6 @@
           [
             [
               [
-                4.5986815619018095,
-                52.44569126270333
-              ],
-              [
                 4.598123069750183,
                 52.4456018204751
               ],
@@ -7508,8 +7546,8 @@
                 52.446485057342855
               ],
               [
-                4.600813786718465,
-                52.446433586402264
+                4.600813786718463,
+                52.44643358640223
               ],
               [
                 4.600694174519133,
@@ -7530,6 +7568,10 @@
               [
                 4.5986815619018095,
                 52.44569126270333
+              ],
+              [
+                4.598123069750183,
+                52.4456018204751
               ]
             ],
             [
@@ -9102,24 +9144,20 @@
                 52.47372049004484
               ],
               [
-                4.6400439601736085,
-                52.47386855931845
+                4.640173930992545,
+                52.47404094399296
               ],
               [
-                4.640068303512865,
-                52.47391149621739
+                4.6404658167084305,
+                52.47434539304594
               ],
               [
-                4.640309913486008,
-                52.4742319498789
+                4.640670243125205,
+                52.47451738598549
               ],
               [
-                4.640601801394509,
-                52.47453639858856
-              ],
-              [
-                4.640619152508778,
-                52.47455099678927
+                4.640711012523137,
+                52.47455990934611
               ],
               [
                 4.640180119220701,

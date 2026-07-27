@@ -3,9 +3,10 @@
   "metadata": {
     "gemeente": "Nunspeet",
     "slug": "nunspeet",
-    "generated_at": "2026-07-20T06:07:09.294023Z",
-    "total_points": 32,
+    "generated_at": "2026-07-27T06:21:54.285181Z",
+    "total_points": 36,
     "providers": [
+      "Amazon",
       "DHL",
       "DPD",
       "PostNL",
@@ -21,6 +22,98 @@
     ]
   },
   "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.80377102,
+          52.38373179
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Plus",
+        "straatNaam": "Colijnstraat 86",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.38373179,
+        "longitude": 5.80377102,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.785591508,
+          52.37603805
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Bruna Nunspeet",
+        "straatNaam": "Dorpsstraat 15",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.37603805,
+        "longitude": 5.785591508,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.785415126,
+          52.37602066
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Primera Nunspeet",
+        "straatNaam": "Dorpsstraat 17",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.37602066,
+        "longitude": 5.785415126,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.788629143,
+          52.29145325
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Drogisterij de Brink",
+        "straatNaam": "Apeldoornseweg 5",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.29145325,
+        "longitude": 5.788629143,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
     {
       "type": "Feature",
       "geometry": {
@@ -1789,10 +1882,6 @@
           [
             [
               [
-                5.7652516157174345,
-                52.37159944681943
-              ],
-              [
                 5.76482433176156,
                 52.371639636500944
               ],
@@ -2207,6 +2296,10 @@
               [
                 5.7652516157174345,
                 52.37159944681943
+              ],
+              [
+                5.76482433176156,
+                52.371639636500944
               ]
             ]
           ],
@@ -2981,10 +3074,6 @@
           [
             [
               [
-                5.807644939311222,
-                52.38244706977241
-              ],
-              [
                 5.807420490320725,
                 52.38222091039088
               ],
@@ -3239,6 +3328,10 @@
               [
                 5.807644939311222,
                 52.38244706977241
+              ],
+              [
+                5.807420490320725,
+                52.38222091039088
               ]
             ]
           ]
@@ -4257,7 +4350,7 @@
                 52.372592145734195
               ],
               [
-                5.786913202642617,
+                5.786913202642616,
                 52.372539383983415
               ],
               [
@@ -4340,10 +4433,6 @@
           ],
           [
             [
-              [
-                5.764530365085234,
-                52.370759078826964
-              ],
               [
                 5.763971986484956,
                 52.37084658233268
@@ -4723,6 +4812,10 @@
               [
                 5.764530365085234,
                 52.370759078826964
+              ],
+              [
+                5.763971986484956,
+                52.37084658233268
               ]
             ]
           ],
@@ -5169,10 +5262,6 @@
           [
             [
               [
-                5.808936195079385,
-                52.38201880012707
-              ],
-              [
                 5.808636924393463,
                 52.38171725743167
               ],
@@ -5427,6 +5516,10 @@
               [
                 5.808936195079385,
                 52.38201880012707
+              ],
+              [
+                5.808636924393463,
+                52.38171725743167
               ]
             ]
           ]

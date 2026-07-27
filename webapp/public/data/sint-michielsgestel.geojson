@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Sint-Michielsgestel",
     "slug": "sint-michielsgestel",
-    "generated_at": "2026-07-20T06:10:56.474779Z",
-    "total_points": 29,
+    "generated_at": "2026-07-27T06:26:14.698659Z",
+    "total_points": 31,
     "providers": [
       "Amazon",
       "DHL",
@@ -28,6 +28,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          5.361428473,
+          51.62111106
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Geerts Adviesgroep BV",
+        "straatNaam": "Dorpstraat 13",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.62111106,
+        "longitude": 5.361428473,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           5.34913985117908,
           51.6385005549462
         ]
@@ -42,6 +65,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.6385005549462,
         "longitude": 5.34913985117908,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.36116626373598,
+          51.650413638249
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "van Hamond VOF",
+        "straatNaam": "Berkdijk 9 A",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.650413638249,
+        "longitude": 5.36116626373598,
         "canPickup": true,
         "canDropoff": false
       }

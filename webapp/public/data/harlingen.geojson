@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Harlingen",
     "slug": "harlingen",
-    "generated_at": "2026-07-20T06:00:05.227325Z",
+    "generated_at": "2026-07-27T06:13:57.342821Z",
     "total_points": 32,
     "providers": [
       "Amazon",
@@ -41,29 +41,6 @@
         "bezettingsgraad": 50,
         "latitude": 53.17493776,
         "longitude": 5.41887075,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.43982124,
-          53.17310628
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "GAMMA Harlingen",
-        "straatNaam": "Roordaweg 1",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 53.17310628,
-        "longitude": 5.43982124,
         "canPickup": true,
         "canDropoff": false
       }
@@ -309,7 +286,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - Jumbo Olaf Her",
+        "locatieNaam": "Pakketautomaat Jumbo Olaf Hermus",
         "straatNaam": "SPOORSTRAAT",
         "straatNr": "1",
         "vervoerder": "DPD",
@@ -754,6 +731,29 @@
         "bezettingsgraad": 50,
         "latitude": 53.17118,
         "longitude": 5.41875,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.42049,
+          53.17081
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "",
+        "straatNaam": "Spoorstraat",
+        "straatNr": "1",
+        "vervoerder": "InPost",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 53.17081,
+        "longitude": 5.42049,
         "canPickup": true,
         "canDropoff": true
       }

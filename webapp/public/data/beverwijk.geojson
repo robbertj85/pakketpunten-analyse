@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Beverwijk",
     "slug": "beverwijk",
-    "generated_at": "2026-07-20T05:53:47.290526Z",
-    "total_points": 58,
+    "generated_at": "2026-07-27T06:06:39.754505Z",
+    "total_points": 63,
     "providers": [
       "Amazon",
       "DeBuren",
@@ -23,6 +23,29 @@
     ]
   },
   "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.66217209,
+          52.48183953
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Inpakservice IJmond",
+        "straatNaam": "Spoorsingel 24 A",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.48183953,
+        "longitude": 4.66217209,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
     {
       "type": "Feature",
       "geometry": {
@@ -97,6 +120,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.659686201,
+          52.48261522
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Primera",
+        "straatNaam": "Beverhof 6",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.48261522,
+        "longitude": 4.659686201,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.665002947,
           52.49598539
         ]
@@ -111,6 +157,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.49598539,
         "longitude": 4.665002947,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.668707162,
+          52.47646872
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Mirac",
+        "straatNaam": "De Brugman 9",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.47646872,
+        "longitude": 4.668707162,
         "canPickup": true,
         "canDropoff": false
       }
@@ -143,6 +212,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.674244066,
+          52.48270363
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "KARWEI Beverwijk",
+        "straatNaam": "Parallelweg 134",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.48270363,
+        "longitude": 4.674244066,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.592667035,
           52.49206267
         ]
@@ -157,6 +249,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.49206267,
         "longitude": 4.592667035,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.597306189,
+          52.49365752
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Spar",
+        "straatNaam": "Verlengde Voorstraat 56",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.49365752,
+        "longitude": 4.597306189,
         "canPickup": true,
         "canDropoff": false
       }
@@ -1713,7 +1828,7 @@
                 52.48484387780102
               ],
               [
-                4.6534992290103,
+                4.6534992290103006,
                 52.484820997194554
               ],
               [
@@ -2773,10 +2888,6 @@
           [
             [
               [
-                4.596200924632189,
-                52.48961716292774
-              ],
-              [
                 4.595982163908926,
                 52.48938874557328
               ],
@@ -3203,6 +3314,10 @@
               [
                 4.596200924632189,
                 52.48961716292774
+              ],
+              [
+                4.595982163908926,
+                52.48938874557328
               ]
             ]
           ],
@@ -4545,7 +4660,7 @@
                 52.48686654515332
               ],
               [
-                4.658152925870707,
+                4.658152925870708,
                 52.486901110094145
               ],
               [
@@ -4577,7 +4692,7 @@
                 52.487491987324056
               ],
               [
-                4.662507285187967,
+                4.662507285187965,
                 52.48744375113574
               ],
               [
@@ -5609,6 +5724,10 @@
               [
                 4.663677999457339,
                 52.50041755283804
+              ],
+              [
+                4.6639451558069975,
+                52.50036104751618
               ],
               [
                 4.663945155806998,

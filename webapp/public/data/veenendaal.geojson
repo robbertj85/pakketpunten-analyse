@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Veenendaal",
     "slug": "veenendaal",
-    "generated_at": "2026-07-20T06:13:48.750376Z",
-    "total_points": 70,
+    "generated_at": "2026-07-27T06:29:28.604946Z",
+    "total_points": 73,
     "providers": [
       "Amazon",
       "DeBuren",
@@ -51,20 +51,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          5.569144611,
-          52.03268427
+          5.569339017,
+          52.03748362
         ]
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "T&G Edwin en Janet Veenendaal",
-        "straatNaam": "Ronde Erf 56",
+        "locatieNaam": "GAMMA Veenendaal",
+        "straatNaam": "Einsteinstraat 2",
         "straatNr": "",
         "vervoerder": "Amazon",
         "puntType": "3p",
         "bezettingsgraad": 50,
-        "latitude": 52.03268427,
-        "longitude": 5.569144611,
+        "latitude": 52.03748362,
+        "longitude": 5.569339017,
         "canPickup": true,
         "canDropoff": false
       }
@@ -97,6 +97,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          5.556280618,
+          52.02979131
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Cigo",
+        "straatNaam": "Scheepjeshof 78",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.02979131,
+        "longitude": 5.556280618,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           5.553214878,
           52.0243309
         ]
@@ -111,6 +134,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.0243309,
         "longitude": 5.553214878,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.555277933,
+          52.0266469
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Bruna Hoofdstraat",
+        "straatNaam": "Hoofdstraat 29",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.0266469,
+        "longitude": 5.555277933,
         "canPickup": true,
         "canDropoff": false
       }
@@ -166,43 +212,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          5.560984419,
-          52.01404623
+          5.56574681309779,
+          52.0101741863695
         ]
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "KARWEI Veenendaal",
-        "straatNaam": "Groeneveldselaan 33",
+        "locatieNaam": "Box-Inn",
+        "straatNaam": "Kernreactorstraat 24 A",
         "straatNr": "",
         "vervoerder": "Amazon",
         "puntType": "3p",
         "bezettingsgraad": 50,
-        "latitude": 52.01404623,
-        "longitude": 5.560984419,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.533106847,
-          52.02832133
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Bruna Ellekoot",
-        "straatNaam": "Veenslag 86",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 52.02832133,
-        "longitude": 5.533106847,
+        "latitude": 52.0101741863695,
+        "longitude": 5.56574681309779,
         "canPickup": true,
         "canDropoff": false
       }
@@ -235,20 +258,66 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          5.56574681309779,
-          52.0101741863695
+          5.533106847,
+          52.02832133
         ]
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Box-Inn",
-        "straatNaam": "Kernreactorstraat 24 A",
+        "locatieNaam": "Bruna Ellekoot",
+        "straatNaam": "Veenslag 86",
         "straatNr": "",
         "vervoerder": "Amazon",
         "puntType": "3p",
         "bezettingsgraad": 50,
-        "latitude": 52.0101741863695,
-        "longitude": 5.56574681309779,
+        "latitude": 52.02832133,
+        "longitude": 5.533106847,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.54163919,
+          52.01802801
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Primera van Walsem",
+        "straatNaam": "Dr. Slotemaker de Bruineplein 31",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.01802801,
+        "longitude": 5.54163919,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.560984419,
+          52.01404623
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "KARWEI Veenendaal",
+        "straatNaam": "Groeneveldselaan 33",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.01404623,
+        "longitude": 5.560984419,
         "canPickup": true,
         "canDropoff": false
       }
@@ -465,6 +534,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          5.556177,
+          52.0260781
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat HEMA Veenendaal",
+        "straatNaam": "Tuinstraat",
+        "straatNr": "85-Kast",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 52.0260781,
+        "longitude": 5.556177,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           5.541298023676141,
           52.03827237230561
         ]
@@ -548,29 +640,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.0277357,
         "longitude": 5.5565752,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.556177,
-          52.0260781
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat HEMA Veenendaal",
-        "straatNaam": "Tuinstraat",
-        "straatNr": "85-Kast",
-        "vervoerder": "DHL",
-        "puntType": "packStation",
-        "bezettingsgraad": 50,
-        "latitude": 52.0260781,
-        "longitude": 5.556177,
         "canPickup": true,
         "canDropoff": true
       }
@@ -3597,10 +3666,6 @@
                 52.03443550347015
               ],
               [
-                5.566049703842359,
-                52.034588069814625
-              ],
-              [
                 5.56604970384236,
                 52.034588069814625
               ],
@@ -3933,7 +3998,7 @@
                 52.03077279465068
               ],
               [
-                5.571953749268436,
+                5.571953749268437,
                 52.03062024261048
               ],
               [
@@ -4212,10 +4277,6 @@
           ],
           [
             [
-              [
-                5.536736480643911,
-                52.0268187140511
-              ],
               [
                 5.536480235176851,
                 52.02660649816155
@@ -4499,6 +4560,10 @@
               [
                 5.536736480643911,
                 52.0268187140511
+              ],
+              [
+                5.536480235176851,
+                52.02660649816155
               ]
             ]
           ],
@@ -5153,10 +5218,6 @@
           [
             [
               [
-                5.581296582071488,
-                52.0226887883497
-              ],
-              [
                 5.580872128143565,
                 52.022650660765315
               ],
@@ -5451,6 +5512,10 @@
               [
                 5.581296582071488,
                 52.0226887883497
+              ],
+              [
+                5.580872128143565,
+                52.022650660765315
               ]
             ]
           ],
@@ -8385,10 +8450,6 @@
           [
             [
               [
-                5.58157698675488,
-                52.02180678159932
-              ],
-              [
                 5.581011059170826,
                 52.021755945815826
               ],
@@ -8671,6 +8732,10 @@
               [
                 5.58157698675488,
                 52.02180678159932
+              ],
+              [
+                5.581011059170826,
+                52.021755945815826
               ]
             ]
           ],

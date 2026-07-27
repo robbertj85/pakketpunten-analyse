@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Westerveld",
     "slug": "westerveld",
-    "generated_at": "2026-07-20T06:15:53.345456Z",
-    "total_points": 26,
+    "generated_at": "2026-07-27T06:31:51.815394Z",
+    "total_points": 28,
     "providers": [
       "Amazon",
       "DHL",
@@ -40,6 +40,52 @@
         "bezettingsgraad": 50,
         "latitude": 52.77080487,
         "longitude": 6.235253008,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.366910757,
+          52.83363102
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "DA drogisterij de Brink",
+        "straatNaam": "Brink 19",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.83363102,
+        "longitude": 6.366910757,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.208175959,
+          52.85753074
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Boekhandel Vledderland",
+        "straatNaam": "Dorpsstraat 14",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.85753074,
+        "longitude": 6.208175959,
         "canPickup": true,
         "canDropoff": false
       }
@@ -285,7 +331,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - Plus Diever",
+        "locatieNaam": "Pakketautomaat Plus Diever",
         "straatNaam": "HOOFDSTRAAT",
         "straatNr": "82",
         "vervoerder": "DPD",
@@ -1647,7 +1693,7 @@
                 52.854987673467086
               ],
               [
-                6.213702184346639,
+                6.213702184346637,
                 52.854923981511874
               ],
               [
@@ -1975,10 +2021,6 @@
           [
             [
               [
-                6.379475026226672,
-                52.83706522290293
-              ],
-              [
                 6.379282826615808,
                 52.83682763783461
               ],
@@ -2233,6 +2275,10 @@
               [
                 6.379475026226672,
                 52.83706522290293
+              ],
+              [
+                6.379282826615808,
+                52.83682763783461
               ]
             ]
           ],
@@ -3543,10 +3589,6 @@
           [
             [
               [
-                6.213203289342444,
-                52.853724842308196
-              ],
-              [
                 6.212652408131484,
                 52.8536098100826
               ],
@@ -3695,7 +3737,7 @@
                 52.860719875392135
               ],
               [
-                6.205571748226076,
+                6.205571748226078,
                 52.86075758533041
               ],
               [
@@ -3867,7 +3909,7 @@
                 52.85415355774657
               ],
               [
-                6.214393615849435,
+                6.214393615849436,
                 52.85411890324848
               ],
               [
@@ -3881,6 +3923,10 @@
               [
                 6.213203289342444,
                 52.853724842308196
+              ],
+              [
+                6.212652408131484,
+                52.8536098100826
               ]
             ]
           ],

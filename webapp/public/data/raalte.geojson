@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Raalte",
     "slug": "raalte",
-    "generated_at": "2026-07-20T06:09:12.697325Z",
-    "total_points": 64,
+    "generated_at": "2026-07-27T06:24:14.038302Z",
+    "total_points": 67,
     "providers": [
       "Amazon",
       "DeBuren",
@@ -24,6 +24,29 @@
     ]
   },
   "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.2313026189804,
+          52.4441775913537
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Hartholt Olie Heino",
+        "straatNaam": "C. Huygensstraat 2",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.4441775913537,
+        "longitude": 6.2313026189804,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
     {
       "type": "Feature",
       "geometry": {
@@ -52,20 +75,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          6.282593763,
-          52.3305829
+          6.368648128,
+          52.40458258
         ]
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Plus Kolkman Heeten",
-        "straatNaam": "Dorpsstraat 36",
+        "locatieNaam": "Gewoon Coop Luttenberg",
+        "straatNaam": "Butzelaarstraat 21",
         "straatNr": "",
         "vervoerder": "Amazon",
         "puntType": "3p",
         "bezettingsgraad": 50,
-        "latitude": 52.3305829,
-        "longitude": 6.282593763,
+        "latitude": 52.40458258,
+        "longitude": 6.368648128,
         "canPickup": true,
         "canDropoff": false
       }
@@ -121,20 +144,66 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          6.27603376361601,
-          52.3876166871842
+          6.275792364,
+          52.3865669
         ]
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Telefoon Expert",
-        "straatNaam": "Stationsstraat 42 A",
+        "locatieNaam": "Primera Raalte",
+        "straatNaam": "Marktstraat 10",
         "straatNr": "",
         "vervoerder": "Amazon",
         "puntType": "3p",
         "bezettingsgraad": 50,
-        "latitude": 52.3876166871842,
-        "longitude": 6.27603376361601,
+        "latitude": 52.3865669,
+        "longitude": 6.275792364,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.263450822984099,
+          52.371437618328635
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "DHL - Pakketautomaat Esso Raalte",
+        "straatNaam": "Nieuwe Deventerweg 5",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.371437618328635,
+        "longitude": 6.263450822984099,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.282593763,
+          52.3305829
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Plus Kolkman Heeten",
+        "straatNaam": "Dorpsstraat 36",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.3305829,
+        "longitude": 6.282593763,
         "canPickup": true,
         "canDropoff": false
       }
@@ -167,6 +236,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          6.27603376361601,
+          52.3876166871842
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Telefoon Expert",
+        "straatNaam": "Stationsstraat 42 A",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.3876166871842,
+        "longitude": 6.27603376361601,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           6.27561810454971,
           52.3852020326838
         ]
@@ -181,29 +273,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.3852020326838,
         "longitude": 6.27561810454971,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          6.263450822984099,
-          52.371437618328635
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "DHL - Pakketautomaat Esso Raalte",
-        "straatNaam": "Nieuwe Deventerweg 5",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 52.371437618328635,
-        "longitude": 6.263450822984099,
         "canPickup": true,
         "canDropoff": false
       }
@@ -3700,6 +3769,10 @@
           [
             [
               [
+                6.349790641602838,
+                52.31436050763305
+              ],
+              [
                 6.349364460545497,
                 52.3144028042872
               ],
@@ -3970,19 +4043,11 @@
               [
                 6.349790641602838,
                 52.31436050763305
-              ],
-              [
-                6.349364460545497,
-                52.3144028042872
               ]
             ]
           ],
           [
             [
-              [
-                6.348736217290578,
-                52.32552250192825
-              ],
               [
                 6.348474390968575,
                 52.32531208739491
@@ -4278,6 +4343,10 @@
               [
                 6.348736217290578,
                 52.32552250192825
+              ],
+              [
+                6.348474390968575,
+                52.32531208739491
               ]
             ]
           ],
@@ -5156,10 +5225,6 @@
           [
             [
               [
-                6.372279855984941,
-                52.40305437034683
-              ],
-              [
                 6.37201745771074,
                 52.40284401264257
               ],
@@ -5414,6 +5479,10 @@
               [
                 6.372279855984941,
                 52.40305437034683
+              ],
+              [
+                6.37201745771074,
+                52.40284401264257
               ]
             ]
           ]
@@ -7464,6 +7533,10 @@
           [
             [
               [
+                6.349627534594592,
+                52.31346734135959
+              ],
+              [
                 6.349059304208841,
                 52.31352373575606
               ],
@@ -7734,19 +7807,11 @@
               [
                 6.349627534594592,
                 52.31346734135959
-              ],
-              [
-                6.349059304208841,
-                52.31352373575606
               ]
             ]
           ],
           [
             [
-              [
-                6.349944899967791,
-                52.3250133098719
-              ],
               [
                 6.34959579516793,
                 52.32473276057726
@@ -8034,6 +8099,10 @@
               [
                 6.349944899967791,
                 52.3250133098719
+              ],
+              [
+                6.34959579516793,
+                52.32473276057726
               ]
             ]
           ],
@@ -8616,10 +8685,6 @@
           [
             [
               [
-                6.373490375312357,
-                52.40254494103445
-              ],
-              [
                 6.373140507905819,
                 52.40226446751867
               ],
@@ -8874,6 +8939,10 @@
               [
                 6.373490375312357,
                 52.40254494103445
+              ],
+              [
+                6.373140507905819,
+                52.40226446751867
               ]
             ]
           ]

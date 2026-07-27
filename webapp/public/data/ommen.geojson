@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Ommen",
     "slug": "ommen",
-    "generated_at": "2026-07-20T06:07:45.900454Z",
-    "total_points": 27,
+    "generated_at": "2026-07-27T06:22:36.675533Z",
+    "total_points": 29,
     "providers": [
       "Amazon",
       "DHL",
@@ -21,6 +21,29 @@
     ]
   },
   "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.423500953,
+          52.51919805
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "The Read Shop",
+        "straatNaam": "Kruisstraat 3",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.51919805,
+        "longitude": 6.423500953,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
     {
       "type": "Feature",
       "geometry": {
@@ -63,6 +86,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.5206040684299,
         "longitude": 6.42511054929493,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.573663525,
+          52.49533871
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "H.C.R. Beerzerveld",
+        "straatNaam": "Van Alewijkstraat 32",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.49533871,
+        "longitude": 6.573663525,
         "canPickup": true,
         "canDropoff": false
       }
@@ -239,7 +285,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - Jumbo Ommen",
+        "locatieNaam": "Pakketautomaat Jumbo Ommen",
         "straatNaam": "MARKT",
         "straatNr": "22",
         "vervoerder": "DPD",
@@ -262,7 +308,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - Benzinestation",
+        "locatieNaam": "Pakketautomaat Benzinestation Ooste",
         "straatNaam": "DEN OORDT",
         "straatNr": "3",
         "vervoerder": "DPD",

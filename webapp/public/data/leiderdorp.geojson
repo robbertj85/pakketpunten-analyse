@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Leiderdorp",
     "slug": "leiderdorp",
-    "generated_at": "2026-07-20T06:03:44.549287Z",
-    "total_points": 21,
+    "generated_at": "2026-07-27T06:18:02.564690Z",
+    "total_points": 22,
     "providers": [
       "Amazon",
       "DHL",
@@ -40,6 +40,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.15848656,
         "longitude": 4.545460246,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.534660988,
+          52.1706871
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Hoogvliet",
+        "straatNaam": "Poortwacht 139",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.1706871,
+        "longitude": 4.534660988,
         "canPickup": true,
         "canDropoff": false
       }

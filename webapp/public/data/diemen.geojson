@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Diemen",
     "slug": "diemen",
-    "generated_at": "2026-07-20T05:56:24.007888Z",
-    "total_points": 28,
+    "generated_at": "2026-07-27T06:09:41.815434Z",
+    "total_points": 29,
     "providers": [
       "Amazon",
       "DHL",
@@ -23,6 +23,52 @@
     ]
   },
   "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.962491117,
+          52.34228874
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Bruna Diemen",
+        "straatNaam": "Diemerplein 34 -36",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.34228874,
+        "longitude": 4.962491117,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.963662365,
+          52.34257155
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Primera",
+        "straatNaam": "Diemerplein 52",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.34257155,
+        "longitude": 4.963662365,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
     {
       "type": "Feature",
       "geometry": {
@@ -65,29 +111,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.3425259319247,
         "longitude": 4.96347203310301,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.95744964,
-          52.33403777
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "ABC Drogisterij Kruidenhof",
-        "straatNaam": "Kruidenhof 16",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 52.33403777,
-        "longitude": 4.95744964,
         "canPickup": true,
         "canDropoff": false
       }
@@ -195,7 +218,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - Droog Cleaning",
+        "locatieNaam": "Pakketautomaat Droog Cleaning Servi",
         "straatNaam": "OUDDIEMERLAAN",
         "straatNr": "205",
         "vervoerder": "DPD",
@@ -1331,10 +1354,6 @@
                 52.345043482944014
               ],
               [
-                4.961909604159569,
-                52.345043482944014
-              ],
-              [
                 4.961953868464531,
                 52.34505649984281
               ],
@@ -1923,10 +1942,6 @@
           [
             [
               [
-                4.974750697956876,
-                52.32604808067922
-              ],
-              [
                 4.974568280783118,
                 52.32580824483131
               ],
@@ -2181,6 +2196,10 @@
               [
                 4.974750697956876,
                 52.32604808067922
+              ],
+              [
+                4.974568280783118,
+                52.32580824483131
               ]
             ]
           ],
@@ -3579,10 +3598,6 @@
                 52.33710597355135
               ],
               [
-                4.960495499095386,
-                52.33710597355135
-              ],
-              [
                 4.960681260848026,
                 52.33703867818012
               ],
@@ -3877,6 +3892,10 @@
               [
                 4.980802224429745,
                 52.33515436058244
+              ],
+              [
+                4.981081252752377,
+                52.33496788227989
               ],
               [
                 4.981081252752377,

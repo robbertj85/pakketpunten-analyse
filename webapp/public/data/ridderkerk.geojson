@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Ridderkerk",
     "slug": "ridderkerk",
-    "generated_at": "2026-07-20T06:09:44.821601Z",
+    "generated_at": "2026-07-27T06:24:51.730734Z",
     "total_points": 57,
     "providers": [
       "Amazon",
@@ -41,29 +41,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.86540521,
         "longitude": 4.618779234,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.618492068058139,
-          51.86519589036945
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "DHL - Pakketautomaat PLUS Ridderkerk",
-        "straatNaam": "Vlietplein 193",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 51.86519589036945,
-        "longitude": 4.618492068058139,
         "canPickup": true,
         "canDropoff": false
       }
@@ -165,20 +142,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          4.6061868443196134,
-          51.87512683666378
+          4.618492068058139,
+          51.86519589036945
         ]
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DHL - Pakketautomaat Esso Vissers Ridkrk",
-        "straatNaam": "Rotterdamseweg 15",
+        "locatieNaam": "DHL - Pakketautomaat PLUS Ridderkerk",
+        "straatNaam": "Vlietplein 193",
         "straatNr": "",
         "vervoerder": "Amazon",
         "puntType": "3p",
         "bezettingsgraad": 50,
-        "latitude": 51.87512683666378,
-        "longitude": 4.6061868443196134,
+        "latitude": 51.86519589036945,
+        "longitude": 4.618492068058139,
         "canPickup": true,
         "canDropoff": false
       }
@@ -202,6 +179,52 @@
         "bezettingsgraad": 50,
         "latitude": 51.87013153,
         "longitude": 4.606254471,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.6061868443196134,
+          51.87512683666378
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "DHL - Pakketautomaat Esso Vissers Ridkrk",
+        "straatNaam": "Rotterdamseweg 15",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.87512683666378,
+        "longitude": 4.6061868443196134,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.608414491,
+          51.87704917
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Van Meurs/GrafiMedia Produkties BV",
+        "straatNaam": "Wolweverstraat 21",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.87704917,
+        "longitude": 4.608414491,
         "canPickup": true,
         "canDropoff": false
       }
@@ -455,29 +478,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.86519589036945,
         "longitude": 4.618492068058139,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.605904,
-          51.875093
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Esso Vissers Rotterdamseweg",
-        "straatNaam": "Rotterdamseweg",
-        "straatNr": "15",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 51.875093,
-        "longitude": 4.605904,
         "canPickup": true,
         "canDropoff": true
       }
@@ -2457,32 +2457,24 @@
                 51.8767780632754
               ],
               [
-                4.602505502323097,
-                51.876779920031616
+                4.6027865198330735,
+                51.876976037128586
               ],
               [
-                4.602506841703252,
-                51.87678106339031
+                4.603100186168604,
+                51.87715584709146
               ],
               [
-                4.602790519791915,
-                51.87697903723383
+                4.603440819955264,
+                51.87731576126948
               ],
               [
-                4.603104186164343,
-                51.87715884718603
+                4.603805140507135,
+                51.877454239383034
               ],
               [
-                4.603444819987938,
-                51.87731876135246
-              ],
-              [
-                4.603809140576432,
-                51.87745723945362
-              ],
-              [
-                4.604026478617224,
-                51.87752264384236
+                4.604026051482355,
+                51.877520718997715
               ],
               [
                 4.604042227633584,
@@ -2919,6 +2911,14 @@
             ],
             [
               [
+                4.60438706377942,
+                51.872564161065185
+              ],
+              [
+                4.604276320043573,
+                51.87258785930739
+              ],
+              [
                 4.603887925852443,
                 51.87269841448108
               ],
@@ -2945,14 +2945,6 @@
               [
                 4.60438706377942,
                 51.872564161065185
-              ],
-              [
-                4.604276320043573,
-                51.87258785930739
-              ],
-              [
-                4.603887925852443,
-                51.87269841448108
               ]
             ]
           ],
@@ -5883,24 +5875,16 @@
                 51.87734072772063
               ],
               [
-                4.601373059323255,
-                51.87734258450233
+                4.601748634801325,
+                51.87760469633012
               ],
               [
-                4.601374398691236,
-                51.87734372787382
+                4.602166857414925,
+                51.877844446438544
               ],
               [
-                4.601752634746439,
-                51.87760769647045
-              ],
-              [
-                4.602170857409232,
-                51.87784744656461
-              ],
-              [
-                4.602517982845789,
-                51.878010410121256
+                4.602518086823186,
+                51.878009336686596
               ],
               [
                 4.602501425245836,

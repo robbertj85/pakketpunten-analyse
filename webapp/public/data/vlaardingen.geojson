@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Vlaardingen",
     "slug": "vlaardingen",
-    "generated_at": "2026-07-20T06:14:21.739884Z",
+    "generated_at": "2026-07-27T06:30:06.543788Z",
     "total_points": 60,
     "providers": [
       "Amazon",
@@ -42,6 +42,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.9179923233487,
         "longitude": 4.3369248169188,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.316505372,
+          51.90987984
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "West 2 Wielers",
+        "straatNaam": "Dr. Wiardi Beckmansingel 4 D",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.90987984,
+        "longitude": 4.316505372,
         "canPickup": true,
         "canDropoff": false
       }
@@ -304,75 +327,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          4.342741,
-          51.908443
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat Basic-Fit Vlaarding",
-        "straatNaam": "Hoogstraat",
-        "straatNr": "219",
-        "vervoerder": "DHL",
-        "puntType": "packStation",
-        "bezettingsgraad": 50,
-        "latitude": 51.908443,
-        "longitude": 4.342741,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.342216,
-          51.909143
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Round Telecom",
-        "straatNaam": "Kuiperstraat",
-        "straatNr": "33",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 51.909143,
-        "longitude": 4.342216,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.3402116,
-          51.9091317
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Supermarkt Diamond",
-        "straatNaam": "Veerplein",
-        "straatNr": "99-A",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 51.9091317,
-        "longitude": 4.3402116,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           4.3118513,
           51.9153474
         ]
@@ -580,6 +534,75 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.342216,
+          51.909143
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Round Telecom",
+        "straatNaam": "Kuiperstraat",
+        "straatNr": "33",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 51.909143,
+        "longitude": 4.342216,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.3402116,
+          51.9091317
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Supermarkt Diamond",
+        "straatNaam": "Veerplein",
+        "straatNr": "99-A",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 51.9091317,
+        "longitude": 4.3402116,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.342741,
+          51.908443
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat Basic-Fit Vlaarding",
+        "straatNaam": "Hoogstraat",
+        "straatNr": "219",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 51.908443,
+        "longitude": 4.342741,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.340239,
           51.9091611
         ]
@@ -678,7 +701,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - HYBK Reparatie",
+        "locatieNaam": "Pakketautomaat HYBK Reparatie Vlaar",
         "straatNaam": "SCHOUTPLEIN",
         "straatNr": "31",
         "vervoerder": "DPD",
@@ -701,7 +724,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - Wash4all",
+        "locatieNaam": "Pakketautomaat Wash4all",
         "straatNaam": "VAN HOGENDORPLAAN",
         "straatNr": "5A",
         "vervoerder": "DPD",
@@ -1353,29 +1376,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.90578,
         "longitude": 4.32998,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.33977,
-          51.91078
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "HYBK REPARATIE",
-        "straatNaam": "Schoutplein 31",
-        "straatNr": "",
-        "vervoerder": "InPost",
-        "puntType": "servicepunt",
-        "bezettingsgraad": 50,
-        "latitude": 51.91078,
-        "longitude": 4.33977,
         "canPickup": true,
         "canDropoff": true
       }
@@ -5231,8 +5231,8 @@
                 51.90404979465847
               ],
               [
-                4.323786698789083,
-                51.904163179192004
+                4.323786698789084,
+                51.904163179192
               ],
               [
                 4.323735287584502,
@@ -6237,7 +6237,7 @@
                 51.90626248336751
               ],
               [
-                4.315251868234131,
+                4.315251868234132,
                 51.90637336905688
               ],
               [

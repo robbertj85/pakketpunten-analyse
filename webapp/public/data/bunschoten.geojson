@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Bunschoten",
     "slug": "bunschoten",
-    "generated_at": "2026-07-20T05:54:57.544518Z",
+    "generated_at": "2026-07-27T06:08:01.897954Z",
     "total_points": 26,
     "providers": [
       "Amazon",
@@ -188,29 +188,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          5.379088296942886,
-          52.25198384587196
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat Jumbo Bunschoten",
-        "straatNaam": "De Ziel",
-        "straatNr": "45",
-        "vervoerder": "DHL",
-        "puntType": "packStation",
-        "bezettingsgraad": 50,
-        "latitude": 52.25198384587196,
-        "longitude": 5.379088296942886,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           5.3848366,
           52.2492236
         ]
@@ -225,6 +202,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.2492236,
         "longitude": 5.3848366,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.379088296942886,
+          52.25198384587196
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat Jumbo Bunschoten",
+        "straatNaam": "De Ziel",
+        "straatNr": "45",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 52.25198384587196,
+        "longitude": 5.379088296942886,
         "canPickup": true,
         "canDropoff": true
       }
@@ -286,7 +286,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - Hubo Bunschote",
+        "locatieNaam": "Pakketautomaat Hubo Bunschoten-Spak",
         "straatNaam": "DE KRONKELS",
         "straatNr": "25",
         "vervoerder": "DPD",

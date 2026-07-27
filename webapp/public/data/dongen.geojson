@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Dongen",
     "slug": "dongen",
-    "generated_at": "2026-07-20T05:56:47.310848Z",
-    "total_points": 31,
+    "generated_at": "2026-07-27T06:10:08.698213Z",
+    "total_points": 32,
     "providers": [
       "Amazon",
       "DeBuren",
@@ -42,6 +42,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.631490773814,
         "longitude": 4.92489751597075,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.930955278,
+          51.61511921
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "KARWEI Dongen",
+        "straatNaam": "De Hak 15",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.61511921,
+        "longitude": 4.930955278,
         "canPickup": true,
         "canDropoff": false
       }
@@ -1008,7 +1031,7 @@
                 51.613224402770136
               ],
               [
-                4.934030047872363,
+                4.934030047872362,
                 51.61322039887062
               ],
               [
@@ -1872,7 +1895,7 @@
                 51.65717630034416
               ],
               [
-                4.937173642843334,
+                4.937173642843332,
                 51.657305517272405
               ],
               [
@@ -3008,7 +3031,7 @@
                 51.612592780955445
               ],
               [
-                4.935057249370062,
+                4.935057249370061,
                 51.612588777117224
               ],
               [

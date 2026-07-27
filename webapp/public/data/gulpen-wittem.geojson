@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Gulpen-Wittem",
     "slug": "gulpen-wittem",
-    "generated_at": "2026-07-20T05:59:27.566222Z",
-    "total_points": 14,
+    "generated_at": "2026-07-27T06:13:13.586717Z",
+    "total_points": 16,
     "providers": [
       "Amazon",
       "DHL",
@@ -20,6 +20,52 @@
     ]
   },
   "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.894023403,
+          50.81569025
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "DA Gulpen",
+        "straatNaam": "Rijksweg 53",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 50.81569025,
+        "longitude": 5.894023403,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.892351933,
+          50.81594926
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Primera",
+        "straatNaam": "Looierstraat 35",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 50.81594926,
+        "longitude": 5.892351933,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
     {
       "type": "Feature",
       "geometry": {
@@ -48,20 +94,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          5.861208307,
-          50.76886261
+          5.912787853,
+          50.77621698
         ]
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Bakkerij Vermeeren BV",
-        "straatNaam": "Dorpsstraat 22 -24",
+        "locatieNaam": "Spar Epen",
+        "straatNaam": "Wilhelminastraat 15",
         "straatNr": "",
         "vervoerder": "Amazon",
         "puntType": "3p",
         "bezettingsgraad": 50,
-        "latitude": 50.76886261,
-        "longitude": 5.861208307,
+        "latitude": 50.77621698,
+        "longitude": 5.912787853,
         "canPickup": true,
         "canDropoff": false
       }
@@ -350,10 +396,6 @@
           [
             [
               [
-                5.86526934229746,
-                50.76806306878767
-              ],
-              [
                 5.865126199308788,
                 50.767814493038735
               ],
@@ -608,6 +650,10 @@
               [
                 5.86526934229746,
                 50.76806306878767
+              ],
+              [
+                5.865126199308788,
+                50.767814493038735
               ]
             ]
           ],
@@ -1222,10 +1268,6 @@
           [
             [
               [
-                5.916848635687547,
-                50.77541562544776
-              ],
-              [
                 5.9167051940739475,
                 50.77516711403244
               ],
@@ -1480,6 +1522,10 @@
               [
                 5.916848635687547,
                 50.77541562544776
+              ],
+              [
+                5.9167051940739475,
+                50.77516711403244
               ]
             ]
           ],
@@ -2306,10 +2352,6 @@
           [
             [
               [
-                5.866622988851506,
-                50.76779652234149
-              ],
-              [
                 5.866432123324561,
                 50.76746509022189
               ],
@@ -2564,6 +2606,10 @@
               [
                 5.866622988851506,
                 50.76779652234149
+              ],
+              [
+                5.866432123324561,
+                50.76746509022189
               ]
             ]
           ],
@@ -3162,10 +3208,6 @@
           [
             [
               [
-                5.91820219793563,
-                50.77514847456522
-              ],
-              [
                 5.918010934250466,
                 50.77481712822902
               ],
@@ -3420,6 +3462,10 @@
               [
                 5.91820219793563,
                 50.77514847456522
+              ],
+              [
+                5.918010934250466,
+                50.77481712822902
               ]
             ]
           ],

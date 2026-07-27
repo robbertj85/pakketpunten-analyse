@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Epe",
     "slug": "epe",
-    "generated_at": "2026-07-20T05:58:18.024045Z",
-    "total_points": 41,
+    "generated_at": "2026-07-27T06:11:51.984104Z",
+    "total_points": 43,
     "providers": [
       "Amazon",
       "DHL",
@@ -40,6 +40,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.34388005,
         "longitude": 6.046839711,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.002883341,
+          52.34461135
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "GAMMA Epe",
+        "straatNaam": "De Meent 19",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.34461135,
+        "longitude": 6.002883341,
         "canPickup": true,
         "canDropoff": false
       }
@@ -86,6 +109,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.31819039,
         "longitude": 5.975750509,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.968658694,
+          52.28846658
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Bruna (8743)",
+        "straatNaam": "Dorpsstraat 59",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.28846658,
+        "longitude": 5.968658694,
         "canPickup": true,
         "canDropoff": false
       }
@@ -446,7 +492,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - SPAR Van Lutti",
+        "locatieNaam": "Pakketautomaat SPAR Van Luttikhuize",
         "straatNaam": "VAASSENSEWEG",
         "straatNr": "12",
         "vervoerder": "DPD",
@@ -492,7 +538,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - SPAR Oene",
+        "locatieNaam": "Pakketautomaat SPAR Oene",
         "straatNaam": "DORPSSTRAAT",
         "straatNr": "8",
         "vervoerder": "DPD",
@@ -1516,10 +1562,6 @@
           [
             [
               [
-                5.977686660584421,
-                52.31232141636939
-              ],
-              [
                 5.977461703011649,
                 52.31209557741866
               ],
@@ -1990,6 +2032,10 @@
               [
                 5.977686660584421,
                 52.31232141636939
+              ],
+              [
+                5.977461703011649,
+                52.31209557741866
               ]
             ]
           ],
@@ -3484,7 +3530,7 @@
                 52.3441077542347
               ],
               [
-                5.998558413392855,
+                5.998558413392856,
                 52.344107755147824
               ],
               [
@@ -4160,10 +4206,6 @@
           [
             [
               [
-                5.978974230062397,
-                52.31189129242581
-              ],
-              [
                 5.97867428134209,
                 52.31159017697637
               ],
@@ -4586,6 +4628,10 @@
               [
                 5.978974230062397,
                 52.31189129242581
+              ],
+              [
+                5.97867428134209,
+                52.31159017697637
               ]
             ]
           ],
@@ -5916,7 +5962,7 @@
                 52.34393985278163
               ],
               [
-                5.997116791734432,
+                5.997116791734434,
                 52.34393985369477
               ],
               [

@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Hendrik-Ido-Ambacht",
     "slug": "hendrik-ido-ambacht",
-    "generated_at": "2026-07-20T06:00:57.514950Z",
-    "total_points": 38,
+    "generated_at": "2026-07-27T06:14:56.335818Z",
+    "total_points": 39,
     "providers": [
       "Amazon",
       "DeBuren",
@@ -22,6 +22,29 @@
     ]
   },
   "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.644550986,
+          51.84952626
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Cigo de Schoof",
+        "straatNaam": "De Schoof 43",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.84952626,
+        "longitude": 4.644550986,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
     {
       "type": "Feature",
       "geometry": {
@@ -401,7 +424,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - Albert Heijn v",
+        "locatieNaam": "Pakketautomaat Albert Heijn van der",
         "straatNaam": "SOPHIAPROMENADE",
         "straatNr": "14",
         "vervoerder": "DPD",
@@ -3060,10 +3083,6 @@
           [
             [
               [
-                4.647732640011702,
-                51.832367540289454
-              ],
-              [
                 4.647331981280086,
                 51.83227586385645
               ],
@@ -3370,6 +3389,10 @@
               [
                 4.647732640011702,
                 51.832367540289454
+              ],
+              [
+                4.647331981280086,
+                51.83227586385645
               ]
             ]
           ],

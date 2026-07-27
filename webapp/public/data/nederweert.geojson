@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Nederweert",
     "slug": "nederweert",
-    "generated_at": "2026-07-20T06:06:11.369882Z",
+    "generated_at": "2026-07-27T06:20:47.081402Z",
     "total_points": 21,
     "providers": [
       "Amazon",
@@ -21,6 +21,52 @@
     ]
   },
   "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.74975472624008,
+          51.2781164719837
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Witte Trading",
+        "straatNaam": "Pannenweg 422 424",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.2781164719837,
+        "longitude": 5.74975472624008,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.74869041,
+          51.28489736
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Hema",
+        "straatNaam": "Kerkstraat 41",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.28489736,
+        "longitude": 5.74869041,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
     {
       "type": "Feature",
       "geometry": {
@@ -86,52 +132,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.28911418,
         "longitude": 5.770814503,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.74869041,
-          51.28489736
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Hema",
-        "straatNaam": "Kerkstraat 41",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 51.28489736,
-        "longitude": 5.74869041,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.74975472624008,
-          51.2781164719837
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Witte Trading",
-        "straatNaam": "Pannenweg 422 424",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 51.2781164719837,
-        "longitude": 5.74975472624008,
         "canPickup": true,
         "canDropoff": false
       }

@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Leiden",
     "slug": "leiden",
-    "generated_at": "2026-07-20T06:03:39.559967Z",
-    "total_points": 94,
+    "generated_at": "2026-07-27T06:17:57.171874Z",
+    "total_points": 98,
     "providers": [
       "Amazon",
       "DeBuren",
@@ -52,6 +52,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.452295977,
+          52.15207742
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Bruna",
+        "straatNaam": "Ina Boudier-Bakkerstraat 9",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.15207742,
+        "longitude": 4.452295977,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.466682597862677,
           52.15268188933236
         ]
@@ -75,6 +98,52 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.494869761,
+          52.16045176
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "De Vliegershop",
+        "straatNaam": "Haarlemmerstraat 192",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.16045176,
+        "longitude": 4.494869761,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.49424896,
+          52.16006955
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Aktie Reizen Vakantiemakers",
+        "straatNaam": "Hooglandse Kerksteeg 8 A",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.16006955,
+        "longitude": 4.49424896,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.478141406,
           52.1472459
         ]
@@ -89,6 +158,52 @@
         "bezettingsgraad": 50,
         "latitude": 52.1472459,
         "longitude": 4.478141406,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.505514607,
+          52.17646816
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Primera Kopermolen",
+        "straatNaam": "Kopermolen 7",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.17646816,
+        "longitude": 4.505514607,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.505839473,
+          52.17476489
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Amazon Counter - ViaTim en Ester",
+        "straatNaam": "Uilenhorst 3",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "helix",
+        "bezettingsgraad": 50,
+        "latitude": 52.17476489,
+        "longitude": 4.505839473,
         "canPickup": true,
         "canDropoff": false
       }
@@ -328,29 +443,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          4.481587,
-          52.150466
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "ComputerPlus Leiden",
-        "straatNaam": "Telderskade",
-        "straatNr": "2-H",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 52.150466,
-        "longitude": 4.481587,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           4.4860322,
           52.1616511
         ]
@@ -388,6 +480,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.151550298096225,
         "longitude": 4.488665801988989,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.49222,
+          52.16049
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat HEMA Leiden",
+        "straatNaam": "Haarlemmerstraat",
+        "straatNr": "130-Kast",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 52.16049,
+        "longitude": 4.49222,
         "canPickup": true,
         "canDropoff": true
       }
@@ -503,29 +618,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.15518794729148,
         "longitude": 4.493846183198245,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.49222,
-          52.16049
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat HEMA Leiden",
-        "straatNaam": "Haarlemmerstraat",
-        "straatNr": "130-Kast",
-        "vervoerder": "DHL",
-        "puntType": "packStation",
-        "bezettingsgraad": 50,
-        "latitude": 52.16049,
-        "longitude": 4.49222,
         "canPickup": true,
         "canDropoff": true
       }
@@ -2474,6 +2566,10 @@
           [
             [
               [
+                4.451951764858338,
+                52.14861692715629
+              ],
+              [
                 4.45154494469338,
                 52.14870285069586
               ],
@@ -2784,10 +2880,6 @@
               [
                 4.451951764858338,
                 52.14861692715629
-              ],
-              [
-                4.45154494469338,
-                52.14870285069586
               ]
             ]
           ],
@@ -3410,7 +3502,7 @@
                 52.154201117450604
               ],
               [
-                4.489781645869571,
+                4.489781645869569,
                 52.15415527714742
               ],
               [
@@ -5226,32 +5318,24 @@
                 52.14922867731141
               ],
               [
-                4.485480912493738,
-                52.14922856262146
+                4.485264489375109,
+                52.149000045893374
               ],
               [
-                4.485478020848134,
-                52.1492246774089
+                4.4850125737811934,
+                52.14878557106048
               ],
               [
-                4.485261489143234,
-                52.1489960459853
+                4.484727700655137,
+                52.14858731810661
               ],
               [
-                4.48500957358623,
-                52.14878157114599
+                4.484412613575359,
+                52.14840719608982
               ],
               [
-                4.484724700498962,
-                52.14858331818477
-              ],
-              [
-                4.484409613459478,
-                52.14840319615994
-              ],
-              [
-                4.484321249995296,
-                52.148361822673515
+                4.484320027188686,
+                52.14836384535327
               ],
               [
                 4.484398032041105,
@@ -6918,7 +7002,7 @@
                 52.16879340824327
               ],
               [
-                4.507588873447428,
+                4.507588873447429,
                 52.16878717458
               ],
               [
@@ -7017,10 +7101,6 @@
           ],
           [
             [
-              [
-                4.5095151736757035,
-                52.17329418609118
-              ],
               [
                 4.509263004686342,
                 52.17307976337989
@@ -7520,6 +7600,10 @@
               [
                 4.5095151736757035,
                 52.17329418609118
+              ],
+              [
+                4.509263004686342,
+                52.17307976337989
               ]
             ]
           ]
@@ -10458,7 +10542,7 @@
                 52.14230001371042
               ],
               [
-                4.49242495766557,
+                4.492424957665571,
                 52.14230580485293
               ],
               [
@@ -10780,12 +10864,20 @@
             ],
             [
               [
-                4.4861503738221895,
-                52.14822007121654
+                4.4865075927236,
+                52.14820396435579
               ],
               [
-                4.485957734929423,
-                52.1480860100273
+                4.48622368556129,
+                52.14828393162392
+              ],
+              [
+                4.486153374082127,
+                52.148224071102604
+              ],
+              [
+                4.485957311524582,
+                52.148087627331215
               ],
               [
                 4.486028179500597,
@@ -10818,14 +10910,6 @@
               [
                 4.4865075927236,
                 52.14820396435579
-              ],
-              [
-                4.486224961412389,
-                52.14828357226098
-              ],
-              [
-                4.4861503738221895,
-                52.14822007121654
               ]
             ],
             [

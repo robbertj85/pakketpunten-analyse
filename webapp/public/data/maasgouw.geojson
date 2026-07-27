@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Maasgouw",
     "slug": "maasgouw",
-    "generated_at": "2026-07-20T06:04:41.656207Z",
+    "generated_at": "2026-07-27T06:19:08.334550Z",
     "total_points": 30,
     "providers": [
       "Amazon",
@@ -23,6 +23,29 @@
     ]
   },
   "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.891768837,
+          51.14666362
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Bruna",
+        "straatNaam": "Molenweg 23",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.14666362,
+        "longitude": 5.891768837,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
     {
       "type": "Feature",
       "geometry": {
@@ -157,29 +180,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.1639972,
         "longitude": 5.8392355,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.8426039,
-          51.166505
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "DHL Buurtpunt ViaTim & Gnome",
-        "straatNaam": "Hilsondisstraat",
-        "straatNr": "19",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 51.166505,
-        "longitude": 5.8426039,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1697,24 +1697,16 @@
                 51.16900222934248
               ],
               [
-                5.840986086617194,
-                51.16900240050475
+                5.840986232196722,
+                51.16900243261232
               ],
               [
-                5.840987210633225,
-                51.16900272936876
+                5.84098727308829,
+                51.16900273715583
               ],
               [
-                5.8413844097236405,
-                51.16909033080872
-              ],
-              [
-                5.841793355164028,
-                51.16915303279314
-              ],
-              [
-                5.841793383093677,
-                51.16915303528613
+                5.841384472178892,
+                51.16909033859557
               ],
               [
                 5.841793417619432,
@@ -1841,7 +1833,7 @@
                 51.16400726271247
               ],
               [
-                5.844219559034681,
+                5.844219559034678,
                 51.16400705946814
               ],
               [
@@ -4309,24 +4301,16 @@
                 51.16983479969045
               ],
               [
-                5.840447150427847,
-                51.169834970856314
+                5.840447296009641,
+                51.16983500296456
               ],
               [
-                5.840448274460433,
-                51.16983529972554
+                5.840448336916542,
+                51.1698353075129
               ],
               [
-                5.840977881829001,
-                51.1699521037877
-              ],
-              [
-                5.841523152166879,
-                51.170035708008065
-              ],
-              [
-                5.84152318009705,
-                51.170035710501104
+                5.840977944285354,
+                51.16995211157476
               ],
               [
                 5.8415232146234395,

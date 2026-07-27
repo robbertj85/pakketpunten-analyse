@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Aalten",
     "slug": "aalten",
-    "generated_at": "2026-07-20T05:51:03.706618Z",
-    "total_points": 34,
+    "generated_at": "2026-07-27T06:03:32.871295Z",
+    "total_points": 36,
     "providers": [
       "Amazon",
       "DHL",
@@ -22,6 +22,52 @@
     ]
   },
   "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.583316501,
+          51.92781366
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Primera",
+        "straatNaam": "Bredevoortsestraatweg 8",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.92781366,
+        "longitude": 6.583316501,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.565319197,
+          51.92793255
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "KARWEI Aalten",
+        "straatNaam": "De Driehoek 5",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.92793255,
+        "longitude": 6.565319197,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
     {
       "type": "Feature",
       "geometry": {
@@ -1452,10 +1498,6 @@
           [
             [
               [
-                6.574395842228673,
-                51.91950455522935
-              ],
-              [
                 6.5741698770258425,
                 51.91927984538481
               ],
@@ -2114,6 +2156,10 @@
               [
                 6.574395842228673,
                 51.91950455522935
+              ],
+              [
+                6.5741698770258425,
+                51.91927984538481
               ]
             ]
           ],
@@ -4216,10 +4262,6 @@
           [
             [
               [
-                6.575666362143639,
-                51.91906796832452
-              ],
-              [
                 6.57536507021564,
                 51.918768358355734
               ],
@@ -4770,6 +4812,10 @@
               [
                 6.575666362143639,
                 51.91906796832452
+              ],
+              [
+                6.57536507021564,
+                51.918768358355734
               ]
             ]
           ],

@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Oudewater",
     "slug": "oudewater",
-    "generated_at": "2026-07-20T06:08:34.405451Z",
-    "total_points": 13,
+    "generated_at": "2026-07-27T06:23:30.063381Z",
+    "total_points": 14,
     "providers": [
       "Amazon",
       "DHL",
@@ -41,6 +41,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.0238237932549,
         "longitude": 4.87176954828378,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.86482163,
+          52.0311545
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Jumbo",
+        "straatNaam": "Wagenerf 1",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.0311545,
+        "longitude": 4.86482163,
         "canPickup": true,
         "canDropoff": false
       }
@@ -1261,10 +1284,6 @@
           [
             [
               [
-                4.872078732170902,
-                52.03550967070193
-              ],
-              [
                 4.871937058844361,
                 52.03525989979207
               ],
@@ -1519,6 +1538,10 @@
               [
                 4.872078732170902,
                 52.03550967070193
+              ],
+              [
+                4.871937058844361,
+                52.03525989979207
               ]
             ]
           ]
@@ -2049,10 +2072,6 @@
                 52.02741424170665
               ],
               [
-                4.87190888372881,
-                52.02741424170665
-              ],
-              [
                 4.872299653792094,
                 52.027404112599115
               ],
@@ -2097,7 +2116,7 @@
                 52.02554091511574
               ],
               [
-                4.876972000665028,
+                4.8769720006650275,
                 52.025435650555444
               ],
               [

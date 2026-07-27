@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Barneveld",
     "slug": "barneveld",
-    "generated_at": "2026-07-20T05:52:45.796099Z",
-    "total_points": 71,
+    "generated_at": "2026-07-27T06:05:29.869150Z",
+    "total_points": 75,
     "providers": [
       "Amazon",
       "DHL",
@@ -97,6 +97,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          5.58799204,
+          52.14094166
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Primera",
+        "straatNaam": "Jan van Schaffelaarstraat 64",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.14094166,
+        "longitude": 5.58799204,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           5.595228898,
           52.13907758
         ]
@@ -111,6 +134,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.13907758,
         "longitude": 5.595228898,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.587215891,
+          52.12747898
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Jumbo",
+        "straatNaam": "Buru 40",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.12747898,
+        "longitude": 5.587215891,
         "canPickup": true,
         "canDropoff": false
       }
@@ -149,8 +195,8 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Intratuin Barneveld",
-        "straatNaam": "Burgemeester Aschofflaan 1",
+        "locatieNaam": "GAMMA Barneveld",
+        "straatNaam": "Burgemeester Aschofflaan 4",
         "straatNr": "",
         "vervoerder": "Amazon",
         "puntType": "3p",
@@ -172,14 +218,37 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "GAMMA Barneveld",
-        "straatNaam": "Burgemeester Aschofflaan 4",
+        "locatieNaam": "Intratuin Barneveld",
+        "straatNaam": "Burgemeester Aschofflaan 1",
         "straatNr": "",
         "vervoerder": "Amazon",
         "puntType": "3p",
         "bezettingsgraad": 50,
         "latitude": 52.12177325,
         "longitude": 5.575304546,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.604591175,
+          52.18682262
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "PhoneHouse Voorthuizen",
+        "straatNaam": "Hoofdstraat 157",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.18682262,
+        "longitude": 5.604591175,
         "canPickup": true,
         "canDropoff": false
       }
@@ -251,6 +320,52 @@
         "longitude": 5.50795841217041,
         "canPickup": true,
         "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.712520871,
+          52.23449782
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Coop Garderen",
+        "straatNaam": "Speulderweg 2",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.23449782,
+        "longitude": 5.712520871,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.578417189316413,
+          52.12146135935641
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat GAMMA Barneveld",
+        "straatNaam": "Burgemeester Aschofflaan",
+        "straatNr": "4",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 52.12146135935641,
+        "longitude": 5.578417189316413,
+        "canPickup": true,
+        "canDropoff": true
       }
     },
     {
@@ -603,29 +718,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          5.578417189316413,
-          52.12146135935641
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat GAMMA Barneveld",
-        "straatNaam": "Burgemeester Aschofflaan",
-        "straatNr": "4",
-        "vervoerder": "DHL",
-        "puntType": "packStation",
-        "bezettingsgraad": 50,
-        "latitude": 52.12146135935641,
-        "longitude": 5.578417189316413,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           5.661106,
           52.151133
         ]
@@ -678,7 +770,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - Car Wash Barne",
+        "locatieNaam": "Pakketautomaat Car Wash Barneveld",
         "straatNaam": "VALKSEWEG",
         "straatNr": "104",
         "vervoerder": "DPD",
@@ -724,7 +816,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - Plus Pater Koo",
+        "locatieNaam": "Pakketautomaat Plus Pater Kootwijke",
         "straatNaam": "WESSELSEWEG",
         "straatNr": "166",
         "vervoerder": "DPD",
@@ -747,7 +839,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - Comfort Carwas",
+        "locatieNaam": "Pakketautomaat Comfort Carwash Barn",
         "straatNaam": "SCHERPENZEELSEWEG",
         "straatNr": "56",
         "vervoerder": "DPD",
@@ -793,7 +885,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - SPAR van de Be",
+        "locatieNaam": "Pakketautomaat SPAR van de Beek",
         "straatNaam": "SMIDSTRAAT",
         "straatNr": "1",
         "vervoerder": "DPD",
@@ -2272,10 +2364,6 @@
           [
             [
               [
-                5.567526268477731,
-                52.12130645441882
-              ],
-              [
                 5.567269334569705,
                 52.12109430904885
               ],
@@ -2554,6 +2642,10 @@
               [
                 5.567526268477731,
                 52.12130645441882
+              ],
+              [
+                5.567269334569705,
+                52.12109430904885
               ]
             ]
           ],
@@ -2823,6 +2915,10 @@
           ],
           [
             [
+              [
+                5.580398161783624,
+                52.13290807420688
+              ],
               [
                 5.580008969513473,
                 52.13279557568479
@@ -3538,10 +3634,6 @@
               [
                 5.580398161783624,
                 52.13290807420688
-              ],
-              [
-                5.580008969513473,
-                52.13279557568479
               ]
             ]
           ],
@@ -5460,6 +5552,14 @@
           [
             [
               [
+                5.606983185880913,
+                52.12993353619051
+              ],
+              [
+                5.606613730205777,
+                52.129798187011204
+              ],
+              [
                 5.60622449915695,
                 52.12968577498261
               ],
@@ -5810,14 +5910,6 @@
               [
                 5.606983185880913,
                 52.12993353619051
-              ],
-              [
-                5.606613730205777,
-                52.129798187011204
-              ],
-              [
-                5.60622449915695,
-                52.12968577498261
               ]
             ]
           ],
@@ -6236,7 +6328,7 @@
                 52.15378105224393
               ],
               [
-                5.66010114043753,
+                5.660101140437529,
                 52.15375437898582
               ],
               [
@@ -6392,7 +6484,7 @@
                 52.148447629478575
               ],
               [
-                5.660391756619648,
+                5.660391756619649,
                 52.14847310939753
               ],
               [
@@ -6680,10 +6772,6 @@
           [
             [
               [
-                5.61079001959144,
-                52.18527705458389
-              ],
-              [
                 5.610532511103864,
                 52.185065006158915
               ],
@@ -6736,7 +6824,7 @@
                 52.18420404786152
               ],
               [
-                5.605762855486822,
+                5.605762855486821,
                 52.1842264827246
               ],
               [
@@ -6868,7 +6956,7 @@
                 52.18940520805198
               ],
               [
-                5.603570766738331,
+                5.603570766738333,
                 52.18944176654928
               ],
               [
@@ -7006,6 +7094,10 @@
               [
                 5.61079001959144,
                 52.18527705458389
+              ],
+              [
+                5.610532511103864,
+                52.185065006158915
               ]
             ]
           ],
@@ -9080,7 +9172,7 @@
                 52.13737362732036
               ],
               [
-                5.600239273352318,
+                5.600239273352317,
                 52.13723646349586
               ],
               [
@@ -11664,7 +11756,7 @@
                 52.15467517767039
               ],
               [
-                5.660049653112246,
+                5.660049653112245,
                 52.15466724288955
               ],
               [
@@ -12104,10 +12196,6 @@
           [
             [
               [
-                5.612003304520426,
-                52.18477540643289
-              ],
-              [
                 5.611659956594517,
                 52.184492678579865
               ],
@@ -12288,7 +12376,7 @@
                 52.190266066159424
               ],
               [
-                5.6031220662666605,
+                5.603122066266663,
                 52.190298313882835
               ],
               [
@@ -12342,6 +12430,10 @@
               [
                 5.609686503400445,
                 52.190017765445
+              ],
+              [
+                5.609692954447015,
+                52.19001480604449
               ],
               [
                 5.6096929544470155,
@@ -12418,6 +12510,10 @@
               [
                 5.612003304520426,
                 52.18477540643289
+              ],
+              [
+                5.611659956594517,
+                52.184492678579865
               ]
             ]
           ],

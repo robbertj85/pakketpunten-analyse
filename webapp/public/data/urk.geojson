@@ -3,9 +3,10 @@
   "metadata": {
     "gemeente": "Urk",
     "slug": "urk",
-    "generated_at": "2026-07-20T06:13:15.096193Z",
-    "total_points": 24,
+    "generated_at": "2026-07-27T06:28:50.615225Z",
+    "total_points": 26,
     "providers": [
+      "Amazon",
       "DeBuren",
       "DHL",
       "DPD",
@@ -22,6 +23,52 @@
     ]
   },
   "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.623571868,
+          52.66289821
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "'t Boekendal",
+        "straatNaam": "Nagel 48",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.66289821,
+        "longitude": 5.623571868,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.599673711,
+          52.66043596
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Intertoys Koster",
+        "straatNaam": "Handelskade 8",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.66043596,
+        "longitude": 5.599673711,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
     {
       "type": "Feature",
       "geometry": {
@@ -734,7 +781,7 @@
                 52.65900181872088
               ],
               [
-                5.603312060350893,
+                5.603312060350894,
                 52.6588980058807
               ],
               [
@@ -910,7 +957,7 @@
                 52.66337430405935
               ],
               [
-                5.592991532844874,
+                5.592991532844872,
                 52.663465094322596
               ],
               [

@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Woerden",
     "slug": "woerden",
-    "generated_at": "2026-07-20T06:16:45.173489Z",
+    "generated_at": "2026-07-27T06:32:50.472422Z",
     "total_points": 47,
     "providers": [
       "Amazon",
@@ -56,29 +56,6 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "CoopCompact",
-        "straatNaam": "Middenweg 1",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 52.11546935,
-        "longitude": 4.836374055,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.836374055,
-          52.11546935
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Gewoon Coop Compact Zegveld",
         "straatNaam": "Middenweg 1",
         "straatNr": "",
         "vervoerder": "Amazon",
@@ -155,6 +132,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.09111551,
         "longitude": 4.963491989,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.836374055,
+          52.11546935
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Gewoon Coop Compact Zegveld",
+        "straatNaam": "Middenweg 1",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 52.11546935,
+        "longitude": 4.836374055,
         "canPickup": true,
         "canDropoff": false
       }
@@ -538,7 +538,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - BP Middelweerd",
+        "locatieNaam": "Pakketautomaat BP Middelweerd",
         "straatNaam": "BEDRIJFSWEG",
         "straatNr": "2",
         "vervoerder": "DPD",

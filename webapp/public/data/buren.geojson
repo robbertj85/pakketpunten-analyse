@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Buren",
     "slug": "buren",
-    "generated_at": "2026-07-20T05:55:02.280358Z",
-    "total_points": 29,
+    "generated_at": "2026-07-27T06:08:08.086883Z",
+    "total_points": 31,
     "providers": [
       "Amazon",
       "DHL",
@@ -72,20 +72,66 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          5.45361220836639,
-          51.970225474705
+          5.420044242,
+          51.96255111
         ]
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Boon's Markt Eck en Wiel",
-        "straatNaam": "Veerweg 14",
+        "locatieNaam": "Jumbo Mostert",
+        "straatNaam": "Raadhuisstraat 54",
         "straatNr": "",
         "vervoerder": "Amazon",
         "puntType": "3p",
         "bezettingsgraad": 50,
-        "latitude": 51.970225474705,
-        "longitude": 5.45361220836639,
+        "latitude": 51.96255111,
+        "longitude": 5.420044242,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.51862443,
+          51.94443378
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Jumbo",
+        "straatNaam": "Verbrughweg 16",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.94443378,
+        "longitude": 5.51862443,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.518011225,
+          51.94362552
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Primera",
+        "straatNaam": "Verbrughweg 38",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.94362552,
+        "longitude": 5.518011225,
         "canPickup": true,
         "canDropoff": false
       }
@@ -118,20 +164,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          5.518011225,
-          51.94362552
+          5.45361220836639,
+          51.970225474705
         ]
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Primera",
-        "straatNaam": "Verbrughweg 38",
+        "locatieNaam": "Boon's Markt Eck en Wiel",
+        "straatNaam": "Veerweg 14",
         "straatNr": "",
         "vervoerder": "Amazon",
         "puntType": "3p",
         "bezettingsgraad": 50,
-        "latitude": 51.94362552,
-        "longitude": 5.518011225,
+        "latitude": 51.970225474705,
+        "longitude": 5.45361220836639,
         "canPickup": true,
         "canDropoff": false
       }

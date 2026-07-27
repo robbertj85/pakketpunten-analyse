@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Renkum",
     "slug": "renkum",
-    "generated_at": "2026-07-20T06:09:22.223871Z",
+    "generated_at": "2026-07-27T06:24:24.661926Z",
     "total_points": 36,
     "providers": [
       "Amazon",
@@ -73,6 +73,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          5.731516105,
+          51.9724057
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Bruna",
+        "straatNaam": "Dorpsstraat 35",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.9724057,
+        "longitude": 5.731516105,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           5.792166781,
           52.00548698
         ]
@@ -133,29 +156,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.97283,
         "longitude": 5.73362,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.728494,
-          51.971911
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketwinkel Wessels Telecom",
-        "straatNaam": "Dorpsstraat",
-        "straatNr": "97",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 51.971911,
-        "longitude": 5.728494,
         "canPickup": true,
         "canDropoff": true
       }
@@ -309,7 +309,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - Spar Heelsum",
+        "locatieNaam": "Pakketautomaat Spar Heelsum",
         "straatNaam": "UTRECHTSEWEG",
         "straatNr": "45",
         "vervoerder": "DPD",
@@ -1282,24 +1282,24 @@
                 51.96972352391596
               ],
               [
-                5.731043176739795,
-                51.96972583500286
+                5.7310429943215615,
+                51.9697258522617
               ],
               [
-                5.730902324414924,
-                51.969661949078265
+                5.730902324420279,
+                51.96966204907832
               ],
               [
-                5.730533817308731,
-                51.9695269841342
+                5.730533817313264,
+                51.969527084134256
               ],
               [
-                5.730145668784536,
-                51.9694149775551
+                5.730145668788205,
+                51.96941507755517
               ],
               [
-                5.730143491340755,
-                51.96941450348977
+                5.7301449027185845,
+                51.969414910769196
               ],
               [
                 5.730141668970494,
@@ -3398,20 +3398,20 @@
                 51.968810481848635
               ],
               [
-                5.731432276348995,
-                51.968812353183274
+                5.731432026058242,
+                51.96881236151294
               ],
               [
-                5.731213707607883,
-                51.96873230288507
+                5.731213707613923,
+                51.96873240288515
               ],
               [
-                5.730696183588238,
-                51.968582963462836
+                5.73069618359313,
+                51.968583063462894
               ],
               [
-                5.730694006179063,
-                51.968582489407595
+                5.730695417535683,
+                51.968582896680516
               ],
               [
                 5.73069218383618,

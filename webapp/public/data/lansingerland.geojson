@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Lansingerland",
     "slug": "lansingerland",
-    "generated_at": "2026-07-20T06:03:25.838430Z",
-    "total_points": 35,
+    "generated_at": "2026-07-27T06:17:40.670345Z",
+    "total_points": 37,
     "providers": [
       "Amazon",
       "DHL",
@@ -21,6 +21,52 @@
     ]
   },
   "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.477578909,
+          51.99406782
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Daansshop",
+        "straatNaam": "Kerkstraat 13",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.99406782,
+        "longitude": 4.477578909,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.474705816,
+          51.99000069
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "KARWEI Berkel en Rodenrijs",
+        "straatNaam": "Berkelse Poort 1",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.99000069,
+        "longitude": 4.474705816,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
     {
       "type": "Feature",
       "geometry": {
@@ -377,7 +423,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - Depot Berkel &",
+        "locatieNaam": "Pakketautomaat Depot Berkel & Roden",
         "straatNaam": "CELSIUSSTRAAT",
         "straatNr": "2-6",
         "vervoerder": "DPD",
@@ -400,7 +446,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DPD Pakketautomaat - Plus Koelhuis",
+        "locatieNaam": "Pakketautomaat Plus Koelhuis",
         "straatNaam": "DE VLASHOECK",
         "straatNr": "24-30",
         "vervoerder": "DPD",
@@ -1954,10 +2000,6 @@
           [
             [
               [
-                4.458914433857661,
-                51.988780242576084
-              ],
-              [
                 4.458698808028354,
                 51.98855155882396
               ],
@@ -2236,6 +2278,10 @@
               [
                 4.458914433857661,
                 51.988780242576084
+              ],
+              [
+                4.458698808028354,
+                51.98855155882396
               ]
             ]
           ],
@@ -2826,10 +2872,6 @@
           [
             [
               [
-                4.534317443788274,
-                52.008667008589185
-              ],
-              [
                 4.534101337469407,
                 52.00843846272513
               ],
@@ -3148,6 +3190,10 @@
               [
                 4.534317443788274,
                 52.008667008589185
+              ],
+              [
+                4.534101337469407,
+                52.00843846272513
               ]
             ]
           ],
@@ -4358,10 +4404,6 @@
           [
             [
               [
-                4.460206983951442,
-                51.98836670958122
-              ],
-              [
                 4.45991947715858,
                 51.98806180094911
               ],
@@ -4632,6 +4674,10 @@
               [
                 4.460206983951442,
                 51.98836670958122
+              ],
+              [
+                4.45991947715858,
+                51.98806180094911
               ]
             ]
           ],
@@ -5222,10 +5268,6 @@
           [
             [
               [
-                4.53560987709282,
-                52.008252648267415
-              ],
-              [
                 4.535321729665151,
                 52.00794792349216
               ],
@@ -5696,6 +5738,10 @@
               [
                 4.53560987709282,
                 52.008252648267415
+              ],
+              [
+                4.535321729665151,
+                52.00794792349216
               ]
             ]
           ]

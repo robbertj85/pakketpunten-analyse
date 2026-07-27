@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Overbetuwe",
     "slug": "overbetuwe",
-    "generated_at": "2026-07-20T06:08:39.489948Z",
+    "generated_at": "2026-07-27T06:23:36.310013Z",
     "total_points": 57,
     "providers": [
       "Amazon",
@@ -23,75 +23,6 @@
     ]
   },
   "features": [
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.84755579,
-          51.91922007
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Primera Elst",
-        "straatNaam": "Dorpsstraat 32",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 51.91922007,
-        "longitude": 5.84755579,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.813370636,
-          51.96094706
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Albert Heijn",
-        "straatNaam": "Polenplein 24 A",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 51.96094706,
-        "longitude": 5.813370636,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.860122018,
-          51.91575457
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "GAMMA Elst",
-        "straatNaam": "Industrieweg Oost 2 C",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 51.91575457,
-        "longitude": 5.860122018,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
     {
       "type": "Feature",
       "geometry": {
@@ -180,6 +111,75 @@
         "bezettingsgraad": 50,
         "latitude": 51.9142504,
         "longitude": 5.7182574,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.84755579,
+          51.91922007
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Primera Elst",
+        "straatNaam": "Dorpsstraat 32",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.91922007,
+        "longitude": 5.84755579,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.860122018,
+          51.91575457
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "GAMMA Elst",
+        "straatNaam": "Industrieweg Oost 2 C",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.91575457,
+        "longitude": 5.860122018,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.813370636,
+          51.96094706
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Albert Heijn",
+        "straatNaam": "Polenplein 24 A",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.96094706,
+        "longitude": 5.813370636,
         "canPickup": true,
         "canDropoff": false
       }
@@ -1300,7 +1300,7 @@
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "VOF AUTOBEDRIJF JOS VAN DE KUILEN",
-        "straatNaam": "VALBURGSEWEG 102",
+        "straatNaam": "Valburgseweg 102",
         "straatNr": "",
         "vervoerder": "InPost",
         "puntType": "servicepunt",

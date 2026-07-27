@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Rhenen",
     "slug": "rhenen",
-    "generated_at": "2026-07-20T06:09:40.245479Z",
-    "total_points": 27,
+    "generated_at": "2026-07-27T06:24:45.854456Z",
+    "total_points": 28,
     "providers": [
       "Amazon",
       "DHL",
@@ -28,6 +28,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          5.565450146,
+          51.95759373
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Bruna Rhenen",
+        "straatNaam": "Frederik van de Paltshof 32",
+        "straatNr": "",
+        "vervoerder": "Amazon",
+        "puntType": "3p",
+        "bezettingsgraad": 50,
+        "latitude": 51.95759373,
+        "longitude": 5.565450146,
+        "canPickup": true,
+        "canDropoff": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           5.530700185,
           51.97303812
         ]
@@ -42,29 +65,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.97303812,
         "longitude": 5.530700185,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.496601154,
-          51.98463363
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Drogisterij Pater Elst",
-        "straatNaam": "Rijksstraatweg 79",
-        "straatNr": "",
-        "vervoerder": "Amazon",
-        "puntType": "3p",
-        "bezettingsgraad": 50,
-        "latitude": 51.98463363,
-        "longitude": 5.496601154,
         "canPickup": true,
         "canDropoff": false
       }
@@ -111,29 +111,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.97315061141603,
         "longitude": 5.5306086684373,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.5717983,
-          51.9585782
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pelgros Kringloop",
-        "straatNaam": "Achterberghsestraatweg",
-        "straatNr": "27",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 51.9585782,
-        "longitude": 5.5717983,
         "canPickup": true,
         "canDropoff": true
       }
@@ -419,6 +396,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          5.56802792389382,
+          51.9582729000016
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat",
+        "straatNaam": "Plantsoenstraat",
+        "straatNr": "69PBA",
+        "vervoerder": "PostNL",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 51.9582729000016,
+        "longitude": 5.56802792389382,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           5.565450146,
           51.95759373
         ]
@@ -617,6 +617,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.95805,
         "longitude": 5.56465,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.5665,
+          51.95808
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "MOBIELPUNT RHENEN",
+        "straatNaam": "Molenstraat 3",
+        "straatNr": "",
+        "vervoerder": "InPost",
+        "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 51.95808,
+        "longitude": 5.5665,
         "canPickup": true,
         "canDropoff": true
       }
@@ -856,12 +879,20 @@
                 51.96096215333202
               ],
               [
-                5.5675499977881255,
-                51.960951539126754
+                5.567549997696771,
+                51.960951539129624
               ],
               [
-                5.567610924418396,
-                51.96095702678068
+                5.567610924312209,
+                51.96095702678229
+              ],
+              [
+                5.568038799337446,
+                51.960969353232
+              ],
+              [
+                5.568038799413829,
+                51.96096935322958
               ],
               [
                 5.568038799443631,
@@ -1781,10 +1812,6 @@
               ],
               [
                 5.500583978700107,
-                51.98573306879616
-              ],
-              [
-                5.500583978700108,
                 51.98573306879616
               ],
               [
@@ -2864,8 +2891,16 @@
                 51.96186096958714
               ],
               [
-                5.567492122702351,
-                51.961852316126645
+                5.567492122625966,
+                51.96185231612905
+              ],
+              [
+                5.568042424190051,
+                51.96186816945327
+              ],
+              [
+                5.568042424266438,
+                51.96186816945084
               ],
               [
                 5.568042424296239,
@@ -2880,7 +2915,7 @@
                 51.96179733446998
               ],
               [
-                5.569202127313893,
+                5.569202127313894,
                 51.96179348832206
               ],
               [
@@ -3221,10 +3256,6 @@
               ],
               [
                 5.571787380055332,
-                51.95498304880567
-              ],
-              [
-                5.571787380055331,
                 51.95498304880567
               ],
               [
