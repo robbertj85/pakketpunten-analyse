@@ -183,6 +183,44 @@ export const TOUR_STEPS: Record<string, TourStep[]> = {
     },
   ],
 
+  '/data-export/pilotlocaties': [
+    {
+      target: '[data-tour="intro"]',
+      title: 'Locaties uit de gesprekken',
+      body: 'Deze pagina is geen modeluitkomst maar een handmatige werklijst: plekken die gemeenten zelf hebben aangedragen als mogelijke pilotlocatie voor een pakketkluis. Het model staat onder Plaatsingsadvies en Netwerkplanner.',
+    },
+    {
+      target: '[data-tour="gemeente-select"]',
+      title: 'Kies een gemeente',
+      body: 'Wissel tussen de gemeenten waarvoor locaties zijn opgehaald. Het getal achter de naam is het aantal kandidaat-locaties in die gemeente.',
+    },
+    {
+      target: '[data-tour="loopafstand"]',
+      title: 'Loopafstand voor de omgevingscheck',
+      body: 'Bepaal binnen welke loopafstand gekeken wordt naar bestaande pakketpunten. Staan er al veel punten binnen 400 m, dan voegt een kluis op die plek minder bereik toe.',
+    },
+    {
+      target: '[data-tour="legenda"]',
+      title: 'Status per locatie',
+      body: 'De kleur geeft aan hoe ver het gesprek is: van draagvlak bij de gemeente tot locaties waarover nog helemaal geen gesprek is gevoerd. Dat bepaalt welke vervolgstap logisch is.',
+    },
+    {
+      target: '[data-tour="lijst"]',
+      title: 'De kandidatenlijst',
+      body: 'Klik een locatie aan om die op de kaart en in het detailpaneel te openen. De nummering volgt de volgorde waarin de gemeente de locaties noemde. Gele blokken zijn attentiepunten in de data die nog geverifieerd moeten worden.',
+    },
+    {
+      target: '[data-tour="kaart"]',
+      title: 'Kaart met omgeving',
+      body: 'De genummerde bol is de pilotlocatie, de stippellijn de gekozen loopafstand. Kleine bollen zijn bestaande pakketpunten per vervoerder — zo zie je direct of de plek een gat vult of een bestaand punt dubbelt.',
+    },
+    {
+      target: '[data-tour="detail"]',
+      title: 'Onderbouwing en vervolgstap',
+      body: 'Per locatie: type plek, onderbouwing, herkomst van het coordinaat en de concrete vervolgstap. Via 3D-weergave bekijk je de kluis in de werkelijke bebouwing van die plek.',
+    },
+  ],
+
   '/data-export/schatting': [
     {
       target: '[data-tour="intro"]',

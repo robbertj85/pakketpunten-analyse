@@ -41,7 +41,12 @@ export default async function NetworkLocker3DPage({
   const valid =
     lat != null && lon != null && lat > 50.5 && lat < 53.8 && lon > 3.1 && lon < 7.3;
 
-  const backHref = `/data-export/netwerkplanner?gemeente=${slug}`;
+  // Andere data-export-pagina's (bijv. Pilotlocaties) linken hier ook naartoe.
+  // Alleen interne data-export-paden accepteren, zodat `back` geen open
+  // redirect wordt.
+  const fromPilots = sp.back === '/data-export/pilotlocaties';
+  const backHref = fromPilots ? sp.back! : `/data-export/netwerkplanner?gemeente=${slug}`;
+  const backLabel = fromPilots ? 'Terug naar pilotlocaties' : 'Terug naar netwerkplanner';
 
   if (!valid) {
     return (
@@ -86,7 +91,7 @@ export default async function NetworkLocker3DPage({
       nearbyPoints={nearby}
       heading={`Kluislocatie — ${label}`}
       backHref={backHref}
-      backLabel="Terug naar netwerkplanner"
+      backLabel={backLabel}
       initialColumns={cols ?? undefined}
       poiCategory={sp.type ?? null}
       poiNaam={sp.type ? label : null}
