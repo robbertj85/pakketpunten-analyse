@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Hengelo",
     "slug": "hengelo",
-    "generated_at": "2026-07-27T06:15:01.924327Z",
+    "generated_at": "2026-08-03T06:05:03.246693Z",
     "total_points": 122,
     "providers": [
       "Amazon",
@@ -572,6 +572,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.2768034,
         "longitude": 6.7926822,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.7944837,
+          52.2661874
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketwinkel Makkabikes",
+        "straatNaam": "Wemenstraat",
+        "straatNr": "6-8",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 52.2661874,
+        "longitude": 6.7944837,
         "canPickup": true,
         "canDropoff": true
       }
@@ -2711,29 +2734,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.28129,
         "longitude": 6.84141,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          6.79673,
-          52.26495
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "MIA'S SECONDHANDSTORE",
-        "straatNaam": "Molenstraat 7",
-        "straatNr": "",
-        "vervoerder": "InPost",
-        "puntType": "servicepunt",
-        "bezettingsgraad": 50,
-        "latitude": 52.26495,
-        "longitude": 6.79673,
         "canPickup": true,
         "canDropoff": true
       }
@@ -5700,6 +5700,32 @@
               [
                 6.783563867238593,
                 52.25307377708282
+              ]
+            ],
+            [
+              [
+                6.799481016849207,
+                52.26386964067487
+              ],
+              [
+                6.799614517107807,
+                52.26395655186571
+              ],
+              [
+                6.799412856954724,
+                52.26401805061168
+              ],
+              [
+                6.799444814044418,
+                52.26386543740637
+              ],
+              [
+                6.799445955639045,
+                52.26384178531263
+              ],
+              [
+                6.799481016849207,
+                52.26386964067487
               ]
             ]
           ],

@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Uithoorn",
     "slug": "uithoorn",
-    "generated_at": "2026-07-27T06:28:45.560830Z",
-    "total_points": 30,
+    "generated_at": "2026-08-03T06:19:08.384246Z",
+    "total_points": 31,
     "providers": [
       "Amazon",
       "DHL",
@@ -685,6 +685,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.24068,
         "longitude": 4.82887,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.83085,
+          52.23294
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "JOUW MARKTKRAAM UITHOORN",
+        "straatNaam": "Dorpsstraat 31",
+        "straatNr": "",
+        "vervoerder": "InPost",
+        "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 52.23294,
+        "longitude": 4.83085,
         "canPickup": true,
         "canDropoff": true
       }
@@ -2484,6 +2507,10 @@
           [
             [
               [
+                4.847099437568857,
+                52.239483232313034
+              ],
+              [
                 4.84675516640297,
                 52.23932402933658
               ],
@@ -2810,10 +2837,6 @@
               [
                 4.847099437568857,
                 52.239483232313034
-              ],
-              [
-                4.84675516640297,
-                52.23932402933658
               ]
             ]
           ]
@@ -3396,8 +3419,8 @@
                 52.23645987290491
               ],
               [
-                4.828345713300027,
-                52.23619946215781
+                4.828345713300025,
+                52.23619946215779
               ],
               [
                 4.828687731342037,
@@ -4276,6 +4299,10 @@
           [
             [
               [
+                4.847577558481697,
+                52.23858046603006
+              ],
+              [
                 4.847086857838973,
                 52.23839684067523
               ],
@@ -4586,10 +4613,6 @@
               [
                 4.847577558481697,
                 52.23858046603006
-              ],
-              [
-                4.847086857838973,
-                52.23839684067523
               ]
             ]
           ]

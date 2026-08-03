@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Zwijndrecht",
     "slug": "zwijndrecht",
-    "generated_at": "2026-07-27T06:34:12.826576Z",
+    "generated_at": "2026-08-03T06:24:46.499397Z",
     "total_points": 43,
     "providers": [
       "Amazon",
@@ -304,6 +304,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.63356965550103,
+          51.81654707400128
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat GAMMA Zwijndrecht",
+        "straatNaam": "H.a. Lorentzstraat",
+        "straatNr": "2",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 51.81654707400128,
+        "longitude": 4.63356965550103,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.6518589,
           51.8236
         ]
@@ -364,29 +387,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.8224718,
         "longitude": 4.6393489,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.63356965550103,
-          51.81654707400128
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat GAMMA Zwijndrecht",
-        "straatNaam": "H.a. Lorentzstraat",
-        "straatNr": "2",
-        "vervoerder": "DHL",
-        "puntType": "packStation",
-        "bezettingsgraad": 50,
-        "latitude": 51.81654707400128,
-        "longitude": 4.63356965550103,
         "canPickup": true,
         "canDropoff": true
       }

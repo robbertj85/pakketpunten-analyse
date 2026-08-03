@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Duiven",
     "slug": "duiven",
-    "generated_at": "2026-07-27T06:10:40.189362Z",
+    "generated_at": "2026-08-03T06:00:36.304794Z",
     "total_points": 21,
     "providers": [
       "Amazon",
@@ -140,29 +140,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          6.0215771,
-          51.9486235
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat terStal Duiven",
-        "straatNaam": "Elshofpassage",
-        "straatNr": "56-Kast",
-        "vervoerder": "DHL",
-        "puntType": "packStation",
-        "bezettingsgraad": 50,
-        "latitude": 51.9486235,
-        "longitude": 6.0215771,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           6.023711697109768,
           51.94900301130695
         ]
@@ -223,6 +200,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.9497238,
         "longitude": 6.022243,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.0215771,
+          51.9486235
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat terStal Duiven",
+        "straatNaam": "Elshofpassage",
+        "straatNr": "56-Kast",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 51.9486235,
+        "longitude": 6.0215771,
         "canPickup": true,
         "canDropoff": true
       }
