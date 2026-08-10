@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Bunschoten",
     "slug": "bunschoten",
-    "generated_at": "2026-08-03T05:57:52.232685Z",
+    "generated_at": "2026-08-10T04:09:28.157528Z",
     "total_points": 26,
     "providers": [
       "Amazon",
@@ -119,75 +119,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          5.3770846,
-          52.2520609
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Blokker Spakenburg",
-        "straatNaam": "Spuistraat",
-        "straatNr": "19",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 52.2520609,
-        "longitude": 5.3770846,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.377521514892578,
-          52.25147247314453
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat terStal Bunschoten",
-        "straatNaam": "Kerkstraat",
-        "straatNr": "23-Kast",
-        "vervoerder": "DHL",
-        "puntType": "packStation",
-        "bezettingsgraad": 50,
-        "latitude": 52.25147247314453,
-        "longitude": 5.377521514892578,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.3783401,
-          52.2518354
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Intertoys Bunschoten Spakenburg",
-        "straatNaam": "De Ziel",
-        "straatNr": "10-A",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 52.2518354,
-        "longitude": 5.3783401,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           5.3848366,
           52.2492236
         ]
@@ -225,6 +156,75 @@
         "bezettingsgraad": 50,
         "latitude": 52.25198384587196,
         "longitude": 5.379088296942886,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.3783401,
+          52.2518354
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Intertoys Bunschoten Spakenburg",
+        "straatNaam": "De Ziel",
+        "straatNr": "10-A",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 52.2518354,
+        "longitude": 5.3783401,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.377521514892578,
+          52.25147247314453
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat terStal Bunschoten",
+        "straatNaam": "Kerkstraat",
+        "straatNr": "23-Kast",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 52.25147247314453,
+        "longitude": 5.377521514892578,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.3770846,
+          52.2520609
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Blokker Spakenburg",
+        "straatNaam": "Spuistraat",
+        "straatNr": "19",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 52.2520609,
+        "longitude": 5.3770846,
         "canPickup": true,
         "canDropoff": true
       }

@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Alphen aan den Rijn",
     "slug": "alphen-aan-den-rijn",
-    "generated_at": "2026-08-03T05:54:01.029236Z",
+    "generated_at": "2026-08-10T04:06:01.297186Z",
     "total_points": 99,
     "providers": [
       "Amazon",
@@ -742,6 +742,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.660608,
+          52.151195
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Bahlmann Sport",
+        "straatNaam": "Herenhof",
+        "straatNr": "46",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 52.151195,
+        "longitude": 4.660608,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.665445,
           52.142502
         ]
@@ -779,29 +802,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.1506775,
         "longitude": 4.6608352,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.660608,
-          52.151195
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Bahlmann Sport",
-        "straatNaam": "Herenhof",
-        "straatNr": "46",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 52.151195,
-        "longitude": 4.660608,
         "canPickup": true,
         "canDropoff": true
       }

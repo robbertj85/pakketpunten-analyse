@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Epe",
     "slug": "epe",
-    "generated_at": "2026-08-03T06:01:49.772615Z",
+    "generated_at": "2026-08-10T04:12:54.752450Z",
     "total_points": 45,
     "providers": [
       "Amazon",
@@ -279,6 +279,52 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          5.9834814,
+          52.3471337
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Shoeby Epe",
+        "straatNaam": "Hoofdstraat",
+        "straatNr": "96-J",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 52.3471337,
+        "longitude": 5.9834814,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.984845,
+          52.3469958
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "CIGO de Witte Haan",
+        "straatNaam": "Sternpassage",
+        "straatNr": "3",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 52.3469958,
+        "longitude": 5.984845,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           5.9896624,
           52.3509026
         ]
@@ -339,52 +385,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.3482008,
         "longitude": 5.9840854,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.9834814,
-          52.3471337
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Shoeby Epe",
-        "straatNaam": "Hoofdstraat",
-        "straatNr": "96-J",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 52.3471337,
-        "longitude": 5.9834814,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.984845,
-          52.3469958
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "CIGO de Witte Haan",
-        "straatNaam": "Sternpassage",
-        "straatNr": "3",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 52.3469958,
-        "longitude": 5.984845,
         "canPickup": true,
         "canDropoff": true
       }

@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Weert",
     "slug": "weert",
-    "generated_at": "2026-08-03T06:21:59.684253Z",
-    "total_points": 54,
+    "generated_at": "2026-08-10T04:30:46.861461Z",
+    "total_points": 53,
     "providers": [
       "Amazon",
       "DHL",
@@ -648,29 +648,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          5.733491,
-          51.247416
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "E.A.R.T.H. Mineralen",
-        "straatNaam": "MOESDIJK",
-        "straatNr": "12C",
-        "vervoerder": "DPD",
-        "puntType": "pickup_point",
-        "bezettingsgraad": 50,
-        "latitude": 51.247416,
-        "longitude": 5.733491,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           5.70817868,
           51.24348787
         ]
@@ -1154,6 +1131,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          5.7061007,
+          51.2541134
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "‘T Winkeltje  Weert",
+        "straatNaam": "Muntpromenade 2",
+        "straatNr": "",
+        "vervoerder": "VintedGo",
+        "puntType": "parcel_shop",
+        "bezettingsgraad": 50,
+        "latitude": 51.2541134,
+        "longitude": 5.7061007,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           5.70943739250882,
           51.1936329980469
         ]
@@ -1214,29 +1214,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.2472,
         "longitude": 5.73363,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.70616,
-          51.25545
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "PAKKETPUNT CWARTIER",
-        "straatNaam": "Beekstraat 54",
-        "straatNr": "",
-        "vervoerder": "InPost",
-        "puntType": "servicepunt",
-        "bezettingsgraad": 50,
-        "latitude": 51.25545,
-        "longitude": 5.70616,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1800,6 +1777,10 @@
           [
             [
               [
+                5.709073571648512,
+                51.24957375453022
+              ],
+              [
                 5.708789019842033,
                 51.24937845941257
               ],
@@ -2060,16 +2041,8 @@
                 51.258132655423
               ],
               [
-                5.706599915690341,
-                51.25813245614867
-              ],
-              [
-                5.7065999375398215,
-                51.258132455414994
-              ],
-              [
-                5.706993258295654,
-                51.25809474129071
+                5.706993257549958,
+                51.258094740000885
               ],
               [
                 5.70699683733121,
@@ -2542,10 +2515,6 @@
               [
                 5.709073571648512,
                 51.24957375453022
-              ],
-              [
-                5.708789019842033,
-                51.24937845941257
               ]
             ]
           ],

@@ -3,8 +3,8 @@
     "method": "api-easypack-paginated",
     "source": "https://api-global-points.easypack24.net/v1/points",
     "country": "Netherlands",
-    "total_locations": 990,
-    "fetched_at": "2026-08-03T05:53:00.447475+00:00"
+    "total_locations": 1014,
+    "fetched_at": "2026-08-10T04:05:04.162384+00:00"
   },
   "locations": [
     {
@@ -94,6 +94,32 @@
       "city": "Rotterdam",
       "latitude": 51.9084,
       "longitude": 4.50689,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
+      "inpost_id": "NL020054",
+      "locatieNaam": "ZOETELIEF KAMPEN",
+      "straatNaam": "Geerstraat 16",
+      "straatNr": null,
+      "postcode": "8261 HM",
+      "city": "Kampen",
+      "latitude": 52.55563,
+      "longitude": 5.91856,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -328,32 +354,6 @@
       "city": "Hillegom",
       "latitude": 52.29309,
       "longitude": 4.5791,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
-      "inpost_id": "NL020102",
-      "locatieNaam": "MARKVOORT COMPUTERS",
-      "straatNaam": "Langstraat 36",
-      "straatNr": null,
-      "postcode": "8131 BC",
-      "city": "Wijhe",
-      "latitude": 52.3885,
-      "longitude": 6.13529,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -632,32 +632,6 @@
       "opening_hours": null
     },
     {
-      "inpost_id": "NL020365",
-      "locatieNaam": "SASUSA TEXTIELBEDRUKKING",
-      "straatNaam": "Erasmuslaan 3a",
-      "straatNr": null,
-      "postcode": "1702 GH",
-      "city": "Heerhugowaard",
-      "latitude": 52.66935,
-      "longitude": 4.83868,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
       "inpost_id": "NL020371",
       "locatieNaam": "DA DROGISTERIJ EN PARFUMERIE COLIN",
       "straatNaam": "Wilhelmina Druckerstraat 43",
@@ -788,14 +762,14 @@
       "opening_hours": null
     },
     {
-      "inpost_id": "NL020411",
-      "locatieNaam": "STIJLICO",
-      "straatNaam": "Teding van Berkhoutstraat 3",
+      "inpost_id": "NL020416",
+      "locatieNaam": "PH SNOEP EN CADEAU",
+      "straatNaam": "Emiclaerhof 360",
       "straatNr": null,
-      "postcode": "3743 BT",
-      "city": "Baarn",
-      "latitude": 52.21206,
-      "longitude": 5.2878,
+      "postcode": "3823 EV",
+      "city": "Amersfoort",
+      "latitude": 52.18571,
+      "longitude": 5.39779,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -1152,32 +1126,6 @@
       "opening_hours": null
     },
     {
-      "inpost_id": "NL020479",
-      "locatieNaam": "FOTOFONIE",
-      "straatNaam": "Siersteenlaan 428-14",
-      "straatNr": null,
-      "postcode": "9743 ES",
-      "city": "Groningen",
-      "latitude": 53.22564,
-      "longitude": 6.52982,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
       "inpost_id": "NL020482",
       "locatieNaam": "PARCEL SERVICE UTRECHT",
       "straatNaam": "Amsterdamsestraatweg 72",
@@ -1516,6 +1464,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL020524",
+      "locatieNaam": "MAXSHOP ALMELO",
+      "straatNaam": "Haven Noordzijde 101",
+      "straatNr": null,
+      "postcode": "7602 EG",
+      "city": "Almelo",
+      "latitude": 52.36172,
+      "longitude": 6.64991,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL020525",
       "locatieNaam": "MAXSHOP (HENGELO)",
       "straatNaam": "OLDENZAALSESTRAAT 581",
@@ -1620,6 +1594,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL020541",
+      "locatieNaam": "TANKSTATION PATERSWOLDE",
+      "straatNaam": "Hooiweg 161",
+      "straatNr": null,
+      "postcode": "9765 JA",
+      "city": "Paterswolde",
+      "latitude": 53.14495,
+      "longitude": 6.5619,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL020544",
       "locatieNaam": "WELKOM HANDEL",
       "straatNaam": "GROTE SPUISTRAAT 3",
@@ -1698,6 +1698,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL020556",
+      "locatieNaam": "PRIMA FLORA",
+      "straatNaam": "Bonenburgerlaan 10",
+      "straatNr": null,
+      "postcode": "8181 HE",
+      "city": "Heerde",
+      "latitude": 52.38585,
+      "longitude": 6.04132,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL020557",
       "locatieNaam": "GARAGE AUGUSTIJN VOF",
       "straatNaam": "HOOFDSTRAAT 71",
@@ -1722,6 +1748,32 @@
         "standard_letter_send"
       ],
       "opening_hours": "L/Ma/Me/J/V 9-10 15:30-17,S 9- 16"
+    },
+    {
+      "inpost_id": "NL020562",
+      "locatieNaam": "TO CATO CONCEPTSTORE",
+      "straatNaam": "Dokter H. de Vriesplein 2",
+      "straatNr": null,
+      "postcode": "4241 BW",
+      "city": "Arkel",
+      "latitude": 51.86406,
+      "longitude": 4.99388,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
     },
     {
       "inpost_id": "NL020566",
@@ -1758,32 +1810,6 @@
       "city": "Marknesse",
       "latitude": 52.71386,
       "longitude": 5.8587,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
-      "inpost_id": "NL020575",
-      "locatieNaam": "CREATIEF PUTTEN",
-      "straatNaam": "Molenstraat 18",
-      "straatNr": null,
-      "postcode": "3882 AD",
-      "city": "Putten",
-      "latitude": 52.25951,
-      "longitude": 5.60639,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -1958,6 +1984,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL020606",
+      "locatieNaam": "PARTY AND MORE",
+      "straatNaam": "Noarder Stasjonsstrjitte 40b",
+      "straatNr": null,
+      "postcode": "9271 CK",
+      "city": "De Westereen",
+      "latitude": 53.2511,
+      "longitude": 6.03703,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL020607",
       "locatieNaam": "MARSKRAMER  EN TOP1TOYS GROOTEGAST",
       "straatNaam": "Hoofdstraat 111",
@@ -2036,32 +2088,6 @@
       "opening_hours": null
     },
     {
-      "inpost_id": "NL020617",
-      "locatieNaam": "BABYLON SUPERMARKT",
-      "straatNaam": "J.P. HEIJEPLEIN 6",
-      "straatNr": null,
-      "postcode": "3314 SR",
-      "city": "DORDRECHT",
-      "latitude": 51.80111,
-      "longitude": 4.66432,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": "L/Ma/Me/J/V 9-17,S 10-17"
-    },
-    {
       "inpost_id": "NL020620",
       "locatieNaam": "THE READ SHOP",
       "straatNaam": "Wilhelminastraat 1",
@@ -2122,6 +2148,32 @@
       "city": "Rotterdam",
       "latitude": 51.91622,
       "longitude": 4.46864,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
+      "inpost_id": "NL020637",
+      "locatieNaam": "DE STAPHORSTER SCHOENMAKER JAN PORTIEK",
+      "straatNaam": "Markt 12",
+      "straatNr": null,
+      "postcode": "7951 HR",
+      "city": "Staphorst",
+      "latitude": 52.64537,
+      "longitude": 6.20837,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -2556,32 +2608,6 @@
       "opening_hours": null
     },
     {
-      "inpost_id": "NL020709",
-      "locatieNaam": "SOUSMARKT",
-      "straatNaam": "Bourgognestraat 1",
-      "straatNr": null,
-      "postcode": "6191 HX",
-      "city": "Beek",
-      "latitude": 50.94096,
-      "longitude": 5.80133,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
       "inpost_id": "NL020712",
       "locatieNaam": "DE BEESTENSHOP",
       "straatNaam": "President Kennedylaan 92",
@@ -2660,32 +2686,6 @@
       "opening_hours": null
     },
     {
-      "inpost_id": "NL020722",
-      "locatieNaam": "DE PASSANT (DBH)",
-      "straatNaam": "Kerkstraat 23",
-      "straatNr": null,
-      "postcode": "5931 NL",
-      "city": "Tegelen",
-      "latitude": 51.34229,
-      "longitude": 6.13895,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
       "inpost_id": "NL020726",
       "locatieNaam": "TANKSTATION MOS",
       "straatNaam": "Hardenbergerweg 103",
@@ -2710,32 +2710,6 @@
         "standard_letter_send"
       ],
       "opening_hours": null
-    },
-    {
-      "inpost_id": "NL020728",
-      "locatieNaam": "JAMI'S (TEXTIEL)",
-      "straatNaam": "DORPSSTRAAT 171",
-      "straatNr": null,
-      "postcode": "1566 AG",
-      "city": "ASSENDELFT",
-      "latitude": 52.45391,
-      "longitude": 4.72894,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": "L/Ma/Me/J/V, 9-17"
     },
     {
       "inpost_id": "NL020732",
@@ -2876,32 +2850,6 @@
       "city": "Rotterdam",
       "latitude": 51.89017,
       "longitude": 4.50776,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
-      "inpost_id": "NL020756",
-      "locatieNaam": "SCHOENEN SLEUTELSERVICE KNAAP",
-      "straatNaam": "Betje Wolffplein 168",
-      "straatNr": null,
-      "postcode": "1628 NK",
-      "city": "Hoorn",
-      "latitude": 52.65286,
-      "longitude": 5.08604,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -3150,32 +3098,6 @@
         "standard_letter_send"
       ],
       "opening_hours": "L/Ma/Me/J/V 7-20,S 8-20,D 10-2 0"
-    },
-    {
-      "inpost_id": "NL020797",
-      "locatieNaam": "BP HAARLE",
-      "straatNaam": "ALMELOSEWEG 28A",
-      "straatNr": null,
-      "postcode": "7448 RN",
-      "city": "HAARLE",
-      "latitude": 52.37102,
-      "longitude": 6.3759,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": "L/Ma/Me/J/V 6-20,S 8-20,D 10-1 8"
     },
     {
       "inpost_id": "NL020800",
@@ -3830,10 +3752,10 @@
     {
       "inpost_id": "NL020894",
       "locatieNaam": "JULIA'S STOFFENSTUDIO",
-      "straatNaam": "DEURNINGERSTRAAT 2",
+      "straatNaam": "Deurningerstraat 2",
       "straatNr": null,
       "postcode": "7571 BC",
-      "city": "OLDENZAAL",
+      "city": "Oldenzaal",
       "latitude": 52.3121,
       "longitude": 6.92776,
       "puntType": "servicepunt",
@@ -3851,7 +3773,7 @@
         "standard_letter_collect",
         "standard_letter_send"
       ],
-      "opening_hours": "Ma/Me/J 9:30-17:30,V 9:30-19,S 10-17"
+      "opening_hours": null
     },
     {
       "inpost_id": "NL020895",
@@ -3878,6 +3800,32 @@
         "standard_letter_send"
       ],
       "opening_hours": "L/Ma/Me/J/V 6-21,S 7-21,D 8-21"
+    },
+    {
+      "inpost_id": "NL020898",
+      "locatieNaam": "SANDRA'S DIERENWINKEL",
+      "straatNaam": "Lytsebuorren 61",
+      "straatNr": null,
+      "postcode": "9036 MP",
+      "city": "Menaam",
+      "latitude": 53.21742,
+      "longitude": 5.66469,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
     },
     {
       "inpost_id": "NL020900",
@@ -4138,6 +4086,32 @@
         "standard_letter_send"
       ],
       "opening_hours": "L/Ma/Me/J/V 7-18,S 7-17"
+    },
+    {
+      "inpost_id": "NL020936",
+      "locatieNaam": "BOSSERS AARDAPPELPAKHUIS EINHOVEN",
+      "straatNaam": "Brucknerplein 5",
+      "straatNr": null,
+      "postcode": "5653 ER",
+      "city": "Eindhoven",
+      "latitude": 51.42373,
+      "longitude": 5.45199,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
     },
     {
       "inpost_id": "NL020939",
@@ -4712,32 +4686,6 @@
       "opening_hours": null
     },
     {
-      "inpost_id": "NL021034",
-      "locatieNaam": "G&W GEZONDHEIDSWINKEL DIEREN",
-      "straatNaam": "Diderna 6",
-      "straatNr": null,
-      "postcode": "6951 CW",
-      "city": "Dieren",
-      "latitude": 52.05102,
-      "longitude": 6.10038,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
       "inpost_id": "NL021036",
       "locatieNaam": "G&W GEZONDHEIDSWINKEL `S-HEERENBERG",
       "straatNaam": "Molenpoortstraat 7",
@@ -4896,38 +4844,12 @@
     {
       "inpost_id": "NL021071",
       "locatieNaam": "PAKKETPUNT WESTERVAL",
-      "straatNaam": "HET POOLMAN 4",
+      "straatNaam": "Het Poolman 4",
       "straatNr": null,
       "postcode": "7545 LX",
-      "city": "ENSCHEDE",
+      "city": "Enschede",
       "latitude": 52.21782,
       "longitude": 6.86602,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": "L/Ma/Me/J/V 10-17,S 10-12:30"
-    },
-    {
-      "inpost_id": "NL021078",
-      "locatieNaam": "`T SNOEPHUISJE",
-      "straatNaam": "Pletterijkade 36b",
-      "straatNr": null,
-      "postcode": "2515 SG",
-      "city": "Den Haag",
-      "latitude": 52.07404,
-      "longitude": 4.32277,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -4946,14 +4868,14 @@
       "opening_hours": null
     },
     {
-      "inpost_id": "NL021088",
-      "locatieNaam": "JACKY MODE",
-      "straatNaam": "Kerkstraat 4",
+      "inpost_id": "NL021078",
+      "locatieNaam": "`T SNOEPHUISJE",
+      "straatNaam": "Pletterijkade 36b",
       "straatNr": null,
-      "postcode": "3295 BD",
-      "city": "'s-Gravendeel",
-      "latitude": 51.77955,
-      "longitude": 4.61616,
+      "postcode": "2515 SG",
+      "city": "Den Haag",
+      "latitude": 52.07404,
+      "longitude": 4.32277,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -5102,6 +5024,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL021125",
+      "locatieNaam": "DE KLOOSTERTUIN WOON EN KADO",
+      "straatNaam": "Koningsoord 91",
+      "straatNr": null,
+      "postcode": "5057DK",
+      "city": "Berkel-Enschot",
+      "latitude": 51.58714,
+      "longitude": 5.13674,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL021133",
       "locatieNaam": "TANKSTATION JEURISSEN",
       "straatNaam": "Kampstraat 15",
@@ -5136,6 +5084,32 @@
       "city": "Koudum",
       "latitude": 52.91702,
       "longitude": 5.44502,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
+      "inpost_id": "NL021136",
+      "locatieNaam": "PHONE CITY",
+      "straatNaam": "Marktstraat 11",
+      "straatNr": null,
+      "postcode": "7511 GC",
+      "city": "Enschede",
+      "latitude": 52.22074,
+      "longitude": 6.8939,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -5388,6 +5362,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL021183",
+      "locatieNaam": "TINQ N&M HAAKSBERGEN",
+      "straatNaam": "Hengelosestraat 12",
+      "straatNr": null,
+      "postcode": "7482 AC",
+      "city": "Haaksbergen",
+      "latitude": 52.16156,
+      "longitude": 6.73505,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL021188",
       "locatieNaam": "TABAKSHOP KLAVER",
       "straatNaam": "Kade 7",
@@ -5604,6 +5604,32 @@
       "city": "Beesd",
       "latitude": 51.88413,
       "longitude": 5.19349,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
+      "inpost_id": "NL021231",
+      "locatieNaam": "SCHAIJKSE SCHOENMAKER",
+      "straatNaam": "Schutsboomstraat 23a",
+      "straatNr": null,
+      "postcode": "5374 CA",
+      "city": "Schaijk",
+      "latitude": 51.74413,
+      "longitude": 5.63363,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -5962,38 +5988,12 @@
     {
       "inpost_id": "NL021274",
       "locatieNaam": "BPP PAKKET",
-      "straatNaam": "PASSEWAAIJSE HOGEWEG 4",
+      "straatNaam": "Passewaaijse Hogeweg 4",
       "straatNr": null,
       "postcode": "4007 PJ",
-      "city": "TIEL",
+      "city": "Tiel",
       "latitude": 51.8692,
       "longitude": 5.40629,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": "L 13-21,Ma/Me/J/V 9:30-21,S 9: 30-17"
-    },
-    {
-      "inpost_id": "NL021280",
-      "locatieNaam": "ATELIER BIJ DE HAND",
-      "straatNaam": "Harkulo 5",
-      "straatNr": null,
-      "postcode": "3085 MH",
-      "city": "Rotterdam",
-      "latitude": 51.87478,
-      "longitude": 4.48327,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -6558,6 +6558,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL021375",
+      "locatieNaam": "ANNO 1832",
+      "straatNaam": "Griene Wei 2",
+      "straatNr": null,
+      "postcode": "9137 SB",
+      "city": "Oosternijkerk",
+      "latitude": 53.38065,
+      "longitude": 6.05278,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL021382",
       "locatieNaam": "PENP SHOP",
       "straatNaam": "Nieuwemeerdijk 140",
@@ -6792,6 +6818,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL021463",
+      "locatieNaam": "WASSALON MARINERSWEG",
+      "straatNaam": "Jonker Fransstraat 75",
+      "straatNr": null,
+      "postcode": "3031 AN",
+      "city": "Rotterdam",
+      "latitude": 51.92649,
+      "longitude": 4.48652,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL021467",
       "locatieNaam": "SCHOENMAKERIJ REMMERTS",
       "straatNaam": "Klokbekerweg 174",
@@ -6868,32 +6920,6 @@
         "standard_letter_send"
       ],
       "opening_hours": "L/Ma/Me/J/V 8-18,S 8-17"
-    },
-    {
-      "inpost_id": "NL021479",
-      "locatieNaam": "STICHTING ELYTHE BIJ PETRA",
-      "straatNaam": "Purmerweg 46",
-      "straatNr": null,
-      "postcode": "1023 BA",
-      "city": "Amsterdam",
-      "latitude": 52.39208,
-      "longitude": 4.94051,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
     },
     {
       "inpost_id": "NL021481",
@@ -6974,32 +7000,6 @@
       "opening_hours": null
     },
     {
-      "inpost_id": "NL021489",
-      "locatieNaam": "TANKSTATION TAMOIL WHEERMOLEN",
-      "straatNaam": "John F. Kennedyplein 30",
-      "straatNr": null,
-      "postcode": "1443 EC",
-      "city": "Purmerend",
-      "latitude": 52.50973,
-      "longitude": 4.96979,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
       "inpost_id": "NL021496",
       "locatieNaam": "XXLPAKKETPUNT.NL",
       "straatNaam": "Celsiusstraat 57 Wijchen",
@@ -7008,32 +7008,6 @@
       "city": "Wijchen",
       "latitude": 51.82542,
       "longitude": 5.74233,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
-      "inpost_id": "NL021505",
-      "locatieNaam": "ENECAS GSM SHOP",
-      "straatNaam": "Kroonpassage 26",
-      "straatNr": null,
-      "postcode": "8232 VP",
-      "city": "Lelystad",
-      "latitude": 52.50769,
-      "longitude": 5.47492,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -7078,6 +7052,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL021510",
+      "locatieNaam": "2 REBELS",
+      "straatNaam": "Hoofdstraat 142",
+      "straatNr": null,
+      "postcode": "5706 AN",
+      "city": "Helmond",
+      "latitude": 51.46633,
+      "longitude": 5.63495,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL021515",
       "locatieNaam": "BIJ ONS LIFESTYLE",
       "straatNaam": "Dorpsstraat 62a",
@@ -7104,12 +7104,38 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL021516",
+      "locatieNaam": "DARI",
+      "straatNaam": "Noorderstraat 125",
+      "straatNr": null,
+      "postcode": "9611 AC",
+      "city": "Sappemeer",
+      "latitude": 53.16447,
+      "longitude": 6.78873,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL021522",
       "locatieNaam": "FIX PHONE AMBACHT",
-      "straatNaam": "DE SCHOOF 148",
+      "straatNaam": "De Schoof 148",
       "straatNr": null,
       "postcode": "3341 EB",
-      "city": "HENDRIK IDO AMBACHT",
+      "city": "Hendrik-Ido-Ambacht",
       "latitude": 51.84933,
       "longitude": 4.64441,
       "puntType": "servicepunt",
@@ -7127,7 +7153,7 @@
         "standard_letter_collect",
         "standard_letter_send"
       ],
-      "opening_hours": "L/Ma/Me/J 9:30-17,V 9:30-18,S 9:30-17"
+      "opening_hours": null
     },
     {
       "inpost_id": "NL021532",
@@ -7232,32 +7258,6 @@
         "standard_letter_send"
       ],
       "opening_hours": "Ma/Me/J/V 8:30-18,S 8:30-17"
-    },
-    {
-      "inpost_id": "NL021556",
-      "locatieNaam": "NINI ZETTEN",
-      "straatNaam": "Hoofdstraat 70",
-      "straatNr": null,
-      "postcode": "6671 CG",
-      "city": "Zetten",
-      "latitude": 51.93136,
-      "longitude": 5.71148,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
     },
     {
       "inpost_id": "NL021557",
@@ -7702,6 +7702,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL021603",
+      "locatieNaam": "HUISJES SPORTWEAR",
+      "straatNaam": "Hardenbergerweg 24",
+      "straatNr": null,
+      "postcode": "7778 HP",
+      "city": "Loozen",
+      "latitude": 52.58802,
+      "longitude": 6.6573,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL021608",
       "locatieNaam": "IJSBOERDERIJ 'T DOMMERHOLT",
       "straatNaam": "HAMBROEKWEG 6",
@@ -7962,6 +7988,32 @@
       "opening_hours": "L/Ma/Me/J/V 11-18,S 11-16"
     },
     {
+      "inpost_id": "NL021660",
+      "locatieNaam": "KURK MODE",
+      "straatNaam": "Kanaalstraat 69",
+      "straatNr": null,
+      "postcode": "4388 BK",
+      "city": "Oost-Souburg",
+      "latitude": 51.46407,
+      "longitude": 3.59888,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL021664",
       "locatieNaam": "AVIA TANKSTATION UDDELERMEER",
       "straatNaam": "Meervelderweg 143",
@@ -8021,7 +8073,7 @@
       "postcode": "3812 DP",
       "city": "Amersfoort",
       "latitude": 52.16104,
-      "longitude": 5.35827,
+      "longitude": 5.35826,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -8560,32 +8612,6 @@
       "opening_hours": null
     },
     {
-      "inpost_id": "NL021752",
-      "locatieNaam": "PUNT VD HEUVEL",
-      "straatNaam": "nijverheidsweg 10",
-      "straatNr": null,
-      "postcode": "3381 LM",
-      "city": "Giessenburg",
-      "latitude": 51.84365,
-      "longitude": 4.89615,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
       "inpost_id": "NL021766",
       "locatieNaam": "JAANS",
       "straatNaam": "BIEZELINGSESTRAAT 20",
@@ -8610,32 +8636,6 @@
         "standard_letter_send"
       ],
       "opening_hours": "Ma 13-17,Me/J/V 10-17,S 10-16"
-    },
-    {
-      "inpost_id": "NL021769",
-      "locatieNaam": "FLEUR ELEGANCE",
-      "straatNaam": "Winkelhof 2",
-      "straatNr": null,
-      "postcode": "2353 EH",
-      "city": "Leiderdorp",
-      "latitude": 52.16419,
-      "longitude": 4.53285,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
     },
     {
       "inpost_id": "NL021777",
@@ -8974,6 +8974,32 @@
         "standard_letter_send"
       ],
       "opening_hours": "L/Ma/Me/J/V/S 11-17"
+    },
+    {
+      "inpost_id": "NL021821",
+      "locatieNaam": "ATTIE'S MODE & SCHOENEN",
+      "straatNaam": "Keatsebaen 10",
+      "straatNr": null,
+      "postcode": "8731 BN",
+      "city": "Wommels",
+      "latitude": 53.10765,
+      "longitude": 5.58725,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
     },
     {
       "inpost_id": "NL021822",
@@ -9496,32 +9522,6 @@
       "opening_hours": null
     },
     {
-      "inpost_id": "NL021893",
-      "locatieNaam": "JERAI - SU",
-      "straatNaam": "Zandzuigerstraat 11f",
-      "straatNr": null,
-      "postcode": "1333 MV",
-      "city": "Almere",
-      "latitude": 52.40355,
-      "longitude": 5.26463,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
       "inpost_id": "NL021894",
       "locatieNaam": "TRAVELURGENT BV",
       "straatNaam": "Beechavenue 54",
@@ -9582,32 +9582,6 @@
       "city": "Utrecht",
       "latitude": 52.09895,
       "longitude": 5.1033,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
-      "inpost_id": "NL021901",
-      "locatieNaam": "STICHTING KRINGLOOP MAASDIJK",
-      "straatNaam": "Maasambacht 8",
-      "straatNr": null,
-      "postcode": "2676 CW",
-      "city": "Maasdijk",
-      "latitude": 51.96047,
-      "longitude": 4.21082,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -9780,32 +9754,6 @@
         "standard_letter_send"
       ],
       "opening_hours": "L/Ma/Me/J/V/S 8-22,D 12-22"
-    },
-    {
-      "inpost_id": "NL021919",
-      "locatieNaam": "CADEAUS & MEER",
-      "straatNaam": "Amsterdamsestraatweg 275",
-      "straatNr": null,
-      "postcode": "3551 CE",
-      "city": "Utrecht",
-      "latitude": 52.10143,
-      "longitude": 5.09912,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
     },
     {
       "inpost_id": "NL021920",
@@ -9988,32 +9936,6 @@
       "opening_hours": null
     },
     {
-      "inpost_id": "NL021933",
-      "locatieNaam": "DROPPIE",
-      "straatNaam": "Van Limburg Stirumplein 1",
-      "straatNr": null,
-      "postcode": "1051 BD",
-      "city": "Amsterdam",
-      "latitude": 52.38431,
-      "longitude": 4.87543,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
       "inpost_id": "NL021934",
       "locatieNaam": "DE BUREN",
       "straatNaam": "Kroonplein 10",
@@ -10144,6 +10066,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL021945",
+      "locatieNaam": "NIGHT WALK",
+      "straatNaam": "Torenstraat 93",
+      "straatNr": null,
+      "postcode": "2513 BP",
+      "city": "Den Haag",
+      "latitude": 52.07879,
+      "longitude": 4.30405,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL021947",
       "locatieNaam": "CELL CITY",
       "straatNaam": "Het Frontier 163",
@@ -10196,6 +10144,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL021950",
+      "locatieNaam": "STUDIO SUNSHINE-SUN&BEAUTY",
+      "straatNaam": "Oostdam 28A",
+      "straatNr": null,
+      "postcode": "4651 AW",
+      "city": "Steenbergen",
+      "latitude": 51.58798,
+      "longitude": 4.31986,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL021956",
       "locatieNaam": "VINK MULTIMEDIA",
       "straatNaam": "Havenstraat 9A",
@@ -10230,6 +10204,32 @@
       "city": "Barendrecht",
       "latitude": 51.85184,
       "longitude": 4.54869,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
+      "inpost_id": "NL021966",
+      "locatieNaam": "DISK/KABELS EN CO 51.88163688582907, 5.513356309282303",
+      "straatNaam": "Zandstraat 95 b",
+      "straatNr": null,
+      "postcode": "6658 CP",
+      "city": "Beneden-Leeuwen",
+      "latitude": 51.88164,
+      "longitude": 5.51336,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -10334,32 +10334,6 @@
       "city": "Emmeloord",
       "latitude": 52.71105,
       "longitude": 5.75922,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
-      "inpost_id": "NL021980",
-      "locatieNaam": "GM-TUNINGPARTS",
-      "straatNaam": "Oirschotseweg 92A",
-      "straatNr": null,
-      "postcode": "5684 NL",
-      "city": "Best",
-      "latitude": 51.50949,
-      "longitude": 5.3748,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -10542,32 +10516,6 @@
       "city": "Hoek van Holland",
       "latitude": 51.97718,
       "longitude": 4.13088,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
-      "inpost_id": "NL021996",
-      "locatieNaam": "TREFFERS GESCHENKENHUIS",
-      "straatNaam": "Hoefstraat 1",
-      "straatNr": null,
-      "postcode": "4265 HT",
-      "city": "Genderen",
-      "latitude": 51.73572,
-      "longitude": 5.08869,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -11366,6 +11314,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL022067",
+      "locatieNaam": "LBK RENOVATIE",
+      "straatNaam": "Vossenweg 15E",
+      "straatNr": null,
+      "postcode": "3941 GS",
+      "city": "Doorn",
+      "latitude": 52.0384,
+      "longitude": 5.34353,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL022072",
       "locatieNaam": "GENCO TELECOM & COMPUTERS",
       "straatNaam": "Boxbergerweg 63",
@@ -11964,6 +11938,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL022116",
+      "locatieNaam": "BLOEMENMOZAIEK",
+      "straatNaam": "Helperplein 3",
+      "straatNr": null,
+      "postcode": "9721 CX",
+      "city": "Groningen",
+      "latitude": 53.1979,
+      "longitude": 6.5796,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL022117",
       "locatieNaam": "CIGO GEMERT",
       "straatNaam": "Nieuwstraat 45",
@@ -12120,14 +12120,14 @@
       "opening_hours": null
     },
     {
-      "inpost_id": "NL022128",
-      "locatieNaam": "LEONIDAS - CHOCOLATES & MORE - ZANDVOORT",
-      "straatNaam": "Haltestraat 39b",
+      "inpost_id": "NL022127",
+      "locatieNaam": "FOR YOU LIVING",
+      "straatNaam": "Middenwaard 23",
       "straatNr": null,
-      "postcode": "2042 LK",
-      "city": "Zandvoort",
-      "latitude": 52.37386,
-      "longitude": 4.53076,
+      "postcode": "1703 SB",
+      "city": "Heerhugowaard",
+      "latitude": 52.66295,
+      "longitude": 4.82945,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -12180,6 +12180,58 @@
       "city": "Nieuw-Vennep",
       "latitude": 52.2639,
       "longitude": 4.63168,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
+      "inpost_id": "NL022141",
+      "locatieNaam": "REPROSERVICE ZEIJEN",
+      "straatNaam": "Hoofdstraat 41",
+      "straatNr": null,
+      "postcode": "9491 AD",
+      "city": "Zeijen",
+      "latitude": 53.04589,
+      "longitude": 6.54617,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
+      "inpost_id": "NL022142",
+      "locatieNaam": "BOOKIE",
+      "straatNaam": "Westwal 38",
+      "straatNr": null,
+      "postcode": "4341 CE",
+      "city": "Arnemuiden",
+      "latitude": 51.50052,
+      "longitude": 3.67051,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -13004,6 +13056,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL022199",
+      "locatieNaam": "BLOEMENHUIS VITA-NOVA",
+      "straatNaam": "Hoofdweg 32",
+      "straatNr": null,
+      "postcode": "9945 PG",
+      "city": "Wagenborgen",
+      "latitude": 53.25622,
+      "longitude": 6.93326,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL022203",
       "locatieNaam": "VERSTRATEN TUINCENTRUM",
       "straatNaam": "SEVENUMSEDIJK 11A",
@@ -13064,6 +13142,32 @@
       "city": "Den Haag",
       "latitude": 52.07999,
       "longitude": 4.31783,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
+      "inpost_id": "NL022212",
+      "locatieNaam": "REPAIRCONNECT",
+      "straatNaam": "Zwanestraat 21",
+      "straatNr": null,
+      "postcode": "9712 CJ",
+      "city": "Groningen",
+      "latitude": 53.21836,
+      "longitude": 6.56419,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -13942,38 +14046,12 @@
     {
       "inpost_id": "NL022282",
       "locatieNaam": "STER MEDIA STORE M&S BV",
-      "straatNaam": "NIEUWSTRAAT 46",
+      "straatNaam": "Nieuwstraat 46",
       "straatNr": null,
       "postcode": "6431 KV",
-      "city": "HOENSBROEK",
+      "city": "Hoensbroek",
       "latitude": 50.92326,
       "longitude": 5.92846,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": "L/Ma/Me/J/V 10-17,S 10-14"
-    },
-    {
-      "inpost_id": "NL022283",
-      "locatieNaam": "ALLES'Z",
-      "straatNaam": "Meipoortstraat 19",
-      "straatNr": null,
-      "postcode": "6981 DH",
-      "city": "Doesburg",
-      "latitude": 52.01364,
-      "longitude": 6.13663,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -13992,14 +14070,14 @@
       "opening_hours": null
     },
     {
-      "inpost_id": "NL022289",
-      "locatieNaam": "PAKKETPUNT E.LION",
-      "straatNaam": "Doctor H. Colijnstraat 11",
+      "inpost_id": "NL022283",
+      "locatieNaam": "ALLES'Z",
+      "straatNaam": "Meipoortstraat 19",
       "straatNr": null,
-      "postcode": "3214 XD",
-      "city": "Zuidland",
-      "latitude": 51.82146,
-      "longitude": 4.26235,
+      "postcode": "6981 DH",
+      "city": "Doesburg",
+      "latitude": 52.01364,
+      "longitude": 6.13663,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -14155,7 +14233,33 @@
       "postcode": "7514 BH",
       "city": "Enschede",
       "latitude": 52.22427,
-      "longitude": 6.892,
+      "longitude": 6.89199,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
+      "inpost_id": "NL022298",
+      "locatieNaam": "BUURTSERVICEPUNT MICHELLE",
+      "straatNaam": "Kloekhorststraat 248",
+      "straatNr": null,
+      "postcode": "1104 MZ",
+      "city": "Amsterdam",
+      "latitude": 52.31696,
+      "longitude": 4.96706,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -14494,32 +14598,6 @@
       "city": "Varsseveld",
       "latitude": 51.94397,
       "longitude": 6.46178,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
-      "inpost_id": "NL022320",
-      "locatieNaam": "IXORA PARFUM APELDOORN",
-      "straatNaam": "Hoofdstraat 148",
-      "straatNr": null,
-      "postcode": "7311 BB",
-      "city": "Apeldoorn",
-      "latitude": 52.21605,
-      "longitude": 5.95996,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -15422,6 +15500,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL022375",
+      "locatieNaam": "BIJLTWEEWIELERS",
+      "straatNaam": "Piet Smitstraat 1",
+      "straatNr": null,
+      "postcode": "1602 VA",
+      "city": "Enkhuizen",
+      "latitude": 52.712,
+      "longitude": 5.28325,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL022376",
       "locatieNaam": "ASEEL MARKET",
       "straatNaam": "Antillenstraat 32",
@@ -15604,32 +15708,6 @@
       "opening_hours": null
     },
     {
-      "inpost_id": "NL022387",
-      "locatieNaam": "ALMARO OUTLET WINKEL",
-      "straatNaam": "Oostermeent Zuid 124",
-      "straatNr": null,
-      "postcode": "1274 SW",
-      "city": "Huizen",
-      "latitude": 52.29428,
-      "longitude": 5.26349,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
       "inpost_id": "NL022389",
       "locatieNaam": "VALERIE'S FRUIT DELIVERY",
       "straatNaam": "Herenweg 301a",
@@ -15742,6 +15820,32 @@
       "city": "Apeldoorn",
       "latitude": 52.2234,
       "longitude": 5.97586,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
+      "inpost_id": "NL022401",
+      "locatieNaam": "DOUBLE W GIFTS",
+      "straatNaam": "Barnsteenpad 4",
+      "straatNr": null,
+      "postcode": "2332 TP",
+      "city": "Leiden",
+      "latitude": 52.1572,
+      "longitude": 4.46513,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -15940,6 +16044,32 @@
         "standard_letter_send"
       ],
       "opening_hours": "L/Ma/Me/J/V, 9-17"
+    },
+    {
+      "inpost_id": "NL022416",
+      "locatieNaam": "SUPERMARKT SLIJTERIJ KRUISKADE",
+      "straatNaam": "West-Kruiskade 15 A",
+      "straatNr": null,
+      "postcode": "3014 AJ",
+      "city": "Rotterdam",
+      "latitude": 51.92076,
+      "longitude": 4.46999,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
     },
     {
       "inpost_id": "NL022417",
@@ -16280,6 +16410,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL022438",
+      "locatieNaam": "MAGASINE LAREN",
+      "straatNaam": "Sint Janstraat 2-4",
+      "straatNr": null,
+      "postcode": "1251 LA",
+      "city": "Laren",
+      "latitude": 52.25536,
+      "longitude": 5.2263,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL022440",
       "locatieNaam": "DE GARAGE (STICHTING ART FAIR INT.)",
       "straatNaam": "HULSTERLOOSTRAAT 128",
@@ -16306,32 +16462,6 @@
       "opening_hours": "L 16-18,Ma/Me/J/V/S 10-18"
     },
     {
-      "inpost_id": "NL022443",
-      "locatieNaam": "DDS LOGISTICS EINDHOVEN",
-      "straatNaam": "Molenkamp 32",
-      "straatNr": null,
-      "postcode": "5674 TJ",
-      "city": "Nuenen",
-      "latitude": 51.44769,
-      "longitude": 5.54186,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
       "inpost_id": "NL022444",
       "locatieNaam": "513 TRADING BV",
       "straatNaam": "Transportweg 1",
@@ -16340,32 +16470,6 @@
       "city": "Ulft",
       "latitude": 51.87989,
       "longitude": 6.3847,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
-      "inpost_id": "NL022447",
-      "locatieNaam": "SLIJTERIJ OOST",
-      "straatNaam": "Dapperstraat 287",
-      "straatNr": null,
-      "postcode": "1093 BS",
-      "city": "Amsterdam",
-      "latitude": 52.36145,
-      "longitude": 4.92851,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -16670,6 +16774,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL022468",
+      "locatieNaam": "HOWCONCEPTSTORE",
+      "straatNaam": "Van Oldenbarneveltstraat 30",
+      "straatNr": null,
+      "postcode": "2628 TX",
+      "city": "Delft",
+      "latitude": 52.00853,
+      "longitude": 4.37537,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL022469",
       "locatieNaam": "PHONEXPERTS HARDINXVELD",
       "straatNaam": "Den Bogerd 12",
@@ -16748,6 +16878,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL022474",
+      "locatieNaam": "HANDELSHUIS HELLEVOETSLUIS",
+      "straatNaam": "Smitsweg 78",
+      "straatNr": null,
+      "postcode": "3222 AJ",
+      "city": "Hellevoetsluis",
+      "latitude": 51.83851,
+      "longitude": 4.12388,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL022476",
       "locatieNaam": "INSTALLATIE MATERIALEN EXPRES BV",
       "straatNaam": "Industrieweg 4",
@@ -16756,6 +16912,32 @@
       "city": "Olst",
       "latitude": 52.33566,
       "longitude": 6.11559,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
+      "inpost_id": "NL022478",
+      "locatieNaam": "DE NIEUWSGIERIGE AAPJES BV",
+      "straatNaam": "It Achterbosk 19",
+      "straatNr": null,
+      "postcode": "9051 CS",
+      "city": "Stiens",
+      "latitude": 53.25921,
+      "longitude": 5.76147,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -16852,32 +17034,6 @@
       "opening_hours": null
     },
     {
-      "inpost_id": "NL022489",
-      "locatieNaam": "POP PAKKETPUNT",
-      "straatNaam": "Grotestraat 16",
-      "straatNr": null,
-      "postcode": "5151 JE",
-      "city": "Drunen",
-      "latitude": 51.68821,
-      "longitude": 5.12295,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
       "inpost_id": "NL022492",
       "locatieNaam": "GIGI MODA",
       "straatNaam": "WALSTRAAT 105",
@@ -16928,6 +17084,32 @@
         "standard_letter_send"
       ],
       "opening_hours": "L 9-13:30 15-21,Ma/Me/J/V/S 9- 17"
+    },
+    {
+      "inpost_id": "NL022494",
+      "locatieNaam": "SMARTPHONESCHADE MIERLO",
+      "straatNaam": "Dorpsstraat 100c",
+      "straatNr": null,
+      "postcode": "5731 JK",
+      "city": "Mierlo",
+      "latitude": 51.44325,
+      "longitude": 5.61299,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
     },
     {
       "inpost_id": "NL022495",
@@ -17067,7 +17249,7 @@
       "postcode": "1821 BN",
       "city": "Alkmaar",
       "latitude": 52.62677,
-      "longitude": 4.77189,
+      "longitude": 4.7719,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -17120,32 +17302,6 @@
       "city": "Den Haag",
       "latitude": 52.06887,
       "longitude": 4.31931,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
-      "inpost_id": "NL022507",
-      "locatieNaam": "KINGS SHOP",
-      "straatNaam": "Koningstraat 60-C",
-      "straatNr": null,
-      "postcode": "2515 JT",
-      "city": "Den Haag",
-      "latitude": 52.0709,
-      "longitude": 4.31263,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -17658,6 +17814,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL022545",
+      "locatieNaam": "DRUKKERIJ AURORA",
+      "straatNaam": "MARKTSTRAAT 11",
+      "straatNr": null,
+      "postcode": "7607 HC",
+      "city": "ALMELO",
+      "latitude": 52.35422,
+      "longitude": 6.66347,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": "L/Ma/Me 8:30-18,J 8:30-21,V, 8 :30-18"
+    },
+    {
       "inpost_id": "NL022546",
       "locatieNaam": "YATTA LOGISTICS B.V.",
       "straatNaam": "Papaverweg 37B",
@@ -17918,6 +18100,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL022559",
+      "locatieNaam": "NOOF'S WINKELTJE",
+      "straatNaam": "Kerkstraat 29",
+      "straatNr": null,
+      "postcode": "4694 BW",
+      "city": "Scherpenisse",
+      "latitude": 51.54734,
+      "longitude": 4.10575,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL022560",
       "locatieNaam": "RECLAMEVERSPREIDING BOUWMAN BV",
       "straatNaam": "HOUTKOPERSSTRAAT 6E",
@@ -17946,12 +18154,12 @@
     {
       "inpost_id": "NL022561",
       "locatieNaam": "ALMANAR BEAUTY",
-      "straatNaam": "HINTHAM 24",
+      "straatNaam": "Hintham 24",
       "straatNr": null,
       "postcode": "5246 AG",
-      "city": "ROSMALEN",
+      "city": "Rosmalen",
       "latitude": 51.70071,
-      "longitude": 5.33632,
+      "longitude": 5.33631,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -17967,7 +18175,7 @@
         "standard_letter_collect",
         "standard_letter_send"
       ],
-      "opening_hours": "L/Ma/Me/J/V/S 9-19"
+      "opening_hours": null
     },
     {
       "inpost_id": "NL022562",
@@ -18006,6 +18214,32 @@
       "longitude": 5.66385,
       "puntType": "servicepunt",
       "location_247": true,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
+      "inpost_id": "NL022565",
+      "locatieNaam": "JANET'S DIERENRIJK",
+      "straatNaam": "Warmoltsstrjitte 19",
+      "straatNr": null,
+      "postcode": "9281 PK",
+      "city": "Harkema",
+      "latitude": 53.18378,
+      "longitude": 6.13443,
+      "puntType": "servicepunt",
+      "location_247": false,
       "functions": [
         "cross_network_parcel_collect",
         "cross_network_parcel_send",
@@ -18212,32 +18446,6 @@
       "city": "Coevorden",
       "latitude": 52.66014,
       "longitude": 6.74094,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
-      "inpost_id": "NL022575",
-      "locatieNaam": "COMFORTWHEELS",
-      "straatNaam": "De Smalle Zijde 3",
-      "straatNr": null,
-      "postcode": "3903 LL",
-      "city": "Veenendaal",
-      "latitude": 52.01006,
-      "longitude": 5.55957,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -18646,6 +18854,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL022592",
+      "locatieNaam": "BEL & PAK",
+      "straatNaam": "Tongelresestraat 160",
+      "straatNr": null,
+      "postcode": "5613 DP",
+      "city": "Eindhoven",
+      "latitude": 51.44033,
+      "longitude": 5.49707,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL022593",
       "locatieNaam": "HUIS EN TUINDROOM",
       "straatNaam": "ROORVELD 28",
@@ -18914,58 +19148,6 @@
       "city": "Lelystad",
       "latitude": 52.50721,
       "longitude": 5.44552,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
-      "inpost_id": "NL022605",
-      "locatieNaam": "NO LIMITED LOGISTIEK",
-      "straatNaam": "Koningsbergenweg 48",
-      "straatNr": null,
-      "postcode": "3825 PN",
-      "city": "Amersfoort",
-      "latitude": 52.18039,
-      "longitude": 5.42856,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
-      "inpost_id": "NL022606",
-      "locatieNaam": "KRINGLOOP BOLSWARD",
-      "straatNaam": "Oude Hichtumerweg 3",
-      "straatNr": null,
-      "postcode": "8701 PE",
-      "city": "Bolsward",
-      "latitude": 53.06968,
-      "longitude": 5.52262,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -19478,14 +19660,14 @@
       "opening_hours": "24/7"
     },
     {
-      "inpost_id": "NL022631",
-      "locatieNaam": "'T WINKELTJE",
-      "straatNaam": "Ginnekenstraat 130",
+      "inpost_id": "NL022630",
+      "locatieNaam": "BEKHUIS MUZIEK",
+      "straatNaam": "Nieuwe Gouw 26",
       "straatNr": null,
-      "postcode": "4811 JK",
-      "city": "Breda",
-      "latitude": 51.5835,
-      "longitude": 4.77734,
+      "postcode": "1121 GX",
+      "city": "Landsmeer",
+      "latitude": 52.42859,
+      "longitude": 4.91423,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -19606,32 +19788,6 @@
         "standard_letter_send"
       ],
       "opening_hours": "24/7"
-    },
-    {
-      "inpost_id": "NL022638",
-      "locatieNaam": "ZINNIA BLOEMEN 2.0",
-      "straatNaam": "Hadewychplaats 86",
-      "straatNr": null,
-      "postcode": "3207 KG",
-      "city": "Spijkenisse",
-      "latitude": 51.83328,
-      "longitude": 4.36184,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
     },
     {
       "inpost_id": "NL022640",
@@ -19824,58 +19980,6 @@
       "city": "Hoofddorp",
       "latitude": 52.30261,
       "longitude": 4.69403,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
-      "inpost_id": "NL022648",
-      "locatieNaam": "BLINKIE",
-      "straatNaam": "Houttuinlaan 18",
-      "straatNr": null,
-      "postcode": "3447 GM",
-      "city": "Woerden",
-      "latitude": 52.08136,
-      "longitude": 4.88749,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
-      "inpost_id": "NL022649",
-      "locatieNaam": "HAB INFRA GROUP B.V.",
-      "straatNaam": "Industrieweg 34-15",
-      "straatNr": null,
-      "postcode": "3606 AS",
-      "city": "Maarssen",
-      "latitude": 52.12826,
-      "longitude": 5.04081,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -20102,32 +20206,6 @@
       "opening_hours": "L/Ma/Me/J/V 10-18,S 11-16"
     },
     {
-      "inpost_id": "NL022661",
-      "locatieNaam": null,
-      "straatNaam": "L.J. Costerstraat",
-      "straatNr": "49",
-      "postcode": "8141 GN",
-      "city": "Heino",
-      "latitude": 52.44162,
-      "longitude": 6.23394,
-      "puntType": "automaat",
-      "location_247": true,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": "24/7"
-    },
-    {
       "inpost_id": "NL022662",
       "locatieNaam": null,
       "straatNaam": "Voorstraat",
@@ -20214,32 +20292,6 @@
       "city": "Bovenkarspel",
       "latitude": 52.69718,
       "longitude": 5.23431,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
-      "inpost_id": "NL022666",
-      "locatieNaam": "AKKON",
-      "straatNaam": "Willemsweg 147",
-      "straatNr": null,
-      "postcode": "6531 DG",
-      "city": "Nijmegen",
-      "latitude": 51.83441,
-      "longitude": 5.84923,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -20700,6 +20752,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL022684",
+      "locatieNaam": "ONS SJOPPIE",
+      "straatNaam": "Van Weedestraat 52",
+      "straatNr": null,
+      "postcode": "3761 CG",
+      "city": "Soest",
+      "latitude": 52.18579,
+      "longitude": 5.29701,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL022685",
       "locatieNaam": "SON-DAY SANTOS V.O.F.",
       "straatNaam": "Hoge Duin en Daalseweg 5",
@@ -20804,6 +20882,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL022689",
+      "locatieNaam": "DE MEUBELWERF B.V",
+      "straatNaam": "Nieuwe Havenweg 24",
+      "straatNr": null,
+      "postcode": "1216 BT",
+      "city": "Hilversum",
+      "latitude": 52.22285,
+      "longitude": 5.1445,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL022690",
       "locatieNaam": "PLANEET PHONE REPARATIE",
       "straatNaam": "Admiraalsplein 9",
@@ -20854,32 +20958,6 @@
         "standard_letter_send"
       ],
       "opening_hours": "MON|07:00-22:30|-;TUE|07:00-22:30|-;WED|07:00-22:30|-;THU|07:00-22:30|-;FRI|07:00-22:30|-;SAT|07:00-22:30|-;SUN|08:00-22:30|-;"
-    },
-    {
-      "inpost_id": "NL022693",
-      "locatieNaam": "FIX MY PHONE",
-      "straatNaam": "Weimarstraat 271",
-      "straatNr": null,
-      "postcode": "2562 HH",
-      "city": "Den Haag",
-      "latitude": 52.07396,
-      "longitude": 4.27751,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
     },
     {
       "inpost_id": "NL022694",
@@ -20940,8 +21018,8 @@
       "straatNr": "14",
       "postcode": "4401 LB",
       "city": "Yerseke",
-      "latitude": 4.05206,
-      "longitude": 51.48224,
+      "latitude": 51.48224,
+      "longitude": 4.05206,
       "puntType": "automaat",
       "location_247": true,
       "functions": [
@@ -21150,32 +21228,6 @@
       "city": "Den Haag",
       "latitude": 52.07019,
       "longitude": 4.28669,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
-      "inpost_id": "NL022707",
-      "locatieNaam": "MIKAZOO SNOEP EN KADO",
-      "straatNaam": "Uilenpad 2",
-      "straatNr": null,
-      "postcode": "3722 AW",
-      "city": "Bilthoven",
-      "latitude": 52.12898,
-      "longitude": 5.20828,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -21514,32 +21566,6 @@
       "city": "Den Haag",
       "latitude": 52.0461,
       "longitude": 4.24261,
-      "puntType": "automaat",
-      "location_247": true,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": "24/7"
-    },
-    {
-      "inpost_id": "NL022722",
-      "locatieNaam": null,
-      "straatNaam": "Europaplein",
-      "straatNr": "37",
-      "postcode": "4142 CD",
-      "city": "Leerdam",
-      "latitude": 51.89062,
-      "longitude": 5.08136,
       "puntType": "automaat",
       "location_247": true,
       "functions": [
@@ -21974,32 +22000,6 @@
       "opening_hours": null
     },
     {
-      "inpost_id": "NL022740",
-      "locatieNaam": "HARINGS TWEEWIELERS",
-      "straatNaam": "NIEUWSTRAAT 95",
-      "straatNr": null,
-      "postcode": "7605 AC",
-      "city": "ALMELO",
-      "latitude": 52.35032,
-      "longitude": 6.65508,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": "Ma/Me/J/V 9-18,S 9-17"
-    },
-    {
       "inpost_id": "NL022741",
       "locatieNaam": "BOERKE MOATJE VOF",
       "straatNaam": "Brasem 35",
@@ -22007,7 +22007,7 @@
       "postcode": "4941 SE",
       "city": "Raamsdonksveer",
       "latitude": 51.709,
-      "longitude": 4.86671,
+      "longitude": 4.8667,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -22190,6 +22190,32 @@
       "city": "Utrecht",
       "latitude": 52.10096,
       "longitude": 5.10026,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
+      "inpost_id": "NL022749",
+      "locatieNaam": "THE MAGIC TOUCH",
+      "straatNaam": "Mozartweg 69-A",
+      "straatNr": null,
+      "postcode": "3816 LM",
+      "city": "Amersfoort",
+      "latitude": 52.149,
+      "longitude": 5.40425,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -22650,6 +22676,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL022768",
+      "locatieNaam": "MASTER TAILOR MAHER",
+      "straatNaam": "Fortuinstraat 16",
+      "straatNr": null,
+      "postcode": "7772 BM",
+      "city": "Hardenberg",
+      "latitude": 52.57486,
+      "longitude": 6.61888,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL022769",
       "locatieNaam": "Inside the shop, RHS from\r\nentrance",
       "straatNaam": "Batehof",
@@ -22674,6 +22726,32 @@
         "standard_letter_send"
       ],
       "opening_hours": "MON|08:00-20:00|-;TUE|08:00-20:00|-;WED|08:00-20:00|-;THU|08:00-20:00|-;FRI|08:00-20:00|-;SAT|08:00-20:00|-;SUN|08:00-20:00|-;"
+    },
+    {
+      "inpost_id": "NL022770",
+      "locatieNaam": "STICHTING LINK2WORK",
+      "straatNaam": "Malmöpad 60",
+      "straatNr": null,
+      "postcode": "3067 PW",
+      "city": "Rotterdam",
+      "latitude": 51.94134,
+      "longitude": 4.56037,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
     },
     {
       "inpost_id": "NL022771",
@@ -22884,32 +22962,6 @@
       "opening_hours": null
     },
     {
-      "inpost_id": "NL022786",
-      "locatieNaam": null,
-      "straatNaam": "Carlsonstraat",
-      "straatNr": "25",
-      "postcode": "8263 CA",
-      "city": "Kampen",
-      "latitude": 52.56469,
-      "longitude": 5.87231,
-      "puntType": "automaat",
-      "location_247": true,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": "24/7"
-    },
-    {
       "inpost_id": "NL022787",
       "locatieNaam": "In the room streight from the\r\nentrance",
       "straatNaam": "Polderboom",
@@ -22934,6 +22986,32 @@
         "standard_letter_send"
       ],
       "opening_hours": "MON|08:00-19:00|-;TUE|08:00-19:00|-;WED|08:00-19:00|-;THU|08:00-19:00|-;FRI|08:00-19:00|-;SAT|08:00-19:00|-;SUN|08:00-19:00|-;"
+    },
+    {
+      "inpost_id": "NL022788",
+      "locatieNaam": null,
+      "straatNaam": "Rijksstraatweg",
+      "straatNr": "96B",
+      "postcode": "3454 JH",
+      "city": "Utrecht",
+      "latitude": 52.08237,
+      "longitude": 5.03818,
+      "puntType": "automaat",
+      "location_247": true,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": "24/7"
     },
     {
       "inpost_id": "NL022789",
@@ -23022,32 +23100,6 @@
       "city": "Almere",
       "latitude": 52.33596,
       "longitude": 5.21866,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
-      "inpost_id": "NL022793",
-      "locatieNaam": "PAKKETPUNT CWARTIER",
-      "straatNaam": "Beekstraat 54",
-      "straatNr": null,
-      "postcode": "6001 GJ",
-      "city": "Weert",
-      "latitude": 51.25545,
-      "longitude": 5.70616,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -23690,58 +23742,6 @@
       "opening_hours": null
     },
     {
-      "inpost_id": "NL022830",
-      "locatieNaam": null,
-      "straatNaam": "Sportring",
-      "straatNr": "3",
-      "postcode": "2616 LK",
-      "city": "Delft",
-      "latitude": 52.02815,
-      "longitude": 4.36738,
-      "puntType": "automaat",
-      "location_247": true,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": "24/7"
-    },
-    {
-      "inpost_id": "NL022831",
-      "locatieNaam": "TFEMW BV",
-      "straatNaam": "Watertorenweg 332",
-      "straatNr": null,
-      "postcode": "3063 HA",
-      "city": "Rotterdam",
-      "latitude": 51.91135,
-      "longitude": 4.52068,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
       "inpost_id": "NL022832",
       "locatieNaam": null,
       "straatNaam": "Kennelweg",
@@ -23846,32 +23846,6 @@
       "opening_hours": "24/7"
     },
     {
-      "inpost_id": "NL022840",
-      "locatieNaam": "TOP1TOYS RAALTE",
-      "straatNaam": "Grotestraat 11",
-      "straatNr": null,
-      "postcode": "8102 CD",
-      "city": "Raalte",
-      "latitude": 52.38513,
-      "longitude": 6.27528,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
       "inpost_id": "NL022841",
       "locatieNaam": null,
       "straatNaam": "Taagdreef",
@@ -23906,6 +23880,58 @@
       "city": "Reusel",
       "latitude": 51.35997,
       "longitude": 5.15608,
+      "puntType": "automaat",
+      "location_247": true,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": "24/7"
+    },
+    {
+      "inpost_id": "NL022843",
+      "locatieNaam": null,
+      "straatNaam": "Oostwaard",
+      "straatNr": "32",
+      "postcode": "3602 AA",
+      "city": "Maarssen",
+      "latitude": 52.13165,
+      "longitude": 5.0515,
+      "puntType": "automaat",
+      "location_247": true,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": "24/7"
+    },
+    {
+      "inpost_id": "NL022844",
+      "locatieNaam": null,
+      "straatNaam": "Den Uitvanck",
+      "straatNr": "1",
+      "postcode": "5688 XG",
+      "city": "Oirschot",
+      "latitude": 51.50139,
+      "longitude": 5.33251,
       "puntType": "automaat",
       "location_247": true,
       "functions": [
@@ -24106,14 +24132,14 @@
       "opening_hours": "24/7"
     },
     {
-      "inpost_id": "NL022853",
+      "inpost_id": "NL022855",
       "locatieNaam": null,
-      "straatNaam": "Pastoor Hendrikstraat",
-      "straatNr": "50",
-      "postcode": "5766 PG",
-      "city": "Griendtsveen",
-      "latitude": 51.44362,
-      "longitude": 5.88087,
+      "straatNaam": "Weerlaan",
+      "straatNr": "11",
+      "postcode": "2181 HG",
+      "city": "Hillegom",
+      "latitude": 52.30232,
+      "longitude": 4.58833,
       "puntType": "automaat",
       "location_247": true,
       "functions": [
@@ -24288,6 +24314,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL022863",
+      "locatieNaam": "PJJ CENTRAL B.V.",
+      "straatNaam": "Ambachtsweg 51d",
+      "straatNr": null,
+      "postcode": "1271 AL",
+      "city": "HUIZEN",
+      "latitude": 52.30697,
+      "longitude": 5.24554,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL022864",
       "locatieNaam": null,
       "straatNaam": "Plataanstraat",
@@ -24340,32 +24392,6 @@
       "opening_hours": null
     },
     {
-      "inpost_id": "NL022867",
-      "locatieNaam": "LA RIYAN",
-      "straatNaam": "Goeverneurlaan 527",
-      "straatNr": null,
-      "postcode": "2523 CE",
-      "city": "Den Haag",
-      "latitude": 52.05712,
-      "longitude": 4.3173,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
       "inpost_id": "NL022869",
       "locatieNaam": "Inside, to the left of the entrance",
       "straatNaam": "Schoutstraat",
@@ -24400,6 +24426,32 @@
       "city": "Cuijk",
       "latitude": 51.7257,
       "longitude": 5.86975,
+      "puntType": "automaat",
+      "location_247": true,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": "24/7"
+    },
+    {
+      "inpost_id": "NL022873",
+      "locatieNaam": null,
+      "straatNaam": "De Steiger",
+      "straatNr": "203",
+      "postcode": "1351 AW",
+      "city": "Almere",
+      "latitude": 52.34858,
+      "longitude": 5.22327,
       "puntType": "automaat",
       "location_247": true,
       "functions": [
@@ -24548,6 +24600,58 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL022886",
+      "locatieNaam": null,
+      "straatNaam": "Fortunaweg",
+      "straatNr": "4",
+      "postcode": "3113 AN",
+      "city": "Schiedam",
+      "latitude": 51.9054,
+      "longitude": 4.41371,
+      "puntType": "automaat",
+      "location_247": true,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": "24/7"
+    },
+    {
+      "inpost_id": "NL022887",
+      "locatieNaam": null,
+      "straatNaam": "Lidwinastraat",
+      "straatNr": "12C",
+      "postcode": "5262 EP",
+      "city": "Vught",
+      "latitude": 51.64527,
+      "longitude": 5.28667,
+      "puntType": "automaat",
+      "location_247": true,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": "24/7"
+    },
+    {
       "inpost_id": "NL022888",
       "locatieNaam": "Inside the building, behind the Vinted\r\nmachine",
       "straatNaam": "Frans Erensstraat",
@@ -24581,7 +24685,7 @@
       "postcode": "5038 WT",
       "city": "Tilburg",
       "latitude": 51.55179,
-      "longitude": 5.08935,
+      "longitude": 5.08934,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -24886,6 +24990,30 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL022907",
+      "locatieNaam": null,
+      "straatNaam": "Kerkstraat",
+      "straatNr": "26",
+      "postcode": "3264 AJ",
+      "city": "Nieuw-Beierland",
+      "latitude": 51.81131,
+      "longitude": 4.34,
+      "puntType": "automaat",
+      "location_247": true,
+      "functions": [
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": "24/7"
+    },
+    {
       "inpost_id": "NL022908",
       "locatieNaam": "BLADWIJZER",
       "straatNaam": "Rembrandtstraat 23",
@@ -24938,6 +25066,58 @@
       "opening_hours": "24/7"
     },
     {
+      "inpost_id": "NL022911",
+      "locatieNaam": null,
+      "straatNaam": "Fürstenauerstraat",
+      "straatNr": "2",
+      "postcode": "7261 PE",
+      "city": "Ruurlo",
+      "latitude": 52.08476,
+      "longitude": 6.45357,
+      "puntType": "automaat",
+      "location_247": true,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": "24/7"
+    },
+    {
+      "inpost_id": "NL022912",
+      "locatieNaam": null,
+      "straatNaam": "Spastraat",
+      "straatNr": "29",
+      "postcode": "4697 RS",
+      "city": "Sint-Annaland",
+      "latitude": 51.59168,
+      "longitude": 4.10797,
+      "puntType": "automaat",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": "MON|08:30-17:30|-;TUE|08:30-17:30|-;WED|08:30-17:30|-;THU|08:30-17:30|-;FRI|08:30-17:30|-;SAT|08:30-17:00|-;SUN|-|-;"
+    },
+    {
       "inpost_id": "NL022915",
       "locatieNaam": "LUZ Y AMOR",
       "straatNaam": "Kerkstraat 14",
@@ -24988,6 +25168,58 @@
         "standard_letter_send"
       ],
       "opening_hours": null
+    },
+    {
+      "inpost_id": "NL022923",
+      "locatieNaam": null,
+      "straatNaam": "De Veken",
+      "straatNr": "9",
+      "postcode": "1716 KE",
+      "city": "Opmeer",
+      "latitude": 52.7076,
+      "longitude": 4.9572,
+      "puntType": "automaat",
+      "location_247": true,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": "24/7"
+    },
+    {
+      "inpost_id": "NL022925",
+      "locatieNaam": null,
+      "straatNaam": "Lübeckstraat",
+      "straatNr": "1",
+      "postcode": "7575 EE",
+      "city": "Oldenzaal",
+      "latitude": 52.29693,
+      "longitude": 6.91473,
+      "puntType": "automaat",
+      "location_247": true,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": "24/7"
     },
     {
       "inpost_id": "NL022926",
@@ -25068,6 +25300,80 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL022931",
+      "locatieNaam": null,
+      "straatNaam": "Goirkekanaaldijk",
+      "straatNr": "14",
+      "postcode": "5046 AT",
+      "city": "Tilburg",
+      "latitude": 51.57776,
+      "longitude": 5.08093,
+      "puntType": "automaat",
+      "location_247": true,
+      "functions": [
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": "24/7"
+    },
+    {
+      "inpost_id": "NL022933",
+      "locatieNaam": null,
+      "straatNaam": "Rijswijkseweg",
+      "straatNr": "526",
+      "postcode": "2516 HT",
+      "city": "Den Haag",
+      "latitude": 52.06236,
+      "longitude": 4.33303,
+      "puntType": "automaat",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": "MON|08:00-23:00|-;TUE|08:00-23:00|-;WED|08:00-23:00|-;THU|08:00-23:00|-;FRI|08:00-23:00|-;SAT|08:00-23:00|-;SUN|08:00-23:00|-;"
+    },
+    {
+      "inpost_id": "NL022938",
+      "locatieNaam": null,
+      "straatNaam": "Heserstraat",
+      "straatNr": "1",
+      "postcode": "6216 TP",
+      "city": "Maastricht",
+      "latitude": 50.8478,
+      "longitude": 5.65418,
+      "puntType": "automaat",
+      "location_247": true,
+      "functions": [
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": "24/7"
+    },
+    {
       "inpost_id": "NL022940",
       "locatieNaam": "GREETJE'S MOTOR FASHION",
       "straatNaam": "Schoolstraat 3E",
@@ -25092,6 +25398,58 @@
         "standard_letter_send"
       ],
       "opening_hours": null
+    },
+    {
+      "inpost_id": "NL022942",
+      "locatieNaam": null,
+      "straatNaam": "Handelsweg",
+      "straatNr": "10",
+      "postcode": "3810 AA",
+      "city": "Wijhe",
+      "latitude": 52.38479,
+      "longitude": 6.13267,
+      "puntType": "automaat",
+      "location_247": true,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": "24/7"
+    },
+    {
+      "inpost_id": "NL022943",
+      "locatieNaam": null,
+      "straatNaam": "Dalderhaag",
+      "straatNr": "9",
+      "postcode": "6136 KM",
+      "city": "Sittard",
+      "latitude": 51.02365,
+      "longitude": 5.86741,
+      "puntType": "automaat",
+      "location_247": true,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": "24/7"
     },
     {
       "inpost_id": "NL022946",
@@ -25120,6 +25478,82 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL022949",
+      "locatieNaam": null,
+      "straatNaam": "Stationsstraat",
+      "straatNr": "5",
+      "postcode": "3161 GH",
+      "city": "Rhoon",
+      "latitude": 51.86389,
+      "longitude": 4.42916,
+      "puntType": "automaat",
+      "location_247": true,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": "24/7"
+    },
+    {
+      "inpost_id": "NL022951",
+      "locatieNaam": null,
+      "straatNaam": "Watertorenstraat",
+      "straatNr": "14E",
+      "postcode": "4921 XG",
+      "city": "Made",
+      "latitude": 51.67601,
+      "longitude": 4.77385,
+      "puntType": "automaat",
+      "location_247": true,
+      "functions": [
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": "24/7"
+    },
+    {
+      "inpost_id": "NL022952",
+      "locatieNaam": null,
+      "straatNaam": "Frobenstraat",
+      "straatNr": "15",
+      "postcode": "3045 RD",
+      "city": "Rotterdam",
+      "latitude": 51.94772,
+      "longitude": 4.46266,
+      "puntType": "automaat",
+      "location_247": true,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": "24/7"
+    },
+    {
       "inpost_id": "NL022954",
       "locatieNaam": "040 PAKKETPUNT GESTEL",
       "straatNaam": "Karel de Grotelaan 4 Gebouw 1",
@@ -25144,6 +25578,30 @@
         "standard_letter_send"
       ],
       "opening_hours": null
+    },
+    {
+      "inpost_id": "NL022958",
+      "locatieNaam": null,
+      "straatNaam": "Graaf Lodewijkstraat",
+      "straatNr": "40",
+      "postcode": "3372 CD",
+      "city": "Hardinxveld-Giessendam",
+      "latitude": 51.82243,
+      "longitude": 4.88133,
+      "puntType": "automaat",
+      "location_247": true,
+      "functions": [
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": "24/7"
     },
     {
       "inpost_id": "NL022963",
@@ -25198,6 +25656,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL022965",
+      "locatieNaam": "KRINGLOOPVOORDEEL HEEREVEEN",
+      "straatNaam": "Kerkstraat 18",
+      "straatNr": null,
+      "postcode": "8441 EZ",
+      "city": "Heerenveen",
+      "latitude": 52.96079,
+      "longitude": 5.92369,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
       "inpost_id": "NL022966",
       "locatieNaam": "SIGARENMAGAZIJN DE MEEUW",
       "straatNaam": "Meeuwenlaan 299",
@@ -25224,40 +25708,14 @@
       "opening_hours": null
     },
     {
-      "inpost_id": "NL022967",
-      "locatieNaam": "DAMASCUS SWEETS",
-      "straatNaam": "Kuipersdijk 39",
+      "inpost_id": "NL022969",
+      "locatieNaam": "SANDY LOETJE",
+      "straatNaam": "Haarlemmerstraat 223-225",
       "straatNr": null,
-      "postcode": "7512 CA",
-      "city": "Enschede",
-      "latitude": 52.21548,
-      "longitude": 6.89635,
-      "puntType": "servicepunt",
-      "location_247": false,
-      "functions": [
-        "cross_network_parcel_collect",
-        "cross_network_parcel_send",
-        "parcel",
-        "parcel_collect",
-        "parcel_reverse_return_send",
-        "parcel_send",
-        "standard_courier_collect",
-        "standard_courier_reverse_return_send",
-        "standard_courier_send",
-        "standard_letter_collect",
-        "standard_letter_send"
-      ],
-      "opening_hours": null
-    },
-    {
-      "inpost_id": "NL022968",
-      "locatieNaam": "QBUZZ SERVICEPUNT EMMEN",
-      "straatNaam": "Stationsplein 6",
-      "straatNr": null,
-      "postcode": "7811GW",
-      "city": "Emmen",
-      "latitude": 52.13263,
-      "longitude": 5.29127,
+      "postcode": "2312 DR",
+      "city": "Leiden",
+      "latitude": 52.16045,
+      "longitude": 4.49565,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -25432,6 +25890,58 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL022989",
+      "locatieNaam": null,
+      "straatNaam": "Molendijk",
+      "straatNr": "103",
+      "postcode": "3466 NB",
+      "city": "Waarder",
+      "latitude": 52.06404,
+      "longitude": 4.82067,
+      "puntType": "automaat",
+      "location_247": true,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": "24/7"
+    },
+    {
+      "inpost_id": "NL022990",
+      "locatieNaam": null,
+      "straatNaam": "Hoefkade",
+      "straatNr": "602",
+      "postcode": "2526 CM",
+      "city": "Den Haag",
+      "latitude": 52.06814,
+      "longitude": 4.31333,
+      "puntType": "automaat",
+      "location_247": true,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": "24/7"
+    },
+    {
       "inpost_id": "NL022992",
       "locatieNaam": "BOERDERIJWINKEL LAGERWEIJ",
       "straatNaam": "Rijksstraatweg 61C",
@@ -25567,7 +26077,7 @@
       "postcode": "2801 AK",
       "city": "Gouda",
       "latitude": 52.01655,
-      "longitude": 4.70711,
+      "longitude": 4.7071,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -25664,6 +26174,32 @@
       "opening_hours": null
     },
     {
+      "inpost_id": "NL023010",
+      "locatieNaam": null,
+      "straatNaam": "Abraham Niehuesstraat",
+      "straatNr": "1",
+      "postcode": "7913 ZW",
+      "city": "Hollandscheveld",
+      "latitude": 52.71082,
+      "longitude": 6.5336,
+      "puntType": "automaat",
+      "location_247": true,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": "24/7"
+    },
+    {
       "inpost_id": "NL023018",
       "locatieNaam": "APPIE KIDS",
       "straatNaam": "Leyweg 1278",
@@ -25690,14 +26226,14 @@
       "opening_hours": null
     },
     {
-      "inpost_id": "NL023019",
-      "locatieNaam": "TABAKSHOP MAASGEMAK",
-      "straatNaam": "Lange Boonestraat 2",
+      "inpost_id": "NL023034",
+      "locatieNaam": "ANDALUCIA AGF UTRECHT",
+      "straatNaam": "Bernadottelaan 33",
       "straatNr": null,
-      "postcode": "3142 CC",
-      "city": "Maassluis",
-      "latitude": 51.92296,
-      "longitude": 4.254,
+      "postcode": "3527 GA",
+      "city": "Utrecht",
+      "latitude": 52.07364,
+      "longitude": 5.08833,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
@@ -25716,17 +26252,97 @@
       "opening_hours": null
     },
     {
-      "inpost_id": "NL023037",
-      "locatieNaam": "SMARTWHEELS",
-      "straatNaam": "Expeditieweg 8F",
+      "inpost_id": "NL023035",
+      "locatieNaam": "MBE FASHION",
+      "straatNaam": "Balingerbrink 239",
       "straatNr": null,
-      "postcode": "6673 DV",
-      "city": "Andelst",
-      "latitude": 51.91098,
-      "longitude": 5.72471,
+      "postcode": "7812 SH",
+      "city": "Emmen",
+      "latitude": 52.76522,
+      "longitude": 6.88759,
       "puntType": "servicepunt",
       "location_247": false,
       "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
+      "inpost_id": "NL023038",
+      "locatieNaam": "POP PAKKETPUNT",
+      "straatNaam": "Grotestraat 16",
+      "straatNr": null,
+      "postcode": "5151 JE",
+      "city": "Drunen",
+      "latitude": 51.68821,
+      "longitude": 5.12295,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
+      "inpost_id": "NL023049",
+      "locatieNaam": "LEKKER & GEZOND",
+      "straatNaam": "Assendorperstraat 166",
+      "straatNr": null,
+      "postcode": "8012 CR",
+      "city": "Zwolle",
+      "latitude": 52.50388,
+      "longitude": 6.1043,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
+        "parcel",
+        "parcel_collect",
+        "parcel_reverse_return_send",
+        "parcel_send",
+        "standard_courier_collect",
+        "standard_courier_reverse_return_send",
+        "standard_courier_send",
+        "standard_letter_collect",
+        "standard_letter_send"
+      ],
+      "opening_hours": null
+    },
+    {
+      "inpost_id": "NL023050",
+      "locatieNaam": "STATIONS BLOEMENSHOP ZUTPHEN",
+      "straatNaam": "Stationsplein 16",
+      "straatNr": null,
+      "postcode": "7201 ML",
+      "city": "Zutphen",
+      "latitude": 52.14447,
+      "longitude": 6.19417,
+      "puntType": "servicepunt",
+      "location_247": false,
+      "functions": [
+        "cross_network_parcel_collect",
+        "cross_network_parcel_send",
         "parcel",
         "parcel_collect",
         "parcel_reverse_return_send",

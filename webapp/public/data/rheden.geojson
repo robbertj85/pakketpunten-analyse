@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Rheden",
     "slug": "rheden",
-    "generated_at": "2026-08-03T06:14:56.610726Z",
-    "total_points": 34,
+    "generated_at": "2026-08-10T04:24:31.960626Z",
+    "total_points": 33,
     "providers": [
       "Amazon",
       "DHL",
@@ -12,7 +12,6 @@
       "PostNL",
       "VintedGo",
       "GLS",
-      "InPost",
       "Budbee"
     ],
     "bounds": [
@@ -755,29 +754,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.0537922,
         "longitude": 6.09423038,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          6.10038,
-          52.05102
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "G&W GEZONDHEIDSWINKEL DIEREN",
-        "straatNaam": "Diderna 6",
-        "straatNr": "",
-        "vervoerder": "InPost",
-        "puntType": "servicepunt",
-        "bezettingsgraad": 50,
-        "latitude": 52.05102,
-        "longitude": 6.10038,
         "canPickup": true,
         "canDropoff": true
       }
@@ -5097,10 +5073,6 @@
               [
                 6.096071346109764,
                 52.06536818689728
-              ],
-              [
-                6.096086261612764,
-                52.065352504233886
               ],
               [
                 6.096086261612765,
