@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Echt-Susteren",
     "slug": "echt-susteren",
-    "generated_at": "2026-08-10T04:11:57.162143Z",
+    "generated_at": "2026-08-17T03:16:52.561637Z",
     "total_points": 45,
     "providers": [
       "Amazon",
@@ -166,29 +166,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          5.862430933056222,
-          51.03459002992132
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat AVIA Nieuwstadt",
-        "straatNaam": "Gouverneur Houbenstraat",
-        "straatNr": "1",
-        "vervoerder": "DHL",
-        "puntType": "packStation",
-        "bezettingsgraad": 50,
-        "latitude": 51.03459002992132,
-        "longitude": 5.862430933056222,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           5.8546026,
           51.0638169
         ]
@@ -318,6 +295,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.10406705588957,
         "longitude": 5.8613107972687155,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.862430933056222,
+          51.03459002992132
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat AVIA Nieuwstadt",
+        "straatNaam": "Gouverneur Houbenstraat",
+        "straatNr": "1",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 51.03459002992132,
+        "longitude": 5.862430933056222,
         "canPickup": true,
         "canDropoff": true
       }

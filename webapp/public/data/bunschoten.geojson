@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Bunschoten",
     "slug": "bunschoten",
-    "generated_at": "2026-08-10T04:09:28.157528Z",
+    "generated_at": "2026-08-17T03:14:24.589518Z",
     "total_points": 26,
     "providers": [
       "Amazon",
@@ -87,29 +87,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.2532802,
         "longitude": 5.3764891,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.3747848,
-          52.2452645
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Stichting De Genadebron",
-        "straatNaam": "Molenstraat",
-        "straatNr": "23",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 52.2452645,
-        "longitude": 5.3747848,
         "canPickup": true,
         "canDropoff": true
       }
@@ -234,6 +211,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          5.3747848,
+          52.2452645
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Stichting De Genadebron",
+        "straatNaam": "Molenstraat",
+        "straatNr": "23",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 52.2452645,
+        "longitude": 5.3747848,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           5.3753619194,
           52.2454605103
         ]
@@ -309,7 +309,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat - De Buren - EG Rijk",
+        "locatieNaam": "Pakketautomaat EG Rijksweg A1",
         "straatNaam": "RIJKSWEG A1",
         "straatNr": "3",
         "vervoerder": "DPD",

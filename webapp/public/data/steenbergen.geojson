@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Steenbergen",
     "slug": "steenbergen",
-    "generated_at": "2026-08-10T04:26:48.807113Z",
-    "total_points": 31,
+    "generated_at": "2026-08-17T03:31:26.996420Z",
+    "total_points": 35,
     "providers": [
       "Amazon",
       "DHL",
@@ -188,6 +188,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.3198648,
+          51.587977
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Studio Sunshine Sun & Beauty",
+        "straatNaam": "Oostdam",
+        "straatNr": "28-A",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 51.587977,
+        "longitude": 4.3198648,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.3142728,
           51.5872111
         ]
@@ -294,6 +317,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.6381954,
         "longitude": 4.3698228,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.3198648,
+          51.587977
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "studio sunshine sun&beauty",
+        "straatNaam": "OOSTDAM",
+        "straatNr": "28 A",
+        "vervoerder": "DPD",
+        "puntType": "pickup_point",
+        "bezettingsgraad": 50,
+        "latitude": 51.587977,
+        "longitude": 4.3198648,
         "canPickup": true,
         "canDropoff": true
       }
@@ -625,6 +671,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.3141706,
+          51.5870571
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Albert Heijn Lindenburghlaan",
+        "straatNaam": "lindenburghlaan 1",
+        "straatNr": "",
+        "vervoerder": "VintedGo",
+        "puntType": "locker",
+        "bezettingsgraad": 50,
+        "latitude": 51.5870571,
+        "longitude": 4.3141706,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.30916105,
           51.58860854
         ]
@@ -717,7 +786,7 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          4.31986,
+          4.31987,
           51.58798
         ]
       },
@@ -730,7 +799,30 @@
         "puntType": "servicepunt",
         "bezettingsgraad": 50,
         "latitude": 51.58798,
-        "longitude": 4.31986,
+        "longitude": 4.31987,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.30932,
+          51.58847
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "MCDARTS",
+        "straatNaam": "Graaf Hendrikstraat 5A1",
+        "straatNr": "",
+        "vervoerder": "InPost",
+        "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 51.58847,
+        "longitude": 4.30932,
         "canPickup": true,
         "canDropoff": true
       }
@@ -742,6 +834,18 @@
         "coordinates": [
           [
             [
+              [
+                4.317694639063575,
+                51.58279200642326
+              ],
+              [
+                4.31741404542897,
+                51.58259334748699
+              ],
+              [
+                4.317103550290747,
+                51.5824127787673
+              ],
               [
                 4.316766143840179,
                 51.58225203901492
@@ -1689,18 +1793,6 @@
               [
                 4.317694639063575,
                 51.58279200642326
-              ],
-              [
-                4.31741404542897,
-                51.58259334748699
-              ],
-              [
-                4.317103550290747,
-                51.5824127787673
-              ],
-              [
-                4.316766143840179,
-                51.58225203901492
               ]
             ]
           ],
@@ -2283,10 +2375,6 @@
           [
             [
               [
-                4.367654431215365,
-                51.627266470344416
-              ],
-              [
                 4.3673733438809395,
                 51.6270679307828
               ],
@@ -2593,6 +2681,10 @@
               [
                 4.367654431215365,
                 51.627266470344416
+              ],
+              [
+                4.3673733438809395,
+                51.6270679307828
               ]
             ]
           ],
@@ -2946,6 +3038,18 @@
         "coordinates": [
           [
             [
+              [
+                4.318035077113004,
+                51.5817264220573
+              ],
+              [
+                4.317585204732655,
+                51.58151210575118
+              ],
+              [
+                4.317103784954195,
+                51.58132629155665
+              ],
               [
                 4.316595453543795,
                 51.58117076860574
@@ -3331,7 +3435,7 @@
                 51.591391945072694
               ],
               [
-                4.318153721271716,
+                4.318153721271718,
                 51.59141615451318
               ],
               [
@@ -3857,18 +3961,6 @@
               [
                 4.318035077113004,
                 51.5817264220573
-              ],
-              [
-                4.317585204732655,
-                51.58151210575118
-              ],
-              [
-                4.317103784954195,
-                51.58132629155665
-              ],
-              [
-                4.316595453543795,
-                51.58117076860574
               ]
             ]
           ],
@@ -4179,10 +4271,6 @@
           [
             [
               [
-                4.368783485603709,
-                51.626706037233255
-              ],
-              [
                 4.368408701030033,
                 51.626441321266704
               ],
@@ -4481,6 +4569,10 @@
               [
                 4.368783485603709,
                 51.626706037233255
+              ],
+              [
+                4.368408701030033,
+                51.626441321266704
               ]
             ]
           ],
@@ -4717,6 +4809,10 @@
               [
                 4.3734258183069254,
                 51.641006151345714
+              ],
+              [
+                4.373844582615292,
+                51.640776522114415
               ],
               [
                 4.373844582615292,

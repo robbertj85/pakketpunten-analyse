@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Bergen (L.)",
     "slug": "bergen-(l.)",
-    "generated_at": "2026-08-10T04:07:40.231656Z",
-    "total_points": 15,
+    "generated_at": "2026-08-17T03:12:43.009508Z",
+    "total_points": 13,
     "providers": [
       "DHL",
       "DPD",
@@ -110,52 +110,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.60391787080006,
         "longitude": 6.049216692822488,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          6.0495500401508275,
-          51.6042157069856
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Gsm Hospital Bergen",
-        "straatNaam": "Mosaïque",
-        "straatNr": "11",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 51.6042157069856,
-        "longitude": 6.0495500401508275,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          6.123144,
-          51.5862631
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Grens Gas",
-        "straatNaam": "WEZERWEG",
-        "straatNr": "28",
-        "vervoerder": "DPD",
-        "puntType": "pickup_point",
-        "bezettingsgraad": 50,
-        "latitude": 51.5862631,
-        "longitude": 6.123144,
         "canPickup": true,
         "canDropoff": true
       }
