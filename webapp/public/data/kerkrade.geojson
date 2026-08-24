@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Kerkrade",
     "slug": "kerkrade",
-    "generated_at": "2026-08-17T03:22:19.101559Z",
+    "generated_at": "2026-08-24T03:30:34.669159Z",
     "total_points": 51,
     "providers": [
       "Amazon",
@@ -236,29 +236,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          6.0139563,
-          50.8528362
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat Lidl Kerkrade",
-        "straatNaam": "Locht",
-        "straatNr": "117",
-        "vervoerder": "DHL",
-        "puntType": "packStation",
-        "bezettingsgraad": 50,
-        "latitude": 50.8528362,
-        "longitude": 6.0139563,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           6.034183,
           50.858625
         ]
@@ -365,6 +342,52 @@
         "bezettingsgraad": 50,
         "latitude": 50.857303619384766,
         "longitude": 6.02773380279541,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.074114587692373,
+          50.86191865558903
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat Lukoil Holzstraat",
+        "straatNaam": "Holzstraat",
+        "straatNr": "57",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 50.86191865558903,
+        "longitude": 6.074114587692373,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.0139563,
+          50.8528362
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat Lidl Kerkrade",
+        "straatNaam": "Locht",
+        "straatNr": "117",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 50.8528362,
+        "longitude": 6.0139563,
         "canPickup": true,
         "canDropoff": true
       }
@@ -528,52 +551,6 @@
         "longitude": 6.07162,
         "canPickup": true,
         "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          6.007248,
-          50.8574
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "UR164 Pakketautomaat Budbee",
-        "straatNaam": "RODA J.C. RING",
-        "straatNr": "5",
-        "vervoerder": "DPD",
-        "puntType": "dpd_box",
-        "bezettingsgraad": 50,
-        "latitude": 50.8574,
-        "longitude": 6.007248,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          6.069335,
-          50.869576
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "UR189 Pakketautomaat Budbee",
-        "straatNaam": "HERTOGENLAAN",
-        "straatNr": "29",
-        "vervoerder": "DPD",
-        "puntType": "dpd_box",
-        "bezettingsgraad": 50,
-        "latitude": 50.869576,
-        "longitude": 6.069335,
-        "canPickup": true,
-        "canDropoff": false
       }
     },
     {
@@ -1147,6 +1124,29 @@
         "bezettingsgraad": 50,
         "latitude": 50.8524,
         "longitude": 6.07167,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.06746,
+          50.86372
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "",
+        "straatNaam": "Hoofdstraat",
+        "straatNr": "42",
+        "vervoerder": "InPost",
+        "puntType": "automaat",
+        "bezettingsgraad": 50,
+        "latitude": 50.86372,
+        "longitude": 6.06746,
         "canPickup": true,
         "canDropoff": true
       }
@@ -2789,28 +2789,36 @@
                 50.86141752823502
               ],
               [
-                6.065241811617804,
-                50.861460185451804
+                6.06518480732722,
+                50.86144352928386
               ],
               [
-                6.065020625072762,
-                50.861545863159016
+                6.065060025991174,
+                50.86149186397784
               ],
               [
-                6.064687099546907,
-                50.86170546539675
+                6.064726500989507,
+                50.861651466328034
               ],
               [
-                6.06437989563045,
-                50.86188498821263
+                6.064419297583355,
+                50.86183098924737
               ],
               [
-                6.0641019718113585,
-                50.86208270292491
+                6.064141374255767,
+                50.86202870405316
               ],
               [
-                6.063856004731448,
-                50.862296705653
+                6.063895407643831,
+                50.8622427068639
+              ],
+              [
+                6.063683766757998,
+                50.862470936926144
+              ],
+              [
+                6.063644409478249,
+                50.862524885960724
               ],
               [
                 6.063644363405675,
@@ -6009,12 +6017,20 @@
                 50.86132532578937
               ],
               [
-                6.062988681266927,
-                50.86152512192168
+                6.062976006018396,
+                50.861516433553355
               ],
               [
-                6.062667855981929,
-                50.861804248663915
+                6.062707259864931,
+                50.86175025027849
+              ],
+              [
+                6.062425066721033,
+                50.862054554049365
+              ],
+              [
+                6.0623857083249595,
+                50.86210850265717
               ],
               [
                 6.0623856622514465,

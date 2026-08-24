@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Bergen op Zoom",
     "slug": "bergen-op-zoom",
-    "generated_at": "2026-08-17T03:12:52.372112Z",
+    "generated_at": "2026-08-24T03:19:19.871392Z",
     "total_points": 84,
     "providers": [
       "Amazon",
@@ -741,6 +741,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.2837261,
+          51.5055934
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "ViaTim & Irma",
+        "straatNaam": "TULPENVELD",
+        "straatNr": "2",
+        "vervoerder": "DPD",
+        "puntType": "pickup_point",
+        "bezettingsgraad": 50,
+        "latitude": 51.5055934,
+        "longitude": 4.2837261,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.297653,
           51.498169
         ]
@@ -780,29 +803,6 @@
         "longitude": 4.2684268,
         "canPickup": true,
         "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.29104,
-          51.488037
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "UR148 Pakketautomaat Budbee",
-        "straatNaam": "GLACISSTRAAT",
-        "straatNr": "15",
-        "vervoerder": "DPD",
-        "puntType": "dpd_box",
-        "bezettingsgraad": 50,
-        "latitude": 51.488037,
-        "longitude": 4.29104,
-        "canPickup": true,
-        "canDropoff": false
       }
     },
     {
@@ -4981,22 +4981,6 @@
           [
             [
               [
-                4.29413958911921,
-                51.486159135491945
-              ],
-              [
-                4.293829842262171,
-                51.48597850581402
-              ],
-              [
-                4.293493231342069,
-                51.48581770002958
-              ],
-              [
-                4.293132997920422,
-                51.4856782665688
-              ],
-              [
                 4.292752610923718,
                 51.48556154804977
               ],
@@ -5373,7 +5357,7 @@
                 51.497789322458196
               ],
               [
-                4.288247964711207,
+                4.288247964711208,
                 51.4977727700952
               ],
               [
@@ -6619,6 +6603,22 @@
               [
                 4.29413958911921,
                 51.486159135491945
+              ],
+              [
+                4.293829842262171,
+                51.48597850581402
+              ],
+              [
+                4.293493231342069,
+                51.48581770002958
+              ],
+              [
+                4.293132997920422,
+                51.4856782665688
+              ],
+              [
+                4.292752610923718,
+                51.48556154804977
               ]
             ]
           ],

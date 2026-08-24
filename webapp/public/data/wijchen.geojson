@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Wijchen",
     "slug": "wijchen",
-    "generated_at": "2026-08-17T03:36:03.793169Z",
-    "total_points": 35,
+    "generated_at": "2026-08-24T03:46:21.280081Z",
+    "total_points": 36,
     "providers": [
       "Amazon",
       "DeBuren",
@@ -287,11 +287,11 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat DHL Wijchen",
+        "locatieNaam": "DHL Pakketpunt XL Wijchen",
         "straatNaam": "Bijsterhuizen",
-        "straatNr": "5147-Kast",
+        "straatNr": "5147",
         "vervoerder": "DHL",
-        "puntType": "packStation",
+        "puntType": "parcelShop",
         "bezettingsgraad": 50,
         "latitude": 51.8259841,
         "longitude": 5.7419309,
@@ -310,11 +310,11 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DHL Pakketpunt XL Wijchen",
+        "locatieNaam": "Pakketautomaat DHL Wijchen",
         "straatNaam": "Bijsterhuizen",
-        "straatNr": "5147",
+        "straatNr": "5147-Kast",
         "vervoerder": "DHL",
-        "puntType": "parcelShop",
+        "puntType": "packStation",
         "bezettingsgraad": 50,
         "latitude": 51.8259841,
         "longitude": 5.7419309,
@@ -801,6 +801,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.82542,
         "longitude": 5.74233,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.72783,
+          51.81452
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "REPRO CENTRUM WIJCHEN",
+        "straatNaam": "Lepelaarstraat 8",
+        "straatNr": "",
+        "vervoerder": "InPost",
+        "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 51.81452,
+        "longitude": 5.72783,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1368,8 +1391,16 @@
                 51.814882033328836
               ],
               [
-                5.723573287465752,
-                51.81506638037713
+                5.7235658019153375,
+                51.815053600598745
+              ],
+              [
+                5.723566981140849,
+                51.81505837543096
+              ],
+              [
+                5.723577785769123,
+                51.81508459454902
               ],
               [
                 5.7235779787202326,
@@ -1504,12 +1535,20 @@
                 51.814008476917756
               ],
               [
-                5.731998221486358,
-                51.813752093075244
+                5.732093113848937,
+                51.81398225858578
               ],
               [
-                5.731890212319736,
-                51.81356775378031
+                5.732092920755033,
+                51.81398147731789
+              ],
+              [
+                5.73198721919217,
+                51.813725093464555
+              ],
+              [
+                5.7318866977894345,
+                51.81355353340711
               ],
               [
                 5.731885517722539,
@@ -1992,6 +2031,10 @@
           [
             [
               [
+                5.668042964331871,
+                51.84984331273373
+              ],
+              [
                 5.667620068250022,
                 51.84980549592979
               ],
@@ -2108,7 +2151,7 @@
                 51.85487296060834
               ],
               [
-                5.6654738768815704,
+                5.665473876881572,
                 51.854960464833745
               ],
               [
@@ -2278,10 +2321,6 @@
               [
                 5.668042964331871,
                 51.84984331273373
-              ],
-              [
-                5.667620068250022,
-                51.84980549592979
               ]
             ]
           ],
@@ -4508,12 +4547,20 @@
                 51.813828933556
               ],
               [
-                5.733383928645439,
-                51.81348709011832
+                5.733514064061311,
+                51.81380271535513
               ],
               [
-                5.7332864981691305,
-                51.81332081443794
+                5.73351387094356,
+                51.81380193408958
+              ],
+              [
+                5.73337292558659,
+                51.81346009063741
+              ],
+              [
+                5.733275059902044,
+                51.813293072044196
               ],
               [
                 5.733165512682352,
@@ -5044,6 +5091,10 @@
           [
             [
               [
+                5.668320596750668,
+                51.848961080882795
+              ],
+              [
                 5.667756746206522,
                 51.848910659458994
               ],
@@ -5330,10 +5381,6 @@
               [
                 5.668320596750668,
                 51.848961080882795
-              ],
-              [
-                5.667756746206522,
-                51.848910659458994
               ]
             ]
           ],

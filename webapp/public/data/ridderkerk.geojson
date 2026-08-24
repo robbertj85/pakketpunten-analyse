@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Ridderkerk",
     "slug": "ridderkerk",
-    "generated_at": "2026-08-17T03:29:20.539125Z",
+    "generated_at": "2026-08-24T03:38:35.128899Z",
     "total_points": 56,
     "providers": [
       "Amazon",
@@ -510,29 +510,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          4.619635105133057,
-          51.86546325683594
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Prof Diab",
-        "straatNaam": "Vlietplein",
-        "straatNr": "97",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 51.86546325683594,
-        "longitude": 4.619635105133057,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           4.608324,
           51.877096
         ]
@@ -547,6 +524,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.877096,
         "longitude": 4.608324,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.619635105133057,
+          51.86546325683594
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Prof Diab",
+        "straatNaam": "Vlietplein",
+        "straatNr": "97",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 51.86546325683594,
+        "longitude": 4.619635105133057,
         "canPickup": true,
         "canDropoff": true
       }

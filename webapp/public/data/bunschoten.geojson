@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Bunschoten",
     "slug": "bunschoten",
-    "generated_at": "2026-08-17T03:14:24.589518Z",
-    "total_points": 26,
+    "generated_at": "2026-08-24T03:21:08.280760Z",
+    "total_points": 27,
     "providers": [
       "Amazon",
       "DHL",
@@ -547,6 +547,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.2299025,
         "longitude": 5.36743155,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.3819908,
+          52.2489784
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketpunt Spakenburg",
+        "straatNaam": "Zuidwenk",
+        "straatNr": "78N",
+        "vervoerder": "GLS",
+        "puntType": "parcel_shop",
+        "bezettingsgraad": 50,
+        "latitude": 52.2489784,
+        "longitude": 5.3819908,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1832,10 +1855,6 @@
           [
             [
               [
-                5.387525025558867,
-                52.21367140234846
-              ],
-              [
                 5.387340846893704,
                 52.21343220077884
               ],
@@ -2090,6 +2109,10 @@
               [
                 5.387525025558867,
                 52.21367140234846
+              ],
+              [
+                5.387340846893704,
+                52.21343220077884
               ]
             ]
           ]
@@ -3100,10 +3123,6 @@
           [
             [
               [
-                5.388876810094898,
-                52.213327439453415
-              ],
-              [
                 5.388631231199706,
                 52.213008506753134
               ],
@@ -3358,6 +3377,10 @@
               [
                 5.388876810094898,
                 52.213327439453415
+              ],
+              [
+                5.388631231199706,
+                52.213008506753134
               ]
             ]
           ]

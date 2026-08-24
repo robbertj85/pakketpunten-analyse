@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Steenbergen",
     "slug": "steenbergen",
-    "generated_at": "2026-08-17T03:31:26.996420Z",
-    "total_points": 35,
+    "generated_at": "2026-08-24T03:41:00.912993Z",
+    "total_points": 37,
     "providers": [
       "Amazon",
       "DHL",
@@ -317,6 +317,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.6381954,
         "longitude": 4.3698228,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.320891,
+          51.58494
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Wevo Steenbergen",
+        "straatNaam": "WOUWSESTRAAT",
+        "straatNr": "77",
+        "vervoerder": "DPD",
+        "puntType": "pickup_point",
+        "bezettingsgraad": 50,
+        "latitude": 51.58494,
+        "longitude": 4.320891,
         "canPickup": true,
         "canDropoff": true
       }
@@ -800,6 +823,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.58798,
         "longitude": 4.31987,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.32089,
+          51.58494
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "WEVO STEENBERGEN",
+        "straatNaam": "Wouwsestraat 77",
+        "straatNr": "",
+        "vervoerder": "InPost",
+        "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 51.58494,
+        "longitude": 4.32089,
         "canPickup": true,
         "canDropoff": true
       }
@@ -2375,10 +2421,6 @@
           [
             [
               [
-                4.3673733438809395,
-                51.6270679307828
-              ],
-              [
                 4.367062345436361,
                 51.626887494116104
               ],
@@ -2685,6 +2727,10 @@
               [
                 4.3673733438809395,
                 51.6270679307828
+              ],
+              [
+                4.367062345436361,
+                51.626887494116104
               ]
             ]
           ],
@@ -4271,10 +4317,6 @@
           [
             [
               [
-                4.368408701030033,
-                51.626441321266704
-              ],
-              [
                 4.367994037176318,
                 51.626200742518364
               ],
@@ -4573,6 +4615,10 @@
               [
                 4.368408701030033,
                 51.626441321266704
+              ],
+              [
+                4.367994037176318,
+                51.626200742518364
               ]
             ]
           ],

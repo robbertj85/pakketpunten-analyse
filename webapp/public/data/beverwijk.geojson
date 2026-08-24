@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Beverwijk",
     "slug": "beverwijk",
-    "generated_at": "2026-08-17T03:13:15.012762Z",
-    "total_points": 66,
+    "generated_at": "2026-08-24T03:19:47.050301Z",
+    "total_points": 65,
     "providers": [
       "Amazon",
       "DeBuren",
@@ -581,6 +581,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.6575435,
+          52.4802855
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pckoopje",
+        "straatNaam": "MEERSTRAAT",
+        "straatNr": "68",
+        "vervoerder": "DPD",
+        "puntType": "pickup_point",
+        "bezettingsgraad": 50,
+        "latitude": 52.4802855,
+        "longitude": 4.6575435,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.673541,
           52.473196
         ]
@@ -641,52 +664,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.48231,
         "longitude": 4.6604,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.663851,
-          52.49677
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "UR801 Pakketautomaat Budbee",
-        "straatNaam": "WIJKERBAAN",
-        "straatNr": "2",
-        "vervoerder": "DPD",
-        "puntType": "dpd_box",
-        "bezettingsgraad": 50,
-        "latitude": 52.49677,
-        "longitude": 4.663851,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.665066,
-          52.49611
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "UR886 Pakketautomaat Budbee",
-        "straatNaam": "WIJKERBAAN",
-        "straatNr": "16",
-        "vervoerder": "DPD",
-        "puntType": "dpd_box",
-        "bezettingsgraad": 50,
-        "latitude": 52.49611,
-        "longitude": 4.665066,
         "canPickup": true,
         "canDropoff": false
       }
@@ -1670,44 +1647,24 @@
                 52.478365473927816
               ],
               [
-                4.654097163016523,
-                52.47861548615954
+                4.654092513985767,
+                52.47860729219221
               ],
               [
-                4.654278465704715,
-                52.478855804938306
+                4.6538968355126125,
+                52.47876502519673
               ],
               [
-                4.654497476320727,
-                52.479084115689055
+                4.653670299336735,
+                52.478990581656184
               ],
               [
-                4.654752086046542,
-                52.47929821945469
+                4.653481060936111,
+                52.47922860915339
               ],
               [
-                4.654913050767315,
-                52.47940888393312
-              ],
-              [
-                4.654829142359536,
-                52.479454382563866
-              ],
-              [
-                4.654683680472577,
-                52.47955040404487
-              ],
-              [
-                4.654479649546175,
-                52.47948993483719
-              ],
-              [
-                4.654073130942548,
-                52.47939828048333
-              ],
-              [
-                4.653653857561833,
-                52.479331394599704
+                4.653431903539853,
+                52.479309886911544
               ],
               [
                 4.653225866573896,
@@ -4430,7 +4387,7 @@
                 52.47896081710712
               ],
               [
-                4.649071813492868,
+                4.649071813492869,
                 52.4791589428959
               ],
               [
@@ -5610,10 +5567,6 @@
                 52.50041755283804
               ],
               [
-                4.6639451558069975,
-                52.50036104751618
-              ],
-              [
                 4.663945155806998,
                 52.50036104751618
               ],
@@ -5726,7 +5679,7 @@
                 52.49473537064993
               ],
               [
-                4.670481403813761,
+                4.670481403813762,
                 52.49466878187959
               ],
               [

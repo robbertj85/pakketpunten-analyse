@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Veenendaal",
     "slug": "veenendaal",
-    "generated_at": "2026-08-17T03:33:28.296201Z",
-    "total_points": 68,
+    "generated_at": "2026-08-24T03:43:23.049280Z",
+    "total_points": 69,
     "providers": [
       "Amazon",
       "DeBuren",
@@ -511,20 +511,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          5.556177,
-          52.0260781
+          5.5562135,
+          52.0260684
         ]
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat HEMA Veenendaal",
+        "locatieNaam": "Taartdecoratief",
         "straatNaam": "Tuinstraat",
-        "straatNr": "85-Kast",
+        "straatNr": "75",
         "vervoerder": "DHL",
-        "puntType": "packStation",
+        "puntType": "parcelShop",
         "bezettingsgraad": 50,
-        "latitude": 52.0260781,
-        "longitude": 5.556177,
+        "latitude": 52.0260684,
+        "longitude": 5.5562135,
         "canPickup": true,
         "canDropoff": true
       }
@@ -626,6 +626,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          5.556177,
+          52.0260781
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat HEMA Veenendaal",
+        "straatNaam": "Tuinstraat",
+        "straatNr": "85-Kast",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 52.0260781,
+        "longitude": 5.556177,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           5.560151,
           52.028264
         ]
@@ -709,6 +732,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.03252410888672,
         "longitude": 5.568859100341797,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.5570812,
+          52.0272017
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Ovit Shop V.O.F.",
+        "straatNaam": "TUINSTRAAT",
+        "straatNr": "115",
+        "vervoerder": "DPD",
+        "puntType": "pickup_point",
+        "bezettingsgraad": 50,
+        "latitude": 52.0272017,
+        "longitude": 5.5570812,
         "canPickup": true,
         "canDropoff": true
       }
@@ -879,52 +925,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          5.580644,
-          52.025932
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "UR277 Pakketautomaat Budbee",
-        "straatNaam": "STUIVENBERGHEEM",
-        "straatNr": "15",
-        "vervoerder": "DPD",
-        "puntType": "dpd_box",
-        "bezettingsgraad": 50,
-        "latitude": 52.025932,
-        "longitude": 5.580644,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.55667,
-          52.025578
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "UR604 Pakketautomaat Budbee",
-        "straatNaam": "PASSAGE",
-        "straatNr": "50",
-        "vervoerder": "DPD",
-        "puntType": "dpd_box",
-        "bezettingsgraad": 50,
-        "latitude": 52.025578,
-        "longitude": 5.55667,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           5.553214878,
           52.0243309
         ]
@@ -939,6 +939,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.0243309,
         "longitude": 5.553214878,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.55710761660249,
+          52.0250084340221
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Smartphone repair veenendaal",
+        "straatNaam": "Passage",
+        "straatNr": "87",
+        "vervoerder": "PostNL",
+        "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 52.0250084340221,
+        "longitude": 5.55710761660249,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1146,29 +1169,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.02832133,
         "longitude": 5.533106847,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.55994818807718,
-          52.0097514170164
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Ecarwrapper PpP",
-        "straatNaam": "De Smalle Zijde",
-        "straatNr": "316",
-        "vervoerder": "PostNL",
-        "puntType": "servicepunt",
-        "bezettingsgraad": 50,
-        "latitude": 52.0097514170164,
-        "longitude": 5.55994818807718,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1491,6 +1491,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.04546,
         "longitude": 5.56486,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.55629,
+          52.0261
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "TAARTDECORATIEF",
+        "straatNaam": "Tuinstraat 75",
+        "straatNr": "",
+        "vervoerder": "InPost",
+        "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 52.0261,
+        "longitude": 5.55629,
         "canPickup": true,
         "canDropoff": true
       }
@@ -2638,18 +2661,6 @@
           ],
           [
             [
-              [
-                5.556587195436231,
-                52.02261549145173
-              ],
-              [
-                5.55629840410574,
-                52.02241983942483
-              ],
-              [
-                5.555979920539229,
-                52.02224259159335
-              ],
               [
                 5.555634811830775,
                 52.02208545472453
@@ -4119,52 +4130,64 @@
                 52.02325095061867
               ],
               [
-                5.560149313467904,
-                52.02313838414582
+                5.560328359057294,
+                52.023190303734864
               ],
               [
-                5.559745110337549,
-                52.02304983137542
+                5.560191023132991,
+                52.023097271729505
               ],
               [
-                5.559328785317876,
-                52.02298614497593
+                5.559872519359609,
+                52.02292003445698
               ],
               [
-                5.558904347189622,
-                52.022947938176145
+                5.559527391790541,
+                52.02276290902491
               ],
               [
-                5.558475882812239,
-                52.02293557886375
+                5.559158963973478,
+                52.02262740841972
               ],
               [
-                5.558047517792544,
-                52.022949186044826
+                5.558770783716078,
+                52.0225148373864
               ],
               [
-                5.557784107585533,
-                52.02297368185398
+                5.558366588932225,
+                52.02242627987054
               ],
               [
-                5.557512691582088,
-                52.02293215790782
+                5.5579502716620945,
+                52.022362588586255
               ],
               [
-                5.557088255506724,
-                52.02289394455864
+                5.557525840611826,
+                52.02232437680935
               ],
               [
-                5.556903030423112,
-                52.022888598951575
+                5.557097382572739,
+                52.02231201247549
               ],
               [
-                5.556843513243537,
-                52.02282766366461
+                5.556669023090632,
+                52.02232561463903
               ],
               [
-                5.556587195436231,
-                52.02261549145173
+                5.556244886762937,
+                52.02236505232739
+              ],
+              [
+                5.556209799657329,
+                52.022370528014726
+              ],
+              [
+                5.555979920539229,
+                52.02224259159335
+              ],
+              [
+                5.555634811830775,
+                52.02208545472453
               ]
             ]
           ],
@@ -5107,6 +5130,10 @@
           [
             [
               [
+                5.581296582071488,
+                52.0226887883497
+              ],
+              [
                 5.580872128143565,
                 52.022650660765315
               ],
@@ -5401,10 +5428,6 @@
               [
                 5.581296582071488,
                 52.0226887883497
-              ],
-              [
-                5.580872128143565,
-                52.022650660765315
               ]
             ]
           ],
@@ -6818,14 +6841,6 @@
           ],
           [
             [
-              [
-                5.556901543486006,
-                52.02154647292993
-              ],
-              [
-                5.556441401926706,
-                52.02133696045846
-              ],
               [
                 5.555950193403642,
                 52.021156279798866
@@ -8291,53 +8306,61 @@
                 52.02245725807237
               ],
               [
-                5.560703642884757,
-                52.02230717214211
+                5.561205061595684,
+                52.022452572244006
               ],
               [
-                5.560164714276071,
-                52.022189103992105
+                5.560794095710495,
+                52.022223885409375
               ],
               [
-                5.559609624386001,
-                52.02210419042864
+                5.560333929005176,
+                52.022014388186804
               ],
               [
-                5.559043717866067,
-                52.02205324902733
+                5.5598426973731145,
+                52.02183372379941
               ],
               [
-                5.558472443440163,
-                52.022036770266716
+                5.559325131014794,
+                52.0216836317886
               ],
               [
-                5.5579013014789584,
-                52.022054912809146
+                5.558786213534176,
+                52.02156555731141
               ],
               [
-                5.557853423252477,
-                52.022059365314654
+                5.558231133976268,
+                52.021480637235
               ],
               [
-                5.557793566069167,
-                52.0220502076707
+                5.557665236893155,
+                52.02142968919769
               ],
               [
-                5.557709762736338,
-                52.02204266276667
+                5.557093970917901,
+                52.02141320374196
               ],
               [
-                5.557326187056794,
-                52.02178279987991
+                5.5566404772362725,
+                52.021427604243975
               ],
               [
-                5.556901543486006,
-                52.02154647292993
+                5.556441401926706,
+                52.02133696045846
+              ],
+              [
+                5.555950193403642,
+                52.021156279798866
               ]
             ]
           ],
           [
             [
+              [
+                5.58157698675488,
+                52.02180678159932
+              ],
               [
                 5.581011059170826,
                 52.021755945815826
@@ -8621,10 +8644,6 @@
               [
                 5.58157698675488,
                 52.02180678159932
-              ],
-              [
-                5.581011059170826,
-                52.021755945815826
               ]
             ]
           ],

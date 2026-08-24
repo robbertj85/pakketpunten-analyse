@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Heemskerk",
     "slug": "heemskerk",
-    "generated_at": "2026-08-17T03:19:50.784709Z",
-    "total_points": 30,
+    "generated_at": "2026-08-24T03:27:24.523767Z",
+    "total_points": 28,
     "providers": [
       "Amazon",
       "DeBuren",
@@ -389,52 +389,6 @@
         "longitude": 4.677082,
         "canPickup": true,
         "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.655929,
-          52.505222
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "UR126 Pakketautomaat Budbee",
-        "straatNaam": "RIJKSSTRAATWEG",
-        "straatNr": "40",
-        "vervoerder": "DPD",
-        "puntType": "dpd_box",
-        "bezettingsgraad": 50,
-        "latitude": 52.505222,
-        "longitude": 4.655929,
-        "canPickup": true,
-        "canDropoff": false
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.667241,
-          52.510788
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "UR415 Pakketautomaat Budbee",
-        "straatNaam": "KERKWEG",
-        "straatNr": "85",
-        "vervoerder": "DPD",
-        "puntType": "dpd_box",
-        "bezettingsgraad": 50,
-        "latitude": 52.510788,
-        "longitude": 4.667241,
-        "canPickup": true,
-        "canDropoff": false
       }
     },
     {
@@ -1377,6 +1331,10 @@
           [
             [
               [
+                4.670474565552964,
+                52.50840962944031
+              ],
+              [
                 4.670084421216344,
                 52.50829414065867
               ],
@@ -1535,10 +1493,6 @@
               [
                 4.66676412594208,
                 52.51346840850565
-              ],
-              [
-                4.667107830604982,
-                52.51348080238288
               ],
               [
                 4.667107830604982,
@@ -1873,12 +1827,16 @@
                 52.50866866162852
               ],
               [
-                4.671407222938403,
+                4.671407222938404,
                 52.50867073188221
               ],
               [
                 4.671211338502035,
                 52.50863953423872
+              ],
+              [
+                4.670998006267013,
+                52.50861890796572
               ],
               [
                 4.670998006267013,
@@ -1891,10 +1849,6 @@
               [
                 4.670474565552964,
                 52.50840962944031
-              ],
-              [
-                4.670084421216344,
-                52.50829414065867
               ]
             ]
           ],

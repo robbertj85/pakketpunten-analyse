@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Geertruidenberg",
     "slug": "geertruidenberg",
-    "generated_at": "2026-08-17T03:18:06.563842Z",
+    "generated_at": "2026-08-24T03:25:21.945497Z",
     "total_points": 21,
     "providers": [
       "Amazon",
@@ -142,6 +142,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.874177,
+          51.697115
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Schoenhersteller van Iersel",
+        "straatNaam": "Keizersdijk",
+        "straatNr": "18",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 51.697115,
+        "longitude": 4.874177,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.878074,
           51.696792
         ]
@@ -271,29 +294,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.69601565,
         "longitude": 4.874134268,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.87406397685488,
-          51.6971119591661
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Schoenhersteller van Iersel PpP",
-        "straatNaam": "Keizersdijk",
-        "straatNr": "18",
-        "vervoerder": "PostNL",
-        "puntType": "servicepunt",
-        "bezettingsgraad": 50,
-        "latitude": 51.6971119591661,
-        "longitude": 4.87406397685488,
         "canPickup": true,
         "canDropoff": true
       }
@@ -969,12 +969,12 @@
                 51.699577851630856
               ],
               [
-                4.876617326035039,
-                51.6993394335024
+                4.876613517243439,
+                51.69934434811028
               ],
               [
-                4.876622899357838,
-                51.69932996433673
+                4.876637755512552,
+                51.69933334063671
               ],
               [
                 4.8767853051127155,
