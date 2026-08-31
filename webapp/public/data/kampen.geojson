@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Kampen",
     "slug": "kampen",
-    "generated_at": "2026-08-24T03:30:18.362819Z",
+    "generated_at": "2026-08-31T08:36:33.938169Z",
     "total_points": 64,
     "providers": [
       "Amazon",
@@ -679,7 +679,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat - De Buren - TinQ Am",
+        "locatieNaam": "Pakketautomaat TinQ Ambachtsstraat",
         "straatNaam": "AMBACHTSSTRAAT",
         "straatNr": "3-a",
         "vervoerder": "DPD",
@@ -748,7 +748,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat - De Buren - Plaza N",
+        "locatieNaam": "Pakketautomaat Plaza N50 Zambonistr",
         "straatNaam": "ZAMBONISTRAAT",
         "straatNr": "9",
         "vervoerder": "DPD",
@@ -1363,6 +1363,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          5.91816499,
+          52.55623842
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "ViaTim en De Verzamelkramer Vintage Woonwinkel",
+        "straatNaam": "Hofstraat",
+        "straatNr": "27",
+        "vervoerder": "ViaTim",
+        "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 52.55623842,
+        "longitude": 5.91816499,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           5.9403548043782335,
           52.5667672116256
         ]
@@ -1400,29 +1423,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.55584904350756,
         "longitude": 5.932564529948912,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.91856,
-          52.55563
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "ZOETELIEF KAMPEN",
-        "straatNaam": "Geerstraat 16",
-        "straatNr": "",
-        "vervoerder": "InPost",
-        "puntType": "servicepunt",
-        "bezettingsgraad": 50,
-        "latitude": 52.55563,
-        "longitude": 5.91856,
         "canPickup": true,
         "canDropoff": true
       }
@@ -4084,6 +4084,10 @@
           [
             [
               [
+                5.922152028880932,
+                52.553978029027384
+              ],
+              [
                 5.9218908751555155,
                 52.55376668206734
               ],
@@ -4588,20 +4592,12 @@
                 52.55527573582599
               ],
               [
-                5.922933308026487,
-                52.55524607260223
+                5.922885273358188,
+                52.55518533799618
               ],
               [
-                5.922891983991815,
-                52.55508452439148
-              ],
-              [
-                5.922783392697341,
-                52.55482835013295
-              ],
-              [
-                5.922751571671871,
-                52.55477538307933
+                5.92282428852864,
+                52.554946927961126
               ],
               [
                 5.922715697968827,
@@ -4618,10 +4614,6 @@
               [
                 5.922152028880932,
                 52.553978029027384
-              ],
-              [
-                5.9218908751555155,
-                52.55376668206734
               ]
             ]
           ],
@@ -8922,20 +8914,16 @@
                 52.55525693348382
               ],
               [
-                5.924361900092306,
-                52.55500408123204
+                5.924314786788128,
+                52.55492566528794
               ],
               [
-                5.924335953966505,
-                52.554902662666926
+                5.924306736086968,
+                52.554915486488014
               ],
               [
-                5.924191155280981,
-                52.5545610987242
-              ],
-              [
-                5.924159332760211,
-                52.55450813204673
+                5.924268254282586,
+                52.55476506705997
               ],
               [
                 5.92412345657667,

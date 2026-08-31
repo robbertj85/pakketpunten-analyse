@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Leudal",
     "slug": "leudal",
-    "generated_at": "2026-08-24T03:32:00.467451Z",
+    "generated_at": "2026-08-31T08:38:17.143665Z",
     "total_points": 84,
     "providers": [
       "Amazon",
@@ -541,7 +541,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat - De Buren - TinQ Na",
+        "locatieNaam": "Pakketautomaat TinQ Napoleonsweg",
         "straatNaam": "NAPOLEONSWEG",
         "straatNr": "117 A",
         "vervoerder": "DPD",
@@ -587,7 +587,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat - De Buren - Hubo bo",
+        "locatieNaam": "Pakketautomaat Hubo bouwmarkt Raadh",
         "straatNaam": "RAADHUISPLEIN",
         "straatNr": "3",
         "vervoerder": "DPD",
@@ -702,7 +702,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat - De Buren - Lukoil",
+        "locatieNaam": "Pakketautomaat Lukoil Kloosterstraa",
         "straatNaam": "KLOOSTERSTRAAT",
         "straatNr": "120 A",
         "vervoerder": "DPD",
@@ -1478,29 +1478,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          5.95996196,
-          51.2346009
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat",
-        "straatNaam": "Linsenhof",
-        "straatNr": "5",
-        "vervoerder": "GLS",
-        "puntType": "locker",
-        "bezettingsgraad": 50,
-        "latitude": 51.2346009,
-        "longitude": 5.95996196,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           5.93917332,
           51.2097841
         ]
@@ -1538,6 +1515,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.22912,
         "longitude": 5.949903,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.95996196,
+          51.2346009
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat",
+        "straatNaam": "Linsenhof",
+        "straatNr": "5",
+        "vervoerder": "GLS",
+        "puntType": "locker",
+        "bezettingsgraad": 50,
+        "latitude": 51.2346009,
+        "longitude": 5.95996196,
         "canPickup": true,
         "canDropoff": true
       }

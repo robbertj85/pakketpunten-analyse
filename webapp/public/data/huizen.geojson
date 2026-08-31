@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Huizen",
     "slug": "huizen",
-    "generated_at": "2026-08-24T03:29:50.748766Z",
+    "generated_at": "2026-08-31T08:36:11.737547Z",
     "total_points": 33,
     "providers": [
       "Amazon",
@@ -280,6 +280,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          5.240000155441863,
+          52.30054367535915
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat Esso Huizen",
+        "straatNaam": "Eemlandweg",
+        "straatNr": "9-11",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 52.30054367535915,
+        "longitude": 5.240000155441863,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           5.2454543,
           52.3054394
         ]
@@ -372,29 +395,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          5.241209949475479,
-          52.318194356194525
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat Esso Huizen",
-        "straatNaam": "Eemlandweg",
-        "straatNr": "9-11",
-        "vervoerder": "DHL",
-        "puntType": "packStation",
-        "bezettingsgraad": 50,
-        "latitude": 52.318194356194525,
-        "longitude": 5.241209949475479,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           5.236888,
           52.297925
         ]
@@ -447,7 +447,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat - De Buren - EG Amba",
+        "locatieNaam": "Pakketautomaat EG Ambachtsweg",
         "straatNaam": "AMBACHTSWEG",
         "straatNr": "50A",
         "vervoerder": "DPD",
@@ -470,7 +470,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat - De Buren - Esso Ee",
+        "locatieNaam": "Pakketautomaat Esso Eemlandweg",
         "straatNaam": "EEMLANDWEG",
         "straatNr": "9-11",
         "vervoerder": "DPD",
@@ -1293,32 +1293,36 @@
                 52.300503574327365
               ],
               [
-                5.235859649562017,
-                52.30054339999326
+                5.23560491825551,
+                52.300503935865024
               ],
               [
-                5.235874930910957,
-                52.30074257269248
+                5.235602061497205,
+                52.300538128004234
               ],
               [
-                5.235937371323231,
-                52.30100439200819
+                5.2356223389924885,
+                52.30080243869333
               ],
               [
-                5.236041372563614,
-                52.30126119846181
+                5.23568477800011,
+                52.30106425813887
               ],
               [
-                5.2361859337094,
-                52.30151051875999
+                5.2357887779202255,
+                52.301321064811184
               ],
               [
-                5.236369663142382,
-                52.301749951667716
+                5.235933337842851,
+                52.30157038541491
               ],
               [
-                5.236484251434719,
-                52.30186770684213
+                5.236117066161559,
+                52.30180981871195
+              ],
+              [
+                5.236198335422401,
+                52.301893334639416
               ],
               [
                 5.236163103243559,
@@ -3155,12 +3159,16 @@
                 52.30109202691269
               ],
               [
-                5.234511134765247,
-                52.30120811916337
+                5.234218916700618,
+                52.301122927733864
               ],
               [
-                5.234542685704306,
-                52.30128603326218
+                5.2342462958952884,
+                52.3012377493445
+              ],
+              [
+                5.234294795051171,
+                52.301357518231455
               ],
               [
                 5.234258549480591,

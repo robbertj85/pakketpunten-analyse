@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Brunssum",
     "slug": "brunssum",
-    "generated_at": "2026-08-24T03:20:57.144557Z",
+    "generated_at": "2026-08-31T08:27:28.322964Z",
     "total_points": 34,
     "providers": [
       "Amazon",
@@ -258,6 +258,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          5.969713,
+          50.9381069
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat Lidl Brunssum",
+        "straatNaam": "Rumpenerstraat",
+        "straatNr": "116",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 50.9381069,
+        "longitude": 5.969713,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           5.980041,
           50.9580518
         ]
@@ -295,29 +318,6 @@
         "bezettingsgraad": 50,
         "latitude": 50.93995456867077,
         "longitude": 5.973014508095368,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.969713,
-          50.9381069
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat Lidl Brunssum",
-        "straatNaam": "Rumpenerstraat",
-        "straatNr": "116",
-        "vervoerder": "DHL",
-        "puntType": "packStation",
-        "bezettingsgraad": 50,
-        "latitude": 50.9381069,
-        "longitude": 5.969713,
         "canPickup": true,
         "canDropoff": true
       }
@@ -425,7 +425,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat - De Buren - Lukoil",
+        "locatieNaam": "Pakketautomaat Lukoil Prins Hendrik",
         "straatNaam": "PRINS HENDRIKLAAN",
         "straatNr": "243",
         "vervoerder": "DPD",

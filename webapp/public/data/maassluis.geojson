@@ -3,16 +3,15 @@
   "metadata": {
     "gemeente": "Maassluis",
     "slug": "maassluis",
-    "generated_at": "2026-08-24T03:32:59.508569Z",
-    "total_points": 27,
+    "generated_at": "2026-08-31T08:39:18.663746Z",
+    "total_points": 26,
     "providers": [
       "Amazon",
       "DeBuren",
       "DHL",
       "DPD",
       "PostNL",
-      "VintedGo",
-      "InPost"
+      "VintedGo"
     ],
     "bounds": [
       4.2276487,
@@ -355,7 +354,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat - De Buren - Tango M",
+        "locatieNaam": "Pakketautomaat Tango Mozartlaan",
         "straatNaam": "MOZARTLAAN",
         "straatNr": "332",
         "vervoerder": "DPD",
@@ -616,29 +615,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.9229628,
         "longitude": 4.2539941,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.254,
-          51.92296
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "TABAKSHOP MAASGEMAK",
-        "straatNaam": "Lange Boonestraat 2",
-        "straatNr": "",
-        "vervoerder": "InPost",
-        "puntType": "servicepunt",
-        "bezettingsgraad": 50,
-        "latitude": 51.92296,
-        "longitude": 4.254,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1751,10 +1727,6 @@
           [
             [
               [
-                4.231704989877145,
-                51.936252257638245
-              ],
-              [
                 4.231528135523445,
                 51.93601128551225
               ],
@@ -2009,6 +1981,10 @@
               [
                 4.231704989877145,
                 51.936252257638245
+              ],
+              [
+                4.231528135523445,
+                51.93601128551225
               ]
             ]
           ]
@@ -2839,10 +2815,6 @@
           [
             [
               [
-                4.233057046706254,
-                51.93592154430732
-              ],
-              [
                 4.232821233345593,
                 51.935600250753666
               ],
@@ -3097,6 +3069,10 @@
               [
                 4.233057046706254,
                 51.93592154430732
+              ],
+              [
+                4.232821233345593,
+                51.935600250753666
               ]
             ]
           ]

@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Bunschoten",
     "slug": "bunschoten",
-    "generated_at": "2026-08-24T03:21:08.280760Z",
+    "generated_at": "2026-08-31T08:27:38.655548Z",
     "total_points": 27,
     "providers": [
       "Amazon",
@@ -96,6 +96,52 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          5.3747848,
+          52.2452645
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Stichting De Genadebron",
+        "straatNaam": "Molenstraat",
+        "straatNr": "23",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 52.2452645,
+        "longitude": 5.3747848,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.3770846,
+          52.2520609
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Blokker Spakenburg",
+        "straatNaam": "Spuistraat",
+        "straatNr": "19",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 52.2520609,
+        "longitude": 5.3770846,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           5.3848366,
           52.2492236
         ]
@@ -179,52 +225,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.25147247314453,
         "longitude": 5.377521514892578,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.3770846,
-          52.2520609
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Blokker Spakenburg",
-        "straatNaam": "Spuistraat",
-        "straatNr": "19",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 52.2520609,
-        "longitude": 5.3770846,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.3747848,
-          52.2452645
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Stichting De Genadebron",
-        "straatNaam": "Molenstraat",
-        "straatNr": "23",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 52.2452645,
-        "longitude": 5.3747848,
         "canPickup": true,
         "canDropoff": true
       }
