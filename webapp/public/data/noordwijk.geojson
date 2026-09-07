@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Noordwijk",
     "slug": "noordwijk",
-    "generated_at": "2026-08-31T08:41:46.555054Z",
+    "generated_at": "2026-09-07T07:30:44.906084Z",
     "total_points": 48,
     "providers": [
       "Amazon",
@@ -302,6 +302,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          4.4466276,
+          52.2343491
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Telecom Noordwijk BV",
+        "straatNaam": "Kerkstraat",
+        "straatNr": "9",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 52.2343491,
+        "longitude": 4.4466276,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           4.451947,
           52.234815
         ]
@@ -523,29 +546,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.2091435976,
         "longitude": 4.4391573971,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.4944994,
-          52.2621001
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Vink Multimedia",
-        "straatNaam": "HAVENSTRAAT",
-        "straatNr": "9A",
-        "vervoerder": "DPD",
-        "puntType": "pickup_point",
-        "bezettingsgraad": 50,
-        "latitude": 52.2621001,
-        "longitude": 4.4944994,
         "canPickup": true,
         "canDropoff": true
       }
@@ -2729,24 +2729,28 @@
                 52.231770277931346
               ],
               [
-                4.445026831239898,
-                52.23197722622237
+                4.4450188137230855,
+                52.23184090667578
               ],
               [
-                4.444952377665797,
-                52.231988048242776
+                4.444999909260483,
+                52.231844890641895
               ],
               [
-                4.444544781607299,
-                52.2320739445149
+                4.444607989103269,
+                52.23195490419143
               ],
               [
-                4.444152858315433,
-                52.23218395654195
+                4.444235515791784,
+                52.232087974117896
               ],
               [
-                4.443780381732414,
-                52.23231702501958
+                4.443886076074143,
+                52.232242819082956
+              ],
+              [
+                4.443609628398314,
+                52.232392688710085
               ],
               [
                 4.443430938637855,
@@ -4013,6 +4017,10 @@
           [
             [
               [
+                4.502718534629336,
+                52.254470901627464
+              ],
+              [
                 4.502501405491418,
                 52.254242304751784
               ],
@@ -4267,10 +4275,6 @@
               [
                 4.502718534629336,
                 52.254470901627464
-              ],
-              [
-                4.502501405491418,
-                52.254242304751784
               ]
             ]
           ],

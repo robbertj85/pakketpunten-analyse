@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Weert",
     "slug": "weert",
-    "generated_at": "2026-08-31T08:52:03.082613Z",
-    "total_points": 56,
+    "generated_at": "2026-09-07T07:39:58.594334Z",
+    "total_points": 57,
     "providers": [
       "Amazon",
       "DHL",
@@ -694,6 +694,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          5.733491,
+          51.247416
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "E.A.R.T.H. Mineralen",
+        "straatNaam": "MOESDIJK",
+        "straatNr": "12C",
+        "vervoerder": "DPD",
+        "puntType": "pickup_point",
+        "bezettingsgraad": 50,
+        "latitude": 51.247416,
+        "longitude": 5.733491,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           5.70817868,
           51.24348787
         ]
@@ -1062,20 +1085,20 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          5.7093706,
-          51.2523878
+          5.708864,
+          51.252368
         ]
       },
       "properties": {
         "type": "pakketpunt",
         "locatieNaam": "Zzznurk",
-        "straatNaam": "Maasstraat 29",
+        "straatNaam": "Maasstraat 36A",
         "straatNr": "",
         "vervoerder": "VintedGo",
         "puntType": "parcel_shop",
         "bezettingsgraad": 50,
-        "latitude": 51.2523878,
-        "longitude": 5.7093706,
+        "latitude": 51.252368,
+        "longitude": 5.708864,
         "canPickup": true,
         "canDropoff": true
       }
@@ -2586,16 +2609,20 @@
                 51.249546336761185
               ],
               [
-                5.709482809590753,
-                51.24969489048105
+                5.709481737883194,
+                51.24969679672552
               ],
               [
-                5.709351629891227,
-                51.249691210422355
+                5.709387258299453,
+                51.24969414625021
               ],
               [
-                5.7092189779007905,
-                51.249695668668906
+                5.709266311808373,
+                51.24968322925264
+              ],
+              [
+                5.709201989118423,
+                51.24968142466977
               ],
               [
                 5.709073571648512,

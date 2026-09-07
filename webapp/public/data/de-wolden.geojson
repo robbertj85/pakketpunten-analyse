@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "De Wolden",
     "slug": "de-wolden",
-    "generated_at": "2026-08-31T08:28:46.647462Z",
-    "total_points": 34,
+    "generated_at": "2026-09-07T07:18:48.396879Z",
+    "total_points": 35,
     "providers": [
       "Amazon",
       "DHL",
@@ -156,6 +156,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.672596,
         "longitude": 6.286043,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.246761343144416,
+          52.722945773882024
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat PLUS Koetsier",
+        "straatNaam": "Havelterweg",
+        "straatNr": "3",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 52.722945773882024,
+        "longitude": 6.246761343144416,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1976,12 +1999,20 @@
                 52.72017010188278
               ],
               [
-                6.24686932492518,
-                52.7202786524262
+                6.246932507565631,
+                52.72025503259143
               ],
               [
-                6.246487003771841,
-                52.72027001399536
+                6.2467085339669595,
+                52.72024997224119
+              ],
+              [
+                6.2462736214856305,
+                52.72026609544305
+              ],
+              [
+                6.246077747443258,
+                52.720285185338234
               ],
               [
                 6.246052091005864,
@@ -2136,7 +2167,7 @@
                 52.72550932185363
               ],
               [
-                6.248474913357338,
+                6.248474913357337,
                 52.72543592195736
               ],
               [

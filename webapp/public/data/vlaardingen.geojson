@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Vlaardingen",
     "slug": "vlaardingen",
-    "generated_at": "2026-08-31T08:50:36.683559Z",
+    "generated_at": "2026-09-07T07:38:42.948741Z",
     "total_points": 61,
     "providers": [
       "Amazon",
@@ -304,29 +304,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          4.3288242,
-          51.9059581
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "You & My Personality",
-        "straatNaam": "Energieweg",
-        "straatNr": "20",
-        "vervoerder": "DHL",
-        "puntType": "parcelShop",
-        "bezettingsgraad": 50,
-        "latitude": 51.9059581,
-        "longitude": 4.3288242,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           4.3118513,
           51.9153474
         ]
@@ -571,6 +548,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.908443,
         "longitude": 4.342741,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.3288242,
+          51.9059581
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "You & My Personality",
+        "straatNaam": "Energieweg",
+        "straatNr": "20",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 51.9059581,
+        "longitude": 4.3288242,
         "canPickup": true,
         "canDropoff": true
       }

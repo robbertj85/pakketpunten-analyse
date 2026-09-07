@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Oudewater",
     "slug": "oudewater",
-    "generated_at": "2026-08-31T08:43:40.519955Z",
-    "total_points": 13,
+    "generated_at": "2026-09-07T07:32:25.537736Z",
+    "total_points": 12,
     "providers": [
       "Amazon",
       "DHL",
@@ -179,29 +179,6 @@
         "bezettingsgraad": 50,
         "latitude": 52.02500946174,
         "longitude": 4.86750136461,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          4.87176954828378,
-          52.0238237932549
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Optie 1 Oudewater",
-        "straatNaam": "Leeuweringerstraat",
-        "straatNr": "26A",
-        "vervoerder": "PostNL",
-        "puntType": "servicepunt",
-        "bezettingsgraad": 50,
-        "latitude": 52.0238237932549,
-        "longitude": 4.87176954828378,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1253,10 +1230,6 @@
           [
             [
               [
-                4.872078732170902,
-                52.03550967070193
-              ],
-              [
                 4.871937058844361,
                 52.03525989979207
               ],
@@ -1511,6 +1484,10 @@
               [
                 4.872078732170902,
                 52.03550967070193
+              ],
+              [
+                4.871937058844361,
+                52.03525989979207
               ]
             ]
           ]
