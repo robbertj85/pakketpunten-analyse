@@ -14,15 +14,34 @@ Suggestion derivation (in order):
   3. Pick the populated white-spot polygon with the highest CBS-grid headcount
      and use its representative point as a candidate.
   4. Snap to a nearby preferred POI (supermarkt, winkelcentrum, station, ...)
-     when one sits within POI_SNAP_RADIUS_M, else to the nearest BAG pand via
-     PDOK WFS, so the coordinate lands on a real, publicly accessible address.
-  5. ``est_new_pop_within_400m`` = sum of CBS cells inside both the candidate's
-     400 m buffer and the white-spot. Bounded — no uniform-density assumption.
+     when one sits within POI_SNAP_RADIUS_M, else to a BAG pand via PDOK WFS,
+     so the coordinate lands on a real, publicly accessible building. Panden
+     are ranked by ``distance + use_tier * SNAP_TIER_PENALTY_M - frontage
+     - bonus`` within SNAP_MAX_M of the pre-snap point. ``frontage`` rewards
+     commercial surroundings (winkel/bijeenkomst panden within
+     FRONTAGE_RADIUS_M: a shopping street scores 4-5, a corner shop between
+     houses 0-1) and a house-only pand with no commercial neighbour gets an
+     extra penalty, so spots land on shopping streets rather than between
+     houses; ``bonus`` rewards the pand at a preferred POI / OV-halte.
+  5. ``est_new_pop_within_400m`` = sum of CBS cells inside both the *snapped*
+     building's 400 m buffer and the white-spot. Bounded — no uniform-density
+     assumption. The pre-snap value is kept as ``est_new_pop_pre_snap``.
+  6. Nearest address (PDOK Locatieserver reverse geocode) is attached as
+     ``adres`` so the UI can name the spot; cached in
+     ``data/address_reverse_cache.json``.
 
-Per PC4 up to MAX_SUGGESTIONS_PER_PC4 (3) spots are derived iteratively:
+Per PC4 up to MAX_SUGGESTIONS_PER_PC4 (5) spots are derived iteratively:
 after spot k a 400 m buffer around it joins the exclusion union, so spot k+1
 lands in the next-best uncovered pocket and its est_new_pop is a true
-marginal gain (no double counting between spots).
+marginal gain (no double counting between spots, ``marginal: true``). Once
+no populated pocket is left, the remaining slots are filled with
+*alternatives*: the exclusion around earlier spots shrinks to
+MIN_SPOT_SEPARATION_M so the next-densest place in the same pocket becomes a
+spot (``marginal: false``, its reach overlaps with earlier spots — it is an
+alternative site, not an extra gain). Spots within one PC4 never
+share a BAG pand and stay >= MIN_SPOT_SEPARATION_M apart; when no distinct
+building qualifies the spot keeps its pre-snap coordinate (snapped_to_bag =
+false).
 
 Output → webapp/public/data/placement_suggestions.json
 
@@ -37,8 +56,11 @@ import argparse
 import hashlib
 import json
 import multiprocessing as mp
+import statistics
 import sys
+import threading
 import time
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
@@ -47,6 +69,8 @@ import geopandas as gpd
 import numpy as np
 import pandas as pd
 import requests
+from pyproj import Transformer
+from shapely import wkb as shapely_wkb
 from shapely.geometry import shape, Point
 from shapely.ops import unary_union
 from shapely.geometry.base import BaseGeometry
@@ -60,14 +84,18 @@ DATA_DIR = ROOT / "webapp" / "public" / "data"
 OUT_PATH = DATA_DIR / "placement_suggestions.json"
 CBS_GRID_PATH = ROOT / "data" / "cbs" / "cbs_vk100_2024_inhabited.gpkg"
 GTFS_STOPS_PATH = ROOT / "data" / "ov" / "gtfs_stops.json"
-BAG_CACHE_PATH = ROOT / "data" / "bag_building_snap_cache.json"
+# v2: caches the ranked candidate list per snap target (v1 only stored the
+# winner, which cannot be de-duplicated across spots). v1 file is left as is.
+BAG_CACHE_PATH = ROOT / "data" / "bag_building_snap_cache_v2.json"
 BAG_WFS_URL = "https://service.pdok.nl/lv/bag/wfs/v2_0"
+ADDRESS_CACHE_PATH = ROOT / "data" / "address_reverse_cache.json"
+LOCSERVER_REVERSE_URL = "https://api.pdok.nl/bzk/locatieserver/search/v3_1/reverse"
 
 # If an OV-halte sits within this radius of the densest-cell rep point, we
 # shift the snap target itself to the stop and look for buildings there.
 # 400 m matches the 400 m walking-distance buffer used elsewhere in the app —
 # any stop within walking distance is a valid placement target.
-OV_TARGET_SHIFT_M = 400
+OV_TARGET_SHIFT_M = 250
 # Reported nearest OV uses a slightly wider radius so the UI still shows
 # "near OV" context for buildings that ended up close-but-not-shifted.
 OV_REPORT_RADIUS_M = 400
@@ -84,8 +112,20 @@ DEFAULT_WEIGHTS = {
 TOP_N = 10                       # PC4s shipped per municipality (UI offers 5 / 10)
 MIN_PC4_POPULATION = 50          # exclude industrial / water PC4s
 MIN_WHITE_SPOT_AREA_M2 = 5_000   # discard slivers
-SNAP_BBOX_M = 300                # search radius for BAG building snap
-MAX_SUGGESTIONS_PER_PC4 = 3      # iterative spots per PC4 (plek 1/2/3 in UI)
+SNAP_MAX_M = 250                 # panden farther than this from the pre-snap point are ignored
+FRONTAGE_RADIUS_M = 60           # commercial frontage = winkel/bijeenkomst panden within this
+FRONTAGE_BONUS_M = 40            # score bonus per commercial neighbour (capped at FRONTAGE_MAX)
+FRONTAGE_MAX = 5
+BETWEEN_HOUSES_PENALTY_M = 100   # extra penalty for a non-shop pand with no commercial neighbour
+SNAP_BBOX_M = SNAP_MAX_M + FRONTAGE_RADIUS_M  # WFS bbox half-size (candidates + their neighbours)
+WFS_PAGE = 1000                  # PDOK BAG WFS page size (paginated with startIndex)
+SNAP_TIER_PENALTY_M = 75         # snap score = distance_m + use_tier * this - frontage - target bonus
+SNAP_POI_BONUS_M = 100           # bonus for the pand at a preferred POI (supermarkt, station, ...)
+SNAP_OV_BONUS_M = 50             # bonus for the pand at an OV-halte
+SNAP_TARGET_HIT_M = 40           # a pand 'is at' the POI/OV when its centroid is within this
+SNAP_CANDIDATES_KEPT = 10        # ranked candidates cached per snap target
+MIN_SPOT_SEPARATION_M = 100      # snapped spots within one PC4 stay at least this far apart
+MAX_SUGGESTIONS_PER_PC4 = 5      # iterative spots per PC4 (plek 1..5 in UI)
 
 # POI snapping: when a preferred public POI sits within this radius of the
 # candidate cell, the snap target shifts to the POI itself (the BAG pand it
@@ -109,6 +149,8 @@ _CBS_SINDEX = None
 # OV stops (WGS84 → reprojected to RD on load) and their spatial index.
 _OV_STOPS: Optional[gpd.GeoDataFrame] = None
 _OV_SINDEX = None
+# RD -> WGS84 for single points (much cheaper than a GeoSeries round-trip).
+_RD_TO_WGS84 = Transformer.from_crs(RD, WGS84, always_xy=True)
 
 
 def zscore(values: np.ndarray) -> np.ndarray:
@@ -266,23 +308,41 @@ def process_municipality(args: tuple) -> tuple[str, dict | None]:
     # spots are derived iteratively per PC4: after spot k, a 400 m buffer
     # around it joins the exclusion union so spot k+1 targets the next-best
     # uncovered pocket and its est_new_pop is a true marginal gain. The buffer
-    # is taken around the pre-snap point; the later BAG/POI snap moves spots
-    # by well under 400 m, so the exclusion stays representative.
+    # is taken around the pre-snap point; the later BAG/POI snap is capped at
+    # SNAP_MAX_M and de-duplicated per PC4 in run_snap_pass(), and the reach
+    # is recomputed at the snapped building.
     top = df.head(TOP_N).copy()
     suggestion_lists: list[list[dict]] = []
     for _, row in top.iterrows():
         poly = pc4_polys[row["pc4"]]
         exclusion = buffer_union
         spots: list[dict] = []
+        chosen: list[Point] = []
+        marginal = True
         for rank in range(1, MAX_SUGGESTIONS_PER_PC4 + 1):
             sug = white_spot_suggestion(
                 poly, exclusion, pc4_area_m2=row["pc4_area_m2"],
             )
+            if sug is None and marginal and chosen:
+                # No uncovered pocket left: switch to fill mode. Earlier spots
+                # now only exclude a MIN_SPOT_SEPARATION_M disk, so the next-
+                # densest place in the same pocket becomes an alternative.
+                marginal = False
+                exclusion = unary_union(
+                    ([buffer_union] if buffer_union is not None else [])
+                    + [p.buffer(MIN_SPOT_SEPARATION_M) for p in chosen]
+                )
+                sug = white_spot_suggestion(
+                    poly, exclusion, pc4_area_m2=row["pc4_area_m2"],
+                )
             if sug is None:
                 break
             sug["rank"] = rank
+            sug["marginal"] = marginal
             spots.append(sug)
-            spot_buffer = Point(sug["_rd_x"], sug["_rd_y"]).buffer(400)
+            pt = Point(sug["_rd_x"], sug["_rd_y"])
+            chosen.append(pt)
+            spot_buffer = pt.buffer(400 if marginal else MIN_SPOT_SEPARATION_M)
             exclusion = (
                 spot_buffer if exclusion is None
                 else exclusion.union(spot_buffer)
@@ -437,10 +497,14 @@ def white_spot_suggestion(
         "lon": round(lon, 6),
         "white_spot_area_m2": int(round(float(best_part.area))),
         "est_new_pop_within_400m": est_new_pop,
+        "est_new_pop_pre_snap": est_new_pop,
         # RD coords retained for the post-hoc BAG snap in main(); stripped
         # before JSON serialisation.
         "_rd_x": float(rep.x),
         "_rd_y": float(rep.y),
+        # Simplified white-spot polygon (WKB) so main() can recompute the
+        # reach estimate at the *snapped* building. Stripped before output.
+        "_white_spot_wkb": shapely_wkb.dumps(best_part.simplify(2)),
     }
 
 
@@ -546,22 +610,6 @@ def _nearest_snap_poi(
     }
 
 
-def _load_bag_cache() -> dict[str, dict]:
-    if BAG_CACHE_PATH.exists():
-        try:
-            with open(BAG_CACHE_PATH) as f:
-                return json.load(f)
-        except Exception:
-            return {}
-    return {}
-
-
-def _save_bag_cache(cache: dict[str, dict]) -> None:
-    BAG_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
-    with open(BAG_CACHE_PATH, "w") as f:
-        json.dump(cache, f, separators=(",", ":"))
-
-
 def _cache_key(rd_x: float, rd_y: float) -> str:
     # 1 m precision — RD coords are already in metres.
     return f"{rd_x:.0f},{rd_y:.0f}"
@@ -611,32 +659,77 @@ def _nearest_ov_stop(rd_x: float, rd_y: float, max_dist_m: float) -> dict | None
     }
 
 
-def snap_to_nearest_bag_pand(
+def _wfs_pand_features(
+    bbox: tuple[float, float, float, float], *, session: requests.Session,
+    timeout: int = 30, max_pages: int = 5,
+) -> list[dict]:
+    """All ``bag:pand`` features in the RD bbox, following WFS 2.0 paging
+    (``startIndex``). A 500 m box in a city centre holds ~1.5-2k panden, far
+    beyond a single ``count`` — the earlier 200-cap silently dropped most
+    candidates in dense areas."""
+    feats: list[dict] = []
+    start = 0
+    for _ in range(max_pages):
+        params = {
+            "service": "WFS",
+            "version": "2.0.0",
+            "request": "GetFeature",
+            "typeNames": "bag:pand",
+            "outputFormat": "application/json",
+            "srsName": "EPSG:28992",
+            "bbox": f"{bbox[0]},{bbox[1]},{bbox[2]},{bbox[3]},EPSG:28992",
+            "count": WFS_PAGE,
+            "startIndex": start,
+            # Only what the snap needs (~30% smaller pages than the full record).
+            "propertyName": "identificatie,gebruiksdoel,bouwjaar,geom",
+        }
+        r = session.get(BAG_WFS_URL, params=params, timeout=timeout)
+        r.raise_for_status()
+        page = r.json().get("features", [])
+        feats.extend(page)
+        if len(page) < WFS_PAGE:
+            break
+        start += WFS_PAGE
+    return feats
+
+
+def _is_commercial(gebruiksdoel: str | None) -> bool:
+    g = (gebruiksdoel or "").lower()
+    return "winkelfunctie" in g or "bijeenkomstfunctie" in g
+
+
+def fetch_bag_candidates(
     rd_x: float, rd_y: float, cache: dict[str, dict],
     *, session: requests.Session, timeout: int = 30,
     poi_index: dict | None = None,
 ) -> dict | None:
-    """Query PDOK BAG WFS for ``bag:pand`` footprints within ``SNAP_BBOX_M``
-    metres of (rd_x, rd_y) in EPSG:28992 and return the best one.
+    """Query PDOK BAG WFS for ``bag:pand`` footprints around the snap target
+    of (rd_x, rd_y) and return a *ranked candidate list* (not just a winner),
+    so the caller can de-duplicate buildings across the spots of one PC4.
 
     Snap-target resolution, in order:
       1. Preferred POI (supermarkt, winkelcentrum, station, ...) within
          ``POI_SNAP_RADIUS_M`` — the bbox centres on the POI so we find the
          pand the POI occupies; the POI is reported in the result.
-      2. OV-halte within ``OV_TARGET_SHIFT_M`` (existing behaviour).
+      2. OV-halte within ``OV_TARGET_SHIFT_M``.
       3. The original candidate point.
 
-    Ranking of panden: tier (lower = better) then distance, where tier comes
-    from ``_use_score(gebruiksdoel)``.
+    Ranking: ``score = distance_m + use_tier * SNAP_TIER_PENALTY_M - bonus``
+    over the panden within ``SNAP_MAX_M`` of the *pre-snap point* (the CBS
+    population centre), where ``bonus`` rewards the pand sitting at the
+    POI (SNAP_POI_BONUS_M) or OV-halte (SNAP_OV_BONUS_M). Tier still matters
+    (a shop 75 m away ties with a house next door) but can no longer drag a
+    spot hundreds of metres from the people it should serve. When nothing
+    lies within the radius the 3 nearest panden are returned with
+    ``beyond_radius`` set, so a spot in open terrain still lands on a
+    building.
 
-    Returns ``{"rd_x", "rd_y", "lat", "lon", "distance_m", "bouwjaar",
-    "gebruiksdoel", "identificatie", "nearest_ov": {...} | None,
-    "poi": {...} | None}`` or None on failure / no footprints. Cached on disk
-    so reruns don't re-hit PDOK.
+    Returns ``{"target_rd_x", "target_rd_y", "beyond_radius", "poi": {...} |
+    None, "candidates": [{"identificatie", "rd_x", "rd_y", "distance_m",
+    "tier", "bouwjaar", "gebruiksdoel"}, ...]}`` or None on request failure
+    (not cached, so a rerun retries). Cached on disk per snap target.
+    Thread-safe: only reads module globals and does atomic dict writes.
     """
-    # A POI shift changes the snap target, so it gets its own cache slot —
-    # plain keys written by earlier runs (without POI logic) stay valid for
-    # the no-POI case.
     rep_poi = _nearest_snap_poi(rd_x, rd_y, poi_index, POI_SNAP_RADIUS_M)
     key = _cache_key(rd_x, rd_y)
     if rep_poi is not None and rep_poi["osm_id"]:
@@ -644,85 +737,105 @@ def snap_to_nearest_bag_pand(
     if key in cache:
         return cache[key] or None
 
-    # Resolve the snap target FIRST: shift to a nearby preferred POI, else a
-    # nearby OV-halte, so the PDOK bbox follows the target — not just the
-    # sort order. Without this, buildings near the POI/stop would be outside
-    # the search bbox and never seen.
+    # Resolve the POI / OV target (bonus only — ranking distance is always
+    # measured from the pre-snap point). The bbox is centred between the two
+    # so both neighbourhoods are covered.
+    target_bonus = 0.0
     if rep_poi is not None:
         target_x, target_y = rep_poi["rd_x"], rep_poi["rd_y"]
+        target_bonus = SNAP_POI_BONUS_M
     else:
         rep_ov = _nearest_ov_stop(rd_x, rd_y, OV_TARGET_SHIFT_M)
         if rep_ov is not None:
-            ov_pt = gpd.GeoSeries(
-                [Point(rep_ov["lon"], rep_ov["lat"])], crs=WGS84,
-            ).to_crs(RD).iloc[0]
-            target_x, target_y = float(ov_pt.x), float(ov_pt.y)
+            target_x, target_y = _wgs84_to_rd(rep_ov["lat"], rep_ov["lon"])
+            target_bonus = SNAP_OV_BONUS_M
         else:
             target_x, target_y = rd_x, rd_y
 
+    # Box around the pre-snap point: every candidate within SNAP_MAX_M plus
+    # the FRONTAGE_RADIUS_M ring of neighbours each candidate is scored on.
     bbox = (
-        target_x - SNAP_BBOX_M, target_y - SNAP_BBOX_M,
-        target_x + SNAP_BBOX_M, target_y + SNAP_BBOX_M,
+        rd_x - SNAP_BBOX_M, rd_y - SNAP_BBOX_M,
+        rd_x + SNAP_BBOX_M, rd_y + SNAP_BBOX_M,
     )
-    params = {
-        "service": "WFS",
-        "version": "2.0.0",
-        "request": "GetFeature",
-        "typeNames": "bag:pand",
-        "outputFormat": "application/json",
-        "srsName": "EPSG:28992",
-        "bbox": f"{bbox[0]},{bbox[1]},{bbox[2]},{bbox[3]},EPSG:28992",
-        "count": 200,
-    }
     try:
-        r = session.get(BAG_WFS_URL, params=params, timeout=timeout)
-        r.raise_for_status()
-        payload = r.json()
+        features = _wfs_pand_features(bbox, session=session, timeout=timeout)
     except Exception as e:
         print(f"    BAG snap failed at RD ({rd_x:.0f},{rd_y:.0f}): {e}")
         return None
 
-    candidates = []
-    for feat in payload.get("features", []):
-        geom = feat.get("geometry")
-        if not geom:
-            continue
-        try:
-            poly = shape(geom)
-        except Exception:
-            continue
-        c = poly.centroid
-        # Distance to the (possibly shifted) snap target.
-        d2 = (c.x - target_x) ** 2 + (c.y - target_y) ** 2
+    panden: list[tuple[float, float, dict, bool]] = []  # (cx, cy, props, commercial)
+    for feat in features:
+        # Footprint bbox centre is within a metre or two of the centroid for
+        # ordinary panden and avoids building a shapely polygon per feature.
+        fb = feat.get("bbox")
+        if fb and len(fb) == 4:
+            cx, cy = (fb[0] + fb[2]) / 2, (fb[1] + fb[3]) / 2
+        else:
+            geom = feat.get("geometry")
+            if not geom:
+                continue
+            try:
+                c = shape(geom).centroid
+            except Exception:
+                continue
+            cx, cy = float(c.x), float(c.y)
         props = feat.get("properties", {})
-        tier = _use_score(props.get("gebruiksdoel"))
-        candidates.append((tier, d2, c.x, c.y, props))
-
-    if not candidates:
+        panden.append((cx, cy, props, _is_commercial(props.get("gebruiksdoel"))))
+    del features
+    if not panden:
         cache[key] = {}  # remember "no buildings" so we skip on retry
         return None
 
-    # Sort by (use-tier, distance-to-target). Tier dominates so a shop always
-    # beats a warehouse. The target shift above already biases distance
-    # toward POIs/OV-haltes when one is nearby.
-    candidates.sort(key=lambda t: (t[0], t[1]))
-    tier, d2, cx, cy, props = candidates[0]
-    # Reported nearest OV uses a wider radius so the UI can show it as a
-    # context hint even when it didn't drive the snap.
-    ov_near = _nearest_ov_stop(cx, cy, OV_REPORT_RADIUS_M)
+    xs = np.array([p[0] for p in panden])
+    ys = np.array([p[1] for p in panden])
+    commercial = np.array([p[3] for p in panden])
 
-    # Convert RD → WGS84 for the JSON output.
-    lonlat = gpd.GeoSeries([Point(cx, cy)], crs=RD).to_crs(WGS84).iloc[0]
+    scored: list[dict] = []
+    for i, (cx, cy, props, _com) in enumerate(panden):
+        dist = float(np.hypot(cx - rd_x, cy - rd_y))
+        dist_target = float(np.hypot(cx - target_x, cy - target_y))
+        at_target = target_bonus > 0 and dist_target <= SNAP_TARGET_HIT_M
+        tier = _use_score(props.get("gebruiksdoel"))
+        # Commercial frontage: winkel/bijeenkomst panden around this one
+        # (itself excluded). Shopping streets score 4-5, side streets 0-1.
+        near = (np.hypot(xs - cx, ys - cy) <= FRONTAGE_RADIUS_M) & commercial
+        near[i] = False
+        frontage = int(near.sum())
+        score = dist + tier * SNAP_TIER_PENALTY_M
+        score -= min(frontage, FRONTAGE_MAX) * FRONTAGE_BONUS_M
+        if at_target:
+            score -= target_bonus
+        if tier >= 1 and frontage == 0:
+            score += BETWEEN_HOUSES_PENALTY_M  # a house/office between houses
+        scored.append({
+            "identificatie": props.get("identificatie"),
+            "rd_x": round(cx, 1),
+            "rd_y": round(cy, 1),
+            "distance_m": int(round(dist)),
+            "at_target": at_target,
+            "tier": tier,
+            "frontage_60m": frontage,
+            "bouwjaar": props.get("bouwjaar"),
+            "gebruiksdoel": props.get("gebruiksdoel"),
+            "_score": score,
+        })
+
+    in_radius = [c for c in scored if c["distance_m"] <= SNAP_MAX_M]
+    beyond_radius = not in_radius
+    if in_radius:
+        in_radius.sort(key=lambda c: (c["_score"], c["distance_m"]))
+        top = in_radius[:SNAP_CANDIDATES_KEPT]
+    else:
+        scored.sort(key=lambda c: c["distance_m"])
+        top = scored[:3]
+    for c in top:
+        c.pop("_score", None)
+
     result = {
-        "rd_x": round(float(cx), 1),
-        "rd_y": round(float(cy), 1),
-        "lat": round(float(lonlat.y), 6),
-        "lon": round(float(lonlat.x), 6),
-        "distance_m": int(round(float(np.sqrt(d2)))),
-        "bouwjaar": props.get("bouwjaar"),
-        "gebruiksdoel": props.get("gebruiksdoel"),
-        "identificatie": props.get("identificatie"),
-        "nearest_ov": ov_near,
+        "target_rd_x": round(float(target_x), 1),
+        "target_rd_y": round(float(target_y), 1),
+        "beyond_radius": beyond_radius,
         # POI that drove the snap target (distance from the pre-snap
         # candidate point), or None when the snap was BAG/OV-only.
         "poi": (
@@ -733,9 +846,301 @@ def snap_to_nearest_bag_pand(
             }
             if rep_poi is not None else None
         ),
+        "candidates": top,
     }
     cache[key] = result
     return result
+
+
+def choose_bag_pand(
+    ranked: dict | None, used_ids: set[str], used_points: list[tuple[float, float]],
+) -> dict | None:
+    """First ranked candidate that is not already used by an earlier spot of
+    the same PC4 and lies >= MIN_SPOT_SEPARATION_M from those spots."""
+    if not ranked:
+        return None
+    for c in ranked.get("candidates", []):
+        ident = c.get("identificatie")
+        if ident and ident in used_ids:
+            continue
+        if any(
+            np.hypot(c["rd_x"] - ux, c["rd_y"] - uy) < MIN_SPOT_SEPARATION_M
+            for ux, uy in used_points
+        ):
+            continue
+        return c
+    return None
+
+
+def _wgs84_to_rd(lat: float, lon: float) -> tuple[float, float]:
+    x, y = _RD_TO_WGS84.transform(lon, lat, direction="INVERSE")
+    return float(x), float(y)
+
+
+def _rd_to_wgs84(rd_x: float, rd_y: float) -> tuple[float, float]:
+    lon, lat = _RD_TO_WGS84.transform(rd_x, rd_y)
+    return float(lat), float(lon)
+
+
+def _load_json_cache(path: Path) -> dict[str, dict]:
+    if path.exists():
+        try:
+            with open(path) as f:
+                return json.load(f)
+        except Exception:
+            return {}
+    return {}
+
+
+def _save_json_cache(path: Path, cache: dict[str, dict]) -> None:
+    """Atomic write of a snapshot: `dict(cache)` copies under the GIL, so
+    worker threads may keep inserting while the checkpoint is serialised,
+    and the temp-file rename never leaves a truncated cache behind."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    snapshot = dict(cache)
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    with open(tmp, "w") as f:
+        json.dump(snapshot, f, separators=(",", ":"))
+    tmp.replace(path)
+
+
+def reverse_geocode_address(
+    lat: float, lon: float, cache: dict[str, dict],
+    *, session: requests.Session, timeout: int = 20,
+) -> dict | None:
+    """Nearest address for (lat, lon) via the PDOK Locatieserver reverse
+    endpoint (open, no key). Returns ``{weergavenaam, straat, huisnummer,
+    postcode, woonplaats, afstand_m, nummeraanduiding_id,
+    verblijfsobject_id}`` or None. Addresses only — no person data. Cached
+    on disk per coordinate (6 dp); failures are not cached so reruns retry.
+    """
+    key = f"{lat:.6f},{lon:.6f}"
+    if key in cache:
+        return cache[key] or None
+    params = {
+        "lat": f"{lat:.6f}",
+        "lon": f"{lon:.6f}",
+        "rows": 1,
+        "type": "adres",
+        "fl": "weergavenaam,straatnaam,huis_nlt,postcode,woonplaatsnaam,"
+              "afstand,nummeraanduiding_id,adresseerbaarobject_id",
+    }
+    try:
+        r = session.get(LOCSERVER_REVERSE_URL, params=params, timeout=timeout)
+        r.raise_for_status()
+        docs = (r.json().get("response") or {}).get("docs") or []
+    except Exception as e:
+        print(f"    Reverse geocode failed at ({lat:.5f},{lon:.5f}): {e}")
+        return None
+    if not docs:
+        cache[key] = {}
+        return None
+    d = docs[0]
+    afstand = d.get("afstand")
+    result = {
+        "weergavenaam": d.get("weergavenaam"),
+        "straat": d.get("straatnaam"),
+        "huisnummer": d.get("huis_nlt"),
+        "postcode": d.get("postcode"),
+        "woonplaats": d.get("woonplaatsnaam"),
+        "afstand_m": int(round(float(afstand))) if afstand is not None else None,
+        "nummeraanduiding_id": d.get("nummeraanduiding_id"),
+        "verblijfsobject_id": d.get("adresseerbaarobject_id"),
+    }
+    cache[key] = result
+    return result
+
+
+def _strip_internal(sug: dict) -> None:
+    for k in ("_rd_x", "_rd_y", "_white_spot_wkb"):
+        sug.pop(k, None)
+
+
+def run_snap_pass(
+    results: dict[str, dict], *, workers: int,
+) -> dict:
+    """Snap every spot to a distinct BAG pand, recompute its reach at the
+    snapped building and attach the nearest address.
+
+    Phase A (threaded): fetch ranked pand candidates per spot (PDOK WFS).
+    Phase B (sequential, rank order per PC4): choose a distinct pand,
+              recompute est_new_pop at the snapped point, attach nearest OV.
+    Phase C (threaded): reverse-geocode the final coordinate.
+    """
+    bag_cache = _load_json_cache(BAG_CACHE_PATH)
+    addr_cache = _load_json_cache(ADDRESS_CACHE_PATH)
+    bag_size0, addr_size0 = len(bag_cache), len(addr_cache)
+    session = requests.Session()
+    session.headers["User-Agent"] = "pakketpunten-analyse/1.0 (placement-suggestions)"
+    throttle = threading.Semaphore(workers)
+    save_lock = threading.Lock()
+    SAVE_EVERY = 250  # new cache entries between checkpoint writes
+
+    def _checkpoint(path: Path, cache: dict, counter: list[int]) -> None:
+        """Write the cache every SAVE_EVERY new entries (a hard kill by the OS
+        skips `finally`, so long cold runs must not lose their progress)."""
+        counter[0] += 1
+        if counter[0] % SAVE_EVERY == 0:
+            with save_lock:
+                _save_json_cache(path, cache)
+
+    # Flatten all spots, keeping PC4 grouping and rank order.
+    jobs: list[tuple[str, dict, list[dict]]] = []  # (slug, pc4 record, spots)
+    for slug, payload in results.items():
+        for rec in payload["pc4s"]:
+            spots = rec.get("suggestions") or []
+            if spots:
+                jobs.append((slug, rec, spots))
+    poi_indexes = {slug: _load_poi_snap_index(slug) for slug in results}
+
+    stats = {
+        "spots": 0, "snapped": 0, "unsnapped": 0, "no_distinct": 0,
+        "beyond_radius": 0, "with_address": 0, "duplicates": 0, "dist": [],
+    }
+
+    # ---- Phase A: candidates ------------------------------------------- #
+    bag_new = [0]
+
+    def _fetch(args: tuple) -> dict | None:
+        slug, sug = args
+        with throttle:
+            before = len(bag_cache)
+            out = fetch_bag_candidates(
+                sug["_rd_x"], sug["_rd_y"], bag_cache,
+                session=session, poi_index=poi_indexes.get(slug),
+            )
+            if len(bag_cache) != before:
+                _checkpoint(BAG_CACHE_PATH, bag_cache, bag_new)
+                time.sleep(0.02)  # politeness when uncached
+            return out
+
+    flat = [(slug, sug) for slug, _rec, spots in jobs for sug in spots
+            if sug.get("_rd_x") is not None]
+    print(f"  Phase A: BAG candidates for {len(flat):,} spots "
+          f"({workers} workers, cache {bag_size0:,} entries)...")
+    try:
+        with ThreadPoolExecutor(max_workers=workers) as ex:
+            ranked_list = list(ex.map(_fetch, flat))
+    finally:
+        _save_json_cache(BAG_CACHE_PATH, bag_cache)
+    ranked_by_id = {id(sug): rk for (_s, sug), rk in zip(flat, ranked_list)}
+
+    # ---- Phase B: choose + recompute ----------------------------------- #
+    print("  Phase B: choosing distinct panden and recomputing reach...")
+    for _slug, _rec, spots in jobs:
+        used_ids: set[str] = set()
+        used_points: list[tuple[float, float]] = []
+        seen_ids: list[str] = []
+        for sug in spots:
+            stats["spots"] += 1
+            rd_x, rd_y = sug.get("_rd_x"), sug.get("_rd_y")
+            ranked = ranked_by_id.get(id(sug))
+            chosen = choose_bag_pand(ranked, used_ids, used_points) if rd_x is not None else None
+            if chosen is None:
+                if ranked and ranked.get("candidates"):
+                    # Every suitable pand is already taken by an earlier spot:
+                    # drop this spot rather than show a bare cell centroid.
+                    sug["_drop"] = True
+                    stats["no_distinct"] += 1
+                    continue
+                sug["snapped_to_bag"] = False
+                stats["unsnapped"] += 1
+                if rd_x is not None:
+                    used_points.append((rd_x, rd_y))
+                continue
+            cx, cy = chosen["rd_x"], chosen["rd_y"]
+            lat, lon = _rd_to_wgs84(cx, cy)
+            sug["snapped_to_bag"] = True
+            sug["pre_snap_lat"] = sug["lat"]
+            sug["pre_snap_lon"] = sug["lon"]
+            sug["lat"] = round(lat, 6)
+            sug["lon"] = round(lon, 6)
+            sug["bag_distance_m"] = int(round(float(np.hypot(cx - rd_x, cy - rd_y))))
+            sug["bag_gebruiksdoel"] = chosen.get("gebruiksdoel")
+            sug["bag_bouwjaar"] = chosen.get("bouwjaar")
+            sug["bag_identificatie"] = chosen.get("identificatie")
+            sug["bag_frontage_60m"] = chosen.get("frontage_60m")
+            sug["bag_beyond_radius"] = bool(ranked.get("beyond_radius"))
+            sug["nearest_ov"] = _nearest_ov_stop(cx, cy, OV_REPORT_RADIUS_M)
+            poi = ranked.get("poi")
+            if poi and chosen.get("at_target"):
+                sug["poi_category"] = poi.get("category")
+                sug["poi_naam"] = poi.get("name")
+                sug["poi_distance_m"] = poi.get("distance_m")
+            # Reach at the building actually shown, not at the CBS cell.
+            wkb_bytes = sug.get("_white_spot_wkb")
+            if wkb_bytes:
+                try:
+                    part = shapely_wkb.loads(wkb_bytes)
+                    cells = _grid_cells_in(Point(cx, cy).buffer(400).intersection(part))
+                    sug["est_new_pop_within_400m"] = int(round(float(cells["aantal_inwoners"].sum())))
+                except Exception:
+                    pass
+            if chosen.get("identificatie"):
+                used_ids.add(chosen["identificatie"])
+                seen_ids.append(chosen["identificatie"])
+            used_points.append((cx, cy))
+            stats["snapped"] += 1
+            stats["dist"].append(sug["bag_distance_m"])
+            if ranked.get("beyond_radius"):
+                stats["beyond_radius"] += 1
+        if len(seen_ids) != len(set(seen_ids)):
+            stats["duplicates"] += 1
+        dropped = [sug for sug in spots if sug.get("_drop")]
+        if dropped:
+            spots[:] = [sug for sug in spots if not sug.get("_drop")]
+            for i, sug in enumerate(spots, start=1):
+                sug["rank"] = i
+            _rec["suggestion"] = spots[0] if spots else None
+
+    # ---- Phase C: addresses -------------------------------------------- #
+    addr_new = [0]
+
+    def _addr(sug: dict) -> dict | None:
+        with throttle:
+            before = len(addr_cache)
+            out = reverse_geocode_address(sug["lat"], sug["lon"], addr_cache, session=session)
+            if len(addr_cache) != before:
+                _checkpoint(ADDRESS_CACHE_PATH, addr_cache, addr_new)
+                time.sleep(0.02)
+            return out
+
+    all_spots = [sug for _s, _r, spots in jobs for sug in spots]
+    print(f"  Phase C: nearest address for {len(all_spots):,} spots "
+          f"(cache {addr_size0:,} entries)...")
+    try:
+        with ThreadPoolExecutor(max_workers=workers) as ex:
+            addresses = list(ex.map(_addr, all_spots))
+    finally:
+        _save_json_cache(ADDRESS_CACHE_PATH, addr_cache)
+    for sug, adres in zip(all_spots, addresses):
+        # Keep the output lean (the main map lazy-loads this file): the
+        # display name already carries street, number and place.
+        sug["adres"] = (
+            {k: adres.get(k) for k in (
+                "weergavenaam", "postcode", "afstand_m",
+                "nummeraanduiding_id", "verblijfsobject_id",
+            )}
+            if adres else None
+        )
+        if adres:
+            stats["with_address"] += 1
+        _strip_internal(sug)
+
+    dist = sorted(stats["dist"])
+    stats['spots'] -= stats['no_distinct']
+    print(f"  {stats['spots']:,} spots: {stats['snapped']:,} snapped, "
+          f"{stats['unsnapped']:,} kept pre-snap point, "
+          f"{stats['no_distinct']:,} dropped (no distinct pand left), "
+          f"{stats['beyond_radius']:,} beyond {SNAP_MAX_M} m radius")
+    if dist:
+        print(f"  snap distance median {statistics.median(dist):.0f} m, "
+              f"p90 {dist[int(len(dist) * 0.9)]} m, max {dist[-1]} m")
+    print(f"  PC4s with a duplicate pand among spots: {stats['duplicates']} (expected 0)")
+    print(f"  spots with address: {stats['with_address']:,}/{stats['spots']:,}")
+    print(f"  caches: BAG {bag_size0:,} -> {len(bag_cache):,}, "
+          f"address {addr_size0:,} -> {len(addr_cache):,}")
+    return stats
 
 
 def main() -> int:
@@ -754,7 +1159,9 @@ def main() -> int:
                         help="GTFS OV-halte coordinates (JSON from fetch_gtfs_ov_stops.py). "
                              "If missing, the snap step skips the OV-proximity boost.")
     parser.add_argument("--no-bag-snap", action="store_true",
-                        help="Skip the PDOK BAG building-snap step (offline / faster).")
+                        help="Skip the PDOK BAG building-snap and address step (offline / faster).")
+    parser.add_argument("--snap-workers", type=int, default=4,
+                        help="Parallel PDOK requests during the snap/address pass (default 4).")
     args = parser.parse_args()
 
     weights = {
@@ -873,69 +1280,22 @@ def main() -> int:
             if payload is not None:
                 results[slug] = payload
 
-    # ---- BAG snap pass ---- #
-    # Done sequentially (rather than in workers) so we can share a single
-    # session + cache. ~5 PDOK calls per municipality × ~300 munis = ~1500
-    # calls total, ~10 min on a warm cache, ~30 min cold. Cache hits are free.
-    bag_snaps_done = bag_snaps_changed = bag_unsnapped = 0
+    # ---- BAG snap + address pass ---- #
+    # Sequential per PC4 (dedup needs rank order) but the PDOK calls run in a
+    # small thread pool. ~11k WFS + ~11k reverse-geocode calls cold (~20 min
+    # with 4 workers); warm caches make a rerun take about a minute.
+    snap_stats: dict | None = None
     if not args.no_bag_snap:
-        print(f"\nSnapping suggestions to nearest BAG building "
-              f"(PDOK WFS, cache: {BAG_CACHE_PATH.relative_to(ROOT)})...")
-        cache = _load_bag_cache()
-        cache_size_at_start = len(cache)
-        session = requests.Session()
-        session.headers["User-Agent"] = "pakketpunten-analyse/1.0 (placement-suggestions)"
-        try:
-            for slug, payload in results.items():
-                # POI snap index per municipality — small files, loaded once
-                # per slug for all its suggestions.
-                poi_index = _load_poi_snap_index(slug)
-                for r in payload["pc4s"]:
-                    for sug in r.get("suggestions") or []:
-                        rd_x = sug.pop("_rd_x", None)
-                        rd_y = sug.pop("_rd_y", None)
-                        if rd_x is None or rd_y is None:
-                            continue
-                        snap = snap_to_nearest_bag_pand(
-                            rd_x, rd_y, cache,
-                            session=session, poi_index=poi_index,
-                        )
-                        bag_snaps_done += 1
-                        if snap:
-                            sug["snapped_to_bag"] = True
-                            sug["pre_snap_lat"] = sug["lat"]
-                            sug["pre_snap_lon"] = sug["lon"]
-                            sug["lat"] = snap["lat"]
-                            sug["lon"] = snap["lon"]
-                            sug["bag_distance_m"] = snap["distance_m"]
-                            sug["bag_gebruiksdoel"] = snap.get("gebruiksdoel")
-                            sug["bag_bouwjaar"] = snap.get("bouwjaar")
-                            sug["bag_identificatie"] = snap.get("identificatie")
-                            sug["nearest_ov"] = snap.get("nearest_ov")
-                            poi = snap.get("poi")
-                            if poi:
-                                sug["poi_category"] = poi.get("category")
-                                sug["poi_naam"] = poi.get("name")
-                                sug["poi_distance_m"] = poi.get("distance_m")
-                            bag_snaps_changed += 1
-                        else:
-                            sug["snapped_to_bag"] = False
-                            bag_unsnapped += 1
-                        # Light politeness throttle when calls are uncached.
-                        if len(cache) != cache_size_at_start:
-                            time.sleep(0.05)
-        finally:
-            _save_bag_cache(cache)
-        print(f"  {bag_snaps_done} suggestions processed: "
-              f"{bag_snaps_changed} snapped, {bag_unsnapped} kept original; "
-              f"cache size {cache_size_at_start} → {len(cache)}")
+        print(f"\nSnapping suggestions to distinct BAG panden + nearest address "
+              f"(PDOK, caches: {BAG_CACHE_PATH.relative_to(ROOT)}, "
+              f"{ADDRESS_CACHE_PATH.relative_to(ROOT)})...")
+        snap_stats = run_snap_pass(results, workers=max(1, args.snap_workers))
     else:
-        # Strip RD coords even when we're skipping the snap — they're internal.
+        # Strip internal fields even when we're skipping the snap.
         for payload in results.values():
             for r in payload["pc4s"]:
                 for sug in r.get("suggestions") or []:
-                    sug.pop("_rd_x", None)
-                    sug.pop("_rd_y", None)
+                    _strip_internal(sug)
 
     out = {
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -943,6 +1303,11 @@ def main() -> int:
         "top_n_per_municipality": TOP_N,
         "suggestions_per_pc4": MAX_SUGGESTIONS_PER_PC4,
         "poi_snap_radius_m": POI_SNAP_RADIUS_M,
+        "snap_max_m": SNAP_MAX_M,
+        "snap_tier_penalty_m": SNAP_TIER_PENALTY_M,
+        "frontage_radius_m": FRONTAGE_RADIUS_M,
+        "min_spot_separation_m": MIN_SPOT_SEPARATION_M,
+        "address_lookup_used": snap_stats is not None,
         "min_pc4_population": MIN_PC4_POPULATION,
         "min_white_spot_area_m2": MIN_WHITE_SPOT_AREA_M2,
         "cbs_grid_used": _CBS_GRID is not None,

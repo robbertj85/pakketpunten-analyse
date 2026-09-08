@@ -5,10 +5,19 @@
 //   - by BAG pand id: /collections/pand/items/NL.IMBAG.Pand.{16-digit}
 //   - by bbox (RD/EPSG:28992): /collections/pand/items?bbox=minx,miny,maxx,maxy
 //
-// CityJSON vertices are integers compressed by a shared transform
+// CityJSON vertices are integers compressed by a per-response transform
 // (real = vertex * scale + translate) in EPSG:7415 (RD x/y + NAP height, metres).
 // We project them into a local scene frame: X=east, Y=up, Z=south, relative to
-// a chosen origin (RD x/y) and ground height.
+// a chosen origin (RD x/y). Every pand is grounded individually: its 3DBAG
+// maaiveld (`b3_h_maaiveld`, the ground level next to the building) lands on
+// y=0, so buildings never float above the flat ground plane when the
+// neighbourhood is not level. The lowest vertex is NOT used for this: LoD 2.2
+// solids may dip metres below ground (sunken parking, ramps), which would
+// lift the real ground floor into the air. The target pand's maaiveld (m NAP)
+// is reported as `groundZ` for display.
+//
+// The API pages at 50 panden per response (regardless of `limit`), so a bbox
+// fetch follows the `next` links; each page carries its own transform.
 
 import { wgs84ToRd } from './rd';
 
@@ -40,7 +49,11 @@ export interface BuildingSceneData {
   buildings: BuildingMesh[];
   /** RD origin used for the local frame. */
   originRd: { x: number; y: number };
-  /** Ground (NAP) height used as scene y=0, metres. */
+  /**
+   * Maaiveld (m NAP) of the target pand, or the median maaiveld of the loaded
+   * panden when the target is absent. Informational: every pand is grounded
+   * on y=0 individually.
+   */
   groundZ: number;
   /**
    * Candidate locker placements flush against the target building's walls,
@@ -56,6 +69,7 @@ interface CityJsonLike {
   transform?: Transform;
   metadata?: { transform?: Transform };
   CityJSON?: { transform?: Transform };
+  links?: { rel?: string; href?: string }[];
 }
 
 interface CityFeature {
@@ -163,18 +177,67 @@ export interface FetchBuildingsOptions {
   preSnapLon?: number | null;
   /** Half-size of the fetch box in metres. */
   radiusM?: number;
-  /**
-   * Ground (NAP) height for scene y=0, metres. When omitted it is derived from
-   * the lowest building vertex in the fetched area (no AHN call required).
-   */
-  groundZ?: number;
+  /** Called after every 3DBAG page with the number of panden fetched so far. */
+  onProgress?: (buildingsSoFar: number) => void;
   signal?: AbortSignal;
+}
+
+/** 3DBAG serves at most this many panden per page whatever `limit` says. */
+const PAGE_LIMIT = 100;
+/** Stop paging once this many panden are collected (a 140 m box holds ~100). */
+const MAX_BUILDINGS = 300;
+
+type PageDoc = CityJsonLike & {
+  features?: CityFeature[];
+  CityObjects?: Record<string, CityObject>;
+  vertices?: number[][];
+};
+
+/** Offset of the `next` link (OGC API Features paging), or null when done. */
+function nextOffset(doc: PageDoc): number | null {
+  const href = doc.links?.find((l) => l.rel === 'next')?.href;
+  if (!href) return null;
+  const m = /[?&]offset=(\d+)/.exec(href);
+  return m ? Number(m[1]) : null;
+}
+
+/**
+ * Fetch every page of panden in the bbox. Each page keeps its own transform:
+ * 3DBAG re-bases the integer vertices per response, so stitching pages under
+ * the first page's translate would shift later buildings by tens of metres.
+ */
+async function fetchAllPages(
+  bbox: string,
+  signal?: AbortSignal,
+  onProgress?: (buildingsSoFar: number) => void,
+): Promise<{ features: CityFeature[]; transform: Transform }[]> {
+  const pages: { features: CityFeature[]; transform: Transform }[] = [];
+  let offset: number | null = 0;
+  let total = 0;
+  while (offset != null && total < MAX_BUILDINGS) {
+    const url =
+      `${API_BASE}?bbox=${bbox}&limit=${PAGE_LIMIT}` + (offset > 0 ? `&offset=${offset}` : '');
+    const res = await fetch(url, { signal });
+    if (!res.ok) throw new Error(`3DBAG API ${res.status}`);
+    const doc = (await res.json()) as PageDoc;
+    // The response is either a CityJSONFeatureCollection (features[]) or a
+    // single CityJSON document (CityObjects + vertices at the root).
+    const features: CityFeature[] = doc.features ?? [
+      { CityObjects: doc.CityObjects, vertices: doc.vertices },
+    ];
+    pages.push({ features, transform: resolveTransform(doc) });
+    total += features.length;
+    onProgress?.(total);
+    if (features.length === 0) break;
+    offset = nextOffset(doc);
+  }
+  return pages;
 }
 
 export async function fetchBuildingScene(
   opts: FetchBuildingsOptions,
 ): Promise<BuildingSceneData> {
-  const { lat, lon, targetBagId, radiusM = 70, signal } = opts;
+  const { lat, lon, targetBagId, radiusM = 70, signal, onProgress } = opts;
   const origin = wgs84ToRd(lat, lon);
   const bbox = [
     Math.round(origin.x - radiusM),
@@ -185,37 +248,37 @@ export async function fetchBuildingScene(
 
   // Fetched via a same-origin proxy (/api/3dbag) because api.3dbag.nl sends no
   // CORS headers, so the browser cannot reach it directly.
-  const url = `${API_BASE}?bbox=${bbox}&limit=200`;
-  const res = await fetch(url, { signal });
-  if (!res.ok) throw new Error(`3DBAG API ${res.status}`);
-  const doc = (await res.json()) as CityJsonLike & {
-    features?: CityFeature[];
-    CityObjects?: Record<string, CityObject>;
-    vertices?: number[][];
-  };
-
-  const transform = resolveTransform(doc);
+  const pages = await fetchAllPages(bbox, signal, onProgress);
   const buildings: BuildingMesh[] = [];
-
-  // The response is either a CityJSONFeatureCollection (features[]) or a single
-  // CityJSON document (CityObjects + vertices at the root).
-  const features: CityFeature[] = doc.features ?? [
-    { CityObjects: doc.CityObjects, vertices: doc.vertices },
-  ];
+  // Grounding key per mesh (BAG id, so BuildingParts of one pand share a floor).
+  const floorKeys: string[] = [];
+  const floorByPand = new Map<string, number>();
 
   const normTarget = targetBagId ? stripPrefix(targetBagId) : null;
 
-  // Vertices carry their absolute NAP height; we collect everything with raw
-  // heights, then offset the whole scene by the lowest vertex used so it sits on
-  // y=0 (post-pass — robust regardless of how the API nests its transform).
-  let globalMinRawY = Infinity;
+  // Vertices carry their absolute NAP height. We collect everything with raw
+  // heights and ground each pand afterwards (its lowest vertex -> y=0).
   let targetFootprint: { x: number; z: number }[] | null = null;
-  let targetFootprintAvgY = Infinity;
+  let targetFootprintScore = -Infinity;
+  // Ground ring of every object: the wall snap must not put the cabinet inside
+  // a neighbour (row houses share party walls) or inside the target itself.
+  const groundRings: { x: number; z: number }[][] = [];
 
-  for (const feature of features) {
+  for (const { features, transform } of pages) for (const feature of features) {
     const vertices = feature.vertices;
     const objects = feature.CityObjects;
     if (!vertices || !objects) continue;
+
+    // Ground level of this pand from the parent Building's 3DBAG attributes
+    // (the BuildingParts that carry the solids have no attributes).
+    let maaiveld: number | null = null;
+    for (const o of Object.values(objects)) {
+      const m = o.attributes?.['b3_h_maaiveld'];
+      if (typeof m === 'number' && Number.isFinite(m)) {
+        maaiveld = m;
+        break;
+      }
+    }
 
     for (const [objId, obj] of Object.entries(objects)) {
       if (!obj.geometry || obj.geometry.length === 0) continue;
@@ -231,6 +294,11 @@ export async function fetchBuildingScene(
       const tris: number[] = [];
       let minRawY = Infinity;
       let maxRawY = -Infinity;
+      let lowestRing: { x: number; z: number }[] | null = null;
+      let lowestRingAvgY = Infinity;
+      // Largest ring at ground level: the footprint the cabinet snaps to.
+      let groundRing: { x: number; z: number }[] | null = null;
+      let groundRingArea = 0;
 
       const toScene = (idx: number): [number, number, number] => {
         const v = vertices[idx];
@@ -239,7 +307,6 @@ export async function fetchBuildingScene(
         const rz = v[2] * transform.scale[2] + transform.translate[2];
         minRawY = Math.min(minRawY, rz);
         maxRawY = Math.max(maxRawY, rz);
-        globalMinRawY = Math.min(globalMinRawY, rz);
         return [rx - origin.x, rz, -(ry - origin.y)];
       };
 
@@ -252,17 +319,37 @@ export async function fetchBuildingScene(
         for (let i = 1; i < pts.length - 1; i++) {
           tris.push(...pts[0], ...pts[i], ...pts[i + 1]);
         }
-        // For the target building, keep the lowest surface ring as its footprint.
-        if (isTarget) {
+        // Track the lowest ring (fallback) and the largest ring within 1 m of
+        // the maaiveld (the real footprint; a sunken ramp ring sits lower).
+        if (pts.length >= 4) {
           const avgY = pts.reduce((s, p) => s + p[1], 0) / pts.length;
-          if (avgY < targetFootprintAvgY && pts.length >= 4) {
-            targetFootprintAvgY = avgY;
-            targetFootprint = pts.map((p) => ({ x: p[0], z: p[2] }));
+          const ring2d = pts.map((p) => ({ x: p[0], z: p[2] }));
+          if (avgY < lowestRingAvgY) {
+            lowestRingAvgY = avgY;
+            lowestRing = ring2d;
+          }
+          if (maaiveld != null && Math.abs(avgY - maaiveld) < 1.0) {
+            const area = ringArea(ring2d);
+            if (area > groundRingArea) {
+              groundRingArea = area;
+              groundRing = ring2d;
+            }
           }
         }
       }
 
       if (tris.length === 0) continue;
+      const footRing = groundRing ?? lowestRing;
+      if (footRing) {
+        groundRings.push(footRing);
+        // Target footprint: prefer a ground-level ring (largest), else the
+        // lowest ring across its parts.
+        const score = groundRing ? groundRingArea : -1;
+        if (isTarget && score > targetFootprintScore) {
+          targetFootprintScore = score;
+          targetFootprint = footRing;
+        }
+      }
 
       buildings.push({
         positions: new Float32Array(tris),
@@ -270,16 +357,28 @@ export async function fetchBuildingScene(
         isTarget,
         approxHeight: Number.isFinite(maxRawY - minRawY) ? maxRawY - minRawY : 0,
       });
+      const key = bagId ?? `#${objId}`;
+      floorKeys.push(key);
+      const floor = maaiveld ?? minRawY;
+      if (Number.isFinite(floor)) {
+        floorByPand.set(key, Math.min(floorByPand.get(key) ?? Infinity, floor));
+      }
     }
   }
 
-  // Offset every vertex down so the lowest point rests on y=0.
-  const groundZ = Number.isFinite(globalMinRawY) ? globalMinRawY : 0;
-  if (groundZ !== 0) {
-    for (const b of buildings) {
-      for (let i = 1; i < b.positions.length; i += 3) b.positions[i] -= groundZ;
-    }
-  }
+  // Ground every pand on its own maaiveld so nothing floats; geometry below
+  // ground (basements, ramps) simply disappears under the ground plane.
+  let targetFloor: number | null = null;
+  buildings.forEach((b, i) => {
+    const floor = floorByPand.get(floorKeys[i]);
+    if (floor == null || !Number.isFinite(floor)) return;
+    if (b.isTarget) targetFloor = floor;
+    if (floor === 0) return;
+    for (let j = 1; j < b.positions.length; j += 3) b.positions[j] -= floor;
+  });
+  const floors = [...floorByPand.values()].filter(Number.isFinite).sort((a, b) => a - b);
+  const groundZ: number =
+    targetFloor ?? (floors.length ? floors[Math.floor(floors.length / 2)] : 0);
 
   // Convert the pre-snap (open white-spot) point into the local scene frame so
   // we can orient the locker toward open space.
@@ -290,7 +389,11 @@ export async function fetchBuildingScene(
   }
 
   const snapCandidates = targetFootprint
-    ? computeSnapCandidates(targetFootprint, openDir)
+    ? computeSnapCandidates(
+        targetFootprint,
+        openDir,
+        groundRings.filter((r) => r !== targetFootprint),
+      )
     : [];
 
   return { buildings, originRd: origin, groundZ, snapCandidates };
@@ -307,12 +410,44 @@ export async function fetchBuildingScene(
  * Ranking balances distance against facing the open white-spot (10 m of extra
  * distance is worth one full unit of openness), and candidates farther than
  * MAX_SNAP_DIST_M from the suggestion are dropped whenever a nearer wall exists.
+ *
+ * The outward side of a wall follows the ring's winding (the centroid test
+ * fails on L-shaped buildings), and a pose is rejected when the cabinet
+ * would stand inside the target or inside any neighbouring footprint (party
+ * walls in a terrace) — those walls have no street side.
  */
 const MAX_SNAP_DIST_M = 40;
+/** Half-width (m) of the cabinet strip tested against neighbouring footprints. */
+const SNAP_TEST_HALF_WIDTH_M = 1.5;
+
+type Pt = { x: number; z: number };
+
+/** Absolute shoelace area of a ring on the ground plane (x/z). */
+function ringArea(ring: Pt[]): number {
+  let a = 0;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+    a += ring[j].x * ring[i].z - ring[i].x * ring[j].z;
+  }
+  return Math.abs(a) / 2;
+}
+
+/** Ray-casting point-in-polygon on the ground plane (x/z). */
+function pointInRing(x: number, z: number, ring: Pt[]): boolean {
+  let inside = false;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+    const a = ring[i];
+    const b = ring[j];
+    if (a.z > z !== b.z > z && x < ((b.x - a.x) * (z - a.z)) / (b.z - a.z) + a.x) {
+      inside = !inside;
+    }
+  }
+  return inside;
+}
 
 function computeSnapCandidates(
-  footprint: { x: number; z: number }[],
-  openPoint: { x: number; z: number } | null,
+  footprint: Pt[],
+  openPoint: Pt | null,
+  obstacles: Pt[][] = [],
 ): SnapPose[] {
   const n = footprint.length;
   if (n < 3) return [];
@@ -326,6 +461,27 @@ function computeSnapCandidates(
 
   const cx = ring.reduce((s, p) => s + p.x, 0) / ring.length;
   const cz = ring.reduce((s, p) => s + p.z, 0) / ring.length;
+
+  // Winding of the ring (shoelace) decides which edge normal points outward.
+  let area2 = 0;
+  for (let i = 0; i < ring.length; i++) {
+    const a = ring[i];
+    const b = ring[(i + 1) % ring.length];
+    area2 += a.x * b.z - b.x * a.z;
+  }
+  const ccw = area2 > 0;
+
+  // The cabinet strip must be clear of every footprint, the target included.
+  const blocked = (x: number, z: number, ax: number, az: number): boolean => {
+    const probes: Pt[] = [
+      { x, z },
+      { x: x + ax * SNAP_TEST_HALF_WIDTH_M, z: z + az * SNAP_TEST_HALF_WIDTH_M },
+      { x: x - ax * SNAP_TEST_HALF_WIDTH_M, z: z - az * SNAP_TEST_HALF_WIDTH_M },
+    ];
+    return probes.some(
+      (p) => pointInRing(p.x, p.z, ring) || obstacles.some((o) => pointInRing(p.x, p.z, o)),
+    );
+  };
 
   const LOCKER_DEPTH = 0.89;
   const GAP = 0.12;
@@ -347,13 +503,23 @@ function computeSnapCandidates(
     const px = a.x + ex * t;
     const pz = a.z + ez * t;
 
-    // Two normal candidates; pick the one pointing away from the centroid.
-    let nx = ez / len;
-    let nz = -ex / len;
-    if (nx * (px - cx) + nz * (pz - cz) < 0) {
+    // Outward normal from the winding: for a counter-clockwise ring (in x/z)
+    // the interior lies to the left of each edge, so outward is the right
+    // normal; clockwise rings flip. Works for concave (L-shaped) footprints
+    // where the centroid heuristic points into the building.
+    let nx = ccw ? ez / len : -ez / len;
+    let nz = ccw ? -ex / len : ex / len;
+    const testX = px + nx * 0.5;
+    const testZ = pz + nz * 0.5;
+    if (pointInRing(testX, testZ, ring)) {
+      // Winding hint wrong for this edge (self-touching ring): use the other side.
       nx = -nx;
       nz = -nz;
     }
+    const offX = px + nx * (LOCKER_DEPTH / 2 + GAP);
+    const offZ = pz + nz * (LOCKER_DEPTH / 2 + GAP);
+    // Skip walls with no street side: party walls and inner corners.
+    if (blocked(offX, offZ, ex / len, ez / len)) continue;
 
     // Openness score: how well the outward normal points toward the open
     // white-spot (higher = faces public space, the ideal locker side).
@@ -366,8 +532,8 @@ function computeSnapCandidates(
     }
 
     candidates.push({
-      x: px + nx * (LOCKER_DEPTH / 2 + GAP),
-      z: pz + nz * (LOCKER_DEPTH / 2 + GAP),
+      x: offX,
+      z: offZ,
       rotationY: Math.atan2(nx, nz),
       wallLength: len,
       openness,

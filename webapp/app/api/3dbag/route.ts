@@ -18,8 +18,14 @@ export async function GET(req: NextRequest) {
     );
   }
   const limit = Math.min(500, Math.max(1, Number(limitParamRaw) || 200));
+  // OGC API Features paging: 3DBAG serves 50 panden per page and links the
+  // next page via `offset`; the client follows those links through here.
+  const offsetRaw = req.nextUrl.searchParams.get('offset');
+  const offset = /^\d{1,7}$/.test(offsetRaw ?? '') ? Number(offsetRaw) : 0;
 
-  const url = `${API_BASE}?bbox=${encodeURIComponent(bbox)}&limit=${limit}`;
+  const url =
+    `${API_BASE}?bbox=${encodeURIComponent(bbox)}&limit=${limit}` +
+    (offset > 0 ? `&offset=${offset}` : '');
   try {
     const upstream = await fetch(url, {
       headers: { Accept: 'application/json' },

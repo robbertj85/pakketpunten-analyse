@@ -267,11 +267,19 @@ export default function LockerConfigPanel(props: LockerConfigPanelProps) {
         {!props.photoreal && props.showBuildings && props.buildingStatus && (
           <p className="text-[11px] text-gray-500">
             {props.buildingStatus.loading
-              ? 'Gebouwen laden uit 3DBAG…'
+              ? `Gebouwen laden uit 3DBAG…${
+                  props.buildingStatus.count > 0 ? ` ${props.buildingStatus.count} tot nu toe` : ''
+                }`
               : props.buildingStatus.error
                 ? `3DBAG niet beschikbaar: ${props.buildingStatus.error}`
                 : `${props.buildingStatus.count} gebouwen geladen${
                     props.buildingStatus.hasTarget ? ' · doelpand gemarkeerd' : ''
+                  }${
+                    props.buildingStatus.groundNap != null
+                      ? ` · maaiveld ${props.buildingStatus.groundNap.toLocaleString('nl-NL', {
+                          maximumFractionDigits: 1,
+                        })} m NAP`
+                      : ''
                   }`}
           </p>
         )}

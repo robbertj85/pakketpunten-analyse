@@ -22,6 +22,8 @@ export interface BuildingLoadStatus {
   error: string | null;
   count: number;
   hasTarget: boolean;
+  /** Maaiveld (m NAP) of the target pand (or median of the loaded panden). */
+  groundNap: number | null;
   snapCandidates: SnapPose[];
 }
 
@@ -45,9 +47,15 @@ export default function BuildingContext({
   useEffect(() => {
     const ctrl = new AbortController();
     let cancelled = false;
-    onStatus?.({ loading: true, error: null, count: 0, hasTarget: false, snapCandidates: [] });
+    onStatus?.({ loading: true, error: null, count: 0, hasTarget: false, groundNap: null, snapCandidates: [] });
 
-    fetchBuildingScene({ lat, lon, targetBagId, preSnapLat, preSnapLon, radiusM, signal: ctrl.signal })
+    fetchBuildingScene({
+      lat, lon, targetBagId, preSnapLat, preSnapLon, radiusM, signal: ctrl.signal,
+      onProgress: (n) => {
+        if (cancelled) return;
+        onStatus?.({ loading: true, error: null, count: n, hasTarget: false, groundNap: null, snapCandidates: [] });
+      },
+    })
       .then((data) => {
         if (cancelled) return;
         setBuildings(data.buildings);
@@ -56,6 +64,7 @@ export default function BuildingContext({
           error: null,
           count: data.buildings.length,
           hasTarget: data.buildings.some((b) => b.isTarget),
+          groundNap: data.buildings.length ? data.groundZ : null,
           snapCandidates: data.snapCandidates,
         });
       })
@@ -67,6 +76,7 @@ export default function BuildingContext({
           error: err instanceof Error ? err.message : 'Onbekende fout',
           count: 0,
           hasTarget: false,
+          groundNap: null,
           snapCandidates: [],
         });
       });

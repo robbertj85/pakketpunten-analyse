@@ -75,18 +75,32 @@ python scripts/compute_population_coverage.py  # ~2-3 min on 8-core M-series
 #      water, farmland, golf courses).
 #   3. Pick the populated white-spot polygon with the highest CBS-grid
 #      headcount; representative point of the densest 100 m cell inside it.
-#   4. Snap to nearest BAG `pand` via PDOK WFS (preferring woon/winkel/kantoor/
-#      bijeenkomst above industrie). Result has BAG-id + bouwjaar + snap distance.
-#   5. est_new_pop_within_400m = sum of CBS cells inside both the 400 m buffer
-#      and the white-spot.
+#   4. Snap to a BAG `pand` via PDOK WFS (paginated, ~2k panden per 620 m box
+#      in cities) within 250 m of that point, ranked by distance + use-tier
+#      penalty (winkel/bijeenkomst 0, kantoor 1, woon 2, industrie 4; 75 m
+#      per tier) − commercial frontage bonus (40 m per winkel/bijeenkomst
+#      pand within 60 m, max 5; +100 m penalty for a non-shop pand with none,
+#      so spots land on shopping streets, not between houses) − bonus for
+#      the pand at a preferred POI / OV-halte. Result has BAG-id + bouwjaar +
+#      snap distance + `bag_frontage_60m`.
+#   5. est_new_pop_within_400m = sum of CBS cells inside both the *snapped*
+#      pand's 400 m buffer and the white-spot (pre-snap value kept as
+#      est_new_pop_pre_snap).
+#   6. Nearest address via PDOK Locatieserver reverse geocode → `adres`.
+#
+# Up to 5 spots per PC4: marginal spots first (400 m exclusion around earlier
+# spots, `marginal: true`), then alternatives in the same pocket (200 m
+# exclusion, `marginal: false`). Spots in one PC4 never share a pand and stay
+# >= 100 m apart; a spot with no distinct pand left is dropped.
 #
 # Pre-reqs: fit_pc4_model.py (writes predicted_points) and fetch_cbs_100m_grid.py
 # (one-off, caches data/cbs/cbs_vk100_2024_inhabited.gpkg).
-# Output → webapp/public/data/placement_suggestions.json + caches BAG snaps in
-# data/bag_building_snap_cache.json (1371 entries on first full run, free thereafter).
+# Output → webapp/public/data/placement_suggestions.json + caches ranked BAG
+# candidates in data/bag_building_snap_cache_v2.json and addresses in
+# data/address_reverse_cache.json (~11k entries each after a full run).
 python scripts/fit_pc4_model.py
 python scripts/fetch_cbs_100m_grid.py            # one-off, ~30s download
-python scripts/suggest_placements.py             # ~3-5 min cold (PDOK calls), ~30s warm
+python scripts/suggest_placements.py --snap-workers 4   # ~30 min cold (PDOK calls), ~1 min warm
 
 # Build the simplified municipality boundary GeoJSON used by the gemeente-
 # level coverage choropleth. Re-run when the polygon cache changes.
@@ -300,7 +314,7 @@ All API calls use `requests.Session()` with proxy bypass for specific domains (h
   - `boundaries/` → Provincial boundary chunks (12 files, ~46MB total)
     - `index.json` → Metadata about all provincial files
     - `provincie-{slug}.geojson` → Individual province boundaries
-  - `placement_suggestions.json` → Per-municipality top-5 placement advice. Each suggestion is an actual BAG building (pand id + bouwjaar + gebruiksdoel) inside the largest CBS-populated white-spot of its PC4. Population estimate comes from CBS 100 m cells inside the 400 m buffer × white-spot intersection. Produced by `scripts/suggest_placements.py`.
+  - `placement_suggestions.json` → Per-municipality top-10 PC4 ranking with up to 5 spots per PC4. Each spot is a distinct BAG building (pand id + bouwjaar + gebruiksdoel, within 250 m of the densest CBS cell of the white-spot) with its nearest address (`adres`, PDOK Locatieserver). Population estimate comes from CBS 100 m cells inside the snapped pand's 400 m buffer × white-spot intersection; `marginal: false` marks alternatives whose reach overlaps earlier spots. Produced by `scripts/suggest_placements.py`.
 
 ## Performance Considerations
 

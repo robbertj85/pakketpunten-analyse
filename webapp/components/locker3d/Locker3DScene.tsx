@@ -136,7 +136,8 @@ export default function Locker3DScene({
 
   return (
     <Canvas
-      shadows
+      // Plain PCF: three r184 deprecated PCFSoftShadowMap (r3f's default for `shadows`).
+      shadows="percentage"
       dpr={[1, 2]}
       // A logarithmic depth buffer keeps both the ~2 m locker and the up-to-4 km
       // ground/buffer overlay z-fight-free; without it the large near/far range

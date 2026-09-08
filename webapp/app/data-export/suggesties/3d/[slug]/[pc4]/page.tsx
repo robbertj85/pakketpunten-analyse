@@ -55,7 +55,9 @@ export default async function Locker3DPage({
   const nearby = await nearbyParcelPoints(slug, s.lat, s.lon);
   const heading =
     spots.length > 1
-      ? `Locker in beeld — PC4 ${record.pc4}, plek ${spotRank}`
+      ? `Locker in beeld — PC4 ${record.pc4}, plek ${spotRank}${
+          s.marginal === false ? ' (alternatief)' : ''
+        }`
       : undefined;
   return (
     <Locker3DView
@@ -76,6 +78,8 @@ export default async function Locker3DPage({
       poiCategory={s.poi_category ?? null}
       poiNaam={s.poi_naam ?? null}
       poiDistanceM={s.poi_distance_m ?? null}
+      adres={s.adres?.weergavenaam ?? null}
+      bagFrontage60m={s.bag_frontage_60m ?? null}
       heading={heading}
     />
   );

@@ -325,6 +325,11 @@ export default function SuggestionBigMap({
                     <div className="text-xs text-gray-600 mt-0.5">
                       {municipality}
                     </div>
+                    {s.adres?.weergavenaam && (
+                      <div className="text-xs text-gray-900 font-semibold mt-1">
+                        {s.adres.weergavenaam}
+                      </div>
+                    )}
                     <div className="text-xs text-gray-700 mt-2">
                       Geschat extra bereik (400m):{' '}
                       <strong>{nlInt(s.est_new_pop_within_400m)}</strong>{' '}

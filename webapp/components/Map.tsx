@@ -708,6 +708,7 @@ function MapComponent(props?: MapProps) {
         bag_gebruiksdoel?: string | null;
         bag_bouwjaar?: number | null;
         bag_identificatie?: string | null;
+        adres?: { weergavenaam?: string | null; afstand_m?: number | null } | null;
         nearest_ov?: {
           name: string; code?: string; platform?: string;
           lat: number; lon: number; distance_m: number;
@@ -1812,6 +1813,9 @@ function MapComponent(props?: MapProps) {
             <div className="px-4 py-3 space-y-3">
               <div>
                 <div className="text-xs text-gray-500 uppercase tracking-wide">Adres / locatie</div>
+                {s.adres?.weergavenaam && (
+                  <div className="text-xs font-semibold text-gray-900">{s.adres.weergavenaam}</div>
+                )}
                 <div className="font-mono text-xs text-gray-800">
                   {s.lat.toFixed(5)}, {s.lon.toFixed(5)}
                 </div>

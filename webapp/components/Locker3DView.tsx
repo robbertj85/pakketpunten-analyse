@@ -50,6 +50,10 @@ export interface Locker3DViewProps {
   poiCategory?: string | null;
   poiNaam?: string | null;
   poiDistanceM?: number | null;
+  /** Nearest address of the suggested point (PDOK Locatieserver, build time). */
+  adres?: string | null;
+  /** Winkel/bijeenkomst panden within 60 m of the building (commercial frontage). */
+  bagFrontage60m?: number | null;
   // Generic-entry overrides (netwerkplanner 3D route). Defaults keep the
   // plaatsingsadvies behaviour unchanged.
   backHref?: string;
@@ -172,7 +176,14 @@ export default function Locker3DView(props: Locker3DViewProps) {
           </h2>
           <p className="text-sm text-gray-600">
             {props.gemeente}
-            {props.rank ? ` · voorstel #${props.rank}` : ''} ·{' '}
+            {props.rank ? ` · voorstel #${props.rank}` : ''}
+            {props.adres && (
+              <>
+                {' · '}
+                <span className="font-semibold text-gray-800">{props.adres}</span>
+              </>
+            )}
+            {' · '}
             <span className="font-mono">
               {props.lat.toFixed(5)}, {props.lon.toFixed(5)}
             </span>
@@ -188,6 +199,9 @@ export default function Locker3DView(props: Locker3DViewProps) {
               )}
               {props.bagGebruiksdoel && <span>BAG-pand: {props.bagGebruiksdoel}</span>}
               {props.bagBouwjaar && <span> · bouwjaar {props.bagBouwjaar}</span>}
+              {props.bagFrontage60m != null && (
+                <span> · {props.bagFrontage60m} winkel/horeca binnen 60 m</span>
+              )}
               {props.estNewPop != null && (
                 <span> · geschat extra bereik {props.estNewPop.toLocaleString('nl-NL')} inw. (400 m)</span>
               )}
@@ -291,6 +305,26 @@ export default function Locker3DView(props: Locker3DViewProps) {
               bufferRadius={bufferRadius}
               contextNonce={contextNonce}
             />
+
+            {/* Loading overlay: the 3DBAG pages take a few seconds to arrive */}
+            {!photoreal && showBuildings && buildingStatus?.loading && (
+              <div className="absolute inset-x-0 top-3 z-[1000] flex justify-center pointer-events-none">
+                <div
+                  role="status"
+                  aria-live="polite"
+                  className="flex items-center gap-2 rounded-md bg-white/95 border border-gray-200 px-3 py-2 text-xs text-gray-800 shadow-md"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="inline-block w-3.5 h-3.5 rounded-full border-2 border-blue-600 border-t-transparent animate-spin"
+                  />
+                  <span>
+                    Gebouwen laden uit 3DBAG
+                    {buildingStatus.count > 0 ? ` · ${buildingStatus.count} gebouwen tot nu toe` : '…'}
+                  </span>
+                </div>
+              </div>
+            )}
 
             {/* Photoreal fallback banner */}
             {photoreal && photoError && (

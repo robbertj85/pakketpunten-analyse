@@ -44,13 +44,36 @@ interface PainpointPoint {
 
 /* ------------------------------------------------------------------ Types */
 
+/** Nearest address of a snapped spot (PDOK Locatieserver reverse geocode). */
+export interface SuggestionAddress {
+  weergavenaam?: string | null;
+  straat?: string | null;
+  huisnummer?: string | null;
+  postcode?: string | null;
+  woonplaats?: string | null;
+  /** Distance (m) from the suggested point to the address. */
+  afstand_m?: number | null;
+  nummeraanduiding_id?: string | null;
+  verblijfsobject_id?: string | null;
+}
+
 export interface Suggestion {
   lat: number;
   lon: number;
   white_spot_area_m2: number;
+  /** Reach estimate at the snapped building (CBS cells in 400 m x white-spot). */
   est_new_pop_within_400m: number;
-  /** Iteration rank within the PC4 (plek 1/2/3). */
+  /** Reach estimate before the BAG snap (at the densest CBS cell). */
+  est_new_pop_pre_snap?: number;
+  /** Iteration rank within the PC4 (plek 1..5). */
   rank?: number;
+  /**
+   * True when the spot was derived with a 400 m exclusion around earlier
+   * spots (its reach is a true marginal gain); false for fill-mode
+   * alternatives in an already covered pocket (reach overlaps earlier spots).
+   */
+  marginal?: boolean;
+  adres?: SuggestionAddress | null;
   /** True when the coordinate has been snapped to a real BAG pand. */
   snapped_to_bag?: boolean;
   /** Distance (m) from the densest-cell centroid to the snapped building. */
@@ -59,6 +82,8 @@ export interface Suggestion {
   bag_gebruiksdoel?: string | null;
   bag_bouwjaar?: number | null;
   bag_identificatie?: string | null;
+  /** Winkel/bijeenkomst panden within 60 m of the building (commercial frontage). */
+  bag_frontage_60m?: number | null;
   pre_snap_lat?: number;
   pre_snap_lon?: number;
   /** POI (supermarkt, station, ...) that drove the snap target, if any. */
@@ -165,6 +190,10 @@ export interface PlacementSuggestionsPayload {
     overlap_penalty: number;
   };
   top_n_per_municipality: number;
+  suggestions_per_pc4?: number;
+  snap_max_m?: number;
+  min_spot_separation_m?: number;
+  frontage_radius_m?: number;
   min_pc4_population: number;
   min_white_spot_area_m2: number;
   models?: { base: ModelMeta; k8: ModelMeta };
@@ -213,8 +242,9 @@ function exportAllCsv(payload: PlacementSuggestionsPayload) {
     'gemeente_slug', 'gemeente', 'rank', 'pc4', 'plek', 'priority',
     'actual', 'predicted', 'underservice',
     'population', 'uncovered_pop', 'coverage_pct_400m', 'overlap_pct', 'density',
-    'sug_lat', 'sug_lon', 'sug_white_spot_m2', 'sug_est_new_pop_400m',
-    'sug_bag_id', 'sug_bag_use', 'sug_bag_year', 'sug_snap_distance_m',
+    'sug_lat', 'sug_lon', 'sug_white_spot_m2', 'sug_est_new_pop_400m', 'sug_marginal',
+    'sug_adres', 'sug_postcode', 'sug_adres_afstand_m',
+    'sug_bag_id', 'sug_bag_use', 'sug_bag_year', 'sug_snap_distance_m', 'sug_bag_frontage_60m',
     'sug_poi_category', 'sug_poi_naam', 'sug_poi_distance_m',
   ];
   const rows: (string | number | null)[][] = [header];
@@ -232,10 +262,15 @@ function exportAllCsv(payload: PlacementSuggestionsPayload) {
           s ? String(s.lon) : null,
           s?.white_spot_area_m2 ?? null,
           s?.est_new_pop_within_400m ?? null,
+          s ? (s.marginal === false ? 'nee' : 'ja') : null,
+          s?.adres?.weergavenaam ?? null,
+          s?.adres?.postcode ?? null,
+          s?.adres?.afstand_m ?? null,
           s?.bag_identificatie ?? null,
           s?.bag_gebruiksdoel ?? null,
           s?.bag_bouwjaar ?? null,
           s?.bag_distance_m ?? null,
+          s?.bag_frontage_60m ?? null,
           s?.poi_category ?? null,
           s?.poi_naam ?? null,
           s?.poi_distance_m ?? null,
@@ -572,10 +607,15 @@ export default function PlacementSuggestionsReport({
           400m-cirkels al een groot deel van de oppervlakte beslaan.
         </p>
         <p className="mt-1">
-          Voor de top-{payload.top_n_per_municipality} stelt het systeem een concrete coördinaat voor:
-          het representatieve punt van het grootste &quot;witte vlak&quot; in de PC4
-          (PC4-polygoon minus de 400m buffer-unie). Dit is een statistisch advies — de
-          uiteindelijke locatiekeuze hangt af van bereikbaarheid, panden, vergunningen, etc.
+          Voor de top-{payload.top_n_per_municipality} stelt het systeem per PC4 tot{' '}
+          {payload.suggestions_per_pc4 ?? 5} concrete plekken voor: het dichtstbevolkte punt van het
+          grootste &quot;witte vlak&quot; in de PC4 (PC4-polygoon minus de 400m buffer-unie), gesnapt
+          naar een BAG-pand binnen {payload.snap_max_m ?? 250} m, met het dichtstbijzijnde adres.
+          Panden met winkels of horeca als buren (winkelstraat) krijgen de voorkeur boven een pand
+          tussen woningen. Elke plek ligt op een ander pand; zodra er geen onbereikt vlak meer is,
+          worden de overige plekken als <em>alternatief</em> in hetzelfde vlak gekozen. Dit is een
+          statistisch advies — de uiteindelijke locatiekeuze hangt af van bereikbaarheid,
+          panden, vergunningen, etc.
         </p>
       </div>
 
@@ -984,7 +1024,7 @@ export default function PlacementSuggestionsReport({
                                 ))}
                               </div>
                               <span className="text-[10px] text-gray-500">
-                                iteratief afgeleid binnen deze PC4
+                                {s.marginal === false ? 'alternatief in gedekt vlak' : 'extra bereik'}
                               </span>
                             </div>
                           )}
@@ -998,6 +1038,22 @@ export default function PlacementSuggestionsReport({
                             <div className="font-mono text-gray-800">
                               {s.lat.toFixed(5)}, {s.lon.toFixed(5)}
                             </div>
+                          </div>
+
+                          <div className="border-t border-gray-100 pt-3">
+                            <div className="text-gray-500 uppercase tracking-wide">
+                              Dichtstbijzijnd adres
+                            </div>
+                            {s.adres?.weergavenaam ? (
+                              <div className="text-gray-900 font-semibold">
+                                {s.adres.weergavenaam}
+                                {s.adres.afstand_m != null && (
+                                  <span className="font-normal text-gray-500"> (±{s.adres.afstand_m} m)</span>
+                                )}
+                              </div>
+                            ) : (
+                              <div className="text-gray-500 italic">Geen adres gevonden</div>
+                            )}
                           </div>
 
                           <div className="border-t border-gray-100 pt-3">
@@ -1016,6 +1072,13 @@ export default function PlacementSuggestionsReport({
                                   {s.bag_gebruiksdoel}
                                   {s.bag_bouwjaar ? ` · bouwjaar ${s.bag_bouwjaar}` : ''}
                                 </div>
+                                {s.bag_frontage_60m != null && (
+                                  <div className="text-[11px] text-gray-600 mt-0.5">
+                                    {s.bag_frontage_60m === 0
+                                      ? 'Geen winkels/horeca binnen 60 m'
+                                      : `${s.bag_frontage_60m} winkel/horeca-panden binnen 60 m`}
+                                  </div>
+                                )}
                                 {s.bag_identificatie && (
                                   <div className="font-mono text-[10px] text-gray-500 mt-0.5">
                                     BAG-id: {s.bag_identificatie}
@@ -1094,7 +1157,9 @@ export default function PlacementSuggestionsReport({
                             </div>
                           </div>
 
-                          <div className="border-t border-gray-100 pt-3 flex flex-col gap-1.5">
+                        </div>
+
+                        <div className="flex-none px-4 py-2.5 border-t border-gray-200 bg-white flex flex-col gap-1.5">
                             <Link
                               href={`/data-export/suggesties/3d/${slug}/${r.pc4}${activeRank > 1 ? `?rank=${activeRank}` : ''}`}
                               style={{ color: '#ffffff' }}
@@ -1105,25 +1170,26 @@ export default function PlacementSuggestionsReport({
                               </svg>
                               Bekijk in 3D
                             </Link>
-                            <a
-                              href={sv}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              style={{ color: '#ffffff' }}
-                              className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold bg-blue-700 hover:bg-blue-800 rounded transition no-underline"
-                            >
-                              Open in Streetview
-                            </a>
-                            <a
-                              href={gm}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              style={{ color: '#1f2937' }}
-                              className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold bg-gray-100 hover:bg-gray-200 rounded transition no-underline"
-                            >
-                              Open in Google Maps
-                            </a>
-                          </div>
+                            <div className="grid grid-cols-2 gap-1.5">
+                              <a
+                                href={sv}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{ color: '#ffffff' }}
+                                className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold bg-blue-700 hover:bg-blue-800 rounded transition no-underline"
+                              >
+                                Open in Streetview
+                              </a>
+                              <a
+                                href={gm}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{ color: '#1f2937' }}
+                                className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold bg-gray-100 hover:bg-gray-200 rounded transition no-underline"
+                              >
+                                Open in Google Maps
+                              </a>
+                            </div>
                         </div>
                       </>
                     );
@@ -1267,6 +1333,16 @@ export default function PlacementSuggestionsReport({
                             </Link>
                           </div>
                         )}
+                        {cardSpot.adres?.weergavenaam && (
+                          <div className="text-gray-900 font-semibold">
+                            {cardSpot.adres.weergavenaam}
+                            {cardSpot.marginal === false && (
+                              <span className="ml-1.5 text-[10px] font-semibold uppercase tracking-wide text-amber-700 bg-amber-50 border border-amber-200 rounded px-1">
+                                alternatief
+                              </span>
+                            )}
+                          </div>
+                        )}
                         <div>
                           Coördinaat: <span className="font-mono">{cardSpot.lat.toFixed(5)}, {cardSpot.lon.toFixed(5)}</span>
                           {' · '}
@@ -1285,6 +1361,8 @@ export default function PlacementSuggestionsReport({
                             BAG-pand: {cardSpot.bag_gebruiksdoel}
                             {cardSpot.bag_bouwjaar ? ` (bouwjaar ${cardSpot.bag_bouwjaar})` : ''}
                             {cardSpot.bag_distance_m != null && `, ${cardSpot.bag_distance_m} m verschoven`}
+                            {cardSpot.bag_frontage_60m != null &&
+                              ` · ${cardSpot.bag_frontage_60m} winkel/horeca binnen 60 m`}
                           </div>
                         )}
                       </>
