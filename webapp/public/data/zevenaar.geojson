@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Zevenaar",
     "slug": "zevenaar",
-    "generated_at": "2026-09-07T07:42:01.299523Z",
-    "total_points": 57,
+    "generated_at": "2026-09-14T08:16:45.117981Z",
+    "total_points": 56,
     "providers": [
       "Amazon",
       "DHL",
@@ -949,29 +949,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          6.0775137,
-          51.9299593
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "progsm.nl",
-        "straatNaam": "Grietsestraat",
-        "straatNr": "50",
-        "vervoerder": "GLS",
-        "puntType": "parcel_shop",
-        "bezettingsgraad": 50,
-        "latitude": 51.9299593,
-        "longitude": 6.0775137,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           6.08593117,
           51.9386908
         ]
@@ -1018,6 +995,29 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          6.0775137,
+          51.9299593
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "progsm.nl",
+        "straatNaam": "Grietsestraat",
+        "straatNr": "50",
+        "vervoerder": "GLS",
+        "puntType": "parcel_shop",
+        "bezettingsgraad": 50,
+        "latitude": 51.9299593,
+        "longitude": 6.0775137,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           6.12020789,
           51.8611622
         ]
@@ -1055,29 +1055,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.860283,
         "longitude": 6.1183209,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          6.09646926,
-          51.8585867
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat",
-        "straatNaam": "Zwarteweg",
-        "straatNr": "1",
-        "vervoerder": "GLS",
-        "puntType": "locker",
-        "bezettingsgraad": 50,
-        "latitude": 51.8585867,
-        "longitude": 6.09646926,
         "canPickup": true,
         "canDropoff": true
       }

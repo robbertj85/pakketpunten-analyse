@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Brummen",
     "slug": "brummen",
-    "generated_at": "2026-09-07T07:17:31.791444Z",
-    "total_points": 30,
+    "generated_at": "2026-09-14T07:51:33.839946Z",
+    "total_points": 32,
     "providers": [
       "Amazon",
       "DeBuren",
@@ -236,13 +236,36 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
+          6.1563551,
+          52.0885222
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "DHL Buurtpunt ViaTim & Anja",
+        "straatNaam": "Zutphensestraat",
+        "straatNr": "9",
+        "vervoerder": "DHL",
+        "puntType": "parcelShop",
+        "bezettingsgraad": 50,
+        "latitude": 52.0885222,
+        "longitude": 6.1563551,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
           6.1531684,
           52.0968031
         ]
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat TinQ Brummen",
+        "locatieNaam": "DeBuren Locker 24-7",
         "straatNaam": "Zutphensestraat",
         "straatNr": "144",
         "vervoerder": "DHL",
@@ -319,6 +342,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.10564,
         "longitude": 6.06411,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.1563551,
+          52.0885222
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "ViaTim & Anja",
+        "straatNaam": "ZUTPHENSESTRAAT",
+        "straatNr": "9",
+        "vervoerder": "DPD",
+        "puntType": "pickup_point",
+        "bezettingsgraad": 50,
+        "latitude": 52.0885222,
+        "longitude": 6.1563551,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1006,7 +1052,7 @@
                 52.108006005556014
               ],
               [
-                6.066212845014948,
+                6.066212845014946,
                 52.10800501912545
               ],
               [
@@ -1498,10 +1544,6 @@
           [
             [
               [
-                6.1583556234515955,
-                52.08386180782726
-              ],
-              [
                 6.158167870188833,
                 52.083623819942254
               ],
@@ -1924,6 +1966,10 @@
               [
                 6.1583556234515955,
                 52.08386180782726
+              ],
+              [
+                6.158167870188833,
+                52.083623819942254
               ]
             ]
           ],
@@ -2590,7 +2636,7 @@
                 52.10463369028311
               ],
               [
-                6.072673948823381,
+                6.072673948823382,
                 52.104633686279804
               ],
               [
@@ -2978,10 +3024,6 @@
           [
             [
               [
-                6.159697454640325,
-                52.08350904526862
-              ],
-              [
                 6.159447109883599,
                 52.08319173086735
               ],
@@ -3206,7 +3248,7 @@
                 52.09169814790233
               ],
               [
-                6.153748139086907,
+                6.153748139086906,
                 52.091736039924996
               ],
               [
@@ -3368,6 +3410,10 @@
               [
                 6.159697454640325,
                 52.08350904526862
+              ],
+              [
+                6.159447109883599,
+                52.08319173086735
               ]
             ]
           ],

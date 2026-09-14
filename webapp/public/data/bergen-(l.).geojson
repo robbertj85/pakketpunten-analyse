@@ -3,15 +3,14 @@
   "metadata": {
     "gemeente": "Bergen (L.)",
     "slug": "bergen-(l.)",
-    "generated_at": "2026-09-07T07:15:54.888947Z",
-    "total_points": 13,
+    "generated_at": "2026-09-14T07:49:53.953597Z",
+    "total_points": 12,
     "providers": [
       "DHL",
       "DPD",
       "PostNL",
       "VintedGo",
       "ViaTim",
-      "InPost",
       "Budbee"
     ],
     "bounds": [
@@ -33,7 +32,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat TinQ Bergen",
+        "locatieNaam": "DeBuren Locker 24-7",
         "straatNaam": "De Flammert",
         "straatNr": "1205",
         "vervoerder": "DHL",
@@ -271,29 +270,6 @@
         "bezettingsgraad": 50,
         "latitude": 51.60512923,
         "longitude": 6.04974709,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          6.04895,
-          51.60334
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "SERVICEPUNT MAASDUINEN",
-        "straatNaam": "Mosaique 53",
-        "straatNr": "",
-        "vervoerder": "InPost",
-        "puntType": "servicepunt",
-        "bezettingsgraad": 50,
-        "latitude": 51.60334,
-        "longitude": 6.04895,
         "canPickup": true,
         "canDropoff": true
       }
@@ -861,18 +837,6 @@
           [
             [
               [
-                6.037487238056013,
-                51.60908072017738
-              ],
-              [
-                6.037062573704983,
-                51.60907009605466
-              ],
-              [
-                6.036638281581423,
-                51.60908543846636
-              ],
-              [
                 6.036218447128557,
                 51.60912659968405
               ],
@@ -1143,6 +1107,18 @@
               [
                 6.037487238056013,
                 51.60908072017738
+              ],
+              [
+                6.037062573704983,
+                51.60907009605466
+              ],
+              [
+                6.036638281581423,
+                51.60908543846636
+              ],
+              [
+                6.036218447128557,
+                51.60912659968405
               ]
             ]
           ],
@@ -1877,18 +1853,6 @@
           [
             [
               [
-                6.037615896618222,
-                51.60818545194691
-              ],
-              [
-                6.037049688669406,
-                51.60817128670987
-              ],
-              [
-                6.036483976978573,
-                51.60819174283702
-              ],
-              [
                 6.035924208375313,
                 51.60824662337324
               ],
@@ -2159,6 +2123,18 @@
               [
                 6.037615896618222,
                 51.60818545194691
+              ],
+              [
+                6.037049688669406,
+                51.60817128670987
+              ],
+              [
+                6.036483976978573,
+                51.60819174283702
+              ],
+              [
+                6.035924208375313,
+                51.60824662337324
               ]
             ]
           ],

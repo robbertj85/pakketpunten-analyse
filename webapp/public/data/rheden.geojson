@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Rheden",
     "slug": "rheden",
-    "generated_at": "2026-09-07T07:33:33.769120Z",
-    "total_points": 36,
+    "generated_at": "2026-09-14T08:08:03.414086Z",
+    "total_points": 38,
     "providers": [
       "Amazon",
       "DHL",
@@ -364,6 +364,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.0518063,
         "longitude": 6.1065025,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9793264,
+          51.9971284
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Het Aardappelpakhuis",
+        "straatNaam": "NIEUW-SCHOONOORD",
+        "straatNr": "1",
+        "vervoerder": "DPD",
+        "puntType": "pickup_point",
+        "bezettingsgraad": 50,
+        "latitude": 51.9971284,
+        "longitude": 5.9793264,
         "canPickup": true,
         "canDropoff": true
       }
@@ -824,6 +847,29 @@
         "bezettingsgraad": 50,
         "latitude": 52.05102,
         "longitude": 6.10038,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.97904,
+          51.99728
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "HET AARDAPPELPAKHUIS",
+        "straatNaam": "Nieuw Schoonoord 1",
+        "straatNr": "",
+        "vervoerder": "InPost",
+        "puntType": "servicepunt",
+        "bezettingsgraad": 50,
+        "latitude": 51.99728,
+        "longitude": 5.97904,
         "canPickup": true,
         "canDropoff": true
       }
@@ -1763,12 +1809,16 @@
                 51.99525202184132
               ],
               [
-                5.982183652114287,
-                51.99509613874387
+                5.982217285021338,
+                51.99511127453349
               ],
               [
-                5.981921649414351,
-                51.99500099066611
+                5.98206984669627,
+                51.995030132490754
+              ],
+              [
+                5.981876294702922,
+                51.994943027642606
               ],
               [
                 5.981823497380062,
@@ -4185,8 +4235,12 @@
                 51.99455258022025
               ],
               [
-                5.983018225354703,
-                51.99436076492829
+                5.983131708800573,
+                51.99441183532556
+              ],
+              [
+                5.982993513687211,
+                51.99433578098588
               ],
               [
                 5.9828040713605635,

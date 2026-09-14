@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Pijnacker-Nootdorp",
     "slug": "pijnacker-nootdorp",
-    "generated_at": "2026-09-07T07:32:51.024857Z",
+    "generated_at": "2026-09-14T08:07:21.987578Z",
     "total_points": 39,
     "providers": [
       "Amazon",
@@ -281,29 +281,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          4.4378331031336415,
-          52.003184114469526
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat Oliveo Handbal",
-        "straatNaam": "Zilverreigerdreef",
-        "straatNr": "111-SC/87",
-        "vervoerder": "DHL",
-        "puntType": "packStation",
-        "bezettingsgraad": 50,
-        "latitude": 52.003184114469526,
-        "longitude": 4.4378331031336415,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           4.3963334326737415,
           51.997270998456486
         ]
@@ -318,6 +295,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.997270998456486,
         "longitude": 4.3963334326737415,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.4378331031336415,
+          52.003184114469526
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat Oliveo Handbal",
+        "straatNaam": "Zilverreigerdreef",
+        "straatNr": "111-SC/87",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 52.003184114469526,
+        "longitude": 4.4378331031336415,
         "canPickup": true,
         "canDropoff": true
       }

@@ -3,7 +3,7 @@
   "metadata": {
     "gemeente": "Beek",
     "slug": "beek",
-    "generated_at": "2026-09-07T07:15:30.527340Z",
+    "generated_at": "2026-09-14T07:49:28.163538Z",
     "total_points": 27,
     "providers": [
       "Amazon",
@@ -87,29 +87,6 @@
         "bezettingsgraad": 50,
         "latitude": 50.91922,
         "longitude": 5.786205,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          5.841485077767638,
-          50.937645684845855
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat Buurt Spaubeek",
-        "straatNaam": "Bongerd",
-        "straatNr": "8",
-        "vervoerder": "DHL",
-        "puntType": "packStation",
-        "bezettingsgraad": 50,
-        "latitude": 50.937645684845855,
-        "longitude": 5.841485077767638,
         "canPickup": true,
         "canDropoff": true
       }
@@ -225,6 +202,29 @@
         "bezettingsgraad": 50,
         "latitude": 50.94123077392578,
         "longitude": 5.801508903503418,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.841485077767638,
+          50.937645684845855
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat Buurt Spaubeek",
+        "straatNaam": "Bongerd",
+        "straatNr": "8",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 50.937645684845855,
+        "longitude": 5.841485077767638,
         "canPickup": true,
         "canDropoff": true
       }
