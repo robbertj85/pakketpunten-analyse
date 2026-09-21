@@ -3,8 +3,8 @@
   "metadata": {
     "gemeente": "Alblasserdam",
     "slug": "alblasserdam",
-    "generated_at": "2026-09-14T07:47:39.473297Z",
-    "total_points": 36,
+    "generated_at": "2026-09-21T07:52:06.472817Z",
+    "total_points": 37,
     "providers": [
       "Amazon",
       "DeBuren",
@@ -241,7 +241,7 @@
       },
       "properties": {
         "type": "pakketpunt",
-        "locatieNaam": "DeBuren Locker 24-7",
+        "locatieNaam": "DeBuren Locker 24-7 Lukoil Alblas",
         "straatNaam": "Nieuwland Parc",
         "straatNr": "421",
         "vervoerder": "DHL",
@@ -350,29 +350,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          4.658306121826172,
-          51.863773345947266
-        ]
-      },
-      "properties": {
-        "type": "pakketpunt",
-        "locatieNaam": "Pakketautomaat terStal Makado C.",
-        "straatNaam": "Makado Center",
-        "straatNr": "50-Kast",
-        "vervoerder": "DHL",
-        "puntType": "packStation",
-        "bezettingsgraad": 50,
-        "latitude": 51.863773345947266,
-        "longitude": 4.658306121826172,
-        "canPickup": true,
-        "canDropoff": true
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           4.645456314086914,
           51.87131881713867
         ]
@@ -387,6 +364,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.87131881713867,
         "longitude": 4.645456314086914,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.658306121826172,
+          51.863773345947266
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Pakketautomaat terStal Makado C.",
+        "straatNaam": "Makado Center",
+        "straatNr": "50-Kast",
+        "vervoerder": "DHL",
+        "puntType": "packStation",
+        "bezettingsgraad": 50,
+        "latitude": 51.863773345947266,
+        "longitude": 4.658306121826172,
         "canPickup": true,
         "canDropoff": true
       }
@@ -456,6 +456,29 @@
         "bezettingsgraad": 50,
         "latitude": 51.84531,
         "longitude": 4.67258,
+        "canPickup": true,
+        "canDropoff": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.66956,
+          51.85945
+        ]
+      },
+      "properties": {
+        "type": "pakketpunt",
+        "locatieNaam": "Stock Sellers B.V.",
+        "straatNaam": "HUYGENSWEG",
+        "straatNr": "1",
+        "vervoerder": "DPD",
+        "puntType": "pickup_point",
+        "bezettingsgraad": 50,
+        "latitude": 51.85945,
+        "longitude": 4.66956,
         "canPickup": true,
         "canDropoff": true
       }
@@ -987,7 +1010,7 @@
                 51.863493203207305
               ],
               [
-                4.653519689660495,
+                4.653519689660496,
                 51.86365229017231
               ],
               [
@@ -1611,10 +1634,6 @@
           [
             [
               [
-                4.647707156094252,
-                51.86884567802372
-              ],
-              [
                 4.647366428360113,
                 51.868685891902686
               ],
@@ -2073,6 +2092,10 @@
               [
                 4.647707156094252,
                 51.86884567802372
+              ],
+              [
+                4.647366428360113,
+                51.868685891902686
               ]
             ]
           ],
@@ -2375,7 +2398,7 @@
                 51.84879376877336
               ],
               [
-                4.672836698648326,
+                4.672836698648325,
                 51.848777269948044
               ],
               [
@@ -3243,7 +3266,7 @@
                 51.86628922974233
               ],
               [
-                4.654252643717792,
+                4.654252643717789,
                 51.86634368215012
               ],
               [
@@ -3539,7 +3562,7 @@
                 51.8624319961161
               ],
               [
-                4.673524226108675,
+                4.6735242261086745,
                 51.86229216100092
               ],
               [
@@ -3810,10 +3833,6 @@
           ],
           [
             [
-              [
-                4.648639602338018,
-                51.868156714380675
-              ],
               [
                 4.648185301736948,
                 51.8679436695936
@@ -4217,6 +4236,10 @@
               [
                 4.648639602338018,
                 51.868156714380675
+              ],
+              [
+                4.648185301736948,
+                51.8679436695936
               ]
             ]
           ],
