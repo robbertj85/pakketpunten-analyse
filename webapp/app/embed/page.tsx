@@ -25,10 +25,10 @@ function EmbedContent() {
 
   const filters = useMemo<Filters>(() => ({
     providers: ['DHL', 'PostNL', 'VintedGo', 'DeBuren', 'DPD', 'Amazon', 'GLS', 'ViaTim', 'InPost', 'Budbee'],
-    showBuffer300: false,
-    showBuffer400: false,
-    showBuffer500: false,
-    showBufferFill: false,
+    showBuffer300: true,
+    showBuffer400: true,
+    showBuffer500: true,
+    showBufferFill: true,
     bufferMerged: false,
     showBoundary: false,
     showPC4: false,

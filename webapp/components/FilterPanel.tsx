@@ -276,6 +276,29 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
   };
 
   const providers = availableProviders || Object.keys(PROVIDER_INFO);
+  // Clicking the "Dekkingsgebieden" heading switches its six ticks off, or all on when none is
+  const anyCoverageOn =
+    filters.showBuffer300 || filters.showBuffer400 || filters.showBuffer500 ||
+    filters.showBufferFill || filters.bufferMerged || filters.showBoundary;
+  const toggleAllCoverage = () => {
+    const on = !anyCoverageOn;
+    const next = {
+      ...filters,
+      showBuffer300: on,
+      showBuffer400: on,
+      showBuffer500: on,
+      showBufferFill: on,
+      bufferMerged: on,
+      showBoundary: on,
+    };
+    if (on) {
+      // Merging is the heavy part: paint the spinner first, as the merge tick does
+      setMergeSpinner(true);
+      setTimeout(() => onChange(next), 20);
+    } else {
+      onChange(next);
+    }
+  };
   const categories: PointCategory[] = ['locker', 'shop'];
   const services: ServiceFilter[] = ['pickup', 'dropoff'];
 
@@ -465,7 +488,14 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
 
       {/* Buffer zones */}
       <div>
-        <label className="block text-sm font-medium text-gray-900 mb-2">Dekkingsgebieden</label>
+        <button
+          type="button"
+          onClick={toggleAllCoverage}
+          title={anyCoverageOn ? 'Alle uitschakelen' : 'Alle inschakelen'}
+          className="block w-full text-left text-sm font-medium text-gray-900 mb-2 hover:text-blue-600 transition cursor-pointer select-none"
+        >
+          Dekkingsgebieden
+        </button>
         {buffersNeedZoom && (
           <p className="text-xs text-gray-500 mb-2">
             Dekkingsgebieden verschijnen zodra er maximaal {MAX_BUFFER_POINTS.toLocaleString('nl-NL')} punten in beeld zijn. Zoom in.
@@ -674,8 +704,8 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
             providers: providers,
             showBuffer300: true,
             showBuffer400: true,
-            showBuffer500: false,
-            showBufferFill: false,
+            showBuffer500: true,
+            showBufferFill: true,
             bufferMerged: true,
             showBoundary: false,
             showPC4: false,
