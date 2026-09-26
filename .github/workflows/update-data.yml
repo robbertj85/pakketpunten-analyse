@@ -97,6 +97,7 @@ jobs:
         run: |
           python scripts/batch_generate.py
           python scripts/create_national_overview.py
+          python scripts/create_national_coverage.py
         working-directory: ${{ github.workspace }}
         timeout-minutes: 60
 
@@ -115,6 +116,7 @@ jobs:
           git add data/dhl_all_locations.json data/dpd_all_locations.json data/viatim_all_locations.json data/inpost_all_locations.json data/budbee_all_locations.json 2>/dev/null || true
           # Add municipality GeoJSON files (excluding gitignored nederland-boundaries.geojson)
           find webapp/public/data -name "*.geojson" -not -name "nederland-boundaries.geojson" -exec git add {} +
+          git add webapp/public/data/geo 2>/dev/null || true
           git add webapp/public/data/summary.json webapp/public/data/totals_history.json webapp/public/municipalities.json 2>/dev/null || true
           # Build commit message with anomaly note if applicable
           msg="🤖 Update pakketpunten data - $(date +'%Y-%m-%d %H:%M UTC')"

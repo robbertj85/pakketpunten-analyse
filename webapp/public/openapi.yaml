@@ -12,6 +12,10 @@ info:
     - **Municipality boundaries**
     - **Provider statistics** (DHL, PostNL, DPD, VintedGo, Amazon, De Buren)
 
+    National coverage areas (the union of 300/400/500 m circles around every
+    parcel point in the Netherlands) are published as static GeoJSON files at
+    `/data/geo/coverage_300.geojson`, `coverage_400.geojson` and `coverage_500.geojson`.
+
     ## Features
     - ✅ No authentication required
     - ✅ CORS enabled for all origins

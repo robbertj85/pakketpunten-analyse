@@ -94,6 +94,7 @@ export default function Home() {
     providers: ['DHL', 'PostNL', 'VintedGo', 'DeBuren', 'DPD', 'Amazon', 'GLS', 'ViaTim', 'InPost', 'Budbee'],
     showBuffer300: true,
     showBuffer400: true,
+    showBuffer500: false,
     showBufferFill: false,
     bufferMerged: true,
     showBoundary: false,
@@ -233,6 +234,7 @@ export default function Home() {
           providers: data.metadata.providers || ['DHL', 'PostNL', 'VintedGo', 'DeBuren', 'DPD', 'Amazon', 'GLS', 'ViaTim', 'InPost', 'Budbee'],
           showBuffer300: true,
           showBuffer400: true,
+          showBuffer500: false,
           showBufferFill: false,
           bufferMerged: true,
           showBoundary: false,
@@ -718,6 +720,7 @@ export default function Home() {
                 boundariesLoading={boundariesLoading}
                 boundaryLoadProgress={boundaryLoadProgress}
                 totalPoints={data.metadata.total_points}
+                nationalView={selectedMunicipality === 'nederland'}
               />
             </>
           )}

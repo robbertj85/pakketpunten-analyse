@@ -6,6 +6,7 @@ import {
   CoverageLevel, CoverageSubset, CoverageDistance, CoverageScope,
 } from '@/types/pakketpunten';
 import { BoundaryLoadProgress } from '@/utils/boundaryLoader';
+import { MAX_BUFFER_POINTS, usesNationalCoverage } from '@/lib/mapLimits';
 
 interface PoiCategoryMeta {
   slug: string;
@@ -135,6 +136,8 @@ interface FilterPanelProps {
   boundariesLoading?: boolean;
   boundaryLoadProgress?: BoundaryLoadProgress | null;
   totalPoints?: number;
+  /** The national view, where default filters show the precomputed coverage. */
+  nationalView?: boolean;
 }
 
 const PROVIDER_INFO = {
@@ -221,8 +224,12 @@ function InlineSpinner() {
   );
 }
 
-export default function FilterPanel({ filters, onChange, availableProviders, providerCounts, categoryCounts, serviceCounts, sharedLocationCount, boundariesLoading, boundaryLoadProgress, totalPoints }: FilterPanelProps) {
-  const buffersDisabled = (totalPoints ?? 0) > 3000;
+export default function FilterPanel({ filters, onChange, availableProviders, providerCounts, categoryCounts, serviceCounts, sharedLocationCount, boundariesLoading, boundaryLoadProgress, totalPoints, nationalView }: FilterPanelProps) {
+  // Above this many points the map only draws coverage for what is in view,
+  // unless the national view can show its precomputed coverage
+  const buffersNeedZoom =
+    (totalPoints ?? 0) > MAX_BUFFER_POINTS &&
+    !(nationalView && usesNationalCoverage(filters, availableProviders ?? []));
 
   // Local spinner state for merged buffer toggle
   const [mergeSpinner, setMergeSpinner] = useState(false);
@@ -459,38 +466,49 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
       {/* Buffer zones */}
       <div>
         <label className="block text-sm font-medium text-gray-900 mb-2">Dekkingsgebieden</label>
+        {buffersNeedZoom && (
+          <p className="text-xs text-gray-500 mb-2">
+            Dekkingsgebieden verschijnen zodra er maximaal {MAX_BUFFER_POINTS.toLocaleString('nl-NL')} punten in beeld zijn. Zoom in.
+          </p>
+        )}
         <div className="space-y-1 md:space-y-2">
-          <label className={`flex items-center space-x-2 py-1.5 md:py-0.5 -mx-1 px-1 rounded transition ${buffersDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-gray-50 active:bg-gray-100'}`}>
+          <label className="flex items-center space-x-2 py-1.5 md:py-0.5 -mx-1 px-1 rounded transition cursor-pointer hover:bg-gray-50 active:bg-gray-100">
             <input
               type="checkbox"
               checked={filters.showBuffer300}
               onChange={(e) => onChange({ ...filters, showBuffer300: e.target.checked })}
-              disabled={buffersDisabled}
               className="w-5 h-5 md:w-4 md:h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
             />
             <span className="text-sm text-gray-900">300m buffer lijn</span>
           </label>
-          <label className={`flex items-center space-x-2 py-1.5 md:py-0.5 -mx-1 px-1 rounded transition ${buffersDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-gray-50 active:bg-gray-100'}`}>
+          <label className="flex items-center space-x-2 py-1.5 md:py-0.5 -mx-1 px-1 rounded transition cursor-pointer hover:bg-gray-50 active:bg-gray-100">
             <input
               type="checkbox"
               checked={filters.showBuffer400}
               onChange={(e) => onChange({ ...filters, showBuffer400: e.target.checked })}
-              disabled={buffersDisabled}
               className="w-5 h-5 md:w-4 md:h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
             />
             <span className="text-sm text-gray-900">400m buffer lijn</span>
           </label>
-          <label className={`flex items-center space-x-2 py-1.5 md:py-0.5 -mx-1 px-1 rounded transition ${buffersDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-gray-50 active:bg-gray-100'}`}>
+          <label className="flex items-center space-x-2 py-1.5 md:py-0.5 -mx-1 px-1 rounded transition cursor-pointer hover:bg-gray-50 active:bg-gray-100">
+            <input
+              type="checkbox"
+              checked={filters.showBuffer500}
+              onChange={(e) => onChange({ ...filters, showBuffer500: e.target.checked })}
+              className="w-5 h-5 md:w-4 md:h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+            />
+            <span className="text-sm text-gray-900">500m buffer lijn</span>
+          </label>
+          <label className="flex items-center space-x-2 py-1.5 md:py-0.5 -mx-1 px-1 rounded transition cursor-pointer hover:bg-gray-50 active:bg-gray-100">
             <input
               type="checkbox"
               checked={filters.showBufferFill}
               onChange={(e) => onChange({ ...filters, showBufferFill: e.target.checked })}
-              disabled={buffersDisabled}
               className="w-5 h-5 md:w-4 md:h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
             />
             <span className="text-sm text-gray-900">Buffer opvulling</span>
           </label>
-          <label className={`flex items-center space-x-2 py-1.5 md:py-0.5 -mx-1 px-1 rounded transition ${buffersDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-gray-50 active:bg-gray-100'}`}>
+          <label className="flex items-center space-x-2 py-1.5 md:py-0.5 -mx-1 px-1 rounded transition cursor-pointer hover:bg-gray-50 active:bg-gray-100">
             <input
               type="checkbox"
               checked={filters.bufferMerged || mergeSpinner}
@@ -504,7 +522,6 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
                   onChange({ ...filters, bufferMerged: false });
                 }
               }}
-              disabled={buffersDisabled}
               className="w-5 h-5 md:w-4 md:h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
             />
             <span className="text-sm text-gray-900">Samengevoegde buffers</span>
@@ -657,6 +674,7 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
             providers: providers,
             showBuffer300: true,
             showBuffer400: true,
+            showBuffer500: false,
             showBufferFill: false,
             bufferMerged: true,
             showBoundary: false,

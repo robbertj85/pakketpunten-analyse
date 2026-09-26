@@ -72,7 +72,7 @@ def process_municipality(gemeente_data):
             }
 
             with open(output_file, "w", encoding="utf-8") as f:
-                json.dump(empty_geojson, f, ensure_ascii=False, indent=2)
+                json.dump(empty_geojson, f, ensure_ascii=False, separators=(",", ":"))
 
             print(f"✅ Created empty GeoJSON for {gemeente_name}")
             return {"success": True, "error": "No data found (empty GeoJSON created)", "count": 0, "carrier_status": carrier_status}
@@ -179,9 +179,13 @@ def process_municipality(gemeente_data):
             "features": features
         }
 
-        # Write to file
+        # Write to file. Compact, not indented: indentation roughly doubled the
+        # size of every file, and nothing reads these by eye.
+        # The 300/400 m buffer unions above stay: the webapp map draws coverage
+        # itself (Turf.js) and skips them, but scripts/suggest_placements.py and
+        # components/SuggestionMiniMap.tsx read buffer_union_400m.
         with open(output_file, "w", encoding="utf-8") as f:
-            json.dump(geojson_data, f, ensure_ascii=False, indent=2)
+            json.dump(geojson_data, f, ensure_ascii=False, separators=(",", ":"))
 
         # Calculate file size
         file_size_kb = output_file.stat().st_size / 1024

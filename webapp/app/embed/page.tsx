@@ -27,6 +27,7 @@ function EmbedContent() {
     providers: ['DHL', 'PostNL', 'VintedGo', 'DeBuren', 'DPD', 'Amazon', 'GLS', 'ViaTim', 'InPost', 'Budbee'],
     showBuffer300: false,
     showBuffer400: false,
+    showBuffer500: false,
     showBufferFill: false,
     bufferMerged: false,
     showBoundary: false,
