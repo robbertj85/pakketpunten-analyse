@@ -22,11 +22,14 @@
 'use client';
 
 import { useEffect, useState, useMemo, useRef } from 'react';
-import { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMap, CircleMarker, Circle, Polyline, Pane } from 'react-leaflet';
+import { MapContainer, ZoomControl, GeoJSON, Marker, Popup, useMap, CircleMarker, Circle, Polyline, Pane } from 'react-leaflet';
 import type { LatLngBoundsExpression } from 'leaflet';
 import L from 'leaflet';
 import { makePoiDivIcon } from '@/utils/poiIcons';
 import 'leaflet/dist/leaflet.css';
+import BasemapLayer from './BasemapLayer';
+import BasemapPicker from './BasemapPicker';
+import { loadBasemap, saveBasemap, type BasemapId } from '@/lib/basemaps';
 import buffer from '@turf/buffer';
 import union from '@turf/union';
 import { featureCollection, point } from '@turf/helpers';
@@ -653,6 +656,8 @@ function MapComponent(props?: MapProps) {
   const [viewBounds, setViewBounds] = useState<L.LatLngBounds | null>(null);
   // Precomputed national coverage per radius, fetched on first use
   const [nationalCoverage, setNationalCoverage] = useState<Record<number, GeoJSONFeatureCollection>>({});
+  // Map.tsx only renders client-side (dynamic import, ssr: false), so storage is readable here
+  const [basemapId, setBasemapId] = useState<BasemapId>(loadBasemap);
   // Survives MapContainer remounts (e.g. when toggling marker style — that
   // changes the `key` to swap renderers, which would otherwise reset to the
   // default center/zoom).
@@ -1463,16 +1468,11 @@ function MapComponent(props?: MapProps) {
         style={{ width: '100%', height: '100%' }}
         className="z-0"
         preferCanvas={useSimpleMarkers} // Use Canvas renderer for better performance
+        zoomControl={false}
       >
       <ViewportRecorder viewportRef={viewportRef} />
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        eventHandlers={{
-          loading: () => onTilesLoading?.(true),
-          load: () => onTilesLoading?.(false),
-        }}
-      />
+      <ZoomControl position="topright" />
+      <BasemapLayer basemapId={basemapId} onTilesLoading={onTilesLoading} />
 
       <FitBounds
         bounds={bounds}
@@ -2241,6 +2241,14 @@ function MapComponent(props?: MapProps) {
         </Marker>
       )}
     </MapContainer>
+
+      <BasemapPicker
+        value={basemapId}
+        onChange={(id) => {
+          setBasemapId(id);
+          saveBasemap(id);
+        }}
+      />
 
       {/* Side panel for selected painpoint PC4 */}
       {selectedPainpointPc4 && selectedPainpointEntry && (
