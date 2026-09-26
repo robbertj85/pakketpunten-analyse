@@ -11,6 +11,7 @@ interface BasemapPickerProps {
 const LABELS: Record<BasemapId, string> = {
   osm: 'OpenStreetMap',
   light: 'Licht (Carto Positron)',
+  voyager: 'Voyager (Carto)',
   dark: 'Donker (Carto Dark Matter)',
   satellite: 'Satelliet (Esri)',
 };
