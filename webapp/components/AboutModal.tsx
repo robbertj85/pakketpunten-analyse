@@ -102,7 +102,7 @@ export default function AboutModal({ isOpen, onClose }: AboutModalProps) {
                 <ul className="list-disc list-inside text-sm text-gray-700 space-y-1">
                   <li>Interactieve kaart met alle Nederlandse gemeenten</li>
                   <li>Real-time filtering op vervoerder en locatie</li>
-                  <li>Dekkingsgebied visualisatie (300m en 400m buffers)</li>
+                  <li>Dekkingsgebied visualisatie (300m, 400m en 500m buffers)</li>
                   <li>Statistieken per gemeente en vervoerder</li>
                   <li>Responsive design voor desktop en mobiel</li>
                   <li>Export functionaliteit voor data-analyse</li>
