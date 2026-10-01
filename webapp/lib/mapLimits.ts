@@ -5,7 +5,7 @@ import type { Filters } from '@/types/pakketpunten';
  * this many points: ~2 s per radius. Above it — the national view, or a big
  * city with every carrier on — the map draws them only for the points in and
  * around the current viewport, so they appear once the user zooms in.
- * (All of the Netherlands live would take far longer per radius.)
+ * (All of the Netherlands live would freeze the page for a long time per radius.)
  */
 export const MAX_BUFFER_POINTS = 1000;
 

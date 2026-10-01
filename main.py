@@ -1,6 +1,5 @@
 from api_client import get_data_pakketpunten
 from geo_analysis import get_bufferzones
-from visualize import create_map
 from utils import save_output, get_gemeente_polygon
 import argparse
 import sys
@@ -37,16 +36,8 @@ def main(gemeente, filename, format):
 
     # output opslaan als GeoPackage of meerdere losse geojsons
     save_output(kaartlagen, filename, format)
-
-    # output opslaan als kaart visualisatie (kaartlagen, filename, format)
-    m = create_map(filename,
-    gdf_points=gdf_pakketpunten,          # punten-GDF
-    buffer_union300=gdf_bufferunion300,      # optioneel
-    buffer_union400=gdf_bufferunion400,      # optioneel
-    buffers_crs_hint=28992,               # buffers komen uit RD (EPSG:28992)
-    zoom_start=12,
-    tiles="CartoDB positron",             # smaakje
-    )
+    # Visualisatie verloopt uitsluitend via de Next.js webapp (`cd webapp && npm run dev`);
+    # geen losse Folium HTML viewer meer.
 
 
 if __name__ == "__main__":

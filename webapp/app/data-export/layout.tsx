@@ -17,6 +17,7 @@ export default function DataExportLayout({
 
   const isDownloads = pathname === '/data-export';
   const isMatrix = pathname === '/data-export/matrix';
+  const isStatistics = pathname === '/data-export/statistieken';
   const isUpdates = pathname === '/data-export/updates';
   const isPainpoints = pathname === '/data-export/painpoints';
   const isGemeentePainpoints = pathname === '/data-export/gemeente-painpoints';
@@ -28,14 +29,14 @@ export default function DataExportLayout({
   const isBeleidsprincipes = pathname === '/data-export/beleidsprincipes';
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-muted">
       {/* Header */}
-      <header className="bg-white shadow-sm">
+      <header className="bg-card shadow-sm">
         <div className="max-w-[1600px] mx-auto px-4 py-4">
           <div className="flex justify-between items-center mb-4">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Pakketpunten - Data</h1>
-              <p className="text-sm text-gray-600">
+              <h1 className="text-2xl font-bold text-foreground">Pakketpunten - Data</h1>
+              <p className="text-sm text-muted-foreground">
                 Download pakketpunten data, bekijk statistieken en update status
               </p>
             </div>
@@ -44,14 +45,14 @@ export default function DataExportLayout({
                 <button
                   type="button"
                   onClick={() => setTourOpen(true)}
-                  className="px-4 py-2 text-sm font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-md"
+                  className="px-4 py-2 text-sm font-medium text-primary bg-primary/10 hover:bg-primary/20 border border-primary/30 rounded-md"
                 >
                   Rondleiding
                 </button>
               )}
               <Link
                 href="/"
-                className="px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-800"
+                className="px-4 py-2 text-sm font-medium text-primary hover:text-primary"
               >
                 ← Terug naar kaart
               </Link>
@@ -59,13 +60,13 @@ export default function DataExportLayout({
           </div>
 
           {/* Tab Navigation */}
-          <nav data-tour="tabs" className="flex gap-2 border-b border-gray-200">
+          <nav data-tour="tabs" className="flex gap-2 border-b border-border">
             <Link
               href="/data-export"
               className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
                 isDownloads
-                  ? 'border-blue-600 text-blue-600'
-                  : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                  ? 'border-primary text-primary'
+                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
               }`}
             >
               <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -77,8 +78,8 @@ export default function DataExportLayout({
               href="/data-export/matrix"
               className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
                 isMatrix
-                  ? 'border-blue-600 text-blue-600'
-                  : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                  ? 'border-primary text-primary'
+                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
               }`}
             >
               <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -87,11 +88,24 @@ export default function DataExportLayout({
               Data Matrix
             </Link>
             <Link
+              href="/data-export/statistieken"
+              className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
+                isStatistics
+                  ? 'border-primary text-primary'
+                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
+              }`}
+            >
+              <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+              Statistieken
+            </Link>
+            <Link
               href="/data-export/updates"
               className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
                 isUpdates
-                  ? 'border-blue-600 text-blue-600'
-                  : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                  ? 'border-primary text-primary'
+                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
               }`}
             >
               <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">

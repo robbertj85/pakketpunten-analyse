@@ -13,9 +13,30 @@ from datetime import datetime
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from api_client import get_data_pakketpunten
-from geo_analysis import get_bufferzones
 from utils import get_gemeente_polygon, check_polygon_cache_expiry, get_polygon_cache_stats
 import geopandas as gpd
+import pandas as pd
+
+
+def _clean_openingstijden(value):
+    """Return a clean openingstijden value (dict, non-empty string, or None).
+
+    The upstream pipeline fills missing rows with NaN/empty when concatenating
+    providers that don't carry hours — strip those down to a real None so the
+    frontend can skip the section entirely instead of rendering blanks.
+    """
+    if value is None:
+        return None
+    try:
+        if pd.isna(value):
+            return None
+    except (TypeError, ValueError):
+        pass
+    if isinstance(value, str):
+        return value.strip() or None
+    if isinstance(value, dict):
+        return value if value else None
+    return None
 
 def load_municipalities():
     """Load the list of municipalities to process."""
@@ -83,14 +104,6 @@ def process_municipality(gemeente_data):
         # Replace NaN values with None for valid JSON
         gdf_pakketpunten = gdf_pakketpunten.fillna("")
 
-        # Generate buffers
-        gdf_buffers300, gdf_bufferunion300 = get_bufferzones(gdf_pakketpunten, radius=300)
-        gdf_buffers400, gdf_bufferunion400 = get_bufferzones(gdf_pakketpunten, radius=400)
-
-        # Convert back to WGS84 for web display
-        gdf_buffers300_wgs = gdf_buffers300.to_crs(epsg=4326)
-        gdf_buffers400_wgs = gdf_buffers400.to_crs(epsg=4326)
-
         # Prepare output directory (relative to project root, not scripts dir)
         output_dir = Path(__file__).parent.parent / "webapp" / "public" / "data"
         output_dir.mkdir(parents=True, exist_ok=True)
@@ -120,33 +133,15 @@ def process_municipality(gemeente_data):
                     "latitude": row["latitude"],
                     "longitude": row["longitude"],
                     "canPickup": bool(row.get("canPickup", True)),
-                    "canDropoff": bool(row.get("canDropoff", True))
+                    "canDropoff": bool(row.get("canDropoff", True)),
+                    "openingstijden": _clean_openingstijden(row.get("openingstijden"))
                 }
             })
 
-        # Add buffer union 300m
-        for _, row in gdf_bufferunion300.iterrows():
-            geom = row.geometry
-            features.append({
-                "type": "Feature",
-                "geometry": json.loads(gpd.GeoSeries([geom]).to_json())["features"][0]["geometry"],
-                "properties": {
-                    "type": "buffer_union_300m",
-                    "buffer_m": 300
-                }
-            })
-
-        # Add buffer union 400m
-        for _, row in gdf_bufferunion400.iterrows():
-            geom = row.geometry
-            features.append({
-                "type": "Feature",
-                "geometry": json.loads(gpd.GeoSeries([geom]).to_json())["features"][0]["geometry"],
-                "properties": {
-                    "type": "buffer_union_400m",
-                    "buffer_m": 400
-                }
-            })
+        # No 300/400 m buffer features: the webapp draws coverage itself from the
+        # points (Turf.js in components/Map.tsx) and never read the stored ones,
+        # which were more than half of every file. compute_statistics.py does its
+        # own buffering for the coverage figures.
 
         # Add municipality boundary
         try:

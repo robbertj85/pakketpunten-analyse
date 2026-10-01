@@ -59,32 +59,32 @@ export default function StatsPanel({ data, filters }: StatsPanelProps) {
       : 0;
 
   return (
-    <div className="p-3 md:p-4 bg-white rounded-lg shadow-md space-y-3 md:space-y-4">
+    <div className="p-3 md:p-4 bg-card rounded-lg shadow-md space-y-3 md:space-y-4">
       <div>
-        <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-1 md:mb-2 truncate">{data.metadata.gemeente}</h3>
-        <p className="text-xs text-gray-600">
+        <h3 className="text-base md:text-lg font-semibold text-foreground mb-1 md:mb-2 truncate">{data.metadata.gemeente}</h3>
+        <p className="text-xs text-muted-foreground">
           Update: {new Date(data.metadata.generated_at).toLocaleDateString('nl-NL')}
         </p>
         {isNationalView && (
-          <p className="text-xs text-blue-600 mt-1 font-medium">
+          <p className="text-xs text-primary mt-1 font-medium">
             {(data.metadata as any).municipalities_included} gemeentes
           </p>
         )}
       </div>
 
       <div className={`grid ${filters.showMockData ? 'grid-cols-2' : 'grid-cols-1'} gap-2 md:gap-4`}>
-        <div className="p-2.5 md:p-3 bg-blue-50 rounded-lg">
-          <p className="text-xs text-gray-700 font-medium">Pakketpunten</p>
-          <p className="text-xl md:text-2xl font-bold text-blue-600 tabular-nums">
+        <div className="p-2.5 md:p-3 bg-accent rounded-lg">
+          <p className="text-xs text-muted-foreground font-medium">Pakketpunten</p>
+          <p className="text-xl md:text-2xl font-bold text-primary tabular-nums">
             {filteredPoints.length}
-            <span className="text-xs md:text-sm font-normal text-gray-600"> / {points.length}</span>
+            <span className="text-xs md:text-sm font-normal text-muted-foreground"> / {points.length}</span>
           </p>
         </div>
 
         {filters.showMockData && (
-          <div className="p-2.5 md:p-3 bg-green-50 rounded-lg">
-            <p className="text-xs text-gray-700 font-medium">Bezetting <span className="text-amber-700">(mock)</span></p>
-            <p className="text-xl md:text-2xl font-bold text-green-600 tabular-nums">{avgOccupancy}%</p>
+          <div className="p-2.5 md:p-3 bg-success-muted rounded-lg">
+            <p className="text-xs text-muted-foreground font-medium">Bezetting <span className="text-amber-700">(mock)</span></p>
+            <p className="text-xl md:text-2xl font-bold text-success tabular-nums">{avgOccupancy}%</p>
           </div>
         )}
       </div>

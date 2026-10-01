@@ -12,16 +12,16 @@ export default function TrendIndicator({ change, label, showValue = true }: Tren
   const isNeutral = change === 0;
 
   const colorClass = isPositive
-    ? 'text-green-600'
+    ? 'text-success'
     : isNegative
-      ? 'text-red-600'
-      : 'text-gray-500';
+      ? 'text-destructive'
+      : 'text-subtle-foreground';
 
   const bgClass = isPositive
-    ? 'bg-green-50'
+    ? 'bg-success-muted'
     : isNegative
-      ? 'bg-red-50'
-      : 'bg-gray-50';
+      ? 'bg-destructive-muted'
+      : 'bg-muted';
 
   const arrow = isPositive ? '↑' : isNegative ? '↓' : '→';
   const sign = isPositive ? '+' : '';
@@ -30,7 +30,7 @@ export default function TrendIndicator({ change, label, showValue = true }: Tren
     <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${colorClass} ${bgClass}`}>
       <span className="mr-1">{arrow}</span>
       {showValue && <span>{sign}{change}</span>}
-      {label && <span className="ml-1 text-gray-500">{label}</span>}
+      {label && <span className="ml-1 text-subtle-foreground">{label}</span>}
     </span>
   );
 }

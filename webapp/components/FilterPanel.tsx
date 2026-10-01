@@ -6,6 +6,7 @@ import {
   CoverageLevel, CoverageSubset, CoverageDistance, CoverageScope,
 } from '@/types/pakketpunten';
 import { BoundaryLoadProgress } from '@/utils/boundaryLoader';
+import { CARRIER_LABELS, CARRIER_ORDER, CARRIER_SERIES_COLORS } from '@/lib/carriers';
 import { MAX_BUFFER_POINTS, usesNationalCoverage } from '@/lib/mapLimits';
 
 interface PoiCategoryMeta {
@@ -140,18 +141,20 @@ interface FilterPanelProps {
   nationalView?: boolean;
 }
 
-const PROVIDER_INFO = {
-  DHL: { name: 'DHL', color: '#FFCC00', textColor: '#D40511' },
-  PostNL: { name: 'PostNL', color: '#FF6600', textColor: '#FFFFFF' },
-  VintedGo: { name: 'VintedGo', color: '#09B1BA', textColor: '#FFFFFF' },
-  DeBuren: { name: 'De Buren', color: '#4CAF50', textColor: '#FFFFFF' },
-  Amazon: { name: 'Amazon', color: '#FF9900', textColor: '#146EB4' },
-  DPD: { name: 'DPD', color: '#DC0032', textColor: '#FFFFFF' },
-  GLS: { name: 'GLS', color: '#003C7E', textColor: '#FFC600' },
-  ViaTim: { name: 'ViaTim', color: '#E3007A', textColor: '#FFFFFF' },
-  InPost: { name: 'InPost', color: '#FFCD00', textColor: '#3B3B3B' },
-  Budbee: { name: 'Budbee', color: '#00C389', textColor: '#FFFFFF' },
-};
+/**
+ * This list doubles as the map's legend, so the swatch carries the *series*
+ * colour rather than the livery — that is what the charts draw and what the
+ * map's simple markers use. The carrier name sits beside it, so identity never
+ * rests on the colour alone.
+ *
+ * (The former `textColor` field was dropped: it was never read.)
+ */
+const PROVIDER_INFO: Record<string, { name: string; color: string }> = Object.fromEntries(
+  CARRIER_ORDER.map((carrier) => [
+    carrier,
+    { name: CARRIER_LABELS[carrier], color: CARRIER_SERIES_COLORS[carrier] },
+  ])
+);
 
 const CATEGORY_INFO: Record<PointCategory, { name: string }> = {
   locker: { name: 'Pakketautomaat' },
@@ -217,7 +220,7 @@ function DropoffIcon({ className }: { className?: string }) {
 // Inline loading spinner component (grey, matching top bar)
 function InlineSpinner() {
   return (
-    <svg className="animate-spin h-3.5 w-3.5 text-gray-500 flex-shrink-0" fill="none" viewBox="0 0 24 24">
+    <svg className="animate-spin h-3.5 w-3.5 text-subtle-foreground flex-shrink-0" fill="none" viewBox="0 0 24 24">
       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
     </svg>
@@ -233,7 +236,7 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
 
   // Local spinner state for merged buffer toggle
   const [mergeSpinner, setMergeSpinner] = useState(false);
-  // Local spinner state for "toggle all providers" header click
+  // Local spinner state for the "toggle all carriers" heading click
   const [providersSpinner, setProvidersSpinner] = useState(false);
 
   // Clear spinner once the filter change has been applied (computation done, re-render complete)
@@ -276,6 +279,16 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
   };
 
   const providers = availableProviders || Object.keys(PROVIDER_INFO);
+  const anyProviderSelected = filters.providers.length > 0;
+
+  // Clicking the "Vervoerders" heading switches every carrier off, or all on
+  // when none is selected (as in pakketpunten-analyse)
+  const toggleAllProviders = () => {
+    const next = anyProviderSelected ? [] : [...providers];
+    setProvidersSpinner(true);
+    // Defer so the browser paints the spinner before the heavy re-render
+    setTimeout(() => onChange({ ...filters, providers: next }), 20);
+  };
   // Clicking the "Dekkingsgebieden" heading switches its six ticks off, or all on when none is
   const anyCoverageOn =
     filters.showBuffer300 || filters.showBuffer400 || filters.showBuffer500 ||
@@ -303,23 +316,18 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
   const services: ServiceFilter[] = ['pickup', 'dropoff'];
 
   return (
-    <div className="space-y-4 md:space-y-6 p-3 md:p-4 bg-white rounded-lg shadow-md">
+    <div className="space-y-4 md:space-y-6 p-3 md:p-4 bg-card rounded-lg shadow-md">
       <div>
-        <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2 md:mb-3">Filters</h3>
+        <h3 className="text-base md:text-lg font-semibold text-foreground mb-2 md:mb-3">Filters</h3>
       </div>
 
       {/* Provider filters */}
       <div>
         <button
           type="button"
-          onClick={() => {
-            const next = filters.providers.length > 0 ? [] : providers;
-            setProvidersSpinner(true);
-            // Defer so the browser paints the spinner before heavy re-render
-            setTimeout(() => onChange({ ...filters, providers: next }), 20);
-          }}
-          className="flex items-center gap-2 w-full text-left text-sm font-medium text-gray-900 mb-2 hover:text-blue-600 transition cursor-pointer select-none"
-          title={filters.providers.length > 0 ? 'Alle uitschakelen' : 'Alle inschakelen'}
+          onClick={toggleAllProviders}
+          title={anyProviderSelected ? 'Alle uitschakelen' : 'Alle inschakelen'}
+          className="flex items-center gap-2 w-full text-left text-sm font-medium text-foreground mb-2 hover:text-primary transition cursor-pointer select-none"
         >
           <span>Vervoerders</span>
           {providersSpinner && <InlineSpinner />}
@@ -333,20 +341,20 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
             const count = providerCounts?.[provider] || 0;
 
             return (
-              <label key={provider} className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-gray-50 active:bg-gray-100 transition">
+              <label key={provider} className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-muted active:bg-secondary transition">
                 <input
                   type="checkbox"
                   checked={isSelected}
                   onChange={() => toggleProvider(provider)}
-                  className="w-5 h-5 md:w-4 md:h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+                  className="w-5 h-5 md:w-4 md:h-4 text-primary rounded focus:ring-2 focus:ring-ring"
                 />
                 <span
                   className="w-4 h-4 rounded-full border border-white flex-shrink-0"
                   style={{ backgroundColor: info.color }}
                 />
-                <span className="text-sm text-gray-900 flex-1">{info.name}</span>
+                <span className="text-sm text-foreground flex-1">{info.name}</span>
                 {isSelected && count > 0 && (
-                  <span className="text-sm font-semibold text-gray-900 ml-auto tabular-nums">
+                  <span className="text-sm font-semibold text-foreground ml-auto tabular-nums">
                     {count}
                   </span>
                 )}
@@ -358,7 +366,7 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
 
       {/* Point category filters */}
       <div>
-        <label className="block text-sm font-medium text-gray-900 mb-2">Type locatie</label>
+        <label className="block text-sm font-medium text-foreground mb-2">Type locatie</label>
         <div className="space-y-1 md:space-y-2">
           {categories.map((category) => {
             const info = CATEGORY_INFO[category];
@@ -366,21 +374,21 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
             const count = categoryCounts?.[category] || 0;
 
             return (
-              <label key={category} className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-gray-50 active:bg-gray-100 transition">
+              <label key={category} className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-muted active:bg-secondary transition">
                 <input
                   type="checkbox"
                   checked={isSelected}
                   onChange={() => toggleCategory(category)}
-                  className="w-5 h-5 md:w-4 md:h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+                  className="w-5 h-5 md:w-4 md:h-4 text-primary rounded focus:ring-2 focus:ring-ring"
                 />
                 {category === 'locker' ? (
-                  <LockerIcon className="w-4 h-4 text-gray-600 flex-shrink-0" />
+                  <LockerIcon className="w-4 h-4 text-muted-foreground flex-shrink-0" />
                 ) : (
-                  <ShopIcon className="w-4 h-4 text-gray-600 flex-shrink-0" />
+                  <ShopIcon className="w-4 h-4 text-muted-foreground flex-shrink-0" />
                 )}
-                <span className="text-sm text-gray-900 flex-1">{info.name}</span>
+                <span className="text-sm text-foreground flex-1">{info.name}</span>
                 {isSelected && count > 0 && (
-                  <span className="text-sm font-semibold text-gray-900 ml-auto tabular-nums">
+                  <span className="text-sm font-semibold text-foreground ml-auto tabular-nums">
                     {count}
                   </span>
                 )}
@@ -392,7 +400,7 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
 
       {/* Service capability filters */}
       <div>
-        <label className="block text-sm font-medium text-gray-900 mb-2">Service</label>
+        <label className="block text-sm font-medium text-foreground mb-2">Service</label>
         <div className="space-y-1 md:space-y-2">
           {services.map((service) => {
             const info = SERVICE_INFO[service];
@@ -400,21 +408,21 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
             const count = serviceCounts?.[service] || 0;
 
             return (
-              <label key={service} className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-gray-50 active:bg-gray-100 transition">
+              <label key={service} className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-muted active:bg-secondary transition">
                 <input
                   type="checkbox"
                   checked={isSelected}
                   onChange={() => toggleService(service)}
-                  className="w-5 h-5 md:w-4 md:h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+                  className="w-5 h-5 md:w-4 md:h-4 text-primary rounded focus:ring-2 focus:ring-ring"
                 />
                 {service === 'pickup' ? (
-                  <PickupIcon className="w-4 h-4 text-gray-600 flex-shrink-0" />
+                  <PickupIcon className="w-4 h-4 text-muted-foreground flex-shrink-0" />
                 ) : (
-                  <DropoffIcon className="w-4 h-4 text-gray-600 flex-shrink-0" />
+                  <DropoffIcon className="w-4 h-4 text-muted-foreground flex-shrink-0" />
                 )}
-                <span className="text-sm text-gray-900 flex-1">{info.name}</span>
+                <span className="text-sm text-foreground flex-1">{info.name}</span>
                 {isSelected && count > 0 && (
-                  <span className="text-sm font-semibold text-gray-900 ml-auto tabular-nums">
+                  <span className="text-sm font-semibold text-foreground ml-auto tabular-nums">
                     {count}
                   </span>
                 )}
@@ -422,66 +430,66 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
             );
           })}
         </div>
-        <p className="text-xs text-gray-500 mt-1">Ophalen = pakket ontvangen, Verzenden = pakket versturen</p>
+        <p className="text-xs text-subtle-foreground mt-1">Ophalen = pakket ontvangen, Verzenden = pakket versturen</p>
       </div>
 
       {/* Shared locations filter */}
       <div>
-        <label className="block text-sm font-medium text-gray-900 mb-2">Locaties</label>
+        <label className="block text-sm font-medium text-foreground mb-2">Locaties</label>
         <div className="space-y-1 md:space-y-2">
-          <label className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-gray-50 active:bg-gray-100 transition">
+          <label className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-muted active:bg-secondary transition">
             <input
               type="radio"
               name="locationFilter"
               checked={!filters.showOnlySharedLocations}
               onChange={() => onChange({ ...filters, showOnlySharedLocations: false })}
-              className="w-5 h-5 md:w-4 md:h-4 text-blue-600 focus:ring-2 focus:ring-blue-500"
+              className="w-5 h-5 md:w-4 md:h-4 text-primary focus:ring-2 focus:ring-ring"
             />
-            <span className="text-sm text-gray-900">Alle locaties</span>
+            <span className="text-sm text-foreground">Alle locaties</span>
           </label>
-          <label className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-gray-50 active:bg-gray-100 transition">
+          <label className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-muted active:bg-secondary transition">
             <input
               type="radio"
               name="locationFilter"
               checked={filters.showOnlySharedLocations}
               onChange={() => onChange({ ...filters, showOnlySharedLocations: true })}
-              className="w-5 h-5 md:w-4 md:h-4 text-blue-600 focus:ring-2 focus:ring-blue-500"
+              className="w-5 h-5 md:w-4 md:h-4 text-primary focus:ring-2 focus:ring-ring"
             />
-            <SharedLocationIcon className="w-4 h-4 text-gray-600 flex-shrink-0" />
-            <span className="text-sm text-gray-900 flex-1">Gedeelde adressen</span>
+            <SharedLocationIcon className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+            <span className="text-sm text-foreground flex-1">Gedeelde adressen</span>
             {filters.showOnlySharedLocations && sharedLocationCount !== undefined && sharedLocationCount > 0 && (
-              <span className="text-sm font-semibold text-gray-900 ml-auto tabular-nums">
+              <span className="text-sm font-semibold text-foreground ml-auto tabular-nums">
                 {sharedLocationCount}
               </span>
             )}
           </label>
-          <p className="text-xs text-gray-500 ml-7">Adressen met meerdere vervoerders</p>
+          <p className="text-xs text-subtle-foreground ml-7">Adressen met meerdere vervoerders</p>
         </div>
       </div>
 
       {/* Marker Style */}
       <div>
-        <label className="block text-sm font-medium text-gray-900 mb-2">Markering weergave</label>
+        <label className="block text-sm font-medium text-foreground mb-2">Markering weergave</label>
         <div className="space-y-1 md:space-y-2">
-          <label className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-gray-50 active:bg-gray-100 transition">
+          <label className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-muted active:bg-secondary transition">
             <input
               type="radio"
               name="markerStyle"
               checked={!filters.useSimpleMarkers}
               onChange={() => onChange({ ...filters, useSimpleMarkers: false })}
-              className="w-5 h-5 md:w-4 md:h-4 text-blue-600 focus:ring-2 focus:ring-blue-500"
+              className="w-5 h-5 md:w-4 md:h-4 text-primary focus:ring-2 focus:ring-ring"
             />
-            <span className="text-sm text-gray-900">Logo iconen</span>
+            <span className="text-sm text-foreground">Logo iconen</span>
           </label>
-          <label className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-gray-50 active:bg-gray-100 transition">
+          <label className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-muted active:bg-secondary transition">
             <input
               type="radio"
               name="markerStyle"
               checked={filters.useSimpleMarkers}
               onChange={() => onChange({ ...filters, useSimpleMarkers: true })}
-              className="w-5 h-5 md:w-4 md:h-4 text-blue-600 focus:ring-2 focus:ring-blue-500"
+              className="w-5 h-5 md:w-4 md:h-4 text-primary focus:ring-2 focus:ring-ring"
             />
-            <span className="text-sm text-gray-900">Gekleurde stippen</span>
+            <span className="text-sm text-foreground">Gekleurde stippen</span>
           </label>
         </div>
       </div>
@@ -492,53 +500,53 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
           type="button"
           onClick={toggleAllCoverage}
           title={anyCoverageOn ? 'Alle uitschakelen' : 'Alle inschakelen'}
-          className="block w-full text-left text-sm font-medium text-gray-900 mb-2 hover:text-blue-600 transition cursor-pointer select-none"
+          className="block w-full text-left text-sm font-medium text-foreground mb-2 hover:text-blue-600 transition cursor-pointer select-none"
         >
           Dekkingsgebieden
         </button>
         {buffersNeedZoom && (
-          <p className="text-xs text-gray-500 mb-2">
+          <p className="text-xs text-subtle-foreground mb-2">
             Dekkingsgebieden verschijnen zodra er maximaal {MAX_BUFFER_POINTS.toLocaleString('nl-NL')} punten in beeld zijn. Zoom in.
           </p>
         )}
         <div className="space-y-1 md:space-y-2">
-          <label className="flex items-center space-x-2 py-1.5 md:py-0.5 -mx-1 px-1 rounded transition cursor-pointer hover:bg-gray-50 active:bg-gray-100">
+          <label className={`flex items-center space-x-2 py-1.5 md:py-0.5 -mx-1 px-1 rounded transition cursor-pointer hover:bg-muted active:bg-secondary`}>
             <input
               type="checkbox"
               checked={filters.showBuffer300}
               onChange={(e) => onChange({ ...filters, showBuffer300: e.target.checked })}
-              className="w-5 h-5 md:w-4 md:h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+              className="w-5 h-5 md:w-4 md:h-4 text-primary rounded focus:ring-2 focus:ring-ring disabled:opacity-50"
             />
-            <span className="text-sm text-gray-900">300m buffer lijn</span>
+            <span className="text-sm text-foreground">300m buffer lijn</span>
           </label>
-          <label className="flex items-center space-x-2 py-1.5 md:py-0.5 -mx-1 px-1 rounded transition cursor-pointer hover:bg-gray-50 active:bg-gray-100">
+          <label className={`flex items-center space-x-2 py-1.5 md:py-0.5 -mx-1 px-1 rounded transition cursor-pointer hover:bg-muted active:bg-secondary`}>
             <input
               type="checkbox"
               checked={filters.showBuffer400}
               onChange={(e) => onChange({ ...filters, showBuffer400: e.target.checked })}
-              className="w-5 h-5 md:w-4 md:h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+              className="w-5 h-5 md:w-4 md:h-4 text-primary rounded focus:ring-2 focus:ring-ring disabled:opacity-50"
             />
-            <span className="text-sm text-gray-900">400m buffer lijn</span>
+            <span className="text-sm text-foreground">400m buffer lijn</span>
           </label>
-          <label className="flex items-center space-x-2 py-1.5 md:py-0.5 -mx-1 px-1 rounded transition cursor-pointer hover:bg-gray-50 active:bg-gray-100">
+          <label className={`flex items-center space-x-2 py-1.5 md:py-0.5 -mx-1 px-1 rounded transition cursor-pointer hover:bg-muted active:bg-secondary`}>
             <input
               type="checkbox"
               checked={filters.showBuffer500}
               onChange={(e) => onChange({ ...filters, showBuffer500: e.target.checked })}
-              className="w-5 h-5 md:w-4 md:h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+              className="w-5 h-5 md:w-4 md:h-4 text-primary rounded focus:ring-2 focus:ring-ring disabled:opacity-50"
             />
-            <span className="text-sm text-gray-900">500m buffer lijn</span>
+            <span className="text-sm text-foreground">500m buffer lijn</span>
           </label>
-          <label className="flex items-center space-x-2 py-1.5 md:py-0.5 -mx-1 px-1 rounded transition cursor-pointer hover:bg-gray-50 active:bg-gray-100">
+          <label className={`flex items-center space-x-2 py-1.5 md:py-0.5 -mx-1 px-1 rounded transition cursor-pointer hover:bg-muted active:bg-secondary`}>
             <input
               type="checkbox"
               checked={filters.showBufferFill}
               onChange={(e) => onChange({ ...filters, showBufferFill: e.target.checked })}
-              className="w-5 h-5 md:w-4 md:h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+              className="w-5 h-5 md:w-4 md:h-4 text-primary rounded focus:ring-2 focus:ring-ring disabled:opacity-50"
             />
-            <span className="text-sm text-gray-900">Buffer opvulling</span>
+            <span className="text-sm text-foreground">Buffer opvulling</span>
           </label>
-          <label className="flex items-center space-x-2 py-1.5 md:py-0.5 -mx-1 px-1 rounded transition cursor-pointer hover:bg-gray-50 active:bg-gray-100">
+          <label className={`flex items-center space-x-2 py-1.5 md:py-0.5 -mx-1 px-1 rounded transition cursor-pointer hover:bg-muted active:bg-secondary`}>
             <input
               type="checkbox"
               checked={filters.bufferMerged || mergeSpinner}
@@ -552,43 +560,43 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
                   onChange({ ...filters, bufferMerged: false });
                 }
               }}
-              className="w-5 h-5 md:w-4 md:h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+              className="w-5 h-5 md:w-4 md:h-4 text-primary rounded focus:ring-2 focus:ring-ring disabled:opacity-50"
             />
-            <span className="text-sm text-gray-900">Samengevoegde buffers</span>
+            <span className="text-sm text-foreground">Samengevoegde buffers</span>
             {mergeSpinner && <InlineSpinner />}
             <span className="relative group/tip">
-              <span className="inline-flex items-center justify-center w-4 h-4 text-[10px] font-medium text-gray-400 bg-gray-100 rounded-full cursor-help">i</span>
-              <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 hidden group-hover/tip:block w-48 px-2 py-1 text-xs text-white bg-gray-800 rounded shadow-lg text-center pointer-events-none z-50">
+              <span className="inline-flex items-center justify-center w-4 h-4 text-[10px] font-medium text-subtle-foreground bg-secondary rounded-full cursor-help">i</span>
+              <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 hidden group-hover/tip:block w-48 px-2 py-1 text-xs text-background bg-foreground rounded shadow-lg text-center pointer-events-none z-50">
                 Als het laden van pakketpunten traag is, schakel deze instelling uit.
               </span>
             </span>
           </label>
-          <label className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-gray-50 active:bg-gray-100 transition">
+          <label className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-muted active:bg-secondary transition">
             <input
               type="checkbox"
               checked={filters.showBoundary}
               onChange={(e) => onChange({ ...filters, showBoundary: e.target.checked })}
               disabled={boundariesLoading}
-              className="w-5 h-5 md:w-4 md:h-4 text-red-600 rounded focus:ring-2 focus:ring-red-500 disabled:opacity-50"
+              className="w-5 h-5 md:w-4 md:h-4 text-destructive rounded focus:ring-2 focus:ring-red-500 disabled:opacity-50"
             />
             <div className="flex-1">
-              <span className="text-sm text-gray-900">Gemeentegrens</span>
+              <span className="text-sm text-foreground">Gemeentegrens</span>
               {boundariesLoading && boundaryLoadProgress && (
-                <div className="mt-1 text-xs text-blue-600">
+                <div className="mt-1 text-xs text-primary">
                   <div className="flex items-center gap-2">
                     <span>Laden: {boundaryLoadProgress.loaded}/{boundaryLoadProgress.total}</span>
                     <span>({boundaryLoadProgress.percentage}%)</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-1.5 mt-1">
+                  <div className="w-full bg-border rounded-full h-1.5 mt-1">
                     <div
-                      className="bg-blue-600 h-1.5 rounded-full transition-all duration-300"
+                      className="bg-primary h-1.5 rounded-full transition-all duration-300"
                       style={{ width: `${boundaryLoadProgress.percentage}%` }}
                     />
                   </div>
                 </div>
               )}
               {boundariesLoading && !boundaryLoadProgress && (
-                <span className="ml-2 text-xs text-blue-600">(laden...)</span>
+                <span className="ml-2 text-xs text-primary">(laden...)</span>
               )}
             </div>
           </label>
@@ -728,7 +736,7 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
             poiIconStyle: 'dots',
           })
         }
-        className="w-full px-4 py-3 md:py-2 text-sm font-medium text-gray-900 bg-gray-100 rounded-lg hover:bg-gray-200 active:bg-gray-300 transition"
+        className="w-full px-4 py-3 md:py-2 text-sm font-medium text-foreground bg-secondary rounded-lg hover:bg-border active:bg-input transition"
       >
         Reset Filters
       </button>

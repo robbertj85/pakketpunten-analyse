@@ -5,6 +5,9 @@ import { MapContainer, GeoJSON, CircleMarker, Circle, Popup, useMap } from 'reac
 import type { LatLngBoundsExpression } from 'leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import buffer from '@turf/buffer';
+import union from '@turf/union';
+import { featureCollection, point } from '@turf/helpers';
 
 import type { Suggestion } from './PlacementSuggestionsReport';
 
@@ -102,8 +105,20 @@ function SuggestionMiniMapImpl({ pc4, suggestion, spots, muniGeojson }: Props) {
     const feat = fc.features.find(
       (f) => f.properties?.type === 'buffer_union_400m',
     );
-    return feat ?? null;
-  }, [muniGeojson]);
+    if (feat) return feat;
+    // Upstream data no longer stores buffer unions: build the 400 m union
+    // from the points near this PC4 (within ~1.5 km of its bounds).
+    if (!bounds) return null;
+    const near = L.latLngBounds(bounds as L.LatLngBoundsLiteral).pad(0.5);
+    const circles = fc.features
+      .filter((f) => f.properties?.type === 'pakketpunt')
+      .map((f) => (f.geometry as { coordinates?: [number, number] }).coordinates)
+      .filter((c): c is [number, number] => Array.isArray(c) && near.contains([c[1], c[0]]))
+      .map((c) => buffer(point(c), 400, { units: 'meters', steps: 16 }))
+      .filter((c) => c != null);
+    if (circles.length === 0) return null;
+    return circles.reduce((acc, c) => union(featureCollection([acc, c])) ?? acc);
+  }, [muniGeojson, bounds]);
 
   const fallbackCenter: [number, number] = suggestion
     ? [suggestion.lat, suggestion.lon]

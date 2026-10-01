@@ -4,12 +4,13 @@ import { useState, useEffect, useMemo, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { PakketpuntData, Filters } from '@/types/pakketpunten';
+import { CARRIER_ORDER } from '@/lib/carriers';
 
 const MapView = dynamic(() => import('@/components/Map'), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-full flex items-center justify-center bg-gray-100">
-      <p className="text-gray-500">Kaart laden...</p>
+    <div className="w-full h-full flex items-center justify-center bg-secondary">
+      <p className="text-subtle-foreground">Kaart laden...</p>
     </div>
   ),
 });
@@ -24,7 +25,7 @@ function EmbedContent() {
   const [loading, setLoading] = useState(true);
 
   const filters = useMemo<Filters>(() => ({
-    providers: ['DHL', 'PostNL', 'VintedGo', 'DeBuren', 'DPD', 'Amazon', 'GLS', 'ViaTim', 'InPost', 'Budbee'],
+    providers: [...CARRIER_ORDER],
     showBuffer300: true,
     showBuffer400: true,
     showBuffer500: true,
@@ -72,15 +73,15 @@ function EmbedContent() {
       <MapView data={data} filters={filters} />
 
       {/* Attribution bar */}
-      <div className="absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-gray-200 px-3 py-1.5 flex items-center justify-between z-[1000]">
-        <span className="text-xs text-gray-600">
+      <div className="absolute bottom-0 left-0 right-0 bg-card/90 backdrop-blur-sm border-t border-border px-3 py-1.5 flex items-center justify-between z-[1000]">
+        <span className="text-xs text-muted-foreground">
           {loading ? 'Laden...' : `${municipalityName} — Pakketpunten`}
         </span>
         <a
           href={`${typeof window !== 'undefined' ? window.location.origin : ''}/?gemeente=${gemeente === 'nederland' ? 'alle-gemeenten' : gemeente}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-xs text-blue-600 hover:text-blue-800 hover:underline font-medium"
+          className="text-xs text-primary hover:text-primary hover:underline font-medium"
         >
           Open op Pakketpuntenviewer
         </a>
@@ -92,8 +93,8 @@ function EmbedContent() {
 export default function EmbedPage() {
   return (
     <Suspense fallback={
-      <div className="w-full h-screen flex items-center justify-center bg-gray-100">
-        <p className="text-gray-500">Laden...</p>
+      <div className="w-full h-screen flex items-center justify-center bg-secondary">
+        <p className="text-subtle-foreground">Laden...</p>
       </div>
     }>
       <EmbedContent />

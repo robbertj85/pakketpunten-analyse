@@ -2,33 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
-// Simple in-memory rate limiter
-// In production, use Redis or a proper rate limiting service
-const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
+import { checkRateLimit, clientIp, rateLimitHeaders } from '@/lib/rateLimit';
 
-const RATE_LIMIT = 5; // downloads per hour
+// Was 5/hour, which a single person comparing a handful of gemeenten could hit
+// legitimately. 60 still stops bulk scraping; the whole dataset is a single
+// GitHub clone away anyway.
+const RATE_LIMIT = 60; // downloads per hour
 const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour in milliseconds
-
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-  const record = rateLimitStore.get(ip);
-
-  if (!record || now > record.resetTime) {
-    // Create new record or reset expired one
-    rateLimitStore.set(ip, {
-      count: 1,
-      resetTime: now + RATE_LIMIT_WINDOW,
-    });
-    return true;
-  }
-
-  if (record.count >= RATE_LIMIT) {
-    return false;
-  }
-
-  record.count++;
-  return true;
-}
 
 function convertGeoJSONToCSV(geojson: any): string {
   const features = geojson.features.filter(
@@ -81,19 +61,23 @@ function convertGeoJSONToCSV(geojson: any): string {
 
 export async function GET(request: NextRequest) {
   try {
-    // Get client IP
-    const ip = request.headers.get('x-forwarded-for') ||
-               request.headers.get('x-real-ip') ||
-               'unknown';
+    const limit = checkRateLimit(
+      `download:${clientIp(request)}`,
+      RATE_LIMIT,
+      RATE_LIMIT_WINDOW
+    );
 
-    // Check rate limit
-    if (!checkRateLimit(ip)) {
-      return new NextResponse('Rate limit exceeded. Maximum 5 downloads per hour.', {
-        status: 429,
-        headers: {
-          'Retry-After': '3600',
-        },
-      });
+    if (!limit.allowed) {
+      return new NextResponse(
+        `Rate limit exceeded. Maximum ${RATE_LIMIT} downloads per hour.`,
+        {
+          status: 429,
+          headers: {
+            'Retry-After': String(limit.retryAfterSeconds),
+            ...rateLimitHeaders(limit),
+          },
+        }
+      );
     }
 
     // Get query parameters

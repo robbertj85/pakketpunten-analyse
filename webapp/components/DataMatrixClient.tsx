@@ -85,27 +85,27 @@ export default function DataMatrixClient({
   return (
     <div className="space-y-6">
       {/* Summary Stats with Trends */}
-      <div data-tour="overzicht" className="bg-white rounded-lg shadow-md p-6">
+      <div data-tour="overzicht" className="bg-card rounded-lg shadow-md p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold text-gray-900">Overzicht</h2>
+          <h2 className="text-lg font-bold text-foreground">Overzicht</h2>
           {latestSnapshot && (
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-subtle-foreground">
               Laatste update: {new Date(latestSnapshot.date).toLocaleDateString('nl-NL')}
             </span>
           )}
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-          <div className="text-center p-4 bg-blue-50 rounded-lg">
-            <div className="text-2xl font-bold text-blue-900">{data.length}</div>
-            <div className="text-sm text-blue-700">Locaties</div>
+          <div className="text-center p-4 bg-accent rounded-lg">
+            <div className="text-2xl font-bold text-accent-foreground">{data.length}</div>
+            <div className="text-sm text-primary">Locaties</div>
           </div>
           <div
-            className="group text-center p-4 bg-green-50 rounded-lg cursor-pointer hover:bg-green-100 hover:shadow-md transition-all"
+            className="group text-center p-4 bg-success-muted rounded-lg cursor-pointer hover:bg-success-muted hover:shadow-md transition-all"
             onClick={() => snapshots.length > 0 && setShowTotalOverview(true)}
           >
-            <div className="text-2xl font-bold text-green-900">{grandTotal.toLocaleString('nl-NL')}</div>
-            <div className="text-sm text-green-700">Totaal Pakketpunten</div>
+            <div className="text-2xl font-bold text-success">{grandTotal.toLocaleString('nl-NL')}</div>
+            <div className="text-sm text-success">Totaal Pakketpunten</div>
             {trend && (
               <div className="mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
                 <TrendIndicator change={trend.change.total} label="week" />
@@ -115,11 +115,11 @@ export default function DataMatrixClient({
           {providers.map(provider => (
             <div
               key={provider}
-              className="group text-center p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 hover:shadow-md transition-all"
+              className="group text-center p-4 bg-muted rounded-lg cursor-pointer hover:bg-secondary hover:shadow-md transition-all"
               onClick={() => handleProviderClick(provider)}
             >
-              <div className="text-2xl font-bold text-gray-900">{providerTotals[provider].toLocaleString('nl-NL')}</div>
-              <div className="text-sm text-gray-700">{provider}</div>
+              <div className="text-2xl font-bold text-foreground">{providerTotals[provider].toLocaleString('nl-NL')}</div>
+              <div className="text-sm text-muted-foreground">{provider}</div>
               {trend?.change.providers[provider] !== undefined && (
                 <div className="mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
                   <TrendIndicator change={trend.change.providers[provider]} />
@@ -131,13 +131,13 @@ export default function DataMatrixClient({
 
         {/* Historical trend summary - visible on hover */}
         {snapshots.length > 1 && (
-          <div className="group mt-4 pt-4 border-t border-gray-200 cursor-default">
+          <div className="group mt-4 pt-4 border-t border-border cursor-default">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm gap-2">
-              <span className="text-gray-600">
+              <span className="text-muted-foreground">
                 Trend over {snapshots.length} weken (sinds {snapshots[0].week_label})
               </span>
               <div className="flex items-center gap-2">
-                <span className="text-gray-900 font-medium">
+                <span className="text-foreground font-medium">
                   {snapshots[0].totals.total.toLocaleString('nl-NL')} → {latestSnapshot?.totals.total.toLocaleString('nl-NL')}
                 </span>
                 {latestSnapshot && (
@@ -155,42 +155,42 @@ export default function DataMatrixClient({
       </div>
 
       {/* Data Matrix Table */}
-      <div data-tour="matrix-tabel" className="bg-white rounded-lg shadow-md overflow-hidden">
-        <div className="p-6 border-b border-gray-200">
-          <h2 className="text-lg font-bold text-gray-900">Pakketpunten per Gemeente en Vervoerder</h2>
-          <p className="text-sm text-gray-600 mt-1">
+      <div data-tour="matrix-tabel" className="bg-card rounded-lg shadow-md overflow-hidden">
+        <div className="p-6 border-b border-border">
+          <h2 className="text-lg font-bold text-foreground">Pakketpunten per Gemeente en Vervoerder</h2>
+          <p className="text-sm text-muted-foreground mt-1">
             Klik op een gemeente of vervoerder voor historische ontwikkeling en grafieken
           </p>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="bg-gray-50 border-b border-gray-200">
+            <thead className="bg-muted border-b border-border">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider sticky left-0 bg-gray-50 z-10">
+                <th className="px-6 py-3 text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider sticky left-0 bg-muted z-10">
                   Gemeente
                 </th>
-                <th className="px-1 py-3 bg-gray-50 w-8">
+                <th className="px-1 py-3 bg-muted w-8">
                   <span className="sr-only">Dashboard</span>
                 </th>
                 {providers.map(provider => (
                   <th
                     key={provider}
-                    className="px-4 py-3 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
+                    className="px-4 py-3 text-center text-xs font-semibold text-muted-foreground uppercase tracking-wider cursor-pointer hover:bg-secondary transition-colors"
                     onClick={() => handleProviderClick(provider)}
                   >
                     {provider}
                   </th>
                 ))}
-                <th className="px-4 py-3 text-center text-xs font-semibold text-gray-900 uppercase tracking-wider bg-gray-100">
+                <th className="px-4 py-3 text-center text-xs font-semibold text-foreground uppercase tracking-wider bg-secondary">
                   Totaal
                 </th>
-                <th className="px-4 py-3 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                <th className="px-4 py-3 text-center text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                   Trend
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-card divide-y divide-border">
               {data.map((municipality) => {
                 const trend = getMunicipalityTrend(municipality.slug);
                 const hasHistory = (historyData?.municipalities[municipality.slug]?.history.length || 0) > 0;
@@ -198,23 +198,23 @@ export default function DataMatrixClient({
                 return (
                   <tr
                     key={municipality.slug}
-                    className={`hover:bg-gray-50 ${municipality.slug === 'nederland' ? 'bg-blue-50 font-semibold' : ''} ${hasHistory ? 'cursor-pointer' : ''}`}
+                    className={`hover:bg-muted ${municipality.slug === 'nederland' ? 'bg-accent font-semibold' : ''} ${hasHistory ? 'cursor-pointer' : ''}`}
                     onClick={() => hasHistory && handleMunicipalityClick(municipality)}
                   >
-                    <td className={`px-6 py-4 whitespace-nowrap text-sm text-gray-900 sticky left-0 z-10 ${municipality.slug === 'nederland' ? 'bg-blue-50' : 'bg-white hover:bg-gray-50'}`}>
+                    <td className={`px-6 py-4 whitespace-nowrap text-sm text-foreground sticky left-0 z-10 ${municipality.slug === 'nederland' ? 'bg-accent' : 'bg-card hover:bg-muted'}`}>
                       {municipality.name}
                       {municipality.slug === 'nederland' && (
-                        <span className="ml-2 text-xs text-blue-600">(Landelijk)</span>
+                        <span className="ml-2 text-xs text-primary">(Landelijk)</span>
                       )}
                     </td>
-                    <td className={`px-1 py-4 text-center ${municipality.slug === 'nederland' ? 'bg-blue-50' : ''}`}>
+                    <td className={`px-1 py-4 text-center ${municipality.slug === 'nederland' ? 'bg-accent' : ''}`}>
                       {hasHistory && (
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
                             handleMunicipalityClick(municipality);
                           }}
-                          className="p-1 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                          className="p-1 text-subtle-foreground hover:text-primary hover:bg-accent rounded transition-colors"
                           title={`Dashboard ${municipality.name}`}
                         >
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -228,21 +228,21 @@ export default function DataMatrixClient({
                       return (
                         <td key={provider} className="px-4 py-4 text-center text-sm">
                           {count > 0 ? (
-                            <span className="text-gray-900">{count}</span>
+                            <span className="text-foreground">{count}</span>
                           ) : (
-                            <span className="text-gray-400">-</span>
+                            <span className="text-subtle-foreground">-</span>
                           )}
                         </td>
                       );
                     })}
-                    <td className="px-4 py-4 text-center text-sm font-semibold text-gray-900 bg-gray-50">
+                    <td className="px-4 py-4 text-center text-sm font-semibold text-foreground bg-muted">
                       {municipality.total}
                     </td>
                     <td className="px-4 py-4 text-center">
                       {trend !== null ? (
                         <TrendIndicator change={trend} />
                       ) : (
-                        <span className="text-gray-400">-</span>
+                        <span className="text-subtle-foreground">-</span>
                       )}
                     </td>
                   </tr>
@@ -250,17 +250,17 @@ export default function DataMatrixClient({
               })}
 
               {/* Totals Row */}
-              <tr className="bg-gray-100 font-semibold border-t-2 border-gray-300">
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 sticky left-0 bg-gray-100 z-10">
+              <tr className="bg-secondary font-semibold border-t-2 border-input">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-foreground sticky left-0 bg-secondary z-10">
                   TOTAAL
                 </td>
-                <td className="px-1 py-4 bg-gray-100"></td>
+                <td className="px-1 py-4 bg-secondary"></td>
                 {providers.map(provider => (
-                  <td key={provider} className="px-4 py-4 text-center text-sm text-gray-900">
+                  <td key={provider} className="px-4 py-4 text-center text-sm text-foreground">
                     {providerTotals[provider].toLocaleString('nl-NL')}
                   </td>
                 ))}
-                <td className="px-4 py-4 text-center text-sm text-gray-900 bg-gray-200">
+                <td className="px-4 py-4 text-center text-sm text-foreground bg-border">
                   {grandTotal.toLocaleString('nl-NL')}
                 </td>
                 <td className="px-4 py-4 text-center">
@@ -273,23 +273,23 @@ export default function DataMatrixClient({
       </div>
 
       {/* Legend */}
-      <div data-tour="leeswijzer" className="bg-white rounded-lg shadow-md p-6">
-        <h3 className="font-semibold text-gray-900 mb-3">Leeswijzer</h3>
-        <ul className="text-sm text-gray-700 space-y-2">
+      <div data-tour="leeswijzer" className="bg-card rounded-lg shadow-md p-6">
+        <h3 className="font-semibold text-foreground mb-3">Leeswijzer</h3>
+        <ul className="text-sm text-muted-foreground space-y-2">
           <li className="flex items-center">
-            <span className="w-4 h-4 bg-blue-50 border border-blue-200 rounded mr-2"></span>
+            <span className="w-4 h-4 bg-accent border border-primary/30 rounded mr-2"></span>
             <strong className="mr-1">Nederland</strong> - Landelijk overzicht (exacte som van alle gemeentes met boundary filtering)
           </li>
           <li className="flex items-center">
-            <span className="text-blue-600 mr-2 cursor-pointer">↗</span>
+            <span className="text-primary mr-2 cursor-pointer">↗</span>
             <strong className="mr-1">Klikbare rijen</strong> - Klik op een gemeente voor historische data en trends
           </li>
           <li className="flex items-center">
-            <span className="text-green-600 mr-2 cursor-pointer">📊</span>
+            <span className="text-success mr-2 cursor-pointer">📊</span>
             <strong className="mr-1">Totaal Pakketpunten</strong> - Klik voor marktaandeel en groei van alle vervoerders
           </li>
           <li className="flex items-center">
-            <span className="text-blue-600 mr-2 cursor-pointer">📈</span>
+            <span className="text-primary mr-2 cursor-pointer">📈</span>
             <strong className="mr-1">Klikbare vervoerders</strong> - Klik op een vervoerdernaam voor historische data en grafieken
           </li>
           <li className="flex items-center">
@@ -297,7 +297,7 @@ export default function DataMatrixClient({
             <span className="ml-2"><strong className="mr-1">Trend</strong> - Verandering ten opzichte van vorige week</span>
           </li>
           <li className="flex items-center">
-            <span className="text-gray-400 mr-2">-</span>
+            <span className="text-subtle-foreground mr-2">-</span>
             Geen pakketpunten van deze vervoerder in gemeente
           </li>
         </ul>

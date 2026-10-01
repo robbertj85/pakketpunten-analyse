@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Image from 'next/image';
+import { CARRIER_BRAND, CARRIER_ORDER, CARRIER_SERIES_COLORS } from '@/lib/carriers';
 import {
   Municipality,
   PakketpuntData,
@@ -11,6 +12,25 @@ import {
   getPointCategory,
 } from '@/types/pakketpunten';
 import { findNearestPoints, formatDistance, NearestPoint } from '@/utils/distanceUtils';
+import {
+  DAY_KEYS,
+  DAY_LABELS,
+  DayKey,
+  dayKeyForDate,
+  isOpenAt,
+  minutesForDate,
+  parseHHMM,
+} from '@/utils/openingHoursUtils';
+
+type TimeMode = 'all' | 'now' | 'custom';
+
+function pad2(n: number): string {
+  return n.toString().padStart(2, '0');
+}
+
+function currentHHMM(d: Date): string {
+  return `${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
+}
 
 // Mapping table for PDOK municipality names to our database names (same as AddressSearchInput)
 const MUNICIPALITY_NAME_MAPPING: Record<string, string> = {
@@ -32,19 +52,25 @@ const MUNICIPALITY_NAME_MAPPING: Record<string, string> = {
   "stein (l.)": "stein",
 };
 
-// Provider info matching Map.tsx
-const PROVIDER_INFO: Record<string, { color: string; logoUrl: string; borderColor?: string }> = {
-  DHL: { color: '#FFCC00', logoUrl: '/logos/dhl.svg', borderColor: '#D40511' },
-  PostNL: { color: '#FF6600', logoUrl: '/logos/postnl.svg' },
-  VintedGo: { color: '#09B1BA', logoUrl: '/logos/vintedgo.svg' },
-  DeBuren: { color: '#4CAF50', logoUrl: '/logos/deburen.png' },
-  Amazon: { color: '#FF9900', logoUrl: '/logos/amazon.svg', borderColor: '#146EB4' },
-  DPD: { color: '#DC0032', logoUrl: '/logos/dpd.svg' },
-  GLS: { color: '#003C7E', logoUrl: '/logos/gls.svg', borderColor: '#FFC600' },
-  ViaTim: { color: '#E3007A', logoUrl: '/logos/viatim.svg' },
-  InPost: { color: '#FFCD00', logoUrl: '/logos/inpost.svg', borderColor: '#3B3B3B' },
-  Budbee: { color: '#00C389', logoUrl: '/logos/budbee.svg' },
-};
+/**
+ * Per-carrier drawing info, from the shared source in lib/carriers.
+ *
+ * The pin border keeps the real livery — a logo sits inside it. `color` is the
+ * validated series colour because its only other use is the two-letter text
+ * fallback shown when a logo fails to load, and several liveries (DHL and
+ * InPost yellow at 1.5:1) are unreadable as text on white.
+ */
+const PROVIDER_INFO: Record<string, { color: string; logoUrl: string; borderColor?: string }> =
+  Object.fromEntries(
+    CARRIER_ORDER.map((carrier) => [
+      carrier,
+      {
+        color: CARRIER_SERIES_COLORS[carrier],
+        logoUrl: CARRIER_BRAND[carrier].logoUrl,
+        borderColor: CARRIER_BRAND[carrier].borderColor ?? CARRIER_BRAND[carrier].background,
+      },
+    ])
+  );
 
 interface SearchResult {
   id: string;
@@ -94,6 +120,15 @@ export default function NearestPointsFinder({
   } | null>(null);
   const [nearestPoints, setNearestPoints] = useState<NearestPoint[]>([]);
   const [pendingMunicipalitySlug, setPendingMunicipalitySlug] = useState<string | null>(null);
+  const [timeMode, setTimeMode] = useState<TimeMode>('all');
+  const [customDay, setCustomDay] = useState<DayKey>(() => dayKeyForDate(new Date()));
+  const [customTime, setCustomTime] = useState<string>(() => currentHHMM(new Date()));
+  // "Onbekend" = include points whose hours can't be parsed or aren't published.
+  const [includeUnknownHours, setIncludeUnknownHours] = useState<boolean>(true);
+  // Counts of points filtered out at last evaluation, for footer messaging.
+  const [excludedClosed, setExcludedClosed] = useState<number>(0);
+  const [excludedUnknown, setExcludedUnknown] = useState<number>(0);
+  const [isLocating, setIsLocating] = useState<boolean>(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -157,6 +192,20 @@ export default function NearestPointsFinder({
     }) as PakketpuntFeature[];
   }, [currentMunicipalityData, matchesFilters]);
 
+  // Resolve the (day, minute) used by the time filter.
+  // For 'now', re-resolve at calc time so reopening the panel an hour later
+  // works as expected.
+  const resolveFilterTarget = useCallback((): { day: DayKey; minute: number } | null => {
+    if (timeMode === 'all') return null;
+    if (timeMode === 'now') {
+      const now = new Date();
+      return { day: dayKeyForDate(now), minute: minutesForDate(now) };
+    }
+    const minute = parseHHMM(customTime);
+    if (minute == null) return null;
+    return { day: customDay, minute };
+  }, [timeMode, customDay, customTime]);
+
   // Calculate nearest points when search location or filtered points change
   // Limited to 500m max distance
   // Also re-runs when panel opens to re-apply highlighting
@@ -165,7 +214,32 @@ export default function NearestPointsFinder({
     if (!isOpen) return;
 
     if (searchLocation && filteredPoints.length > 0) {
-      const nearest = findNearestPoints(searchLocation, filteredPoints, 10, 500);
+      const target = resolveFilterTarget();
+
+      let candidates = filteredPoints;
+      let droppedClosed = 0;
+      let droppedUnknown = 0;
+      if (target) {
+        const kept: PakketpuntFeature[] = [];
+        for (const f of filteredPoints) {
+          const props = f.properties as PakketpuntProperties;
+          const open = isOpenAt(props.openingstijden ?? null, target.day, target.minute);
+          if (open === true) {
+            kept.push(f);
+          } else if (open === false) {
+            droppedClosed += 1;
+          } else if (includeUnknownHours) {
+            kept.push(f);
+          } else {
+            droppedUnknown += 1;
+          }
+        }
+        candidates = kept;
+      }
+      setExcludedClosed(droppedClosed);
+      setExcludedUnknown(droppedUnknown);
+
+      const nearest = findNearestPoints(searchLocation, candidates, 10, 500);
       setNearestPoints(nearest);
 
       // Create set of highlighted point keys
@@ -177,9 +251,18 @@ export default function NearestPointsFinder({
       onHighlightedPointsChange(highlightedSet);
     } else {
       setNearestPoints([]);
+      setExcludedClosed(0);
+      setExcludedUnknown(0);
       onHighlightedPointsChange(null);
     }
-  }, [isOpen, searchLocation, filteredPoints, onHighlightedPointsChange]);
+  }, [
+    isOpen,
+    searchLocation,
+    filteredPoints,
+    onHighlightedPointsChange,
+    resolveFilterTarget,
+    includeUnknownHours,
+  ]);
 
   // When municipality data loads after a pending switch, recalculate
   useEffect(() => {
@@ -309,6 +392,74 @@ export default function NearestPointsFinder({
     }
   };
 
+  // Use the device's current location (geolocation API + reverse geocode).
+  const handleUseMyLocation = () => {
+    if (typeof window === 'undefined' || !('geolocation' in navigator)) {
+      setError('Locatie wordt niet ondersteund door deze browser');
+      return;
+    }
+
+    setError(null);
+    setIsLocating(true);
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+        try {
+          const response = await fetch(
+            `/api/geocode?lat=${latitude}&lon=${longitude}`
+          );
+          if (!response.ok) {
+            throw new Error(`Reverse geocode failed: ${response.status}`);
+          }
+          const details = await response.json();
+
+          if (!details.municipality) {
+            setError('Geen Nederlandse gemeente bij deze locatie gevonden');
+            setIsLocating(false);
+            return;
+          }
+
+          const municipality = findMunicipality(details.municipality);
+          if (!municipality) {
+            setError(`Gemeente "${details.municipality}" niet in database`);
+            setIsLocating(false);
+            return;
+          }
+
+          const coords = details.coordinates || { latitude, longitude };
+          setQuery(details.displayName || 'Mijn locatie');
+          setShowDropdown(false);
+          setSearchLocation(coords);
+          onSearchLocationChange(coords);
+
+          if (currentMunicipalityData?.metadata.slug !== municipality.slug) {
+            setPendingMunicipalitySlug(municipality.slug);
+            onMunicipalityChange(municipality.slug);
+          }
+        } catch (err) {
+          console.error('Reverse geocode error:', err);
+          setError('Locatie kon niet worden omgezet naar een adres');
+        } finally {
+          setIsLocating(false);
+        }
+      },
+      (err) => {
+        setIsLocating(false);
+        if (err.code === err.PERMISSION_DENIED) {
+          setError('Locatie geweigerd. Schakel locatietoegang in voor deze site.');
+        } else if (err.code === err.POSITION_UNAVAILABLE) {
+          setError('Locatie is op dit moment niet beschikbaar');
+        } else if (err.code === err.TIMEOUT) {
+          setError('Locatie ophalen duurde te lang');
+        } else {
+          setError('Locatie ophalen mislukt');
+        }
+      },
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
+    );
+  };
+
   // Handle direct search (Enter without dropdown selection)
   const handleDirectSearch = async () => {
     if (query.length < 2) return;
@@ -415,11 +566,11 @@ export default function NearestPointsFinder({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed right-4 top-20 z-30 w-80 max-h-[calc(100vh-120px)] bg-white rounded-lg shadow-xl border border-gray-200 flex flex-col overflow-hidden">
+    <div className="fixed right-4 top-20 z-30 w-80 max-h-[calc(100vh-120px)] bg-card rounded-lg shadow-xl border border-border flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="px-4 py-3 bg-gray-50 border-b border-gray-200 flex items-center justify-between flex-shrink-0">
+      <div className="px-4 py-3 bg-muted border-b border-border flex items-center justify-between flex-shrink-0">
         <div className="flex items-center gap-2">
-          <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -433,11 +584,11 @@ export default function NearestPointsFinder({
               d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
             />
           </svg>
-          <span className="font-medium text-gray-900 text-sm">Dichtstbijzijnde pakketpunten</span>
+          <span className="font-medium text-foreground text-sm">Dichtstbijzijnde pakketpunten</span>
         </div>
         <button
           onClick={onClose}
-          className="p-1 text-gray-400 hover:text-gray-600 transition"
+          className="p-1 text-subtle-foreground hover:text-muted-foreground transition"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -457,11 +608,11 @@ export default function NearestPointsFinder({
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
               placeholder="Adres of postcode..."
-              className="w-full px-3 py-2.5 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 text-sm"
+              className="w-full px-3 py-2.5 pr-10 border border-input rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent text-foreground text-sm"
             />
             {isLoading && (
               <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                <svg className="animate-spin h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24">
+                <svg className="animate-spin h-4 w-4 text-subtle-foreground" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
@@ -470,7 +621,7 @@ export default function NearestPointsFinder({
             {!isLoading && query && (
               <button
                 onClick={handleClear}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-subtle-foreground hover:text-muted-foreground"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -479,26 +630,47 @@ export default function NearestPointsFinder({
             )}
           </div>
 
+          {/* Use my location */}
+          <button
+            type="button"
+            onClick={handleUseMyLocation}
+            disabled={isLocating}
+            className="mt-2 w-full flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-medium text-primary bg-accent border border-primary/30 rounded-md hover:bg-accent disabled:opacity-60 disabled:cursor-not-allowed transition"
+          >
+            {isLocating ? (
+              <svg className="animate-spin h-3.5 w-3.5" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+              </svg>
+            ) : (
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 11a3 3 0 100-6 3 3 0 000 6z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 22s8-6.5 8-13a8 8 0 10-16 0c0 6.5 8 13 8 13z" />
+              </svg>
+            )}
+            {isLocating ? 'Locatie ophalen…' : 'Gebruik mijn locatie'}
+          </button>
+
           {/* Error message */}
-          {error && <div className="mt-2 text-xs text-red-600">{error}</div>}
+          {error && <div className="mt-2 text-xs text-destructive">{error}</div>}
 
           {/* Dropdown results */}
           {showDropdown && searchResults.length > 0 && (
             <div
               ref={dropdownRef}
-              className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-48 overflow-y-auto"
+              className="absolute z-50 w-full mt-1 bg-card border border-input rounded-lg shadow-lg max-h-48 overflow-y-auto"
             >
               {searchResults.map((result, index) => (
                 <button
                   key={result.id}
                   onClick={() => processSearchResult(result)}
-                  className={`w-full px-3 py-2 text-left hover:bg-blue-50 transition ${
-                    index === selectedIndex ? 'bg-blue-50' : ''
-                  } ${index !== searchResults.length - 1 ? 'border-b border-gray-200' : ''}`}
+                  className={`w-full px-3 py-2 text-left hover:bg-accent transition ${
+                    index === selectedIndex ? 'bg-accent' : ''
+                  } ${index !== searchResults.length - 1 ? 'border-b border-border' : ''}`}
                 >
-                  <div className="text-sm text-gray-900 truncate">{result.displayName}</div>
+                  <div className="text-sm text-foreground truncate">{result.displayName}</div>
                   {result.municipality && (
-                    <div className="text-xs text-gray-500">{result.municipality}</div>
+                    <div className="text-xs text-subtle-foreground">{result.municipality}</div>
                   )}
                 </button>
               ))}
@@ -506,25 +678,101 @@ export default function NearestPointsFinder({
           )}
         </div>
 
+        {/* Time filter */}
+        <div className="mt-3 pt-3 border-t border-border">
+          <div className="text-xs font-medium text-muted-foreground mb-1.5">Openingstijden</div>
+          <div className="flex gap-1">
+            {([
+              { mode: 'all', label: 'Alle' },
+              { mode: 'now', label: 'Nu open' },
+              { mode: 'custom', label: 'Op tijdstip' },
+            ] as { mode: TimeMode; label: string }[]).map(({ mode, label }) => (
+              <button
+                key={mode}
+                onClick={() => setTimeMode(mode)}
+                className={`flex-1 px-2 py-1 text-xs rounded-md border transition ${
+                  timeMode === mode
+                    ? 'bg-primary text-white border-primary'
+                    : 'bg-card text-muted-foreground border-input hover:bg-muted'
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+
+          {timeMode === 'custom' && (
+            <div className="mt-2 flex gap-2">
+              <select
+                value={customDay}
+                onChange={(e) => setCustomDay(e.target.value as DayKey)}
+                className="flex-1 px-2 py-1.5 text-xs border border-input rounded-md bg-card text-foreground focus:ring-2 focus:ring-ring focus:border-transparent"
+              >
+                {DAY_KEYS.map((d) => (
+                  <option key={d} value={d}>
+                    {DAY_LABELS[d]}
+                  </option>
+                ))}
+              </select>
+              <input
+                type="time"
+                value={customTime}
+                onChange={(e) => setCustomTime(e.target.value)}
+                className="w-24 px-2 py-1.5 text-xs border border-input rounded-md bg-card text-foreground focus:ring-2 focus:ring-ring focus:border-transparent"
+              />
+            </div>
+          )}
+
+          {timeMode !== 'all' && (
+            <label className="mt-2 flex items-center gap-2 text-xs text-muted-foreground cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={includeUnknownHours}
+                onChange={(e) => setIncludeUnknownHours(e.target.checked)}
+                className="rounded text-primary focus:ring-ring"
+              />
+              Toon ook punten zonder bekende openingstijden
+            </label>
+          )}
+        </div>
+
         {/* No results within 500m */}
         {searchLocation && !pendingMunicipalitySlug && nearestPoints.length === 0 && (
-          <div className="mt-4 text-sm text-gray-500 text-center py-4">
-            <svg className="w-8 h-8 mx-auto mb-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="mt-4 text-sm text-subtle-foreground text-center py-4">
+            <svg className="w-8 h-8 mx-auto mb-2 text-subtle-foreground/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            Geen pakketpunten binnen 500m gevonden
+            {timeMode === 'all'
+              ? 'Geen pakketpunten binnen 500m gevonden'
+              : 'Geen pakketpunten binnen 500m op dit tijdstip open'}
+            {(excludedClosed > 0 || excludedUnknown > 0) && (
+              <div className="mt-1 text-xs text-subtle-foreground">
+                {excludedClosed > 0 && <>{excludedClosed} gesloten</>}
+                {excludedClosed > 0 && excludedUnknown > 0 && ' · '}
+                {excludedUnknown > 0 && <>{excludedUnknown} zonder openingstijden</>}
+              </div>
+            )}
           </div>
         )}
 
         {/* Results list */}
         {searchLocation && nearestPoints.length > 0 && (
           <div className="mt-4 space-y-1">
-            <div className="text-xs text-gray-500 mb-2 flex items-center gap-1">
+            <div className="text-xs text-subtle-foreground mb-2 flex items-center gap-1">
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
               {nearestPoints.length} pakketpunt{nearestPoints.length !== 1 ? 'en' : ''} binnen 500m
+              {timeMode === 'now' && ' · nu open'}
+              {timeMode === 'custom' && ` · open op ${DAY_LABELS[customDay].toLowerCase()} ${customTime}`}
             </div>
+            {timeMode !== 'all' && (excludedClosed > 0 || excludedUnknown > 0) && (
+              <div className="text-[11px] text-subtle-foreground mb-2 -mt-1">
+                {excludedClosed > 0 && <>{excludedClosed} gesloten</>}
+                {excludedClosed > 0 && excludedUnknown > 0 && ' · '}
+                {excludedUnknown > 0 && <>{excludedUnknown} zonder openingstijden uitgesloten</>}
+              </div>
+            )}
             {nearestPoints.map((point, index) => {
               const props = point.feature.properties as PakketpuntProperties;
               const providerInfo = PROVIDER_INFO[props.vervoerder] || { color: '#666', logoUrl: '' };
@@ -533,17 +781,17 @@ export default function NearestPointsFinder({
                 <button
                   key={`${props.vervoerder}-${props.latitude}-${props.longitude}-${index}`}
                   onClick={() => handlePointClick(point)}
-                  className="w-full text-left p-2 rounded-lg hover:bg-blue-50 transition group border border-transparent hover:border-blue-200"
+                  className="w-full text-left p-2 rounded-lg hover:bg-accent transition group border border-transparent hover:border-primary/30"
                 >
                   <div className="flex items-start gap-2">
                     {/* Rank number */}
-                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-600 flex items-center justify-center text-xs font-bold text-white">
+                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-primary flex items-center justify-center text-xs font-bold text-white">
                       {index + 1}
                     </div>
 
                     {/* Provider logo */}
                     <div
-                      className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center bg-white border-2 overflow-hidden"
+                      className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center bg-card border-2 overflow-hidden"
                       style={{ borderColor: providerInfo.borderColor || providerInfo.color }}
                       title={props.vervoerder}
                     >
@@ -566,17 +814,17 @@ export default function NearestPointsFinder({
 
                     {/* Content */}
                     <div className="flex-1 min-w-0">
-                      <div className="text-sm font-medium text-gray-900 truncate group-hover:text-blue-600">
+                      <div className="text-sm font-medium text-foreground truncate group-hover:text-primary">
                         {props.locatieNaam}
                       </div>
-                      <div className="text-xs text-gray-500 truncate">
+                      <div className="text-xs text-subtle-foreground truncate">
                         {props.straatNaam} {props.straatNr}
                       </div>
                     </div>
 
                     {/* Distance badge */}
                     <div className="flex-shrink-0">
-                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-accent text-primary">
                         {formatDistance(point.distance)}
                       </span>
                     </div>
@@ -589,8 +837,8 @@ export default function NearestPointsFinder({
 
         {/* Loading state while waiting for municipality data */}
         {searchLocation && pendingMunicipalitySlug && (
-          <div className="mt-4 text-sm text-gray-500 text-center py-4">
-            <svg className="animate-spin h-5 w-5 mx-auto mb-2 text-blue-600" fill="none" viewBox="0 0 24 24">
+          <div className="mt-4 text-sm text-subtle-foreground text-center py-4">
+            <svg className="animate-spin h-5 w-5 mx-auto mb-2 text-primary" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
@@ -600,7 +848,7 @@ export default function NearestPointsFinder({
 
         {/* Helper text */}
         {!searchLocation && !query && (
-          <div className="mt-3 text-xs text-gray-400">
+          <div className="mt-3 text-xs text-subtle-foreground">
             Voer een adres of postcode in. De kaart schakelt automatisch naar de juiste gemeente en toont de 10 dichtstbijzijnde pakketpunten.
           </div>
         )}

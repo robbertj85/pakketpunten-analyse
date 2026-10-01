@@ -4,6 +4,134 @@ import pandas as pd, geopandas as gpd
 from utils import extract_js_array, parse_locations_any
 from utils import make_session, get_gemeente_geometry, get_gemeente_polygon, fetch_json, json_to_dataframe, df_to_gdf, extract_points_array
 
+
+# ---------- opening-hours normalization ----------
+# Unified shape for `openingstijden` property:
+#   - dict {ma, di, wo, do, vr, za, zo} with values like "09:00 - 18:00" or
+#     "09:00 - 12:00, 13:00 - 18:00" or "gesloten" — for providers with per-day data
+#   - plain string — for providers exposing only free-text or a single window
+#   - None — when unknown
+
+_DAYS_NL = ['ma', 'di', 'wo', 'do', 'vr', 'za', 'zo']
+
+
+def _fmt_window(start, end):
+    s = (start or '')[:5]
+    e = (end or '')[:5]
+    if not s or not e:
+        return None
+    return f"{s} - {e}"
+
+
+def _empty_week():
+    return {d: 'gesloten' for d in _DAYS_NL}
+
+
+def normalize_hours_dhl(opening_times):
+    """DHL: list of {weekDay: 1=Mon..7=Sun, timeFrom, timeTo}."""
+    if not opening_times:
+        return None
+    by_day = {}
+    for entry in opening_times:
+        wd = entry.get('weekDay')
+        if not isinstance(wd, int) or not 1 <= wd <= 7:
+            continue
+        win = _fmt_window(entry.get('timeFrom'), entry.get('timeTo'))
+        if win:
+            by_day.setdefault(wd, []).append(win)
+    if not by_day:
+        return None
+    week = _empty_week()
+    for wd, wins in by_day.items():
+        week[_DAYS_NL[wd - 1]] = ', '.join(wins)
+    return week
+
+
+def normalize_hours_dpd(hours):
+    """DPD: list of {day: 1=Mon..7=Sun, openMorning, closeMorning, openAfternoon, closeAfternoon}."""
+    if not hours:
+        return None
+    week = _empty_week()
+    any_open = False
+    for entry in hours:
+        d = entry.get('day')
+        if not isinstance(d, int) or not 1 <= d <= 7:
+            continue
+        windows = []
+        m = _fmt_window(entry.get('openMorning'), entry.get('closeMorning'))
+        a = _fmt_window(entry.get('openAfternoon'), entry.get('closeAfternoon'))
+        if m:
+            windows.append(m)
+        if a:
+            windows.append(a)
+        if windows:
+            week[_DAYS_NL[d - 1]] = ', '.join(windows)
+            any_open = True
+    return week if any_open else None
+
+
+def normalize_hours_gls(opening_hours):
+    """GLS: list of {dayOfWeek: 0=Sun..6=Sat, openTime, closeTime}."""
+    if not opening_hours:
+        return None
+    by_day = {}
+    for entry in opening_hours:
+        dow = entry.get('dayOfWeek')
+        if not isinstance(dow, int) or not 0 <= dow <= 6:
+            continue
+        win = _fmt_window(entry.get('openTime'), entry.get('closeTime'))
+        if not win:
+            continue
+        # GLS 0=Sun..6=Sat → Dutch index 0=Mon..6=Sun
+        nl_idx = 6 if dow == 0 else dow - 1
+        by_day.setdefault(nl_idx, []).append(win)
+    if not by_day:
+        return None
+    week = _empty_week()
+    for nl_idx, wins in by_day.items():
+        week[_DAYS_NL[nl_idx]] = ', '.join(wins)
+    return week
+
+
+def normalize_hours_viatim(hours):
+    """ViaTim: list of {week, monday..sunday: [from, to]}. Use first non-empty week."""
+    if not hours:
+        return None
+    en_to_nl = {
+        'monday': 'ma', 'tuesday': 'di', 'wednesday': 'wo', 'thursday': 'do',
+        'friday': 'vr', 'saturday': 'za', 'sunday': 'zo',
+    }
+    for wk in hours:
+        if not isinstance(wk, dict):
+            continue
+        week = _empty_week()
+        any_open = False
+        for en, nl in en_to_nl.items():
+            arr = wk.get(en) or []
+            if len(arr) >= 2:
+                win = _fmt_window(arr[0], arr[1])
+                if win:
+                    week[nl] = win
+                    any_open = True
+        if any_open:
+            return week
+    return None
+
+
+def normalize_hours_postnl(window, criteria):
+    """PostNL: single `openingTimeWindow` string + criteria flags. Returns a short string."""
+    if not window:
+        return None
+    txt = window.replace('-', ' - ') if '-' in window and ' - ' not in window else window
+    flags = []
+    for c in criteria or []:
+        name = c.get('name') if isinstance(c, dict) else None
+        if name:
+            flags.append(name)
+    if flags:
+        return f"{txt} ({'; '.join(flags)})"
+    return txt
+
 # ---------- data ophalen voor "De Buren" ----------
 
 def get_data_deburen(gemeente):
@@ -100,6 +228,7 @@ def get_data_dhl(lat, lon, radius, gemeente=None):
                         'vervoerder': 'DHL',
                         'canPickup': can_pickup,
                         'canDropoff': can_dropoff,
+                        'openingstijden': normalize_hours_dhl(loc.get('openingTimes')),
                     })
 
                 df = pd.DataFrame(rows)
@@ -221,6 +350,7 @@ def get_data_postnl(bottom_left_lat, bottom_left_lon, top_right_lat, top_right_l
             'vervoerder': 'PostNL',
             'canPickup': True,   # PostNL: All locations support pickup
             'canDropoff': True,  # PostNL: All locations support dropoff
+            'openingstijden': normalize_hours_postnl(loc.get('openingTimeWindow'), loc.get('criteria')),
         })
 
     df = pd.DataFrame(rows)
@@ -280,6 +410,7 @@ def get_data_dpd(gemeente):
                         'vervoerder': 'DPD',
                         'canPickup': bool(loc.get('pickup_allowed', 0)),
                         'canDropoff': bool(loc.get('dropoff_allowed', 0)),
+                        'openingstijden': normalize_hours_dpd(loc.get('hours')),
                     })
 
                 df = pd.DataFrame(rows)
@@ -477,6 +608,7 @@ def get_data_gls(gemeente=None):
                 'vervoerder': 'GLS',
                 'canPickup': True,   # GLS: All locations support pickup
                 'canDropoff': True,  # GLS: All locations support dropoff
+                'openingstijden': normalize_hours_gls(loc.get('openingHours')),
             })
 
         df = pd.DataFrame(rows)
@@ -543,6 +675,7 @@ def get_data_viatim(gemeente=None):
                         'vervoerder': 'ViaTim',
                         'canPickup': True,
                         'canDropoff': True,
+                        'openingstijden': normalize_hours_viatim(loc.get('hours')),
                     })
 
                 df = pd.DataFrame(rows)
@@ -560,6 +693,63 @@ def get_data_viatim(gemeente=None):
     print("  ⚠️  ViaTim cache not found. Run: python scripts/viatim_fetch_all.py")
     df = pd.DataFrame(columns=['locatieNaam', 'straatNaam', 'straatNr', 'latitude', 'longitude', 'puntType', 'vervoerder', 'canPickup', 'canDropoff'])
     from shapely.geometry import Point
+    return gpd.GeoDataFrame(df, geometry=[], crs='EPSG:4326')
+
+
+# ---------- data ophalen voor "FedEx" ----------
+
+def get_data_fedex(gemeente=None):
+    """
+    FedEx locations (FedEx OnSite shops and stations) from cached data.
+
+    Uses pre-fetched data from scripts/fedex_fetch_all.py, whose records are
+    already in the viewer's shape (opening hours as ma..zo). Without a cache
+    FedEx is simply empty, like the other cached carriers.
+    """
+    from pathlib import Path
+    import json
+    from shapely.geometry import Point
+
+    cache_file = Path(__file__).parent / "data" / "fedex_all_locations.json"
+
+    if cache_file.exists():
+        try:
+            with open(cache_file, 'r', encoding='utf-8') as f:
+                cache_data = json.load(f)
+
+            locations = cache_data.get('locations', [])
+
+            if locations:
+                rows = []
+                for loc in locations:
+                    hours = loc.get('openingstijden')
+                    rows.append({
+                        'locatieNaam': loc.get('locatieNaam', ''),
+                        'straatNaam': loc.get('straatNaam', ''),
+                        'straatNr': loc.get('straatNr', ''),
+                        'latitude': loc.get('latitude'),
+                        'longitude': loc.get('longitude'),
+                        'puntType': loc.get('puntType', 'servicepunt'),
+                        'vervoerder': 'FedEx',
+                        'canPickup': loc.get('canPickup', True),
+                        'canDropoff': loc.get('canDropoff', True),
+                        'openingstijden': {**_empty_week(), **hours} if hours else None,
+                    })
+
+                df = pd.DataFrame(rows)
+                df = df.dropna(subset=['latitude', 'longitude'])
+
+                geometry = [Point(row['longitude'], row['latitude']) for _, row in df.iterrows()]
+                gdf_all = gpd.GeoDataFrame(df, geometry=geometry, crs='EPSG:4326')
+
+                print(f"  📦 FedEx: Loaded {len(gdf_all)} points from cache (will be filtered by polygon)")
+                return gdf_all
+
+        except Exception as e:
+            print(f"  ⚠️  FedEx cache load failed ({e})")
+
+    print("  ⚠️  FedEx cache not found. Run: python scripts/fedex_fetch_all.py")
+    df = pd.DataFrame(columns=['locatieNaam', 'straatNaam', 'straatNr', 'latitude', 'longitude', 'puntType', 'vervoerder', 'canPickup', 'canDropoff'])
     return gpd.GeoDataFrame(df, geometry=[], crs='EPSG:4326')
 
 
@@ -608,6 +798,7 @@ def get_data_inpost(gemeente=None):
                         'vervoerder': 'InPost',
                         'canPickup': True,
                         'canDropoff': True,
+                        'openingstijden': loc.get('opening_hours') or None,
                     })
 
                 df = pd.DataFrame(rows)
@@ -819,6 +1010,15 @@ def get_data_pakketpunten(gemeente, return_carrier_status=False):
         print(f"  ⚠️  ViaTim fetch failed: {e}")
         carrier_status['ViaTim'] = {'success': False, 'count': 0, 'error': str(e)}
 
+    # FedEx
+    try:
+        gdf_fedex = get_data_fedex(gemeente)
+        gdfs_to_concat.append(gdf_fedex)
+        carrier_status['FedEx'] = {'success': True, 'count': len(gdf_fedex), 'error': None}
+    except Exception as e:
+        print(f"  ⚠️  FedEx fetch failed: {e}")
+        carrier_status['FedEx'] = {'success': False, 'count': 0, 'error': str(e)}
+
     # InPost
     try:
         gdf_inpost = get_data_inpost(gemeente)
@@ -877,13 +1077,16 @@ def get_data_pakketpunten(gemeente, return_carrier_status=False):
     "puntType",
     "vervoerder",
     "canPickup",
-    "canDropoff"
+    "canDropoff",
+    "openingstijden",
     ]
 
     # Ensure all columns exist (for backwards compatibility)
     for col in ['canPickup', 'canDropoff']:
         if col not in gdf.columns:
             gdf[col] = True  # Default to True if missing
+    if 'openingstijden' not in gdf.columns:
+        gdf['openingstijden'] = None
 
     gdf = gdf[desired_order]
 

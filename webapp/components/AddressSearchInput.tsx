@@ -280,12 +280,12 @@ export default function AddressSearchInput({
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           placeholder="Zoek adres..."
-          className="w-full px-3 md:px-4 py-2.5 md:py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 text-sm"
+          className="w-full px-3 md:px-4 py-2.5 md:py-2 pr-10 border border-input rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent text-foreground text-sm"
         />
         {isLoading && (
           <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
             <svg
-              className="animate-spin h-5 w-5 text-gray-400"
+              className="animate-spin h-5 w-5 text-subtle-foreground"
               fill="none"
               viewBox="0 0 24 24"
             >
@@ -314,7 +314,7 @@ export default function AddressSearchInput({
               setError(null);
               inputRef.current?.focus();
             }}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-subtle-foreground hover:text-muted-foreground"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -330,36 +330,36 @@ export default function AddressSearchInput({
 
       {/* Error message */}
       {error && (
-        <div className="mt-2 text-sm text-red-600">{error}</div>
+        <div className="mt-2 text-sm text-destructive">{error}</div>
       )}
 
       {/* Dropdown results */}
       {showDropdown && results.length > 0 && (
         <div
           ref={dropdownRef}
-          className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-[50vh] md:max-h-96 overflow-y-auto"
+          className="absolute z-50 w-full mt-1 bg-card border border-input rounded-lg shadow-lg max-h-[50vh] md:max-h-96 overflow-y-auto"
         >
           {results.map((result, index) => (
             <button
               key={result.id}
               onClick={() => handleSelectResult(result)}
-              className={`w-full px-3 md:px-4 py-3 text-left hover:bg-blue-50 active:bg-blue-100 transition ${
-                index === selectedIndex ? 'bg-blue-50' : ''
-              } ${index !== results.length - 1 ? 'border-b border-gray-200' : ''}`}
+              className={`w-full px-3 md:px-4 py-3 text-left hover:bg-accent active:bg-accent transition ${
+                index === selectedIndex ? 'bg-accent' : ''
+              } ${index !== results.length - 1 ? 'border-b border-border' : ''}`}
             >
               <div className="flex items-start justify-between gap-2">
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm font-medium text-gray-900 truncate">
+                  <div className="text-sm font-medium text-foreground truncate">
                     {result.displayName}
                   </div>
                   {result.municipality && (
-                    <div className="text-xs text-gray-500 mt-0.5 truncate">
+                    <div className="text-xs text-subtle-foreground mt-0.5 truncate">
                       {result.municipality}
                     </div>
                   )}
                 </div>
                 <div className="flex-shrink-0">
-                  <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800">
+                  <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-secondary text-foreground">
                     {result.type === 'adres' ? 'Adres' :
                      result.type === 'weg' ? 'Straat' :
                      result.type === 'postcode' ? 'PC' :
@@ -376,9 +376,9 @@ export default function AddressSearchInput({
       {showDropdown && !isLoading && query.length >= 3 && results.length === 0 && (
         <div
           ref={dropdownRef}
-          className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg px-3 md:px-4 py-3"
+          className="absolute z-50 w-full mt-1 bg-card border border-input rounded-lg shadow-lg px-3 md:px-4 py-3"
         >
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-subtle-foreground">
             Geen resultaten voor &quot;{query}&quot;
           </div>
         </div>

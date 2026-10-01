@@ -2,9 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
-// Rate limiting configuration
-const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
-const RATE_LIMIT = 15; // requests per window
+import { checkRateLimit, clientIp, rateLimitHeaders } from '@/lib/rateLimit';
+
+const RATE_LIMIT = 60; // requests per window
 const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour in milliseconds
 
 interface Municipality {
@@ -13,27 +13,6 @@ interface Municipality {
   province: string;
   population: number;
   code: string | null;
-}
-
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-  const record = rateLimitStore.get(ip);
-
-  if (!record || now > record.resetTime) {
-    // Create new record or reset expired one
-    rateLimitStore.set(ip, {
-      count: 1,
-      resetTime: now + RATE_LIMIT_WINDOW,
-    });
-    return true;
-  }
-
-  if (record.count >= RATE_LIMIT) {
-    return false;
-  }
-
-  record.count++;
-  return true;
 }
 
 // Mapping table for common Dutch municipality name variations
@@ -198,14 +177,13 @@ export async function GET(
   context: { params: Promise<{ identifier: string }> }
 ) {
   try {
-    // Get client IP for rate limiting
-    const ip =
-      request.headers.get('x-forwarded-for') ||
-      request.headers.get('x-real-ip') ||
-      'unknown';
+    const limit = checkRateLimit(
+      `api-v1-municipality:${clientIp(request)}`,
+      RATE_LIMIT,
+      RATE_LIMIT_WINDOW
+    );
 
-    // Check rate limit
-    if (!checkRateLimit(ip)) {
+    if (!limit.allowed) {
       return new NextResponse(
         JSON.stringify({
           error: 'Rate limit exceeded',
@@ -215,9 +193,8 @@ export async function GET(
           status: 429,
           headers: {
             'Content-Type': 'application/json',
-            'Retry-After': String(RATE_LIMIT_WINDOW / 1000),
-            'X-RateLimit-Limit': String(RATE_LIMIT),
-            'X-RateLimit-Remaining': '0',
+            'Retry-After': String(limit.retryAfterSeconds),
+            ...rateLimitHeaders(limit),
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'GET, OPTIONS',
             'Access-Control-Allow-Headers': 'Content-Type',
