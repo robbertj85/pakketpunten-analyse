@@ -117,8 +117,8 @@ export default function DataExportLayout({
               href="/data-export/painpoints"
               className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
                 isPainpoints
-                  ? 'border-blue-700 text-blue-700'
-                  : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                  ? 'border-primary text-primary'
+                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
               }`}
             >
               <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -130,8 +130,8 @@ export default function DataExportLayout({
               href="/data-export/gemeente-painpoints"
               className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
                 isGemeentePainpoints
-                  ? 'border-blue-700 text-blue-700'
-                  : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                  ? 'border-primary text-primary'
+                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
               }`}
             >
               <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -143,8 +143,8 @@ export default function DataExportLayout({
               href="/data-export/beleidsprincipes"
               className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
                 isBeleidsprincipes
-                  ? 'border-blue-600 text-blue-600'
-                  : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                  ? 'border-primary text-primary'
+                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
               }`}
             >
               <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -157,7 +157,7 @@ export default function DataExportLayout({
               className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
                 isSchatting
                   ? 'border-indigo-600 text-indigo-600'
-                  : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
               }`}
             >
               <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -171,7 +171,7 @@ export default function DataExportLayout({
               className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
                 isBereik
                   ? 'border-emerald-600 text-emerald-600'
-                  : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
               }`}
             >
               <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -185,7 +185,7 @@ export default function DataExportLayout({
               className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
                 isPois
                   ? 'border-teal-600 text-teal-600'
-                  : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
               }`}
             >
               <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -198,8 +198,8 @@ export default function DataExportLayout({
               href="/data-export/suggesties"
               className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
                 isSuggesties
-                  ? 'border-blue-600 text-blue-600'
-                  : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                  ? 'border-primary text-primary'
+                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
               }`}
             >
               <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -212,8 +212,8 @@ export default function DataExportLayout({
               href="/data-export/netwerkplanner"
               className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
                 isNetwerkplanner
-                  ? 'border-blue-600 text-blue-600'
-                  : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                  ? 'border-primary text-primary'
+                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
               }`}
             >
               <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">

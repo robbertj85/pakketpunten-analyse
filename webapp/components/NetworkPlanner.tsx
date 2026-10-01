@@ -20,7 +20,7 @@ import NetworkCoverageChart from '@/components/NetworkCoverageChart';
 const NetworkPlannerMap = dynamic(() => import('@/components/NetworkPlannerMap'), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-full flex items-center justify-center bg-gray-50 text-sm text-gray-500">
+    <div className="w-full h-full flex items-center justify-center bg-muted text-sm text-subtle-foreground">
       Kaart laden…
     </div>
   ),
@@ -174,21 +174,21 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
   // Vertical controls panel — rendered left of the map, and standalone while
   // the payload is loading so gemeente switching always stays possible.
   const controlsPanel = (
-    <aside className="bg-white rounded-lg shadow-md p-4 h-fit lg:sticky lg:top-4 space-y-5">
-      <p className="text-[11px] text-gray-500 bg-blue-50 border border-blue-100 rounded p-2">
+    <aside className="bg-card rounded-lg shadow-md p-4 h-fit lg:sticky lg:top-4 space-y-5">
+      <p className="text-[11px] text-subtle-foreground bg-accent border border-primary/30 rounded p-2">
         Kies eerst de <strong>startsituatie</strong> en het{' '}
         <strong>out-of-home-aandeel</strong>. Stel daarna het dekkingsdoel in en
         laat het benodigde aantal kluizen berekenen — of schuif zelf.
       </p>
 
       <div data-tour="gemeente">
-        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+        <label className="block text-xs font-semibold text-subtle-foreground uppercase tracking-wide mb-1.5">
           Gemeente
         </label>
         <select
           value={slug}
           onChange={(e) => setSlug(e.target.value)}
-          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md bg-white"
+          className="w-full px-3 py-2 text-sm border border-input rounded-md bg-card"
         >
           {municipalities.map((m) => (
             <option key={m.slug} value={m.slug}>
@@ -199,13 +199,13 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
       </div>
 
       <div data-tour="startsituatie">
-        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+        <label className="block text-xs font-semibold text-subtle-foreground uppercase tracking-wide mb-1.5">
           Startsituatie
         </label>
         <select
           value={start}
           onChange={(e) => setStart(e.target.value)}
-          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md bg-white"
+          className="w-full px-3 py-2 text-sm border border-input rounded-md bg-card"
         >
           {(payload?.params.starts ?? Object.keys(START_LABELS)).map((s) => (
             <option key={s} value={s}>
@@ -216,10 +216,10 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
       </div>
 
       <div data-tour="loopafstand">
-        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+        <label className="block text-xs font-semibold text-subtle-foreground uppercase tracking-wide mb-1.5">
           Loopafstand
         </label>
-        <div className="inline-flex rounded-md overflow-hidden border border-blue-200">
+        <div className="inline-flex rounded-md overflow-hidden border border-primary/30">
           {(payload?.params.distances ?? [300, 400, 500]).map((d) => (
             <button
               key={d}
@@ -227,8 +227,8 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
               onClick={() => setDistance(d)}
               className={`px-4 py-2 text-sm font-semibold transition ${
                 distance === d
-                  ? 'bg-blue-700 text-white'
-                  : 'bg-white text-blue-700 hover:bg-blue-50'
+                  ? 'bg-primary/90 text-primary-foreground'
+                  : 'bg-card text-primary hover:bg-accent'
               }`}
             >
               {d} m
@@ -238,8 +238,8 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
       </div>
 
       <div data-tour="ooh-slider">
-        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
-          Aandeel out-of-home: <span className="text-blue-800">{oohPct}%</span>
+        <label className="block text-xs font-semibold text-subtle-foreground uppercase tracking-wide mb-1.5">
+          Aandeel out-of-home: <span className="text-accent-foreground">{oohPct}%</span>
         </label>
         <input
           type="range"
@@ -250,14 +250,14 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
           onChange={(e) => setOohPct(Number(e.target.value))}
           className="w-full accent-blue-600"
         />
-        <p className="text-[11px] text-gray-400 mt-0.5">
+        <p className="text-[11px] text-subtle-foreground mt-0.5">
           Bepaalt alleen de capaciteitsschatting (kolommen/kasten), niet de locaties.
         </p>
       </div>
 
       <div>
-        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
-          Dekkingsdoel: <span className="text-blue-800">{targetPct}%</span>
+        <label className="block text-xs font-semibold text-subtle-foreground uppercase tracking-wide mb-1.5">
+          Dekkingsdoel: <span className="text-accent-foreground">{targetPct}%</span>
         </label>
         <div className="flex items-center gap-2">
           <input
@@ -274,21 +274,21 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
           type="button"
           onClick={applyTarget}
           disabled={!scenario}
-          className="mt-2 w-full px-3 py-2 text-xs font-semibold rounded bg-blue-700 text-white hover:bg-blue-800 disabled:opacity-40"
+          className="mt-2 w-full px-3 py-2 text-xs font-semibold rounded bg-primary/90 text-primary-foreground hover:bg-blue-800 disabled:opacity-40"
         >
           Bereken benodigde kluizen
         </button>
         {targetMsg && (
-          <p className="text-[11px] text-blue-800 bg-blue-50 border border-blue-100 rounded p-2 mt-2">
+          <p className="text-[11px] text-accent-foreground bg-accent border border-primary/30 rounded p-2 mt-2">
             {targetMsg}
           </p>
         )}
       </div>
 
       <div data-tour="n-slider" className="mt-5">
-        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
-          Aantal kluizen: <span className="text-blue-800 text-sm">{n}</span>
-          {maxN > 0 && <span className="text-gray-400 font-normal"> / {maxN}</span>}
+        <label className="block text-xs font-semibold text-subtle-foreground uppercase tracking-wide mb-1.5">
+          Aantal kluizen: <span className="text-accent-foreground text-sm">{n}</span>
+          {maxN > 0 && <span className="text-subtle-foreground font-normal"> / {maxN}</span>}
         </label>
         <input
           type="range"
@@ -306,16 +306,16 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
   return (
     <div className="space-y-6">
       {/* Intro */}
-      <section data-tour="intro" className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-xl font-bold text-gray-900">Netwerkplanner pakketkluizen</h2>
-        <p className="text-sm text-gray-600 mt-1 max-w-3xl">
+      <section data-tour="intro" className="bg-card rounded-lg shadow-md p-6">
+        <h2 className="text-xl font-bold text-foreground">Netwerkplanner pakketkluizen</h2>
+        <p className="text-sm text-muted-foreground mt-1 max-w-3xl">
           Ontwerp een dekkend netwerk van pakketkluizen: het algoritme plaatst kluizen
           een voor een op bestaande, publiek toegankelijke locaties (supermarkten,
           OV-haltes, parkeergarages, trafohuisjes) — telkens op de plek die de meeste
           nog onbereikte inwoners binnen loopafstand brengt. Schuif met het aantal
           kluizen en de beleidsknoppen om het effect direct op de kaart te zien.
         </p>
-        <p className="text-xs text-gray-400 mt-2">
+        <p className="text-xs text-subtle-foreground mt-2">
           Loopafstand is hemelsbreed (RD-projectie), consistent met de overige
           dekkingscijfers in deze app. Vraagdata: CBS Vierkantstatistieken 100 m ·
           locaties: OpenStreetMap.
@@ -331,7 +331,7 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
       {!payload && (
         <section className="grid grid-cols-1 lg:grid-cols-[280px_minmax(0,1fr)] gap-4">
           {controlsPanel}
-          <div className="bg-white rounded-lg shadow-md p-6 text-sm text-gray-500">
+          <div className="bg-card rounded-lg shadow-md p-6 text-sm text-subtle-foreground">
             {loading ? 'Netwerkdata laden…' : 'Geen netwerkdata beschikbaar voor deze gemeente.'}
           </div>
         </section>
@@ -367,7 +367,7 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
           {/* Controls + map + picks list */}
           <section className="grid grid-cols-1 lg:grid-cols-[280px_minmax(0,1fr)_340px] gap-4">
             {controlsPanel}
-            <div data-tour="kaart" className="bg-white rounded-lg shadow-md overflow-hidden h-[560px] lg:h-[640px]">
+            <div data-tour="kaart" className="bg-card rounded-lg shadow-md overflow-hidden h-[560px] lg:h-[640px]">
               <NetworkPlannerMap
                 payload={payload}
                 scenario={scenario}
@@ -377,18 +377,18 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
                 view3DHref={view3DHref}
               />
             </div>
-            <aside data-tour="picks" className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-[560px] lg:h-[640px]">
-              <div className="px-4 py-3 bg-blue-50 border-b border-blue-100">
-                <h3 className="text-sm font-semibold text-gray-900">
+            <aside data-tour="picks" className="bg-card rounded-lg shadow-md overflow-hidden flex flex-col h-[560px] lg:h-[640px]">
+              <div className="px-4 py-3 bg-accent border-b border-primary/30">
+                <h3 className="text-sm font-semibold text-foreground">
                   Geplaatste kluizen (volgorde van impact)
                 </h3>
-                <p className="text-[11px] text-gray-500 mt-0.5">
+                <p className="text-[11px] text-subtle-foreground mt-0.5">
                   Elke kluis staat op een bestaande locatie; klik voor 3D-beeld.
                 </p>
               </div>
-              <div className="overflow-y-auto flex-1 min-h-0 divide-y divide-gray-100">
+              <div className="overflow-y-auto flex-1 min-h-0 divide-y divide-border">
                 {n === 0 && (
-                  <p className="p-4 text-sm text-gray-500">
+                  <p className="p-4 text-sm text-subtle-foreground">
                     Schuif het aantal kluizen omhoog om het netwerk op te bouwen.
                   </p>
                 )}
@@ -400,18 +400,18 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
                   return (
                     <div key={i} className="px-4 py-2.5 text-xs">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono font-semibold text-gray-500">#{i + 1}</span>
+                        <span className="font-mono font-semibold text-subtle-foreground">#{i + 1}</span>
                         <span
                           className="inline-block px-1.5 py-0.5 rounded text-[10px] font-semibold text-white"
                           style={{ background: meta?.kleur ?? '#334155' }}
                         >
                           {meta?.label ?? cand.type}
                         </span>
-                        <span className="font-semibold text-gray-900 truncate">
+                        <span className="font-semibold text-foreground truncate">
                           {cand.naam || '—'}
                         </span>
                       </div>
-                      <div className="mt-1 text-gray-600">
+                      <div className="mt-1 text-muted-foreground">
                         +{nlInt(pick.gain)} inwoners · {cols} kolommen · {nlPct1(meters)} m kluis
                       </div>
                       {cand.flags.length > 0 && (
@@ -422,7 +422,7 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
                               className={`px-1.5 py-0.5 rounded text-[10px] border ${
                                 f === 'aandachtspunt_sociale_veiligheid'
                                   ? 'bg-amber-50 text-amber-800 border-amber-200'
-                                  : 'bg-gray-50 text-gray-600 border-gray-200'
+                                  : 'bg-muted text-muted-foreground border-border'
                               }`}
                             >
                               {FLAG_LABELS[f] ?? f}
@@ -446,12 +446,12 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
           </section>
 
           {/* Coverage curve */}
-          <section data-tour="curve" className="bg-white rounded-lg shadow-md p-6">
+          <section data-tour="curve" className="bg-card rounded-lg shadow-md p-6">
             <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className="text-lg font-semibold text-foreground">
                 Dekkingscurve — {START_LABELS[start] ?? start}
               </h3>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-subtle-foreground">
                 Gestippeld: dezelfde startsituatie bij de andere loopafstanden.
               </p>
             </div>
@@ -459,26 +459,26 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
           </section>
 
           {/* Assumptions */}
-          <section data-tour="aannames" className="bg-white rounded-lg shadow-md p-6">
+          <section data-tour="aannames" className="bg-card rounded-lg shadow-md p-6">
             <button
               type="button"
               onClick={() => setShowAssumptions((b) => !b)}
-              className="text-sm font-semibold text-gray-900"
+              className="text-sm font-semibold text-foreground"
             >
               {showAssumptions ? '▾' : '▸'} Aannames en methode
             </button>
             {showAssumptions && (
-              <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-gray-600">
+              <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-muted-foreground">
                 <div className="space-y-1.5">
                   {Object.entries(payload.methodology).map(([k, v]) => (
                     <p key={k}>
-                      <span className="font-semibold text-gray-800 capitalize">{k.replaceAll('_', ' ')}:</span>{' '}
+                      <span className="font-semibold text-foreground capitalize">{k.replaceAll('_', ' ')}:</span>{' '}
                       {v}
                     </p>
                   ))}
                 </div>
                 <div className="space-y-1.5">
-                  <p className="font-semibold text-gray-800">Capaciteitsmodel</p>
+                  <p className="font-semibold text-foreground">Capaciteitsmodel</p>
                   <p>
                     De capaciteit is volledig gebaseerd op <strong>inwoners</strong>, niet op
                     bestaande pakketpunten of werkelijke pakketvolumes. Rekenketen per kluis:
@@ -515,14 +515,14 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
                     out-of-home-aandeel. De uitkomst is daarmee een indicatieve ondergrens voor
                     de benodigde kluisruimte, geen operationeel dimensioneringsmodel.
                   </p>
-                  <p className="font-semibold text-gray-800 pt-1">Bronnen</p>
+                  <p className="font-semibold text-foreground pt-1">Bronnen</p>
                   <ul className="list-disc pl-4 space-y-0.5">
                     <li>
                       <a
                         href="https://www.acm.nl/nl/publicaties/acm-post-en-pakketmonitor-2024-meer-pakketten-minder-post-en-dalende-betrouwbaarheid"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-700 hover:text-blue-900 underline"
+                        className="text-primary hover:text-accent-foreground underline"
                       >
                         ACM Post- en pakketmonitor 2024
                       </a>{' '}
@@ -536,7 +536,7 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
                     Bestaand netwerk in deze gemeente: {nlInt(payload.existing.alle_punten)} pakketpunten,
                     waarvan {nlInt(payload.existing.automaten)} automaten.
                   </p>
-                  <p className="text-gray-400">
+                  <p className="text-subtle-foreground">
                     Gegenereerd: {new Date(payload.generated_at).toLocaleString('nl-NL')}
                   </p>
                 </div>
@@ -563,21 +563,21 @@ function StatTile({
   return (
     <div
       className={`rounded-lg shadow-md p-4 ${
-        accent ? 'bg-blue-700 text-white' : 'bg-white'
+        accent ? 'bg-primary/90 text-primary-foreground' : 'bg-card'
       }`}
     >
       <div
         className={`text-[11px] uppercase tracking-wide font-semibold ${
-          accent ? 'text-blue-200' : 'text-gray-500'
+          accent ? 'text-blue-200' : 'text-subtle-foreground'
         }`}
       >
         {label}
       </div>
-      <div className={`text-2xl font-bold mt-1 ${accent ? 'text-white' : 'text-gray-900'}`}>
+      <div className={`text-2xl font-bold mt-1 ${accent ? 'text-white' : 'text-foreground'}`}>
         {value}
       </div>
       {sub && (
-        <div className={`text-[11px] mt-0.5 ${accent ? 'text-blue-200' : 'text-gray-500'}`}>
+        <div className={`text-[11px] mt-0.5 ${accent ? 'text-blue-200' : 'text-subtle-foreground'}`}>
           {sub}
         </div>
       )}

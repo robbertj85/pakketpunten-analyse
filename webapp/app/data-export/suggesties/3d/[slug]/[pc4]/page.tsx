@@ -44,7 +44,7 @@ export default async function Locker3DPage({
         </p>
         <Link
           href={`/data-export/suggesties?gemeente=${slug}`}
-          className="inline-block mt-3 text-sm text-blue-600 hover:text-blue-800"
+          className="inline-block mt-3 text-sm text-primary hover:text-primary"
         >
           ← Terug naar plaatsingsadvies
         </Link>

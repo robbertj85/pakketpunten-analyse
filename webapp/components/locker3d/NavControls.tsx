@@ -45,7 +45,7 @@ export default function NavControls({ mode, onMode, inputRef }: NavControlsProps
   return (
     <div className="absolute bottom-3 right-3 z-[1000] flex flex-col items-end gap-2 select-none">
       {/* Mode toggle */}
-      <div className="flex p-0.5 bg-white/45 backdrop-blur-sm rounded-lg shadow-md text-[11px] font-semibold">
+      <div className="flex p-0.5 bg-card/45 backdrop-blur-sm rounded-lg shadow-md text-[11px] font-semibold">
         <ModeButton active={mode === 'camera'} onClick={() => onMode('camera')}>
           Camera <KeyHint active={mode === 'camera'}>C</KeyHint>
         </ModeButton>
@@ -54,7 +54,7 @@ export default function NavControls({ mode, onMode, inputRef }: NavControlsProps
         </ModeButton>
       </div>
 
-      <div className="flex items-stretch gap-2 bg-white/40 backdrop-blur-sm rounded-lg shadow-md p-2">
+      <div className="flex items-stretch gap-2 bg-card/40 backdrop-blur-sm rounded-lg shadow-md p-2">
         {/* D-pad: pan / strafe */}
         <div className="grid grid-cols-3 grid-rows-3 gap-1">
           <span />
@@ -88,7 +88,7 @@ function KeyHint({ children, active }: { children: ReactNode; active: boolean })
   return (
     <kbd
       className={`ml-0.5 px-1 rounded text-[9px] font-mono align-middle ${
-        active ? 'bg-white/25 text-white' : 'bg-gray-200 text-gray-500'
+        active ? 'bg-card/25 text-white' : 'bg-border text-subtle-foreground'
       }`}
     >
       {children}
@@ -109,7 +109,7 @@ function ModeButton({
     <button
       onClick={onClick}
       className={`px-2.5 py-1 rounded-md transition ${
-        active ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'
+        active ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
       }`}
     >
       {children}
@@ -132,8 +132,8 @@ function NavBtn({
       title={title}
       className={`w-8 h-8 flex items-center justify-center rounded-md text-sm leading-none touch-none transition ${
         subtle
-          ? 'bg-white/30 hover:bg-white/60 text-gray-500'
-          : 'bg-white/70 hover:bg-blue-100 active:bg-blue-200 text-gray-700'
+          ? 'bg-card/30 hover:bg-card/60 text-subtle-foreground'
+          : 'bg-card/70 hover:bg-accent active:bg-blue-200 text-muted-foreground'
       }`}
       {...handlers}
     >
@@ -153,7 +153,7 @@ function ForwardBtn({
   return (
     <button
       title={title}
-      className="flex-1 w-[4.5rem] flex flex-col items-center justify-center gap-0.5 rounded-md bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white shadow-sm touch-none transition"
+      className="flex-1 w-[4.5rem] flex flex-col items-center justify-center gap-0.5 rounded-md bg-primary hover:bg-primary/90 active:bg-primary/80 text-primary-foreground shadow-sm touch-none transition"
       {...handlers}
     >
       {children}

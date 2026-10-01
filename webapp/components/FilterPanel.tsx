@@ -50,32 +50,32 @@ function PoiSection({ filters, onChange }: { filters: Filters; onChange: (f: Fil
     : 'Geen actief';
 
   return (
-    <div className="border border-gray-200 rounded">
+    <div className="border border-border rounded">
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="w-full px-2 py-1.5 text-left text-sm font-medium text-gray-900 hover:bg-gray-50 flex items-center justify-between"
+        className="w-full px-2 py-1.5 text-left text-sm font-medium text-foreground hover:bg-muted flex items-center justify-between"
       >
         <span className="flex items-center gap-2">
           <span className="w-3 h-3 rounded-full bg-teal-500" />
           POI&apos;s (OV, scholen, …)
         </span>
-        <span className="text-xs text-gray-500">{summary} {open ? '▾' : '▸'}</span>
+        <span className="text-xs text-subtle-foreground">{summary} {open ? '▾' : '▸'}</span>
       </button>
       {open && (
         <div className="px-2 pb-2 space-y-2 max-h-72 overflow-y-auto">
           <div className="flex items-center justify-between pt-1">
-            <div className="inline-flex rounded border border-gray-200 overflow-hidden text-xs">
+            <div className="inline-flex rounded border border-border overflow-hidden text-xs">
               <button
                 type="button"
-                className={`px-2 py-0.5 ${filters.poiIconStyle === 'dots' ? 'bg-teal-600 text-white' : 'text-gray-600 hover:bg-gray-50'}`}
+                className={`px-2 py-0.5 ${filters.poiIconStyle === 'dots' ? 'bg-teal-600 text-white' : 'text-muted-foreground hover:bg-muted'}`}
                 onClick={() => onChange({ ...filters, poiIconStyle: 'dots' })}
               >
                 Dots
               </button>
               <button
                 type="button"
-                className={`px-2 py-0.5 ${filters.poiIconStyle === 'icons' ? 'bg-teal-600 text-white' : 'text-gray-600 hover:bg-gray-50'}`}
+                className={`px-2 py-0.5 ${filters.poiIconStyle === 'icons' ? 'bg-teal-600 text-white' : 'text-muted-foreground hover:bg-muted'}`}
                 onClick={() => onChange({ ...filters, poiIconStyle: 'icons' })}
               >
                 Iconen
@@ -84,7 +84,7 @@ function PoiSection({ filters, onChange }: { filters: Filters; onChange: (f: Fil
             {active.size > 0 && (
               <button
                 type="button"
-                className="text-xs text-blue-600 hover:text-blue-800"
+                className="text-xs text-primary hover:text-primary"
                 onClick={() => onChange({ ...filters, poiCategories: [] })}
               >
                 Alles uit
@@ -96,12 +96,12 @@ function PoiSection({ filters, onChange }: { filters: Filters; onChange: (f: Fil
             if (list.length === 0) return null;
             return (
               <div key={group}>
-                <div className="text-[10px] uppercase tracking-wide text-gray-500 mb-0.5">
+                <div className="text-[10px] uppercase tracking-wide text-subtle-foreground mb-0.5">
                   {POI_GROUP_LABEL[group]}
                 </div>
                 <div className="space-y-0.5">
                   {list.map((c) => (
-                    <label key={c.slug} className="flex items-center gap-2 cursor-pointer text-xs px-1 py-0.5 rounded hover:bg-gray-50">
+                    <label key={c.slug} className="flex items-center gap-2 cursor-pointer text-xs px-1 py-0.5 rounded hover:bg-muted">
                       <input
                         type="checkbox"
                         checked={active.has(c.slug)}
@@ -109,8 +109,8 @@ function PoiSection({ filters, onChange }: { filters: Filters; onChange: (f: Fil
                         className="w-4 h-4"
                       />
                       <span className="inline-block w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: c.color }} />
-                      <span className="flex-1 text-gray-800">{c.label}</span>
-                      <span className="text-gray-400 tabular-nums">{c.count.toLocaleString('nl-NL')}</span>
+                      <span className="flex-1 text-foreground">{c.label}</span>
+                      <span className="text-subtle-foreground tabular-nums">{c.count.toLocaleString('nl-NL')}</span>
                     </label>
                   ))}
                 </div>
@@ -118,7 +118,7 @@ function PoiSection({ filters, onChange }: { filters: Filters; onChange: (f: Fil
             );
           })}
           {categories.length === 0 && (
-            <div className="text-xs text-gray-500 py-2">Laden…</div>
+            <div className="text-xs text-subtle-foreground py-2">Laden…</div>
           )}
         </div>
       )}
@@ -500,7 +500,7 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
           type="button"
           onClick={toggleAllCoverage}
           title={anyCoverageOn ? 'Alle uitschakelen' : 'Alle inschakelen'}
-          className="block w-full text-left text-sm font-medium text-foreground mb-2 hover:text-blue-600 transition cursor-pointer select-none"
+          className="block w-full text-left text-sm font-medium text-foreground mb-2 hover:text-primary transition cursor-pointer select-none"
         >
           Dekkingsgebieden
         </button>
@@ -600,16 +600,16 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
               )}
             </div>
           </label>
-          <label className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-gray-50 active:bg-gray-100 transition">
+          <label className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-muted active:bg-secondary transition">
             <input
               type="checkbox"
               checked={filters.showPC4}
               onChange={(e) => onChange({ ...filters, showPC4: e.target.checked })}
-              className="w-5 h-5 md:w-4 md:h-4 text-gray-600 rounded focus:ring-2 focus:ring-gray-500"
+              className="w-5 h-5 md:w-4 md:h-4 text-muted-foreground rounded focus:ring-2 focus:ring-ring"
             />
-            <span className="text-sm text-gray-900">Postcodegebieden (PC4)</span>
+            <span className="text-sm text-foreground">Postcodegebieden (PC4)</span>
           </label>
-          <label className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-gray-50 active:bg-gray-100 transition">
+          <label className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-muted active:bg-secondary transition">
             <input
               type="checkbox"
               checked={filters.showPainPoints}
@@ -617,9 +617,9 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
               className="w-5 h-5 md:w-4 md:h-4 text-violet-700 rounded focus:ring-2 focus:ring-violet-500"
             />
             <span className="w-3 h-3 rounded-sm bg-violet-700/70 border border-violet-900 flex-shrink-0" />
-            <span className="text-sm text-gray-900">Pijnpunten vervoerders</span>
+            <span className="text-sm text-foreground">Pijnpunten vervoerders</span>
           </label>
-          <label className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-gray-50 active:bg-gray-100 transition">
+          <label className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-muted active:bg-secondary transition">
             <input
               type="checkbox"
               checked={filters.showPopulation}
@@ -627,9 +627,9 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
               className="w-5 h-5 md:w-4 md:h-4 text-indigo-600 rounded focus:ring-2 focus:ring-indigo-500"
             />
             <span className="w-3 h-3 rounded-sm bg-indigo-500/60 border border-indigo-700 flex-shrink-0" />
-            <span className="text-sm text-gray-900">Inwoners per km² (CBS)</span>
+            <span className="text-sm text-foreground">Inwoners per km² (CBS)</span>
           </label>
-          <label className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-gray-50 active:bg-gray-100 transition">
+          <label className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-muted active:bg-secondary transition">
             <input
               type="checkbox"
               checked={filters.showCoverage}
@@ -637,38 +637,38 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
               className="w-5 h-5 md:w-4 md:h-4 text-emerald-600 rounded focus:ring-2 focus:ring-emerald-500"
             />
             <span className="w-3 h-3 rounded-sm bg-emerald-500/60 border border-emerald-700 flex-shrink-0" />
-            <span className="text-sm text-gray-900">Bereik inwoners (300/400/500m)</span>
+            <span className="text-sm text-foreground">Bereik inwoners (300/400/500m)</span>
           </label>
-          <label className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-gray-50 active:bg-gray-100 transition">
+          <label className="flex items-center space-x-2 cursor-pointer py-1.5 md:py-0.5 -mx-1 px-1 rounded hover:bg-muted active:bg-secondary transition">
             <input
               type="checkbox"
               checked={filters.showSuggestions}
               onChange={(e) => onChange({ ...filters, showSuggestions: e.target.checked })}
-              className="w-5 h-5 md:w-4 md:h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+              className="w-5 h-5 md:w-4 md:h-4 text-primary rounded focus:ring-2 focus:ring-ring"
             />
-            <span className="w-3 h-3 rounded-sm bg-blue-600/70 border border-blue-900 flex-shrink-0" />
-            <span className="text-sm text-gray-900">Plaatsingsadvies (top-5 PC4s)</span>
+            <span className="w-3 h-3 rounded-sm bg-primary/70 border border-blue-900 flex-shrink-0" />
+            <span className="text-sm text-foreground">Plaatsingsadvies (top-5 PC4s)</span>
           </label>
           <PoiSection filters={filters} onChange={onChange} />
           {filters.showCoverage && (
             <div className="ml-7 pt-1 pb-1 grid grid-cols-2 gap-2 text-xs">
               <label className="block">
-                <span className="text-gray-500">Niveau</span>
+                <span className="text-subtle-foreground">Niveau</span>
                 <select
                   value={filters.coverageLevel}
                   onChange={(e) => onChange({ ...filters, coverageLevel: e.target.value as CoverageLevel })}
-                  className="mt-0.5 w-full px-2 py-1 border border-gray-300 rounded text-xs focus:ring-1 focus:ring-emerald-500"
+                  className="mt-0.5 w-full px-2 py-1 border border-input rounded text-xs focus:ring-1 focus:ring-emerald-500"
                 >
                   <option value="pc4">PC4</option>
                   <option value="gemeente">Gemeente</option>
                 </select>
               </label>
               <label className="block">
-                <span className="text-gray-500">Type</span>
+                <span className="text-subtle-foreground">Type</span>
                 <select
                   value={filters.coverageSubset}
                   onChange={(e) => onChange({ ...filters, coverageSubset: e.target.value as CoverageSubset })}
-                  className="mt-0.5 w-full px-2 py-1 border border-gray-300 rounded text-xs focus:ring-1 focus:ring-emerald-500"
+                  className="mt-0.5 w-full px-2 py-1 border border-input rounded text-xs focus:ring-1 focus:ring-emerald-500"
                 >
                   <option value="total">Alle</option>
                   <option value="shop">Shops</option>
@@ -676,11 +676,11 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
                 </select>
               </label>
               <label className="block">
-                <span className="text-gray-500">Afstand</span>
+                <span className="text-subtle-foreground">Afstand</span>
                 <select
                   value={filters.coverageDistance}
                   onChange={(e) => onChange({ ...filters, coverageDistance: e.target.value as CoverageDistance })}
-                  className="mt-0.5 w-full px-2 py-1 border border-gray-300 rounded text-xs focus:ring-1 focus:ring-emerald-500"
+                  className="mt-0.5 w-full px-2 py-1 border border-input rounded text-xs focus:ring-1 focus:ring-emerald-500"
                 >
                   <option value="300m">300 m</option>
                   <option value="400m">400 m</option>
@@ -689,11 +689,11 @@ export default function FilterPanel({ filters, onChange, availableProviders, pro
               </label>
               {filters.coverageLevel === 'gemeente' && (
                 <label className="block">
-                  <span className="text-gray-500">Bereik</span>
+                  <span className="text-subtle-foreground">Bereik</span>
                   <select
                     value={filters.coverageScope}
                     onChange={(e) => onChange({ ...filters, coverageScope: e.target.value as CoverageScope })}
-                    className="mt-0.5 w-full px-2 py-1 border border-gray-300 rounded text-xs focus:ring-1 focus:ring-emerald-500"
+                    className="mt-0.5 w-full px-2 py-1 border border-input rounded text-xs focus:ring-1 focus:ring-emerald-500"
                   >
                     <option value="national">Nationaal</option>
                     <option value="strict">Strict (alleen eigen punten)</option>

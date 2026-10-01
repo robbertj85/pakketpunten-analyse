@@ -57,11 +57,11 @@ export default function OrientationMiniMap({ lat, lon }: OrientationMiniMapProps
   return (
     <div className="relative w-full h-full">
       <div ref={containerRef} className="w-full h-full" />
-      <div className="absolute bottom-0 right-0 px-1 text-[9px] leading-tight bg-white/70 text-gray-600">
+      <div className="absolute bottom-0 right-0 px-1 text-[9px] leading-tight bg-card/70 text-muted-foreground">
         © OpenStreetMap
       </div>
       {/* North indicator (OSM tiles are always north-up). */}
-      <div className="absolute top-1 left-1 w-6 h-6 rounded-full bg-white/85 border border-gray-300 flex items-center justify-center text-[10px] font-bold text-gray-700 shadow-sm">
+      <div className="absolute top-1 left-1 w-6 h-6 rounded-full bg-card/85 border border-input flex items-center justify-center text-[10px] font-bold text-muted-foreground shadow-sm">
         N
       </div>
     </div>

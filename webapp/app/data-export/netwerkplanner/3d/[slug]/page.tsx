@@ -53,7 +53,7 @@ export default async function NetworkLocker3DPage({
         </p>
         <Link
           href={backHref}
-          className="inline-block mt-3 text-sm text-blue-600 hover:text-blue-800"
+          className="inline-block mt-3 text-sm text-primary hover:text-primary"
         >
           ← Terug naar netwerkplanner
         </Link>
