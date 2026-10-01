@@ -65,7 +65,7 @@ const nlPct = (p: number) => p.toLocaleString('nl-NL', {
 function pctTone(pct: number): string {
   // Same red→yellow→blue ramp as the map choropleth (avoids clashing with
   // the basemap's green parks/forests).
-  if (pct >= 80) return 'bg-blue-700';
+  if (pct >= 80) return 'bg-primary/90';
   if (pct >= 60) return 'bg-blue-500';
   if (pct >= 40) return 'bg-yellow-500';
   if (pct >= 20) return 'bg-orange-500';
@@ -75,13 +75,13 @@ function pctTone(pct: number): string {
 function PctBar({ pct, tone }: { pct: number; tone?: string }) {
   return (
     <div className="flex items-center gap-2 min-w-[110px]">
-      <div className="flex-1 h-2 bg-gray-100 rounded overflow-hidden">
+      <div className="flex-1 h-2 bg-secondary rounded overflow-hidden">
         <div
           className={`h-full ${tone ?? pctTone(pct)}`}
           style={{ width: `${Math.min(100, Math.max(0, pct))}%` }}
         />
       </div>
-      <span className="text-xs font-mono tabular-nums w-12 text-right text-gray-700">
+      <span className="text-xs font-mono tabular-nums w-12 text-right text-muted-foreground">
         {nlPct(pct)}%
       </span>
     </div>
@@ -207,7 +207,7 @@ function SortHeader<K extends string>({
   const alignCls = align === 'right' ? 'text-right' : align === 'center' ? 'text-center' : 'text-left';
   return (
     <th
-      className={`${alignCls} px-2 py-2 text-xs font-semibold text-gray-600 cursor-pointer select-none hover:text-gray-900 whitespace-nowrap`}
+      className={`${alignCls} px-2 py-2 text-xs font-semibold text-muted-foreground cursor-pointer select-none hover:text-foreground whitespace-nowrap`}
       onClick={() =>
         setSort({
           key: k,
@@ -262,15 +262,15 @@ function SegControl<T extends string>({
   onChange: (v: T) => void;
 }) {
   return (
-    <div className="inline-flex rounded-lg bg-gray-100 p-1">
+    <div className="inline-flex rounded-lg bg-secondary p-1">
       {options.map((o) => (
         <button
           key={o.value}
           onClick={() => onChange(o.value)}
           className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${
             value === o.value
-              ? 'bg-white text-gray-900 shadow-sm'
-              : 'text-gray-600 hover:text-gray-900'
+              ? 'bg-card text-foreground shadow-sm'
+              : 'text-muted-foreground hover:text-foreground'
           }`}
         >
           {o.label}
@@ -292,19 +292,19 @@ function CoverageCardGrid({ data }: { data: CoverageCardData }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       {(['total', 'shop', 'locker'] as Subset[]).map((s) => (
-        <div key={s} className="border border-gray-200 rounded-lg p-4">
-          <div className="text-xs uppercase tracking-wide text-gray-500 mb-2">
+        <div key={s} className="border border-border rounded-lg p-4">
+          <div className="text-xs uppercase tracking-wide text-subtle-foreground mb-2">
             {SUBSET_LABEL[s]}
           </div>
           {DISTANCES.map((d) => {
             const m = data[s][d];
             return (
               <div key={d} className="flex items-baseline justify-between py-1">
-                <span className="text-sm text-gray-600 w-14">{d}</span>
+                <span className="text-sm text-muted-foreground w-14">{d}</span>
                 <div className="flex-1">
                   <PctBar pct={m.pct} />
                 </div>
-                <span className="text-xs text-gray-500 ml-2 w-28 text-right tabular-nums">
+                <span className="text-xs text-subtle-foreground ml-2 w-28 text-right tabular-nums">
                   {nlInt(m.covered)} inw.
                 </span>
               </div>
@@ -319,10 +319,10 @@ function CoverageCardGrid({ data }: { data: CoverageCardData }) {
 function NationalSummary({ nat }: { nat: NationalEntry }) {
   const pop = nat.population;
   return (
-    <section data-tour="landelijk" className="bg-white rounded-lg shadow-md p-6 mb-6">
+    <section data-tour="landelijk" className="bg-card rounded-lg shadow-md p-6 mb-6">
       <div className="flex flex-wrap items-baseline justify-between gap-2 mb-4">
-        <h2 className="text-xl font-bold text-gray-900">Landelijk bereik</h2>
-        <p className="text-sm text-gray-600">
+        <h2 className="text-xl font-bold text-foreground">Landelijk bereik</h2>
+        <p className="text-sm text-muted-foreground">
           {nlInt(pop)} inwoners, {Object.keys(nat.total).length} loopafstanden ({Object.keys(nat.total).map((d) => d.replace('m', '')).join('/')} m)
         </p>
       </div>
@@ -376,11 +376,11 @@ function MunicipalityComparison({
   }), [allNames]);
 
   return (
-    <section data-tour="vergelijk" className="bg-white rounded-lg shadow-md p-6 mb-6">
+    <section data-tour="vergelijk" className="bg-card rounded-lg shadow-md p-6 mb-6">
       <div className="flex flex-wrap items-baseline justify-between gap-2 mb-4">
         <div>
-          <h2 className="text-xl font-bold text-gray-900">Vergelijk gemeenten</h2>
-          <p className="text-sm text-gray-600">
+          <h2 className="text-xl font-bold text-foreground">Vergelijk gemeenten</h2>
+          <p className="text-sm text-muted-foreground">
             Kies één of meer gemeenten en bekijk dezelfde 300m / 400m / 500m
             grafieken voor shops, automaten en alle pakketpunten samen.
           </p>
@@ -400,14 +400,14 @@ function MunicipalityComparison({
         <button
           type="button"
           onClick={() => addAll(G4_MUNIS)}
-          className="px-3 py-1.5 text-xs font-medium border border-blue-300 bg-blue-50 text-blue-800 rounded hover:bg-blue-100 transition"
+          className="px-3 py-1.5 text-xs font-medium border border-primary/30 bg-accent text-accent-foreground rounded hover:bg-accent transition"
         >
           + G4 ({presetCounts.g4})
         </button>
         <button
           type="button"
           onClick={() => addAll(G40_MUNIS)}
-          className="px-3 py-1.5 text-xs font-medium border border-blue-300 bg-blue-50 text-blue-800 rounded hover:bg-blue-100 transition"
+          className="px-3 py-1.5 text-xs font-medium border border-primary/30 bg-accent text-accent-foreground rounded hover:bg-accent transition"
         >
           + G40 ({presetCounts.g40})
         </button>
@@ -415,7 +415,7 @@ function MunicipalityComparison({
           <button
             type="button"
             onClick={clear}
-            className="px-3 py-1.5 text-xs font-medium border border-gray-300 bg-white text-gray-700 rounded hover:bg-gray-100 transition"
+            className="px-3 py-1.5 text-xs font-medium border border-input bg-card text-muted-foreground rounded hover:bg-secondary transition"
           >
             Wis selectie
           </button>
@@ -426,7 +426,7 @@ function MunicipalityComparison({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Voeg gemeente toe…"
-            className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-1.5 text-sm border border-input rounded focus:outline-none focus:ring-2 focus:ring-ring"
             list="muni-suggestions"
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
@@ -441,7 +441,7 @@ function MunicipalityComparison({
             }}
           />
           {suggestions.length > 0 && (
-            <div className="absolute z-10 left-0 right-0 mt-1 bg-white border border-gray-200 rounded shadow-lg max-h-60 overflow-auto">
+            <div className="absolute z-10 left-0 right-0 mt-1 bg-card border border-border rounded shadow-lg max-h-60 overflow-auto">
               {suggestions.map((n) => (
                 <button
                   key={n}
@@ -450,7 +450,7 @@ function MunicipalityComparison({
                     addAll([n]);
                     setQuery('');
                   }}
-                  className="block w-full text-left px-3 py-1.5 text-sm hover:bg-blue-50 hover:text-blue-800"
+                  className="block w-full text-left px-3 py-1.5 text-sm hover:bg-accent hover:text-primary"
                 >
                   {n}
                 </button>
@@ -458,7 +458,7 @@ function MunicipalityComparison({
             </div>
           )}
         </div>
-        <span className="text-xs text-gray-500 ml-auto tabular-nums">
+        <span className="text-xs text-subtle-foreground ml-auto tabular-nums">
           {selected.length} geselecteerd
         </span>
       </div>
@@ -469,14 +469,14 @@ function MunicipalityComparison({
           {selected.map((name) => (
             <span
               key={name}
-              className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium bg-blue-100 text-blue-800 rounded"
+              className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium bg-accent text-accent-foreground rounded"
             >
               {name}
               <button
                 type="button"
                 onClick={() => remove(name)}
                 aria-label={`Verwijder ${name}`}
-                className="text-blue-700 hover:text-blue-900 leading-none"
+                className="text-primary hover:text-accent-foreground leading-none"
               >
                 ×
               </button>
@@ -487,7 +487,7 @@ function MunicipalityComparison({
 
       {/* Per-municipality cards */}
       {selected.length === 0 ? (
-        <div className="text-sm text-gray-500 italic py-6 text-center">
+        <div className="text-sm text-subtle-foreground italic py-6 text-center">
           Geen gemeenten geselecteerd. Gebruik de knoppen of de zoekbalk hierboven.
         </div>
       ) : (
@@ -500,11 +500,11 @@ function MunicipalityComparison({
             return (
               <div
                 key={name}
-                className="border border-gray-200 rounded-lg p-4 bg-gray-50"
+                className="border border-border rounded-lg p-4 bg-muted"
               >
                 <div className="flex flex-wrap items-baseline justify-between gap-2 mb-3">
-                  <h3 className="text-lg font-semibold text-gray-900">{name}</h3>
-                  <p className="text-xs text-gray-600 tabular-nums">
+                  <h3 className="text-lg font-semibold text-foreground">{name}</h3>
+                  <p className="text-xs text-muted-foreground tabular-nums">
                     {nlInt(m.population)} inwoners · {nlInt(points.total)} pakketpunten
                     {' '}({nlInt(points.shop)} shops, {nlInt(points.locker)} automaten)
                     {' · '}
@@ -588,11 +588,11 @@ function MunicipalityTable({
   }), [rows]);
 
   return (
-    <section data-tour="per-gemeente" className="bg-white rounded-lg shadow-md p-6 mb-6">
+    <section data-tour="per-gemeente" className="bg-card rounded-lg shadow-md p-6 mb-6">
       <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
         <div>
-          <h2 className="text-xl font-bold text-gray-900">Per gemeente</h2>
-          <p className="text-sm text-gray-600">
+          <h2 className="text-xl font-bold text-foreground">Per gemeente</h2>
+          <p className="text-sm text-muted-foreground">
             {SUBSET_LABEL[subset]} · {distance} · Δ = nationaal − strict (grens-effect)
           </p>
         </div>
@@ -612,13 +612,13 @@ function MunicipalityTable({
             placeholder={`Zoek in ${filteredSorted.length} gemeenten...`}
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            className="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent w-56"
+            className="px-3 py-2 text-sm border border-input rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent w-56"
           />
         </div>
       </div>
       <div className="overflow-x-auto -mx-6 px-6">
         <table className="w-full text-sm">
-          <thead className="border-b border-gray-200">
+          <thead className="border-b border-border">
             <tr>
               <SortHeader label="Gemeente"   k="name"            sort={sort} setSort={setSort} />
               <SortHeader label="Inwoners"   k="population"      sort={sort} setSort={setSort} align="right" />
@@ -632,16 +632,16 @@ function MunicipalityTable({
           </thead>
           <tbody>
             {filteredSorted.map((r) => (
-              <tr key={r.name} className="border-b border-gray-100 hover:bg-gray-50">
-                <td className="px-2 py-2 font-medium text-gray-900 whitespace-nowrap">{r.name}</td>
-                <td className="px-2 py-2 text-right tabular-nums text-gray-700">{nlInt(r.population)}</td>
-                <td className="px-2 py-2 text-right tabular-nums text-gray-700">{nlInt(r.points)}</td>
+              <tr key={r.name} className="border-b border-border hover:bg-muted">
+                <td className="px-2 py-2 font-medium text-foreground whitespace-nowrap">{r.name}</td>
+                <td className="px-2 py-2 text-right tabular-nums text-muted-foreground">{nlInt(r.population)}</td>
+                <td className="px-2 py-2 text-right tabular-nums text-muted-foreground">{nlInt(r.points)}</td>
                 <td className="px-2 py-2"><PctBar pct={r.pct_nat} /></td>
-                <td className="px-2 py-2 text-right tabular-nums text-gray-600">{nlInt(r.covered_nat)}</td>
+                <td className="px-2 py-2 text-right tabular-nums text-muted-foreground">{nlInt(r.covered_nat)}</td>
                 <td className="px-2 py-2"><PctBar pct={r.pct_strict} tone="bg-blue-500" /></td>
-                <td className="px-2 py-2 text-right tabular-nums text-gray-600">{nlInt(r.covered_strict)}</td>
+                <td className="px-2 py-2 text-right tabular-nums text-muted-foreground">{nlInt(r.covered_strict)}</td>
                 <td className="px-2 py-2 text-right tabular-nums">
-                  <span className={r.delta >= 0 ? 'text-emerald-600' : 'text-gray-500'}>
+                  <span className={r.delta >= 0 ? 'text-emerald-600' : 'text-subtle-foreground'}>
                     {r.delta >= 0 ? '+' : ''}{nlPct(r.delta)}
                   </span>
                 </td>
@@ -650,7 +650,7 @@ function MunicipalityTable({
           </tbody>
         </table>
         {filteredSorted.length === 0 && (
-          <p className="py-8 text-center text-sm text-gray-500">Geen resultaten.</p>
+          <p className="py-8 text-center text-sm text-subtle-foreground">Geen resultaten.</p>
         )}
       </div>
     </section>
@@ -724,11 +724,11 @@ function PC4Table({
   const shown = filteredSorted.slice(0, MAX_ROWS);
 
   return (
-    <section data-tour="per-pc4" className="bg-white rounded-lg shadow-md p-6">
+    <section data-tour="per-pc4" className="bg-card rounded-lg shadow-md p-6">
       <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
         <div>
-          <h2 className="text-xl font-bold text-gray-900">Per PC4</h2>
-          <p className="text-sm text-gray-600">
+          <h2 className="text-xl font-bold text-foreground">Per PC4</h2>
+          <p className="text-sm text-muted-foreground">
             {SUBSET_LABEL[subset]} · {filteredSorted.length.toLocaleString('nl-NL')} PC4s
             {filteredSorted.length > MAX_ROWS ? ` (eerste ${MAX_ROWS} getoond)` : ''}
           </p>
@@ -747,7 +747,7 @@ function PC4Table({
           <select
             value={muniFilter}
             onChange={(e) => setMuniFilter(e.target.value)}
-            className="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="px-3 py-2 text-sm border border-input rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent"
           >
             <option value="">Alle gemeenten</option>
             {muniOptions.map((m) => (
@@ -759,13 +759,13 @@ function PC4Table({
             placeholder="Zoek PC4 of gemeente..."
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            className="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent w-48"
+            className="px-3 py-2 text-sm border border-input rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent w-48"
           />
         </div>
       </div>
       <div className="overflow-x-auto -mx-6 px-6">
         <table className="w-full text-sm">
-          <thead className="border-b border-gray-200">
+          <thead className="border-b border-border">
             <tr>
               <SortHeader label="PC4"      k="pc4"    sort={sort} setSort={setSort} />
               <SortHeader label="Gemeente" k="muni"   sort={sort} setSort={setSort} />
@@ -778,11 +778,11 @@ function PC4Table({
           </thead>
           <tbody>
             {shown.map((r) => (
-              <tr key={r.pc4} className="border-b border-gray-100 hover:bg-gray-50">
-                <td className="px-2 py-2 font-mono text-gray-900">{r.pc4}</td>
-                <td className="px-2 py-2 text-gray-700 whitespace-nowrap">{r.muni}</td>
-                <td className="px-2 py-2 text-right tabular-nums text-gray-700">{nlInt(r.pop)}</td>
-                <td className="px-2 py-2 text-right tabular-nums text-gray-600">
+              <tr key={r.pc4} className="border-b border-border hover:bg-muted">
+                <td className="px-2 py-2 font-mono text-foreground">{r.pc4}</td>
+                <td className="px-2 py-2 text-muted-foreground whitespace-nowrap">{r.muni}</td>
+                <td className="px-2 py-2 text-right tabular-nums text-muted-foreground">{nlInt(r.pop)}</td>
+                <td className="px-2 py-2 text-right tabular-nums text-muted-foreground">
                   {r.area.toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </td>
                 <td className="px-2 py-2"><PctBar pct={r.pct300} /></td>
@@ -793,7 +793,7 @@ function PC4Table({
           </tbody>
         </table>
         {filteredSorted.length === 0 && (
-          <p className="py-8 text-center text-sm text-gray-500">Geen resultaten.</p>
+          <p className="py-8 text-center text-sm text-subtle-foreground">Geen resultaten.</p>
         )}
       </div>
     </section>
@@ -836,9 +836,9 @@ export default function PopulationReachReport({
       <MunicipalityComparison payload={payload} />
 
       {/* Controls */}
-      <div data-tour="controls" className="bg-white rounded-lg shadow-md p-4 mb-6 flex flex-wrap items-center gap-6">
+      <div data-tour="controls" className="bg-card rounded-lg shadow-md p-4 mb-6 flex flex-wrap items-center gap-6">
         <div className="flex items-center gap-3">
-          <span className="text-sm font-medium text-gray-700">Afstand</span>
+          <span className="text-sm font-medium text-muted-foreground">Afstand</span>
           <SegControl
             value={distance}
             onChange={setDistance}
@@ -846,7 +846,7 @@ export default function PopulationReachReport({
           />
         </div>
         <div className="flex items-center gap-3">
-          <span className="text-sm font-medium text-gray-700">Type</span>
+          <span className="text-sm font-medium text-muted-foreground">Type</span>
           <SegControl
             value={subset}
             onChange={setSubset}
@@ -866,7 +866,7 @@ export default function PopulationReachReport({
       <PC4Table payload={payload} subset={subset} />
 
       {/* Footnote */}
-      <div className="mt-8 p-4 bg-gray-50 border border-gray-200 rounded-lg text-xs text-gray-600 space-y-1">
+      <div className="mt-8 p-4 bg-muted border border-border rounded-lg text-xs text-muted-foreground space-y-1">
         <p>
           <strong>Methodologie</strong>: {payload.methodology.apportionment}.{' '}
           Buffer-cirkels met {payload.methodology.buffer_circle_segments} segmenten.{' '}

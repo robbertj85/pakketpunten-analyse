@@ -76,8 +76,8 @@ function EmbedContent() {
   return (
     <div className="w-full h-screen relative">
       {error && !data ? (
-        <div className="w-full h-full flex items-center justify-center bg-gray-100">
-          <p className="text-gray-500">Gemeente niet gevonden</p>
+        <div className="w-full h-full flex items-center justify-center bg-secondary">
+          <p className="text-subtle-foreground">Gemeente niet gevonden</p>
         </div>
       ) : (
         <MapView data={data} filters={filters} />

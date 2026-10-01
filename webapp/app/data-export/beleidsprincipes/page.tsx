@@ -53,13 +53,13 @@ export default function BeleidsprincipesPage() {
 
   return (
     <div className="space-y-6">
-      <section data-tour="convenant" className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-100 bg-blue-50">
-          <h2 className="font-semibold text-blue-900">
+      <section data-tour="convenant" className="bg-card rounded-lg shadow-sm border border-border overflow-hidden">
+        <div className="px-6 py-4 border-b border-border bg-accent">
+          <h2 className="font-semibold text-accent-foreground">
             Uitgangspunten Convenant Duurzame Stadslogistiek
           </h2>
         </div>
-        <div className="px-6 py-5 space-y-3 text-sm text-gray-800 leading-relaxed">
+        <div className="px-6 py-5 space-y-3 text-sm text-foreground leading-relaxed">
           <p>
             Partijen werken samen aan het realiseren van een duurzaam, voor alle
             partijen toegankelijk en efficiënt netwerk van pakketpunten en
@@ -83,20 +83,20 @@ export default function BeleidsprincipesPage() {
 
       <div data-tour="gemeente-select" className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-gray-900">Beleidsprincipes</h2>
-          <p className="text-sm text-gray-600 mt-1 max-w-2xl">
+          <h2 className="text-xl font-bold text-foreground">Beleidsprincipes</h2>
+          <p className="text-sm text-muted-foreground mt-1 max-w-2xl">
             Uitgangspunten die gemeenten hanteren bij het plaatsen van pakket- en
             brievenautomaten in de openbare ruimte.
           </p>
         </div>
         <div>
-          <label className="block text-xs font-medium text-gray-500 mb-1">
+          <label className="block text-xs font-medium text-subtle-foreground mb-1">
             Gemeente
           </label>
           <select
             value={selected}
             onChange={(e) => setSelected(e.target.value)}
-            className="px-3 py-2 text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-3 py-2 text-sm border border-input rounded-lg bg-card focus:outline-none focus:ring-2 focus:ring-ring"
           >
             {gemeenten.map((g) => (
               <option key={g} value={g}>
@@ -110,25 +110,25 @@ export default function BeleidsprincipesPage() {
       {beleid ? (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
           {beleid.voorkeur && (
-            <div data-tour="voorkeur" className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-              <div className="px-6 py-4 border-b border-gray-100 bg-blue-50">
-                <h3 className="font-semibold text-blue-700">
+            <div data-tour="voorkeur" className="bg-card rounded-lg shadow-sm border border-border overflow-hidden">
+              <div className="px-6 py-4 border-b border-border bg-accent">
+                <h3 className="font-semibold text-primary">
                   {beleid.voorkeur.titel}
                 </h3>
-                <p className="text-sm text-blue-600">
+                <p className="text-sm text-primary">
                   Voorkeursvolgorde voor plaatsing per wijk
                 </p>
               </div>
               <div className="px-6 py-5 space-y-5">
                 {beleid.voorkeur.stappen.map((stap, si) => (
                   <div key={si}>
-                    <p className="text-sm font-medium text-gray-900 mb-2">
+                    <p className="text-sm font-medium text-foreground mb-2">
                       {stap.titel}
                     </p>
                     <ol className="space-y-1.5">
                       {stap.opties.map((optie, oi) => (
-                        <li key={oi} className="flex gap-3 text-sm text-gray-800">
-                          <span className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold flex items-center justify-center">
+                        <li key={oi} className="flex gap-3 text-sm text-foreground">
+                          <span className="flex-shrink-0 w-5 h-5 rounded-full bg-accent text-primary text-xs font-semibold flex items-center justify-center">
                             {oi + 1}
                           </span>
                           <span>{optie}</span>
@@ -138,7 +138,7 @@ export default function BeleidsprincipesPage() {
                   </div>
                 ))}
                 {beleid.voorkeur.nb && (
-                  <p className="text-sm font-semibold text-gray-700 italic border-t border-gray-100 pt-4">
+                  <p className="text-sm font-semibold text-muted-foreground italic border-t border-border pt-4">
                     NB: {beleid.voorkeur.nb}
                   </p>
                 )}
@@ -146,22 +146,22 @@ export default function BeleidsprincipesPage() {
             </div>
           )}
 
-          <div data-tour="uitgangspunten" className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-100 bg-blue-50">
-              <h3 className="font-semibold text-blue-900">
+          <div data-tour="uitgangspunten" className="bg-card rounded-lg shadow-sm border border-border overflow-hidden">
+            <div className="px-6 py-4 border-b border-border bg-accent">
+              <h3 className="font-semibold text-accent-foreground">
                 Uitgangspunten voor plaatsing kluis buiten
               </h3>
-              <p className="text-sm text-blue-700">
+              <p className="text-sm text-primary">
                 {beleid.principes.length} beleidsprincipes — {beleid.gemeente}
               </p>
             </div>
-            <ol className="divide-y divide-gray-100">
+            <ol className="divide-y divide-border">
               {beleid.principes.map((principe, i) => (
                 <li key={i} className="flex gap-4 px-6 py-4">
-                  <span className="flex-shrink-0 w-7 h-7 rounded-full bg-blue-100 text-blue-700 text-sm font-semibold flex items-center justify-center">
+                  <span className="flex-shrink-0 w-7 h-7 rounded-full bg-accent text-primary text-sm font-semibold flex items-center justify-center">
                     {i + 1}
                   </span>
-                  <p className="text-sm text-gray-800 leading-relaxed">{principe}</p>
+                  <p className="text-sm text-foreground leading-relaxed">{principe}</p>
                 </li>
               ))}
             </ol>
@@ -173,7 +173,7 @@ export default function BeleidsprincipesPage() {
         </div>
       )}
 
-      <p className="text-xs text-gray-500 italic">
+      <p className="text-xs text-subtle-foreground italic">
         Aan de informatie op deze pagina kunnen geen rechten worden ontleend.
       </p>
     </div>

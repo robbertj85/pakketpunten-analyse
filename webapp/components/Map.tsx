@@ -1568,7 +1568,7 @@ function MapComponent(props?: MapProps) {
 
       {/* Density legend */}
       {activeFilters.showPopulation && (
-        <div className="absolute bottom-4 right-4 z-[1000] bg-white/95 rounded-lg shadow-md p-3 text-xs text-gray-700 border border-gray-200 pointer-events-none">
+        <div className="absolute bottom-4 right-4 z-[1000] bg-card/95 rounded-lg shadow-md p-3 text-xs text-muted-foreground border border-border pointer-events-none">
           <div className="font-semibold mb-1">Inwoners/km²</div>
           <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#f5f3ff'}}/>&lt; 1 000</div>
           <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#e0e7ff'}}/>1 000 – 3 000</div>
@@ -1576,7 +1576,7 @@ function MapComponent(props?: MapProps) {
           <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#6366f1'}}/>6 000 – 10 000</div>
           <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#4338ca'}}/>10 000 – 15 000</div>
           <div className="flex items-center gap-2"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#312e81'}}/>&ge; 15 000</div>
-          <div className="text-[10px] text-gray-500 mt-1">Bron: CBS 83502NED</div>
+          <div className="text-[10px] text-subtle-foreground mt-1">Bron: CBS 83502NED</div>
         </div>
       )}
 
@@ -1678,11 +1678,11 @@ function MapComponent(props?: MapProps) {
 
       {/* Coverage legend */}
       {activeFilters.showCoverage && (
-        <div className="absolute bottom-4 right-4 z-[1000] bg-white/95 rounded-lg shadow-md p-3 text-xs text-gray-700 border border-gray-200 pointer-events-none">
+        <div className="absolute bottom-4 right-4 z-[1000] bg-card/95 rounded-lg shadow-md p-3 text-xs text-muted-foreground border border-border pointer-events-none">
           <div className="font-semibold mb-1">
             % inwoners binnen {activeFilters.coverageDistance}
           </div>
-          <div className="text-[10px] text-gray-500 mb-1">
+          <div className="text-[10px] text-subtle-foreground mb-1">
             {activeFilters.coverageSubset === 'total' ? 'Alle pakketpunten'
               : activeFilters.coverageSubset === 'shop' ? 'Alleen shops' : 'Alleen lockers'}
             {activeFilters.coverageLevel === 'gemeente'
@@ -1873,16 +1873,16 @@ function MapComponent(props?: MapProps) {
         const streetviewUrl = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${s.lat},${s.lon}`;
         const mapsUrl = `https://www.google.com/maps?q=${s.lat},${s.lon}`;
         return (
-          <div className="absolute top-4 right-4 z-[1100] w-[320px] max-h-[calc(100%-2rem)] overflow-y-auto bg-white rounded-lg shadow-xl border border-gray-200 text-sm">
-            <div className="flex items-start justify-between px-4 py-3 border-b border-gray-200 bg-blue-50 rounded-t-lg">
+          <div className="absolute top-4 right-4 z-[1100] w-[320px] max-h-[calc(100%-2rem)] overflow-y-auto bg-card rounded-lg shadow-xl border border-border text-sm">
+            <div className="flex items-start justify-between px-4 py-3 border-b border-border bg-accent rounded-t-lg">
               <div>
-                <div className="text-xs uppercase tracking-wide text-blue-700 font-semibold">
+                <div className="text-xs uppercase tracking-wide text-primary font-semibold">
                   Voorstel #{idx}
                 </div>
-                <div className="text-lg font-bold text-gray-900 font-mono">PC4 {sel.pc4}</div>
-                <div className="text-xs text-gray-600">
+                <div className="text-lg font-bold text-foreground font-mono">PC4 {sel.pc4}</div>
+                <div className="text-xs text-muted-foreground">
                   Prioriteit{' '}
-                  <span className="font-mono font-semibold text-blue-800">
+                  <span className="font-mono font-semibold text-accent-foreground">
                     {sel.priority >= 0 ? '+' : ''}{sel.priority.toFixed(2)}
                   </span>
                 </div>
@@ -1891,7 +1891,7 @@ function MapComponent(props?: MapProps) {
                 type="button"
                 onClick={() => setSelectedSuggestionPc4(null)}
                 aria-label="Sluit detailvenster"
-                className="text-gray-400 hover:text-gray-700 text-xl leading-none px-1"
+                className="text-subtle-foreground hover:text-muted-foreground text-xl leading-none px-1"
               >
                 ×
               </button>
@@ -1899,63 +1899,63 @@ function MapComponent(props?: MapProps) {
 
             <div className="px-4 py-3 space-y-3">
               <div>
-                <div className="text-xs text-gray-500 uppercase tracking-wide">Adres / locatie</div>
+                <div className="text-xs text-subtle-foreground uppercase tracking-wide">Adres / locatie</div>
                 {s.adres?.weergavenaam && (
-                  <div className="text-xs font-semibold text-gray-900">{s.adres.weergavenaam}</div>
+                  <div className="text-xs font-semibold text-foreground">{s.adres.weergavenaam}</div>
                 )}
-                <div className="font-mono text-xs text-gray-800">
+                <div className="font-mono text-xs text-foreground">
                   {s.lat.toFixed(5)}, {s.lon.toFixed(5)}
                 </div>
                 {s.bag_gebruiksdoel && (
-                  <div className="text-xs text-gray-700 mt-1">
-                    <span className="text-gray-500">BAG-pand:</span>{' '}
+                  <div className="text-xs text-muted-foreground mt-1">
+                    <span className="text-subtle-foreground">BAG-pand:</span>{' '}
                     {s.bag_gebruiksdoel}
                     {s.bag_bouwjaar ? ` (bouwjaar ${s.bag_bouwjaar})` : ''}
                   </div>
                 )}
                 {s.bag_identificatie && (
-                  <div className="text-[10px] text-gray-500 font-mono mt-0.5">
+                  <div className="text-[10px] text-subtle-foreground font-mono mt-0.5">
                     BAG-id: {s.bag_identificatie}
                   </div>
                 )}
               </div>
 
               {s.nearest_ov && (
-                <div className="border-t border-gray-100 pt-3">
-                  <div className="text-xs text-gray-500 uppercase tracking-wide">OV-halte</div>
-                  <div className="text-xs text-gray-800">
+                <div className="border-t border-border pt-3">
+                  <div className="text-xs text-subtle-foreground uppercase tracking-wide">OV-halte</div>
+                  <div className="text-xs text-foreground">
                     <span className="font-medium">{s.nearest_ov.name}</span>{' '}
-                    <span className="text-gray-500">· {s.nearest_ov.distance_m} m</span>
+                    <span className="text-subtle-foreground">· {s.nearest_ov.distance_m} m</span>
                   </div>
                 </div>
               )}
 
-              <div className="border-t border-gray-100 pt-3 grid grid-cols-2 gap-2 text-xs">
+              <div className="border-t border-border pt-3 grid grid-cols-2 gap-2 text-xs">
                 <div>
-                  <div className="text-gray-500">Actueel</div>
-                  <div className="font-semibold text-gray-900">{sel.actual} pp</div>
+                  <div className="text-subtle-foreground">Actueel</div>
+                  <div className="font-semibold text-foreground">{sel.actual} pp</div>
                 </div>
                 <div>
-                  <div className="text-gray-500">Voorspeld</div>
-                  <div className="font-semibold text-gray-900">{sel.predicted.toFixed(1)} pp</div>
+                  <div className="text-subtle-foreground">Voorspeld</div>
+                  <div className="font-semibold text-foreground">{sel.predicted.toFixed(1)} pp</div>
                 </div>
                 <div>
-                  <div className="text-gray-500">Inwoners</div>
-                  <div className="font-semibold text-gray-900">{sel.population.toLocaleString('nl-NL')}</div>
+                  <div className="text-subtle-foreground">Inwoners</div>
+                  <div className="font-semibold text-foreground">{sel.population.toLocaleString('nl-NL')}</div>
                 </div>
                 <div>
-                  <div className="text-gray-500">% binnen 400 m</div>
-                  <div className="font-semibold text-gray-900">{sel.coverage_pct_400m.toFixed(1)}%</div>
+                  <div className="text-subtle-foreground">% binnen 400 m</div>
+                  <div className="font-semibold text-foreground">{sel.coverage_pct_400m.toFixed(1)}%</div>
                 </div>
                 <div className="col-span-2">
-                  <div className="text-gray-500">Geschat extra bereik (400 m)</div>
-                  <div className="font-semibold text-blue-800">
+                  <div className="text-subtle-foreground">Geschat extra bereik (400 m)</div>
+                  <div className="font-semibold text-accent-foreground">
                     {s.est_new_pop_within_400m.toLocaleString('nl-NL')} inwoners
                   </div>
                 </div>
               </div>
 
-              <div className="border-t border-gray-100 pt-3 flex flex-col gap-1.5">
+              <div className="border-t border-border pt-3 flex flex-col gap-1.5">
                 {/* Inline `style` enforces white text + icon stroke; without
                     it Tailwind v4's preflight + Next.js anchor styling
                     bleed the page link colour through, leaving low-contrast
@@ -1965,7 +1965,7 @@ function MapComponent(props?: MapProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ color: '#ffffff' }}
-                  className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold bg-blue-700 hover:bg-blue-800 rounded transition no-underline"
+                  className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold bg-primary/90 hover:bg-blue-800 rounded transition no-underline"
                 >
                   <svg className="w-3.5 h-3.5" fill="none" stroke="#ffffff" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -1978,7 +1978,7 @@ function MapComponent(props?: MapProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ color: '#1f2937' }}
-                  className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold bg-gray-100 hover:bg-gray-200 rounded transition no-underline"
+                  className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold bg-secondary hover:bg-border rounded transition no-underline"
                 >
                   Open in Google Maps
                 </a>
@@ -1990,20 +1990,20 @@ function MapComponent(props?: MapProps) {
 
       {/* Suggestions legend */}
       {activeFilters.showSuggestions && data?.metadata?.slug && data.metadata.slug !== 'nederland' && (
-        <div className="absolute bottom-4 right-4 z-[1000] bg-white/95 rounded-lg shadow-md p-3 text-xs text-gray-700 border border-gray-200 pointer-events-none">
+        <div className="absolute bottom-4 right-4 z-[1000] bg-card/95 rounded-lg shadow-md p-3 text-xs text-muted-foreground border border-border pointer-events-none">
           <div className="font-semibold mb-1">Plaatsingsadvies prioriteit</div>
-          <div className="text-[10px] text-gray-500 mb-1">Top-5 PC4s · z-score binnen gemeente</div>
+          <div className="text-[10px] text-subtle-foreground mb-1">Top-5 PC4s · z-score binnen gemeente</div>
           <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#1e3a8a'}}/>≥ +1.5 (zeer hoog)</div>
           <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#1d4ed8'}}/>+0.75 – +1.5</div>
           <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#3b82f6'}}/>0 – +0.75</div>
           <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#93c5fd'}}/>−0.75 – 0</div>
           <div className="flex items-center gap-2 mb-1"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#dbeafe'}}/>&lt; −0.75</div>
-          <div className="flex items-center gap-2 pt-1 border-t border-gray-200">
+          <div className="flex items-center gap-2 pt-1 border-t border-border">
             <span className="w-3 h-3 rounded-full inline-block" style={{background:'#f59e0b',border:'2px solid white',boxShadow:'0 0 0 1px #7c2d12'}}/>
             voorgestelde locatie
           </div>
           {activeFilters.showPainPoints && (
-            <div className="flex items-center gap-2 mt-1 pt-1 border-t border-gray-200">
+            <div className="flex items-center gap-2 mt-1 pt-1 border-t border-border">
               <span className="inline-block w-4 h-3 rounded-sm border-2" style={{borderColor:'#f59e0b', background:'#8b5cf6'}}/>
               ook pijnpunt (carrier-melding)
             </div>
@@ -2014,15 +2014,15 @@ function MapComponent(props?: MapProps) {
       {/* Pijnpunten legend (bottom-left so it doesn't clash with the
           Plaatsingsadvies / Bereik legends on the right). */}
       {activeFilters.showPainPoints && (
-        <div className="absolute bottom-4 left-4 z-[1000] bg-white/95 rounded-lg shadow-md p-3 text-xs text-gray-700 border border-gray-200 pointer-events-none">
+        <div className="absolute bottom-4 left-4 z-[1000] bg-card/95 rounded-lg shadow-md p-3 text-xs text-muted-foreground border border-border pointer-events-none">
           <div className="font-semibold mb-1">Pijnpunten vervoerders</div>
-          <div className="text-[10px] text-gray-500 mb-1"># vervoerders dat PC4 als pijnpunt aandraagt</div>
+          <div className="text-[10px] text-subtle-foreground mb-1"># vervoerders dat PC4 als pijnpunt aandraagt</div>
           <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#4c1d95'}}/>≥ 4 vervoerders</div>
           <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#6d28d9'}}/>3 vervoerders</div>
           <div className="flex items-center gap-2 mb-0.5"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#8b5cf6'}}/>2 vervoerders</div>
           <div className="flex items-center gap-2 mb-1"><span className="w-4 h-3 rounded-sm inline-block" style={{background:'#a78bfa'}}/>1 vervoerder</div>
           {activeFilters.showSuggestions && (
-            <div className="flex items-center gap-2 pt-1 border-t border-gray-200">
+            <div className="flex items-center gap-2 pt-1 border-t border-border">
               <span className="inline-block w-4 h-3 rounded-sm border-2" style={{borderColor:'#f59e0b', background:'#8b5cf6'}}/>
               ook in plaatsingsadvies
             </div>
@@ -2122,8 +2122,8 @@ function MapComponent(props?: MapProps) {
           >
             <Popup>
               <div className="text-sm">
-                <div className="font-semibold text-gray-900">{p.locatieNaam || p.vervoerder}</div>
-                <div className="text-gray-600">{p.straatNaam} {p.straatNr}</div>
+                <div className="font-semibold text-foreground">{p.locatieNaam || p.vervoerder}</div>
+                <div className="text-muted-foreground">{p.straatNaam} {p.straatNr}</div>
                 <div className="mt-1 text-xs">
                   <span className="font-semibold">{p.vervoerder}</span>
                   {' · '}
@@ -2249,28 +2249,28 @@ function MapComponent(props?: MapProps) {
 
       {/* Side panel for selected painpoint PC4 */}
       {selectedPainpointPc4 && selectedPainpointEntry && (
-        <aside className="absolute top-0 right-0 bottom-0 w-full sm:w-[380px] z-[1001] bg-white shadow-2xl flex flex-col border-l border-gray-200">
-          <div className="flex items-start justify-between p-4 border-b border-gray-200">
+        <aside className="absolute top-0 right-0 bottom-0 w-full sm:w-[380px] z-[1001] bg-card shadow-2xl flex flex-col border-l border-border">
+          <div className="flex items-start justify-between p-4 border-b border-border">
             <div>
-              <div className="text-xs uppercase tracking-wide text-gray-500">Pijnpunt PC4</div>
-              <div className="text-2xl font-bold text-gray-900 font-mono">{selectedPainpointPc4}</div>
-              <div className="text-sm text-gray-600">
+              <div className="text-xs uppercase tracking-wide text-subtle-foreground">Pijnpunt PC4</div>
+              <div className="text-2xl font-bold text-foreground font-mono">{selectedPainpointPc4}</div>
+              <div className="text-sm text-muted-foreground">
                 G4: {selectedPainpointEntry.g4_city ?? selectedPainpointEntry.city}
               </div>
               {selectedPainpointEntry.municipality &&
                 selectedPainpointEntry.municipality !== (selectedPainpointEntry.g4_city ?? selectedPainpointEntry.city) && (
-                  <div className="text-sm text-gray-900 font-medium">
+                  <div className="text-sm text-foreground font-medium">
                     {selectedPainpointEntry.municipality}
                   </div>
                 )}
               {selectedPainpointEntry.municipality &&
                 selectedPainpointEntry.municipality === (selectedPainpointEntry.g4_city ?? selectedPainpointEntry.city) && (
-                  <div className="text-xs text-gray-500">Gemeente: {selectedPainpointEntry.municipality}</div>
+                  <div className="text-xs text-subtle-foreground">Gemeente: {selectedPainpointEntry.municipality}</div>
                 )}
             </div>
             <button
               onClick={() => setSelectedPainpointPc4(null)}
-              className="p-2 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded"
+              className="p-2 text-subtle-foreground hover:text-foreground hover:bg-secondary rounded"
               aria-label="Sluiten"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2279,10 +2279,10 @@ function MapComponent(props?: MapProps) {
             </button>
           </div>
 
-          <div className="px-4 py-3 border-b border-gray-200 bg-gray-50">
+          <div className="px-4 py-3 border-b border-border bg-muted">
             {selectedPainpointEntry.carriers.length > 0 && (
               <>
-                <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">
+                <div className="text-xs uppercase tracking-wide text-subtle-foreground mb-1">
                   Gemeld door carriers
                 </div>
                 <div className="flex flex-wrap gap-1 mb-3">
@@ -2299,14 +2299,14 @@ function MapComponent(props?: MapProps) {
             )}
             {selectedPainpointEntry.gemeenten && selectedPainpointEntry.gemeenten.length > 0 && (
               <>
-                <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">
+                <div className="text-xs uppercase tracking-wide text-subtle-foreground mb-1">
                   Gemeld door G4-gemeente
                 </div>
                 <div className="flex flex-wrap gap-1 mb-3">
                   {selectedPainpointEntry.gemeenten.map((g) => (
                     <span
                       key={g}
-                      className="px-2 py-0.5 text-xs font-semibold bg-blue-100 text-blue-800 rounded"
+                      className="px-2 py-0.5 text-xs font-semibold bg-accent text-accent-foreground rounded"
                     >
                       Gemeente {g}
                     </span>
@@ -2325,28 +2325,28 @@ function MapComponent(props?: MapProps) {
             )}
             {selectedPainpointEntry.stats && (
               <div className="mb-3 grid grid-cols-2 gap-2 text-xs">
-                <div className="bg-white rounded border border-gray-200 px-2 py-1">
-                  <div className="text-gray-500">Inwoners</div>
-                  <div className="font-semibold text-gray-900">{selectedPainpointEntry.stats.population?.toLocaleString('nl-NL') ?? '—'}</div>
+                <div className="bg-card rounded border border-border px-2 py-1">
+                  <div className="text-subtle-foreground">Inwoners</div>
+                  <div className="font-semibold text-foreground">{selectedPainpointEntry.stats.population?.toLocaleString('nl-NL') ?? '—'}</div>
                 </div>
-                <div className="bg-white rounded border border-gray-200 px-2 py-1">
-                  <div className="text-gray-500">Oppervlakte</div>
-                  <div className="font-semibold text-gray-900">{selectedPainpointEntry.stats.area_km2?.toFixed(2) ?? '—'} km²</div>
+                <div className="bg-card rounded border border-border px-2 py-1">
+                  <div className="text-subtle-foreground">Oppervlakte</div>
+                  <div className="font-semibold text-foreground">{selectedPainpointEntry.stats.area_km2?.toFixed(2) ?? '—'} km²</div>
                 </div>
-                <div className="bg-white rounded border border-gray-200 px-2 py-1">
-                  <div className="text-gray-500">PP per 1000 inw.</div>
-                  <div className="font-semibold text-gray-900">{selectedPainpointEntry.stats.points_per_1000_inw?.toFixed(2) ?? '—'}</div>
+                <div className="bg-card rounded border border-border px-2 py-1">
+                  <div className="text-subtle-foreground">PP per 1000 inw.</div>
+                  <div className="font-semibold text-foreground">{selectedPainpointEntry.stats.points_per_1000_inw?.toFixed(2) ?? '—'}</div>
                 </div>
-                <div className="bg-white rounded border border-gray-200 px-2 py-1">
-                  <div className="text-gray-500">PP per km²</div>
-                  <div className="font-semibold text-gray-900">{selectedPainpointEntry.stats.points_per_km2?.toFixed(1) ?? '—'}</div>
+                <div className="bg-card rounded border border-border px-2 py-1">
+                  <div className="text-subtle-foreground">PP per km²</div>
+                  <div className="font-semibold text-foreground">{selectedPainpointEntry.stats.points_per_km2?.toFixed(1) ?? '—'}</div>
                 </div>
-                <div className="bg-white rounded border border-gray-200 px-2 py-1 col-span-2">
-                  <div className="text-gray-500">Verwacht (regressie) · Δ</div>
-                  <div className="font-semibold text-gray-900">
+                <div className="bg-card rounded border border-border px-2 py-1 col-span-2">
+                  <div className="text-subtle-foreground">Verwacht (regressie) · Δ</div>
+                  <div className="font-semibold text-foreground">
                     {selectedPainpointEntry.stats.predicted_points?.toFixed(1) ?? '—'}
                     {selectedPainpointEntry.stats.delta_vs_predicted != null && (
-                      <span className={`ml-2 ${selectedPainpointEntry.stats.delta_vs_predicted >= 0 ? 'text-emerald-700' : 'text-red-700'}`}>
+                      <span className={`ml-2 ${selectedPainpointEntry.stats.delta_vs_predicted >= 0 ? 'text-emerald-700' : 'text-destructive'}`}>
                         {selectedPainpointEntry.stats.delta_vs_predicted >= 0 ? '+' : ''}{selectedPainpointEntry.stats.delta_vs_predicted.toFixed(1)}
                       </span>
                     )}
@@ -2357,27 +2357,27 @@ function MapComponent(props?: MapProps) {
             {selectedPainpointEntry.pakketpunten && (
               <div className="grid grid-cols-3 gap-2 text-center">
                 <div>
-                  <div className="text-lg font-bold text-gray-900">{selectedPainpointEntry.pakketpunten.total}</div>
-                  <div className="text-xs text-gray-500">Totaal</div>
+                  <div className="text-lg font-bold text-foreground">{selectedPainpointEntry.pakketpunten.total}</div>
+                  <div className="text-xs text-subtle-foreground">Totaal</div>
                 </div>
                 <div>
-                  <div className="text-lg font-bold text-gray-900">{selectedPainpointEntry.pakketpunten.locker}</div>
-                  <div className="text-xs text-gray-500">Automaten</div>
+                  <div className="text-lg font-bold text-foreground">{selectedPainpointEntry.pakketpunten.locker}</div>
+                  <div className="text-xs text-subtle-foreground">Automaten</div>
                 </div>
                 <div>
-                  <div className="text-lg font-bold text-gray-900">{selectedPainpointEntry.pakketpunten.shop}</div>
-                  <div className="text-xs text-gray-500">Shops</div>
+                  <div className="text-lg font-bold text-foreground">{selectedPainpointEntry.pakketpunten.shop}</div>
+                  <div className="text-xs text-subtle-foreground">Shops</div>
                 </div>
               </div>
             )}
           </div>
 
           <div className="flex-1 overflow-y-auto">
-            <div className="px-4 py-3 text-xs uppercase tracking-wide text-gray-500 sticky top-0 bg-white border-b border-gray-100">
+            <div className="px-4 py-3 text-xs uppercase tracking-wide text-subtle-foreground sticky top-0 bg-card border-b border-border">
               Pakketpunten in dit gebied ({selectedPainpointEntry.points?.length ?? 0})
             </div>
             {selectedPainpointEntry.points && selectedPainpointEntry.points.length > 0 ? (
-              <ul className="divide-y divide-gray-100">
+              <ul className="divide-y divide-border">
                 {selectedPainpointEntry.points
                   .slice()
                   .sort((a, b) =>
@@ -2387,20 +2387,20 @@ function MapComponent(props?: MapProps) {
                   .map((p, idx) => {
                     const color = PROVIDER_INFO[p.vervoerder]?.color || '#666';
                     return (
-                      <li key={idx} className="px-4 py-2 text-sm hover:bg-gray-50 flex items-start gap-2">
+                      <li key={idx} className="px-4 py-2 text-sm hover:bg-muted flex items-start gap-2">
                         <span
                           className="inline-block w-3 h-3 rounded-full mt-1 flex-shrink-0 border border-white"
                           style={{ backgroundColor: color, boxShadow: '0 0 0 1px rgba(0,0,0,0.15)' }}
                           aria-hidden
                         />
                         <div className="min-w-0 flex-1">
-                          <div className="font-medium text-gray-900 truncate">
+                          <div className="font-medium text-foreground truncate">
                             {p.locatieNaam || p.vervoerder}
                           </div>
-                          <div className="text-xs text-gray-600 truncate">
+                          <div className="text-xs text-muted-foreground truncate">
                             {p.straatNaam} {p.straatNr}
                           </div>
-                          <div className="text-xs text-gray-500 mt-0.5">
+                          <div className="text-xs text-subtle-foreground mt-0.5">
                             <span className="font-semibold">{p.vervoerder}</span>
                             {' · '}
                             {p.category === 'locker' ? 'Pakketautomaat' : 'Pakketshop'}
@@ -2411,15 +2411,15 @@ function MapComponent(props?: MapProps) {
                   })}
               </ul>
             ) : (
-              <div className="px-4 py-6 text-sm text-gray-500 text-center">Geen pakketpunten in dit gebied.</div>
+              <div className="px-4 py-6 text-sm text-subtle-foreground text-center">Geen pakketpunten in dit gebied.</div>
             )}
           </div>
 
           {selectedPainpointEntry.pakketpunten?.by_carrier && (
-            <div className="px-4 py-3 border-t border-gray-200 max-h-[40%] overflow-y-auto bg-gray-50">
-              <div className="text-xs uppercase tracking-wide text-gray-500 mb-2">Per vervoerder</div>
+            <div className="px-4 py-3 border-t border-border max-h-[40%] overflow-y-auto bg-muted">
+              <div className="text-xs uppercase tracking-wide text-subtle-foreground mb-2">Per vervoerder</div>
               <table className="w-full text-sm">
-                <thead className="text-xs uppercase text-gray-500">
+                <thead className="text-xs uppercase text-subtle-foreground">
                   <tr>
                     <th className="text-left py-1">Vervoerder</th>
                     <th className="text-right py-1">Auto.</th>
@@ -2427,15 +2427,15 @@ function MapComponent(props?: MapProps) {
                     <th className="text-right py-1">Totaal</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100">
+                <tbody className="divide-y divide-border">
                   {Object.entries(selectedPainpointEntry.pakketpunten.by_carrier)
                     .sort(([a], [b]) => a.localeCompare(b))
                     .map(([carrier, counts]) => (
                       <tr key={carrier}>
-                        <td className="py-1 text-gray-900 font-medium">{carrier}</td>
-                        <td className="py-1 text-right tabular-nums text-gray-700">{counts.locker}</td>
-                        <td className="py-1 text-right tabular-nums text-gray-700">{counts.shop}</td>
-                        <td className="py-1 text-right tabular-nums font-semibold text-gray-900">{counts.locker + counts.shop}</td>
+                        <td className="py-1 text-foreground font-medium">{carrier}</td>
+                        <td className="py-1 text-right tabular-nums text-muted-foreground">{counts.locker}</td>
+                        <td className="py-1 text-right tabular-nums text-muted-foreground">{counts.shop}</td>
+                        <td className="py-1 text-right tabular-nums font-semibold text-foreground">{counts.locker + counts.shop}</td>
                       </tr>
                     ))}
                 </tbody>

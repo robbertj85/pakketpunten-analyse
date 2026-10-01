@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic';
 const SuggestionMiniMap = dynamic(() => import('./SuggestionMiniMap'), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-full flex items-center justify-center bg-gray-50 text-xs text-gray-500">
+    <div className="w-full h-full flex items-center justify-center bg-muted text-xs text-subtle-foreground">
       Kaart laden...
     </div>
   ),
@@ -16,7 +16,7 @@ const SuggestionMiniMap = dynamic(() => import('./SuggestionMiniMap'), {
 const SuggestionBigMap = dynamic(() => import('./SuggestionBigMap'), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-full flex items-center justify-center bg-gray-50 text-sm text-gray-500">
+    <div className="w-full h-full flex items-center justify-center bg-muted text-sm text-subtle-foreground">
       Kaart laden…
     </div>
   ),
@@ -25,7 +25,7 @@ const SuggestionBigMap = dynamic(() => import('./SuggestionBigMap'), {
 const PainpointMiniMap = dynamic(() => import('./PainpointMiniMap'), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-full flex items-center justify-center bg-gray-50 text-xs text-gray-500">
+    <div className="w-full h-full flex items-center justify-center bg-muted text-xs text-subtle-foreground">
       Kaart laden...
     </div>
   ),
@@ -210,10 +210,10 @@ const nlNum1 = (n: number) =>
 function priorityTone(priority: number): string {
   // Blue ramp matching the app chrome — distinct from the red/orange pain-points layer.
   if (priority >= 1.5) return 'bg-blue-900 text-white';
-  if (priority >= 0.75) return 'bg-blue-700 text-white';
+  if (priority >= 0.75) return 'bg-primary/90 text-primary-foreground';
   if (priority >= 0) return 'bg-blue-500 text-white';
-  if (priority >= -0.75) return 'bg-blue-300 text-blue-900';
-  return 'bg-blue-100 text-blue-900';
+  if (priority >= -0.75) return 'bg-blue-300 text-accent-foreground';
+  return 'bg-accent text-accent-foreground';
 }
 
 function csvCell(v: unknown): string {
@@ -596,7 +596,7 @@ export default function PlacementSuggestionsReport({
   return (
     <>
       {/* Intro */}
-      <div data-tour="intro" className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-900">
+      <div data-tour="intro" className="mb-6 p-4 bg-accent border border-primary/30 rounded-lg text-sm text-accent-foreground">
         <h2 className="font-semibold mb-1">Plaatsingsadvies pakketpunten</h2>
         <p>
           Per gemeente rangschikken we de PC4s op een prioriteitsscore die vier
@@ -620,13 +620,13 @@ export default function PlacementSuggestionsReport({
       </div>
 
       {/* Controls */}
-      <div data-tour="gemeente-bar" className="bg-white rounded-lg shadow-md p-4 mb-6 flex flex-wrap items-center gap-4">
+      <div data-tour="gemeente-bar" className="bg-card rounded-lg shadow-md p-4 mb-6 flex flex-wrap items-center gap-4">
         <div className="flex items-center gap-3 flex-1 min-w-[280px]">
-          <label className="text-sm font-medium text-gray-700">Gemeente</label>
+          <label className="text-sm font-medium text-muted-foreground">Gemeente</label>
           <select
             value={slug}
             onChange={(e) => setSlug(e.target.value)}
-            className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="flex-1 px-3 py-2 text-sm border border-input rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent"
           >
             {slugs.map((s) => (
               <option key={s} value={s}>
@@ -645,7 +645,7 @@ export default function PlacementSuggestionsReport({
           </svg>
           CSV (alle gemeenten)
         </button>
-        <div className="text-xs text-gray-500 ml-auto">
+        <div className="text-xs text-subtle-foreground ml-auto">
           Gewichten: onderbezetting {payload.weights.underservice.toFixed(2)} · onbereik{' '}
           {payload.weights.uncovered_pop.toFixed(2)} · dichtheid{' '}
           {payload.weights.density.toFixed(2)} · overlap{' '}
@@ -656,15 +656,15 @@ export default function PlacementSuggestionsReport({
       {block ? (
         <>
           {/* Summary card */}
-          <section data-tour="ranking" className="bg-white rounded-lg shadow-md p-6 mb-6">
+          <section data-tour="ranking" className="bg-card rounded-lg shadow-md p-6 mb-6">
             <div className="flex items-baseline justify-between mb-2 gap-3 flex-wrap">
-              <h2 className="text-xl font-bold text-gray-900">{block.gemeente}</h2>
+              <h2 className="text-xl font-bold text-foreground">{block.gemeente}</h2>
               <div className="flex items-center gap-3">
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-muted-foreground">
                   Top {rankedPc4s.length} prioriteits-PC4s uit{' '}
                   {nlInt(block.pc4_count_evaluated)} geëvalueerd
                 </p>
-                <div className="inline-flex rounded-lg bg-gray-100 p-1">
+                <div className="inline-flex rounded-lg bg-secondary p-1">
                   {([5, 10] as const).map((n) => {
                     const disabled = n > availableTopN;
                     return (
@@ -675,10 +675,10 @@ export default function PlacementSuggestionsReport({
                         disabled={disabled}
                         className={`px-3 py-1 text-xs font-medium rounded-md transition ${
                           topN === n
-                            ? 'bg-white text-gray-900 shadow-sm'
+                            ? 'bg-card text-foreground shadow-sm'
                             : disabled
-                              ? 'text-gray-400 cursor-not-allowed'
-                              : 'text-gray-600 hover:text-gray-900'
+                              ? 'text-subtle-foreground cursor-not-allowed'
+                              : 'text-muted-foreground hover:text-foreground'
                         }`}
                         title={
                           disabled
@@ -693,7 +693,7 @@ export default function PlacementSuggestionsReport({
                 </div>
               </div>
             </div>
-            <p className="text-sm text-gray-700">
+            <p className="text-sm text-muted-foreground">
               Totaal extra inwoners die de top-{rankedPc4s.length} suggesties zouden bereiken
               (binnen 400m van het voorgestelde punt, dasymetrisch geschat):{' '}
               <strong>
@@ -710,9 +710,9 @@ export default function PlacementSuggestionsReport({
 
           {/* Adjustable weights + model toggle. Re-ranks the existing top-N
               client-side; doesn't fetch new PC4s. */}
-          <section data-tour="gewichten" className="bg-white rounded-lg shadow-md p-6 mb-6">
+          <section data-tour="gewichten" className="bg-card rounded-lg shadow-md p-6 mb-6">
             <div className="flex flex-wrap items-baseline justify-between gap-3 mb-3">
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className="text-lg font-semibold text-foreground">
                 Gewichten & regressiemodel
               </h3>
               <button
@@ -721,14 +721,14 @@ export default function PlacementSuggestionsReport({
                 disabled={isDefaultConfig}
                 className={`text-xs font-medium px-3 py-1.5 rounded transition ${
                   isDefaultConfig
-                    ? 'text-gray-400 bg-gray-100 cursor-default'
-                    : 'text-blue-700 bg-blue-50 hover:bg-blue-100'
+                    ? 'text-subtle-foreground bg-secondary cursor-default'
+                    : 'text-primary bg-accent hover:bg-accent'
                 }`}
               >
                 Reset naar standaard
               </button>
             </div>
-            <p className="text-xs text-gray-600 mb-4">
+            <p className="text-xs text-muted-foreground mb-4">
               De score is{' '}
               <span className="font-mono">
                 Σ wᵢ·z(signaalᵢ)
@@ -740,8 +740,8 @@ export default function PlacementSuggestionsReport({
 
             {payload.models && (
               <div className="mb-4 flex items-center gap-3 text-sm">
-                <span className="font-medium text-gray-700">Regressiemodel:</span>
-                <div className="inline-flex rounded-lg bg-gray-100 p-1">
+                <span className="font-medium text-muted-foreground">Regressiemodel:</span>
+                <div className="inline-flex rounded-lg bg-secondary p-1">
                   {(['base', 'k8'] as const).map((k) => {
                     const meta = payload.models![k];
                     const r2 = meta.r2 != null ? `R² ${meta.r2.toFixed(2)}` : '';
@@ -751,17 +751,17 @@ export default function PlacementSuggestionsReport({
                         onClick={() => setModel(k)}
                         className={`px-3 py-1.5 text-xs font-medium rounded-md transition ${
                           model === k
-                            ? 'bg-white text-gray-900 shadow-sm'
-                            : 'text-gray-600 hover:text-gray-900'
+                            ? 'bg-card text-foreground shadow-sm'
+                            : 'text-muted-foreground hover:text-foreground'
                         }`}
                       >
                         {k === 'base' ? 'Basis (pop+opp)' : 'K=8 best-subset'}
-                        <span className="ml-1.5 text-[10px] text-gray-500 font-mono">{r2}</span>
+                        <span className="ml-1.5 text-[10px] text-subtle-foreground font-mono">{r2}</span>
                       </button>
                     );
                   })}
                 </div>
-                <span className="text-[11px] text-gray-500">
+                <span className="text-[11px] text-subtle-foreground">
                   {model === 'k8'
                     ? `Features: ${payload.models.k8.features.join(', ')}`
                     : `Features: ${payload.models.base.features.join(', ')}`}
@@ -778,8 +778,8 @@ export default function PlacementSuggestionsReport({
               ] as const).map(([key, label, min, max, step]) => (
                 <label key={key} className="block text-xs">
                   <div className="flex items-baseline justify-between mb-1">
-                    <span className="font-medium text-gray-700">{label}</span>
-                    <span className="font-mono tabular-nums text-gray-900">
+                    <span className="font-medium text-muted-foreground">{label}</span>
+                    <span className="font-mono tabular-nums text-foreground">
                       {weights[key] >= 0 ? '+' : ''}{weights[key].toFixed(2)}
                     </span>
                   </div>
@@ -792,7 +792,7 @@ export default function PlacementSuggestionsReport({
                     }
                     className="w-full accent-blue-600"
                   />
-                  <div className="flex justify-between text-[10px] text-gray-400 font-mono">
+                  <div className="flex justify-between text-[10px] text-subtle-foreground font-mono">
                     <span>{min.toFixed(1)}</span>
                     <span>standaard {defaultWeights[key].toFixed(2)}</span>
                     <span>+{max.toFixed(1)}</span>
@@ -803,52 +803,52 @@ export default function PlacementSuggestionsReport({
           </section>
 
           {/* Table */}
-          <section className="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-3">Ranking</h3>
+          <section className="bg-card rounded-lg shadow-md p-6 mb-6">
+            <h3 className="text-lg font-semibold text-foreground mb-3">Ranking</h3>
             <div className="overflow-x-auto -mx-6 px-6">
               <table className="w-full text-sm">
-                <thead className="border-b border-gray-200">
+                <thead className="border-b border-border">
                   <tr className="text-left">
-                    <th className="px-2 py-2 text-xs font-semibold text-gray-600">#</th>
-                    <th className="px-2 py-2 text-xs font-semibold text-gray-600">PC4</th>
-                    <th className="px-2 py-2 text-xs font-semibold text-gray-600">Prioriteit</th>
-                    <th className="px-2 py-2 text-xs font-semibold text-gray-600 text-right">Actueel</th>
-                    <th className="px-2 py-2 text-xs font-semibold text-gray-600 text-right">Voorspeld</th>
-                    <th className="px-2 py-2 text-xs font-semibold text-gray-600 text-right">Onderbez.</th>
-                    <th className="px-2 py-2 text-xs font-semibold text-gray-600 text-right">Inwoners</th>
-                    <th className="px-2 py-2 text-xs font-semibold text-gray-600 text-right">Onbereikt</th>
-                    <th className="px-2 py-2 text-xs font-semibold text-gray-600 text-right">% 400m bereik</th>
-                    <th className="px-2 py-2 text-xs font-semibold text-gray-600 text-right">Overlap</th>
-                    <th className="px-2 py-2 text-xs font-semibold text-gray-600 text-right">Dichtheid (oad)</th>
-                    <th className="px-2 py-2 text-xs font-semibold text-gray-600 text-right">+inw. binnen 400m</th>
+                    <th className="px-2 py-2 text-xs font-semibold text-muted-foreground">#</th>
+                    <th className="px-2 py-2 text-xs font-semibold text-muted-foreground">PC4</th>
+                    <th className="px-2 py-2 text-xs font-semibold text-muted-foreground">Prioriteit</th>
+                    <th className="px-2 py-2 text-xs font-semibold text-muted-foreground text-right">Actueel</th>
+                    <th className="px-2 py-2 text-xs font-semibold text-muted-foreground text-right">Voorspeld</th>
+                    <th className="px-2 py-2 text-xs font-semibold text-muted-foreground text-right">Onderbez.</th>
+                    <th className="px-2 py-2 text-xs font-semibold text-muted-foreground text-right">Inwoners</th>
+                    <th className="px-2 py-2 text-xs font-semibold text-muted-foreground text-right">Onbereikt</th>
+                    <th className="px-2 py-2 text-xs font-semibold text-muted-foreground text-right">% 400m bereik</th>
+                    <th className="px-2 py-2 text-xs font-semibold text-muted-foreground text-right">Overlap</th>
+                    <th className="px-2 py-2 text-xs font-semibold text-muted-foreground text-right">Dichtheid (oad)</th>
+                    <th className="px-2 py-2 text-xs font-semibold text-muted-foreground text-right">+inw. binnen 400m</th>
                   </tr>
                 </thead>
                 <tbody>
                   {rankedPc4s.map((r, idx) => (
-                    <tr key={r.pc4} className="border-b border-gray-100 hover:bg-gray-50">
-                      <td className="px-2 py-2 text-gray-500 tabular-nums">{idx + 1}</td>
-                      <td className="px-2 py-2 font-mono text-gray-900">{r.pc4}</td>
+                    <tr key={r.pc4} className="border-b border-border hover:bg-muted">
+                      <td className="px-2 py-2 text-subtle-foreground tabular-nums">{idx + 1}</td>
+                      <td className="px-2 py-2 font-mono text-foreground">{r.pc4}</td>
                       <td className="px-2 py-2">
                         <span className={`inline-block px-2 py-0.5 rounded text-xs font-mono tabular-nums ${priorityTone(r.priority)}`}>
                           {r.priority >= 0 ? '+' : ''}{nlNum1(r.priority)}
                         </span>
                       </td>
-                      <td className="px-2 py-2 text-right tabular-nums text-gray-700">{r.actual}</td>
-                      <td className="px-2 py-2 text-right tabular-nums text-gray-700">
+                      <td className="px-2 py-2 text-right tabular-nums text-muted-foreground">{r.actual}</td>
+                      <td className="px-2 py-2 text-right tabular-nums text-muted-foreground">
                         {nlNum1(model === 'k8' && r.predicted_k8 != null ? r.predicted_k8 : r.predicted_base)}
                       </td>
-                      <td className="px-2 py-2 text-right tabular-nums text-gray-700">
+                      <td className="px-2 py-2 text-right tabular-nums text-muted-foreground">
                         {nlNum1(
                           model === 'k8' && r.underservice_k8 != null
                             ? r.underservice_k8 : r.underservice_base,
                         )}
                       </td>
-                      <td className="px-2 py-2 text-right tabular-nums text-gray-700">{nlInt(r.population)}</td>
-                      <td className="px-2 py-2 text-right tabular-nums text-gray-700">{nlInt(r.uncovered_pop)}</td>
-                      <td className="px-2 py-2 text-right tabular-nums text-gray-600">{nlNum1(r.coverage_pct_400m)}%</td>
-                      <td className="px-2 py-2 text-right tabular-nums text-gray-600">{nlNum1(r.overlap_pct)}%</td>
-                      <td className="px-2 py-2 text-right tabular-nums text-gray-600">{nlInt(r.density)}</td>
-                      <td className="px-2 py-2 text-right tabular-nums font-semibold text-blue-800">
+                      <td className="px-2 py-2 text-right tabular-nums text-muted-foreground">{nlInt(r.population)}</td>
+                      <td className="px-2 py-2 text-right tabular-nums text-muted-foreground">{nlInt(r.uncovered_pop)}</td>
+                      <td className="px-2 py-2 text-right tabular-nums text-muted-foreground">{nlNum1(r.coverage_pct_400m)}%</td>
+                      <td className="px-2 py-2 text-right tabular-nums text-muted-foreground">{nlNum1(r.overlap_pct)}%</td>
+                      <td className="px-2 py-2 text-right tabular-nums text-muted-foreground">{nlInt(r.density)}</td>
+                      <td className="px-2 py-2 text-right tabular-nums font-semibold text-accent-foreground">
                         {r.suggestion ? nlInt(r.suggestion.est_new_pop_within_400m) : '—'}
                       </td>
                     </tr>
@@ -862,27 +862,27 @@ export default function PlacementSuggestionsReport({
           <section
             data-tour="grote-kaart"
             ref={bigMapRef}
-            className="bg-white rounded-lg shadow-md p-6 mb-6 scroll-mt-6"
+            className="bg-card rounded-lg shadow-md p-6 mb-6 scroll-mt-6"
           >
             <div className="flex flex-wrap items-baseline justify-between gap-2 mb-3">
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className="text-lg font-semibold text-foreground">
                 Voorgestelde locaties op kaart
               </h3>
               <div className="flex flex-wrap items-center gap-3">
-                <label data-tour="poi-toggle" className="flex items-center gap-1.5 text-xs text-gray-700 cursor-pointer select-none">
+                <label data-tour="poi-toggle" className="flex items-center gap-1.5 text-xs text-muted-foreground cursor-pointer select-none">
                   <input
                     type="checkbox"
                     checked={showPois}
                     onChange={(e) => setShowPois(e.target.checked)}
-                    className="rounded border-gray-300"
+                    className="rounded border-input"
                   />
                   Voorzieningen tonen
-                  {poiLoading && <span className="text-gray-400">(laden…)</span>}
+                  {poiLoading && <span className="text-subtle-foreground">(laden…)</span>}
                   {showPois && poiFeatures && !poiLoading && (
-                    <span className="text-gray-400">({visiblePoiFeatures.length})</span>
+                    <span className="text-subtle-foreground">({visiblePoiFeatures.length})</span>
                   )}
                 </label>
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-subtle-foreground">
                   Klik een pin op de kaart of een kaartje hieronder om de details
                   in het rechterpaneel te zien.
                 </p>
@@ -891,14 +891,14 @@ export default function PlacementSuggestionsReport({
 
             {/* POI layer panel: one toggle per category + render style. */}
             {showPois && poiFeatures && (
-              <div className="mb-3 p-3 bg-gray-50 border border-gray-200 rounded-lg">
+              <div className="mb-3 p-3 bg-muted border border-border rounded-lg">
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-                  <label className="flex items-center gap-1.5 text-xs text-gray-700">
+                  <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
                     Weergave
                     <select
                       value={poiStyle}
                       onChange={(e) => setPoiStyle(e.target.value as 'icons' | 'dots')}
-                      className="px-2 py-1 text-xs border border-gray-300 rounded bg-white"
+                      className="px-2 py-1 text-xs border border-input rounded bg-card"
                     >
                       <option value="icons">Iconen</option>
                       <option value="dots">Stippen</option>
@@ -910,7 +910,7 @@ export default function PlacementSuggestionsReport({
                       onClick={() =>
                         setPoiSelected(Object.fromEntries(poiCategories.map((c) => [c.category, true])))
                       }
-                      className="text-blue-700 hover:text-blue-900 font-semibold"
+                      className="text-primary hover:text-accent-foreground font-semibold"
                     >
                       Alles aan
                     </button>
@@ -919,7 +919,7 @@ export default function PlacementSuggestionsReport({
                       onClick={() =>
                         setPoiSelected(Object.fromEntries(poiCategories.map((c) => [c.category, false])))
                       }
-                      className="text-blue-700 hover:text-blue-900 font-semibold"
+                      className="text-primary hover:text-accent-foreground font-semibold"
                     >
                       Alles uit
                     </button>
@@ -937,8 +937,8 @@ export default function PlacementSuggestionsReport({
                         }
                         className={`flex items-center gap-1.5 px-2 py-1 rounded-full border text-[11px] transition ${
                           active
-                            ? 'bg-white border-gray-300 text-gray-800 shadow-sm'
-                            : 'bg-gray-100 border-gray-200 text-gray-400'
+                            ? 'bg-card border-input text-foreground shadow-sm'
+                            : 'bg-secondary border-border text-subtle-foreground'
                         }`}
                         title={`${c.label} (${c.count})`}
                       >
@@ -947,7 +947,7 @@ export default function PlacementSuggestionsReport({
                           style={{ background: active ? c.color : '#9ca3af' }}
                         />
                         {c.label}
-                        <span className={active ? 'text-gray-400' : 'text-gray-300'}>{c.count}</span>
+                        <span className={active ? 'text-subtle-foreground' : 'text-subtle-foreground opacity-60'}>{c.count}</span>
                       </button>
                     );
                   })}
@@ -961,7 +961,7 @@ export default function PlacementSuggestionsReport({
               </div>
             ) : (
               <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-4">
-                <div className="h-[560px] lg:h-[640px] rounded-lg overflow-hidden border border-gray-200">
+                <div className="h-[560px] lg:h-[640px] rounded-lg overflow-hidden border border-border">
                   <SuggestionBigMap
                     municipality={block.gemeente}
                     records={bigMapRecords}
@@ -975,7 +975,7 @@ export default function PlacementSuggestionsReport({
                   />
                 </div>
 
-                <aside data-tour="detailpaneel" className="border border-gray-200 rounded-lg overflow-hidden flex flex-col h-[560px] lg:h-[640px]">
+                <aside data-tour="detailpaneel" className="border border-border rounded-lg overflow-hidden flex flex-col h-[560px] lg:h-[640px]">
                   {selectedRecord && activeSpotOf(selectedRecord) ? (() => {
                     const r = selectedRecord;
                     const spots = spotsOf(r);
@@ -988,26 +988,26 @@ export default function PlacementSuggestionsReport({
                         ? r.predicted_k8 : r.predicted_base;
                     return (
                       <>
-                        <div className="px-4 py-3 bg-blue-50 border-b border-blue-100">
-                          <div className="text-[10px] uppercase tracking-wide text-blue-700 font-semibold">
+                        <div className="px-4 py-3 bg-accent border-b border-primary/30">
+                          <div className="text-[10px] uppercase tracking-wide text-primary font-semibold">
                             Voorstel #{selectedRank}
                           </div>
-                          <div className="text-xl font-bold text-gray-900 font-mono">
+                          <div className="text-xl font-bold text-foreground font-mono">
                             PC4 {r.pc4}
                           </div>
-                          <div className="text-xs text-gray-600">
+                          <div className="text-xs text-muted-foreground">
                             {block.gemeente}
                             {' · prioriteit '}
-                            <span className="font-mono font-semibold text-blue-800">
+                            <span className="font-mono font-semibold text-accent-foreground">
                               {r.priority >= 0 ? '+' : ''}{nlNum1(r.priority)}
                             </span>
                           </div>
                           {spots.length > 1 && (
                             <div className="mt-2 flex items-center gap-1.5">
-                              <span className="text-[10px] uppercase tracking-wide text-gray-500 font-semibold">
+                              <span className="text-[10px] uppercase tracking-wide text-subtle-foreground font-semibold">
                                 Plek
                               </span>
-                              <div className="inline-flex rounded overflow-hidden border border-blue-200">
+                              <div className="inline-flex rounded overflow-hidden border border-primary/30">
                                 {spots.map((_, i) => (
                                   <button
                                     key={i}
@@ -1015,15 +1015,15 @@ export default function PlacementSuggestionsReport({
                                     onClick={() => setSpotRank(r.pc4, i + 1)}
                                     className={`px-2.5 py-1 text-xs font-semibold transition ${
                                       activeRank === i + 1
-                                        ? 'bg-blue-700 text-white'
-                                        : 'bg-white text-blue-700 hover:bg-blue-50'
+                                        ? 'bg-primary/90 text-primary-foreground'
+                                        : 'bg-card text-primary hover:bg-accent'
                                     }`}
                                   >
                                     {i + 1}
                                   </button>
                                 ))}
                               </div>
-                              <span className="text-[10px] text-gray-500">
+                              <span className="text-[10px] text-subtle-foreground">
                                 {s.marginal === false ? 'alternatief in gedekt vlak' : 'extra bereik'}
                               </span>
                             </div>
@@ -1032,32 +1032,32 @@ export default function PlacementSuggestionsReport({
 
                         <div className="px-4 py-3 space-y-3 text-xs overflow-y-auto flex-1 min-h-0">
                           <div>
-                            <div className="text-gray-500 uppercase tracking-wide">
+                            <div className="text-subtle-foreground uppercase tracking-wide">
                               Coördinaat
                             </div>
-                            <div className="font-mono text-gray-800">
+                            <div className="font-mono text-foreground">
                               {s.lat.toFixed(5)}, {s.lon.toFixed(5)}
                             </div>
                           </div>
 
-                          <div className="border-t border-gray-100 pt-3">
-                            <div className="text-gray-500 uppercase tracking-wide">
+                          <div className="border-t border-border pt-3">
+                            <div className="text-subtle-foreground uppercase tracking-wide">
                               Dichtstbijzijnd adres
                             </div>
                             {s.adres?.weergavenaam ? (
-                              <div className="text-gray-900 font-semibold">
+                              <div className="text-foreground font-semibold">
                                 {s.adres.weergavenaam}
                                 {s.adres.afstand_m != null && (
-                                  <span className="font-normal text-gray-500"> (±{s.adres.afstand_m} m)</span>
+                                  <span className="font-normal text-subtle-foreground"> (±{s.adres.afstand_m} m)</span>
                                 )}
                               </div>
                             ) : (
-                              <div className="text-gray-500 italic">Geen adres gevonden</div>
+                              <div className="text-subtle-foreground italic">Geen adres gevonden</div>
                             )}
                           </div>
 
-                          <div className="border-t border-gray-100 pt-3">
-                            <div className="text-gray-500 uppercase tracking-wide">
+                          <div className="border-t border-border pt-3">
+                            <div className="text-subtle-foreground uppercase tracking-wide">
                               BAG-pand
                             </div>
                             {s.snapped_to_bag && s.bag_gebruiksdoel ? (
@@ -1068,98 +1068,98 @@ export default function PlacementSuggestionsReport({
                                     {s.poi_distance_m != null ? ` (${s.poi_distance_m} m)` : ''}
                                   </div>
                                 )}
-                                <div className="text-gray-800">
+                                <div className="text-foreground">
                                   {s.bag_gebruiksdoel}
                                   {s.bag_bouwjaar ? ` · bouwjaar ${s.bag_bouwjaar}` : ''}
                                 </div>
                                 {s.bag_frontage_60m != null && (
-                                  <div className="text-[11px] text-gray-600 mt-0.5">
+                                  <div className="text-[11px] text-muted-foreground mt-0.5">
                                     {s.bag_frontage_60m === 0
                                       ? 'Geen winkels/horeca binnen 60 m'
                                       : `${s.bag_frontage_60m} winkel/horeca-panden binnen 60 m`}
                                   </div>
                                 )}
                                 {s.bag_identificatie && (
-                                  <div className="font-mono text-[10px] text-gray-500 mt-0.5">
+                                  <div className="font-mono text-[10px] text-subtle-foreground mt-0.5">
                                     BAG-id: {s.bag_identificatie}
                                   </div>
                                 )}
                                 {s.bag_distance_m != null && (
-                                  <div className="text-[11px] text-gray-500 mt-0.5">
+                                  <div className="text-[11px] text-subtle-foreground mt-0.5">
                                     {s.bag_distance_m} m verschoven t.o.v. dichtste 100 m-cel
                                   </div>
                                 )}
                               </>
                             ) : (
-                              <div className="text-gray-500 italic">
+                              <div className="text-subtle-foreground italic">
                                 Geen BAG-snap (representatief punt van de witte vlek)
                               </div>
                             )}
                           </div>
 
-                          <div className="border-t border-gray-100 pt-3 grid grid-cols-2 gap-2">
+                          <div className="border-t border-border pt-3 grid grid-cols-2 gap-2">
                             <div>
-                              <div className="text-gray-500">Actueel</div>
-                              <div className="font-semibold text-gray-900">
+                              <div className="text-subtle-foreground">Actueel</div>
+                              <div className="font-semibold text-foreground">
                                 {r.actual} pp
                               </div>
                             </div>
                             <div>
-                              <div className="text-gray-500">Voorspeld</div>
-                              <div className="font-semibold text-gray-900">
+                              <div className="text-subtle-foreground">Voorspeld</div>
+                              <div className="font-semibold text-foreground">
                                 {nlNum1(predicted)} pp
                               </div>
                             </div>
                             <div>
-                              <div className="text-gray-500">Inwoners</div>
-                              <div className="font-semibold text-gray-900">
+                              <div className="text-subtle-foreground">Inwoners</div>
+                              <div className="font-semibold text-foreground">
                                 {nlInt(r.population)}
                               </div>
                             </div>
                             <div>
-                              <div className="text-gray-500">Onbereikt (400 m)</div>
-                              <div className="font-semibold text-gray-900">
+                              <div className="text-subtle-foreground">Onbereikt (400 m)</div>
+                              <div className="font-semibold text-foreground">
                                 {nlInt(r.uncovered_pop)}
                               </div>
                             </div>
                             <div>
-                              <div className="text-gray-500">% binnen 400 m</div>
-                              <div className="font-semibold text-gray-900">
+                              <div className="text-subtle-foreground">% binnen 400 m</div>
+                              <div className="font-semibold text-foreground">
                                 {nlNum1(r.coverage_pct_400m)}%
                               </div>
                             </div>
                             <div>
-                              <div className="text-gray-500">Overlap</div>
-                              <div className="font-semibold text-gray-900">
+                              <div className="text-subtle-foreground">Overlap</div>
+                              <div className="font-semibold text-foreground">
                                 {nlNum1(r.overlap_pct)}%
                               </div>
                             </div>
                             <div>
-                              <div className="text-gray-500">Dichtheid (oad)</div>
-                              <div className="font-semibold text-gray-900">
+                              <div className="text-subtle-foreground">Dichtheid (oad)</div>
+                              <div className="font-semibold text-foreground">
                                 {nlInt(r.density)}
                               </div>
                             </div>
                             <div>
-                              <div className="text-gray-500">Wit vlak</div>
-                              <div className="font-semibold text-gray-900">
+                              <div className="text-subtle-foreground">Wit vlak</div>
+                              <div className="font-semibold text-foreground">
                                 {nlNum1(s.white_spot_area_m2 / 10000)} ha
                               </div>
                             </div>
                           </div>
 
-                          <div className="border-t border-gray-100 pt-3">
-                            <div className="text-gray-500 uppercase tracking-wide">
+                          <div className="border-t border-border pt-3">
+                            <div className="text-subtle-foreground uppercase tracking-wide">
                               Geschat extra bereik (400 m)
                             </div>
-                            <div className="text-lg font-bold text-blue-800">
+                            <div className="text-lg font-bold text-accent-foreground">
                               {nlInt(s.est_new_pop_within_400m)} inwoners
                             </div>
                           </div>
 
                         </div>
 
-                        <div className="flex-none px-4 py-2.5 border-t border-gray-200 bg-white flex flex-col gap-1.5">
+                        <div className="flex-none px-4 py-2.5 border-t border-border bg-card flex flex-col gap-1.5">
                             <Link
                               href={`/data-export/suggesties/3d/${slug}/${r.pc4}${activeRank > 1 ? `?rank=${activeRank}` : ''}`}
                               style={{ color: '#ffffff' }}
@@ -1176,7 +1176,7 @@ export default function PlacementSuggestionsReport({
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 style={{ color: '#ffffff' }}
-                                className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold bg-blue-700 hover:bg-blue-800 rounded transition no-underline"
+                                className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold bg-primary/90 hover:bg-blue-800 rounded transition no-underline"
                               >
                                 Open in Streetview
                               </a>
@@ -1185,7 +1185,7 @@ export default function PlacementSuggestionsReport({
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 style={{ color: '#1f2937' }}
-                                className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold bg-gray-100 hover:bg-gray-200 rounded transition no-underline"
+                                className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold bg-secondary hover:bg-border rounded transition no-underline"
                               >
                                 Open in Google Maps
                               </a>
@@ -1194,7 +1194,7 @@ export default function PlacementSuggestionsReport({
                       </>
                     );
                   })() : (
-                    <div className="p-4 text-sm text-gray-500">
+                    <div className="p-4 text-sm text-subtle-foreground">
                       Selecteer een suggestie op de kaart.
                     </div>
                   )}
@@ -1204,10 +1204,10 @@ export default function PlacementSuggestionsReport({
           </section>
 
           {/* Mini-maps */}
-          <section data-tour="minimaps" className="bg-white rounded-lg shadow-md p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-3">Voorgestelde locaties</h3>
+          <section data-tour="minimaps" className="bg-card rounded-lg shadow-md p-6">
+            <h3 className="text-lg font-semibold text-foreground mb-3">Voorgestelde locaties</h3>
             {muniLoading && (
-              <p className="text-sm text-gray-500 mb-3">Gemeente-data laden...</p>
+              <p className="text-sm text-subtle-foreground mb-3">Gemeente-data laden...</p>
             )}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
               {/* Mini-maps render in *server* order — never reorder, because
@@ -1236,10 +1236,10 @@ export default function PlacementSuggestionsReport({
                         : 'Pijnpunt · gemeente';
                   const tone =
                     match === 'both'
-                      ? 'bg-blue-700 text-white border-blue-800'
+                      ? 'bg-primary/90 text-primary-foreground border-blue-800'
                       : match === 'carrier'
-                        ? 'bg-blue-100 text-blue-800 border-blue-200'
-                        : 'bg-blue-50 text-blue-800 border-blue-300';
+                        ? 'bg-accent text-accent-foreground border-primary/30'
+                        : 'bg-accent text-accent-foreground border-primary/30';
                   return (
                     <span
                       className={`text-[10px] uppercase tracking-wide font-semibold px-1.5 py-0.5 rounded border ${tone}`}
@@ -1261,17 +1261,17 @@ export default function PlacementSuggestionsReport({
                   key={r.pc4}
                   className={`border rounded-lg overflow-hidden transition ${
                     isSelected
-                      ? 'border-blue-500 ring-2 ring-blue-200'
-                      : 'border-gray-200 hover:border-blue-300'
+                      ? 'border-primary ring-2 ring-blue-200'
+                      : 'border-border hover:border-primary/30'
                   }`}
                 >
                   <button
                     type="button"
                     onClick={() => cardSpot && handleSelectPc4(r.pc4, true)}
                     disabled={!cardSpot}
-                    className={`w-full px-3 py-2 bg-gray-50 border-b border-gray-200 flex items-center justify-between gap-2 flex-wrap text-left ${
+                    className={`w-full px-3 py-2 bg-muted border-b border-border flex items-center justify-between gap-2 flex-wrap text-left ${
                       cardSpot
-                        ? 'cursor-pointer hover:bg-blue-50'
+                        ? 'cursor-pointer hover:bg-accent'
                         : 'cursor-default'
                     }`}
                     title={
@@ -1281,10 +1281,10 @@ export default function PlacementSuggestionsReport({
                     }
                   >
                     <div className="text-sm flex items-center gap-2 flex-wrap">
-                      <span className="font-mono font-semibold text-gray-900">#{newRank} · PC4 {r.pc4}</span>
+                      <span className="font-mono font-semibold text-foreground">#{newRank} · PC4 {r.pc4}</span>
                       {matchBadge}
                       {isSelected && (
-                        <span className="text-[10px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded bg-blue-700 text-white">
+                        <span className="text-[10px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded bg-primary/90 text-primary-foreground">
                           Geselecteerd
                         </span>
                       )}
@@ -1301,15 +1301,15 @@ export default function PlacementSuggestionsReport({
                       muniGeojson={muniGeojson}
                     />
                   </div>
-                  <div className="px-3 py-2 text-xs text-gray-600 bg-white border-t border-gray-100">
+                  <div className="px-3 py-2 text-xs text-muted-foreground bg-card border-t border-border">
                     {cardSpot ? (
                       <>
                         {cardSpots.length > 1 && (
                           <div className="flex items-center gap-1.5 mb-1.5">
-                            <span className="text-[10px] uppercase tracking-wide text-gray-500 font-semibold">
+                            <span className="text-[10px] uppercase tracking-wide text-subtle-foreground font-semibold">
                               Plek
                             </span>
-                            <div className="inline-flex rounded overflow-hidden border border-blue-200">
+                            <div className="inline-flex rounded overflow-hidden border border-primary/30">
                               {cardSpots.map((_, i) => (
                                 <button
                                   key={i}
@@ -1317,8 +1317,8 @@ export default function PlacementSuggestionsReport({
                                   onClick={() => setSpotRank(r.pc4, i + 1)}
                                   className={`px-2 py-0.5 text-[11px] font-semibold transition ${
                                     cardRank === i + 1
-                                      ? 'bg-blue-700 text-white'
-                                      : 'bg-white text-blue-700 hover:bg-blue-50'
+                                      ? 'bg-primary/90 text-primary-foreground'
+                                      : 'bg-card text-primary hover:bg-accent'
                                   }`}
                                 >
                                   {i + 1}
@@ -1334,7 +1334,7 @@ export default function PlacementSuggestionsReport({
                           </div>
                         )}
                         {cardSpot.adres?.weergavenaam && (
-                          <div className="text-gray-900 font-semibold">
+                          <div className="text-foreground font-semibold">
                             {cardSpot.adres.weergavenaam}
                             {cardSpot.marginal === false && (
                               <span className="ml-1.5 text-[10px] font-semibold uppercase tracking-wide text-amber-700 bg-amber-50 border border-amber-200 rounded px-1">
@@ -1357,7 +1357,7 @@ export default function PlacementSuggestionsReport({
                           </div>
                         )}
                         {cardSpot.snapped_to_bag && cardSpot.bag_gebruiksdoel && (
-                          <div className="text-[11px] text-blue-700 mt-0.5">
+                          <div className="text-[11px] text-primary mt-0.5">
                             BAG-pand: {cardSpot.bag_gebruiksdoel}
                             {cardSpot.bag_bouwjaar ? ` (bouwjaar ${cardSpot.bag_bouwjaar})` : ''}
                             {cardSpot.bag_distance_m != null && `, ${cardSpot.bag_distance_m} m verschoven`}
@@ -1384,13 +1384,13 @@ export default function PlacementSuggestionsReport({
 
       {/* Pijnpunten cross-reference — PC4s flagged by carriers ≥ threshold OR by the G4-gemeente */}
       {painpoints && block && (
-        <section className="mt-8 bg-white rounded-lg shadow-md p-6">
+        <section className="mt-8 bg-card rounded-lg shadow-md p-6">
           <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
             <div>
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className="text-lg font-semibold text-foreground">
                 Pijnpunten in {block.gemeente}
               </h3>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-muted-foreground">
                 PC4s aangedragen door minimaal{' '}
                 <strong>{painpointThreshold}</strong>{' '}
                 {painpointThreshold === 1 ? 'vervoerder' : 'vervoerders'} of
@@ -1399,7 +1399,7 @@ export default function PlacementSuggestionsReport({
               </p>
             </div>
             <div className="flex items-center gap-2 text-xs">
-              <label htmlFor="pp-threshold" className="text-gray-600">
+              <label htmlFor="pp-threshold" className="text-muted-foreground">
                 Drempel carriers:
               </label>
               <input
@@ -1417,13 +1417,13 @@ export default function PlacementSuggestionsReport({
               </span>
               <Link
                 href="/data-export/painpoints"
-                className="ml-3 inline-flex items-center gap-1 text-blue-700 hover:text-blue-900 font-medium"
+                className="ml-3 inline-flex items-center gap-1 text-primary hover:text-accent-foreground font-medium"
               >
                 Carriers →
               </Link>
               <Link
                 href="/data-export/gemeente-painpoints"
-                className="inline-flex items-center gap-1 text-blue-700 hover:text-blue-900 font-medium"
+                className="inline-flex items-center gap-1 text-primary hover:text-accent-foreground font-medium"
               >
                 Gemeenten →
               </Link>
@@ -1431,27 +1431,27 @@ export default function PlacementSuggestionsReport({
           </div>
 
           {muniPainpoints.length === 0 ? (
-            <p className="text-sm text-gray-500 italic">
+            <p className="text-sm text-subtle-foreground italic">
               Geen pijnpunten gevonden in {block.gemeente} met de huidige
               drempel. Verlaag de drempel om meer te zien.
             </p>
           ) : (
             <div className="overflow-x-auto -mx-6 px-6">
               <table className="w-full text-sm">
-                <thead className="border-b border-gray-200">
+                <thead className="border-b border-border">
                   <tr className="text-left">
-                    <th className="px-2 py-2 text-xs font-semibold text-gray-600">PC4</th>
-                    <th className="px-2 py-2 text-xs font-semibold text-gray-600">Bron</th>
-                    <th className="px-2 py-2 text-xs font-semibold text-gray-600 text-right">
+                    <th className="px-2 py-2 text-xs font-semibold text-muted-foreground">PC4</th>
+                    <th className="px-2 py-2 text-xs font-semibold text-muted-foreground">Bron</th>
+                    <th className="px-2 py-2 text-xs font-semibold text-muted-foreground text-right">
                       # vervoerders
                     </th>
-                    <th className="px-2 py-2 text-xs font-semibold text-gray-600">Vervoerders</th>
-                    <th className="px-2 py-2 text-xs font-semibold text-gray-600">Gemeente</th>
-                    <th className="px-2 py-2 text-xs font-semibold text-gray-600 text-right">
+                    <th className="px-2 py-2 text-xs font-semibold text-muted-foreground">Vervoerders</th>
+                    <th className="px-2 py-2 text-xs font-semibold text-muted-foreground">Gemeente</th>
+                    <th className="px-2 py-2 text-xs font-semibold text-muted-foreground text-right">
                       Bestaande PP
                     </th>
-                    <th className="px-2 py-2 text-xs font-semibold text-gray-600">In top-{topN} advies?</th>
-                    <th className="px-2 py-2 text-xs font-semibold text-gray-600">Detail</th>
+                    <th className="px-2 py-2 text-xs font-semibold text-muted-foreground">In top-{topN} advies?</th>
+                    <th className="px-2 py-2 text-xs font-semibold text-muted-foreground">Detail</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -1463,18 +1463,18 @@ export default function PlacementSuggestionsReport({
                       : kind === 'carrier' ? 'Carrier'
                       : 'Gemeente';
                     const kindTone =
-                      kind === 'both' ? 'bg-blue-700 text-white'
-                      : kind === 'carrier' ? 'bg-blue-100 text-blue-800'
-                      : 'bg-blue-50 text-blue-800 border border-blue-300';
+                      kind === 'both' ? 'bg-primary/90 text-primary-foreground'
+                      : kind === 'carrier' ? 'bg-accent text-accent-foreground'
+                      : 'bg-accent text-accent-foreground border border-primary/30';
                     return (
-                      <tr key={pc4} className="border-b border-gray-100 hover:bg-blue-50/40">
-                        <td className="px-2 py-2 font-mono text-gray-900">{pc4}</td>
+                      <tr key={pc4} className="border-b border-border hover:bg-accent/40">
+                        <td className="px-2 py-2 font-mono text-foreground">{pc4}</td>
                         <td className="px-2 py-2">
                           <span className={`inline-block px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide rounded ${kindTone}`}>
                             {kindLabel}
                           </span>
                         </td>
-                        <td className="px-2 py-2 text-right tabular-nums font-semibold text-blue-800">
+                        <td className="px-2 py-2 text-right tabular-nums font-semibold text-accent-foreground">
                           {entry.carriers.length}
                         </td>
                         <td className="px-2 py-2">
@@ -1482,7 +1482,7 @@ export default function PlacementSuggestionsReport({
                             {entry.carriers.map((c) => (
                               <span
                                 key={c}
-                                className="inline-block px-1.5 py-0.5 text-[10px] font-medium bg-blue-100 text-blue-800 rounded"
+                                className="inline-block px-1.5 py-0.5 text-[10px] font-medium bg-accent text-accent-foreground rounded"
                               >
                                 {c}
                               </span>
@@ -1491,13 +1491,13 @@ export default function PlacementSuggestionsReport({
                         </td>
                         <td className="px-2 py-2">
                           {(entry.gemeenten ?? []).length === 0 ? (
-                            <span className="text-gray-400">—</span>
+                            <span className="text-subtle-foreground">—</span>
                           ) : (
                             <div className="flex flex-wrap gap-1">
                               {(entry.gemeenten ?? []).map((g) => (
                                 <span
                                   key={g}
-                                  className="inline-block px-1.5 py-0.5 text-[10px] font-medium bg-blue-50 text-blue-800 border border-blue-300 rounded"
+                                  className="inline-block px-1.5 py-0.5 text-[10px] font-medium bg-accent text-accent-foreground border border-primary/30 rounded"
                                 >
                                   Gemeente {g}
                                 </span>
@@ -1505,22 +1505,22 @@ export default function PlacementSuggestionsReport({
                             </div>
                           )}
                         </td>
-                        <td className="px-2 py-2 text-right tabular-nums text-gray-700">
+                        <td className="px-2 py-2 text-right tabular-nums text-muted-foreground">
                           {entry.pakketpunten?.total ?? '—'}
                         </td>
                         <td className="px-2 py-2 text-xs">
                           {inTop5 ? (
-                            <span className="inline-block px-2 py-0.5 bg-blue-700 text-white rounded font-mono">
+                            <span className="inline-block px-2 py-0.5 bg-primary/90 text-primary-foreground rounded font-mono">
                               #{top5Rank}
                             </span>
                           ) : (
-                            <span className="text-gray-400">—</span>
+                            <span className="text-subtle-foreground">—</span>
                           )}
                         </td>
                         <td className="px-2 py-2 text-xs">
                           <Link
                             href={`/data-export/${kind === 'gemeente' ? 'gemeente-painpoints' : 'painpoints'}#${pc4}`}
-                            className="text-blue-700 hover:text-blue-900 font-medium"
+                            className="text-primary hover:text-accent-foreground font-medium"
                           >
                             Bekijk →
                           </Link>
@@ -1533,10 +1533,10 @@ export default function PlacementSuggestionsReport({
             </div>
           )}
 
-          <p className="mt-3 text-[11px] text-gray-500">
-            Bronnen: <Link href="/data-export/painpoints" className="text-blue-700 hover:text-blue-900">vervoerder-meldingen</Link>{' '}
+          <p className="mt-3 text-[11px] text-subtle-foreground">
+            Bronnen: <Link href="/data-export/painpoints" className="text-primary hover:text-accent-foreground">vervoerder-meldingen</Link>{' '}
             (Convenant Duurzame Pakketlogistiek) en{' '}
-            <Link href="/data-export/gemeente-painpoints" className="text-blue-700 hover:text-blue-900">G4-gemeenten</Link>.
+            <Link href="/data-export/gemeente-painpoints" className="text-primary hover:text-accent-foreground">G4-gemeenten</Link>.
             PC4s die ook in de top-{topN} prioriteits-PC4s staan (kolom &quot;In
             top-{topN} advies?&quot;) zijn dubbel-bevestigde kandidaten — zowel
             data-gedreven als door een externe partij genoemd.
@@ -1546,13 +1546,13 @@ export default function PlacementSuggestionsReport({
 
       {/* Pijnpunt-locaties op de kaart — mini-map per PC4 in this gemeente */}
       {painpoints && block && muniPainpoints.length > 0 && (
-        <section className="mt-8 bg-white rounded-lg shadow-md p-6">
+        <section className="mt-8 bg-card rounded-lg shadow-md p-6">
           <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
             <div>
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className="text-lg font-semibold text-foreground">
                 Pijnpunt-locaties in {block.gemeente}
               </h3>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-muted-foreground">
                 Mini-kaart per pijnpunt-PC4 — toont de PC4-zone en de
                 bestaande pakketpunten erin. Filter op bron via de knoppen
                 hieronder.
@@ -1581,8 +1581,8 @@ export default function PlacementSuggestionsReport({
                     onClick={() => setPainpointFilter(key)}
                     className={`px-3 py-1.5 text-xs font-semibold border transition ${
                       active
-                        ? 'bg-blue-700 text-white border-blue-700'
-                        : 'bg-white text-blue-700 border-gray-300 hover:bg-blue-50'
+                        ? 'bg-primary/90 text-primary-foreground border-primary'
+                        : 'bg-card text-primary border-input hover:bg-accent'
                     } ${first ? 'rounded-l-md' : ''} ${last ? 'rounded-r-md' : ''} ${
                       !first ? '-ml-px' : ''
                     }`}
@@ -1600,7 +1600,7 @@ export default function PlacementSuggestionsReport({
             );
             if (filtered.length === 0) {
               return (
-                <p className="text-sm text-gray-500 italic">
+                <p className="text-sm text-subtle-foreground italic">
                   Geen pijnpunten in deze categorie voor {block.gemeente}.
                 </p>
               );
@@ -1619,18 +1619,18 @@ export default function PlacementSuggestionsReport({
                         : 'Gemeente';
                   const kindTone =
                     kind === 'both'
-                      ? 'bg-blue-700 text-white'
+                      ? 'bg-primary/90 text-primary-foreground'
                       : kind === 'carrier'
-                        ? 'bg-blue-100 text-blue-800'
-                        : 'bg-blue-50 text-blue-800 border border-blue-300';
+                        ? 'bg-accent text-accent-foreground'
+                        : 'bg-accent text-accent-foreground border border-primary/30';
                   return (
                     <div
                       key={pc4}
-                      className="border border-gray-200 rounded-lg overflow-hidden"
+                      className="border border-border rounded-lg overflow-hidden"
                     >
-                      <div className="px-3 py-2 bg-gray-50 border-b border-gray-200 flex items-center justify-between gap-2 flex-wrap">
+                      <div className="px-3 py-2 bg-muted border-b border-border flex items-center justify-between gap-2 flex-wrap">
                         <div className="text-sm flex items-center gap-2 flex-wrap">
-                          <span className="font-mono font-semibold text-gray-900">
+                          <span className="font-mono font-semibold text-foreground">
                             PC4 {pc4}
                           </span>
                           <span
@@ -1640,7 +1640,7 @@ export default function PlacementSuggestionsReport({
                           </span>
                         </div>
                         {inTop5 && (
-                          <span className="text-[10px] uppercase tracking-wide font-semibold px-1.5 py-0.5 rounded bg-blue-700 text-white font-mono">
+                          <span className="text-[10px] uppercase tracking-wide font-semibold px-1.5 py-0.5 rounded bg-primary/90 text-primary-foreground font-mono">
                             Top-{topN} #{top5Rank}
                           </span>
                         )}
@@ -1648,14 +1648,14 @@ export default function PlacementSuggestionsReport({
                       <div className="h-56">
                         <PainpointMiniMap pc4={pc4} points={entry.points ?? []} />
                       </div>
-                      <div className="px-3 py-2 text-xs text-gray-600 bg-white border-t border-gray-100 space-y-1">
+                      <div className="px-3 py-2 text-xs text-muted-foreground bg-card border-t border-border space-y-1">
                         {entry.carriers.length > 0 && (
                           <div className="flex flex-wrap gap-1 items-center">
-                            <span className="text-gray-500">Carriers:</span>
+                            <span className="text-subtle-foreground">Carriers:</span>
                             {entry.carriers.map((c) => (
                               <span
                                 key={c}
-                                className="inline-block px-1.5 py-0.5 text-[10px] font-medium bg-blue-100 text-blue-800 rounded"
+                                className="inline-block px-1.5 py-0.5 text-[10px] font-medium bg-accent text-accent-foreground rounded"
                               >
                                 {c}
                               </span>
@@ -1664,11 +1664,11 @@ export default function PlacementSuggestionsReport({
                         )}
                         {(entry.gemeenten ?? []).length > 0 && (
                           <div className="flex flex-wrap gap-1 items-center">
-                            <span className="text-gray-500">Gemeente:</span>
+                            <span className="text-subtle-foreground">Gemeente:</span>
                             {(entry.gemeenten ?? []).map((g) => (
                               <span
                                 key={g}
-                                className="inline-block px-1.5 py-0.5 text-[10px] font-medium bg-blue-50 text-blue-800 border border-blue-300 rounded"
+                                className="inline-block px-1.5 py-0.5 text-[10px] font-medium bg-accent text-accent-foreground border border-primary/30 rounded"
                               >
                                 Gemeente {g}
                               </span>
@@ -1676,7 +1676,7 @@ export default function PlacementSuggestionsReport({
                           </div>
                         )}
                         {entry.pakketpunten && (
-                          <div className="text-gray-600">
+                          <div className="text-muted-foreground">
                             Bestaande PP:{' '}
                             <strong>{entry.pakketpunten.total}</strong>{' '}
                             ({entry.pakketpunten.locker} automaten,{' '}
@@ -1694,7 +1694,7 @@ export default function PlacementSuggestionsReport({
       )}
 
       {/* Methodology footnote */}
-      <div className="mt-8 p-4 bg-gray-50 border border-gray-200 rounded-lg text-xs text-gray-600 space-y-1">
+      <div className="mt-8 p-4 bg-muted border border-border rounded-lg text-xs text-muted-foreground space-y-1">
         <p>
           <strong>Score</strong>: priority = {payload.weights.underservice.toFixed(2)}·z(onderbezetting)
           {' + '}{payload.weights.uncovered_pop.toFixed(2)}·z(onbereikte inwoners)

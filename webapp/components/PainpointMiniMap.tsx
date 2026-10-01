@@ -117,13 +117,13 @@ export default function PainpointMiniMap({ pc4, points }: Props) {
             >
               <Popup>
                 <div className="text-sm">
-                  <div className="font-semibold text-gray-900">{p.locatieNaam || p.vervoerder}</div>
-                  <div className="text-gray-600">{p.straatNaam} {p.straatNr}</div>
+                  <div className="font-semibold text-foreground">{p.locatieNaam || p.vervoerder}</div>
+                  <div className="text-muted-foreground">{p.straatNaam} {p.straatNr}</div>
                   <div className="mt-1 text-xs">
                     <span className="font-semibold">{p.vervoerder}</span>
                     {' · '}
                     {p.category === 'locker' ? 'Pakketautomaat' : 'Pakketshop'}
-                    {p.puntType && <span className="text-gray-500"> ({p.puntType})</span>}
+                    {p.puntType && <span className="text-subtle-foreground"> ({p.puntType})</span>}
                   </div>
                 </div>
               </Popup>
@@ -132,8 +132,8 @@ export default function PainpointMiniMap({ pc4, points }: Props) {
         })}
       </MapContainer>
       {loading && (
-        <div className="absolute inset-0 bg-white/60 flex items-center justify-center pointer-events-none">
-          <span className="text-sm text-gray-500">PC4 laden...</span>
+        <div className="absolute inset-0 bg-card/60 flex items-center justify-center pointer-events-none">
+          <span className="text-sm text-subtle-foreground">PC4 laden...</span>
         </div>
       )}
     </div>

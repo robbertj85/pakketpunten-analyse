@@ -214,18 +214,18 @@ export default function PoiExplorer() {
   return (
     <div className="flex flex-col lg:flex-row gap-4 h-[calc(100vh-220px)] min-h-[600px]">
       {/* Sidebar */}
-      <aside data-tour="sidebar" className="lg:w-80 w-full lg:flex-shrink-0 bg-white rounded-lg shadow-md p-4 overflow-y-auto">
-        <h2 className="text-lg font-semibold text-gray-900 mb-2">Publieke POI&apos;s</h2>
-        <p className="text-xs text-gray-600 mb-3">
+      <aside data-tour="sidebar" className="lg:w-80 w-full lg:flex-shrink-0 bg-card rounded-lg shadow-md p-4 overflow-y-auto">
+        <h2 className="text-lg font-semibold text-foreground mb-2">Publieke POI&apos;s</h2>
+        <p className="text-xs text-muted-foreground mb-3">
           Data uit OpenStreetMap, gefilterd op de geselecteerde gemeente.
         </p>
 
-        <label className="block text-xs font-medium text-gray-700 mb-1">Gemeente</label>
+        <label className="block text-xs font-medium text-muted-foreground mb-1">Gemeente</label>
         <select
           data-tour="gemeente-select"
           value={selectedMuni}
           onChange={(e) => { setSelectedMuni(e.target.value); setActive(new Set()); }}
-          className="w-full mb-3 px-2 py-1.5 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-teal-500"
+          className="w-full mb-3 px-2 py-1.5 border border-input rounded text-sm focus:ring-1 focus:ring-teal-500"
         >
           {muniOptions.map((m) => (
             <option key={m.slug} value={m.slug}>
@@ -235,22 +235,22 @@ export default function PoiExplorer() {
         </select>
 
         {bundleLoading && (
-          <div className="text-xs text-gray-500 mb-3">Laden…</div>
+          <div className="text-xs text-subtle-foreground mb-3">Laden…</div>
         )}
 
         <div className="mb-3">
-          <label className="block text-xs font-medium text-gray-700 mb-1">Weergave</label>
-          <div data-tour="weergave" className="inline-flex w-full rounded border border-gray-200 overflow-hidden text-xs">
+          <label className="block text-xs font-medium text-muted-foreground mb-1">Weergave</label>
+          <div data-tour="weergave" className="inline-flex w-full rounded border border-border overflow-hidden text-xs">
             <button
               type="button"
-              className={`flex-1 px-2 py-1 ${iconStyle === 'dots' ? 'bg-teal-600 text-white' : 'text-gray-600 hover:bg-gray-50'}`}
+              className={`flex-1 px-2 py-1 ${iconStyle === 'dots' ? 'bg-teal-600 text-white' : 'text-muted-foreground hover:bg-muted'}`}
               onClick={() => setIconStyle('dots')}
             >
               Dots
             </button>
             <button
               type="button"
-              className={`flex-1 px-2 py-1 ${iconStyle === 'icons' ? 'bg-teal-600 text-white' : 'text-gray-600 hover:bg-gray-50'}`}
+              className={`flex-1 px-2 py-1 ${iconStyle === 'icons' ? 'bg-teal-600 text-white' : 'text-muted-foreground hover:bg-muted'}`}
               onClick={() => setIconStyle('icons')}
             >
               Iconen
@@ -296,13 +296,13 @@ export default function PoiExplorer() {
           return (
             <div key={group} data-tour={group === GROUP_ORDER[0] ? 'categorieen' : undefined} className="mb-4">
               <div className="flex items-center justify-between mb-1">
-                <h3 className="text-xs uppercase tracking-wide font-semibold text-gray-500">
+                <h3 className="text-xs uppercase tracking-wide font-semibold text-subtle-foreground">
                   {GROUP_LABEL[group]}
                 </h3>
                 <button
                   type="button"
                   onClick={() => toggleGroup(group, !allOn)}
-                  className="text-xs text-blue-600 hover:text-blue-800"
+                  className="text-xs text-primary hover:text-primary"
                 >
                   {allOn ? 'Alles uit' : 'Alles aan'}
                 </button>
@@ -314,7 +314,7 @@ export default function PoiExplorer() {
                   return (
                     <label
                       key={c.slug}
-                      className={`flex items-center gap-2 px-2 py-1 rounded ${disabled ? 'opacity-40 cursor-not-allowed' : 'hover:bg-gray-50 cursor-pointer'}`}
+                      className={`flex items-center gap-2 px-2 py-1 rounded ${disabled ? 'opacity-40 cursor-not-allowed' : 'hover:bg-muted cursor-pointer'}`}
                     >
                       <input
                         type="checkbox"
@@ -326,8 +326,8 @@ export default function PoiExplorer() {
                         className="inline-block w-3 h-3 rounded-full flex-shrink-0"
                         style={{ background: c.color }}
                       />
-                      <span className="text-sm text-gray-800 flex-1">{c.label}</span>
-                      <span className="text-xs text-gray-500 tabular-nums">
+                      <span className="text-sm text-foreground flex-1">{c.label}</span>
+                      <span className="text-xs text-subtle-foreground tabular-nums">
                         {n.toLocaleString('nl-NL')}
                       </span>
                     </label>
@@ -339,25 +339,25 @@ export default function PoiExplorer() {
         })}
 
         {selectedEntry && (
-          <div className="mt-6 p-3 bg-red-50 border border-red-200 rounded">
-            <div className="text-xs uppercase tracking-wide text-red-700 mb-1">
+          <div className="mt-6 p-3 bg-destructive-muted border border-red-200 rounded">
+            <div className="text-xs uppercase tracking-wide text-destructive mb-1">
               Pijnpunt PC4 {selectedPc4}
             </div>
-            <div className="text-sm font-semibold text-gray-900 mb-1">{selectedEntry.city}</div>
-            <div className="text-xs text-gray-700 mb-2">
+            <div className="text-sm font-semibold text-foreground mb-1">{selectedEntry.city}</div>
+            <div className="text-xs text-muted-foreground mb-2">
               Carriers: {selectedEntry.carriers.join(', ') || '—'}
               {selectedEntry.gemeenten && selectedEntry.gemeenten.length > 0 &&
                 ` · Gemeenten: ${selectedEntry.gemeenten.join(', ')}`}
             </div>
             {selectedEntry.pakketpunten && (
-              <div className="text-xs text-gray-700 mb-2">
+              <div className="text-xs text-muted-foreground mb-2">
                 Pakketpunten: <span className="font-semibold">{selectedEntry.pakketpunten.total}</span>
                 {' '}({selectedEntry.pakketpunten.locker} automaten, {selectedEntry.pakketpunten.shop} shops)
               </div>
             )}
             {selectedEntry.pois && Object.keys(selectedEntry.pois).length > 0 && (
               <div className="mt-2">
-                <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">POI&apos;s in PC4</div>
+                <div className="text-xs uppercase tracking-wide text-subtle-foreground mb-1">POI&apos;s in PC4</div>
                 <ul className="text-xs space-y-0.5">
                   {Object.entries(selectedEntry.pois)
                     .sort(([, a], [, b]) => b - a)
@@ -379,7 +379,7 @@ export default function PoiExplorer() {
       </aside>
 
       {/* Map */}
-      <div data-tour="kaart" className="flex-1 bg-white rounded-lg shadow-md overflow-hidden min-h-[400px]">
+      <div data-tour="kaart" className="flex-1 bg-card rounded-lg shadow-md overflow-hidden min-h-[400px]">
         <MapContainer
           center={[52.15, 5.3]}
           zoom={8}

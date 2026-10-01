@@ -166,13 +166,13 @@ export default function PilotLocationsMap({
             >
               <Popup>
                 <div className="text-xs">
-                  <div className="font-semibold text-gray-900">{p.naam || p.vervoerder}</div>
-                  <div className="text-gray-600">Bestaand pakketpunt · {p.vervoerder}</div>
+                  <div className="font-semibold text-foreground">{p.naam || p.vervoerder}</div>
+                  <div className="text-muted-foreground">Bestaand pakketpunt · {p.vervoerder}</div>
                   <a
                     href={streetViewUrl(p.lat, p.lon)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block mt-1.5 font-medium text-blue-600 hover:text-blue-800 underline"
+                    className="inline-block mt-1.5 font-medium text-primary hover:text-primary underline"
                   >
                     Bekijk in Street View
                   </a>
@@ -207,21 +207,21 @@ export default function PilotLocationsMap({
               >
                 <Popup>
                   <div className="text-sm">
-                    <div className="font-semibold text-gray-900">
+                    <div className="font-semibold text-foreground">
                       {loc.rang}. {loc.naam}
                     </div>
-                    {loc.adres && <div className="text-gray-600">{loc.adres}</div>}
-                    <div className="text-xs text-gray-600 mt-1">
+                    {loc.adres && <div className="text-muted-foreground">{loc.adres}</div>}
+                    <div className="text-xs text-muted-foreground mt-1">
                       {TYPE_META[loc.type].label} · {STATUS_META[loc.status].label}
                     </div>
-                    <div className="text-xs font-mono text-gray-500 mt-1">
+                    <div className="text-xs font-mono text-subtle-foreground mt-1">
                       {loc.lat.toFixed(5)}, {loc.lon.toFixed(5)}
                     </div>
                     <a
                       href={streetViewUrl(loc.lat, loc.lon)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-block mt-2 text-xs font-medium text-blue-600 hover:text-blue-800 underline"
+                      className="inline-block mt-2 text-xs font-medium text-primary hover:text-primary underline"
                     >
                       Bekijk in Street View
                     </a>

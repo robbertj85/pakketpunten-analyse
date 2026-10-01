@@ -225,6 +225,27 @@ body {
   }
 }
 
+/* Leaflet draws popups and tooltips on a fixed white card. The content inside
+   uses the theme tokens (text-foreground etc.), so the card follows the theme
+   too, or dark mode would put light text on white. */
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: var(--popover);
+  color: var(--popover-foreground);
+}
+.leaflet-container a.leaflet-popup-close-button {
+  color: var(--subtle-foreground);
+}
+.leaflet-tooltip {
+  background-color: var(--popover);
+  color: var(--popover-foreground);
+  border-color: var(--border);
+}
+.leaflet-tooltip-top::before { border-top-color: var(--popover); }
+.leaflet-tooltip-bottom::before { border-bottom-color: var(--popover); }
+.leaflet-tooltip-left::before { border-left-color: var(--popover); }
+.leaflet-tooltip-right::before { border-right-color: var(--popover); }
+
 /* PC4 code labels — bound as permanent tooltips on each polygon.
    Hidden by default, revealed when Map wrapper has .show-pc4-labels
    (controlled by zoom level to avoid 4000 labels at once). */

@@ -119,7 +119,7 @@ export interface PainpointsPayload {
 const PainpointMiniMap = dynamic(() => import('./PainpointMiniMap'), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-full flex items-center justify-center text-sm text-gray-500">
+    <div className="w-full h-full flex items-center justify-center text-sm text-subtle-foreground">
       Kaart laden...
     </div>
   ),
@@ -158,7 +158,7 @@ function SortHeader<K extends string>({
         type="button"
         onClick={() => onToggle(sortKey)}
         className={`inline-flex items-center gap-1 font-semibold uppercase text-xs tracking-wide transition ${
-          isActive ? 'text-gray-900' : 'text-gray-600 hover:text-gray-900'
+          isActive ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
         }`}
       >
         <span>{label}</span>
@@ -194,7 +194,7 @@ function MultiSortHeader<K extends string>({
         onClick={() => onToggle(sortKey)}
         title="Klik om direct op deze kolom te sorteren. Gebruik de sort-rij hierboven voor meerdere niveaus."
         className={`inline-flex items-center gap-1 font-semibold uppercase text-xs tracking-wide transition ${
-          isActive ? 'text-gray-900' : 'text-gray-600 hover:text-gray-900'
+          isActive ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
         }`}
       >
         <span>{label}</span>
@@ -242,21 +242,21 @@ function SortBuilder<K extends string>({
     onChange([...stack, { key: firstUnused, dir: 'asc' }]);
   };
   return (
-    <div className="bg-gray-50 border border-gray-200 rounded-md p-3 space-y-2">
-      <div className="text-xs font-semibold text-gray-700 uppercase tracking-wide">Sorteren op</div>
+    <div className="bg-muted border border-border rounded-md p-3 space-y-2">
+      <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Sorteren op</div>
       {stack.map((entry, i) => {
         const numeric = isNumeric(entry.key);
         const ascLabel = numeric ? 'laag → hoog' : 'A → Z';
         const descLabel = numeric ? 'hoog → laag' : 'Z → A';
         return (
           <div key={i} className="flex items-center gap-2 flex-wrap">
-            <span className="text-xs text-gray-500 w-16 shrink-0">
+            <span className="text-xs text-subtle-foreground w-16 shrink-0">
               {i === 0 ? 'Primair' : i === 1 ? 'Dan op' : `Dan op (${i + 1})`}
             </span>
             <select
               value={entry.key}
               onChange={(e) => updateAt(i, { key: e.target.value as K })}
-              className="text-sm border border-gray-300 rounded px-2 py-1 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="text-sm border border-input rounded px-2 py-1 bg-card focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
               {options.map((o) => (
                 <option
@@ -271,7 +271,7 @@ function SortBuilder<K extends string>({
             <button
               type="button"
               onClick={() => updateAt(i, { dir: entry.dir === 'asc' ? 'desc' : 'asc' })}
-              className="text-sm border border-gray-300 bg-white rounded px-2 py-1 hover:bg-gray-100 transition tabular-nums"
+              className="text-sm border border-input bg-card rounded px-2 py-1 hover:bg-secondary transition tabular-nums"
             >
               {entry.dir === 'asc' ? `↑ ${ascLabel}` : `↓ ${descLabel}`}
             </button>
@@ -280,7 +280,7 @@ function SortBuilder<K extends string>({
                 type="button"
                 onClick={() => removeAt(i)}
                 aria-label="Verwijder sorteer-niveau"
-                className="text-gray-400 hover:text-blue-700 text-lg leading-none px-1"
+                className="text-subtle-foreground hover:text-primary text-lg leading-none px-1"
               >
                 ×
               </button>
@@ -293,7 +293,7 @@ function SortBuilder<K extends string>({
           type="button"
           onClick={addLevel}
           disabled={!firstUnused}
-          className="text-xs font-medium text-indigo-700 hover:text-indigo-900 disabled:text-gray-400 disabled:cursor-not-allowed"
+          className="text-xs font-medium text-indigo-700 hover:text-indigo-900 disabled:text-subtle-foreground disabled:cursor-not-allowed"
         >
           + Extra sortering toevoegen
         </button>
@@ -301,7 +301,7 @@ function SortBuilder<K extends string>({
           <button
             type="button"
             onClick={() => onChange([stack[0]])}
-            className="text-xs text-gray-500 hover:text-gray-700 underline underline-offset-2"
+            className="text-xs text-subtle-foreground hover:text-muted-foreground underline underline-offset-2"
           >
             Reset naar één niveau
           </button>
@@ -444,20 +444,20 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
       <div className="space-y-8">
         {/* Intro */}
         <section data-tour="intro">
-          <h2 className="text-xl font-bold text-gray-900 mb-2">PC4-Pijnpunten — gemeld door carriers</h2>
-          <p className="text-sm text-gray-600">
+          <h2 className="text-xl font-bold text-foreground mb-2">PC4-Pijnpunten — gemeld door carriers</h2>
+          <p className="text-sm text-muted-foreground">
             Probleemgebieden zoals aangeleverd door <strong>vervoerders</strong> in het kader van het
             Convenant Duurzame Pakketlogistiek (G4). Bron:{' '}
-            <code className="text-xs bg-gray-100 px-1 py-0.5 rounded">{payload.source}</code>, laatst
+            <code className="text-xs bg-secondary px-1 py-0.5 rounded">{payload.source}</code>, laatst
             bijgewerkt {new Date(payload.generated_at).toLocaleDateString('nl-NL')}.
             Klik op een rij om de kaart met de PC4-zone en pakketpunten te openen.
           </p>
-          <p className="text-sm text-gray-600 mt-2">
+          <p className="text-sm text-muted-foreground mt-2">
             Pijnpunten die door de <strong>G4-gemeenten zelf</strong> zijn aangeleverd staan op een
             aparte pagina:{' '}
             <a
               href="/data-export/gemeente-painpoints"
-              className="text-blue-700 hover:text-blue-900 underline underline-offset-2 font-medium"
+              className="text-primary hover:text-accent-foreground underline underline-offset-2 font-medium"
             >
               Pijnpunten per gemeente →
             </a>
@@ -467,35 +467,35 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
 
         {/* Summary cards */}
         <section data-tour="samenvatting" className="grid grid-cols-2 md:grid-cols-5 gap-3">
-          <div className="bg-white border border-gray-200 rounded-lg p-4">
-            <div className="text-2xl font-bold text-gray-900">{totalPC4}</div>
-            <div className="text-xs text-gray-500 mt-1">Unieke PC4-gebieden</div>
+          <div className="bg-card border border-border rounded-lg p-4">
+            <div className="text-2xl font-bold text-foreground">{totalPC4}</div>
+            <div className="text-xs text-subtle-foreground mt-1">Unieke PC4-gebieden</div>
           </div>
-          <div className="bg-white border border-gray-200 rounded-lg p-4">
-            <div className="text-2xl font-bold text-gray-900">{totalFlags}</div>
-            <div className="text-xs text-gray-500 mt-1">Carrier-meldingen</div>
+          <div className="bg-card border border-border rounded-lg p-4">
+            <div className="text-2xl font-bold text-foreground">{totalFlags}</div>
+            <div className="text-xs text-subtle-foreground mt-1">Carrier-meldingen</div>
           </div>
-          <div className="bg-white border border-gray-200 rounded-lg p-4">
-            <div className="text-2xl font-bold text-gray-900">{totalPoints}</div>
-            <div className="text-xs text-gray-500 mt-1">Pakketpunten totaal</div>
+          <div className="bg-card border border-border rounded-lg p-4">
+            <div className="text-2xl font-bold text-foreground">{totalPoints}</div>
+            <div className="text-xs text-subtle-foreground mt-1">Pakketpunten totaal</div>
           </div>
-          <div className="bg-white border border-gray-200 rounded-lg p-4">
-            <div className="text-2xl font-bold text-gray-900">{totalLockers}</div>
-            <div className="text-xs text-gray-500 mt-1">Pakketautomaten</div>
+          <div className="bg-card border border-border rounded-lg p-4">
+            <div className="text-2xl font-bold text-foreground">{totalLockers}</div>
+            <div className="text-xs text-subtle-foreground mt-1">Pakketautomaten</div>
           </div>
-          <div className="bg-white border border-gray-200 rounded-lg p-4">
-            <div className="text-2xl font-bold text-gray-900">{totalShops}</div>
-            <div className="text-xs text-gray-500 mt-1">Pakketshops</div>
+          <div className="bg-card border border-border rounded-lg p-4">
+            <div className="text-2xl font-bold text-foreground">{totalShops}</div>
+            <div className="text-xs text-subtle-foreground mt-1">Pakketshops</div>
           </div>
         </section>
 
         {/* Table 1: PC4 → carriers + parcel point counts (clickable rows) */}
         <section data-tour="pc4-tabel">
-          <h3 className="text-lg font-semibold text-gray-900 mb-3">Per postcodegebied</h3>
+          <h3 className="text-lg font-semibold text-foreground mb-3">Per postcodegebied</h3>
           {k8Available && (
-            <div data-tour="model-toggle" className="mb-3 flex flex-wrap items-center gap-3 bg-blue-50 border border-blue-200 rounded-md px-3 py-2 text-sm">
-              <span className="font-semibold text-gray-800">Verwacht-model:</span>
-              <div className="inline-flex rounded border border-blue-300 overflow-hidden">
+            <div data-tour="model-toggle" className="mb-3 flex flex-wrap items-center gap-3 bg-accent border border-primary/30 rounded-md px-3 py-2 text-sm">
+              <span className="font-semibold text-foreground">Verwacht-model:</span>
+              <div className="inline-flex rounded border border-primary/30 overflow-hidden">
                 {(['base', 'k8'] as const).map((k) => {
                   const active = modelChoice === k;
                   const r2 = k === 'k8' ? payload.model_k8?.r2 : payload.model?.r2;
@@ -506,8 +506,8 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                       onClick={() => setModelChoice(k)}
                       className={`px-3 py-1 text-xs font-medium transition ${
                         active
-                          ? 'bg-blue-700 text-white'
-                          : 'bg-white text-blue-800 hover:bg-blue-100'
+                          ? 'bg-primary/90 text-primary-foreground'
+                          : 'bg-card text-accent-foreground hover:bg-accent'
                       }`}
                     >
                       {k === 'base' ? 'Basis (pop + opp)' : 'K=8 best-subset'}
@@ -522,12 +522,12 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
               </div>
               <a
                 href="/data-export/schatting"
-                className="text-blue-700 hover:text-blue-900 underline underline-offset-2"
+                className="text-primary hover:text-accent-foreground underline underline-offset-2"
               >
                 uitleg over de modellen →
               </a>
               {modelChoice === 'k8' && (
-                <span className="text-xs text-gray-600">
+                <span className="text-xs text-muted-foreground">
                   18 PC4&apos;s zonder WOZ-waarde vallen terug op het basismodel.
                 </span>
               )}
@@ -541,9 +541,9 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
               onChange={setPc4SortStack}
             />
           </div>
-          <div className="overflow-x-auto bg-white border border-gray-200 rounded-lg">
+          <div className="overflow-x-auto bg-card border border-border rounded-lg">
             <table className="w-full text-sm">
-              <thead className="bg-gray-50">
+              <thead className="bg-muted">
                 <tr>
                   <MultiSortHeader label="PC4" sortKey="pc4" stack={pc4SortStack} onToggle={togglePc4Sort} />
                   <MultiSortHeader label="Stad" sortKey="city" stack={pc4SortStack} onToggle={togglePc4Sort} />
@@ -560,7 +560,7 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                   <MultiSortHeader label="Δ" sortKey="delta" stack={pc4SortStack} onToggle={togglePc4Sort} align="right" />
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-border">
                 {entries
                   .slice()
                   .sort(([aPc4, av], [bPc4, bv]) => {
@@ -600,45 +600,45 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                     key={pc4}
                     onClick={() => setSelectedPc4(pc4)}
                     className={`cursor-pointer transition-colors ${
-                      selectedPc4 === pc4 ? 'bg-blue-50' : 'hover:bg-gray-50'
+                      selectedPc4 === pc4 ? 'bg-accent' : 'hover:bg-muted'
                     }`}
                   >
-                    <td className="px-3 py-2 font-mono font-semibold text-gray-900">{pc4}</td>
-                    <td className="px-3 py-2 text-gray-700">{v.city}</td>
+                    <td className="px-3 py-2 font-mono font-semibold text-foreground">{pc4}</td>
+                    <td className="px-3 py-2 text-muted-foreground">{v.city}</td>
                     <td className="px-3 py-2">
                       <div className="flex flex-wrap gap-1">
                         {v.carriers.map((c) => (
                           <span
                             key={c}
-                            className="inline-block px-2 py-0.5 text-xs font-semibold bg-blue-100 text-blue-800 rounded"
+                            className="inline-block px-2 py-0.5 text-xs font-semibold bg-accent text-accent-foreground rounded"
                           >
                             {c}
                           </span>
                         ))}
                       </div>
                     </td>
-                    <td className="px-3 py-2 text-right tabular-nums text-gray-700">{v.carriers.length}</td>
-                    <td className="px-3 py-2 text-right tabular-nums font-semibold text-gray-900">{v.pakketpunten.total}</td>
-                    <td className="px-3 py-2 text-right tabular-nums text-gray-700">{v.pakketpunten.locker}</td>
-                    <td className="px-3 py-2 text-right tabular-nums text-gray-700">{v.pakketpunten.shop}</td>
-                    <td className="px-3 py-2 text-right tabular-nums text-gray-700">{v.stats?.population != null ? v.stats.population.toLocaleString('nl-NL') : '—'}</td>
-                    <td className="px-3 py-2 text-right tabular-nums text-gray-700">{v.stats?.area_km2 != null ? v.stats.area_km2.toFixed(2) : '—'}</td>
-                    <td className="px-3 py-2 text-right tabular-nums text-gray-700">{v.stats?.points_per_km2 != null ? v.stats.points_per_km2.toFixed(1) : '—'}</td>
-                    <td className="px-3 py-2 text-right tabular-nums text-gray-700">{v.stats?.points_per_1000_inw != null ? v.stats.points_per_1000_inw.toFixed(2) : '—'}</td>
+                    <td className="px-3 py-2 text-right tabular-nums text-muted-foreground">{v.carriers.length}</td>
+                    <td className="px-3 py-2 text-right tabular-nums font-semibold text-foreground">{v.pakketpunten.total}</td>
+                    <td className="px-3 py-2 text-right tabular-nums text-muted-foreground">{v.pakketpunten.locker}</td>
+                    <td className="px-3 py-2 text-right tabular-nums text-muted-foreground">{v.pakketpunten.shop}</td>
+                    <td className="px-3 py-2 text-right tabular-nums text-muted-foreground">{v.stats?.population != null ? v.stats.population.toLocaleString('nl-NL') : '—'}</td>
+                    <td className="px-3 py-2 text-right tabular-nums text-muted-foreground">{v.stats?.area_km2 != null ? v.stats.area_km2.toFixed(2) : '—'}</td>
+                    <td className="px-3 py-2 text-right tabular-nums text-muted-foreground">{v.stats?.points_per_km2 != null ? v.stats.points_per_km2.toFixed(1) : '—'}</td>
+                    <td className="px-3 py-2 text-right tabular-nums text-muted-foreground">{v.stats?.points_per_1000_inw != null ? v.stats.points_per_1000_inw.toFixed(2) : '—'}</td>
                     {(() => {
                       const pred = getPredicted(v.stats);
                       const delta = getDelta(v.stats);
                       return (
                         <>
-                          <td className="px-3 py-2 text-right tabular-nums text-gray-700">{pred != null ? pred.toFixed(1) : '—'}</td>
-                          <td className={`px-3 py-2 text-right tabular-nums font-semibold ${delta != null ? (delta >= 0 ? 'text-emerald-700' : 'text-red-700') : 'text-gray-500'}`}>{delta != null ? (delta >= 0 ? '+' : '') + delta.toFixed(1) : '—'}</td>
+                          <td className="px-3 py-2 text-right tabular-nums text-muted-foreground">{pred != null ? pred.toFixed(1) : '—'}</td>
+                          <td className={`px-3 py-2 text-right tabular-nums font-semibold ${delta != null ? (delta >= 0 ? 'text-emerald-700' : 'text-destructive') : 'text-subtle-foreground'}`}>{delta != null ? (delta >= 0 ? '+' : '') + delta.toFixed(1) : '—'}</td>
                         </>
                       );
                     })()}
                   </tr>
                 ))}
               </tbody>
-              <tfoot className="bg-gray-50 font-semibold">
+              <tfoot className="bg-muted font-semibold">
                 <tr>
                   <td className="px-3 py-2" colSpan={3}>Totaal</td>
                   <td className="px-3 py-2 text-right tabular-nums">{totalFlags}</td>
@@ -654,23 +654,23 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
 
         {/* Table 2: carrier → PC4 painpoints (clickable rows) */}
         <section data-tour="per-vervoerder">
-          <h3 className="text-lg font-semibold text-gray-900 mb-3">Per vervoerder</h3>
+          <h3 className="text-lg font-semibold text-foreground mb-3">Per vervoerder</h3>
           <div className="space-y-4">
             {carrierList.map(([carrier, rows]) => {
               const sumTotal = rows.reduce((s, r) => s + r.total, 0);
               const sumLocker = rows.reduce((s, r) => s + r.locker, 0);
               const sumShop = rows.reduce((s, r) => s + r.shop, 0);
               return (
-                <div key={carrier} className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-                  <div className="flex items-baseline justify-between px-4 py-3 bg-gray-50 border-b border-gray-200">
-                    <h4 className="text-base font-semibold text-gray-900">{carrier}</h4>
-                    <div className="text-xs text-gray-600">
+                <div key={carrier} className="bg-card border border-border rounded-lg overflow-hidden">
+                  <div className="flex items-baseline justify-between px-4 py-3 bg-muted border-b border-border">
+                    <h4 className="text-base font-semibold text-foreground">{carrier}</h4>
+                    <div className="text-xs text-muted-foreground">
                       {rows.length} {pluralize(rows.length, 'PC4-gebied', 'PC4-gebieden')} · {sumTotal}{' '}
                       {pluralize(sumTotal, 'pakketpunt', 'pakketpunten')} ({sumLocker} automaten, {sumShop} shops)
                     </div>
                   </div>
                   <table className="w-full text-sm">
-                    <thead className="bg-white">
+                    <thead className="bg-card">
                       <tr>
                         <SortHeader label="PC4" sortKey="pc4" activeKey={carrierSort.key} dir={carrierSort.dir} onToggle={toggleCarrierSort} />
                         <SortHeader label="Stad" sortKey="city" activeKey={carrierSort.key} dir={carrierSort.dir} onToggle={toggleCarrierSort} />
@@ -679,7 +679,7 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                         <SortHeader label="Shops" sortKey="shop" activeKey={carrierSort.key} dir={carrierSort.dir} onToggle={toggleCarrierSort} align="right" />
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-100">
+                    <tbody className="divide-y divide-border">
                       {rows
                         .slice()
                         .sort((a, b) => {
@@ -693,14 +693,14 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                             key={r.pc4}
                             onClick={() => setSelectedPc4(r.pc4)}
                             className={`cursor-pointer transition-colors ${
-                              selectedPc4 === r.pc4 ? 'bg-blue-50' : 'hover:bg-gray-50'
+                              selectedPc4 === r.pc4 ? 'bg-accent' : 'hover:bg-muted'
                             }`}
                           >
-                            <td className="px-3 py-2 font-mono font-semibold text-gray-900">{r.pc4}</td>
-                            <td className="px-3 py-2 text-gray-700">{r.city}</td>
-                            <td className="px-3 py-2 text-right tabular-nums font-semibold text-gray-900">{r.total}</td>
-                            <td className="px-3 py-2 text-right tabular-nums text-gray-700">{r.locker}</td>
-                            <td className="px-3 py-2 text-right tabular-nums text-gray-700">{r.shop}</td>
+                            <td className="px-3 py-2 font-mono font-semibold text-foreground">{r.pc4}</td>
+                            <td className="px-3 py-2 text-muted-foreground">{r.city}</td>
+                            <td className="px-3 py-2 text-right tabular-nums font-semibold text-foreground">{r.total}</td>
+                            <td className="px-3 py-2 text-right tabular-nums text-muted-foreground">{r.locker}</td>
+                            <td className="px-3 py-2 text-right tabular-nums text-muted-foreground">{r.shop}</td>
                           </tr>
                         ))}
                     </tbody>
@@ -713,15 +713,15 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
 
         {/* Per-city breakdown — PC4 chips are clickable */}
         <section data-tour="per-stad">
-          <h3 className="text-lg font-semibold text-gray-900 mb-3">Per stad</h3>
+          <h3 className="text-lg font-semibold text-foreground mb-3">Per stad</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {[...byCity.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([city, codes]) => {
               const cityTotal = codes.reduce((s, pc4) => s + payload.painpoints[pc4].pakketpunten.total, 0);
               return (
-                <div key={city} className="bg-white border border-gray-200 rounded-lg p-4">
+                <div key={city} className="bg-card border border-border rounded-lg p-4">
                   <div className="flex items-baseline justify-between mb-2">
-                    <h4 className="font-semibold text-gray-900">{city}</h4>
-                    <span className="text-xs text-gray-500">
+                    <h4 className="font-semibold text-foreground">{city}</h4>
+                    <span className="text-xs text-subtle-foreground">
                       {codes.length} PC4 · {cityTotal} pakketpunten
                     </span>
                   </div>
@@ -732,8 +732,8 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                         onClick={() => setSelectedPc4(pc4)}
                         className={`px-2 py-0.5 text-xs font-mono rounded transition ${
                           selectedPc4 === pc4
-                            ? 'bg-blue-700 text-white'
-                            : 'bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-800'
+                            ? 'bg-primary/90 text-primary-foreground'
+                            : 'bg-secondary text-muted-foreground hover:bg-accent hover:text-primary'
                         }`}
                       >
                         {pc4}
@@ -754,23 +754,23 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
             className="fixed inset-0 bg-black/30 z-40"
             onClick={() => setSelectedPc4(null)}
           />
-          <aside className="fixed top-0 right-0 bottom-0 w-full md:w-[520px] z-50 bg-white shadow-2xl flex flex-col">
+          <aside className="fixed top-0 right-0 bottom-0 w-full md:w-[520px] z-50 bg-card shadow-2xl flex flex-col">
             {/* Header */}
-            <div className="flex items-start justify-between p-4 border-b border-gray-200">
+            <div className="flex items-start justify-between p-4 border-b border-border">
               <div>
-                <div className="text-xs uppercase tracking-wide text-gray-500">Postcodegebied</div>
-                <div className="text-2xl font-bold text-gray-900 font-mono">{selectedPc4}</div>
-                <div className="text-sm text-gray-600">
+                <div className="text-xs uppercase tracking-wide text-subtle-foreground">Postcodegebied</div>
+                <div className="text-2xl font-bold text-foreground font-mono">{selectedPc4}</div>
+                <div className="text-sm text-muted-foreground">
                   G4: {selected.g4_city ?? selected.city}
                 </div>
                 {selected.municipality &&
                   selected.municipality !== (selected.g4_city ?? selected.city) && (
-                    <div className="text-sm text-gray-900 font-medium">{selected.municipality}</div>
+                    <div className="text-sm text-foreground font-medium">{selected.municipality}</div>
                   )}
               </div>
               <button
                 onClick={() => setSelectedPc4(null)}
-                className="p-2 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded"
+                className="p-2 text-subtle-foreground hover:text-foreground hover:bg-secondary rounded"
                 aria-label="Sluiten"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -780,17 +780,17 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
             </div>
 
             {/* Stats */}
-            <div className="px-4 py-3 border-b border-gray-200 bg-gray-50">
+            <div className="px-4 py-3 border-b border-border bg-muted">
               {selected.carriers.length > 0 && (
                 <>
-                  <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">
+                  <div className="text-xs uppercase tracking-wide text-subtle-foreground mb-1">
                     Gemeld door carriers
                   </div>
                   <div className="flex flex-wrap gap-1 mb-3">
                     {selected.carriers.map((c) => (
                       <span
                         key={c}
-                        className="px-2 py-0.5 text-xs font-semibold bg-blue-100 text-blue-800 rounded"
+                        className="px-2 py-0.5 text-xs font-semibold bg-accent text-accent-foreground rounded"
                       >
                         {c}
                       </span>
@@ -800,14 +800,14 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
               )}
               {selected.gemeenten && selected.gemeenten.length > 0 && (
                 <>
-                  <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">
+                  <div className="text-xs uppercase tracking-wide text-subtle-foreground mb-1">
                     Gemeld door G4-gemeente
                   </div>
                   <div className="flex flex-wrap gap-1 mb-3">
                     {selected.gemeenten.map((g) => (
                       <span
                         key={g}
-                        className="px-2 py-0.5 text-xs font-semibold bg-blue-100 text-blue-800 rounded"
+                        className="px-2 py-0.5 text-xs font-semibold bg-accent text-accent-foreground rounded"
                       >
                         Gemeente {g}
                       </span>
@@ -826,27 +826,27 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
               )}
               {selected.stats && (
                 <div className="mb-3 grid grid-cols-2 gap-2 text-xs">
-                  <div className="bg-white rounded border border-gray-200 px-2 py-1">
-                    <div className="text-gray-500">Inwoners</div>
-                    <div className="font-semibold text-gray-900">{selected.stats.population?.toLocaleString('nl-NL') ?? '—'}</div>
+                  <div className="bg-card rounded border border-border px-2 py-1">
+                    <div className="text-subtle-foreground">Inwoners</div>
+                    <div className="font-semibold text-foreground">{selected.stats.population?.toLocaleString('nl-NL') ?? '—'}</div>
                   </div>
-                  <div className="bg-white rounded border border-gray-200 px-2 py-1">
-                    <div className="text-gray-500">Oppervlakte</div>
-                    <div className="font-semibold text-gray-900">{selected.stats.area_km2?.toFixed(2) ?? '—'} km²</div>
+                  <div className="bg-card rounded border border-border px-2 py-1">
+                    <div className="text-subtle-foreground">Oppervlakte</div>
+                    <div className="font-semibold text-foreground">{selected.stats.area_km2?.toFixed(2) ?? '—'} km²</div>
                   </div>
-                  <div className="bg-white rounded border border-gray-200 px-2 py-1">
-                    <div className="text-gray-500">PP per 1000 inw.</div>
-                    <div className="font-semibold text-gray-900">{selected.stats.points_per_1000_inw?.toFixed(2) ?? '—'}</div>
+                  <div className="bg-card rounded border border-border px-2 py-1">
+                    <div className="text-subtle-foreground">PP per 1000 inw.</div>
+                    <div className="font-semibold text-foreground">{selected.stats.points_per_1000_inw?.toFixed(2) ?? '—'}</div>
                   </div>
-                  <div className="bg-white rounded border border-gray-200 px-2 py-1">
-                    <div className="text-gray-500">PP per km²</div>
-                    <div className="font-semibold text-gray-900">{selected.stats.points_per_km2?.toFixed(1) ?? '—'}</div>
+                  <div className="bg-card rounded border border-border px-2 py-1">
+                    <div className="text-subtle-foreground">PP per km²</div>
+                    <div className="font-semibold text-foreground">{selected.stats.points_per_km2?.toFixed(1) ?? '—'}</div>
                   </div>
-                  <div className="bg-white rounded border border-gray-200 px-2 py-1 col-span-2">
-                    <div className="text-gray-500">
+                  <div className="bg-card rounded border border-border px-2 py-1 col-span-2">
+                    <div className="text-subtle-foreground">
                       Verwacht ({modelChoice === 'k8' ? 'k=8' : 'basis'}) · Δ
                     </div>
-                    <div className="font-semibold text-gray-900">
+                    <div className="font-semibold text-foreground">
                       {(() => {
                         const pred = getPredicted(selected.stats);
                         const delta = getDelta(selected.stats);
@@ -854,7 +854,7 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                           <>
                             {pred != null ? pred.toFixed(1) : '—'}
                             {delta != null && (
-                              <span className={`ml-2 ${delta >= 0 ? 'text-emerald-700' : 'text-red-700'}`}>
+                              <span className={`ml-2 ${delta >= 0 ? 'text-emerald-700' : 'text-destructive'}`}>
                                 {delta >= 0 ? '+' : ''}{delta.toFixed(1)}
                               </span>
                             )}
@@ -867,21 +867,21 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
               )}
               <div className="grid grid-cols-3 gap-2 text-center">
                 <div>
-                  <div className="text-lg font-bold text-gray-900">{selected.pakketpunten.total}</div>
-                  <div className="text-xs text-gray-500">Totaal</div>
+                  <div className="text-lg font-bold text-foreground">{selected.pakketpunten.total}</div>
+                  <div className="text-xs text-subtle-foreground">Totaal</div>
                 </div>
                 <div>
-                  <div className="text-lg font-bold text-gray-900">{selected.pakketpunten.locker}</div>
-                  <div className="text-xs text-gray-500">Automaten</div>
+                  <div className="text-lg font-bold text-foreground">{selected.pakketpunten.locker}</div>
+                  <div className="text-xs text-subtle-foreground">Automaten</div>
                 </div>
                 <div>
-                  <div className="text-lg font-bold text-gray-900">{selected.pakketpunten.shop}</div>
-                  <div className="text-xs text-gray-500">Shops</div>
+                  <div className="text-lg font-bold text-foreground">{selected.pakketpunten.shop}</div>
+                  <div className="text-xs text-subtle-foreground">Shops</div>
                 </div>
               </div>
               {(selected.pakketpunten.gls_postnl_shared ?? 0) > 0 && (
-                <div className="mt-2 text-center text-xs text-gray-600">
-                  Waarvan <span className="font-semibold text-gray-900">{selected.pakketpunten.gls_postnl_shared}</span> GLS/PostNL co-locatie{selected.pakketpunten.gls_postnl_shared === 1 ? '' : 's'}
+                <div className="mt-2 text-center text-xs text-muted-foreground">
+                  Waarvan <span className="font-semibold text-foreground">{selected.pakketpunten.gls_postnl_shared}</span> GLS/PostNL co-locatie{selected.pakketpunten.gls_postnl_shared === 1 ? '' : 's'}
                 </div>
               )}
             </div>
@@ -892,10 +892,10 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
             </div>
 
             {/* Per-carrier breakdown */}
-            <div className="px-4 py-3 border-t border-gray-200 max-h-[40%] overflow-y-auto">
-              <div className="text-xs uppercase tracking-wide text-gray-500 mb-2">Pakketpunten per vervoerder</div>
+            <div className="px-4 py-3 border-t border-border max-h-[40%] overflow-y-auto">
+              <div className="text-xs uppercase tracking-wide text-subtle-foreground mb-2">Pakketpunten per vervoerder</div>
               {Object.keys(selected.pakketpunten.by_carrier).length === 0 ? (
-                <div className="text-sm text-gray-500">Geen pakketpunten in dit gebied.</div>
+                <div className="text-sm text-subtle-foreground">Geen pakketpunten in dit gebied.</div>
               ) : (
                 <table className="w-full text-sm">
                   <thead>
@@ -906,7 +906,7 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                       <SortHeader label="Totaal" sortKey="total" activeKey={panelSort.key} dir={panelSort.dir} onToggle={togglePanelSort} align="right" />
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-100">
+                  <tbody className="divide-y divide-border">
                     {Object.entries(selected.pakketpunten.by_carrier)
                       .sort(([ac, av], [bc, bv]) => {
                         const getVal = (c: string, x: { locker: number; shop: number }): any => {
@@ -922,10 +922,10 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
                       })
                       .map(([carrier, counts]) => (
                         <tr key={carrier}>
-                          <td className="py-1 text-gray-900 font-medium">{carrier}</td>
-                          <td className="py-1 text-right tabular-nums text-gray-700">{counts.locker}</td>
-                          <td className="py-1 text-right tabular-nums text-gray-700">{counts.shop}</td>
-                          <td className="py-1 text-right tabular-nums font-semibold text-gray-900">{counts.locker + counts.shop}</td>
+                          <td className="py-1 text-foreground font-medium">{carrier}</td>
+                          <td className="py-1 text-right tabular-nums text-muted-foreground">{counts.locker}</td>
+                          <td className="py-1 text-right tabular-nums text-muted-foreground">{counts.shop}</td>
+                          <td className="py-1 text-right tabular-nums font-semibold text-foreground">{counts.locker + counts.shop}</td>
                         </tr>
                       ))}
                   </tbody>
@@ -935,19 +935,19 @@ export default function PainpointsReport({ payload }: { payload: PainpointsPaylo
 
             {/* Publieke POI's in dit PC4 */}
             {selected.pois && Object.keys(selected.pois).length > 0 && (
-              <div className="px-4 py-3 border-t border-gray-200 max-h-[35%] overflow-y-auto">
-                <div className="text-xs uppercase tracking-wide text-gray-500 mb-2">Publieke POI&apos;s in dit PC4</div>
+              <div className="px-4 py-3 border-t border-border max-h-[35%] overflow-y-auto">
+                <div className="text-xs uppercase tracking-wide text-subtle-foreground mb-2">Publieke POI&apos;s in dit PC4</div>
                 <ul className="text-sm space-y-0.5">
                   {Object.entries(selected.pois)
                     .sort(([, a], [, b]) => b - a)
                     .map(([slug, n]) => (
                       <li key={slug} className="flex items-center gap-2">
-                        <span className="text-gray-800 flex-1">{slug.replace(/_/g, ' ')}</span>
-                        <span className="font-semibold tabular-nums text-gray-900">{n}</span>
+                        <span className="text-foreground flex-1">{slug.replace(/_/g, ' ')}</span>
+                        <span className="font-semibold tabular-nums text-foreground">{n}</span>
                       </li>
                     ))}
                 </ul>
-                <div className="text-[10px] text-gray-400 mt-2">Bron: OpenStreetMap (zie /data-export/pois voor labels)</div>
+                <div className="text-[10px] text-subtle-foreground mt-2">Bron: OpenStreetMap (zie /data-export/pois voor labels)</div>
               </div>
             )}
           </aside>

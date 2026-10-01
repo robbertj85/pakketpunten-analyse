@@ -19,7 +19,7 @@ import type { ContextPoint } from '@/components/PilotLocationsMap';
 const PilotLocationsMap = dynamic(() => import('@/components/PilotLocationsMap'), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-full flex items-center justify-center bg-gray-100 text-sm text-gray-500">
+    <div className="w-full h-full flex items-center justify-center bg-secondary text-sm text-subtle-foreground">
       Kaart laden...
     </div>
   ),
@@ -115,28 +115,28 @@ export default function PilotlocatiesPage() {
       {/* Intro */}
       <section
         data-tour="intro"
-        className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden"
+        className="bg-card rounded-lg shadow-sm border border-border overflow-hidden"
       >
-        <div className="px-6 py-4 border-b border-gray-100 bg-blue-50">
-          <h2 className="font-semibold text-blue-900">Kandidaat-pilotlocaties</h2>
-          <p className="text-sm text-blue-700">
+        <div className="px-6 py-4 border-b border-border bg-accent">
+          <h2 className="font-semibold text-accent-foreground">Kandidaat-pilotlocaties</h2>
+          <p className="text-sm text-primary">
             Werklijst uit de gesprekken met gemeenten — {PILOT_LOCATIONS.length} locaties in{' '}
             {gemeenten.length} gemeenten
           </p>
         </div>
-        <div className="px-6 py-5 text-sm text-gray-800 leading-relaxed space-y-3">
+        <div className="px-6 py-5 text-sm text-foreground leading-relaxed space-y-3">
           <p>
             Deze pagina bundelt de locaties die in gesprekken met gemeenten naar voren zijn
             gekomen als mogelijke plek voor een pilot met een pakketkluis. Het is een{' '}
             <strong>handmatige lijst</strong>: de locaties komen uit overleg, niet uit het
             rekenmodel. Wil je zien welke plekken het model aandraagt, gebruik dan{' '}
-            <Link href="/data-export/suggesties" className="text-blue-600 hover:text-blue-800">
+            <Link href="/data-export/suggesties" className="text-primary hover:text-primary">
               Plaatsingsadvies
             </Link>{' '}
             of de{' '}
             <Link
               href="/data-export/netwerkplanner"
-              className="text-blue-600 hover:text-blue-800"
+              className="text-primary hover:text-primary"
             >
               Netwerkplanner
             </Link>
@@ -147,7 +147,7 @@ export default function PilotlocatiesPage() {
             geverifieerd moet worden. Toets de inrichting altijd aan de{' '}
             <Link
               href="/data-export/beleidsprincipes"
-              className="text-blue-600 hover:text-blue-800"
+              className="text-primary hover:text-primary"
             >
               beleidsprincipes
             </Link>{' '}
@@ -162,7 +162,7 @@ export default function PilotlocatiesPage() {
         className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4"
       >
         <div>
-          <label className="block text-xs font-medium text-gray-500 mb-1">Gemeente</label>
+          <label className="block text-xs font-medium text-subtle-foreground mb-1">Gemeente</label>
           <div className="flex gap-2">
             {gemeenten.map((g) => (
               <button
@@ -171,14 +171,14 @@ export default function PilotlocatiesPage() {
                 onClick={() => setSlug(g.slug)}
                 className={`px-4 py-2 text-sm font-medium rounded-lg border transition-colors ${
                   slug === g.slug
-                    ? 'bg-blue-600 text-white border-blue-600'
-                    : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                    ? 'bg-primary text-primary-foreground border-primary'
+                    : 'bg-card text-muted-foreground border-input hover:bg-muted'
                 }`}
               >
                 {g.gemeente}
                 <span
                   className={`ml-2 text-xs ${
-                    slug === g.slug ? 'text-blue-100' : 'text-gray-500'
+                    slug === g.slug ? 'text-blue-100' : 'text-subtle-foreground'
                   }`}
                 >
                   {g.aantal}
@@ -188,10 +188,10 @@ export default function PilotlocatiesPage() {
           </div>
         </div>
         <div data-tour="loopafstand">
-          <label className="block text-xs font-medium text-gray-500 mb-1">
+          <label className="block text-xs font-medium text-subtle-foreground mb-1">
             Loopafstand voor omgevingscheck
           </label>
-          <div className="inline-flex rounded-lg border border-gray-300 overflow-hidden bg-white">
+          <div className="inline-flex rounded-lg border border-input overflow-hidden bg-card">
             {RADII.map((r) => (
               <button
                 key={r}
@@ -199,8 +199,8 @@ export default function PilotlocatiesPage() {
                 onClick={() => setRadius(r)}
                 className={`px-3 py-2 text-sm font-medium transition-colors ${
                   radius === r
-                    ? 'bg-blue-600 text-white'
-                    : 'text-gray-700 hover:bg-gray-50'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'text-muted-foreground hover:bg-muted'
                 }`}
               >
                 {r} m
@@ -213,7 +213,7 @@ export default function PilotlocatiesPage() {
       {/* Statuslegenda */}
       <div
         data-tour="legenda"
-        className="bg-white rounded-lg shadow-sm border border-gray-200 px-6 py-4"
+        className="bg-card rounded-lg shadow-sm border border-border px-6 py-4"
       >
         <div className="flex flex-wrap gap-x-8 gap-y-3">
           {(Object.keys(STATUS_META) as PilotStatus[]).map((s) => (
@@ -223,15 +223,15 @@ export default function PilotlocatiesPage() {
                 style={{ background: STATUS_META[s].dot }}
               />
               <div>
-                <div className="font-semibold text-gray-900">
+                <div className="font-semibold text-foreground">
                   {STATUS_META[s].label}
                   {statusTelling[s] ? (
-                    <span className="ml-1 font-normal text-gray-500">
+                    <span className="ml-1 font-normal text-subtle-foreground">
                       ({statusTelling[s]})
                     </span>
                   ) : null}
                 </div>
-                <div className="text-gray-600 max-w-[15rem]">{STATUS_META[s].uitleg}</div>
+                <div className="text-muted-foreground max-w-[15rem]">{STATUS_META[s].uitleg}</div>
               </div>
             </div>
           ))}
@@ -249,10 +249,10 @@ export default function PilotlocatiesPage() {
                 key={loc.id}
                 type="button"
                 onClick={() => setPickedId(loc.id)}
-                className={`w-full text-left bg-white rounded-lg border shadow-sm transition-colors px-5 py-4 ${
+                className={`w-full text-left bg-card rounded-lg border shadow-sm transition-colors px-5 py-4 ${
                   active
-                    ? 'border-blue-500 ring-2 ring-blue-100'
-                    : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                    ? 'border-primary ring-2 ring-blue-100'
+                    : 'border-border hover:border-input hover:bg-muted'
                 }`}
               >
                 <div className="flex items-start gap-3">
@@ -264,7 +264,7 @@ export default function PilotlocatiesPage() {
                   </span>
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="text-sm font-semibold text-gray-900">{loc.naam}</h3>
+                      <h3 className="text-sm font-semibold text-foreground">{loc.naam}</h3>
                       <span
                         className={`px-1.5 py-px text-[10px] font-semibold uppercase tracking-wide rounded border ${
                           STATUS_META[loc.status].badge
@@ -273,17 +273,17 @@ export default function PilotlocatiesPage() {
                         {STATUS_META[loc.status].label}
                       </span>
                     </div>
-                    <p className="text-xs text-gray-600 mt-0.5">
+                    <p className="text-xs text-muted-foreground mt-0.5">
                       {loc.adres ?? TYPE_META[loc.type].label}
                     </p>
-                    <p className="text-xs text-gray-500 mt-1.5">
+                    <p className="text-xs text-subtle-foreground mt-1.5">
                       {TYPE_META[loc.type].label}
                       {' · '}
                       {loadingPoints || count === undefined ? (
-                        <span className="text-gray-400">punten laden...</span>
+                        <span className="text-subtle-foreground">punten laden...</span>
                       ) : (
                         <>
-                          <strong className="text-gray-700">{count}</strong> bestaande
+                          <strong className="text-muted-foreground">{count}</strong> bestaande
                           pakketpunt{count === 1 ? '' : 'en'} binnen {radius} m
                         </>
                       )}
@@ -304,7 +304,7 @@ export default function PilotlocatiesPage() {
         <div className="space-y-4 lg:sticky lg:top-4">
           <div
             data-tour="kaart"
-            className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden"
+            className="bg-card rounded-lg shadow-sm border border-border overflow-hidden"
           >
             <div className="h-[420px]">
               <PilotLocationsMap
@@ -315,7 +315,7 @@ export default function PilotlocatiesPage() {
                 radiusM={radius}
               />
             </div>
-            <p className="px-4 py-2 text-[11px] text-gray-500 border-t border-gray-100">
+            <p className="px-4 py-2 text-[11px] text-subtle-foreground border-t border-border">
               Genummerde bollen zijn pilotlocaties (kleur = status). Kleine bollen zijn
               bestaande pakketpunten in de omgeving, gekleurd per vervoerder. De
               stippellijn is de gekozen loopafstand van {radius} m. Klik een bol voor de
@@ -326,30 +326,30 @@ export default function PilotlocatiesPage() {
           {selected && (
             <div
               data-tour="detail"
-              className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden"
+              className="bg-card rounded-lg shadow-sm border border-border overflow-hidden"
             >
-              <div className="px-6 py-4 border-b border-gray-100 bg-gray-50">
-                <h3 className="font-semibold text-gray-900">
+              <div className="px-6 py-4 border-b border-border bg-muted">
+                <h3 className="font-semibold text-foreground">
                   {selected.rang}. {selected.naam}
                 </h3>
-                <p className="text-xs text-gray-600 mt-0.5">
+                <p className="text-xs text-muted-foreground mt-0.5">
                   {selected.gemeente}
                   {selected.adres ? ` · ${selected.adres}` : ''}
                 </p>
               </div>
-              <div className="px-6 py-5 space-y-4 text-sm text-gray-800">
+              <div className="px-6 py-5 space-y-4 text-sm text-foreground">
                 <div>
-                  <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">
+                  <div className="text-xs font-medium text-subtle-foreground uppercase tracking-wide mb-1">
                     Type locatie
                   </div>
                   <p className="font-medium">{TYPE_META[selected.type].label}</p>
-                  <p className="text-xs text-gray-600 mt-0.5">
+                  <p className="text-xs text-muted-foreground mt-0.5">
                     {TYPE_META[selected.type].uitleg}
                   </p>
                 </div>
 
                 <div>
-                  <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">
+                  <div className="text-xs font-medium text-subtle-foreground uppercase tracking-wide mb-1">
                     Toelichting
                   </div>
                   <ul className="space-y-2">
@@ -366,33 +366,33 @@ export default function PilotlocatiesPage() {
                 </div>
 
                 {selected.vervolg && (
-                  <div className="bg-blue-50 border border-blue-200 rounded px-4 py-3">
-                    <div className="text-xs font-semibold text-blue-900 uppercase tracking-wide mb-1">
+                  <div className="bg-accent border border-primary/30 rounded px-4 py-3">
+                    <div className="text-xs font-semibold text-accent-foreground uppercase tracking-wide mb-1">
                       Vervolgstap
                     </div>
-                    <p className="text-sm text-blue-900">{selected.vervolg}</p>
+                    <p className="text-sm text-accent-foreground">{selected.vervolg}</p>
                   </div>
                 )}
 
                 <div className="grid grid-cols-2 gap-4 pt-1">
                   <div>
-                    <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">
+                    <div className="text-xs font-medium text-subtle-foreground uppercase tracking-wide mb-1">
                       Coordinaat
                     </div>
-                    <p className="font-mono text-xs text-gray-800">
+                    <p className="font-mono text-xs text-foreground">
                       {selected.lat.toFixed(6)}, {selected.lon.toFixed(6)}
                     </p>
-                    <p className="text-[11px] text-gray-500 mt-0.5">
+                    <p className="text-[11px] text-subtle-foreground mt-0.5">
                       {COORD_BRON_LABEL[selected.coordBron]}
                     </p>
                   </div>
                   <div>
-                    <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">
+                    <div className="text-xs font-medium text-subtle-foreground uppercase tracking-wide mb-1">
                       Binnen {radius} m
                     </div>
-                    <p className="text-gray-800">
+                    <p className="text-foreground">
                       {loadingPoints ? (
-                        <span className="text-gray-400 text-xs">laden...</span>
+                        <span className="text-subtle-foreground text-xs">laden...</span>
                       ) : (
                         <>
                           <strong>{nearbyCounts[selected.id] ?? 0}</strong> bestaande
@@ -403,12 +403,12 @@ export default function PilotlocatiesPage() {
                   </div>
                 </div>
 
-                <div className="flex flex-wrap gap-2 pt-2 border-t border-gray-100">
+                <div className="flex flex-wrap gap-2 pt-2 border-t border-border">
                   <Link
                     href={`/data-export/netwerkplanner/3d/${selected.slug}?lat=${selected.lat}&lon=${selected.lon}&label=${encodeURIComponent(
                       selected.naam,
                     )}&afstand=${radius}&back=${encodeURIComponent('/data-export/pilotlocaties')}`}
-                    className="px-3 py-2 text-xs font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg"
+                    className="px-3 py-2 text-xs font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-lg"
                   >
                     3D-weergave
                   </Link>
@@ -416,7 +416,7 @@ export default function PilotlocatiesPage() {
                     href={streetViewUrl(selected.lat, selected.lon)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-3 py-2 text-xs font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 rounded-lg"
+                    className="px-3 py-2 text-xs font-medium text-muted-foreground bg-card border border-input hover:bg-muted rounded-lg"
                   >
                     Street View
                   </a>
@@ -424,7 +424,7 @@ export default function PilotlocatiesPage() {
                     href={`https://www.openstreetmap.org/?mlat=${selected.lat}&mlon=${selected.lon}#map=18/${selected.lat}/${selected.lon}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-3 py-2 text-xs font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 rounded-lg"
+                    className="px-3 py-2 text-xs font-medium text-muted-foreground bg-card border border-input hover:bg-muted rounded-lg"
                   >
                     Open in OpenStreetMap
                   </a>
@@ -433,7 +433,7 @@ export default function PilotlocatiesPage() {
                       href={selected.bron.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-3 py-2 text-xs font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 rounded-lg"
+                      className="px-3 py-2 text-xs font-medium text-muted-foreground bg-card border border-input hover:bg-muted rounded-lg"
                     >
                       {selected.bron.label}
                     </a>
@@ -445,7 +445,7 @@ export default function PilotlocatiesPage() {
         </div>
       </div>
 
-      <p className="text-xs text-gray-500 italic">
+      <p className="text-xs text-subtle-foreground italic">
         Handmatig bijgehouden lijst uit gesprekken met gemeenten. Status en locaties kunnen
         wijzigen; aan deze pagina kunnen geen rechten worden ontleend.
       </p>

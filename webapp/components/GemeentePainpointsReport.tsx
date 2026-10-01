@@ -9,7 +9,7 @@ type GemeenteStatus = 'ontvangen' | 'openstaand';
 const PainpointMiniMap = dynamic(() => import('./PainpointMiniMap'), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-full flex items-center justify-center text-sm text-gray-500">
+    <div className="w-full h-full flex items-center justify-center text-sm text-subtle-foreground">
       Kaart laden...
     </div>
   ),
@@ -99,18 +99,18 @@ export default function GemeentePainpointsReport({ payload }: { payload: Painpoi
       <div className="space-y-8">
         {/* Intro */}
         <section data-tour="intro">
-          <h2 className="text-xl font-bold text-gray-900 mb-2">PC4-Pijnpunten — gemeld door G4-gemeenten</h2>
-          <p className="text-sm text-gray-600">
+          <h2 className="text-xl font-bold text-foreground mb-2">PC4-Pijnpunten — gemeld door G4-gemeenten</h2>
+          <p className="text-sm text-muted-foreground">
             Knelpuntgebieden zoals aangeleverd door de <strong>G4-gemeenten</strong> zelf
             (via hun convenant-contactpersoon) — los van de carrier-pijnpunten. Bron:{' '}
-            <code className="text-xs bg-gray-100 px-1 py-0.5 rounded">{payload.source}</code>, laatst
+            <code className="text-xs bg-secondary px-1 py-0.5 rounded">{payload.source}</code>, laatst
             bijgewerkt {new Date(payload.generated_at).toLocaleDateString('nl-NL')}.
           </p>
-          <p className="text-sm text-gray-600 mt-2">
+          <p className="text-sm text-muted-foreground mt-2">
             Pijnpunten die door <strong>vervoerders</strong> zijn gemeld staan op:{' '}
             <a
               href="/data-export/painpoints"
-              className="text-blue-700 hover:text-blue-900 underline underline-offset-2 font-medium"
+              className="text-primary hover:text-accent-foreground underline underline-offset-2 font-medium"
             >
               Pijnpunten per carrier →
             </a>
@@ -119,7 +119,7 @@ export default function GemeentePainpointsReport({ payload }: { payload: Painpoi
 
         {/* Status per gemeente — also shows openstaande gemeenten */}
         <section data-tour="status-g4">
-          <h3 className="text-lg font-semibold text-gray-900 mb-3">Status per G4-gemeente</h3>
+          <h3 className="text-lg font-semibold text-foreground mb-3">Status per G4-gemeente</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {G4.map((city) => {
               const codes = byGemeente.get(city) ?? [];
@@ -127,18 +127,18 @@ export default function GemeentePainpointsReport({ payload }: { payload: Painpoi
               return (
                 <div
                   key={city}
-                  className={`bg-white border rounded-lg p-4 ${
-                    isOpen ? 'border-amber-200' : 'border-gray-200'
+                  className={`bg-card border rounded-lg p-4 ${
+                    isOpen ? 'border-amber-200' : 'border-border'
                   }`}
                 >
                   <div className="flex items-baseline justify-between mb-2">
-                    <h4 className="font-semibold text-gray-900">Gemeente {city}</h4>
+                    <h4 className="font-semibold text-foreground">Gemeente {city}</h4>
                     {isOpen ? (
                       <span className="text-xs px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-semibold uppercase tracking-wide">
                         Openstaand
                       </span>
                     ) : (
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-subtle-foreground">
                         {codes.length} PC4-gebieden
                       </span>
                     )}
@@ -150,8 +150,8 @@ export default function GemeentePainpointsReport({ payload }: { payload: Painpoi
                         onClick={() => setSelectedPc4(pc4)}
                         className={`px-2 py-0.5 text-xs font-mono rounded transition ${
                           selectedPc4 === pc4
-                            ? 'bg-blue-700 text-white'
-                            : 'bg-blue-50 text-blue-800 hover:bg-blue-100'
+                            ? 'bg-primary/90 text-primary-foreground'
+                            : 'bg-accent text-accent-foreground hover:bg-accent'
                         }`}
                       >
                         {pc4}
@@ -166,27 +166,27 @@ export default function GemeentePainpointsReport({ payload }: { payload: Painpoi
 
         {/* Summary cards */}
         <section data-tour="samenvatting" className="grid grid-cols-2 md:grid-cols-3 gap-3">
-          <div className="bg-white border border-gray-200 rounded-lg p-4">
-            <div className="text-2xl font-bold text-gray-900">{totalPC4}</div>
-            <div className="text-xs text-gray-500 mt-1">Unieke PC4-gebieden</div>
+          <div className="bg-card border border-border rounded-lg p-4">
+            <div className="text-2xl font-bold text-foreground">{totalPC4}</div>
+            <div className="text-xs text-subtle-foreground mt-1">Unieke PC4-gebieden</div>
           </div>
-          <div className="bg-white border border-gray-200 rounded-lg p-4">
-            <div className="text-2xl font-bold text-gray-900">{totalFlags}</div>
-            <div className="text-xs text-gray-500 mt-1">Gemeente-meldingen</div>
+          <div className="bg-card border border-border rounded-lg p-4">
+            <div className="text-2xl font-bold text-foreground">{totalFlags}</div>
+            <div className="text-xs text-subtle-foreground mt-1">Gemeente-meldingen</div>
           </div>
-          <div className="bg-white border border-gray-200 rounded-lg p-4">
-            <div className="text-2xl font-bold text-gray-900">{totalPoints}</div>
-            <div className="text-xs text-gray-500 mt-1">Pakketpunten in deze gebieden</div>
+          <div className="bg-card border border-border rounded-lg p-4">
+            <div className="text-2xl font-bold text-foreground">{totalPoints}</div>
+            <div className="text-xs text-subtle-foreground mt-1">Pakketpunten in deze gebieden</div>
           </div>
         </section>
 
         {/* Per-PC4 table */}
         <section data-tour="pc4-tabel">
-          <h3 className="text-lg font-semibold text-gray-900 mb-3">Per postcodegebied</h3>
+          <h3 className="text-lg font-semibold text-foreground mb-3">Per postcodegebied</h3>
           {k8Available && (
-            <div className="mb-3 flex flex-wrap items-center gap-3 bg-blue-50 border border-blue-200 rounded-md px-3 py-2 text-sm">
-              <span className="font-semibold text-gray-800">Verwacht-model:</span>
-              <div className="inline-flex rounded border border-blue-300 overflow-hidden">
+            <div className="mb-3 flex flex-wrap items-center gap-3 bg-accent border border-primary/30 rounded-md px-3 py-2 text-sm">
+              <span className="font-semibold text-foreground">Verwacht-model:</span>
+              <div className="inline-flex rounded border border-primary/30 overflow-hidden">
                 {(['base', 'k8'] as const).map((k) => {
                   const active = modelChoice === k;
                   const r2 = k === 'k8' ? payload.model_k8?.r2 : payload.model?.r2;
@@ -197,8 +197,8 @@ export default function GemeentePainpointsReport({ payload }: { payload: Painpoi
                       onClick={() => setModelChoice(k)}
                       className={`px-3 py-1 text-xs font-medium transition ${
                         active
-                          ? 'bg-blue-700 text-white'
-                          : 'bg-white text-blue-800 hover:bg-blue-100'
+                          ? 'bg-primary/90 text-primary-foreground'
+                          : 'bg-card text-accent-foreground hover:bg-accent'
                       }`}
                     >
                       {k === 'base' ? 'Basis (pop + opp)' : 'K=8 best-subset'}
@@ -213,20 +213,20 @@ export default function GemeentePainpointsReport({ payload }: { payload: Painpoi
               </div>
               <a
                 href="/data-export/schatting"
-                className="text-blue-700 hover:text-blue-900 underline underline-offset-2"
+                className="text-primary hover:text-accent-foreground underline underline-offset-2"
               >
                 uitleg over de modellen →
               </a>
               {modelChoice === 'k8' && (
-                <span className="text-xs text-gray-600">
+                <span className="text-xs text-muted-foreground">
                   18 PC4&apos;s zonder WOZ-waarde vallen terug op het basismodel.
                 </span>
               )}
             </div>
           )}
-          <div className="overflow-x-auto bg-white border border-gray-200 rounded-lg">
+          <div className="overflow-x-auto bg-card border border-border rounded-lg">
             <table className="w-full text-sm">
-              <thead className="bg-gray-50">
+              <thead className="bg-muted">
                 <tr>
                   {([
                     ['pc4', 'PC4', 'left'],
@@ -246,7 +246,7 @@ export default function GemeentePainpointsReport({ payload }: { payload: Painpoi
                         type="button"
                         onClick={() => toggleSort(key)}
                         className={`inline-flex items-center gap-1 font-semibold uppercase text-xs tracking-wide transition ${
-                          sort.key === key ? 'text-gray-900' : 'text-gray-600 hover:text-gray-900'
+                          sort.key === key ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
                         }`}
                       >
                         <span>{label}</span>
@@ -258,7 +258,7 @@ export default function GemeentePainpointsReport({ payload }: { payload: Painpoi
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-border">
                 {entries
                   .slice()
                   .sort(([aPc4, av], [bPc4, bv]) => {
@@ -293,16 +293,16 @@ export default function GemeentePainpointsReport({ payload }: { payload: Painpoi
                       key={pc4}
                       onClick={() => setSelectedPc4(pc4)}
                       className={`cursor-pointer transition-colors ${
-                        selectedPc4 === pc4 ? 'bg-blue-50' : 'hover:bg-gray-50'
+                        selectedPc4 === pc4 ? 'bg-accent' : 'hover:bg-muted'
                       }`}
                     >
-                      <td className="px-3 py-2 font-mono font-semibold text-gray-900">{pc4}</td>
+                      <td className="px-3 py-2 font-mono font-semibold text-foreground">{pc4}</td>
                       <td className="px-3 py-2">
                         <div className="flex flex-wrap gap-1">
                           {(v.gemeenten ?? []).map((g) => (
                             <span
                               key={g}
-                              className="inline-block px-2 py-0.5 text-xs font-semibold bg-blue-100 text-blue-800 rounded"
+                              className="inline-block px-2 py-0.5 text-xs font-semibold bg-accent text-accent-foreground rounded"
                             >
                               {g}
                             </span>
@@ -311,13 +311,13 @@ export default function GemeentePainpointsReport({ payload }: { payload: Painpoi
                       </td>
                       <td className="px-3 py-2">
                         {v.carriers.length === 0 ? (
-                          <span className="text-xs text-gray-400 italic">— alleen gemeente —</span>
+                          <span className="text-xs text-subtle-foreground italic">— alleen gemeente —</span>
                         ) : (
                           <div className="flex flex-wrap gap-1">
                             {v.carriers.map((c) => (
                               <span
                                 key={c}
-                                className="inline-block px-2 py-0.5 text-xs font-semibold bg-blue-100 text-blue-800 rounded"
+                                className="inline-block px-2 py-0.5 text-xs font-semibold bg-accent text-accent-foreground rounded"
                               >
                                 {c}
                               </span>
@@ -325,19 +325,19 @@ export default function GemeentePainpointsReport({ payload }: { payload: Painpoi
                           </div>
                         )}
                       </td>
-                      <td className="px-3 py-2 text-right tabular-nums font-semibold text-gray-900">{v.pakketpunten.total}</td>
-                      <td className="px-3 py-2 text-right tabular-nums text-gray-700">{v.pakketpunten.locker}</td>
-                      <td className="px-3 py-2 text-right tabular-nums text-gray-700">{v.pakketpunten.shop}</td>
-                      <td className="px-3 py-2 text-right tabular-nums text-gray-700">{v.stats?.population != null ? v.stats.population.toLocaleString('nl-NL') : '—'}</td>
-                      <td className="px-3 py-2 text-right tabular-nums text-gray-700">{v.stats?.area_km2 != null ? v.stats.area_km2.toFixed(2) : '—'}</td>
-                      <td className="px-3 py-2 text-right tabular-nums text-gray-700">{v.stats?.points_per_km2 != null ? v.stats.points_per_km2.toFixed(1) : '—'}</td>
+                      <td className="px-3 py-2 text-right tabular-nums font-semibold text-foreground">{v.pakketpunten.total}</td>
+                      <td className="px-3 py-2 text-right tabular-nums text-muted-foreground">{v.pakketpunten.locker}</td>
+                      <td className="px-3 py-2 text-right tabular-nums text-muted-foreground">{v.pakketpunten.shop}</td>
+                      <td className="px-3 py-2 text-right tabular-nums text-muted-foreground">{v.stats?.population != null ? v.stats.population.toLocaleString('nl-NL') : '—'}</td>
+                      <td className="px-3 py-2 text-right tabular-nums text-muted-foreground">{v.stats?.area_km2 != null ? v.stats.area_km2.toFixed(2) : '—'}</td>
+                      <td className="px-3 py-2 text-right tabular-nums text-muted-foreground">{v.stats?.points_per_km2 != null ? v.stats.points_per_km2.toFixed(1) : '—'}</td>
                       {(() => {
                         const pred = getPredicted(v.stats);
                         const delta = getDelta(v.stats);
                         return (
                           <>
-                            <td className="px-3 py-2 text-right tabular-nums text-gray-700">{pred != null ? pred.toFixed(1) : '—'}</td>
-                            <td className={`px-3 py-2 text-right tabular-nums font-semibold ${delta != null ? (delta >= 0 ? 'text-emerald-700' : 'text-red-700') : 'text-gray-500'}`}>
+                            <td className="px-3 py-2 text-right tabular-nums text-muted-foreground">{pred != null ? pred.toFixed(1) : '—'}</td>
+                            <td className={`px-3 py-2 text-right tabular-nums font-semibold ${delta != null ? (delta >= 0 ? 'text-emerald-700' : 'text-destructive') : 'text-subtle-foreground'}`}>
                               {delta != null ? (delta >= 0 ? '+' : '') + delta.toFixed(1) : '—'}
                             </td>
                           </>
@@ -358,22 +358,22 @@ export default function GemeentePainpointsReport({ payload }: { payload: Painpoi
             className="fixed inset-0 bg-black/30 z-40"
             onClick={() => setSelectedPc4(null)}
           />
-          <aside className="fixed top-0 right-0 bottom-0 w-full md:w-[520px] z-50 bg-white shadow-2xl flex flex-col">
-            <div className="flex items-start justify-between p-4 border-b border-gray-200">
+          <aside className="fixed top-0 right-0 bottom-0 w-full md:w-[520px] z-50 bg-card shadow-2xl flex flex-col">
+            <div className="flex items-start justify-between p-4 border-b border-border">
               <div>
-                <div className="text-xs uppercase tracking-wide text-gray-500">Postcodegebied</div>
-                <div className="text-2xl font-bold text-gray-900 font-mono">{selectedPc4}</div>
-                <div className="text-sm text-gray-600">
+                <div className="text-xs uppercase tracking-wide text-subtle-foreground">Postcodegebied</div>
+                <div className="text-2xl font-bold text-foreground font-mono">{selectedPc4}</div>
+                <div className="text-sm text-muted-foreground">
                   G4: {selected.g4_city ?? selected.city}
                 </div>
                 {selected.municipality &&
                   selected.municipality !== (selected.g4_city ?? selected.city) && (
-                    <div className="text-sm text-gray-900 font-medium">{selected.municipality}</div>
+                    <div className="text-sm text-foreground font-medium">{selected.municipality}</div>
                   )}
               </div>
               <button
                 onClick={() => setSelectedPc4(null)}
-                className="p-2 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded"
+                className="p-2 text-subtle-foreground hover:text-foreground hover:bg-secondary rounded"
                 aria-label="Sluiten"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -382,17 +382,17 @@ export default function GemeentePainpointsReport({ payload }: { payload: Painpoi
               </button>
             </div>
 
-            <div className="px-4 py-3 border-b border-gray-200 bg-gray-50">
+            <div className="px-4 py-3 border-b border-border bg-muted">
               {selected.gemeenten && selected.gemeenten.length > 0 && (
                 <>
-                  <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">
+                  <div className="text-xs uppercase tracking-wide text-subtle-foreground mb-1">
                     Gemeld door G4-gemeente
                   </div>
                   <div className="flex flex-wrap gap-1 mb-3">
                     {selected.gemeenten.map((g) => (
                       <span
                         key={g}
-                        className="px-2 py-0.5 text-xs font-semibold bg-blue-100 text-blue-800 rounded"
+                        className="px-2 py-0.5 text-xs font-semibold bg-accent text-accent-foreground rounded"
                       >
                         Gemeente {g}
                       </span>
@@ -402,14 +402,14 @@ export default function GemeentePainpointsReport({ payload }: { payload: Painpoi
               )}
               {selected.carriers.length > 0 && (
                 <>
-                  <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">
+                  <div className="text-xs uppercase tracking-wide text-subtle-foreground mb-1">
                     Ook gemeld door carriers
                   </div>
                   <div className="flex flex-wrap gap-1 mb-3">
                     {selected.carriers.map((c) => (
                       <span
                         key={c}
-                        className="px-2 py-0.5 text-xs font-semibold bg-blue-100 text-blue-800 rounded"
+                        className="px-2 py-0.5 text-xs font-semibold bg-accent text-accent-foreground rounded"
                       >
                         {c}
                       </span>
@@ -431,35 +431,35 @@ export default function GemeentePainpointsReport({ payload }: { payload: Painpoi
               )}
               {selected.stats && (
                 <div className="mb-3 grid grid-cols-2 gap-2 text-xs">
-                  <div className="bg-white rounded border border-gray-200 px-2 py-1">
-                    <div className="text-gray-500">Inwoners</div>
-                    <div className="font-semibold text-gray-900">
+                  <div className="bg-card rounded border border-border px-2 py-1">
+                    <div className="text-subtle-foreground">Inwoners</div>
+                    <div className="font-semibold text-foreground">
                       {selected.stats.population?.toLocaleString('nl-NL') ?? '—'}
                     </div>
                   </div>
-                  <div className="bg-white rounded border border-gray-200 px-2 py-1">
-                    <div className="text-gray-500">Oppervlakte</div>
-                    <div className="font-semibold text-gray-900">
+                  <div className="bg-card rounded border border-border px-2 py-1">
+                    <div className="text-subtle-foreground">Oppervlakte</div>
+                    <div className="font-semibold text-foreground">
                       {selected.stats.area_km2?.toFixed(2) ?? '—'} km²
                     </div>
                   </div>
-                  <div className="bg-white rounded border border-gray-200 px-2 py-1">
-                    <div className="text-gray-500">PP per 1000 inw.</div>
-                    <div className="font-semibold text-gray-900">
+                  <div className="bg-card rounded border border-border px-2 py-1">
+                    <div className="text-subtle-foreground">PP per 1000 inw.</div>
+                    <div className="font-semibold text-foreground">
                       {selected.stats.points_per_1000_inw?.toFixed(2) ?? '—'}
                     </div>
                   </div>
-                  <div className="bg-white rounded border border-gray-200 px-2 py-1">
-                    <div className="text-gray-500">PP per km²</div>
-                    <div className="font-semibold text-gray-900">
+                  <div className="bg-card rounded border border-border px-2 py-1">
+                    <div className="text-subtle-foreground">PP per km²</div>
+                    <div className="font-semibold text-foreground">
                       {selected.stats.points_per_km2?.toFixed(1) ?? '—'}
                     </div>
                   </div>
-                  <div className="bg-white rounded border border-gray-200 px-2 py-1 col-span-2">
-                    <div className="text-gray-500">
+                  <div className="bg-card rounded border border-border px-2 py-1 col-span-2">
+                    <div className="text-subtle-foreground">
                       Verwacht ({modelChoice === 'k8' ? 'k=8' : 'basis'}) · Δ
                     </div>
-                    <div className="font-semibold text-gray-900">
+                    <div className="font-semibold text-foreground">
                       {(() => {
                         const pred = getPredicted(selected.stats);
                         const delta = getDelta(selected.stats);
@@ -467,7 +467,7 @@ export default function GemeentePainpointsReport({ payload }: { payload: Painpoi
                           <>
                             {pred != null ? pred.toFixed(1) : '—'}
                             {delta != null && (
-                              <span className={`ml-2 ${delta >= 0 ? 'text-emerald-700' : 'text-red-700'}`}>
+                              <span className={`ml-2 ${delta >= 0 ? 'text-emerald-700' : 'text-destructive'}`}>
                                 {delta >= 0 ? '+' : ''}{delta.toFixed(1)}
                               </span>
                             )}
@@ -480,16 +480,16 @@ export default function GemeentePainpointsReport({ payload }: { payload: Painpoi
               )}
               <div className="grid grid-cols-3 gap-2 text-center">
                 <div>
-                  <div className="text-lg font-bold text-gray-900">{selected.pakketpunten.total}</div>
-                  <div className="text-xs text-gray-500">Totaal</div>
+                  <div className="text-lg font-bold text-foreground">{selected.pakketpunten.total}</div>
+                  <div className="text-xs text-subtle-foreground">Totaal</div>
                 </div>
                 <div>
-                  <div className="text-lg font-bold text-gray-900">{selected.pakketpunten.locker}</div>
-                  <div className="text-xs text-gray-500">Automaten</div>
+                  <div className="text-lg font-bold text-foreground">{selected.pakketpunten.locker}</div>
+                  <div className="text-xs text-subtle-foreground">Automaten</div>
                 </div>
                 <div>
-                  <div className="text-lg font-bold text-gray-900">{selected.pakketpunten.shop}</div>
-                  <div className="text-xs text-gray-500">Shops</div>
+                  <div className="text-lg font-bold text-foreground">{selected.pakketpunten.shop}</div>
+                  <div className="text-xs text-subtle-foreground">Shops</div>
                 </div>
               </div>
             </div>

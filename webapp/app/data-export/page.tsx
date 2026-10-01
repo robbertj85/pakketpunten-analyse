@@ -81,7 +81,7 @@ export default function DownloadsPage() {
           <div className={`mb-6 p-4 rounded-lg ${
             downloadStatus.type === 'ok' ? 'bg-success-muted text-success' :
             downloadStatus.type === 'warn' ? 'bg-amber-50 text-amber-800' :
-            'bg-destructive-muted text-red-800'
+            'bg-destructive-muted text-destructive'
           }`}>
             {downloadStatus.message}
           </div>

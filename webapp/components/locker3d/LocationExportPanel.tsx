@@ -61,15 +61,15 @@ export default function LocationExportPanel({ frozen }: Props) {
   }, [frozen]);
 
   return (
-    <div className="mt-4 bg-white rounded-lg shadow-md overflow-hidden">
-      <div className="px-4 py-2 border-b border-gray-100">
-        <h3 className="text-sm font-semibold text-gray-900">Vastgelegde locatie</h3>
+    <div className="mt-4 bg-card rounded-lg shadow-md overflow-hidden">
+      <div className="px-4 py-2 border-b border-border">
+        <h3 className="text-sm font-semibold text-foreground">Vastgelegde locatie</h3>
       </div>
 
       {!frozen ? (
-        <p className="px-4 py-6 text-sm text-gray-500">
+        <p className="px-4 py-6 text-sm text-subtle-foreground">
           Plaats de automaat op de gewenste plek en klik op{' '}
-          <span className="font-medium text-gray-700">Locatie vastleggen</span> in het
+          <span className="font-medium text-muted-foreground">Locatie vastleggen</span> in het
           configuratiepaneel om de coördinaten, het adres, BAG-/kadasternummer en
           externe links te genereren.
         </p>
@@ -117,7 +117,7 @@ export default function LocationExportPanel({ frozen }: Props) {
 
           {/* External viewers */}
           <div className="space-y-2">
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">
+            <p className="text-[11px] font-semibold uppercase tracking-wide text-subtle-foreground">
               Open in externe viewer
             </p>
             <LinkBtn href={streetViewUrl(frozen.lat, frozen.lon)}>Google Street View</LinkBtn>
@@ -130,7 +130,7 @@ export default function LocationExportPanel({ frozen }: Props) {
         </div>
       )}
 
-      <div className="px-4 py-2 text-[11px] text-gray-500 border-t border-gray-100">
+      <div className="px-4 py-2 text-[11px] text-subtle-foreground border-t border-border">
         Adres &amp; BAG via PDOK Locatieserver · perceel via PDOK Kadastrale Kaart ·
         coördinaten in WGS84 en RD
       </div>
@@ -168,11 +168,11 @@ function Spec({
   mono?: boolean;
 }) {
   return (
-    <div className="flex items-baseline justify-between gap-3 border-b border-gray-50 pb-1">
-      <span className="text-[11px] uppercase tracking-wide text-gray-400 shrink-0">{label}</span>
-      <span className={`text-right text-gray-800 ${mono ? 'font-mono text-xs' : ''}`}>
+    <div className="flex items-baseline justify-between gap-3 border-b border-border pb-1">
+      <span className="text-[11px] uppercase tracking-wide text-subtle-foreground shrink-0">{label}</span>
+      <span className={`text-right text-foreground ${mono ? 'font-mono text-xs' : ''}`}>
         {value}
-        {hint && <span className="ml-1 text-gray-400">({hint})</span>}
+        {hint && <span className="ml-1 text-subtle-foreground">({hint})</span>}
       </span>
     </div>
   );
@@ -184,7 +184,7 @@ function LinkBtn({ href, children }: { href: string; children: React.ReactNode }
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex items-center justify-between px-3 py-2 text-sm font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded"
+      className="flex items-center justify-between px-3 py-2 text-sm font-semibold text-primary bg-accent hover:bg-accent border border-primary/30 rounded"
     >
       {children}
       <span aria-hidden className="text-blue-400 font-normal">&rsaquo;</span>

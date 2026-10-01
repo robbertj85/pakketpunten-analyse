@@ -16,7 +16,7 @@ import type { PainpointsPayload, ScatterPoint } from './PainpointsReport';
 const PainpointMiniMap = dynamic(() => import('./PainpointMiniMap'), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-full flex items-center justify-center bg-gray-50 border border-gray-200 rounded">
+    <div className="w-full h-full flex items-center justify-center bg-muted border border-border rounded">
       <MapSpinner label="Kaart laden..." />
     </div>
   ),
@@ -24,7 +24,7 @@ const PainpointMiniMap = dynamic(() => import('./PainpointMiniMap'), {
 
 function MapSpinner({ label = 'Laden...' }: { label?: string }) {
   return (
-    <div className="flex items-center gap-2 text-sm text-gray-500">
+    <div className="flex items-center gap-2 text-sm text-subtle-foreground">
       <svg
         className="animate-spin w-4 h-4 text-indigo-500"
         viewBox="0 0 24 24"
@@ -430,8 +430,8 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
     <div className="space-y-8">
       {/* Page intro */}
       <section data-tour="intro">
-        <h2 className="text-xl font-bold text-gray-900 mb-2">Schatting pakketpunten per PC4</h2>
-        <p className="text-sm text-gray-600">
+        <h2 className="text-xl font-bold text-foreground mb-2">Schatting pakketpunten per PC4</h2>
+        <p className="text-sm text-muted-foreground">
           Hoeveel pakketpunten zou er in een postcodegebied zitten op basis van bevolking, welvaart,
           stedelijkheid en voorzieningen? Deze pagina toont het Python-gefitte basismodel, een
           live-herberekenbaar maatwerkmodel, en alle statistische controles die je nodig hebt om te
@@ -441,12 +441,12 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
 
       {/* Netherlands-wide regression model + scatterplot */}
       {payload.model && (
-        <section data-tour="basismodel" className="bg-white border border-gray-200 rounded-lg p-4 md:p-5 space-y-3">
+        <section data-tour="basismodel" className="bg-card border border-border rounded-lg p-4 md:p-5 space-y-3">
           <div>
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
-                <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">Nederland-breed basismodel</div>
-                <h3 className="text-lg font-semibold text-gray-900">Regressiemodel voor verwachte pakketpunten per PC4</h3>
+                <div className="text-xs uppercase tracking-wide text-subtle-foreground mb-1">Nederland-breed basismodel</div>
+                <h3 className="text-lg font-semibold text-foreground">Regressiemodel voor verwachte pakketpunten per PC4</h3>
               </div>
               <button
                 data-tour="grafiek-knop"
@@ -458,7 +458,7 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                 {showScatter ? 'Verberg grafiek' : 'Toon grafiek'}
               </button>
             </div>
-            <p className="text-sm text-gray-700 leading-relaxed mt-1">
+            <p className="text-sm text-muted-foreground leading-relaxed mt-1">
               OLS-regressie op alle {payload.model.training_size.toLocaleString('nl-NL')} Nederlandse PC4-gebieden
               (inwoners ≥ 10, oppervlakte ≥ 0,05 km²).
             </p>
@@ -469,14 +469,14 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
               {' + '}
               {payload.model.coefficients.area_km2.toFixed(3)} × km²
             </div>
-            <div className="mt-1 text-sm text-gray-700">
+            <div className="mt-1 text-sm text-muted-foreground">
               R² = <span className="font-semibold">{payload.model.r2.toFixed(3)}</span>
               {' · '}
               ≈ +{(payload.model.coefficients.population * 1000).toFixed(2)} pakketpunten per 1 000 inwoners
               {' · '}
               +{payload.model.coefficients.area_km2.toFixed(2)} per extra km²
             </div>
-            <p className="text-xs text-gray-500 mt-2 leading-relaxed">
+            <p className="text-xs text-subtle-foreground mt-2 leading-relaxed">
               PC4-niveau R² is lager dan het gemeentelijke model (~0.87) — kleinere, ruisiger geografieën — maar
               geeft bruikbare verwachtingswaarden per postcode. Δ = werkelijk − voorspeld; negatieve Δ betekent
               minder pakketpunten dan op basis van inwoners en oppervlakte verwacht. Pijnpunt-PC4s zijn rood gemarkeerd.
@@ -513,14 +513,14 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                       const d = tp[0].payload as ScatterPoint;
                       if (!d.pc4) {
                         return (
-                          <div className="bg-white border border-gray-200 rounded shadow px-2 py-1 text-xs">
+                          <div className="bg-card border border-border rounded shadow px-2 py-1 text-xs">
                             <div className="font-semibold text-amber-700">Trendlijn</div>
                             <div>{Math.round(d.pop).toLocaleString('nl-NL')} inw. → {d.actual.toFixed(1)} PP</div>
                           </div>
                         );
                       }
                       return (
-                        <div className="bg-white border border-gray-200 rounded shadow px-2 py-1 text-xs">
+                        <div className="bg-card border border-border rounded shadow px-2 py-1 text-xs">
                           <div className="font-semibold font-mono">PC4 {d.pc4}</div>
                           <div>{d.pop.toLocaleString('nl-NL')} inw. · {d.area.toFixed(2)} km²</div>
                           <div>Werkelijk: <span className="font-semibold">{d.actual}</span></div>
@@ -590,11 +590,11 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
 
       {/* Interactive model builder */}
       {(payload.scatter?.length ?? 0) > 0 && (
-        <section data-tour="zelf-bouwen" className="bg-white border border-gray-200 rounded-lg p-4 md:p-5 space-y-4">
+        <section data-tour="zelf-bouwen" className="bg-card border border-border rounded-lg p-4 md:p-5 space-y-4">
           <div>
-            <div className="text-xs uppercase tracking-wide text-gray-500 mb-1">Zelf een model bouwen</div>
-            <h3 className="text-lg font-semibold text-gray-900">Kies variabelen voor de regressie</h3>
-            <p className="text-sm text-gray-700 leading-relaxed mt-1">
+            <div className="text-xs uppercase tracking-wide text-subtle-foreground mb-1">Zelf een model bouwen</div>
+            <h3 className="text-lg font-semibold text-foreground">Kies variabelen voor de regressie</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed mt-1">
               Vink variabelen aan om ze aan het OLS-model toe te voegen. De fit draait live in je browser op
               alle PC4-gebieden waarvoor <em>elke</em> gekozen variabele bekend is. Gebruik de VIF-kolom om
               multicollineariteit in de gaten te houden — waardes boven 5 betekenen dat twee variabelen
@@ -618,7 +618,7 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                   className={`rounded px-2 py-1 font-medium transition ${
                     active
                       ? 'bg-indigo-600 text-white'
-                      : 'bg-white text-indigo-700 hover:bg-indigo-100 border border-indigo-200'
+                      : 'bg-card text-indigo-700 hover:bg-indigo-100 border border-indigo-200'
                   }`}
                 >
                   {preset.name} ({preset.keys.length})
@@ -633,8 +633,8 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
               onClick={() => setShowAdvanced((v) => !v)}
               className={`ml-auto rounded px-2 py-1 font-medium transition ${
                 showAdvanced
-                  ? 'bg-gray-800 text-white'
-                  : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'
+                  ? 'bg-foreground text-background'
+                  : 'bg-card text-muted-foreground hover:bg-secondary border border-input'
               }`}
               aria-pressed={showAdvanced}
             >
@@ -645,8 +645,8 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
           {/* Feature checkboxes, grouped */}
           <div data-tour="variabelen" className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
             {(['basis', 'inkomen', 'ses', 'stedelijk', 'voorzieningen', 'verkeer', 'verkeersveiligheid'] as const).map((grp) => (
-              <fieldset key={grp} className="border border-gray-200 rounded p-3">
-                <legend className="px-1 text-xs font-semibold text-gray-700 uppercase tracking-wide">
+              <fieldset key={grp} className="border border-border rounded p-3">
+                <legend className="px-1 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                   {GROUP_LABELS[grp]}
                 </legend>
                 <div className="space-y-1.5">
@@ -657,7 +657,7 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                       <label
                         key={f.key}
                         className={`flex items-start gap-2 cursor-pointer rounded px-1 py-0.5 transition ${
-                          checked ? 'bg-indigo-50' : 'hover:bg-gray-50'
+                          checked ? 'bg-indigo-50' : 'hover:bg-muted'
                         } ${onlyOne ? 'opacity-80' : ''}`}
                         title={onlyOne ? 'Minstens één variabele is vereist' : f.help}
                       >
@@ -669,11 +669,11 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                           className="mt-0.5 w-4 h-4 text-indigo-600 rounded focus:ring-2 focus:ring-indigo-500"
                         />
                         <div className="text-sm">
-                          <div className="text-gray-900">
+                          <div className="text-foreground">
                             {f.label}
-                            {f.unit && <span className="text-gray-500 text-xs ml-1">({f.unit})</span>}
+                            {f.unit && <span className="text-subtle-foreground text-xs ml-1">({f.unit})</span>}
                           </div>
-                          <div className="text-[11px] text-gray-500">{f.help}</div>
+                          <div className="text-[11px] text-subtle-foreground">{f.help}</div>
                         </div>
                       </label>
                     );
@@ -685,7 +685,7 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
 
           {/* Fit results */}
           {'error' in modelFit ? (
-            <div className="text-sm text-red-700 bg-red-50 border border-red-200 rounded p-3">
+            <div className="text-sm text-destructive bg-destructive-muted border border-red-200 rounded p-3">
               {modelFit.error}
             </div>
           ) : (
@@ -703,15 +703,15 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                 <div className="space-y-3">
                   <div className="flex flex-wrap items-baseline gap-x-6 gap-y-1 text-sm">
                     <div>
-                      <span className="text-gray-500">R² =</span>{' '}
-                      <span className="font-semibold text-gray-900 tabular-nums">{fit.r2.toFixed(4)}</span>
+                      <span className="text-subtle-foreground">R² =</span>{' '}
+                      <span className="font-semibold text-foreground tabular-nums">{fit.r2.toFixed(4)}</span>
                     </div>
                     {deltaR2 != null && (
                       <div>
-                        <span className="text-gray-500">ΔR² t.o.v. basis (pop + area) =</span>{' '}
+                        <span className="text-subtle-foreground">ΔR² t.o.v. basis (pop + area) =</span>{' '}
                         <span
                           className={`font-semibold tabular-nums ${
-                            deltaR2 > 0.001 ? 'text-emerald-700' : deltaR2 < -0.001 ? 'text-red-700' : 'text-gray-700'
+                            deltaR2 > 0.001 ? 'text-emerald-700' : deltaR2 < -0.001 ? 'text-destructive' : 'text-muted-foreground'
                           }`}
                         >
                           {deltaR2 >= 0 ? '+' : ''}{deltaR2.toFixed(4)}
@@ -719,21 +719,21 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                       </div>
                     )}
                     <div>
-                      <span className="text-gray-500">n =</span>{' '}
-                      <span className="font-semibold text-gray-900 tabular-nums">{fit.n.toLocaleString('nl-NL')}</span>
-                      <span className="text-xs text-gray-500 ml-1">
+                      <span className="text-subtle-foreground">n =</span>{' '}
+                      <span className="font-semibold text-foreground tabular-nums">{fit.n.toLocaleString('nl-NL')}</span>
+                      <span className="text-xs text-subtle-foreground ml-1">
                         van {payload.scatter?.length.toLocaleString('nl-NL')} PC4s
                       </span>
                     </div>
                     <div>
-                      <span className="text-gray-500">intercept =</span>{' '}
-                      <span className="font-semibold text-gray-900 tabular-nums">{fit.intercept.toFixed(3)}</span>
+                      <span className="text-subtle-foreground">intercept =</span>{' '}
+                      <span className="font-semibold text-foreground tabular-nums">{fit.intercept.toFixed(3)}</span>
                     </div>
                     {showAdvanced && (
                       <div>
-                        <span className="text-gray-500">BIC =</span>{' '}
-                        <span className="font-semibold text-gray-900 tabular-nums">{modelBic.toFixed(1)}</span>
-                        <span className="text-xs text-gray-500 ml-1">(lager = beter)</span>
+                        <span className="text-subtle-foreground">BIC =</span>{' '}
+                        <span className="font-semibold text-foreground tabular-nums">{modelBic.toFixed(1)}</span>
+                        <span className="text-xs text-subtle-foreground ml-1">(lager = beter)</span>
                       </div>
                     )}
                   </div>
@@ -761,32 +761,32 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                   </div>
 
                   {showAdvanced && modelVsBase && (
-                    <div className="bg-gray-50 border border-gray-200 rounded p-3 space-y-1 text-sm">
-                      <div className="text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">
+                    <div className="bg-muted border border-border rounded p-3 space-y-1 text-sm">
+                      <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">
                         Model vs basis (pop + km²) op dezelfde {fit.n.toLocaleString('nl-NL')} PC4s
                       </div>
                       <div className="flex flex-wrap items-baseline gap-x-6 gap-y-1">
                         <div>
-                          <span className="text-gray-500">Cohen's f² =</span>{' '}
+                          <span className="text-subtle-foreground">Cohen's f² =</span>{' '}
                           <span className="font-semibold tabular-nums">{modelVsBase.f2.toFixed(3)}</span>
-                          <span className="text-xs text-gray-500 ml-1">({modelVsBase.f2Label})</span>
+                          <span className="text-xs text-subtle-foreground ml-1">({modelVsBase.f2Label})</span>
                         </div>
                         <div>
-                          <span className="text-gray-500">Partial F({modelVsBase.df1}, {modelVsBase.df2}) =</span>{' '}
+                          <span className="text-subtle-foreground">Partial F({modelVsBase.df1}, {modelVsBase.df2}) =</span>{' '}
                           <span className="font-semibold tabular-nums">{isFinite(modelVsBase.F) ? modelVsBase.F.toFixed(2) : '∞'}</span>
                         </div>
                         <div>
-                          <span className="text-gray-500">p =</span>{' '}
+                          <span className="text-subtle-foreground">p =</span>{' '}
                           <span
                             className={`font-semibold tabular-nums ${
-                              modelVsBase.p < 0.05 ? 'text-emerald-700' : 'text-gray-700'
+                              modelVsBase.p < 0.05 ? 'text-emerald-700' : 'text-muted-foreground'
                             }`}
                           >
                             {fmtP(modelVsBase.p)}
                           </span>
                         </div>
                       </div>
-                      <p className="text-[11px] text-gray-500 mt-1">
+                      <p className="text-[11px] text-subtle-foreground mt-1">
                         f² ≥ 0.02 = klein effect, ≥ 0.15 = middel, ≥ 0.35 = groot. Bij grote <em>n</em>{' '}
                         wordt de F-toets snel "significant" — leun dus op f² om te beslissen of een
                         toevoeging <em>praktisch</em> de moeite waard is.
@@ -796,31 +796,31 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
 
                   <div data-tour="resultaten" className="overflow-x-auto">
                     <table className="w-full text-sm">
-                      <thead className="bg-gray-50">
+                      <thead className="bg-muted">
                         <tr>
-                          <th className="px-3 py-2 text-left font-semibold uppercase text-xs tracking-wide text-gray-600">Variabele</th>
-                          <th className="px-3 py-2 text-right font-semibold uppercase text-xs tracking-wide text-gray-600">Coëfficiënt</th>
-                          <th className="px-3 py-2 text-right font-semibold uppercase text-xs tracking-wide text-gray-600" title="Extra pakketpunten per eenheid toename van deze variabele (en per 1 000 eenheden)">Effect op pakketpunten</th>
-                          <th className="px-3 py-2 text-right font-semibold uppercase text-xs tracking-wide text-gray-600">VIF</th>
+                          <th className="px-3 py-2 text-left font-semibold uppercase text-xs tracking-wide text-muted-foreground">Variabele</th>
+                          <th className="px-3 py-2 text-right font-semibold uppercase text-xs tracking-wide text-muted-foreground">Coëfficiënt</th>
+                          <th className="px-3 py-2 text-right font-semibold uppercase text-xs tracking-wide text-muted-foreground" title="Extra pakketpunten per eenheid toename van deze variabele (en per 1 000 eenheden)">Effect op pakketpunten</th>
+                          <th className="px-3 py-2 text-right font-semibold uppercase text-xs tracking-wide text-muted-foreground">VIF</th>
                           {showAdvanced && (
                             <>
-                              <th className="px-3 py-2 text-right font-semibold uppercase text-xs tracking-wide text-gray-600" title="F-statistiek als deze variabele wordt weggelaten (leave-one-out)">
+                              <th className="px-3 py-2 text-right font-semibold uppercase text-xs tracking-wide text-muted-foreground" title="F-statistiek als deze variabele wordt weggelaten (leave-one-out)">
                                 Drop-F
                               </th>
-                              <th className="px-3 py-2 text-right font-semibold uppercase text-xs tracking-wide text-gray-600">
+                              <th className="px-3 py-2 text-right font-semibold uppercase text-xs tracking-wide text-muted-foreground">
                                 p-waarde
                               </th>
                             </>
                           )}
-                          <th className="px-3 py-2 text-center font-semibold uppercase text-xs tracking-wide text-gray-600">Actie</th>
+                          <th className="px-3 py-2 text-center font-semibold uppercase text-xs tracking-wide text-muted-foreground">Actie</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-gray-100">
+                      <tbody className="divide-y divide-border">
                         {fit.featureNames.map((name, i) => {
                           const c = fit.coefficients[i];
                           const v = fit.vif[name] ?? NaN;
                           const vifColor =
-                            v > 10 ? 'text-red-700' : v > 5 ? 'text-amber-700' : 'text-gray-700';
+                            v > 10 ? 'text-destructive' : v > 5 ? 'text-amber-700' : 'text-muted-foreground';
                           const fkey = featureKeyByLabel.get(name);
                           const drop = fkey ? dropByKey.get(fkey) : undefined;
                           // "Safe to remove" heuristic: VIF high OR drop not
@@ -830,16 +830,16 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                           );
                           return (
                             <tr key={name}>
-                              <td className="px-3 py-2 text-gray-900">{name}</td>
-                              <td className={`px-3 py-2 text-right tabular-nums font-semibold ${c >= 0 ? 'text-emerald-700' : 'text-red-700'}`}>
+                              <td className="px-3 py-2 text-foreground">{name}</td>
+                              <td className={`px-3 py-2 text-right tabular-nums font-semibold ${c >= 0 ? 'text-emerald-700' : 'text-destructive'}`}>
                                 {c >= 0 ? '+' : ''}{c.toExponential(3)}
                               </td>
-                              <td className="px-3 py-2 text-right tabular-nums text-gray-700">
+                              <td className="px-3 py-2 text-right tabular-nums text-muted-foreground">
                                 <div>
                                   {c >= 0 ? '+' : ''}{c.toFixed(Math.abs(c) < 0.01 ? 5 : 3)}
-                                  <span className="text-xs text-gray-500 ml-1">/ eenheid</span>
+                                  <span className="text-xs text-subtle-foreground ml-1">/ eenheid</span>
                                 </div>
-                                <div className="text-xs text-gray-500">
+                                <div className="text-xs text-subtle-foreground">
                                   {c * 1000 >= 0 ? '+' : ''}{(c * 1000).toFixed(Math.abs(c * 1000) < 0.01 ? 5 : Math.abs(c * 1000) < 1 ? 3 : 2)}
                                   <span className="ml-1">/ 1 000</span>
                                 </div>
@@ -849,12 +849,12 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                               </td>
                               {showAdvanced && (
                                 <>
-                                  <td className="px-3 py-2 text-right tabular-nums text-gray-700">
+                                  <td className="px-3 py-2 text-right tabular-nums text-muted-foreground">
                                     {drop ? (isFinite(drop.F) ? drop.F.toFixed(1) : '∞') : '—'}
                                   </td>
                                   <td
                                     className={`px-3 py-2 text-right tabular-nums font-semibold ${
-                                      drop && drop.p < 0.05 ? 'text-emerald-700' : 'text-gray-500'
+                                      drop && drop.p < 0.05 ? 'text-emerald-700' : 'text-subtle-foreground'
                                     }`}
                                   >
                                     {drop ? fmtP(drop.p) : '—'}
@@ -871,9 +871,9 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                                   className={`inline-flex items-center gap-1 rounded px-2 py-1 text-xs font-medium transition ${
                                     canRemove
                                       ? dropSafe
-                                        ? 'bg-red-50 text-red-700 hover:bg-red-100 border border-red-200'
-                                        : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-300'
-                                      : 'bg-white text-gray-300 border border-gray-200 cursor-not-allowed'
+                                        ? 'bg-destructive-muted text-destructive hover:bg-destructive-muted border border-red-200'
+                                        : 'bg-card text-muted-foreground hover:bg-secondary border border-input'
+                                      : 'bg-card text-subtle-foreground opacity-60 border border-border cursor-not-allowed'
                                   }`}
                                 >
                                   <span aria-hidden="true">×</span>
@@ -909,7 +909,7 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                         if (!scale) {
                           // Fallback for any future variable lacking a scale entry.
                           return (
-                            <li key={name} className="text-gray-700">
+                            <li key={name} className="text-muted-foreground">
                               <strong className="font-semibold">{name}</strong>: β = {c.toExponential(3)} / eenheid.
                             </li>
                           );
@@ -918,21 +918,21 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                         const fmt = fmtDelta(deltaPP);
                         const pakketpuntenWord = Math.abs(deltaPP) === 1 ? 'pakketpunt' : 'pakketpunten';
                         const highlightSign =
-                          deltaPP > 0 ? 'text-emerald-700' : deltaPP < 0 ? 'text-red-700' : 'text-gray-700';
+                          deltaPP > 0 ? 'text-emerald-700' : deltaPP < 0 ? 'text-destructive' : 'text-muted-foreground';
                         if (scale.binary) {
                           const direction = deltaPP >= 0 ? 'méér' : 'minder';
                           return (
-                            <li key={name} className="text-gray-800">
+                            <li key={name} className="text-foreground">
                               <strong className="font-semibold">{name}</strong>:{' '}
                               {scale.phrase} → <span className={`font-semibold ${highlightSign}`}>{fmt}</span>{' '}
-                              {pakketpuntenWord} <span className="text-gray-500">({direction} dan een PC4 zonder deze conditie)</span>.
+                              {pakketpuntenWord} <span className="text-subtle-foreground">({direction} dan een PC4 zonder deze conditie)</span>.
                             </li>
                           );
                         }
                         return (
-                          <li key={name} className="text-gray-800">
+                          <li key={name} className="text-foreground">
                             <strong className="font-semibold">{name}</strong>:{' '}
-                            <span className="text-gray-600">{scale.phrase}</span> →{' '}
+                            <span className="text-muted-foreground">{scale.phrase}</span> →{' '}
                             <span className={`font-semibold ${highlightSign}`}>{fmt}</span>{' '}
                             {pakketpuntenWord}.
                           </li>
@@ -948,7 +948,7 @@ export default function RegressionReport({ payload }: { payload: PainpointsPaylo
                     </p>
                   </div>
 
-                  <p className="text-xs text-gray-500 leading-relaxed">
+                  <p className="text-xs text-subtle-foreground leading-relaxed">
                     VIF {'>'} 5: twee variabelen dragen overlappende informatie (geel). VIF {'>'} 10:
                     sterk problematisch (rood) — één van beide kan beter uit het model. De rode &ldquo;Droppen&rdquo;-knop
                     verschijnt automatisch wanneer een variabele statistisch niet significant is of weinig R²
@@ -1079,21 +1079,21 @@ function PC4DetailPanel({
         role="dialog"
         aria-hidden={!open}
         aria-label="PC4 details"
-        className={`fixed top-0 right-0 h-full w-full sm:w-[420px] bg-white shadow-2xl z-50 overflow-y-auto transition-transform duration-300 ease-out ${
+        className={`fixed top-0 right-0 h-full w-full sm:w-[420px] bg-card shadow-2xl z-50 overflow-y-auto transition-transform duration-300 ease-out ${
           open ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
         {point && (
           <div className="p-5 space-y-4">
-            <div className="flex items-start justify-between gap-3 sticky top-0 bg-white pt-1 pb-3 -mx-5 px-5 border-b border-gray-200">
+            <div className="flex items-start justify-between gap-3 sticky top-0 bg-card pt-1 pb-3 -mx-5 px-5 border-b border-border">
               <div className="min-w-0">
-                <div className="text-xs uppercase tracking-wide text-gray-500">Postcodegebied</div>
-                <div className="font-mono text-2xl font-bold text-gray-900">{point.pc4}</div>
+                <div className="text-xs uppercase tracking-wide text-subtle-foreground">Postcodegebied</div>
+                <div className="font-mono text-2xl font-bold text-foreground">{point.pc4}</div>
                 {point.city && (
-                  <div className="text-sm text-gray-600">{point.city}</div>
+                  <div className="text-sm text-muted-foreground">{point.city}</div>
                 )}
                 {isPainpoint && (
-                  <div className="mt-1 inline-flex items-center gap-1 bg-red-100 text-red-800 text-xs font-semibold px-2 py-0.5 rounded">
+                  <div className="mt-1 inline-flex items-center gap-1 bg-destructive-muted text-destructive text-xs font-semibold px-2 py-0.5 rounded">
                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M4.93 19h14.14c1.54 0 2.5-1.67 1.73-3L13.73 4a2 2 0 00-3.46 0L3.2 16c-.77 1.33.19 3 1.73 3z" />
                     </svg>
@@ -1105,50 +1105,50 @@ function PC4DetailPanel({
                 type="button"
                 onClick={onClose}
                 aria-label="Sluit paneel"
-                className="shrink-0 text-gray-400 hover:text-gray-700 text-3xl leading-none"
+                className="shrink-0 text-subtle-foreground hover:text-muted-foreground text-3xl leading-none"
               >
                 ×
               </button>
             </div>
 
             {/* Mini-map: PC4 polygon + pakketpunten dots */}
-            <div className="h-56 rounded overflow-hidden border border-gray-200 relative">
+            <div className="h-56 rounded overflow-hidden border border-border relative">
               <PainpointMiniMap
                 pc4={point.pc4}
                 points={(painpointEntry?.points ?? [])}
               />
             </div>
-            <p className="text-[10px] text-gray-500 -mt-2">
+            <p className="text-[10px] text-subtle-foreground -mt-2">
               PC4-grens (rood) en carrier-gerapporteerde pakketpunten.
             </p>
             {!painpointEntry && point.actual > 0 && (
-              <p className="text-[10px] text-gray-500 -mt-2">
+              <p className="text-[10px] text-subtle-foreground -mt-2">
                 Locaties van pakketpunten alleen beschikbaar voor pijnpunt-PC4&apos;s.
               </p>
             )}
 
             {/* Outcome vs predictions */}
-            <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-sm space-y-1">
+            <div className="bg-muted border border-border rounded-lg p-3 text-sm space-y-1">
               <div className="flex justify-between">
-                <span className="text-gray-500">Pakketpunten (werkelijk)</span>
-                <span className="font-semibold text-gray-900 tabular-nums">{point.actual}</span>
+                <span className="text-subtle-foreground">Pakketpunten (werkelijk)</span>
+                <span className="font-semibold text-foreground tabular-nums">{point.actual}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-500">Verwacht (Python pop + km²)</span>
-                <span className="tabular-nums text-gray-700">{point.predicted.toFixed(1)}</span>
+                <span className="text-subtle-foreground">Verwacht (Python pop + km²)</span>
+                <span className="tabular-nums text-muted-foreground">{point.predicted.toFixed(1)}</span>
               </div>
               {userPred != null && (
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Verwacht (jouw model)</span>
+                  <span className="text-subtle-foreground">Verwacht (jouw model)</span>
                   <span className="tabular-nums text-indigo-700 font-semibold">{userPred.toFixed(1)}</span>
                 </div>
               )}
-              <div className="border-t border-gray-200 pt-1 mt-1 flex justify-between">
-                <span className="text-gray-500">Δ t.o.v. jouw model</span>
+              <div className="border-t border-border pt-1 mt-1 flex justify-between">
+                <span className="text-subtle-foreground">Δ t.o.v. jouw model</span>
                 <span
                   className={`tabular-nums font-semibold ${
                     userPred != null && point.actual - userPred >= 0
-                      ? 'text-emerald-700' : 'text-red-700'
+                      ? 'text-emerald-700' : 'text-destructive'
                   }`}
                 >
                   {userPred != null
@@ -1160,7 +1160,7 @@ function PC4DetailPanel({
 
             {/* Painpoint details */}
             {isPainpoint && painpointEntry && (
-              <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-sm space-y-2">
+              <div className="bg-destructive-muted border border-red-200 rounded-lg p-3 text-sm space-y-2">
                 {(painpointEntry.carriers ?? []).length > 0 && (
                   <div>
                     <div className="text-xs font-semibold text-red-900 uppercase tracking-wide mb-1">
@@ -1170,7 +1170,7 @@ function PC4DetailPanel({
                       {painpointEntry.carriers.map((c: string) => (
                         <span
                           key={c}
-                          className="inline-block px-2 py-0.5 text-xs font-semibold bg-red-100 text-red-800 rounded"
+                          className="inline-block px-2 py-0.5 text-xs font-semibold bg-destructive-muted text-destructive rounded"
                         >
                           {c}
                         </span>
@@ -1180,14 +1180,14 @@ function PC4DetailPanel({
                 )}
                 {(painpointEntry.gemeenten ?? []).length > 0 && (
                   <div>
-                    <div className="text-xs font-semibold text-blue-900 uppercase tracking-wide mb-1">
+                    <div className="text-xs font-semibold text-accent-foreground uppercase tracking-wide mb-1">
                       Gemeld door G4-gemeente
                     </div>
                     <div className="flex flex-wrap gap-1">
                       {painpointEntry.gemeenten.map((g: string) => (
                         <span
                           key={g}
-                          className="inline-block px-2 py-0.5 text-xs font-semibold bg-blue-100 text-blue-800 rounded"
+                          className="inline-block px-2 py-0.5 text-xs font-semibold bg-accent text-accent-foreground rounded"
                         >
                           Gemeente {g}
                         </span>
@@ -1214,24 +1214,24 @@ function PC4DetailPanel({
               if (visible.length === 0) return null;
               return (
                 <div key={section.section}>
-                  <div className="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1">
+                  <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">
                     {section.section}
                   </div>
-                  <dl className="divide-y divide-gray-100">
+                  <dl className="divide-y divide-border">
                     {visible.map((f) => {
                       const v = (point as any)[f.key];
                       const isNum = typeof v === 'number';
                       const digits = f.digits ?? 2;
                       return (
                         <div key={f.key} className="flex justify-between py-1.5 text-sm">
-                          <dt className="text-gray-600">{f.label}</dt>
-                          <dd className="tabular-nums text-gray-900 font-medium">
+                          <dt className="text-muted-foreground">{f.label}</dt>
+                          <dd className="tabular-nums text-foreground font-medium">
                             {isNum
                               ? Number.isInteger(v) || digits === 0
                                 ? v.toLocaleString('nl-NL')
                                 : v.toFixed(digits)
                               : String(v)}
-                            {f.unit && <span className="text-xs text-gray-500 ml-1">{f.unit}</span>}
+                            {f.unit && <span className="text-xs text-subtle-foreground ml-1">{f.unit}</span>}
                           </dd>
                         </div>
                       );
@@ -1241,8 +1241,8 @@ function PC4DetailPanel({
               );
             })}
 
-            <p className="text-[11px] text-gray-500 pt-2 border-t border-gray-100">
-              Druk <kbd className="px-1 py-0.5 border rounded text-[10px] bg-gray-50">Esc</kbd> om
+            <p className="text-[11px] text-subtle-foreground pt-2 border-t border-border">
+              Druk <kbd className="px-1 py-0.5 border rounded text-[10px] bg-muted">Esc</kbd> om
               te sluiten, of klik buiten het paneel.
             </p>
           </div>

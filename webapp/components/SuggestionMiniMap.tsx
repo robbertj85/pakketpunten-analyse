@@ -178,7 +178,7 @@ function SuggestionMiniMapImpl({ pc4, suggestion, spots, muniGeojson }: Props) {
             <Popup>
               <div className="text-xs">
                 <div className="font-semibold">Alternatieve plek · PC4 {pc4}</div>
-                <div className="text-gray-600 mt-0.5">
+                <div className="text-muted-foreground mt-0.5">
                   Geschat extra bereik (400m):{' '}
                   <strong>{alt.est_new_pop_within_400m.toLocaleString('nl-NL')}</strong> inw.
                 </div>
@@ -211,11 +211,11 @@ function SuggestionMiniMapImpl({ pc4, suggestion, spots, muniGeojson }: Props) {
             >
               <Popup>
                 <div className="text-sm">
-                  <div className="font-semibold text-gray-900">Voorgestelde locatie · PC4 {pc4}</div>
-                  <div className="text-xs font-mono text-gray-700 mt-1">
+                  <div className="font-semibold text-foreground">Voorgestelde locatie · PC4 {pc4}</div>
+                  <div className="text-xs font-mono text-muted-foreground mt-1">
                     {suggestion.lat.toFixed(5)}, {suggestion.lon.toFixed(5)}
                   </div>
-                  <div className="text-xs text-gray-600 mt-1">
+                  <div className="text-xs text-muted-foreground mt-1">
                     Geschat extra bereik (400m): <strong>{suggestion.est_new_pop_within_400m.toLocaleString('nl-NL')}</strong> inwoners
                   </div>
                 </div>
@@ -226,8 +226,8 @@ function SuggestionMiniMapImpl({ pc4, suggestion, spots, muniGeojson }: Props) {
       </MapContainer>
       )}
       {loading && (
-        <div className="absolute inset-0 bg-white/60 flex items-center justify-center pointer-events-none">
-          <span className="text-xs text-gray-500">PC4 laden...</span>
+        <div className="absolute inset-0 bg-card/60 flex items-center justify-center pointer-events-none">
+          <span className="text-xs text-subtle-foreground">PC4 laden...</span>
         </div>
       )}
     </div>

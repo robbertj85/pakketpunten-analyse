@@ -168,19 +168,19 @@ export default function Locker3DView(props: Locker3DViewProps) {
       {/* Breadcrumb / header */}
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <Link href={backHref} className="text-sm text-blue-600 hover:text-blue-800">
+          <Link href={backHref} className="text-sm text-primary hover:text-primary">
             ← {backLabel}
           </Link>
-          <h2 className="text-xl font-bold text-gray-900 mt-1">
+          <h2 className="text-xl font-bold text-foreground mt-1">
             {props.heading ?? `Locker in beeld — PC4 ${props.pc4}`}
           </h2>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-muted-foreground">
             {props.gemeente}
             {props.rank ? ` · voorstel #${props.rank}` : ''}
             {props.adres && (
               <>
                 {' · '}
-                <span className="font-semibold text-gray-800">{props.adres}</span>
+                <span className="font-semibold text-foreground">{props.adres}</span>
               </>
             )}
             {' · '}
@@ -189,7 +189,7 @@ export default function Locker3DView(props: Locker3DViewProps) {
             </span>
           </p>
           {(props.bagGebruiksdoel || props.bagBouwjaar || props.estNewPop != null || props.poiNaam) && (
-            <p className="text-xs text-gray-500 mt-0.5">
+            <p className="text-xs text-subtle-foreground mt-0.5">
               {props.poiNaam && (
                 <span>
                   Bij {props.poiCategory ? `${props.poiCategory.replaceAll('_', ' ')}: ` : ''}
@@ -215,7 +215,7 @@ export default function Locker3DView(props: Locker3DViewProps) {
           href={gm}
           target="_blank"
           rel="noopener noreferrer"
-          className="px-3 py-2 text-xs font-semibold bg-gray-100 hover:bg-gray-200 rounded"
+          className="px-3 py-2 text-xs font-semibold bg-secondary hover:bg-border rounded"
         >
           Open in Google Maps
         </a>
@@ -223,7 +223,7 @@ export default function Locker3DView(props: Locker3DViewProps) {
 
       <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-4">
         {/* Config panel */}
-        <aside className="bg-white rounded-lg shadow-md p-4 h-fit lg:sticky lg:top-4">
+        <aside className="bg-card rounded-lg shadow-md p-4 h-fit lg:sticky lg:top-4">
           <LockerConfigPanel
             spec={spec}
             columns={columns}
@@ -270,7 +270,7 @@ export default function Locker3DView(props: Locker3DViewProps) {
         </aside>
 
         {/* Scene */}
-        <div className="bg-white rounded-lg shadow-md overflow-hidden">
+        <div className="bg-card rounded-lg shadow-md overflow-hidden">
           <div className="h-[680px] lg:h-[860px] relative">
             <Locker3DScene
               spec={spec}
@@ -312,11 +312,11 @@ export default function Locker3DView(props: Locker3DViewProps) {
                 <div
                   role="status"
                   aria-live="polite"
-                  className="flex items-center gap-2 rounded-md bg-white/95 border border-gray-200 px-3 py-2 text-xs text-gray-800 shadow-md"
+                  className="flex items-center gap-2 rounded-md bg-card/95 border border-border px-3 py-2 text-xs text-foreground shadow-md"
                 >
                   <span
                     aria-hidden="true"
-                    className="inline-block w-3.5 h-3.5 rounded-full border-2 border-blue-600 border-t-transparent animate-spin"
+                    className="inline-block w-3.5 h-3.5 rounded-full border-2 border-primary border-t-transparent animate-spin"
                   />
                   <span>
                     Gebouwen laden uit 3DBAG
@@ -336,7 +336,7 @@ export default function Locker3DView(props: Locker3DViewProps) {
                       setPhotoError(null);
                       setPhotoreal(false);
                     }}
-                    className="mt-1 font-semibold text-blue-700 hover:text-blue-900 underline"
+                    className="mt-1 font-semibold text-primary hover:text-accent-foreground underline"
                   >
                     Terug naar 3DBAG-weergave
                   </button>
@@ -352,7 +352,7 @@ export default function Locker3DView(props: Locker3DViewProps) {
             {/* On-screen navigation pad */}
             <NavControls mode={navMode} onMode={setNavMode} inputRef={navInputRef} />
           </div>
-          <div className="px-4 py-2 text-[11px] text-gray-500 border-t border-gray-100">
+          <div className="px-4 py-2 text-[11px] text-subtle-foreground border-t border-border">
             {photoreal
               ? 'Fotorealistische 3D-tegels © Google · '
               : `Gebouwen © 3DBAG (TU Delft, CC BY 4.0) · ${
@@ -375,7 +375,7 @@ export default function Locker3DView(props: Locker3DViewProps) {
 
 function SceneSkeleton({ label }: { label: string }) {
   return (
-    <div className="h-full w-full flex items-center justify-center bg-gray-100 text-sm text-gray-500">
+    <div className="h-full w-full flex items-center justify-center bg-secondary text-sm text-subtle-foreground">
       {label}
     </div>
   );

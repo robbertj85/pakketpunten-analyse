@@ -509,7 +509,7 @@ export default function NetworkPlannerMap({
 
   if (!mounted) {
     return (
-      <div className="w-full h-full flex items-center justify-center bg-gray-50 text-sm text-gray-500">
+      <div className="w-full h-full flex items-center justify-center bg-muted text-sm text-subtle-foreground">
         Kaart laden…
       </div>
     );
@@ -564,41 +564,41 @@ export default function NetworkPlannerMap({
       </MapContainer>
 
       {/* Legend + radius toggle */}
-      <div className="absolute bottom-3 left-3 z-[1000] bg-white/95 rounded-lg shadow px-3 py-2 text-[11px] space-y-1">
+      <div className="absolute bottom-3 left-3 z-[1000] bg-card/95 rounded-lg shadow px-3 py-2 text-[11px] space-y-1">
         {legend.map((l) => (
           <div key={l.label} className="flex items-center gap-1.5">
             <span
               className="inline-block w-2.5 h-2.5 rounded-full"
               style={{ background: l.color }}
             />
-            <span className="text-gray-700">{l.label}</span>
+            <span className="text-muted-foreground">{l.label}</span>
           </div>
         ))}
-        <label className="flex items-center gap-1.5 pt-1 border-t border-gray-200 cursor-pointer select-none">
+        <label className="flex items-center gap-1.5 pt-1 border-t border-border cursor-pointer select-none">
           <input
             type="checkbox"
             checked={showRadius}
             onChange={(e) => setShowRadius(e.target.checked)}
-            className="rounded border-gray-300"
+            className="rounded border-input"
           />
-          <span className="text-gray-700">Loopafstand nieuwe kluizen</span>
+          <span className="text-muted-foreground">Loopafstand nieuwe kluizen</span>
         </label>
 
         {/* Existing-lockers layers */}
-        <div className="pt-1 border-t border-gray-200 space-y-1">
+        <div className="pt-1 border-t border-border space-y-1">
           <div className="flex items-center justify-between gap-2">
             <label className="flex items-center gap-1.5 cursor-pointer select-none">
               <input
                 type="checkbox"
                 checked={showExisting}
                 onChange={(e) => setShowExisting(e.target.checked)}
-                className="rounded border-gray-300"
+                className="rounded border-input"
               />
-              <span className="text-gray-700">
+              <span className="text-muted-foreground">
                 Bestaande kluizen ({nlInt(existingLockers.length)})
               </span>
             </label>
-            <div className="inline-flex rounded overflow-hidden border border-gray-300">
+            <div className="inline-flex rounded overflow-hidden border border-input">
               {(['punten', 'iconen'] as const).map((s) => (
                 <button
                   key={s}
@@ -606,8 +606,8 @@ export default function NetworkPlannerMap({
                   onClick={() => setExistingStyle(s)}
                   className={`px-1.5 py-0.5 text-[10px] font-semibold transition ${
                     existingStyle === s
-                      ? 'bg-blue-700 text-white'
-                      : 'bg-white text-gray-600 hover:bg-gray-50'
+                      ? 'bg-primary/90 text-primary-foreground'
+                      : 'bg-card text-muted-foreground hover:bg-muted'
                   }`}
                 >
                   {s === 'punten' ? 'Punten' : 'Iconen'}
@@ -620,9 +620,9 @@ export default function NetworkPlannerMap({
               type="checkbox"
               checked={showExistingShops}
               onChange={(e) => setShowExistingShops(e.target.checked)}
-              className="rounded border-gray-300"
+              className="rounded border-input"
             />
-            <span className="text-gray-700">
+            <span className="text-muted-foreground">
               Bestaande pakketpunten - overig ({nlInt(existingShops.length)})
             </span>
           </label>
@@ -632,9 +632,9 @@ export default function NetworkPlannerMap({
               checked={existingCircles300}
               disabled={visibleExisting.length === 0}
               onChange={(e) => setExistingCircles300(e.target.checked)}
-              className="rounded border-gray-300"
+              className="rounded border-input"
             />
-            <span className="text-gray-700">Dekkingscirkels 300 m</span>
+            <span className="text-muted-foreground">Dekkingscirkels 300 m</span>
             <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: '#2563eb' }} />
           </label>
           <label className={`flex items-center gap-1.5 select-none ${visibleExisting.length > 0 ? 'cursor-pointer' : 'opacity-40'}`}>
@@ -643,9 +643,9 @@ export default function NetworkPlannerMap({
               checked={existingCircles400}
               disabled={visibleExisting.length === 0}
               onChange={(e) => setExistingCircles400(e.target.checked)}
-              className="rounded border-gray-300"
+              className="rounded border-input"
             />
-            <span className="text-gray-700">Dekkingscirkels 400 m</span>
+            <span className="text-muted-foreground">Dekkingscirkels 400 m</span>
             <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: '#16a34a' }} />
           </label>
           <label className="flex items-center gap-1.5 cursor-pointer select-none">
@@ -653,9 +653,9 @@ export default function NetworkPlannerMap({
               type="checkbox"
               checked={showMergedBuffers}
               onChange={(e) => setShowMergedBuffers(e.target.checked)}
-              className="rounded border-gray-300"
+              className="rounded border-input"
             />
-            <span className="text-gray-700">
+            <span className="text-muted-foreground">
               Samengevoegde buffers ({distance} m · bestaand + nieuw)
             </span>
             <span

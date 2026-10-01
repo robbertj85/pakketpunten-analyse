@@ -165,7 +165,7 @@ export default function SuggestionBigMap({
 
   if (!mounted) {
     return (
-      <div className="w-full h-full flex items-center justify-center bg-gray-50 text-sm text-gray-500">
+      <div className="w-full h-full flex items-center justify-center bg-muted text-sm text-subtle-foreground">
         Kaart laden…
       </div>
     );
@@ -318,19 +318,19 @@ export default function SuggestionBigMap({
                 </Tooltip>
                 <Popup>
                   <div className="text-sm" style={{ minWidth: 200 }}>
-                    <div className="font-semibold text-gray-900">
+                    <div className="font-semibold text-foreground">
                       #{idx + 1} · PC4 {r.pc4}
                       {spots.length > 1 ? ` · plek ${activeIdx + 1}` : ''}
                     </div>
-                    <div className="text-xs text-gray-600 mt-0.5">
+                    <div className="text-xs text-muted-foreground mt-0.5">
                       {municipality}
                     </div>
                     {s.adres?.weergavenaam && (
-                      <div className="text-xs text-gray-900 font-semibold mt-1">
+                      <div className="text-xs text-foreground font-semibold mt-1">
                         {s.adres.weergavenaam}
                       </div>
                     )}
-                    <div className="text-xs text-gray-700 mt-2">
+                    <div className="text-xs text-muted-foreground mt-2">
                       Geschat extra bereik (400m):{' '}
                       <strong>{nlInt(s.est_new_pop_within_400m)}</strong>{' '}
                       inwoners
@@ -341,7 +341,7 @@ export default function SuggestionBigMap({
                       </div>
                     )}
                     {s.bag_gebruiksdoel && (
-                      <div className="text-xs text-blue-800 mt-1">
+                      <div className="text-xs text-accent-foreground mt-1">
                         BAG: {s.bag_gebruiksdoel}
                         {s.bag_bouwjaar ? ` (${s.bag_bouwjaar})` : ''}
                       </div>
@@ -397,8 +397,8 @@ export default function SuggestionBigMap({
       </MapContainer>
 
       {loadingPc4 && !pc4Features && (
-        <div className="absolute inset-0 bg-white/60 flex items-center justify-center pointer-events-none">
-          <span className="text-xs text-gray-500">PC4-grenzen laden…</span>
+        <div className="absolute inset-0 bg-card/60 flex items-center justify-center pointer-events-none">
+          <span className="text-xs text-subtle-foreground">PC4-grenzen laden…</span>
         </div>
       )}
     </div>

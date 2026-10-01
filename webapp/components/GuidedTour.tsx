@@ -127,24 +127,24 @@ export default function GuidedTour({
       )}
 
       <div
-        className="absolute bg-white rounded-xl shadow-2xl border border-gray-200 p-4"
+        className="absolute bg-card rounded-xl shadow-2xl border border-border p-4"
         style={{ width: TOOLTIP_W, maxWidth: 'calc(100vw - 24px)', ...tipStyle }}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-baseline justify-between gap-2">
-          <div className="text-[11px] font-semibold uppercase tracking-wide text-blue-700">
+          <div className="text-[11px] font-semibold uppercase tracking-wide text-primary">
             Stap {idx + 1} van {steps.length}
           </div>
           <button
             type="button"
             onClick={close}
-            className="text-xs text-gray-400 hover:text-gray-600"
+            className="text-xs text-subtle-foreground hover:text-muted-foreground"
           >
             Sluiten
           </button>
         </div>
-        <h4 className="text-sm font-bold text-gray-900 mt-1">{step.title}</h4>
-        <p className="text-xs text-gray-600 mt-1.5 leading-relaxed">{step.body}</p>
+        <h4 className="text-sm font-bold text-foreground mt-1">{step.title}</h4>
+        <p className="text-xs text-muted-foreground mt-1.5 leading-relaxed">{step.body}</p>
         {!rect && (
           <p className="text-[11px] text-amber-700 mt-1.5">
             Dit onderdeel is nu niet zichtbaar (mogelijk nog aan het laden of ingeklapt).
@@ -159,7 +159,7 @@ export default function GuidedTour({
                 onClick={() => setIdx(i)}
                 aria-label={`Stap ${i + 1}`}
                 className={`w-1.5 h-1.5 rounded-full transition ${
-                  i === idx ? 'bg-blue-600' : 'bg-gray-300 hover:bg-gray-400'
+                  i === idx ? 'bg-primary' : 'bg-input hover:bg-muted-foreground'
                 }`}
               />
             ))}
@@ -169,7 +169,7 @@ export default function GuidedTour({
               type="button"
               onClick={() => setIdx(Math.max(0, idx - 1))}
               disabled={idx === 0}
-              className="px-3 py-1.5 text-xs font-semibold rounded border border-gray-300 text-gray-700 disabled:opacity-40 hover:bg-gray-50"
+              className="px-3 py-1.5 text-xs font-semibold rounded border border-input text-muted-foreground disabled:opacity-40 hover:bg-muted"
             >
               Vorige
             </button>
@@ -177,7 +177,7 @@ export default function GuidedTour({
               <button
                 type="button"
                 onClick={() => setIdx(idx + 1)}
-                className="px-3 py-1.5 text-xs font-semibold rounded bg-blue-700 text-white hover:bg-blue-800"
+                className="px-3 py-1.5 text-xs font-semibold rounded bg-primary/90 text-primary-foreground hover:bg-blue-800"
               >
                 Volgende
               </button>
@@ -185,7 +185,7 @@ export default function GuidedTour({
               <button
                 type="button"
                 onClick={close}
-                className="px-3 py-1.5 text-xs font-semibold rounded bg-blue-700 text-white hover:bg-blue-800"
+                className="px-3 py-1.5 text-xs font-semibold rounded bg-primary/90 text-primary-foreground hover:bg-blue-800"
               >
                 Klaar
               </button>
