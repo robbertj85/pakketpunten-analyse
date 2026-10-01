@@ -22,16 +22,63 @@
 'use client';
 
 import { useEffect, useState, useMemo, useRef } from 'react';
-import { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMap, CircleMarker, Circle, Polyline, Pane } from 'react-leaflet';
+import { MapContainer, ZoomControl, GeoJSON, Marker, Popup, useMap, CircleMarker, Circle, Polyline, Pane } from 'react-leaflet';
 import type { LatLngBoundsExpression } from 'leaflet';
 import L from 'leaflet';
 import { makePoiDivIcon } from '@/utils/poiIcons';
 import 'leaflet/dist/leaflet.css';
+import BasemapLayer from './BasemapLayer';
+import BasemapPicker from './BasemapPicker';
+import { loadBasemap, saveBasemap, type BasemapId } from '@/lib/basemaps';
 import buffer from '@turf/buffer';
 import union from '@turf/union';
 import { featureCollection, point } from '@turf/helpers';
-import { PakketpuntData, PakketpuntFeature, Filters, PakketpuntProperties, getPointCategory } from '@/types/pakketpunten';
 import { matchesServiceFilters } from '@/utils/pointFilters';
+import { PakketpuntData, PakketpuntFeature, Filters, PakketpuntProperties, getPointCategory, OpeningHours } from '@/types/pakketpunten';
+import { CARRIER_BRAND, CARRIER_ORDER, CARRIER_SERIES_COLORS } from '@/lib/carriers';
+import { MAX_BUFFER_POINTS, usesNationalCoverage } from '@/lib/mapLimits';
+import type { Feature as GeoJSONFeature, FeatureCollection as GeoJSONFeatureCollection } from 'geojson';
+
+const WEEK_DAYS: { key: keyof Exclude<OpeningHours, string>; label: string }[] = [
+  { key: 'ma', label: 'Ma' },
+  { key: 'di', label: 'Di' },
+  { key: 'wo', label: 'Wo' },
+  { key: 'do', label: 'Do' },
+  { key: 'vr', label: 'Vr' },
+  { key: 'za', label: 'Za' },
+  { key: 'zo', label: 'Zo' },
+];
+
+function OpeningTimes({ value }: { value?: OpeningHours | null }) {
+  if (!value) return null;
+  if (typeof value === 'string') {
+    return (
+      <div className="mt-2">
+        <p className="font-semibold text-foreground">Openingstijden:</p>
+        <p className="text-muted-foreground">{value}</p>
+      </div>
+    );
+  }
+  return (
+    <div className="mt-2">
+      <p className="font-semibold text-foreground">Openingstijden:</p>
+      <table className="text-xs text-muted-foreground mt-0.5">
+        <tbody>
+          {WEEK_DAYS.map(({ key, label }) => {
+            const v = value[key];
+            const closed = !v || v === 'gesloten';
+            return (
+              <tr key={key}>
+                <td className="pr-2 font-medium text-muted-foreground align-top">{label}</td>
+                <td className={closed ? 'text-subtle-foreground' : ''}>{v || 'gesloten'}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
 
 interface MapProps {
   data?: PakketpuntData | null;
@@ -187,6 +234,22 @@ function ZoomWatcher({ onZoomChange }: { onZoomChange: (zoom: number) => void })
   return null;
 }
 
+// Reports the visible map area after every pan or zoom
+function ViewportWatcher({ onViewportChange }: { onViewportChange: (bounds: L.LatLngBounds) => void }) {
+  const map = useMap();
+
+  useEffect(() => {
+    const handleMove = () => onViewportChange(map.getBounds());
+    map.on('moveend', handleMove);
+    handleMove();
+    return () => {
+      map.off('moveend', handleMove);
+    };
+  }, [map, onViewportChange]);
+
+  return null;
+}
+
 // Persists the current center+zoom into a ref so we can restore it across
 // MapContainer remounts. Toggling Logo iconen ↔ Gekleurde stippen forces a
 // remount (Leaflet's preferCanvas is fixed at construction); without this
@@ -238,68 +301,38 @@ function ScaleControl() {
   return null;
 }
 
-// Vervoerder info with logo URLs and colors
+/**
+ * Per-carrier drawing info, assembled from the shared source in lib/carriers.
+ *
+ * `background`/`borderColor` are the real livery and are only ever seen behind
+ * a logo. `color` is the validated series colour, used for the bare circle
+ * markers this map falls back to above SIMPLE_MARKER_THRESHOLD points — there
+ * no logo is drawn, so the colour is doing the identifying and the liveries
+ * (three near-identical yellows) would not survive it.
+ */
 const PROVIDER_INFO: Record<string, {
   background: string;
   logoUrl: string;
   borderColor?: string;
   color: string; // For simple circle markers
-}> = {
-  DHL: {
-    background: '#FFCC00',
-    borderColor: '#D40511',
-    color: '#FFCC00',
-    logoUrl: '/logos/dhl.svg',
-  },
-  PostNL: {
-    background: '#FF6600',
-    color: '#FF6600',
-    logoUrl: '/logos/postnl.svg',
-  },
-  VintedGo: {
-    background: '#09B1BA',
-    color: '#09B1BA',
-    logoUrl: '/logos/vintedgo.svg',
-  },
-  DeBuren: {
-    background: '#4CAF50',
-    color: '#4CAF50',
-    logoUrl: '/logos/deburen.png',
-  },
-  Amazon: {
-    background: '#FF9900',
-    borderColor: '#146EB4',
-    color: '#FF9900',
-    logoUrl: '/logos/amazon.svg',
-  },
-  DPD: {
-    background: '#DC0032',
-    color: '#DC0032',
-    logoUrl: '/logos/dpd.svg',
-  },
-  GLS: {
-    background: '#FFC600',
-    borderColor: '#003C7E',
-    color: '#003C7E',
-    logoUrl: '/logos/gls.svg',
-  },
-  ViaTim: {
-    background: '#E3007A',
-    color: '#E3007A',
-    logoUrl: '/logos/viatim.svg',
-  },
-  InPost: {
-    background: '#FFCD00',
-    borderColor: '#3B3B3B',
-    color: '#FFCD00',
-    logoUrl: '/logos/inpost.svg',
-  },
-  Budbee: {
-    background: '#00C389',
-    color: '#00C389',
-    logoUrl: '/logos/budbee.svg',
-  },
-};
+}> = Object.fromEntries(
+  CARRIER_ORDER.map((carrier) => [
+    carrier,
+    { ...CARRIER_BRAND[carrier], color: CARRIER_SERIES_COLORS[carrier] },
+  ])
+);
+
+/**
+ * Coverage layers, largest first. Each gets its own pane with a fixed z-order
+ * (largest lowest), so smaller circles stay on top whichever was switched on
+ * last. 500 m is a dashed indigo, and the 400 m fill is a touch darker than
+ * blue-300 so it stands out against the 500 m fill when both are on.
+ */
+const BUFFER_LAYERS = [
+  { radius: 500, filter: 'showBuffer500', color: '#6366f1', fillColor: '#a5b4fc', weight: 2, dashArray: '6 6', mergedFillOpacity: 0.20, circleFillOpacity: 0.06 },
+  { radius: 400, filter: 'showBuffer400', color: '#60a5fa', fillColor: '#80b6fa', weight: 3, dashArray: undefined, mergedFillOpacity: 0.30, circleFillOpacity: 0.10 },
+  { radius: 300, filter: 'showBuffer300', color: '#2563eb', fillColor: '#3b82f6', weight: 2, dashArray: undefined, mergedFillOpacity: 0.25, circleFillOpacity: 0.08 },
+] as const;
 
 // Performance thresholds
 const PERFORMANCE_CONFIG = {
@@ -552,14 +585,14 @@ function seededRandom(seed: number): number {
 // Helper function to get provider render priority (higher = renders on top)
 // Randomizes order hourly to give all providers fair visibility
 function getProviderPriority(vervoerder: string): number {
-  const providers = ['Budbee', 'ViaTim', 'InPost', 'GLS', 'DPD', 'Amazon', 'VintedGo', 'DeBuren', 'PostNL', 'DHL'];
+  const providers = ['FedEx', 'Budbee', 'ViaTim', 'InPost', 'GLS', 'DPD', 'Amazon', 'VintedGo', 'DeBuren', 'PostNL', 'DHL'];
 
   // Get hourly seed for stable randomization
   const seed = getHourlySeed();
 
   // Create shuffled priorities based on hourly seed
   const shuffledPriorities: Record<string, number> = {};
-  const availablePositions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const availablePositions = providers.map((_, i) => i + 1);
 
   providers.forEach((provider, index) => {
     // Use provider name + seed to create unique seed per provider
@@ -625,6 +658,11 @@ function MapComponent(props?: MapProps) {
   // Hooks MUST be at the very top
   const [mounted, setMounted] = useState(false);
   const [currentZoom, setCurrentZoom] = useState(12);
+  const [viewBounds, setViewBounds] = useState<L.LatLngBounds | null>(null);
+  // Precomputed national coverage per radius, fetched on first use
+  const [nationalCoverage, setNationalCoverage] = useState<Record<number, GeoJSONFeatureCollection>>({});
+  // Map.tsx only renders client-side (dynamic import, ssr: false), so storage is readable here
+  const [basemapId, setBasemapId] = useState<BasemapId>(loadBasemap);
   // Survives MapContainer remounts (e.g. when toggling marker style — that
   // changes the `key` to swap renderers, which would otherwise reset to the
   // default center/zoom).
@@ -729,7 +767,8 @@ function MapComponent(props?: MapProps) {
     providers: [],
     showBuffer300: true,
     showBuffer400: true,
-    showBufferFill: false,
+    showBuffer500: true,
+    showBufferFill: true,
     bufferMerged: true,
     showBoundary: false,
     showPC4: false,
@@ -993,37 +1032,85 @@ function MapComponent(props?: MapProps) {
     return pairwiseUnion(next);
   };
 
-  // Buffers are gated on the dataset's TOTAL point count — the same
-  // denominator FilterPanel uses to disable the buffer checkboxes — so the
-  // expensive union computation can never run while the checkboxes are
-  // disabled (e.g. Nederland view with providers filtered down to <=3000)
-  const buffersOverLimit = (data?.metadata?.total_points ?? 0) > 3000;
+  // The national view with every filter at its default shows the coverage the
+  // pipeline precomputed for all points (scripts/create_national_coverage.py)
+  // instead of drawing it: live, all ~20,000 points would freeze the page per radius.
+  const nationalCoverageActive =
+    data?.metadata.slug === 'nederland' &&
+    usesNationalCoverage(activeFilters, data?.metadata.providers ?? []);
 
-  // Compute merged buffer union polygons from filtered points using Turf.js (deferred for loading UX)
-  // Compute merged buffer union polygons from filtered points using Turf.js
-  const mergedBuffer300 = useMemo(() => {
-    if (!activeFilters.bufferMerged || !activeFilters.showBuffer300 || points.length === 0 || buffersOverLimit) return null;
-    try {
-      const pts = featureCollection(
-        points.map(f => point(f.geometry.coordinates as [number, number]))
-      );
-      const buffered = buffer(pts, 0.3, { units: 'kilometers', steps: 4 });
-      if (!buffered || buffered.features.length === 0) return null;
-      return pairwiseUnion(buffered.features);
-    } catch { return null; }
-  }, [points, activeFilters.bufferMerged, activeFilters.showBuffer300, buffersOverLimit]);
+  const wantedNationalRadii = nationalCoverageActive
+    ? BUFFER_LAYERS.filter((layer) => activeFilters[layer.filter]).map((layer) => layer.radius).join(',')
+    : '';
 
-  const mergedBuffer400 = useMemo(() => {
-    if (!activeFilters.bufferMerged || !activeFilters.showBuffer400 || points.length === 0 || buffersOverLimit) return null;
-    try {
-      const pts = featureCollection(
-        points.map(f => point(f.geometry.coordinates as [number, number]))
-      );
-      const buffered = buffer(pts, 0.4, { units: 'kilometers', steps: 4 });
-      if (!buffered || buffered.features.length === 0) return null;
-      return pairwiseUnion(buffered.features);
-    } catch { return null; }
-  }, [points, activeFilters.bufferMerged, activeFilters.showBuffer400, buffersOverLimit]);
+  useEffect(() => {
+    if (!wantedNationalRadii) return;
+    for (const radius of wantedNationalRadii.split(',').map(Number)) {
+      if (nationalCoverage[radius]) continue;
+      fetch(`/data/geo/coverage_${radius}.geojson`)
+        .then((res) => (res.ok ? res.json() : null))
+        .then((json) => {
+          if (json) setNationalCoverage((loaded) => ({ ...loaded, [radius]: json }));
+        })
+        .catch((err) => console.error(`Loading national coverage ${radius} m failed:`, err));
+    }
+  }, [wantedNationalRadii, nationalCoverage]);
+
+  // Points that get coverage circles. A municipality draws them for all its
+  // points; above MAX_BUFFER_POINTS (the national view) only for the points in
+  // and just around the viewport, and none until that is at most the limit.
+  // The selection is a string of point indices, so a pan that keeps the same
+  // points yields an equal string and the Turf unions below are not recomputed.
+  const bufferSelection = useMemo(() => {
+    if (nationalCoverageActive) return '';
+    if (points.length <= MAX_BUFFER_POINTS) return 'all';
+    if (!viewBounds) return '';
+    // Pad so a circle whose point is just off-screen still shows its edge
+    const area = viewBounds.pad(0.1);
+    const indices: number[] = [];
+    points.forEach((f, i) => {
+      const [lng, lat] = f.geometry.coordinates as [number, number];
+      if (area.contains([lat, lng])) indices.push(i);
+    });
+    return indices.length > 0 && indices.length <= MAX_BUFFER_POINTS ? indices.join(',') : '';
+  }, [points, viewBounds, nationalCoverageActive]);
+
+  const bufferPoints = useMemo(() => {
+    if (bufferSelection === 'all') return points;
+    if (bufferSelection === '') return [];
+    return bufferSelection.split(',').map((i) => points[Number(i)]);
+  }, [points, bufferSelection]);
+
+  // react-leaflet's GeoJSON ignores new `data`; a key per point set forces a redraw
+  const bufferKey = useMemo(() => {
+    let hash = 0;
+    for (let i = 0; i < bufferSelection.length; i++) {
+      hash = (hash * 31 + bufferSelection.charCodeAt(i)) | 0;
+    }
+    return `${bufferPoints.length}-${hash}`;
+  }, [bufferSelection, bufferPoints.length]);
+
+  // Which coverage layers are switched on, e.g. "500,300"
+  const enabledRadii = BUFFER_LAYERS.filter((layer) => activeFilters[layer.filter])
+    .map((layer) => layer.radius).join(',');
+
+  // Merged buffer union polygons per enabled radius, from the buffer points (Turf.js)
+  const mergedBuffers = useMemo(() => {
+    const result: Record<number, GeoJSONFeature> = {};
+    if (!activeFilters.bufferMerged || bufferPoints.length === 0 || !enabledRadii) return result;
+    const pts = featureCollection(
+      bufferPoints.map(f => point(f.geometry.coordinates as [number, number]))
+    );
+    for (const radius of enabledRadii.split(',').map(Number)) {
+      try {
+        const buffered = buffer(pts, radius / 1000, { units: 'kilometers', steps: 4 });
+        if (buffered && buffered.features.length > 0) {
+          result[radius] = pairwiseUnion(buffered.features);
+        }
+      } catch { /* leave this radius out */ }
+    }
+    return result;
+  }, [bufferPoints, activeFilters.bufferMerged, enabledRadii]);
 
   // Group markers by exact coordinates and spread them at high zoom (manual spiderfy)
   const spreadPoints = useMemo(
@@ -1151,8 +1238,8 @@ function MapComponent(props?: MapProps) {
               autoPan={false}
             >
               <div className="text-sm">
-                <h3 className="font-bold text-gray-900">{props.locatieNaam}</h3>
-                <p className="text-gray-600">
+                <h3 className="font-bold text-foreground">{props.locatieNaam}</h3>
+                <p className="text-muted-foreground">
                   {props.straatNaam} {props.straatNr}
                 </p>
                 <p className="mt-1">
@@ -1168,30 +1255,32 @@ function MapComponent(props?: MapProps) {
                   {props.canPickup && <span>↓ Ophalen</span>}
                   {props.canPickup && props.canDropoff && ' / '}
                   {props.canDropoff && <span>↑ Verzenden</span>}
-                  {!props.canPickup && !props.canDropoff && <span className="text-gray-400">Onbekend</span>}
+                  {!props.canPickup && !props.canDropoff && <span className="text-subtle-foreground">Onbekend</span>}
                 </p>
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-subtle-foreground mt-1">
                   {props.latitude.toFixed(6)}, {props.longitude.toFixed(6)}
                 </p>
+
+                <OpeningTimes value={props.openingstijden} />
 
                 <div className="mt-3 border-t pt-2">
                   <details>
                     <summary className="flex justify-between items-baseline gap-3 cursor-pointer select-none">
-                      <span className="text-xs font-semibold text-blue-600 hover:text-blue-800">
+                      <span className="text-xs font-semibold text-primary hover:text-primary">
                         Toon Ruwe Data
                       </span>
                       <a
                         href={`https://www.google.com/maps?q=&layer=c&cbll=${props.latitude},${props.longitude}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-xs text-blue-600 hover:text-blue-800 underline whitespace-nowrap"
+                        className="text-xs text-primary hover:text-primary underline whitespace-nowrap"
                         onClick={(e) => e.stopPropagation()}
                       >
                         Bekijk in Street View
                       </a>
                     </summary>
                     <div className="mt-2">
-                      <pre className="p-3 bg-gray-50 border border-gray-200 rounded text-xs overflow-x-auto max-h-64 whitespace-pre-wrap break-words">
+                      <pre className="p-3 bg-muted border border-border rounded text-xs overflow-x-auto max-h-64 whitespace-pre-wrap break-words">
                         {JSON.stringify(props, null, 2)}
                       </pre>
                     </div>
@@ -1226,8 +1315,8 @@ function MapComponent(props?: MapProps) {
               autoPan={false}
             >
               <div className="text-sm">
-                <h3 className="font-bold text-gray-900">{props.locatieNaam}</h3>
-                <p className="text-gray-600">
+                <h3 className="font-bold text-foreground">{props.locatieNaam}</h3>
+                <p className="text-muted-foreground">
                   {props.straatNaam} {props.straatNr}
                 </p>
                 <p className="mt-1">
@@ -1243,30 +1332,32 @@ function MapComponent(props?: MapProps) {
                   {props.canPickup && <span>↓ Ophalen</span>}
                   {props.canPickup && props.canDropoff && ' / '}
                   {props.canDropoff && <span>↑ Verzenden</span>}
-                  {!props.canPickup && !props.canDropoff && <span className="text-gray-400">Onbekend</span>}
+                  {!props.canPickup && !props.canDropoff && <span className="text-subtle-foreground">Onbekend</span>}
                 </p>
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-subtle-foreground mt-1">
                   {props.latitude.toFixed(6)}, {props.longitude.toFixed(6)}
                 </p>
+
+                <OpeningTimes value={props.openingstijden} />
 
                 <div className="mt-3 border-t pt-2">
                   <details>
                     <summary className="flex justify-between items-baseline gap-3 cursor-pointer select-none">
-                      <span className="text-xs font-semibold text-blue-600 hover:text-blue-800">
+                      <span className="text-xs font-semibold text-primary hover:text-primary">
                         Toon Ruwe Data
                       </span>
                       <a
                         href={`https://www.google.com/maps?q=&layer=c&cbll=${props.latitude},${props.longitude}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-xs text-blue-600 hover:text-blue-800 underline whitespace-nowrap"
+                        className="text-xs text-primary hover:text-primary underline whitespace-nowrap"
                         onClick={(e) => e.stopPropagation()}
                       >
                         Bekijk in Street View
                       </a>
                     </summary>
                     <div className="mt-2">
-                      <pre className="p-3 bg-gray-50 border border-gray-200 rounded text-xs overflow-x-auto max-h-64 whitespace-pre-wrap break-words">
+                      <pre className="p-3 bg-muted border border-border rounded text-xs overflow-x-auto max-h-64 whitespace-pre-wrap break-words">
                         {JSON.stringify(props, null, 2)}
                       </pre>
                     </div>
@@ -1333,21 +1424,21 @@ function MapComponent(props?: MapProps) {
   // Early returns AFTER all hooks to maintain hook order
   if (!mounted) {
     return (
-      <div className="w-full h-full flex items-center justify-center bg-gray-100">
-        <p className="text-gray-500">Kaart laden...</p>
+      <div className="w-full h-full flex items-center justify-center bg-secondary">
+        <p className="text-subtle-foreground">Kaart laden...</p>
       </div>
     );
   }
 
   if (!data) {
     return (
-      <div className="w-full h-full flex items-center justify-center bg-gray-100">
+      <div className="w-full h-full flex items-center justify-center bg-secondary">
         <div className="flex flex-col items-center gap-3">
-          <svg className="animate-spin h-10 w-10 text-gray-500" fill="none" viewBox="0 0 24 24">
+          <svg className="animate-spin h-10 w-10 text-subtle-foreground" fill="none" viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
           </svg>
-          <p className="text-sm font-medium text-gray-500">Gemeente laden...</p>
+          <p className="text-sm font-medium text-subtle-foreground">Gemeente laden...</p>
         </div>
       </div>
     );
@@ -1371,16 +1462,11 @@ function MapComponent(props?: MapProps) {
         style={{ width: '100%', height: '100%' }}
         className="z-0"
         preferCanvas={useSimpleMarkers} // Use Canvas renderer for better performance
+        zoomControl={false}
       >
       <ViewportRecorder viewportRef={viewportRef} />
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        eventHandlers={{
-          loading: () => onTilesLoading?.(true),
-          load: () => onTilesLoading?.(false),
-        }}
-      />
+      <ZoomControl position="topright" />
+      <BasemapLayer basemapId={basemapId} onTilesLoading={onTilesLoading} />
 
       <FitBounds
         bounds={bounds}
@@ -1390,6 +1476,7 @@ function MapComponent(props?: MapProps) {
         onZoomedToTarget={onZoomedToTarget}
       />
       <ZoomWatcher onZoomChange={setCurrentZoom} />
+      <ViewportWatcher onViewportChange={setViewBounds} />
       <ScaleControl />
       <FitToPainpoint polygon={selectedPainpointPolygon} />
 
@@ -2048,79 +2135,67 @@ function MapComponent(props?: MapProps) {
         );
       })}
 
-      {/* Render buffer zones - merged union polygons or individual circles */}
-      {/* 400m buffers rendered first (underneath) */}
-      {activeFilters.showBuffer400 && !buffersOverLimit && (
-        activeFilters.bufferMerged && mergedBuffer400 ? (
+      {/* Buffer zones - merged union polygons or individual circles, one pane per
+          radius, largest lowest: above the painpoint pane (350), below the
+          overlay pane (400) with the PC4 / choropleth layers, above tiles.
+          The layers are non-interactive, so the panes let clicks through
+          (in canvas mode a pane's canvas would otherwise swallow them). */}
+      {BUFFER_LAYERS.map((layer, index) => (
+        <Pane key={`coverage-${layer.radius}`} name={`coverage-${layer.radius}`} style={{ zIndex: 380 + index, pointerEvents: 'none' }}>
+        {nationalCoverageActive && activeFilters[layer.filter] && nationalCoverage[layer.radius] && (
           <GeoJSON
-            key={`buffer400-merged-${data?.metadata?.slug}-${points.length}-fill${activeFilters.showBufferFill}`}
-            data={mergedBuffer400 as any}
+            key={`coverage-national-${layer.radius}-fill${activeFilters.showBufferFill}`}
+            data={nationalCoverage[layer.radius]}
             interactive={false}
             style={() => ({
-              color: '#60a5fa',
-              fillColor: '#93c5fd',
-              weight: 3,
-              fillOpacity: activeFilters.showBufferFill ? 0.30 : 0,
+              color: layer.color,
+              fillColor: layer.fillColor,
+              weight: layer.weight,
+              dashArray: layer.dashArray,
+              fillOpacity: activeFilters.showBufferFill ? layer.mergedFillOpacity : 0,
               opacity: 1,
             })}
           />
-        ) : !activeFilters.bufferMerged ? (
-          <>{points.map((feature, idx) => {
+        )}
+        {bufferPoints.length > 0 && activeFilters[layer.filter] && (activeFilters.bufferMerged ? (
+          mergedBuffers[layer.radius] ? (
+            <GeoJSON
+              key={`buffer${layer.radius}-merged-${data?.metadata?.slug}-${bufferKey}-fill${activeFilters.showBufferFill}`}
+              data={mergedBuffers[layer.radius]}
+              interactive={false}
+              style={() => ({
+                color: layer.color,
+                fillColor: layer.fillColor,
+                weight: layer.weight,
+                dashArray: layer.dashArray,
+                fillOpacity: activeFilters.showBufferFill ? layer.mergedFillOpacity : 0,
+                opacity: 1,
+              })}
+            />
+          ) : null
+        ) : (
+          bufferPoints.map((feature, idx) => {
             const coords = feature.geometry.coordinates as [number, number];
             return (
               <Circle
-                key={`buffer400-${idx}`}
+                key={`buffer${layer.radius}-${idx}`}
                 center={[coords[1], coords[0]]}
-                radius={400}
+                radius={layer.radius}
                 pathOptions={{
-                  color: '#60a5fa',
-                  fillColor: '#93c5fd',
-                  weight: 3,
-                  fillOpacity: activeFilters.showBufferFill ? 0.10 : 0,
+                  color: layer.color,
+                  fillColor: layer.fillColor,
+                  weight: layer.weight,
+                  dashArray: layer.dashArray,
+                  fillOpacity: activeFilters.showBufferFill ? layer.circleFillOpacity : 0,
                   opacity: 1,
                 }}
                 interactive={false}
               />
             );
-          })}</>
-        ) : null
-      )}
-      {/* 300m buffers rendered on top */}
-      {activeFilters.showBuffer300 && !buffersOverLimit && (
-        activeFilters.bufferMerged && mergedBuffer300 ? (
-          <GeoJSON
-            key={`buffer300-merged-${data?.metadata?.slug}-${points.length}-fill${activeFilters.showBufferFill}`}
-            data={mergedBuffer300 as any}
-            interactive={false}
-            style={() => ({
-              color: '#2563eb',
-              fillColor: '#3b82f6',
-              weight: 2,
-              fillOpacity: activeFilters.showBufferFill ? 0.25 : 0,
-              opacity: 1,
-            })}
-          />
-        ) : !activeFilters.bufferMerged ? (
-          <>{points.map((feature, idx) => {
-            const coords = feature.geometry.coordinates as [number, number];
-            return (
-              <Circle
-                key={`buffer300-${idx}`}
-                center={[coords[1], coords[0]]}
-                radius={300}
-                pathOptions={{
-                  color: '#2563eb',
-                  fillColor: '#3b82f6',
-                  weight: 2,
-                  fillOpacity: activeFilters.showBufferFill ? 0.08 : 0,
-                  opacity: 1,
-                }}
-                interactive={false}
-              />
-            );
-          })}</>
-        ) : null
-      )}
+          })
+        ))}
+        </Pane>
+      ))}
 
       {/* Render municipal boundaries */}
       {boundaries.map((feature, idx) => (
@@ -2154,8 +2229,8 @@ function MapComponent(props?: MapProps) {
         >
           <Popup>
             <div className="text-sm">
-              <h3 className="font-bold text-gray-900">Uw zoeklocatie</h3>
-              <p className="text-xs text-gray-500 mt-1">
+              <h3 className="font-bold text-foreground">Uw zoeklocatie</h3>
+              <p className="text-xs text-subtle-foreground mt-1">
                 {searchLocationMarker.latitude.toFixed(6)}, {searchLocationMarker.longitude.toFixed(6)}
               </p>
             </div>
@@ -2163,6 +2238,14 @@ function MapComponent(props?: MapProps) {
         </Marker>
       )}
     </MapContainer>
+
+      <BasemapPicker
+        value={basemapId}
+        onChange={(id) => {
+          setBasemapId(id);
+          saveBasemap(id);
+        }}
+      />
 
       {/* Side panel for selected painpoint PC4 */}
       {selectedPainpointPc4 && selectedPainpointEntry && (

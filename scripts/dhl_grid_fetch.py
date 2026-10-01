@@ -214,6 +214,16 @@ def fetch_all_dhl_locations_grid() -> Dict[Tuple, Dict]:
     return all_locations
 
 
+# The fields api_client.get_data_dhl reads, plus the id. The full record is
+# ~2.4 KB (a dated 7-day openingTimesMeta, collection schedules) and made the
+# cache ~22 MB; slimmed and one record per line it is a fraction of that.
+KEEP_FIELDS = ("id", "name", "shopType", "address", "geoLocation", "openingTimes", "serviceTypes")
+
+
+def slim(location: Dict) -> Dict:
+    return {k: location[k] for k in KEEP_FIELDS if k in location}
+
+
 def save_results(locations: Dict[Tuple, Dict], output_file: str = None):
     """Save locations to JSON file."""
     from cache_guard import safe_save
@@ -226,7 +236,7 @@ def save_results(locations: Dict[Tuple, Dict], output_file: str = None):
         output_file = project_root / "data" / "dhl_all_locations.json"
 
     output_path = Path(output_file)
-    location_list = list(locations.values())
+    location_list = [slim(loc) for loc in locations.values()]
 
     safe_save(
         carrier="DHL",

@@ -41,7 +41,7 @@ export default function TestPage() {
       <h1 className="text-2xl font-bold mb-4">Amsterdam GeoJSON Test</h1>
       <p className="mb-2">Status: {status}</p>
       {data && (
-        <pre className="bg-gray-100 p-4 rounded overflow-auto max-h-96">
+        <pre className="bg-secondary p-4 rounded overflow-auto max-h-96">
           {JSON.stringify(data, null, 2)}
         </pre>
       )}

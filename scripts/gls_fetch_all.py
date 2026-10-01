@@ -116,6 +116,8 @@ def extract_location(item: Dict) -> Optional[Dict]:
         'longitude': lng,
         'vervoerder': 'GLS',
         'puntType': punt_type,
+        'openingHours': item.get('openingHours') or [],
+        'vacations': item.get('vacations') or [],
     }
 
 

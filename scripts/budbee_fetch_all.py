@@ -18,12 +18,15 @@ Usage:
 
 import json
 import math
-import time
-import requests
+import sys
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Tuple
 from collections import defaultdict
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from utils import overpass_post  # noqa: E402
 
 
 def haversine_m(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
@@ -97,30 +100,13 @@ def fetch_from_osm() -> List[Dict]:
     out body;
     """
 
-    # Try multiple Overpass servers
-    servers = [
-        "https://overpass-api.de/api/interpreter",
-        "https://overpass.kumi.systems/api/interpreter",
-    ]
-
-    for server in servers:
-        try:
-            print(f"   Trying {server}...")
-            response = requests.post(
-                server,
-                data={"data": overpass_query},
-                timeout=90,
-            )
-            response.raise_for_status()
-            data = response.json()
-            break
-        except Exception as e:
-            print(f"   ⚠️  {server} failed: {e}")
-            data = None
-            time.sleep(2)
-
-    if not data:
-        print("   ❌ All Overpass servers failed")
+    # overpass_post carries the User-Agent and the 429 backoff. Without the
+    # header overpass-api.de answers 406 and this source returns nothing,
+    # which is how Budbee ran on DPD data alone for weeks.
+    try:
+        data = overpass_post(overpass_query)
+    except ValueError as e:
+        print(f"   ❌ {e}")
         return []
 
     elements = data.get('elements', [])
@@ -331,5 +317,4 @@ def main():
 
 
 if __name__ == "__main__":
-    import sys
     sys.exit(main())

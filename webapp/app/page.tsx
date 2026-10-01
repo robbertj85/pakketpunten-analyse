@@ -12,6 +12,7 @@ import NearestPointsFinder from '@/components/NearestPointsFinder';
 import { Municipality, PakketpuntData, Filters, PakketpuntProperties, PakketpuntFeature, PointCategory, ServiceFilter, getPointCategory } from '@/types/pakketpunten';
 import { loadProvincialBoundaries, BoundaryLoadProgress } from '@/utils/boundaryLoader';
 import { matchesServiceFilters } from '@/utils/pointFilters';
+import { CARRIER_ORDER } from '@/lib/carriers';
 
 // Mobile menu icon component
 function MenuIcon({ className }: { className?: string }) {
@@ -45,8 +46,8 @@ function FilterIcon({ className }: { className?: string }) {
 const MapView = dynamic(() => import('@/components/Map'), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-full flex items-center justify-center bg-gray-100">
-      <p className="text-gray-500">Kaart laden...</p>
+    <div className="w-full h-full flex items-center justify-center bg-secondary">
+      <p className="text-subtle-foreground">Kaart laden...</p>
     </div>
   ),
 });
@@ -93,10 +94,11 @@ export default function Home() {
     return () => document.removeEventListener('keydown', handleEscape);
   }, []);
   const [filters, setFilters] = useState<Filters>({
-    providers: ['DHL', 'PostNL', 'VintedGo', 'DeBuren', 'DPD', 'Amazon', 'GLS', 'ViaTim', 'InPost', 'Budbee'],
+    providers: [...CARRIER_ORDER],
     showBuffer300: true,
     showBuffer400: true,
-    showBufferFill: false,
+    showBuffer500: true,
+    showBufferFill: true,
     bufferMerged: true,
     showBoundary: false,
     showPC4: false,
@@ -236,10 +238,11 @@ export default function Home() {
         // Don't automatically show boundaries - user must click checkbox to load them
         const isNederland = selectedMunicipality === 'nederland';
         setFilters({
-          providers: data.metadata.providers || ['DHL', 'PostNL', 'VintedGo', 'DeBuren', 'DPD', 'Amazon', 'GLS', 'ViaTim', 'InPost', 'Budbee'],
+          providers: data.metadata.providers || [...CARRIER_ORDER],
           showBuffer300: true,
           showBuffer400: true,
-          showBufferFill: false,
+          showBuffer500: true,
+          showBufferFill: true,
           bufferMerged: true,
           showBoundary: false,
           showPC4: false,
@@ -459,13 +462,13 @@ export default function Home() {
   return (
     <div className="h-screen flex flex-col">
       {/* Header - Desktop */}
-      <header className="bg-white shadow-sm z-20">
+      <header className="bg-card shadow-sm z-20">
         {/* Main header row */}
         <div className="px-3 py-2 md:px-4 md:py-3 flex items-center gap-2 md:gap-4">
           {/* Logo */}
           <div className="flex-shrink-0 leading-tight">
-            <h1 className="text-lg md:text-xl font-bold text-gray-900">📦 <span className="hidden sm:inline">Pakketpunten</span></h1>
-            <p className="text-[10px] md:text-xs font-medium text-gray-500 leading-tight hidden sm:block">Data en Analyse Convenant<br />Duurzame Pakketlogistiek</p>
+            <h1 className="text-lg md:text-xl font-bold text-foreground">📦 <span className="hidden sm:inline">Pakketpunten</span></h1>
+            <p className="text-[10px] md:text-xs font-medium text-muted-foreground leading-tight hidden sm:block">Data en Analyse Convenant<br />Duurzame Pakketlogistiek</p>
           </div>
 
           {/* Municipality Selector - always visible but responsive width */}
@@ -507,10 +510,10 @@ export default function Home() {
             }}
             className={`hidden md:flex items-center justify-center w-10 h-10 rounded-lg transition ${
               nearestPointsOpen
-                ? 'bg-blue-600 text-white'
+                ? 'bg-primary text-white'
                 : lastAddressSearch
-                  ? 'bg-blue-100 text-blue-600 hover:bg-blue-200 ring-2 ring-blue-400'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  ? 'bg-accent text-primary hover:bg-accent/70 ring-2 ring-ring'
+                  : 'bg-secondary text-muted-foreground hover:bg-border'
             }`}
             title={lastAddressSearch
               ? `Dichtstbijzijnde pakketpunten bij "${lastAddressSearch.displayName}"`
@@ -535,7 +538,7 @@ export default function Home() {
 
           {/* Loading indicator */}
           {loading && (
-            <div className="flex items-center gap-1 md:gap-2 text-xs md:text-sm text-gray-500">
+            <div className="flex items-center gap-1 md:gap-2 text-xs md:text-sm text-subtle-foreground">
               <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -548,7 +551,7 @@ export default function Home() {
           <div className="hidden lg:flex gap-2 ml-auto">
             <a
               href="/data-export"
-              className="px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition flex items-center"
+              className="px-3 py-2 text-sm font-medium text-muted-foreground bg-secondary rounded-lg hover:bg-border transition flex items-center"
             >
               <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -559,7 +562,7 @@ export default function Home() {
               href="/api/v1/docs"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition flex items-center"
+              className="px-3 py-2 text-sm font-medium text-muted-foreground bg-secondary rounded-lg hover:bg-border transition flex items-center"
             >
               <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
@@ -568,7 +571,7 @@ export default function Home() {
             </a>
             <button
               onClick={() => setShowShare(true)}
-              className="px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition flex items-center"
+              className="px-3 py-2 text-sm font-medium text-muted-foreground bg-secondary rounded-lg hover:bg-border transition flex items-center"
             >
               <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
@@ -577,7 +580,7 @@ export default function Home() {
             </button>
             <button
               onClick={() => setShowAbout(true)}
-              className="px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition flex items-center"
+              className="px-3 py-2 text-sm font-medium text-muted-foreground bg-secondary rounded-lg hover:bg-border transition flex items-center"
             >
               <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -589,7 +592,7 @@ export default function Home() {
           {/* Mobile menu button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition ml-auto"
+            className="lg:hidden p-2 text-muted-foreground hover:text-foreground hover:bg-secondary rounded-lg transition ml-auto"
             aria-label="Menu openen"
           >
             {mobileMenuOpen ? <CloseIcon className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
@@ -598,9 +601,9 @@ export default function Home() {
 
         {/* Mobile dropdown menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-gray-200 bg-white">
+          <div className="lg:hidden border-t border-border bg-card">
             {/* Mobile address search */}
-            <div className="md:hidden px-3 py-2 border-b border-gray-100">
+            <div className="md:hidden px-3 py-2 border-b border-border">
               <AddressSearchInput
                 municipalities={municipalities}
                 onAddressSelected={(slug, coords, displayName) => {
@@ -616,7 +619,7 @@ export default function Home() {
                   setNearestPointsOpen(true);
                   setMobileMenuOpen(false);
                 }}
-                className="w-full flex items-center px-3 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg transition"
+                className="w-full flex items-center px-3 py-3 text-sm font-medium text-muted-foreground hover:bg-secondary rounded-lg transition"
               >
                 <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -626,7 +629,7 @@ export default function Home() {
               </button>
               <a
                 href="/data-export"
-                className="flex items-center px-3 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg transition"
+                className="flex items-center px-3 py-3 text-sm font-medium text-muted-foreground hover:bg-secondary rounded-lg transition"
               >
                 <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -637,7 +640,7 @@ export default function Home() {
                 href="/api/v1/docs"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center px-3 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg transition"
+                className="flex items-center px-3 py-3 text-sm font-medium text-muted-foreground hover:bg-secondary rounded-lg transition"
               >
                 <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
@@ -649,7 +652,7 @@ export default function Home() {
                   setShowShare(true);
                   setMobileMenuOpen(false);
                 }}
-                className="w-full flex items-center px-3 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg transition"
+                className="w-full flex items-center px-3 py-3 text-sm font-medium text-muted-foreground hover:bg-secondary rounded-lg transition"
               >
                 <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
@@ -661,7 +664,7 @@ export default function Home() {
                   setShowAbout(true);
                   setMobileMenuOpen(false);
                 }}
-                className="w-full flex items-center px-3 py-3 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg transition"
+                className="w-full flex items-center px-3 py-3 text-sm font-medium text-muted-foreground hover:bg-secondary rounded-lg transition"
               >
                 <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -688,18 +691,18 @@ export default function Home() {
           className={`
             fixed md:relative inset-y-0 left-0 z-40 md:z-auto
             w-[85vw] max-w-[320px] md:w-80
-            bg-gray-50 p-3 md:p-4 overflow-y-auto space-y-3 md:space-y-4
+            bg-muted p-3 md:p-4 overflow-y-auto space-y-3 md:space-y-4
             transform transition-transform duration-300 ease-in-out
             ${mobileSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
             shadow-xl md:shadow-none
           `}
         >
           {/* Mobile sidebar header */}
-          <div className="md:hidden flex items-center justify-between pb-2 border-b border-gray-200 mb-2">
-            <h2 className="text-lg font-semibold text-gray-900">Filters & Stats</h2>
+          <div className="md:hidden flex items-center justify-between pb-2 border-b border-border mb-2">
+            <h2 className="text-lg font-semibold text-foreground">Filters & Stats</h2>
             <button
               onClick={() => setMobileSidebarOpen(false)}
-              className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-200 rounded-lg transition"
+              className="p-2 text-subtle-foreground hover:text-muted-foreground hover:bg-border rounded-lg transition"
               aria-label="Sluiten"
             >
               <CloseIcon className="w-5 h-5" />
@@ -720,6 +723,7 @@ export default function Home() {
                 boundariesLoading={boundariesLoading}
                 boundaryLoadProgress={boundaryLoadProgress}
                 totalPoints={data.metadata.total_points}
+                nationalView={selectedMunicipality === 'nederland'}
               />
             </>
           )}
@@ -745,13 +749,13 @@ export default function Home() {
 
           {/* Loading overlay on map - shown while fetching data or tiles loading */}
           {(loading || tilesLoading) && data && (
-            <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/60 pointer-events-none">
+            <div className="absolute inset-0 z-10 flex items-center justify-center bg-card/60 pointer-events-none">
               <div className="flex flex-col items-center gap-2">
-                <svg className="animate-spin h-10 w-10 text-gray-500" fill="none" viewBox="0 0 24 24">
+                <svg className="animate-spin h-10 w-10 text-subtle-foreground" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                <span className="text-sm font-medium text-gray-500">Laden...</span>
+                <span className="text-sm font-medium text-subtle-foreground">Laden...</span>
               </div>
             </div>
           )}
@@ -759,12 +763,12 @@ export default function Home() {
           {/* Mobile floating filter button */}
           <button
             onClick={() => setMobileSidebarOpen(true)}
-            className="md:hidden fixed bottom-20 left-4 z-20 bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 active:bg-blue-800 transition"
+            className="md:hidden fixed bottom-20 left-4 z-20 bg-primary text-white p-4 rounded-full shadow-lg hover:bg-primary/90 active:bg-primary/80 transition"
             aria-label="Filters openen"
           >
             <FilterIcon className="w-6 h-6" />
             {data && (
-              <span className="absolute -top-1 -right-1 bg-white text-blue-600 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-blue-600">
+              <span className="absolute -top-1 -right-1 bg-card text-primary text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-primary">
                 {Object.keys(providerCounts).length}
               </span>
             )}
@@ -791,11 +795,11 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 px-3 md:px-4 py-2">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-1 sm:gap-0 text-xs text-gray-500">
+      <footer className="bg-card border-t border-border px-3 md:px-4 py-2">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-1 sm:gap-0 text-xs text-subtle-foreground">
           <button
             onClick={() => setShowAbout(true)}
-            className="text-blue-600 hover:text-blue-800 hover:underline focus:outline-none py-1"
+            className="text-primary hover:text-primary hover:underline focus:outline-none py-1"
           >
             Info over databronnen
           </button>

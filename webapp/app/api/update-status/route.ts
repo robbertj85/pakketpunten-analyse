@@ -17,6 +17,17 @@ export async function GET() {
 
     const summaryData = JSON.parse(fs.readFileSync(summaryPath, 'utf-8'));
 
+    // Per-carrier cache freshness, lifted out of statistics.json rather than
+    // read from data/*_all_locations.json: those live outside webapp/, and this
+    // keeps the ~150 KB statistics file server-side instead of shipping it.
+    let bronnen = null;
+    try {
+      const statisticsPath = path.join(process.cwd(), 'public', 'data', 'statistics.json');
+      bronnen = JSON.parse(fs.readFileSync(statisticsPath, 'utf-8')).bronnen ?? null;
+    } catch {
+      // Statistics not generated yet; the page just omits the section.
+    }
+
     // Extract relevant update status information
     const updateStatus = {
       last_update: summaryData.generated_at,
@@ -24,6 +35,7 @@ export async function GET() {
       successful_municipalities: summaryData.successful,
       failed_municipalities: summaryData.failed,
       carrier_stats: summaryData.carrier_stats || {},
+      bronnen,
       // Link to GitHub Actions for detailed logs
       github_actions_url: 'https://github.com/Ida-BirdsEye/pakketpunten/actions/workflows/update-data.yml'
     };

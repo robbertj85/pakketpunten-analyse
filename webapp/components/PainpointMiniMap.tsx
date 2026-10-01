@@ -5,6 +5,7 @@ import { MapContainer, TileLayer, GeoJSON, CircleMarker, Popup, useMap } from 'r
 import type { LatLngBoundsExpression } from 'leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { CARRIER_SERIES_COLORS } from '@/lib/carriers';
 
 interface PainpointPoint {
   lat: number;
@@ -22,18 +23,7 @@ interface Props {
   points: PainpointPoint[];
 }
 
-const PROVIDER_COLOR: Record<string, string> = {
-  DHL: '#FFCC00',
-  PostNL: '#FF6600',
-  VintedGo: '#09B1BA',
-  DeBuren: '#4CAF50',
-  Amazon: '#FF9900',
-  DPD: '#DC0032',
-  GLS: '#003C7E',
-  ViaTim: '#E3007A',
-  InPost: '#FFCD00',
-  Budbee: '#00C389',
-};
+const PROVIDER_COLOR: Record<string, string> = CARRIER_SERIES_COLORS;
 
 // Fit the map to the polygon bounds whenever the PC4 changes
 function FitToFeature({ bounds }: { bounds: LatLngBoundsExpression | null }) {

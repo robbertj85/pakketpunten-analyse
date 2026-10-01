@@ -10,14 +10,26 @@ export interface PakketpuntProperties {
   locatieNaam: string;
   straatNaam: string;
   straatNr: string;
-  vervoerder: 'DHL' | 'PostNL' | 'VintedGo' | 'DeBuren' | 'DPD' | 'Amazon' | 'GLS' | 'ViaTim' | 'InPost' | 'Budbee';
+  vervoerder: 'DHL' | 'PostNL' | 'VintedGo' | 'DeBuren' | 'DPD' | 'Amazon' | 'GLS' | 'ViaTim' | 'InPost' | 'Budbee' | 'FedEx';
   puntType: string;
   bezettingsgraad: number;
   latitude: number;
   longitude: number;
   canPickup: boolean;
   canDropoff: boolean;
+  openingstijden?: OpeningHours | null;
 }
+
+// Per-day map (Dutch keys) OR a single free-text string OR null when unknown.
+export type OpeningHours = string | {
+  ma?: string;
+  di?: string;
+  wo?: string;
+  do?: string;
+  vr?: string;
+  za?: string;
+  zo?: string;
+};
 
 export interface BufferProperties {
   type: 'buffer_union_300m' | 'buffer_union_400m' | 'boundary';
@@ -53,6 +65,7 @@ export interface Filters {
   providers: string[];
   showBuffer300: boolean;
   showBuffer400: boolean;
+  showBuffer500: boolean;
   showBufferFill: boolean;
   bufferMerged: boolean;
   showBoundary: boolean;
@@ -113,6 +126,7 @@ export type PointCategory = 'locker' | 'shop';
 //   - ViaTim: servicepunt (all are staffed shops)
 //   - InPost: servicepunt (PUDO shops), automaat (parcel lockers)
 //   - Budbee: automaat (all are parcel lockers)
+//   - FedEx: servicepunt (FedEx OnSite shops and stations)
 const LOCKER_TYPES = new Set([
   'packStation',      // DHL
   'automaat',         // PostNL, InPost, Budbee

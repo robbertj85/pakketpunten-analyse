@@ -183,24 +183,33 @@ def load_inputs() -> tuple[dict, dict, gpd.GeoDataFrame, list[dict]]:
 
 
 def load_buffer_union_400m(slug: str) -> BaseGeometry | None:
-    """Read the 400 m buffer union (in RD) for a municipality, or None if
-    the municipality has no parcel points."""
+    """Return the 400 m buffer union (in RD) for a municipality, or None if
+    the municipality has no parcel points.
+
+    Uses the stored buffer_union_400m features when present; upstream data
+    no longer stores them (the webapp draws coverage itself), so otherwise
+    the union is built from the pakketpunt points."""
     path = DATA_DIR / f"{slug}.geojson"
     if not path.exists():
         return None
     with open(path) as f:
         g = json.load(f)
     geoms = []
+    points = []
     for feat in g["features"]:
-        if feat.get("properties", {}).get("type") == "buffer_union_400m":
+        ftype = feat.get("properties", {}).get("type")
+        if ftype == "buffer_union_400m":
             geoms.append(shape(feat["geometry"]))
-    if not geoms:
+        elif ftype == "pakketpunt" and feat.get("geometry"):
+            points.append(shape(feat["geometry"]))
+    if geoms:
+        union = unary_union(geoms)
+        # GeoJSON is WGS84; convert to RD for metric ops.
+        return gpd.GeoSeries([union], crs=WGS84).to_crs(RD).iloc[0]
+    if not points:
         return None
-    union = unary_union(geoms)
-    # GeoJSON is WGS84; convert to RD for metric ops.
-    return (
-        gpd.GeoSeries([union], crs=WGS84).to_crs(RD).iloc[0]
-    )
+    rd_points = gpd.GeoSeries(points, crs=WGS84).to_crs(RD)
+    return unary_union(rd_points.buffer(400).tolist())
 
 
 def process_municipality(args: tuple) -> tuple[str, dict | None]:

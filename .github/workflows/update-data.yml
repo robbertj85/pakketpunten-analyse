@@ -6,11 +6,16 @@ on:
     - cron: '0 2 * * 1'
   # Allow manual trigger
   workflow_dispatch:
+    inputs:
+      force_save:
+        description: 'Accept the fetched counts as the new baselines even if they dropped sharply'
+        type: boolean
+        default: false
 
 jobs:
   update-data:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 180
 
     steps:
       - name: Checkout repository
@@ -34,6 +39,8 @@ jobs:
         working-directory: ${{ github.workspace }}
         timeout-minutes: 30
         continue-on-error: true
+        env:
+          CACHE_GUARD_FORCE: ${{ inputs.force_save && '1' || '' }}
 
       - name: Fetch DPD data (nationwide cache)
         id: fetch_dpd
@@ -41,6 +48,8 @@ jobs:
         working-directory: ${{ github.workspace }}
         timeout-minutes: 15
         continue-on-error: true
+        env:
+          CACHE_GUARD_FORCE: ${{ inputs.force_save && '1' || '' }}
 
       - name: Fetch ViaTim data (nationwide cache)
         id: fetch_viatim
@@ -48,6 +57,19 @@ jobs:
         working-directory: ${{ github.workspace }}
         timeout-minutes: 5
         continue-on-error: true
+        env:
+          CACHE_GUARD_FORCE: ${{ inputs.force_save && '1' || '' }}
+
+      # One caller, 1 s apart: FedEx's search blocks an IP for a while after
+      # a burst (HTTP 429), and the fetcher backs off up to 8 min per call
+      - name: Fetch FedEx data (nationwide cache)
+        id: fetch_fedex
+        run: python scripts/fedex_fetch_all.py
+        working-directory: ${{ github.workspace }}
+        timeout-minutes: 30
+        continue-on-error: true
+        env:
+          CACHE_GUARD_FORCE: ${{ inputs.force_save && '1' || '' }}
 
       - name: Fetch InPost data (nationwide cache)
         id: fetch_inpost
@@ -55,6 +77,8 @@ jobs:
         working-directory: ${{ github.workspace }}
         timeout-minutes: 10
         continue-on-error: true
+        env:
+          CACHE_GUARD_FORCE: ${{ inputs.force_save && '1' || '' }}
 
       - name: Fetch Budbee data (DPD cache + OSM)
         id: fetch_budbee
@@ -62,6 +86,8 @@ jobs:
         working-directory: ${{ github.workspace }}
         timeout-minutes: 10
         continue-on-error: true
+        env:
+          CACHE_GUARD_FORCE: ${{ inputs.force_save && '1' || '' }}
 
       # GLS data is fetched by separate workflow (fetch-gls-data.yml)
       # That workflow runs earlier and commits the cache file to the repo
@@ -73,6 +99,7 @@ jobs:
           if [ "${{ steps.fetch_dhl.outcome }}" = "failure" ]; then anomalies="${anomalies}DHL "; fi
           if [ "${{ steps.fetch_dpd.outcome }}" = "failure" ]; then anomalies="${anomalies}DPD "; fi
           if [ "${{ steps.fetch_viatim.outcome }}" = "failure" ]; then anomalies="${anomalies}ViaTim "; fi
+          if [ "${{ steps.fetch_fedex.outcome }}" = "failure" ]; then anomalies="${anomalies}FedEx "; fi
           if [ "${{ steps.fetch_inpost.outcome }}" = "failure" ]; then anomalies="${anomalies}InPost "; fi
           if [ "${{ steps.fetch_budbee.outcome }}" = "failure" ]; then anomalies="${anomalies}Budbee "; fi
 
@@ -97,8 +124,20 @@ jobs:
         run: |
           python scripts/batch_generate.py
           python scripts/create_national_overview.py
+          python scripts/create_national_coverage.py
         working-directory: ${{ github.workspace }}
-        timeout-minutes: 60
+        # Headroom for the semi-annual polygon cache refresh (last week of
+        # June/December), when all ~342 municipality boundaries are re-fetched
+        # from the rate-limited Overpass API. Normal runs finish in ~30 min.
+        timeout-minutes: 120
+
+      # Reads the GeoJSON just written, so it has to follow batch_generate.
+      # The coverage pass buffers every point and intersects with the municipal
+      # outline, which is why it gets its own step and its own timeout.
+      - name: Compute statistics
+        run: python scripts/compute_statistics.py
+        working-directory: ${{ github.workspace }}
+        timeout-minutes: 20
 
       - name: Update totals history
         run: python scripts/update_totals_history.py
@@ -113,9 +152,23 @@ jobs:
         run: |
           # Add cache files (DHL, DPD, ViaTim, InPost, Budbee - GLS committed by separate workflow)
           git add data/dhl_all_locations.json data/dpd_all_locations.json data/viatim_all_locations.json data/inpost_all_locations.json data/budbee_all_locations.json 2>/dev/null || true
+          # The guard's count history changes on every run, including one where it
+          # blocked the save -- and that blocked record is what next week's run
+          # confirms the new baseline against, so it has to be committed too.
+          git add data/fetch_history.json 2>/dev/null || true
+          # Own line: git add refuses the whole list when one path is missing,
+          # and FedEx has no cache until its first successful fetch
+          git add data/fedex_all_locations.json 2>/dev/null || true
+          # Add the municipality boundary cache so the semi-annual Overpass refresh persists
+          # (otherwise every refresh-week run re-fetches all ~342 boundaries from scratch)
+          git add data/municipality_polygon_cache.json 2>/dev/null || true
           # Add municipality GeoJSON files (excluding gitignored nederland-boundaries.geojson)
           find webapp/public/data -name "*.geojson" -not -name "nederland-boundaries.geojson" -exec git add {} +
-          git add webapp/public/data/summary.json webapp/public/data/totals_history.json webapp/public/municipalities.json 2>/dev/null || true
+          # Precomputed national coverage (create_national_coverage.py). The find above
+          # is recursive and already includes it; named so the folder is not lost
+          # if that find is ever narrowed to the top level.
+          git add webapp/public/data/geo 2>/dev/null || true
+          git add webapp/public/data/summary.json webapp/public/data/totals_history.json webapp/public/data/statistics.json webapp/public/municipalities.json 2>/dev/null || true
           # Build commit message with anomaly note if applicable
           msg="🤖 Update pakketpunten data - $(date +'%Y-%m-%d %H:%M UTC')"
           if [ -f /tmp/anomaly_carriers.txt ]; then
@@ -124,5 +177,18 @@ jobs:
           fi
           git diff --quiet && git diff --staged --quiet && exit 0
           git commit -m "$msg"
-          git pull --rebase origin main
-          git push
+          # Commit first, then rebase onto whatever reached main during the run
+          # (a code push, the other workflow); retry in case main moves again.
+          for attempt in 1 2 3; do
+            git pull --rebase --autostash origin main && git push && exit 0
+            sleep $((attempt * 15))
+          done
+          exit 1
+
+      # Last on purpose. A stale carrier must never stop the fresh data for the
+      # other carriers from being published, so this gate runs after the push.
+      # It is the tripwire the guard lacks: a blocked save still reports green,
+      # which is how Amazon went eight weeks without anyone noticing.
+      - name: Check cache freshness
+        run: python scripts/check_cache_freshness.py --max-age-days 21
+        working-directory: ${{ github.workspace }}

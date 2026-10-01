@@ -188,7 +188,7 @@ export default function MunicipalitySelector({
           onFocus={() => setShowDropdown(true)}
           onKeyDown={handleKeyDown}
           placeholder={selectedMunicipality ? displayValue : "Selecteer gemeente..."}
-          className="w-full px-3 md:px-4 py-2.5 md:py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 text-sm"
+          className="w-full px-3 md:px-4 py-2.5 md:py-2 pr-10 border border-input rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent text-foreground text-sm"
           autoComplete="off"
           role="combobox"
           aria-autocomplete="list"
@@ -199,7 +199,7 @@ export default function MunicipalitySelector({
           }
         />
         <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-4 h-4 text-subtle-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
           </svg>
         </div>
@@ -209,18 +209,18 @@ export default function MunicipalitySelector({
             ref={dropdownRef}
             id="municipality-listbox"
             role="listbox"
-            className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-[60vh] md:max-h-96 overflow-y-auto"
+            className="absolute z-50 w-full mt-1 bg-card border border-input rounded-lg shadow-lg max-h-[60vh] md:max-h-96 overflow-y-auto"
           >
             {/* Header */}
-            <div className="sticky top-0 bg-gray-50 px-3 py-2 text-xs text-gray-500 border-b flex items-center justify-between z-10">
+            <div className="sticky top-0 bg-muted px-3 py-2 text-xs text-subtle-foreground border-b flex items-center justify-between z-10">
               <span>{filteredMunicipalities.length} gemeentes</span>
               <div className="flex items-center gap-2">
-                <kbd className="hidden md:inline-block px-1.5 py-0.5 text-xs font-mono bg-white border border-gray-300 rounded">
+                <kbd className="hidden md:inline-block px-1.5 py-0.5 text-xs font-mono bg-card border border-input rounded">
                   ⌘K
                 </kbd>
                 <button
                   onClick={toggleSort}
-                  className="text-blue-600 hover:text-blue-800 flex items-center gap-1 p-1 -m-1"
+                  className="text-primary hover:text-primary flex items-center gap-1 p-1 -m-1"
                   title={sortOrder === 'asc' ? 'Sorteer Z-A' : 'Sorteer A-Z'}
                   tabIndex={-1}
                 >
@@ -245,20 +245,20 @@ export default function MunicipalitySelector({
                   onMouseEnter={() => setHighlightedIndex(index)}
                   className={`w-full text-left px-3 md:px-4 py-3 md:py-2 transition-colors ${
                     index === highlightedIndex
-                      ? 'bg-blue-100'
+                      ? 'bg-accent'
                       : m.slug === selected
-                      ? 'bg-blue-50'
-                      : 'hover:bg-gray-50 active:bg-gray-100'
+                      ? 'bg-accent'
+                      : 'hover:bg-muted active:bg-secondary'
                   }`}
                   tabIndex={-1}
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="text-sm font-medium text-gray-900">{m.name}</div>
-                      <div className="text-xs text-gray-500">{m.province}</div>
+                      <div className="text-sm font-medium text-foreground">{m.name}</div>
+                      <div className="text-xs text-subtle-foreground">{m.province}</div>
                     </div>
                     {m.slug === selected && (
-                      <svg className="w-4 h-4 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <svg className="w-4 h-4 text-primary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
                     )}
@@ -266,14 +266,14 @@ export default function MunicipalitySelector({
                 </button>
               ))
             ) : (
-              <div className="px-4 py-6 md:py-8 text-center text-sm text-gray-500">
+              <div className="px-4 py-6 md:py-8 text-center text-sm text-subtle-foreground">
                 Geen gemeentes gevonden voor &quot;{searchTerm}&quot;
               </div>
             )}
 
             {/* Sticky Nederland footer */}
             {nederland && (
-              <div className="sticky bottom-0 border-t border-gray-200 bg-white shadow-[0_-2px_4px_rgba(0,0,0,0.05)]">
+              <div className="sticky bottom-0 border-t border-border bg-card shadow-[0_-2px_4px_rgba(0,0,0,0.05)]">
                 <button
                   id={`municipality-option-nederland`}
                   role="option"
@@ -283,20 +283,20 @@ export default function MunicipalitySelector({
                   onMouseEnter={() => setHighlightedIndex(filteredMunicipalities.length)}
                   className={`w-full text-left px-3 md:px-4 py-3 md:py-2 transition-colors ${
                     highlightedIndex === filteredMunicipalities.length
-                      ? 'bg-blue-100'
+                      ? 'bg-accent'
                       : nederland.slug === selected
-                      ? 'bg-blue-50'
-                      : 'hover:bg-gray-50 active:bg-gray-100'
+                      ? 'bg-accent'
+                      : 'hover:bg-muted active:bg-secondary'
                   }`}
                   tabIndex={-1}
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="text-sm font-medium text-gray-900">{nederland.name}</div>
-                      <div className="text-xs text-gray-500">Landelijk overzicht</div>
+                      <div className="text-sm font-medium text-foreground">{nederland.name}</div>
+                      <div className="text-xs text-subtle-foreground">Landelijk overzicht</div>
                     </div>
                     {nederland.slug === selected && (
-                      <svg className="w-4 h-4 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <svg className="w-4 h-4 text-primary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
                     )}

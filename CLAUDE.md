@@ -226,7 +226,7 @@ When viewing the national map with boundaries enabled, the system loads boundari
 
 All GeoJSON features follow this structure:
 - **Pakketpunt features**: `type: 'pakketpunt'` with properties: `locatieNaam`, `straatNaam`, `straatNr`, `vervoerder`, `puntType`, `bezettingsgraad`, `latitude`, `longitude`
-- **Buffer features**: `type: 'buffer_union_300m' | 'buffer_union_400m'` with `buffer_m` property
+- **Boundary feature**: `type: 'boundary'`. No buffer features: the map draws coverage (300/400/500 m) itself with Turf.js, and the national view loads the precomputed unions from `webapp/public/data/geo/coverage_<radius>.geojson` (`scripts/create_national_coverage.py`)
 
 ## Coordinate Reference Systems (CRS)
 
@@ -264,6 +264,38 @@ The system automatically uses cached data when available:
 - `enrich_pc4_accidents.py` does the PC4 sjoin and computes 8 aggregates per postcode: `crashes_total`, `crashes_total_per_km2`, `crashes_freight` (Vrachtauto + Trekker variants), `crashes_van` (Bestelauto), `crashes_freight_van_share` (%), `crashes_freight_vs_vulnerable` (freight/van × ped/bike/moped), `crashes_injury` (Letsel + Dodelijk only), `crashes_urban` (`bebouwde_kom = Binnen`).
 - `build_pc4_stats.py` merges these into `pc4_stats.json` so the regression report's "Verkeersveiligheid (BRON 2022-2024)" feature group can use them.
 - Caveat: BRON is police-reported; ~90% complete for fatalities but 20-50% for UMS (uitsluitend materiele schade). Use `crashes_injury` when you want a less-biased count. No truck/van *exposure* (km driven) is included — that would need NDW's Hastig intensity dataset, which is license-restricted to road authorities, OR free proxies (BAG non-residential m², IBIS bedrijventerreinen) not yet integrated.
+### Cache Guard (`scripts/cache_guard.py`)
+
+Every nationwide fetch saves through `safe_save()`, which refuses to overwrite a
+cache when the count drops more than 20%, and exits 2 so the workflow can flag it.
+
+The guard is **self-healing**, because a permanent block freezes the cache whenever
+a carrier genuinely shrinks (Amazon sat eight weeks behind a stale 2180 baseline):
+
+- Each run's count is appended to `data/fetch_history.json`, committed to the repo.
+- A large drop that **repeats** on the next run, within 5%, is accepted as the new
+  baseline. One-off blips stay blocked; sustained change gets through after two runs.
+- A fetch of 0 locations is never saved, and never confirmable.
+- `CACHE_GUARD_FORCE=1` accepts the new count immediately. Both fetch workflows
+  expose this as a `force_save` input on `workflow_dispatch`.
+
+Because a blocked run's history entry is what the next run confirms against, the
+workflows commit `data/fetch_history.json` **whatever the fetch outcome**. Do not
+re-add an `if: steps.fetch.outcome == 'success'` gate to those commit steps.
+
+### Freshness Gate (`scripts/check_cache_freshness.py`)
+
+A guarded run still reports green, which is how Amazon went eight weeks unnoticed.
+This script reads `metadata.fetched_at` from every `data/*_all_locations.json` and
+exits 1 if any carrier is older than `--max-age-days` (21 in CI). It runs **last**
+in `update-data.yml`, after the push, so a stale carrier never blocks publishing
+fresh data for the others.
+
+The same threshold is mirrored as `STALE_AFTER_DAYS` in `webapp/types/sources.ts`.
+The per-carrier dates render as the "Databronnen" section on
+/data-export/updates, fed by the `bronnen` field of `statistics.json` via
+`/api/update-status` — the API lifts it out server-side so the ~150 KB
+statistics file is not shipped to a page that needs ten dates from it.
 
 ## API Integration Notes
 
@@ -299,7 +331,7 @@ All API calls use `requests.Session()` with proxy bypass for specific domains (h
   },
   "features": [
     // Pakketpunt features (type: "pakketpunt")
-    // Buffer union features (type: "buffer_union_300m", "buffer_union_400m")
+    // Municipality boundary feature (type: "boundary")
   ]
 }
 ```

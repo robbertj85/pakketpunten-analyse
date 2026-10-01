@@ -72,15 +72,15 @@ export default function ShareModal({ isOpen, onClose, municipality, municipality
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={onClose}>
       <div
         ref={modalRef}
-        className="bg-white rounded-xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto"
+        className="bg-card rounded-xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900">Delen</h2>
+        <div className="flex items-center justify-between px-5 py-4 border-b border-border">
+          <h2 className="text-lg font-semibold text-foreground">Delen</h2>
           <button
             onClick={onClose}
-            className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition"
+            className="p-1.5 text-subtle-foreground hover:text-muted-foreground hover:bg-secondary rounded-lg transition"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -91,7 +91,7 @@ export default function ShareModal({ isOpen, onClose, municipality, municipality
         <div className="px-5 py-4 space-y-5">
               {/* Share link */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                <label className="block text-sm font-medium text-muted-foreground mb-1.5">
                   Directe link naar {municipalityName}
                 </label>
                 <div className="flex gap-2">
@@ -99,15 +99,15 @@ export default function ShareModal({ isOpen, onClose, municipality, municipality
                     type="text"
                     readOnly
                     value={shareUrl}
-                    className="flex-1 px-3 py-2 text-sm bg-gray-50 border border-gray-300 rounded-lg text-gray-700 font-mono select-all"
+                    className="flex-1 px-3 py-2 text-sm bg-muted border border-input rounded-lg text-muted-foreground font-mono select-all"
                     onClick={(e) => (e.target as HTMLInputElement).select()}
                   />
                   <button
                     onClick={() => copyToClipboard(shareUrl, 'link')}
                     className={`px-3 py-2 text-sm font-medium rounded-lg transition whitespace-nowrap ${
                       copiedLink
-                        ? 'bg-green-100 text-green-700'
-                        : 'bg-blue-600 text-white hover:bg-blue-700'
+                        ? 'bg-success-muted text-success'
+                        : 'bg-primary text-white hover:bg-primary/90'
                     }`}
                   >
                     {copiedLink ? 'Gekopieerd!' : 'Kopieer'}
@@ -117,21 +117,21 @@ export default function ShareModal({ isOpen, onClose, municipality, municipality
 
               {/* Embed code */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                <label className="block text-sm font-medium text-muted-foreground mb-1.5">
                   Embed code
                 </label>
-                <p className="text-xs text-gray-500 mb-2">
+                <p className="text-xs text-subtle-foreground mb-2">
                   Plak deze code op je website om de kaart van {municipalityName} in te sluiten.
                 </p>
 
                 {/* Size controls */}
                 <div className="flex gap-3 mb-2">
                   <div className="flex-1">
-                    <label className="block text-xs text-gray-500 mb-1">Breedte</label>
+                    <label className="block text-xs text-subtle-foreground mb-1">Breedte</label>
                     <select
                       value={embedWidth}
                       onChange={(e) => setEmbedWidth(e.target.value)}
-                      className="w-full px-2 py-1.5 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white"
+                      className="w-full px-2 py-1.5 text-sm text-foreground border border-input rounded-lg bg-card"
                     >
                       <option value="100%">100%</option>
                       <option value="800">800px</option>
@@ -140,11 +140,11 @@ export default function ShareModal({ isOpen, onClose, municipality, municipality
                     </select>
                   </div>
                   <div className="flex-1">
-                    <label className="block text-xs text-gray-500 mb-1">Hoogte</label>
+                    <label className="block text-xs text-subtle-foreground mb-1">Hoogte</label>
                     <select
                       value={embedHeight}
                       onChange={(e) => setEmbedHeight(e.target.value)}
-                      className="w-full px-2 py-1.5 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white"
+                      className="w-full px-2 py-1.5 text-sm text-foreground border border-input rounded-lg bg-card"
                     >
                       <option value="400">400px</option>
                       <option value="500">500px</option>
@@ -155,15 +155,15 @@ export default function ShareModal({ isOpen, onClose, municipality, municipality
                 </div>
 
                 <div className="relative">
-                  <pre className="px-3 py-2 text-xs bg-gray-50 border border-gray-300 rounded-lg text-gray-700 font-mono overflow-x-auto whitespace-pre-wrap break-all">
+                  <pre className="px-3 py-2 text-xs bg-muted border border-input rounded-lg text-muted-foreground font-mono overflow-x-auto whitespace-pre-wrap break-all">
                     {embedCode}
                   </pre>
                   <button
                     onClick={() => copyToClipboard(embedCode, 'embed')}
                     className={`absolute top-2 right-2 px-2 py-1 text-xs font-medium rounded transition ${
                       copiedEmbed
-                        ? 'bg-green-100 text-green-700'
-                        : 'bg-white text-gray-600 border border-gray-300 hover:bg-gray-50'
+                        ? 'bg-success-muted text-success'
+                        : 'bg-card text-muted-foreground border border-input hover:bg-muted'
                     }`}
                   >
                     {copiedEmbed ? 'Gekopieerd!' : 'Kopieer'}
@@ -173,10 +173,10 @@ export default function ShareModal({ isOpen, onClose, municipality, municipality
 
               {/* Preview */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                <label className="block text-sm font-medium text-muted-foreground mb-1.5">
                   Voorbeeld
                 </label>
-                <div className="border border-gray-200 rounded-lg overflow-hidden bg-gray-100" style={{ height: '250px' }}>
+                <div className="border border-border rounded-lg overflow-hidden bg-secondary" style={{ height: '250px' }}>
                   <iframe
                     src={embedUrl}
                     width="100%"

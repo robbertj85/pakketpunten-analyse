@@ -275,6 +275,76 @@ GEMEENTE_CODE_MAPPING = {
     "Bergen (NH.)": "0373",  # Bergen in Noord-Holland
 }
 
+# Overpass mirrors, tried in order. overpass-api.de answers HTTP 406 to a
+# request without a User-Agent, and every mirror rate-limits with 429, so the
+# name and the backoff below are load-bearing rather than politeness: the
+# Budbee OSM source silently returned nothing for weeks without them.
+OVERPASS_SERVERS = (
+    "https://overpass-api.de/api/interpreter",
+    "https://overpass.kumi.systems/api/interpreter",
+)
+OVERPASS_USER_AGENT = "pakketpunten_boundary_fetcher/1.0"
+
+
+def overpass_post(
+    query: str,
+    *,
+    timeout: float = 90,
+    max_retries: int = 3,
+    retry_delay: float = 2,
+    servers: Optional[Iterable[str]] = None,
+) -> Dict[str, Any]:
+    """
+    POST een Overpass QL query en geef de gedecodeerde JSON terug.
+
+    Loopt de mirrors in volgorde af en probeert een mirror opnieuw bij
+    429/503/504 met exponentiele backoff voordat de volgende aan de beurt is.
+
+    Raises
+    ------
+    ValueError
+        Wanneer alle mirrors gefaald hebben.
+    """
+    import time
+
+    errors = []
+
+    for server in (servers or OVERPASS_SERVERS):
+        for attempt in range(max_retries):
+            try:
+                response = requests.post(
+                    server,
+                    data={"data": query},
+                    headers={"User-Agent": OVERPASS_USER_AGENT},
+                    timeout=timeout,
+                )
+                response.raise_for_status()
+                return response.json()
+
+            except requests.exceptions.HTTPError as e:
+                status = e.response.status_code if e.response is not None else None
+                if status in (429, 503, 504) and attempt < max_retries - 1:
+                    wait_time = retry_delay * (2 ** attempt)
+                    print(f"   ⏳ {server} HTTP {status}, retry in {wait_time:.0f}s "
+                          f"(poging {attempt + 1}/{max_retries})...")
+                    time.sleep(wait_time)
+                    continue
+                errors.append(f"{server}: HTTP {status}")
+                break
+
+            except (requests.RequestException, ValueError) as e:
+                if attempt < max_retries - 1:
+                    wait_time = retry_delay * (2 ** attempt)
+                    print(f"   ⏳ {server} gaf een fout ({e}), retry in {wait_time:.0f}s "
+                          f"(poging {attempt + 1}/{max_retries})...")
+                    time.sleep(wait_time)
+                    continue
+                errors.append(f"{server}: {e}")
+                break
+
+    raise ValueError("Overpass API onbereikbaar - " + "; ".join(errors))
+
+
 def get_gemeente_polygon(gemeente_naam: str, country_hint: str = "Nederland"):
     """
     Haalt de exacte gemeentegrens (polygon) op uit OpenStreetMap via Overpass API.

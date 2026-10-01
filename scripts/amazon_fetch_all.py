@@ -1,8 +1,25 @@
 """
 Fetch all Amazon Hub Locker and Counter locations in the Netherlands.
 
-Uses Playwright to interact with amazon.nl/ulp and capture the fetch_locations API.
-Searches by municipality name and clicks on autocomplete suggestions to trigger searches.
+API: GET https://<amazon domain>/location_selector/fetch_locations
+         ?latitude=..&longitude=..&clientId=..&countryCode=..
+     The endpoint behind the pickup-point finder (/ulp). It returns 20
+     points within ~15 km of a coordinate. With the finder's default
+     sortType=RECOMMENDED those are not the 20 nearest (closer points are
+     left out), so this asks for sortType=NEAREST. It needs the cookies of a
+     browser session, so Playwright opens the store once; the page's own
+     first call also gives the clientId. After that every call is a plain
+     HTTP request.
+
+Strategy: an adaptive grid over the country (data/municipality_polygon_cache.json).
+Each cell is searched from its centre; if 20 points came back and the 20th is
+closer than the cell's corners, the cell may hide more and is split in four.
+Cells start at 16 km, so a corner (11.3 km) stays inside the search radius.
+
+The earlier version typed each municipality into the finder: ~1 h, and
+capped at 20 per search, so dense municipalities were undercounted (the
+count fell from ~1,700 to ~1,150 in August 2026 without a change on our
+side). This takes minutes and has no cap.
 
 Prerequisites:
     pip install playwright
@@ -13,314 +30,305 @@ Usage:
 """
 
 import json
+import math
+import sys
+import threading
 import time
-from pathlib import Path
+from collections import Counter
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
-from typing import Dict, List
+from pathlib import Path
+from urllib.parse import parse_qs, urlparse
+
+import requests
+from shapely import wkt
+from shapely.geometry import box
+from shapely.strtree import STRtree
 
 try:
-    from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeout
+    from playwright.sync_api import sync_playwright
 except ImportError:
     print("Playwright not installed. Run:")
     print("   pip install playwright")
     print("   playwright install chromium")
-    exit(1)
+    sys.exit(1)
+
+ROOT = Path(__file__).resolve().parent.parent
+MUNICIPALITY_POLYGONS_FILE = ROOT / "data" / "municipality_polygon_cache.json"
+OUTPUT_FILE = ROOT / "data" / "amazon_all_locations.json"
+ISO2 = "NL"
+LOCALE = "nl-NL"
+# Netherlands incl. the Wadden islands; the cell grid itself comes from the
+# municipality outlines, this only drops stray results across the border
+NL_BOUNDS = (50.70, 3.30, 53.60, 7.25)
+
+DOMAIN = "www.amazon.nl"
+ULP_URL = f"https://{DOMAIN}/ulp"
+API_URL = f"https://{DOMAIN}/location_selector/fetch_locations"
+PAGE_CAP = 20
+START_CELL_KM = 16
+MIN_CELL_KM = 0.25
+# The 20 results are near, but not strictly the 20 nearest: a point at 2.0 km
+# can be missing while the 20th is at 2.3 km. So a cell only counts as
+# complete when its corners lie within this share of the 20th point's distance.
+TRUST = 0.5
+# amazon.it answered 503 at 6 parallel; 3 with a short pause stay under the limit
+WORKERS = 3
+REQUEST_DELAY = 0.3
+MAX_ATTEMPTS = 6
+RETRY_ROUNDS = 3
+RETRY_PAUSE = 120  # s, times the round
+
+_local = threading.local()
 
 
-def load_municipalities() -> List[str]:
+def in_bbox(lat, lon):
+    south, west, north, east = NL_BOUNDS
+    return south <= lat <= north and west <= lon <= east
+
+
+def haversine_km(lat1, lon1, lat2, lon2):
+    p = math.radians
+    a = math.sin(p(lat2 - lat1) / 2) ** 2 + math.cos(p(lat1)) * math.cos(p(lat2)) * math.sin(p(lon2 - lon1) / 2) ** 2
+    return 12742 * math.asin(math.sqrt(a))
+
+
+USER_AGENT = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
+)
+
+
+def default_client_id():
+    """The finder's clientId follows the store: amazon_be_..., amazon_it_..."""
+    store = DOMAIN.removeprefix("www.amazon.").split(".")[-1]
+    return f"amazon_{store}_add_to_addressbook_mkt_mobile"
+
+
+def browser_session():
+    """Cookies and clientId from a visit to the store and its finder page.
+
+    From a GitHub runner amazon.com.be answered /ulp with a download instead of
+    the page ("Download is starting"), so the homepage comes first for the
+    session cookies, a failed /ulp load is tolerated, and the clientId falls
+    back to the store's pattern when the page made no call.
     """
-    Load municipality names from municipalities.json.
-    Returns a list of 342 municipality names (excluding "Nederland (totaal)").
-    """
-    municipalities_file = Path(__file__).parent.parent / "webapp" / "public" / "municipalities.json"
+    client_ids = []
 
-    with open(municipalities_file, 'r', encoding='utf-8') as f:
-        municipalities = json.load(f)
-
-    # Filter out "Nederland (totaal)" and extract just the names
-    names = [
-        m['name'] for m in municipalities
-        if m.get('code') is not None
-    ]
-
-    print(f"Loaded {len(names)} municipality names")
-    return names
-
-
-def fetch_all_amazon_locations() -> List[Dict]:
-    """
-    Fetch all Amazon Hub locations in the Netherlands using municipality-based search.
-    Uses autocomplete selection to properly trigger location searches.
-    """
-    print("=" * 80)
-    print("AMAZON HUB COMPLETE LOCATION FETCH (via Playwright)")
-    print("Search method: Municipality names with autocomplete")
-    print("=" * 80)
-    print()
-
-    municipalities = load_municipalities()
-    print()
-
-    all_locations: Dict[str, Dict] = {}  # Keyed by location ID for deduplication
+    def on_request(request):
+        if "fetch_locations" in request.url:
+            client_ids.extend(parse_qs(urlparse(request.url).query).get("clientId", []))
 
     with sync_playwright() as p:
-        print("Launching browser...")
         browser = p.chromium.launch(headless=True)
         context = browser.new_context(
-            locale="nl-NL",
-            viewport={"width": 1280, "height": 800},
+            locale=LOCALE, user_agent=USER_AGENT, accept_downloads=True,
         )
         page = context.new_page()
-
-        # Response handler to capture location data
-        captured_responses = []
-
-        def handle_response(response):
-            if 'fetch_locations' in response.url:
-                try:
-                    if 'json' in response.headers.get('content-type', ''):
-                        body = response.text()
-                        captured_responses.append(body)
-                except:
-                    pass
-
-        page.on("response", handle_response)
-
-        # Navigate to ULP page
-        print("Loading amazon.nl/ulp...")
-        try:
-            page.goto("https://www.amazon.nl/ulp", wait_until="networkidle", timeout=60000)
-        except PlaywrightTimeout:
-            print("Page load timeout, continuing anyway...")
-
-        time.sleep(5)
-
-        # Accept cookies if present
-        accept_btn = page.query_selector('#sp-cc-accept')
-        if accept_btn:
-            accept_btn.click()
-            time.sleep(2)
-
-        print()
-
-        # Search each municipality
-        total = len(municipalities)
-        start_time = time.time()
-        failed_searches = []
-
-        for idx, municipality in enumerate(municipalities):
-            # Progress update every 10 municipalities
-            if idx % 10 == 0:
-                elapsed = time.time() - start_time
-                rate = idx / elapsed if elapsed > 0 else 0
-                eta = (total - idx) / rate if rate > 0 else 0
-                print(f"Progress: {idx}/{total} ({idx*100//total}%) - {len(all_locations)} unique locations - ETA: {eta/60:.1f} min", flush=True)
-
-            # Clear previous responses
-            captured_responses.clear()
-
-            # Find search input (might need to re-find after interactions)
-            search_input = page.query_selector('#lsView input[type="text"]')
-            if not search_input:
-                search_input = page.query_selector('input[placeholder*="Voer"]')
-
-            if not search_input:
-                failed_searches.append(municipality)
-                continue
-
+        page.on("request", on_request)
+        for url in (f"https://{DOMAIN}/", ULP_URL):
             try:
-                # Clear and type the municipality name
-                search_input.click()
-                time.sleep(0.2)
-                search_input.fill('')
-                time.sleep(0.2)
-                search_input.type(municipality, delay=50)
-                time.sleep(1.2)  # Wait for autocomplete
-
-                # Look for autocomplete suggestions
-                suggestions = page.query_selector_all('#lsView li')
-
-                # Click on the first matching suggestion
-                clicked = False
-                for suggestion in suggestions:
-                    try:
-                        text = suggestion.inner_text().lower()
-                        if text.startswith(municipality.lower()):
-                            suggestion.click()
-                            clicked = True
-                            time.sleep(2.5)  # Wait for API response
-                            break
-                    except:
-                        continue
-
-                # If no exact match, click first suggestion
-                if not clicked and suggestions:
-                    try:
-                        suggestions[0].click()
-                        time.sleep(2.5)
-                    except:
-                        pass
-
-            except Exception as e:
-                failed_searches.append(municipality)
-                # Try to recover by refreshing
-                try:
-                    page.goto("https://www.amazon.nl/ulp", wait_until="networkidle", timeout=30000)
-                    time.sleep(3)
-                    # Re-accept cookies if needed
-                    accept_btn = page.query_selector('#sp-cc-accept')
-                    if accept_btn:
-                        accept_btn.click()
-                        time.sleep(2)
-                except:
-                    pass
+                page.goto(url, wait_until="domcontentloaded", timeout=60000)
+            except Exception as e:  # PlaywrightError: download, timeout, reset
+                print(f"   ⚠️  {url}: {str(e).splitlines()[0]}")
                 continue
-
-            # Process captured responses
-            for resp_body in captured_responses:
-                try:
-                    data = json.loads(resp_body)
-                    locations = data.get('locationList') or []
-
-                    for loc in locations:
-                        loc_id = loc.get('id')
-                        if not loc_id or loc_id in all_locations:
-                            continue
-
-                        # Extract coordinates
-                        coords = loc.get('location', {})
-                        latitude = coords.get('latitude', 0)
-                        longitude = coords.get('longitude', 0)
-
-                        # Skip if no valid coordinates
-                        if not latitude or latitude == 0:
-                            continue
-
-                        # Store location with standardized format
-                        address = loc.get('addressLine1', '') or loc.get('addressLine2', '') or ''
-                        all_locations[loc_id] = {
-                            'id': loc_id,
-                            'locatieNaam': loc.get('name', ''),
-                            'straatNaam': address.strip(),
-                            'straatNr': '',
-                            'postcode': loc.get('postalCode', ''),
-                            'city': loc.get('city', ''),
-                            'latitude': latitude,
-                            'longitude': longitude,
-                            'puntType': loc.get('accessPointType', '').lower(),
-                            'apisType': loc.get('apisAccessPointType', ''),
-                            'vervoerder': 'Amazon',
-                        }
-
-                except json.JSONDecodeError:
-                    continue
-
-            # Small delay between searches
-            time.sleep(0.3)
-
+            time.sleep(3)
+        for _ in range(20):
+            if client_ids:
+                break
+            time.sleep(0.5)
+        cookies = {c["name"]: c["value"] for c in context.cookies()}
         browser.close()
 
-    locations_list = list(all_locations.values())
-    print()
-    print(f"Fetched {len(locations_list)} unique Amazon locations")
-
-    if failed_searches:
-        print(f"Failed searches ({len(failed_searches)}): {', '.join(failed_searches[:10])}...")
-
-    return locations_list
+    client_id = client_ids[0] if client_ids else default_client_id()
+    return cookies, USER_AGENT, client_id
 
 
-def analyze_locations(locations: List[Dict]):
-    """Print statistics about fetched locations."""
-    print()
-    print("=" * 80)
-    print("ANALYSIS")
-    print("=" * 80)
-    print()
-
-    if not locations:
-        print("No locations to analyze")
-        return
-
-    # Count by type
-    type_counts = {}
-    for loc in locations:
-        loc_type = loc.get('puntType', 'unknown')
-        type_counts[loc_type] = type_counts.get(loc_type, 0) + 1
-
-    print("By type:")
-    for loc_type, count in sorted(type_counts.items(), key=lambda x: -x[1]):
-        print(f"   {loc_type:20s}: {count:4d}")
-
-    # Count by city (top 15)
-    city_counts = {}
-    for loc in locations:
-        city = loc.get('city', 'Unknown')
-        if city:
-            # Normalize city names (some are uppercase)
-            city_normalized = city.title()
-            city_counts[city_normalized] = city_counts.get(city_normalized, 0) + 1
-
-    if city_counts:
-        print()
-        print("Top 15 cities:")
-        for i, (city, count) in enumerate(sorted(city_counts.items(), key=lambda x: -x[1])[:15], 1):
-            print(f"   {i:2d}. {city:25s}: {count:3d}")
-
-    # Geographic bounds
-    lats = [loc['latitude'] for loc in locations if loc.get('latitude')]
-    lons = [loc['longitude'] for loc in locations if loc.get('longitude')]
-
-    if lats and lons:
-        print()
-        print("Geographic coverage:")
-        print(f"   Latitude:  {min(lats):.4f} to {max(lats):.4f}")
-        print(f"   Longitude: {min(lons):.4f} to {max(lons):.4f}")
+def country_cells():
+    """16 km cells (as lat/lon boxes) that touch a Dutch municipality."""
+    with open(MUNICIPALITY_POLYGONS_FILE, encoding="utf-8") as f:
+        polygons = [wkt.loads(entry["geometry_wkt"]) for entry in json.load(f).values() if entry.get("geometry_wkt")]
+    tree = STRtree(polygons)
+    minx = min(p.bounds[0] for p in polygons)
+    miny = min(p.bounds[1] for p in polygons)
+    maxx = max(p.bounds[2] for p in polygons)
+    maxy = max(p.bounds[3] for p in polygons)
+    dlat = START_CELL_KM / 111.32
+    cells = []
+    lat = miny
+    while lat < maxy:
+        dlon = START_CELL_KM / (111.32 * math.cos(math.radians(lat + dlat / 2)))
+        lon = minx
+        while lon < maxx:
+            cell = box(lon, lat, lon + dlon, lat + dlat)
+            if any(polygons[i].intersects(cell) for i in tree.query(cell)):
+                cells.append((lat, lon, lat + dlat, lon + dlon))
+            lon += dlon
+        lat += dlat
+    return cells
 
 
-def save_results(locations: List[Dict]):
-    """Save locations to JSON file."""
-    print()
-    print("=" * 80)
-    print("SAVING RESULTS")
-    print("=" * 80)
-    print()
+class Fetcher:
+    def __init__(self, cookies, user_agent, client_id):
+        self.cookies = cookies
+        self.headers = {"User-Agent": user_agent, "Accept": "application/json", "Accept-Language": LOCALE}
+        self.params = {
+            "clientId": client_id, "countryCode": ISO2, "sortType": "NEAREST", "userBenefit": "false",
+            "showFreeShippingLabel": "false", "showPromotionDetail": "false", "showAvailableLocations": "false",
+        }
+        self.lock = threading.Lock()
+        self.pause_until = 0.0
 
-    from cache_guard import safe_save
+    def session(self):
+        if not hasattr(_local, "session"):
+            _local.session = requests.Session()
+            _local.session.headers.update(self.headers)
+            _local.session.cookies.update(self.cookies)
+        return _local.session
 
-    output_path = Path(__file__).parent.parent / "data" / "amazon_all_locations.json"
+    def search(self, lat, lon):
+        params = dict(self.params, latitude=f"{lat:.5f}", longitude=f"{lon:.5f}")
+        for attempt in range(MAX_ATTEMPTS):
+            # A refusal pauses every worker, not just the one that got it
+            wait = self.pause_until - time.time()
+            time.sleep(max(wait, 0) + REQUEST_DELAY)
+            try:
+                resp = self.session().get(API_URL, params=params, timeout=30)
+                resp.raise_for_status()
+                data = resp.json()
+                # A throttled call is valid JSON without points:
+                # {"exceptionClassName":"ThrottlingException"}
+                if data.get("isErrored") or data.get("exceptionClassName"):
+                    raise ValueError(data.get("exceptionClassName") or "isErrored")
+                return data.get("locationList") or []
+            except (requests.RequestException, ValueError) as e:
+                if attempt == MAX_ATTEMPTS - 1:
+                    raise RuntimeError(f"{lat:.4f},{lon:.4f}: {e}")
+                # 5, 10, 20, 40, 80 s: a 503 is Amazon's rate limit, it needs a real pause
+                with self.lock:
+                    self.pause_until = max(self.pause_until, time.time() + 5 * 2 ** attempt)
 
-    safe_save(
-        carrier="Amazon",
-        new_locations=locations,
-        output_path=output_path,
-        metadata={
-            "method": "playwright-scraping-municipality-autocomplete",
-            "source": "https://www.amazon.nl/ulp",
-            "country": "Netherlands",
-        },
-    )
+    def try_search(self, cell):
+        """(cell, locations), or (cell, None) when Amazon kept refusing it."""
+        s, w, n, e = cell
+        try:
+            return cell, self.search((s + n) / 2, (w + e) / 2)
+        except RuntimeError as err:
+            print(f"   ⚠️  {err}", flush=True)
+            return cell, None
+
+
+def crawl(fetcher, cells):
+    """Search every cell, splitting the crowded ones, until no cell is left."""
+    found = {}
+    calls = 0
+    splits = 0
+    level = 0
+    while cells:
+        level += 1
+        with ThreadPoolExecutor(max_workers=WORKERS) as pool:
+            results = list(pool.map(fetcher.try_search, cells))
+        calls += len(cells)
+        # Cells Amazon kept refusing get a few more rounds after a longer pause;
+        # only if they still fail is the whole run given up (cache untouched)
+        for round_ in range(1, RETRY_ROUNDS + 1):
+            failed = [c for c, locs in results if locs is None]
+            if not failed:
+                break
+            print(f"   {len(failed)} searches refused; retrying in {RETRY_PAUSE * round_} s", flush=True)
+            time.sleep(RETRY_PAUSE * round_)
+            retried = dict(fetcher.try_search(c) for c in failed)
+            calls += len(failed)
+            results = [(c, retried.get(c, locs)) for c, locs in results]
+        failed = [c for c, locs in results if locs is None]
+        if failed:
+            raise RuntimeError(f"{len(failed)} searches still refused after {RETRY_ROUNDS} retry rounds")
+        next_cells = []
+        for (s, w, n, e), locations in results:
+            clat, clon = (s + n) / 2, (w + e) / 2
+            for loc in locations:
+                found.setdefault(loc.get("id"), loc)
+            if len(locations) < PAGE_CAP:
+                continue
+            reach = max(haversine_km(clat, clon, l["location"]["latitude"], l["location"]["longitude"]) for l in locations)
+            corner = haversine_km(clat, clon, n, e)
+            if reach * TRUST >= corner or corner < MIN_CELL_KM:
+                continue
+            splits += 1
+            next_cells += [(s, w, clat, clon), (s, clon, clat, e), (clat, w, n, clon), (clat, clon, n, e)]
+        print(f"   level {level}: {len(cells)} searches, {len(found)} points, {len(next_cells)} cells to refine", flush=True)
+        cells = next_cells
+    return found, calls, splits
+
+
+def normalize(loc):
+    coords = loc.get("location") or {}
+    address = loc.get("addressLine1") or loc.get("addressLine2") or ""
+    return {
+        "id": loc["id"],
+        "locatieNaam": loc.get("name", ""),
+        "straatNaam": address.strip(),
+        "straatNr": "",
+        "postcode": loc.get("postalCode", ""),
+        "city": loc.get("city", ""),
+        "latitude": coords["latitude"],
+        "longitude": coords["longitude"],
+        "puntType": (loc.get("accessPointType") or "").lower(),
+        "apisType": loc.get("apisAccessPointType", ""),
+        "vervoerder": "Amazon",
+    }
 
 
 def main():
-    print()
-    print(f"Starting Amazon Hub location fetch...")
-    print(f"Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    print()
-
-    locations = fetch_all_amazon_locations()
-
-    if locations:
-        analyze_locations(locations)
-        save_results(locations)
-    else:
-        print("No locations fetched")
-
-    print()
     print("=" * 80)
-    print("COMPLETE!")
+    print("AMAZON HUB COMPLETE LOCATION FETCH")
     print("=" * 80)
+    print(f"Time: {datetime.now():%Y-%m-%d %H:%M:%S}")
+
+    started = time.time()
+    cookies, user_agent, client_id = browser_session()
+    print(f"🌐 {ULP_URL}: session ok, clientId {client_id}")
+
+    cells = country_cells()
+    print(f"📍 {len(cells)} cells of {START_CELL_KM} km, {WORKERS} parallel\n")
+
+    try:
+        found, calls, splits = crawl(Fetcher(cookies, user_agent, client_id), cells)
+    except RuntimeError as e:
+        print(f"❌ Search failed ({e}); cache not updated")
+        return 1
+
+    locations = []
+    for loc in found.values():
+        try:
+            record = normalize(loc)
+        except (KeyError, TypeError):
+            continue
+        if loc.get("countryCode", ISO2) == ISO2 and in_bbox(record["latitude"], record["longitude"]):
+            locations.append(record)
+
+    print(f"\n✅ {len(locations)} Amazon locations ({calls} searches, {splits} splits, {(time.time() - started) / 60:.1f} min)")
+    for punt_type, count in Counter(loc["puntType"] for loc in locations).most_common():
+        print(f"   {punt_type:15s}: {count:6d}")
+
+    if not locations:
+        print("❌ No locations fetched")
+        return 1
+
+    from cache_guard import safe_save
+    safe_save(
+        carrier="Amazon",
+        new_locations=locations,
+        output_path=OUTPUT_FILE,
+        metadata={
+            "method": "adaptive-grid",
+            "source": API_URL,
+            "country": "Netherlands",
+            "searches": calls,
+        },
+    )
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
