@@ -28,6 +28,7 @@ export default function DataExportLayout({
   const isPois = pathname === '/data-export/pois';
   const isBeleidsprincipes = pathname === '/data-export/beleidsprincipes';
   const isPilotlocaties = pathname === '/data-export/pilotlocaties';
+  const isSportlocaties = pathname === '/data-export/sportlocaties';
 
   return (
     <div className="min-h-screen bg-muted">
@@ -165,6 +166,19 @@ export default function DataExportLayout({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v3a2 2 0 01-2 2H7a2 2 0 01-2-2V5zm0 11a2 2 0 012-2h10a2 2 0 012 2v3a2 2 0 01-2 2H7a2 2 0 01-2-2v-3zm3-9h.01M8 18h.01" />
               </svg>
               Pilotlocaties
+            </Link>
+            <Link
+              href="/data-export/sportlocaties"
+              className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
+                isSportlocaties
+                  ? 'border-primary text-primary'
+                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
+              }`}
+            >
+              <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              Sportlocaties
             </Link>
             <Link
               href="/data-export/schatting"
