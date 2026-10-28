@@ -8,6 +8,7 @@
 // worden voordat een locatie in een pilot-aanvraag terechtkomt.
 
 export type PilotStatus =
+  | 'pilot'
   | 'draagvlak'
   | 'in-gesprek'
   | 'nog-niet-gesproken'
@@ -18,6 +19,8 @@ export type PilotType =
   | 'openbare-ruimte'
   | 'leegstand'
   | 'fietsparkeren'
+  | 'ov-station'
+  | 'sportlocatie'
   | 'onbepaald';
 
 export type CoordBron = 'aangeleverd' | 'pdok-bag' | 'osm' | 'kaartpin';
@@ -51,6 +54,12 @@ export const STATUS_META: Record<
   PilotStatus,
   { label: string; badge: string; dot: string; uitleg: string }
 > = {
+  pilot: {
+    label: 'Huidige pilot',
+    badge: 'bg-violet-50 text-violet-800 border-violet-200',
+    dot: '#7c3aed',
+    uitleg: 'Geldt als huidige pilotlocatie van de gemeente; ontwerp, maatvoering of vergunningen in uitwerking.',
+  },
   draagvlak: {
     label: 'Draagvlak',
     badge: 'bg-emerald-50 text-emerald-800 border-emerald-200',
@@ -98,6 +107,16 @@ export const TYPE_META: Record<PilotType, { label: string; uitleg: string }> = {
     uitleg:
       'Bestaande (bewaakte) fietsenstalling: inpandig, sociale controle aanwezig, rugdekking geregeld.',
   },
+  'ov-station': {
+    label: 'OV-station',
+    uitleg:
+      'Plaatsing bij of in een metro- of OV-station: veel passanten en sociale controle, ophalen past in een bestaande reisbeweging.',
+  },
+  sportlocatie: {
+    label: 'Sportlocatie',
+    uitleg:
+      'Plaatsing bij een sportcomplex: eigen terrein met parkeerruimte en vaste bezoekersstromen, buiten de woonstraat.',
+  },
   onbepaald: {
     label: 'Vorm nog te bepalen',
     uitleg: 'Inrichtingsvorm van deze locatie is nog niet vastgesteld.',
@@ -105,6 +124,48 @@ export const TYPE_META: Record<PilotType, { label: string; uitleg: string }> = {
 };
 
 export const PILOT_LOCATIONS: PilotLocation[] = [
+  // ---------------------------------------------------------------- Amsterdam
+  {
+    id: 'amsterdam-waterlooplein',
+    gemeente: 'Amsterdam',
+    slug: 'amsterdam',
+    naam: 'Metrostation Waterlooplein',
+    lat: 52.3673943,
+    lon: 4.9022371,
+    type: 'ov-station',
+    status: 'pilot',
+    rang: 1,
+    coordBron: 'osm',
+    toelichting: [
+      'Concrete pilot voor Amsterdam. Ontwerp, renders en maatvoering zijn al ver uitgewerkt.',
+      'Metrostation in de binnenstad: veel passanten en sociale controle, en ophalen past in een bestaande reisbeweging.',
+    ],
+    vervolg: 'Uitgewerkt ontwerp toetsen aan de beleidsprincipes en de plaatsing vastleggen.',
+    letOp:
+      'Coordinaat is het stationsobject in OpenStreetMap, niet de exacte kluispositie uit het ontwerp.',
+  },
+
+  // ---------------------------------------------------------------- Rotterdam
+  {
+    id: 'rotterdam-romeynshof',
+    gemeente: 'Rotterdam',
+    slug: 'rotterdam',
+    naam: 'Romeynshof, Ommoord',
+    lat: 51.9615094,
+    lon: 4.5428712,
+    type: 'ov-station',
+    status: 'pilot',
+    rang: 1,
+    coordBron: 'osm',
+    toelichting: [
+      'Concrete pilot voor Rotterdam. Er is circa 10 m beschikbaar voor de kluis.',
+      'Ligt in Ommoord bij het eindpunt van metrolijn B, midden in een dichtbewoonde hoogbouwwijk.',
+    ],
+    vervolg: 'Ruimtelijke en gemeentelijke uitwerking van de plek afronden.',
+    letOp:
+      'Coordinaat is metrostation Romeynshof (OpenStreetMap); de exacte plek met de beschikbare 10 m nog vastleggen.',
+  },
+
   // ---------------------------------------------------------------- Den Haag
   {
     id: 'den-haag-conradkade',
@@ -135,15 +196,16 @@ export const PILOT_LOCATIONS: PilotLocation[] = [
     lat: 52.07863291,
     lon: 4.30706424,
     type: 'fietsparkeren',
-    status: 'in-gesprek',
+    status: 'pilot',
     rang: 2,
     coordBron: 'pdok-bag',
     toelichting: [
       'Tweede pilotlocatie voor Den Haag: een bestaande Biesieklette-fietsenstalling in het centrum, dus inpandig en met toezicht.',
       'Inpandige plaatsing in bestaand (gemeentelijk) vastgoed staat hoog in de voorkeursvolgorde van gemeenten en omzeilt de discussie over objecten in de openbare ruimte.',
+      'Staat samen met een pop-up-variant op de huidige shortlist van Den Haag. Detaillering en vergunningen zijn nog nodig.',
     ],
     vervolg:
-      'Openingstijden van de stalling toetsen tegen de gewenste 24/7-beschikbaarheid van een kluis.',
+      'Detaillering en vergunningen uitwerken; openingstijden van de stalling toetsen tegen de gewenste 24/7-beschikbaarheid van een kluis.',
     letOp:
       'BAG-geocodering geeft voor Nobelstraat 2D postcode 2513 BD, niet 2513 BB — postcode verifieren.',
   },
@@ -172,18 +234,20 @@ export const PILOT_LOCATIONS: PilotLocation[] = [
     id: 'utrecht-vaartsche-rijn',
     gemeente: 'Utrecht',
     slug: 'utrecht',
-    naam: 'Leegstand Vaartsche Rijn',
+    naam: 'Winkel Vaartsche Rijn',
     lat: 52.0789532,
     lon: 5.1221756,
     type: 'leegstand',
-    status: 'uitwerken',
+    status: 'pilot',
     rang: 2,
     coordBron: 'kaartpin',
     toelichting: [
       'Leegstaand pand bij Vaartsche Rijn. Inpandige plaatsing in bestaand vastgoed is de eerste trede in de voorkeursvolgorde van Utrecht — geen object in de openbare ruimte.',
       'Ligging aan de zuidkant van de binnenstad, binnen loopafstand van een dichtbewoond gebied.',
+      'Een van de drie concrete varianten voor Utrecht, en ook in beeld als bemand punt.',
     ],
-    vervolg: 'Eigenaar achterhalen en polsen; verwachte duur van de leegstand ophalen.',
+    vervolg:
+      'Kiezen tussen kluis en bemand punt; eigenaar polsen en verwachte duur van de leegstand ophalen.',
     bron: {
       label: 'Gedeelde kaartpin',
       url: 'https://maps.app.goo.gl/SHN5qFiz1ZnHvULS7',
@@ -221,15 +285,15 @@ export const PILOT_LOCATIONS: PilotLocation[] = [
     lat: 52.057498,
     lon: 5.10502,
     type: 'pr',
-    status: 'draagvlak',
+    status: 'pilot',
     rang: 4,
     coordBron: 'osm',
     toelichting: [
-      'Draagvlak aanwezig bij de gemeente, maar als pilotlocatie minder interessant.',
+      'Een van de drie concrete varianten voor Utrecht; er is draagvlak bij de gemeente.',
       'Als P+R aan de zuidrand van de stad heeft de locatie weinig inwoners binnen loopafstand; het bereik komt vooral van reizigers die er toch al parkeren of overstappen.',
     ],
     vervolg:
-      'Alleen doorzetten als aanvulling op een binnenstedelijke locatie, niet als eerste pilot.',
+      'Variant naast Sportcentrum Oudenrijn en Vaartsche Rijn uitwerken; bereik vooral via reizigers.',
   },
   {
     id: 'utrecht-papendorp',
@@ -265,6 +329,25 @@ export const PILOT_LOCATIONS: PilotLocation[] = [
     ],
     vervolg:
       'Gesprek inplannen; nagaan of plaatsing kan meelopen in de gebiedsontwikkeling Leidsche Rijn Centrum.',
+  },
+  {
+    id: 'utrecht-oudenrijn',
+    gemeente: 'Utrecht',
+    slug: 'utrecht',
+    naam: 'Sportcentrum Oudenrijn',
+    adres: 'Europaweg 48, 3451 HG Utrecht',
+    lat: 52.0886005,
+    lon: 5.0232316,
+    type: 'sportlocatie',
+    status: 'pilot',
+    rang: 7,
+    coordBron: 'osm',
+    toelichting: [
+      'Een van de drie concrete varianten voor Utrecht, naast P+R Westraven en Vaartsche Rijn.',
+      'Sportcomplex in Vleuterweide (Leidsche Rijn): eigen terrein met parkeerruimte en vaste bezoekersstromen, aan de rand van een jonge woonwijk.',
+    ],
+    vervolg: 'Plek op het terrein en afspraken met de beheerder van het sportcentrum uitwerken.',
+    letOp: 'Coordinaat is het sportcentrum zelf (OpenStreetMap), nog geen exacte kluispositie.',
   },
 ];
 
