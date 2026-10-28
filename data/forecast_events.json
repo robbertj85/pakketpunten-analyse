@@ -1,0 +1,24 @@
+{
+  "_doc": "Known measurement events for scripts/forecast_growth.py. Weeks are ISO labels from data/point_history.json. intro: the carrier enters the data (level, not growth). level_reset: the count jumps because of how it was fetched; the change in that week is not counted as growth. stale: the weeks from..to repeat an old cache and carry no information. invalid: a broken snapshot for that week. Unlisted jumps are caught by the automatic detection and listed in the forecast output, so they can be promoted here.",
+  "events": [
+    {"carrier": "Amazon", "type": "intro", "week": "2026-W02"},
+    {"carrier": "Amazon", "type": "stale", "from": "2026-W03", "to": "2026-W09", "note": "Amazon-cache acht weken ongewijzigd (1179)"},
+    {"carrier": "Amazon", "type": "level_reset", "week": "2026-W10", "note": "Amazon-ophaalscript hersteld"},
+    {"carrier": "Amazon", "type": "level_reset", "week": "2026-W31", "note": "Sprong naar 2126, daarna bevroren"},
+    {"carrier": "Amazon", "type": "stale", "from": "2026-W32", "to": "2026-W38", "note": "Amazon-cache bevroren op 2126"},
+    {"carrier": "Amazon", "type": "level_reset", "week": "2026-W39", "note": "Amazon op adaptief raster"},
+    {"carrier": "Amazon", "type": "invalid", "week": "2026-W40", "note": "Snapshot met oude Amazon-cache"},
+    {"carrier": "Amazon", "type": "level_reset", "week": "2026-W41", "note": "Amazon-fetch overleeft 503-reeksen"},
+    {"carrier": "GLS", "type": "intro", "week": "2026-W03"},
+    {"carrier": "InPost", "type": "intro", "week": "2026-W13"},
+    {"carrier": "ViaTim", "type": "intro", "week": "2026-W13"},
+    {"carrier": "Budbee", "type": "intro", "week": "2026-W13"},
+    {"carrier": "Budbee", "type": "level_reset", "week": "2026-W14", "note": "Eerste volledige Budbee-fetch"},
+    {"carrier": "Budbee", "type": "level_reset", "week": "2026-W19", "note": "Budbee-telling springt naar 432"},
+    {"carrier": "Budbee", "type": "stale", "from": "2026-W21", "to": "2026-W38", "note": "Budbee-cache bevroren"},
+    {"carrier": "Budbee", "type": "level_reset", "week": "2026-W39", "note": "Cache guard accepteert echte Budbee-daling"},
+    {"carrier": "Budbee", "type": "invalid", "week": "2026-W40", "note": "Snapshot met oude Budbee-cache"},
+    {"carrier": "FedEx", "type": "intro", "week": "2026-W39"},
+    {"carrier": "FedEx", "type": "invalid", "week": "2026-W40", "note": "Snapshot zonder FedEx"}
+  ]
+}

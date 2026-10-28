@@ -105,7 +105,41 @@ python scripts/suggest_placements.py --snap-workers 4   # ~30 min cold (PDOK cal
 # Build the simplified municipality boundary GeoJSON used by the gemeente-
 # level coverage choropleth. Re-run when the polygon cache changes.
 python scripts/build_municipality_boundaries.py  # ~5s
+
+# Growth forecast to 2030 (/data-export/prognose). Weekly in update-data.yml:
+# point_history.py adds the current week (category split + location dedupe),
+# forecast_growth.py refits. --backfill rebuilds all weeks from git (~1 min).
+python scripts/point_history.py --backfill      # one-off; data/point_history.json + point_lifetimes.json
+python scripts/fetch_cbs_population_forecast.py # one-off; CBS/PBL COROP prognose + stedelijkheid
+python scripts/forecast_growth.py               # ~15s; webapp/public/data/forecast/
+
+# Public/private terrain per POI (port of inleverpuntenviewer's classifier:
+# OSM tags -> category -> PDOK BGT under the point). Then re-split the bundles.
+python scripts/classify_poi_ownership.py --workers 8   # ~10 min cold, cached in data/poi_ownership_cache.json
+python scripts/split_pois_by_municipality.py
+
+# Where the forecast growth lands + terrain per spot (needs the three above
+# and placement_suggestions.json). BGT ring lookups cached in data/bgt_terrain_cache.json.
+python scripts/forecast_placements.py --workers 8      # webapp/public/data/forecast_placements/
 ```
+
+### Growth Forecast (`/data-export/prognose`)
+
+- **Two counts everywhere**: `punten` (per carrier) and `locaties` (unique physical
+  spots: within 15 m, or 40 m with the same address; `scripts/point_categories.py`).
+  Their ratio / the share of locations with 2+ carriers is the white-label indicator.
+- **Measurement breaks are not growth.** `data/forecast_events.json` registers carrier
+  intros, fetcher resets, stale and invalid weeks; `forecast_growth.py` also detects
+  stale runs, Hampel outliers, one-week drops > 8%, rises > 20% and category relabels
+  (PostNL W03). Growth is chain-linked over carriers with a valid week on both sides.
+  When a new jump shows up as "automatisch" on the page and its cause is known, add it
+  to the register.
+- **Model**: damped trend on log levels per carrier x category; a carrier's excess over
+  the market slope fades (half-life ~17 weeks); logistic cap from the P90 density per
+  stedelijkheidsklasse x headroom, moving with the CBS population forecast. Scenarios
+  laag/midden/hoog = damping + headroom. Bands are calibrated on a rolling backtest
+  (`onzekerheid_factor`). Gemeenten get Dirichlet-shrunk shares of national growth, so
+  they always sum to national; reliability stats + `betrouwbaarheid` label per gemeente.
 
 ### Statistical Analysis
 
@@ -347,6 +381,8 @@ All API calls use `requests.Session()` with proxy bypass for specific domains (h
     - `index.json` → Metadata about all provincial files
     - `provincie-{slug}.geojson` → Individual province boundaries
   - `placement_suggestions.json` → Per-municipality top-10 PC4 ranking with up to 5 spots per PC4. Each spot is a distinct BAG building (pand id + bouwjaar + gebruiksdoel, within 250 m of the densest CBS cell of the white-spot) with its nearest address (`adres`, PDOK Locatieserver). Population estimate comes from CBS 100 m cells inside the snapped pand's 400 m buffer × white-spot intersection; `marginal: false` marks alternatives whose reach overlaps earlier spots. Produced by `scripts/suggest_placements.py`.
+  - `forecast/` → `national.json`, `index.json` and `<slug>.json` with history, the three scenarios (week/maand/jaar, P10/P50/P90), per-carrier medians, events, backtest and reliability. Produced by `scripts/forecast_growth.py`.
+  - `forecast_placements/` → per gemeente the yearly split of forecast growth into co-locatie / verdichting / witte vlek, the witte-vlek spots with `terrein` (privaat/publiek/onbekend), both host options and `privaat_niet_invulbaar`. Produced by `scripts/forecast_placements.py`.
 
 ## Performance Considerations
 
