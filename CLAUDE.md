@@ -135,11 +135,36 @@ python scripts/forecast_placements.py --workers 8      # webapp/public/data/fore
   When a new jump shows up as "automatisch" on the page and its cause is known, add it
   to the register.
 - **Model**: damped trend on log levels per carrier x category; a carrier's excess over
-  the market slope fades (half-life ~17 weeks); logistic cap from the P90 density per
-  stedelijkheidsklasse x headroom, moving with the CBS population forecast. Scenarios
-  laag/midden/hoog = damping + headroom. Bands are calibrated on a rolling backtest
-  (`onzekerheid_factor`). Gemeenten get Dirichlet-shrunk shares of national growth, so
+  its category's market slope (level-weighted *median* of lockers, resp. shops, so one
+  launching carrier cannot set the pace) fades (half-life ~17 weeks); the market slope
+  damps towards the growth of out-of-home parcel demand, not to zero; logistic cap from
+  the P90 density per stedelijkheidsklasse x headroom, moving with the CBS population
+  forecast and with afhaalpakketten per inwoner. Scenarios laag/midden/hoog = damping +
+  headroom + ACM demand path (shops fade to volume growth, lockers also to the rising
+  kluis share); every scenario reports its own median with a P10-P90 band. Growth
+  below the market fades slower (half-life ~1 year) than growth above it. Bands are
+  calibrated on a rolling backtest (`onzekerheid_factor`); a carrier's slope error is
+  MAD-based and capped (`MAX_SLOPE_SE`). Carriers and categories are split from the
+  total with `decompose` (mean over the paths whose 2030 total is near the quantile,
+  rescaled per week), so every view adds up; never a common scale factor (blew up
+  near zero) or a spread-weighted gap (handed InPost's tail the whole gap). Gemeenten get Dirichlet-shrunk shares of national growth, so
   they always sum to national; reliability stats + `betrouwbaarheid` label per gemeente.
+- **Scope = today's ingestion, for every week.** `point_history.py` drops Budbee boxes
+  listed in the DPD feed and statiegeld-only ViaTim points (transporters ==
+  `["STATIEGELDNL"]`, read from the ViaTim cache of the same commit) in all historical
+  weeks, so the history measures one definition. Without that, DPD lockers and ViaTim
+  showed 200%+ "growth" that was partner lockers and deposit-return points.
+- **Parcel demand (ACM)**: `data/acm_parcel_volume.json` (volumes, B2C share, afhaal-
+  aandeel, scenario assumptions, sources) + `scripts/parcel_demand.py` (parcels per
+  inhabitant). The Netwerkplanner's `capacity_defaults.pakketten_pp_jaar`, its
+  out-of-home slider default (`afhaal_aandeel_consument`, ~23% of consumer parcels),
+  the Prognose's `pakketvraag.per_inwoner` and the yearly demand path per scenario
+  (`pakketvraag.scenarios.*.pad`, the ACM chart) all come from it; update the JSON when a new
+  ACM Post- en Pakketmonitor appears (June), then rerun `forecast_growth.py` and
+  `plan_locker_network.py` (or patch `capacity_defaults` in `locker_network/*.json`).
+- **Per-carrier regression** in the table is linear on the level (points added per
+  year, also as % of today), not a compounded log slope: a carrier that just launched
+  compounds to absurd percentages.
 
 ### Statistical Analysis
 
@@ -420,6 +445,9 @@ Bezettingsgraad data is willekeurig gegenereerd voor demonstratie (niet echt)
 - **DPD via `api_client.get_data_dpd()`**: Limited to 100 results (use `dpd_fetch_all.py` + integration script for complete coverage)
 - **Amazon via OSM**: OpenStreetMap data is community-maintained and may have gaps
 - **De Buren**: Web scraping - may break if website structure changes
+- **ViaTim statiegeld**: ViaTim lists deposit-return inleverpunten (only transporter
+  `STATIEGELDNL`, ~500 in Oct 2026 and growing). `api_client.get_data_viatim()` skips
+  them; published geojsons keep them until the next `batch_generate.py` run
 - **Logo loading**: Uses local SVG files in `webapp/public/logos/` (falls back to initials if missing)
 - **Nederland view**: Very large dataset (50,000+ markers) - simple markers recommended
 

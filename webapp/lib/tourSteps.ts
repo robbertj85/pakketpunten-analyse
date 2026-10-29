@@ -460,7 +460,7 @@ export const TOUR_STEPS: Record<string, TourStep[]> = {
     {
       target: '[data-tour="ooh-slider"]',
       title: 'Het out-of-home aandeel',
-      body: 'Den Haag wil van circa 20 procent naar 80 procent out-of-home bezorging. Deze schuif bepaalt hoeveel pakketten door de kluizen stromen en dus hoeveel kluiscapaciteit er nodig is. De locaties veranderen niet — alleen de capaciteitsberekening.',
+      body: 'De schuif start op het huidige landelijke aandeel volgens de ACM: circa 23 procent van de consumentenpakketten wordt afgehaald. Den Haag wil naar 80 procent out-of-home bezorging. Deze schuif bepaalt hoeveel pakketten door de kluizen stromen en dus hoeveel kluiscapaciteit er nodig is. De locaties veranderen niet — alleen de capaciteitsberekening.',
     },
     {
       target: '[data-tour="n-slider"]',
@@ -505,7 +505,7 @@ export const TOUR_STEPS: Record<string, TourStep[]> = {
     {
       target: '[data-tour="aannames"]',
       title: 'Transparante aannames',
-      body: 'Alle aannames staan hier open en bloot: hemelsbrede afstand, CBS-grid als vraagbron, OSM-locaties als kandidaten en het capaciteitsmodel (24 pakketten per inwoner per jaar, 1,5 dag verblijftijd, 85 procent bezetting). Verdedigbaar in elke raadszaal.',
+      body: 'Alle aannames staan hier open en bloot: hemelsbrede afstand, CBS-grid als vraagbron, OSM-locaties als kandidaten en het capaciteitsmodel (consumentenpakketten per inwoner per jaar volgens de ACM-pakketmonitor, 1,5 dag verblijftijd, 85 procent bezetting). Verdedigbaar in elke raadszaal.',
     },
   ],
 };

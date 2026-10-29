@@ -26,6 +26,10 @@ const NetworkPlannerMap = dynamic(() => import('@/components/NetworkPlannerMap')
   ),
 });
 
+// ACM 2025: 17.7% of all parcels collected, about 23% of consumer parcels.
+// Used until the payload (with pakketvraag_acm) has loaded.
+const ACM_OOH_FALLBACK_PCT = 23;
+
 interface MunicipalityOption {
   slug: string;
   name: string;
@@ -45,7 +49,8 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
   const [distance, setDistance] = useState(400);
   const [start, setStart] = useState<string>('alle-punten');
   const [n, setN] = useState(0);
-  const [oohPct, setOohPct] = useState(80);
+  // null = follow the ACM afhaal-aandeel of consumer parcels from the payload.
+  const [oohChoice, setOohChoice] = useState<number | null>(null);
   const [targetPct, setTargetPct] = useState(80);
   const [targetMsg, setTargetMsg] = useState<string | null>(null);
   const [showAssumptions, setShowAssumptions] = useState(false);
@@ -135,6 +140,9 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
     }
   };
 
+  const acm = payload?.pakketvraag_acm;
+  const acmOohPct = acm ? Math.round(100 * (acm.afhaal_aandeel_consument ?? acm.afhaal_aandeel)) : null;
+  const oohPct = oohChoice ?? acmOohPct ?? ACM_OOH_FALLBACK_PCT;
   const oohShare = oohPct / 100;
 
   const stats = useMemo(() => {
@@ -246,18 +254,41 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
       <div data-tour="ooh-slider">
         <label className="block text-xs font-semibold text-subtle-foreground uppercase tracking-wide mb-1.5">
           Aandeel out-of-home: <span className="text-accent-foreground">{oohPct}%</span>
+          {oohChoice == null ? (
+            <span className="ml-1 normal-case font-normal">(huidig, ACM)</span>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setOohChoice(null)}
+              className="ml-1 normal-case font-normal underline hover:text-foreground"
+            >
+              terug naar ACM
+            </button>
+          )}
         </label>
         <input
           type="range"
-          min={10}
+          min={5}
           max={100}
-          step={5}
+          step={1}
           value={oohPct}
-          onChange={(e) => setOohPct(Number(e.target.value))}
+          onChange={(e) => setOohChoice(Number(e.target.value))}
           className="w-full accent-blue-600"
         />
         <p className="text-[11px] text-subtle-foreground mt-0.5">
-          Bepaalt alleen de capaciteitsschatting (kolommen/kasten), niet de locaties.
+          Bepaalt alleen de capaciteitsschatting (kolommen/kasten), niet de locaties. Start op het huidige landelijke
+          aandeel; schuif voor een beleidsdoel (Den Haag mikt op 80%).
+          {payload?.pakketvraag_acm && (
+            <>
+              {' '}Ter vergelijking: landelijk werd in {payload.pakketvraag_acm.jaar}{' '}
+              {(Math.round(payload.pakketvraag_acm.afhaal_aandeel * 1000) / 10).toLocaleString('nl-NL')}% van alle
+              pakketten afgehaald bij een servicepunt of kluis (ACM)
+              {payload.pakketvraag_acm.afhaal_aandeel_consument != null
+                ? `, circa ${Math.round(payload.pakketvraag_acm.afhaal_aandeel_consument * 100)}% van de consumentenpakketten waar deze schuif mee rekent`
+                : ''}
+              .
+            </>
+          )}
         </p>
       </div>
 
@@ -514,12 +545,28 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
                     49 cm per kolom plus 8 cm frame per kast.
                   </p>
                   <p>
-                    De aanname van {payload.capacity_defaults.pakketten_pp_jaar} pakketten per
-                    inwoner per jaar is een conservatieve schatting van het consumentendeel.
-                    Ter referentie: de ACM Post- en pakketmonitor 2024 telt 606 miljoen
-                    pakketten in de totale Nederlandse markt (circa 34 per inwoner, inclusief
-                    zakelijke zendingen). De ACM publiceert alleen landelijke totalen — geen
-                    uitsplitsing per gemeente.
+                    De {payload.capacity_defaults.pakketten_pp_jaar} pakketten per inwoner per jaar
+                    zijn het consumentendeel van het landelijke volume.
+                    {payload.pakketvraag_acm ? (
+                      <>
+                        {' '}De ACM Post- en pakketmonitor telt{' '}
+                        {nlInt(payload.pakketvraag_acm.pakketten_mln)} miljoen pakketten in{' '}
+                        {payload.pakketvraag_acm.jaar}, ofwel{' '}
+                        {payload.pakketvraag_acm.totaal.toLocaleString('nl-NL')} per inwoner inclusief
+                        zakelijke zendingen; het consumentendeel (B2C,{' '}
+                        {Math.round(payload.pakketvraag_acm.b2c_aandeel * 100)}%) is{' '}
+                        {payload.pakketvraag_acm.consument.toLocaleString('nl-NL')} per inwoner.
+                        Landelijk wordt {(payload.pakketvraag_acm.afhaal_aandeel * 100).toLocaleString('nl-NL')}%
+                        van alle pakketten afgehaald, {payload.pakketvraag_acm.afgehaald.toLocaleString('nl-NL')}{' '}
+                        per inwoner per jaar
+                        {payload.pakketvraag_acm.afhaal_aandeel_consument != null
+                          ? ` (circa ${Math.round(payload.pakketvraag_acm.afhaal_aandeel_consument * 100)}% van de consumentenpakketten; zakelijke pakketten worden zelden afgehaald)`
+                          : ''}
+                        . Het out-of-home-aandeel van de schuif geldt voor de consumentenpakketten. Dezelfde
+                        cijfers sturen de groeiprognose.
+                      </>
+                    ) : null}{' '}
+                    De ACM publiceert alleen landelijke totalen — geen uitsplitsing per gemeente.
                   </p>
                   <p>
                     Rol van bestaande pakketpunten: die bepalen alleen wie er bij de start al
@@ -538,14 +585,14 @@ export default function NetworkPlanner({ municipalities, defaultSlug }: Props) {
                   <ul className="list-disc pl-4 space-y-0.5">
                     <li>
                       <a
-                        href="https://www.acm.nl/nl/publicaties/acm-post-en-pakketmonitor-2024-meer-pakketten-minder-post-en-dalende-betrouwbaarheid"
+                        href="https://www.acm.nl/nl/publicaties/omzet-pakketmarkt-stijgt-omzet-postmarkt-stabiel"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-primary hover:text-accent-foreground underline"
                       >
-                        ACM Post- en pakketmonitor 2024
+                        ACM Post- en pakketmonitor 2025
                       </a>{' '}
-                      — pakketvolumes Nederlandse markt (606 mln in 2024)
+                      — pakketvolumes Nederlandse markt (615 mln in 2025) en afhaalaandeel
                     </li>
                     <li>CBS Vierkantstatistieken 100 m (2024) — inwoners per cel</li>
                     <li>OpenStreetMap (Overpass) — kandidaat-locaties</li>

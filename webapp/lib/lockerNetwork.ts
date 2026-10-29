@@ -57,6 +57,19 @@ export interface LockerNetworkPayload {
   };
   type_meta: Record<string, TypeMeta>;
   capacity_defaults: CapacityDefaults;
+  /** ACM parcels per inhabitant (scripts/parcel_demand.py), shared with the Prognose page. */
+  pakketvraag_acm?: {
+    jaar: number;
+    inwoners_mln: number;
+    pakketten_mln: number;
+    totaal: number;
+    consument: number;
+    afgehaald: number;
+    b2c_aandeel: number;
+    afhaal_aandeel: number;
+    /** Collected parcels as a share of consumer parcels: comparable to the OOH slider. */
+    afhaal_aandeel_consument?: number;
+  };
   population_total: number;
   cells: { lat: number[]; lon: number[]; pop: number[] };
   candidates: NetworkCandidate[];

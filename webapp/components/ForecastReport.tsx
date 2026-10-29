@@ -10,6 +10,7 @@ import {
   CartesianGrid,
   ComposedChart,
   Line,
+  ReferenceDot,
   ReferenceLine,
   ResponsiveContainer,
   Scatter,
@@ -40,6 +41,7 @@ import type {
   GemeenteForecast,
   Granularity,
   NationalForecast,
+  Pakketvraag,
   Scenario,
 } from '@/types/forecast';
 import { isNational } from '@/types/forecast';
@@ -874,7 +876,8 @@ function CarrierChart({
       <p className="mt-2 text-xs text-subtle-foreground">
         Historie zoals gemeten (inclusief het moment waarop een vervoerder aan de data werd toegevoegd), daarna de
         mediaanprognose per vervoerder. Snelle groeiers, zoals een nieuwe vervoerder die automaten uitrolt, vlakken in
-        het model in ongeveer vier maanden af naar het marktgemiddelde.
+        het model in ongeveer vier maanden af naar de groei van hun categorie (automaten of bemande punten); een krimpend
+        netwerk krimpt ongeveer een jaar door voordat het de markt volgt.
       </p>
     </div>
   );
@@ -1184,7 +1187,8 @@ function GrowthTable({
         </table>
       </div>
       <p className="mt-2 text-xs text-subtle-foreground">
-        Mediaan per vervoerder, geschaald zodat de vervoerders optellen tot het totaal (afrondingsverschillen daargelaten).
+        Per vervoerder: het gemiddelde over de gesimuleerde toekomsten waarin het totaal rond de mediaan uitkomt, zodat de
+        vervoerders optellen tot het totaal (afrondingsverschillen daargelaten).
       </p>
 
       <div className="mt-5">
@@ -1283,8 +1287,9 @@ function PlacementSection({ slug, naam }: { slug: string; naam: string }) {
   const intro = (
     <p className="mt-1 text-sm text-muted-foreground max-w-4xl">
       Nieuwe punten komen op drie manieren bij: een extra vervoerder op een bestaande locatie, een nieuwe locatie in
-      gebied dat al binnen 400 m van een punt ligt (verdichting), of een nieuwe locatie in een witte vlek. De verdeling
-      volgt wat vervoerders het afgelopen jaar werkelijk deden. Witte-vlekplekken komen uit het plaatsingsadvies en
+      gebied dat al binnen 400 m van een punt ligt (verdichting), of een nieuwe locatie in een witte vlek. Hoeveel punten
+      op bestaande locaties bijkomen, volgt uit de prognose van punten en van unieke locaties; welk deel van de nieuwe
+      locaties in een witte vlek valt, volgt wat vervoerders het afgelopen jaar werkelijk deden. Witte-vlekplekken komen uit het plaatsingsadvies en
       krijgen een terreinlabel: is er een private locatie (winkel of ander bedrijf), of is alleen openbare grond over?
     </p>
   );
@@ -1705,29 +1710,36 @@ function RankingTable({
 
 /* ------------------------------------------------------------------ regressions */
 
-function pctYear(weekly: number) {
-  return 100 * (Math.exp(52 * weekly) - 1);
-}
-
 function RegressionTable({ national }: { national: NationalForecast }) {
   const reg = national.regressies;
   const multi = reg.multi_vs_ratio;
   const rows = CARRIER_ORDER.flatMap((c) =>
     (['locker', 'shop'] as Category[])
-      .map((k) => ({ c, k, ols: reg.per_reeks[`${c}|${k}`], fit: national.fits[`${c}|${k}`] }))
+      .map((k) => ({
+        c,
+        k,
+        ols: reg.per_reeks[`${c}|${k}`],
+        fit: national.fits[`${c}|${k}`],
+        model: reg.model_komend_jaar?.[`${c}|${k}`],
+      }))
       .filter((r) => r.ols || r.fit),
   );
-  const pct = (v: number | undefined) => (v == null ? '—' : `${v >= 0 ? '+' : ''}${nl1.format(v)}%`);
+  // Round first, so -0.04 shows as 0,0% instead of +-0,0%.
+  const pct = (v: number | undefined) => {
+    if (v == null) return '—';
+    const r = Math.round(v * 10) / 10 || 0;
+    return `${r > 0 ? '+' : ''}${nl1.format(r)}%`;
+  };
 
   return (
     <div>
       <h4 className="text-sm font-semibold text-foreground">Regressies en modelparameters</h4>
       <p className="mt-1 text-xs text-subtle-foreground max-w-4xl">
         De prognose zelf is geen regressie maar een gedempte trend (Holt / ETS) per vervoerder en categorie. Ter vergelijking
-        staat hier per reeks een gewone lineaire regressie van log(aantal) op de week, op de voor meetbreuken gecorrigeerde
-        reeks: de helling als groei per jaar, het 95%-interval en R². Een hoge R² met een extreme groei (een vervoerder die net
-        begint met uitrollen) laat zien waarom een rechte lijn niet doorgetrokken kan worden: het model laat zulke groei
-        afvlakken naar de markt.
+        staat hier voor het totaal een lineaire regressie van log(aantal) op de week, op de voor meetbreuken gecorrigeerde
+        reeks. Per vervoerder is dat een regressie van het aantal zelf op de week: het huidige tempo in punten erbij per jaar,
+        ook als percentage van nu. Een samengestelde jaargroei zegt niets bij een vervoerder die net begint (InPost-automaten:
+        van 7 naar ruim 350 in een half jaar). Daarnaast staat wat het model zelf de komende 52 weken verwacht.
       </p>
       <div className="mt-3 grid md:grid-cols-3 gap-3">
         <div className="border border-border rounded-lg p-3">
@@ -1766,26 +1778,39 @@ function RegressionTable({ national }: { national: NationalForecast }) {
             <tr className="text-xs text-muted-foreground border-b border-border">
               <th className="py-1.5 pr-3 text-left font-medium">Vervoerder</th>
               <th className="py-1.5 pr-3 text-left font-medium">Categorie</th>
-              <th className="py-1.5 px-2 text-right font-medium">OLS groei/jaar</th>
+              <th className="py-1.5 px-2 text-right font-medium">Tempo: punten erbij per jaar</th>
+              <th className="py-1.5 px-2 text-right font-medium">Als % van nu</th>
+              <th className="py-1.5 px-2 text-right font-medium">Laatste 13 weken</th>
               <th className="py-1.5 px-2 text-right font-medium">95%-interval</th>
               <th className="py-1.5 px-2 text-right font-medium">R²</th>
               <th className="py-1.5 px-2 text-right font-medium">Weken</th>
-              <th className="py-1.5 px-2 text-right font-medium">Modelhelling nu (per jaar)</th>
+              <th className="py-1.5 px-2 text-right font-medium">Model komende 52 weken</th>
               <th className="py-1.5 pl-2 text-right font-medium">Schone weken</th>
             </tr>
           </thead>
           <tbody>
-            {rows.map(({ c, k, ols, fit }) => (
+            {rows.map(({ c, k, ols, fit, model }) => (
               <tr key={`${c}-${k}`} className="border-b border-border/60">
                 <td className="py-1.5 pr-3">{CARRIER_LABELS[c]}</td>
                 <td className="py-1.5 pr-3 text-muted-foreground">{k === 'locker' ? 'automaat' : 'bemand punt'}</td>
-                <td className="py-1.5 px-2 text-right tabular-nums">{ols ? pct(ols.groei_per_jaar_pct) : '—'}</td>
+                <td className="py-1.5 px-2 text-right tabular-nums">{ols ? signed(Math.round(ols.toename_per_jaar)) : '—'}</td>
+                <td className="py-1.5 px-2 text-right tabular-nums">
+                  {ols ? pct(ols.toename_per_jaar_pct) : '—'}
+                  {ols?.aandeel_gemeten != null && ols.aandeel_gemeten < 0.5 ? (
+                    <span className="text-warning" title="Minder dan de helft van de weken gemeten (bevroren cache); de rest volgt het tempo van de categorie">
+                      {' '}*
+                    </span>
+                  ) : null}
+                </td>
+                <td className="py-1.5 px-2 text-right tabular-nums">{ols ? pct(ols.toename_13w_per_jaar_pct ?? undefined) : '—'}</td>
                 <td className="py-1.5 px-2 text-right tabular-nums text-muted-foreground">
-                  {ols?.groei_per_jaar_95 ? `${pct(ols.groei_per_jaar_95[0])} - ${pct(ols.groei_per_jaar_95[1])}` : '—'}
+                  {ols?.toename_per_jaar_95 ? `${pct(ols.toename_per_jaar_95[0])} - ${pct(ols.toename_per_jaar_95[1])}` : '—'}
                 </td>
                 <td className="py-1.5 px-2 text-right tabular-nums">{ols?.r2 != null ? nl2.format(ols.r2) : '—'}</td>
                 <td className="py-1.5 px-2 text-right tabular-nums">{ols?.n ?? '—'}</td>
-                <td className="py-1.5 px-2 text-right tabular-nums">{fit ? pct(pctYear(fit.slope)) : '—'}</td>
+                <td className="py-1.5 px-2 text-right tabular-nums">
+                  {model ? `${signed(model.punten)} (${pct(model.pct)})` : '—'}
+                </td>
                 <td className="py-1.5 pl-2 text-right tabular-nums">{fit?.n_obs ?? '—'}</td>
               </tr>
             ))}
@@ -1793,9 +1818,11 @@ function RegressionTable({ national }: { national: NationalForecast }) {
         </table>
       </div>
       <p className="mt-2 text-xs text-subtle-foreground">
-        Modelhelling nu: de startgroei van de gedempte trend, na krimp naar het marktgemiddelde bij weinig schone weken. Daarna
-        dempt die groei: het extra boven de markt halveert in ongeveer vier maanden, de marktgroei zelf afhankelijk van het
-        scenario.
+        Tempo: over de hele historie van de reeks; laatste 13 weken: hetzelfde over het laatste kwartaal, als jaartempo
+        (seizoen telt mee: winkels sluiten in de zomer en kerstperiode tijdelijk). * = minder dan de helft van de weken
+        gemeten. Model komende 52 weken: mediaan van scenario midden. Iedere reeks groeit met de markt van haar categorie (automaten of
+        bemande punten) plus een eigen afwijking; die afwijking halveert in ongeveer vier maanden, de marktgroei dempt per
+        scenario uit naar de groei van het aantal afhaalpakketten.
       </p>
     </div>
   );
@@ -1816,6 +1843,288 @@ const EVENT_TYPE_LABELS: Record<string, string> = {
   note_rise: 'Forse stijging (meegeteld)',
 };
 
+const DEMAND_SCENARIO_STYLE: Record<Scenario, { stroke: string; width: number }> = {
+  laag: { stroke: 'var(--subtle-foreground)', width: 1.5 },
+  midden: { stroke: 'var(--primary)', width: 2 },
+  hoog: { stroke: 'var(--subtle-foreground)', width: 1.5 },
+};
+
+/** ACM parcel volume by year, then the three demand scenarios to 2030. */
+function DemandChart({ data }: { data: Pakketvraag }) {
+  const [reeks, setReeks] = useState<'pakketten' | 'afgehaald'>('pakketten');
+  const scenarios: Scenario[] = ['laag', 'midden', 'hoog'];
+  const rows = useMemo(() => {
+    const first = Math.min(...Object.keys(data.volume_mln).map(Number));
+    const last = Math.max(...scenarios.flatMap((sc) => (data.scenarios[sc].pad ?? []).map((p) => p.jaar)), data.basisjaar);
+    const out = [];
+    for (let y = first; y <= last; y++) {
+      const key = String(y);
+      const vol = data.volume_mln[key];
+      const share = data.afhaal_aandeel[key];
+      const row: Record<string, number | null> = {
+        jaar: y,
+        gemeten: reeks === 'pakketten' ? vol ?? null : vol != null && share != null ? vol * share : null,
+        groei: data.groei_pct[key] ?? null,
+      };
+      for (const sc of scenarios) {
+        const p = data.scenarios[sc].pad?.find((q) => q.jaar === y);
+        row[sc] = p ? (reeks === 'pakketten' ? p.pakketten_mln : p.afgehaald_mln) : null;
+        row[`${sc}_servicepunt`] = p?.servicepunt_mln ?? null;
+        row[`${sc}_kluis`] = p?.kluis_mln ?? null;
+      }
+      out.push(row);
+    }
+    return out;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, reeks]);
+  const lastRow = rows[rows.length - 1];
+
+  if (!scenarios.some((sc) => data.scenarios[sc].pad?.length)) return null;
+
+  return (
+    <div className="mt-4">
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h4 className="text-sm font-semibold text-foreground">
+            {reeks === 'pakketten' ? 'Pakketten in Nederland' : 'Afgehaalde pakketten (servicepunt en kluis)'}, miljoen per
+            jaar
+          </h4>
+          <div className="mt-1 flex flex-wrap gap-4">
+            <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
+              <svg width="20" height="8" aria-hidden>
+                <line x1="0" y1="4" x2="20" y2="4" stroke="var(--muted-foreground)" strokeWidth={2} />
+                <circle cx="10" cy="4" r="3" fill="var(--muted-foreground)" />
+              </svg>
+              ACM gemeten
+            </span>
+            <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
+              <svg width="20" height="8" aria-hidden>
+                <line x1="0" y1="4" x2="20" y2="4" stroke="var(--primary)" strokeWidth={2} strokeDasharray="5 3" />
+              </svg>
+              Scenario midden
+            </span>
+            <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
+              <svg width="20" height="8" aria-hidden>
+                <line x1="0" y1="4" x2="20" y2="4" stroke="var(--subtle-foreground)" strokeWidth={1.5} strokeDasharray="5 3" />
+              </svg>
+              Scenario laag en hoog
+            </span>
+          </div>
+        </div>
+        <SegControl
+          label="Reeks"
+          value={reeks}
+          onChange={setReeks}
+          options={[
+            { value: 'pakketten', label: 'Alle pakketten' },
+            { value: 'afgehaald', label: 'Afgehaald' },
+          ]}
+        />
+      </div>
+      <div className="h-72 mt-3">
+        <ResponsiveContainer width="100%" height="100%">
+          <ComposedChart data={rows} margin={{ top: 16, right: 56, bottom: 4, left: 8 }}>
+            <CartesianGrid vertical={false} stroke="var(--border)" />
+            <XAxis dataKey="jaar" tick={axisTick} stroke="var(--border)" interval={0} />
+            <YAxis
+              tick={axisTick}
+              tickFormatter={(v: number) => nl.format(v)}
+              width={48}
+              stroke="var(--border)"
+              domain={[0, 'auto']}
+            />
+            <Tooltip
+              content={({ active, payload, label }) => {
+                if (!active || !payload?.length) return null;
+                const row = payload[0].payload as (typeof rows)[number];
+                return (
+                  <div className="bg-popover text-popover-foreground border border-border rounded-md shadow-md px-3 py-2 text-xs">
+                    <div className="font-semibold mb-1">{label}</div>
+                    {row.gemeten != null && <div>ACM: {fmt(row.gemeten)} mln</div>}
+                    {row.groei != null && (
+                      <div className="text-muted-foreground">
+                        Groei volgens ACM: {row.groei > 0 ? '+' : ''}
+                        {nl1.format(row.groei)}%
+                      </div>
+                    )}
+                    {row.gemeten == null && row.groei != null && (
+                      <div className="text-muted-foreground">Geen volume gepubliceerd in deze editie</div>
+                    )}
+                    {Number(label) > data.basisjaar &&
+                      scenarios.map((sc) =>
+                        row[sc] != null ? (
+                          <div key={sc}>
+                            {SCENARIO_LABELS[sc]}: {fmt(row[sc])} mln
+                            {reeks === 'afgehaald' && (
+                              <span className="text-muted-foreground">
+                                {' '}
+                                ({fmt(row[`${sc}_servicepunt`])} servicepunt, {fmt(row[`${sc}_kluis`])} kluis)
+                              </span>
+                            )}
+                          </div>
+                        ) : null,
+                      )}
+                  </div>
+                );
+              }}
+            />
+            <ReferenceLine
+              x={data.basisjaar}
+              stroke="var(--subtle-foreground)"
+              label={{ value: 'laatste monitor', position: 'top', fontSize: 11, fill: 'var(--muted-foreground)' }}
+            />
+            <Line
+              dataKey="gemeten"
+              stroke="var(--muted-foreground)"
+              strokeWidth={2}
+              dot={{ r: 4, fill: 'var(--muted-foreground)', stroke: 'var(--card)', strokeWidth: 2 }}
+              activeDot={{ r: 5 }}
+              isAnimationActive={false}
+              connectNulls
+            />
+            {scenarios.map((sc) => (
+              <Line
+                key={sc}
+                dataKey={sc}
+                stroke={DEMAND_SCENARIO_STYLE[sc].stroke}
+                strokeWidth={DEMAND_SCENARIO_STYLE[sc].width}
+                strokeDasharray="6 4"
+                dot={false}
+                isAnimationActive={false}
+                connectNulls={false}
+              />
+            ))}
+            {scenarios.map((sc) =>
+              lastRow[sc] != null ? (
+                <ReferenceDot
+                  key={`${sc}-label`}
+                  x={lastRow.jaar as number}
+                  y={lastRow[sc] as number}
+                  r={0}
+                  label={{ value: SCENARIO_LABELS[sc].toLowerCase(), position: 'right', fontSize: 11, fill: 'var(--muted-foreground)' }}
+                />
+              ) : null,
+            )}
+          </ComposedChart>
+        </ResponsiveContainer>
+      </div>
+      <p className="mt-2 text-xs text-subtle-foreground max-w-4xl">
+        Punten zijn de volumes uit de ACM Post- en Pakketmonitor (2020 en 2023 zonder gepubliceerd volume; ACM herziet
+        eerdere jaren tussen edities). Vanaf {data.basisjaar} de aannames per scenario:{' '}
+        {scenarios
+          .map(
+            (sc) =>
+              `${SCENARIO_LABELS[sc].toLowerCase()} ${data.scenarios[sc].volume_groei_pct >= 0 ? '+' : ''}${nl1.format(
+                data.scenarios[sc].volume_groei_pct,
+              )}% volume en ${data.scenarios[sc].afhaal_aandeel_pp_per_jaar >= 0 ? '+' : ''}${nl1.format(
+                data.scenarios[sc].afhaal_aandeel_pp_per_jaar,
+              )} procentpunt afhaalaandeel per jaar`,
+          )
+          .join('; ')}
+        . De stijging van het afhaalaandeel gaat naar kluizen.
+      </p>
+    </div>
+  );
+}
+
+function ParcelDemand({ data }: { data: Pakketvraag }) {
+  const years = Array.from(new Set([...Object.keys(data.volume_mln), ...Object.keys(data.groei_pct)])).sort();
+  const scenarios: Scenario[] = ['laag', 'midden', 'hoog'];
+  return (
+    <div>
+      <h4 className="text-sm font-semibold text-foreground">Pakketvraag (ACM Post- en Pakketmonitor)</h4>
+      <p className="mt-1 text-xs text-subtle-foreground max-w-4xl">
+        Het aantal pakketten groeit sinds de coronapiek nauwelijks; de groei van het netwerk komt uit verdichting met
+        kluizen. Daarom volgt het plafond de afhaalpakketten per inwoner, en dempt de marktgroei per categorie uit naar de
+        groei van wat daar wordt afgehaald: bij bemande punten met het pakketvolume, bij kluizen ook met het stijgende
+        afhaalaandeel (ACM 2025: 12,4% servicepunt, 5,3% kluis of andere plek). Pakketten per punt is een indicatie: ACM-volume maal het afhaalaandeel, gedeeld door de punten in
+        deze data. ACM herziet eerdere jaren tussen edities, dus de reeks is niet volledig vergelijkbaar.
+      </p>
+      {data.per_inwoner && (
+        <p className="mt-2 text-sm text-muted-foreground max-w-4xl">
+          Per inwoner ({data.per_inwoner.jaar}, {nl1.format(data.per_inwoner.inwoners_mln)} mln inwoners):{' '}
+          <strong className="text-foreground">{nl1.format(data.per_inwoner.totaal)}</strong> pakketten per jaar, waarvan{' '}
+          <strong className="text-foreground">{nl1.format(data.per_inwoner.consument)}</strong> voor consumenten (B2C,{' '}
+          {Math.round(100 * data.per_inwoner.b2c_aandeel)}%) en{' '}
+          <strong className="text-foreground">{nl1.format(data.per_inwoner.afgehaald)}</strong> afgehaald bij een servicepunt of
+          kluis. De Netwerkplanner rekent met dezelfde {Math.round(data.per_inwoner.consument)} consumentenpakketten per
+          inwoner.
+        </p>
+      )}
+      <DemandChart data={data} />
+      <div className="mt-3 grid lg:grid-cols-2 gap-6">
+        <table className="text-sm">
+          <thead>
+            <tr className="text-xs text-muted-foreground border-b border-border">
+              <th className="py-1.5 pr-4 text-left font-medium">Jaar</th>
+              <th className="py-1.5 px-2 text-right font-medium">Pakketten (mln)</th>
+              <th className="py-1.5 px-2 text-right font-medium">Groei</th>
+              <th className="py-1.5 px-2 text-right font-medium">Afhaalaandeel</th>
+              <th className="py-1.5 pl-2 text-right font-medium">Kluizen (ACM)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {years.map((y) => (
+              <tr key={y} className="border-b border-border/60">
+                <td className="py-1.5 pr-4">{y}</td>
+                <td className="py-1.5 px-2 text-right tabular-nums">{data.volume_mln[y] != null ? fmt(data.volume_mln[y]) : '—'}</td>
+                <td className="py-1.5 px-2 text-right tabular-nums">
+                  {data.groei_pct[y] != null ? `${data.groei_pct[y] > 0 ? '+' : ''}${nl1.format(data.groei_pct[y])}%` : '—'}
+                </td>
+                <td className="py-1.5 px-2 text-right tabular-nums">
+                  {data.afhaal_aandeel[y] != null ? `${nl1.format(100 * data.afhaal_aandeel[y])}%` : '—'}
+                </td>
+                <td className="py-1.5 pl-2 text-right tabular-nums">{data.kluizen_acm[y] != null ? fmt(data.kluizen_acm[y]) : '—'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <table className="text-sm">
+          <thead>
+            <tr className="text-xs text-muted-foreground border-b border-border">
+              <th className="py-1.5 pr-4 text-left font-medium">Scenario</th>
+              <th className="py-1.5 px-2 text-right font-medium">Volumegroei per jaar</th>
+              <th className="py-1.5 px-2 text-right font-medium">Groei afhalen per jaar: servicepunt / kluis</th>
+              <th className="py-1.5 pl-2 text-right font-medium">Afhaalpakketten per punt per week, nu / 2030</th>
+            </tr>
+          </thead>
+          <tbody>
+            {scenarios.map((sc) => {
+              const v = data.scenarios[sc];
+              return (
+                <tr key={sc} className="border-b border-border/60" title={v.toelichting}>
+                  <td className="py-1.5 pr-4 capitalize">{sc}</td>
+                  <td className="py-1.5 px-2 text-right tabular-nums">
+                    {v.volume_groei_pct >= 0 ? '+' : ''}
+                    {nl1.format(v.volume_groei_pct)}%
+                  </td>
+                  <td className="py-1.5 px-2 text-right tabular-nums">
+                    {v.vraag_groei_servicepunt_pct >= 0 ? '+' : ''}
+                    {nl1.format(v.vraag_groei_servicepunt_pct)}% / {v.vraag_groei_kluis_pct >= 0 ? '+' : ''}
+                    {nl1.format(v.vraag_groei_kluis_pct)}%
+                  </td>
+                  <td className="py-1.5 pl-2 text-right tabular-nums">
+                    {fmt(v.pakketten_per_punt_per_week_nu)} / {fmt(v.pakketten_per_punt_per_week_2030)}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <p className="mt-2 text-xs text-subtle-foreground">
+        Bron: {data.bron}.{' '}
+        {data.links.slice(0, 2).map((href, i) => (
+          <a key={href} href={href} className="underline hover:text-foreground" target="_blank" rel="noopener noreferrer">
+            {i === 0 ? 'Monitor 2025' : 'Monitor 2024'}
+            {i === 0 ? ', ' : ''}
+          </a>
+        ))}
+      </p>
+    </div>
+  );
+}
+
 function Methodology({ national, rows }: { national: NationalForecast; rows: ForecastIndexRow[] }) {
   const bt = national.backtest;
   const m = national.methodology;
@@ -1833,6 +2142,7 @@ function Methodology({ national, rows }: { national: NationalForecast; rows: For
             ['Meetbreuken eruit', text('opschoning')],
             ['Gedempte trend', text('trend')],
             ['Verzadiging', text('verzadiging')],
+            ['Pakketvraag', text('pakketvraag')],
             ['Verdeling over gemeenten', text('gemeenten')],
             ['Punten en locaties', text('punten_vs_locaties')],
             ['Beperkingen', text('beperkingen')],
@@ -1948,6 +2258,8 @@ function Methodology({ national, rows }: { national: NationalForecast; rows: For
           </div>
         </div>
       </div>
+
+      {national.pakketvraag && <ParcelDemand data={national.pakketvraag} />}
 
       <RegressionTable national={national} />
 

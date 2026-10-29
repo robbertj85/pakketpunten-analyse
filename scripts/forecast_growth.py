@@ -59,10 +59,13 @@ from pathlib import Path
 
 import numpy as np
 
+from parcel_demand import parcels_per_inhabitant
+
 ROOT = Path(__file__).resolve().parent.parent
 HISTORY = ROOT / "data" / "point_history.json"
 EVENTS = ROOT / "data" / "forecast_events.json"
 POPULATION = ROOT / "data" / "cbs" / "gemeente_population_forecast.json"
+PARCELS = ROOT / "data" / "acm_parcel_volume.json"
 MUNICIPALITIES = ROOT / "webapp" / "public" / "municipalities.json"
 OUT_DIR = ROOT / "webapp" / "public" / "data" / "forecast"
 
@@ -81,17 +84,27 @@ HAMPEL_MIN = 0.03
 
 PRIOR_CURRENT = 0.7  # weight of a gemeente's current share in its allocation prior
 SHRINK_WEEKS = 13  # pseudo-weeks of pooled slope mixed into each carrier's slope
-EXCESS_DECAY = 0.96  # weekly fade of a carrier's growth above/below the market (half-life ~17 weeks)
+EXCESS_DECAY = 0.96  # weekly fade of a carrier's growth above the market (half-life ~17 weeks)
+# A shrinking carrier (shops turning into lockers) keeps shrinking longer than a
+# launch keeps booming: growth below the market fades with a half-life of ~1 year.
+EXCESS_DECAY_DOWN = 0.987
+# Weekly standard error of a carrier's own slope, at most. A launch phase (InPost
+# lockers: 7 -> 23 -> 31 a week) otherwise gives a slope error that, times the
+# calibration factor, put InPost anywhere between 43 and 11,000 lockers in 2030.
+MAX_SLOPE_SE = 0.008
+DECOMP_WINDOW = 0.2  # share of paths around a quantile of the total used to split it
 BACKTEST_TRAIN = 38
 BACKTEST_TEST = 12
 
 # Damping per week: growth half-life ~1 year (laag), ~2 years (midden), ~4.5 years (hoog).
 # Headroom: how far above the 90th-percentile density of its urbanity class a
-# gemeente can still grow.
+# gemeente can still grow. Every scenario reports its own median; the band is
+# P10-P90. (Laag/hoog used to report their 25th/75th percentile while the page
+# called them median, stacking two kinds of pessimism and optimism.)
 SCENARIOS = {
-    "laag": {"phi": 0.985, "headroom": 1.0, "quantile": 0.25},
+    "laag": {"phi": 0.985, "headroom": 1.0, "quantile": 0.50},
     "midden": {"phi": 0.993, "headroom": 1.2, "quantile": 0.50},
-    "hoog": {"phi": 0.997, "headroom": 1.5, "quantile": 0.75},
+    "hoog": {"phi": 0.997, "headroom": 1.5, "quantile": 0.50},
 }
 Z80 = 1.2816
 
@@ -304,6 +317,27 @@ def pooled_rates(rates: dict, levels: dict, n: int):
     return np.where(np.isnan(pooled), fill, pooled)
 
 
+def pooled_median(rates: dict, levels: dict, n: int):
+    """
+    Level-weighted median organic rate per week. The market pace of a category:
+    unlike the mean, one carrier launching (InPost lockers growing 10-40% a
+    week from a handful) cannot set it for everybody else.
+    """
+    out = np.full(n, np.nan)
+    for t in range(n):
+        pairs = sorted((r[t], levels[key][t]) for key, r in rates.items() if not np.isnan(r[t]) and levels[key][t] > 0)
+        if not pairs:
+            continue
+        half, acc = sum(w for _, w in pairs) / 2, 0.0
+        for rate, w in pairs:
+            acc += w
+            if acc >= half:
+                out[t] = rate
+                break
+    fill = np.nanmean(out) if np.isfinite(out).any() else 0.0
+    return np.where(np.isnan(out), fill, out)
+
+
 def anchor_backwards(last_level: float, r: np.ndarray, pooled: np.ndarray, end: int):
     """Chain-linked cleaned series ending at last_level at index end."""
     n = len(r)
@@ -353,6 +387,59 @@ def log_trend(series: np.ndarray, start: int, end: int):
     return fit
 
 
+def level_trend(series: np.ndarray, start: int, end: int):
+    """
+    OLS on the cleaned level itself: points added per year, also as % of today.
+
+    Per carrier this replaces the log trend. A carrier that launched weeks ago
+    (InPost lockers: 7 -> 367 in 28 weeks) has a log slope that compounds to
+    +90,000% a year, which says nothing; its current pace of additions does.
+    """
+    t = np.arange(start, end + 1, dtype=float)
+    fit = ols(t, series[start : end + 1])
+    if fit is None:
+        return None
+    now = max(float(series[end]), 1.0)
+    fit["toename_per_jaar"] = 52 * fit["helling"]
+    fit["toename_per_jaar_pct"] = 100 * 52 * fit["helling"] / now
+    fit["toename_per_jaar_95"] = [
+        100 * 52 * (fit["helling"] - 1.96 * fit["se"]) / now,
+        100 * 52 * (fit["helling"] + 1.96 * fit["se"]) / now,
+    ]
+    return fit
+
+
+def decompose(paths: np.ndarray, totals: np.ndarray, p: float):
+    """
+    Split quantile p of the total over the series, so the series add up to it.
+
+    Quantiles do not add (the sum of the medians is not the median of the sum).
+    Each series gets its mean over the paths whose 2030 total lies closest to
+    that quantile (DECOMP_WINDOW of them), rescaled per week to hit the
+    quantile exactly: what the carriers typically look like in a median (or
+    P10, P90) future. One set of paths for all weeks keeps each carrier's line
+    smooth; picking them per week made carriers zigzag from year to year.
+    Sharing the gap out by spread instead handed InPost's wide tail most of it,
+    and a common scale factor blew up where the summed changes were near zero.
+    paths (S, H, P), totals (H, P) -> (S, H).
+    """
+    n_paths = totals.shape[1]
+    k = max(int(DECOMP_WINDOW * n_paths), 10)
+    lo = min(max(int(round(p * (n_paths - 1))) - k // 2, 0), n_paths - k)
+    idx = np.argsort(totals[-1])[lo : lo + k]
+    vals = paths[:, :, idx].mean(axis=2)
+    target = np.quantile(totals, p, axis=1)
+    return vals * (target / np.maximum(vals.sum(axis=0), 1e-9))[None, :]
+
+
+def decompose_bands(paths: np.ndarray, totals: np.ndarray, p_mid: float = 0.5):
+    """decompose() at P10, the median and P90, with each series' own band kept in order."""
+    out = {p: decompose(paths, totals, v) for p, v in (("p10", 0.1), ("p50", p_mid), ("p90", 0.9))}
+    out["p10"] = np.minimum(out["p10"], out["p50"])
+    out["p90"] = np.maximum(out["p90"], out["p50"])
+    return out
+
+
 def rounded(d, digits=5):
     if d is None:
         return None
@@ -397,8 +484,9 @@ def fit_series(clean: np.ndarray, r: np.ndarray, start: int, end: int, prior_slo
     # SHRINK_WEEKS extra observations.
     obs = r[start + 1 : end + 1]
     obs = obs[~np.isnan(obs)]
-    sd_r = float(np.std(obs)) if obs.size > 2 else 0.01
-    slope_se = max(sd_r, 0.002) / math.sqrt(n_obs + SHRINK_WEEKS)
+    # Robust spread (MAD): one launch week of +200% should not set it.
+    sd_r = 1.4826 * float(np.median(np.abs(obs - np.median(obs)))) if obs.size > 2 else 0.01
+    slope_se = min(max(sd_r, 0.002) / math.sqrt(n_obs + SHRINK_WEEKS), MAX_SLOPE_SE)
     return {
         "level": float(x[-1]),
         "slope": float(slope),
@@ -409,33 +497,41 @@ def fit_series(clean: np.ndarray, r: np.ndarray, start: int, end: int, prior_slo
     }
 
 
-def simulate(fits: list, horizon: int, phi: float, cap_ratio: np.ndarray, rng, market: dict, unc: float = 1.0, n_paths=N_PATHS):
+def simulate(fits: list, horizon: int, phi: float, cap_ratio: np.ndarray, rng, market: dict, unc: float = 1.0, n_paths=N_PATHS, floor=None):
     """
     Joint simulation of all series; returns levels (n_series, horizon, n_paths).
 
-    Each series' weekly log growth is the market slope plus its own excess. The
+    Each series' weekly log growth is the market slope of its category (lockers
+    and shops grow at very different rates) plus its own excess. The
     market slope damps with phi (the scenario knob); the excess, e.g. a newcomer
     rolling out lockers, fades faster with EXCESS_DECAY, so no carrier keeps
     compounding at its launch pace for four years. The market slope draw is
     shared by all series, so their uncertainty adds up instead of cancelling.
     cap_ratio[h] = K(h) / N_now drives the logistic saturation brake.
     unc scales all uncertainty; it is calibrated on the rolling backtest.
+    floor is the weekly growth each category's market slope fades to instead
+    of zero ({category: rate}): the growth of the parcels collected there (ACM
+    volume x servicepunt- or kluis-aandeel), so the network keeps pace with
+    parcels in the long run but not with its own boom.
     """
     s = len(fits)
     level = np.array([f["level"] for f in fits])[:, None].repeat(n_paths, 1)
-    m_slope = market["slope"] + rng.standard_normal(n_paths)[None, :] * market["se"] * unc
-    excess = (np.array([f["slope"] for f in fits]) - market["slope"])[:, None] + rng.standard_normal((s, n_paths)) * (
+    m_mean = np.array([market["cat"][f["category"]]["slope"] for f in fits])[:, None]
+    m_se = np.array([market["cat"][f["category"]]["se"] for f in fits])[:, None]
+    m_slope = m_mean + rng.standard_normal(n_paths)[None, :] * m_se * unc
+    excess = (np.array([f["slope"] for f in fits])[:, None] - m_mean) + rng.standard_normal((s, n_paths)) * (
         np.array([f["slope_se"] for f in fits])[:, None] * unc
     )
     sigma = np.array([f["sigma"] for f in fits])[:, None] * unc
+    floor_v = np.array([(floor or {}).get(f["category"], 0.0) for f in fits])[:, None]
     base = np.exp(level[:, 0]).sum()
     f0 = max(1 - 1 / cap_ratio[0], 1e-3)
     out = np.empty((s, horizon, n_paths))
     for h in range(horizon):
         total = np.exp(level).sum(axis=0)
         sat = np.clip((1 - total / (base * cap_ratio[h])) / f0, 0.0, 1.5)
-        m_slope = phi * m_slope
-        excess = EXCESS_DECAY * excess
+        m_slope = floor_v + phi * (m_slope - floor_v)
+        excess = np.where(excess > 0, EXCESS_DECAY, EXCESS_DECAY_DOWN) * excess
         trend = m_slope + excess
         # Saturation only brakes growth; a shrinking carrier shrinks as is.
         trend = np.where(trend > 0, trend * sat, trend)
@@ -444,13 +540,13 @@ def simulate(fits: list, horizon: int, phi: float, cap_ratio: np.ndarray, rng, m
     return out
 
 
-def simulate_scalar(fit: dict, horizon: int, phi: float, sat_paths: np.ndarray, rng, unc: float = 1.0, n_paths=N_PATHS):
-    """One series (locaties) sharing the punten saturation factor per path."""
+def simulate_scalar(fit: dict, horizon: int, phi: float, sat_paths: np.ndarray, rng, unc: float = 1.0, n_paths=N_PATHS, floor: float = 0.0):
+    """One series (locaties) sharing the punten saturation factor and demand floor."""
     level = np.full(n_paths, fit["level"])
     slope = fit["slope"] + rng.standard_normal(n_paths) * fit["slope_se"] * unc
     out = np.empty((horizon, n_paths))
     for h in range(horizon):
-        slope = phi * slope
+        slope = floor + phi * (slope - floor)
         trend = np.where(slope > 0, slope * sat_paths[h], slope)
         level = level + trend
         out[h] = np.exp(level + rng.standard_normal(n_paths) * fit["sigma"] * unc)
@@ -496,6 +592,7 @@ def main():
     T = n - 1
     events_cfg = load_json(EVENTS)["events"]
     pop = load_json(POPULATION)
+    acm = load_json(PARCELS)
     munis = {m["slug"]: m for m in load_json(MUNICIPALITIES) if m.get("slug") != "nederland"}
     rng = np.random.default_rng(SEED)
 
@@ -524,6 +621,14 @@ def main():
     }
     rates = {key: organic_rates(y, valid_c[key[0]], brk_k[key]) for key, y in nat.items()}
     pooled = pooled_rates(rates, nat, n)
+    # Market slope per category: the level-weighted median organic growth of the
+    # lockers, and of the shops. Pooled over both, shops shrinking at DHL, PostNL,
+    # DPD and GLS were pulled up to the locker boom; with a mean, InPost's launch
+    # set the pace every locker carrier converged to. Weeks a series cannot be
+    # measured in (stale caches, before it entered) also take its category's
+    # pace, not the all-carrier mean (~19% a year, which inflated Budbee and the
+    # Amazon shops).
+    pooled_cat = {k: pooled_median({key: r for key, r in rates.items() if key[1] == k}, nat, n) for k in CATEGORIES}
 
     def last_valid(key):
         pos = np.flatnonzero(valid_c[key[0]] & (nat[key] > 0))
@@ -537,7 +642,7 @@ def main():
         # Anchor on the latest count even when the last week is a break: today's
         # level is real, only the jump into it is not growth.
         anchor_t = T if y[T] > 0 and not invalid_reg[key[0]][T] else lv
-        clean[key] = anchor_backwards(float(y[anchor_t]), rates[key], pooled, anchor_t)
+        clean[key] = anchor_backwards(float(y[anchor_t]), rates[key], pooled_cat[key[1]], anchor_t)
         if anchor_t < T:
             clean[key][anchor_t + 1 :] = clean[key][anchor_t]
 
@@ -604,7 +709,9 @@ def main():
     all_weeks = weeks + future
 
     def pop_index(info, label):
-        idx = info.get("pop_index") or {}
+        return year_index(info.get("pop_index") or {}, label)
+
+    def year_index(idx, label):
         monday = iso_monday(label)
         y0 = str(monday.year)
         y1 = str(monday.year + 1)
@@ -613,28 +720,58 @@ def main():
         frac = (monday.timetuple().tm_yday - 1) / 365.0
         return idx[y0] + (idx.get(y1, idx[y0]) - idx[y0]) * frac
 
-    def capacity(headroom, labels):
+    # Out-of-home parcel demand (ACM): volume x share collected at a servicepunt
+    # (shops) or kluis (lockers), relative to now. All of it per inhabitant
+    # scales the density ceiling; per category, its growth rate is where that
+    # category's market slope fades to. A rising afhaal-aandeel goes to lockers:
+    # ACM sees the servicepunt share flat while the number of kluizen doubles.
+    ooh_now = acm["ooh_share"][max(acm["ooh_share"])]
+    split_now = acm["ooh_split"][max(acm["ooh_split"])]
+    nat_pop = pop.get("national_index") or {}
+
+    def demand_index(name, labels, category=None):
+        sc = acm["scenarios"][name]
+        out = []
+        for w in labels:
+            y = (iso_monday(w) - iso_monday(last_week)).days / 365.25
+            rise = sc["ooh_share_pp_per_year"] / 100 * y
+            if category == "shop":
+                share = 1.0
+            elif category == "locker":
+                share = (split_now["kluis"] + rise) / split_now["kluis"]
+            else:
+                share = (ooh_now + rise) / ooh_now
+            out.append((1 + sc["volume_growth"]) ** y * share)
+        return np.array(out)
+
+    def capacity(headroom, labels, demand):
+        per_capita = demand / np.array([year_index(nat_pop, w) / year_index(nat_pop, last_week) for w in labels])
         out = np.zeros(len(labels))
         for slug, info in gem_pop.items():
             cap = cap_density.get(info["stedelijkheid"], 0) * headroom * info["inwoners"] / 1000
             # Never below what a gemeente already has: K is a ceiling for growth.
             cap = max(cap, gem_points_now(slug) * 1.02)
-            out += np.array([cap * pop_index(info, w) for w in labels])
+            out += np.array([cap * pop_index(info, w) for w in labels]) * per_capita
         return out
 
     keys = sorted(clean)
 
     def market_at(end):
         """Market slope: mean pooled organic rate over weeks 1..end, with its standard error."""
-        window = pooled[1 : end + 1]
-        return {"slope": float(np.mean(window)), "se": float(np.std(window) / math.sqrt(len(window)))}
+
+        def summary(series):
+            window = series[1 : end + 1]
+            return {"slope": float(np.mean(window)), "se": float(np.std(window) / math.sqrt(len(window)))}
+
+        return {**summary(pooled), "cat": {k: summary(pooled_cat[k]) for k in CATEGORIES}}
 
     def fit_all(end, subset=None):
         market = market_at(end)
         fits = []
         for key in subset or keys:
             start = min(int(np.flatnonzero(nat[key] > 0)[0]), end)
-            fits.append(fit_series(clean[key], rates[key], start, end, market["slope"]))
+            fit = fit_series(clean[key], rates[key], start, end, market["cat"][key[1]]["slope"])
+            fits.append({**fit, "category": key[1]})
         return fits, market
 
     def q(arr, p):
@@ -694,12 +831,15 @@ def main():
     loc_fit = fit_series(loc_clean, loc_r, 0, T, float(np.nanmean(loc_r)))
     scen_out = {}
     for name, sc in SCENARIOS.items():
-        cap_ratio = capacity(sc["headroom"], future) / now_total
-        paths = simulate(fits, H, sc["phi"], cap_ratio, rng, market, unc)  # (S, H, P)
+        demand = demand_index(name, future)
+        floor = math.log(demand[-1]) / H
+        floors = {k: math.log(demand_index(name, future, k)[-1]) / H for k in CATEGORIES}
+        cap_ratio = capacity(sc["headroom"], future, demand) / now_total
+        paths = simulate(fits, H, sc["phi"], cap_ratio, rng, market, unc, floor=floors)  # (S, H, P)
         totals = paths.sum(axis=0)
         sat = saturation_factor(totals, now_total, cap_ratio)
-        loc_paths = np.minimum(simulate_scalar(loc_fit, H, sc["phi"], sat, rng, unc), totals)
-        scen_out[name] = {"paths": paths, "totals": totals, "loc": loc_paths, "cap": cap_ratio * now_total}
+        loc_paths = np.minimum(simulate_scalar(loc_fit, H, sc["phi"], sat, rng, unc, floor=floor), totals)
+        scen_out[name] = {"paths": paths, "totals": totals, "loc": loc_paths, "cap": cap_ratio * now_total, "demand": demand, "floor": floor, "floors": floors}
 
     # --- gemeenten ---
     gem_slugs = sorted(s for s in gem_hist if s in munis)
@@ -796,6 +936,7 @@ def main():
     gem_ratio_now = gem_total[:, T] / np.maximum(gem_loc[:, T], 1)
 
     # --- gemeente backtest: allocation only (national additions taken as known) ---
+    t0 = T - BACKTEST_TEST
     bt_err_model = np.full(G, np.nan)
     bt_err_naive = np.full(G, np.nan)
     pred_adds = np.zeros(G)
@@ -871,27 +1012,24 @@ def main():
 
     # National output.
     national_scen = {}
+    # Per carrier x category values that add up to the total's P10, median and
+    # P90, per scenario; categories are their sums, and the gemeente files below
+    # share them out, so every view adds up.
+    coh_keys = {}
     for name, sc in SCENARIOS.items():
         so = scen_out[name]
         pm = sc["quantile"]
         tot_q = quant_dict(so["totals"], pm)
+        coh_keys[name] = decompose_bands(so["paths"], so["totals"], pm)
         cat_q = {}
         for k in CATEGORIES:
             idx = [i for i, key in enumerate(keys) if key[1] == k]
-            cat_paths = so["paths"][idx].sum(axis=0)
             cat_hist = sum(nat[key] for key in keys if key[1] == k)
-            cat_q[k] = {"stock": pack_stock(cat_hist, quant_dict(cat_paths, pm))}
-            cat_full = np.r_[cat_hist, quant_dict(cat_paths, pm)["p50"]]
-            cat_q[k]["flow"] = pack_flow(cat_full)
-        # Rescale per-series medians so carriers add up to the total median.
-        key_adds = [q(so["paths"][i], pm) - nat[key][T] for i, key in enumerate(keys)]
-        summed = sum(key_adds)
-        target = tot_q["p50"] - raw_total[T]
-        scale = np.where(np.abs(summed) > 1e-6, target / np.where(np.abs(summed) > 1e-6, summed, 1), 1.0)
+            kq = {p: coh_keys[name][p][idx].sum(axis=0) for p in coh_keys[name]}
+            cat_q[k] = {"stock": pack_stock(cat_hist, kq), "flow": pack_flow(np.r_[cat_hist, kq["p50"]])}
         per_carrier = defaultdict(dict)
         for i, key in enumerate(keys):
-            p = nat[key][T] + key_adds[i] * scale
-            full = np.r_[nat[key], p]
+            full = np.r_[nat[key], coh_keys[name]["p50"][i]]
             per_carrier[key[0]][key[1]] = {g: [r0(full[j]) for j in last_idx] for g, (_, last_idx) in granularities.items() if g != "week"}
         total_full = np.r_[raw_total, tot_q["p50"]]
         loc_q = quant_dict(so["loc"], pm)
@@ -924,12 +1062,13 @@ def main():
 
     methodology = {
         "opschoning": "Per vervoerder en categorie telt alleen de wekelijkse verandering tussen twee geldige weken zonder meetbreuk als groei. Toetreding van een vervoerder, een andere ophaalmethode, een bevroren cache of een foutieve snapshot verandert het niveau, maar telt niet als groei (kettingindex, zoals bij prijsindexen met een wisselend pakket). Weken zonder meetbare groei krijgen het gewogen gemiddelde van de vervoerders die wel meetbaar waren.",
-        "trend": "Gedempte trend (Holt / ETS AAdN) op het logaritme van de gecorrigeerde reeks per vervoerder en categorie. De helling wordt bij weinig schone weken naar de gezamenlijke helling getrokken. De demping is de scenariokeuze, omdat een jaar data die niet betrouwbaar bepaalt.",
-        "verzadiging": "Groei remt af naarmate het landelijk totaal het plafond nadert: iedere gemeente op de dichtheid (punten per 1.000 inwoners) van het 90e percentiel van haar stedelijkheidsklasse, maal de scenario-ruimte, meebewegend met de CBS/PBL-bevolkingsprognose (COROP-niveau).",
+        "trend": "Gedempte trend (Holt / ETS AAdN) op het logaritme van de gecorrigeerde reeks per vervoerder en categorie. Iedere reeks groeit met de markt van haar categorie (gewogen mediaan van automaten, resp. bemande punten) plus een eigen afwijking: groei boven de markt halveert in ongeveer vier maanden, krimp eronder in ongeveer een jaar. De helling wordt bij weinig schone weken naar die markt getrokken. De demping is de scenariokeuze, omdat een jaar data die niet betrouwbaar bepaalt. Elk scenario toont zijn eigen mediaan met een P10-P90-band.",
+        "verzadiging": "Groei remt af naarmate het landelijk totaal het plafond nadert: iedere gemeente op de dichtheid (punten per 1.000 inwoners) van het 90e percentiel van haar stedelijkheidsklasse, maal de scenario-ruimte, meebewegend met de CBS/PBL-bevolkingsprognose (COROP-niveau) en met het aantal afhaalpakketten per inwoner.",
+        "pakketvraag": "Het aantal afhaalpakketten (ACM Post- en Pakketmonitor: pakketvolume maal het aandeel dat bij een servicepunt of kluis wordt opgehaald) stuurt de lange termijn. Het plafond beweegt mee met de afhaalpakketten per inwoner, en de marktgroei dempt uit naar de groei van die vraag in plaats van naar nul: op termijn groeit het netwerk met de pakketten mee, niet met zijn eigen uitrolgolf. Het pakketvolume groeit sinds de coronapiek nauwelijks (2022 -6,6%, 2023 +1,9%, 2024 +2%, 2025 +0,9%); de groei van het aantal punten komt vooral uit verdichting met kluizen.",
         "gemeenten": "Landelijke netto groei per vervoerder en categorie wordt over gemeenten verdeeld, zodat gemeenten optellen tot landelijk. Het aandeel van een gemeente combineert haar eigen organische groei met een verwachting op basis van huidig aandeel en inwoners x ruimte tot het plafond; kleine gemeenten met weinig groei leunen meer op die verwachting.",
         "punten_vs_locaties": "Punten telt ieder punt per vervoerder; locaties telt unieke fysieke plekken (binnen 15 m, of binnen 40 m met hetzelfde adres). Een stijgend aantal punten per locatie betekent meer gedeelde (white-label) locaties.",
         "beperkingen": "Ruim een jaar historie onder een horizon van ruim vier jaar: lees de uitkomsten als scenario's, niet als voorspelling. Seizoenspatronen zijn met 50 weken niet te schatten. Nieuwe vervoerders die nog moeten toetreden zitten er niet in.",
-        "scenarios": {k: {"demping_per_week": v["phi"], "ruimte_boven_p90": v["headroom"], "kwantiel": v["quantile"]} for k, v in SCENARIOS.items()},
+        "scenarios": {k: {"demping_per_week": v["phi"], "ruimte_boven_p90": v["headroom"]} for k, v in SCENARIOS.items()},
     }
 
     periods = {g: labels for g, (labels, _) in granularities.items()}
@@ -960,7 +1099,8 @@ def main():
     locker_now = float(sum(nat[k][T] for k in keys if k[1] == "locker"))
     mid = scen_out["midden"]
     locker_idx = [i for i, k in enumerate(keys) if k[1] == "locker"]
-    locker_2030 = float(np.median(mid["paths"][locker_idx].sum(0), axis=1)[-1])
+    # Same split as the category chart, so the tile and the chart agree.
+    locker_2030 = float(coh_keys["midden"]["p50"][locker_idx, -1].sum())
     nat_head["aandeel_automaat_nu_pct"] = round(100 * locker_now / raw_total[T], 1)
     nat_head["aandeel_automaat_2030_pct"] = round(100 * locker_2030 / float(np.median(mid["totals"], axis=1)[-1]), 1)
     nat_head["punten_per_locatie_nu"] = round(raw_total[T] / loc[T], 3)
@@ -969,6 +1109,68 @@ def main():
     nat_head["multi_aandeel_2030_pct"] = round(
         100 * float(multi_share_at(share_hist[T], ratio_hist[T], nat_head["punten_per_locatie_2030"])), 1
     )
+
+    # Parcel demand behind the ceiling and the long-run growth, with the load per
+    # point as a plausibility check: more points for barely more parcels means
+    # fewer parcels per point.
+    vol_now = acm["volume_mln"][max(acm["volume_mln"])]
+    pakketvraag = {
+        "bron": acm["source"],
+        "links": acm["links"],
+        "basisjaar": acm["base_year"],
+        "volume_mln": acm["volume_mln"],
+        "groei_pct": acm["growth_pct"],
+        "afhaal_aandeel": acm["ooh_share"],
+        "kluizen_acm": acm["lockers_acm"],
+        # Same per-inhabitant figures as the Netwerkplanner capacity model.
+        "per_inwoner": parcels_per_inhabitant(acm, pop),
+        "scenarios": {},
+    }
+    base = acm["base_year"]
+    for name in SCENARIOS:
+        so = scen_out[name]
+        a = acm["scenarios"][name]
+        p50_2030 = end_of_year(scen_full(name), HORIZON_YEAR)
+        # Calendar-year path from the last ACM year, same assumptions as
+        # demand_index: volume compounds, the afhaal-aandeel rise goes to kluizen.
+        pad = []
+        for jaar in range(base, HORIZON_YEAR + 1):
+            t = jaar - base
+            vol = vol_now * (1 + a["volume_growth"]) ** t
+            rise = a["ooh_share_pp_per_year"] / 100 * t
+            pad.append({
+                "jaar": jaar,
+                "pakketten_mln": round(vol, 1),
+                "afgehaald_mln": round(vol * (ooh_now + rise), 1),
+                "servicepunt_mln": round(vol * split_now["servicepunt"], 1),
+                "kluis_mln": round(vol * (split_now["kluis"] + rise), 1),
+            })
+        ooh_2030 = pad[-1]["afgehaald_mln"]
+        pakketvraag["scenarios"][name] = {
+            "volume_groei_pct": round(100 * a["volume_growth"], 1),
+            "afhaal_aandeel_pp_per_jaar": a["ooh_share_pp_per_year"],
+            "toelichting": a["note"],
+            "vraag_groei_per_jaar_pct": round(100 * (math.exp(52 * so["floor"]) - 1), 2),
+            "vraag_groei_servicepunt_pct": round(100 * (math.exp(52 * so["floors"]["shop"]) - 1), 2),
+            "vraag_groei_kluis_pct": round(100 * (math.exp(52 * so["floors"]["locker"]) - 1), 2),
+            "afhaalpakketten_mln_nu": round(vol_now * ooh_now, 1),
+            "afhaalpakketten_mln_2030": round(ooh_2030, 1),
+            "pakketten_per_punt_per_week_nu": round(vol_now * ooh_now * 1e6 / 52 / raw_total[T], 1),
+            "pakketten_per_punt_per_week_2030": round(ooh_2030 * 1e6 / 52 / p50_2030, 1),
+            "pad": pad,
+        }
+
+    def series_tempo(key):
+        """Tempo over the series' whole life and over the last quarter, plus how much of it was measured."""
+        start = int(np.flatnonzero(nat[key] > 0)[0])
+        fit = level_trend(clean[key], start, T)
+        if fit is None:
+            return None
+        recent = level_trend(clean[key], max(start, T - 12), T)
+        fit["toename_13w_per_jaar_pct"] = recent["toename_per_jaar_pct"] if recent else None
+        # Weeks with a measured organic change; the rest carry the category pace.
+        fit["aandeel_gemeten"] = float(np.mean(~np.isnan(rates[key][start + 1 : T + 1]))) if T > start else 0.0
+        return rounded(fit)
 
     # Regression lines per chart view (log-linear on the cleaned series).
     national_trends = {
@@ -1010,13 +1212,25 @@ def main():
             "totaal": rounded(total_trend),
             "locaties": rounded(national_trends["locaties"]),
             "categorie": {k: rounded(national_trends[k]) for k in CATEGORIES},
-            "per_reeks": {
-                f"{k[0]}|{k[1]}": rounded(log_trend(clean[k], int(np.flatnonzero(nat[k] > 0)[0]), T))
-                for k in keys
+            "per_reeks": {f"{k[0]}|{k[1]}": series_tempo(k) for k in keys},
+            # The model's own next 52 weeks per series (midden, median), for
+            # comparison with the straight line above.
+            "model_komend_jaar": {
+                f"{k[0]}|{k[1]}": {
+                    "punten": r0(coh_keys["midden"]["p50"][i][51] - nat[k][T]),
+                    "pct": round(100 * (coh_keys["midden"]["p50"][i][51] / max(nat[k][T], 1) - 1), 1),
+                }
+                for i, k in enumerate(keys)
             },
             "multi_vs_ratio": rounded(multi_fit),
         },
-        "markt": {"helling_per_week": round(market["slope"], 5), "se": round(market["se"], 5), "multi_beta": round(multi_beta, 4)},
+        "markt": {
+            "helling_per_week": round(market["slope"], 5),
+            "se": round(market["se"], 5),
+            "multi_beta": round(multi_beta, 4),
+            "per_categorie": {k: {kk: round(v, 5) for kk, v in m.items()} for k, m in market["cat"].items()},
+        },
+        "pakketvraag": pakketvraag,
         "backtest": backtest,
         "methodology": methodology,
     }
@@ -1032,22 +1246,12 @@ def main():
     write(OUT_DIR / "national.json", national)
 
     # --- per gemeente files ---
-    nat_q = {}
-    for name, sc in SCENARIOS.items():
-        so = scen_out[name]
-        pm = sc["quantile"]
-        nat_q[name] = {
-            key: {p: q(so["paths"][i], v) - nat[key][T] for p, v in (("p10", 0.1), ("p50", pm), ("p90", 0.9))}
-            for i, key in enumerate(keys)
-        }
-        # Sum of per-series quantiles is not the quantile of the sum; rescale so
-        # the gemeenten add up to the national total at every quantile.
-        for p, v in (("p10", 0.1), ("p50", pm), ("p90", 0.9)):
-            target = q(so["totals"], v) - raw_total[T]
-            summed = sum(nat_q[name][key][p] for key in keys)
-            scale = np.where(np.abs(summed) > 1e-6, target / np.where(np.abs(summed) > 1e-6, summed, 1), 1.0)
-            for key in keys:
-                nat_q[name][key][p] = nat_q[name][key][p] * scale
+    # National net additions per series, coherent with the national total at
+    # every quantile, so the gemeenten add up to it.
+    nat_q = {
+        name: {key: {p: coh_keys[name][p][i] - nat[key][T] for p in coh_keys[name]} for i, key in enumerate(keys)}
+        for name in SCENARIOS
+    }
 
     # Locaties per gemeente: punten / (own ratio x national ratio change), then
     # rescaled per week so gemeenten sum to the national locaties median.

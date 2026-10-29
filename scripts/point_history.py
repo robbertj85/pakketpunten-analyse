@@ -26,10 +26,11 @@ from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 
-from point_categories import CATEGORIES, location_counts, pakketpunten
+from point_categories import CATEGORIES, location_counts, pakketpunten, point_key
 
 ROOT = Path(__file__).resolve().parent.parent
 GEOJSON_DIR = ROOT / "webapp" / "public" / "data"
+VIATIM_CACHE = "data/viatim_all_locations.json"
 HISTORY_PATH = ROOT / "data" / "point_history.json"
 LIFETIMES_PATH = ROOT / "data" / "point_lifetimes.json"
 
@@ -43,9 +44,34 @@ def week_label(date: datetime) -> str:
     return f"{year}-W{week:02d}"
 
 
-def snapshot(files):
+def statiegeld_only(cache_body) -> set:
     """
-    Count one week. files: iterable of (slug, geojson dict).
+    Keys of ViaTim points whose only service is statiegeld (deposit returns).
+    They are inleverpunten for cans and bottles, not parcel points, and made up
+    nearly all of ViaTim's growth in 2026 (41 -> 499 while parcel points shrank).
+    The geojson has no transporters field, so the ViaTim cache of the same
+    commit identifies them.
+    """
+    if not cache_body:
+        return set()
+    try:
+        data = json.loads(cache_body)
+    except json.JSONDecodeError:
+        return set()
+    locs = data.get("locations", []) if isinstance(data, dict) else data
+    if isinstance(locs, dict) and "rows" in locs:
+        locs = [dict(zip(locs["columns"], row)) for row in locs["rows"]]
+    return {
+        point_key("ViaTim", loc["latitude"], loc["longitude"])
+        for loc in locs
+        if loc.get("latitude") is not None and (loc.get("transporters") or []) == ["STATIEGELDNL"]
+    }
+
+
+def snapshot(files, exclude=frozenset()):
+    """
+    Count one week. files: iterable of (slug, geojson dict); exclude: point keys
+    outside the parcel-point scope.
 
     A carrier point present in two gemeente files counts once nationally and is
     kept in the first gemeente it was seen in, so gemeenten sum to the national
@@ -54,7 +80,7 @@ def snapshot(files):
     seen = {}
     by_gemeente = defaultdict(dict)
     for slug, data in files:
-        for key, carrier, category, lat, lon, address in pakketpunten(data):
+        for key, carrier, category, lat, lon, address in pakketpunten(data, exclude):
             if key in seen:
                 continue
             seen[key] = (slug, carrier, category, lat, lon, address)
@@ -250,7 +276,8 @@ def main():
         reader = BlobReader()
         try:
             for i, c in enumerate(commits, 1):
-                snap, points = snapshot(commit_files(reader, c["hash"]))
+                exclude = statiegeld_only(reader.read(f"{c['hash']}:{VIATIM_CACHE}"))
+                snap, points = snapshot(commit_files(reader, c["hash"]), exclude)
                 put_week(history, c["week"], c["date"], snap)
                 put_lifetimes(lifetimes, c["week"], points)
                 nat = snap["national"]
@@ -262,7 +289,9 @@ def main():
         history = load(HISTORY_PATH, empty_history())
         lifetimes = load(LIFETIMES_PATH, {})
         now = datetime.now(timezone.utc)
-        snap, points = snapshot(working_tree_files())
+        cache = ROOT / VIATIM_CACHE
+        exclude = statiegeld_only(cache.read_bytes() if cache.exists() else None)
+        snap, points = snapshot(working_tree_files(), exclude)
         put_week(history, week_label(now), now.strftime("%Y-%m-%d"), snap)
         put_lifetimes(lifetimes, week_label(now), points)
         nat = snap["national"]

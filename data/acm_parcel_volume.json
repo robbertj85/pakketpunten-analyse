@@ -1,0 +1,69 @@
+{
+  "_doc": "Parcel demand inputs for scripts/forecast_growth.py, from the ACM Post- en Pakketmonitor. Volumes are millions of parcels delivered in the Netherlands as reported per edition; ACM revises earlier years between editions (2024 was 606 in the 2024 monitor, 609 in the 2025 monitor), so the series is indicative, not one consistent definition. ooh_share = share of parcels collected out of home (servicepunt + pakketkluis/other location). Scenario growth rates are this project's assumptions, anchored on the 2023-2025 growth (+1.9%, about +2%, +0.9%) and the locker shift (ACM: 2,800 -> 4,800 -> 9,309 kluizen). b2c_share = business-to-consumer share of the domestic volume (ACM Post- en Pakkettenmonitor 2020: 74,0%; 2021: 504 of 654 million = 77%); later editions do not publish the split, so the latest value is used. ooh_split = the afhaal-aandeel by place (ACM 2025: 12.4% servicepunt, 5.3% kluis/other location); a scenario's ooh_share_pp_per_year rise goes to the kluis share.",
+  "source": "ACM Post- en Pakketmonitor 2020-2025 (acm.nl), via ACM-publicaties en samenvattingen van Thuiswinkel.org",
+  "volume_mln": {
+    "2019": 399,
+    "2021": 654,
+    "2022": 611,
+    "2024": 609,
+    "2025": 615
+  },
+  "growth_pct": {
+    "2020": 35.0,
+    "2021": 25.0,
+    "2022": -6.6,
+    "2023": 1.9,
+    "2024": 2.0,
+    "2025": 0.9
+  },
+  "ooh_share": {
+    "2024": 0.18,
+    "2025": 0.177
+  },
+  "ooh_split": {
+    "2024": {
+      "servicepunt": 0.12,
+      "kluis": 0.06
+    },
+    "2025": {
+      "servicepunt": 0.124,
+      "kluis": 0.053
+    }
+  },
+  "b2c_share": {
+    "2020": 0.74,
+    "2021": 0.77
+  },
+  "lockers_acm": {
+    "2023": 2800,
+    "2024": 4800,
+    "2025": 9309
+  },
+  "base_year": 2025,
+  "scenarios": {
+    "laag": {
+      "volume_growth": 0.0,
+      "ooh_share_pp_per_year": 0.0,
+      "note": "Volume blijft vlak (PostNL Q1 2026: -7,1% pakketten), aandeel afhalen blijft 17,7%"
+    },
+    "midden": {
+      "volume_growth": 0.015,
+      "ooh_share_pp_per_year": 0.5,
+      "note": "Volume groeit als 2023-2025 (gemiddeld ~1,6%), aandeel afhalen +0,5 procentpunt per jaar"
+    },
+    "hoog": {
+      "volume_growth": 0.03,
+      "ooh_share_pp_per_year": 1.0,
+      "note": "Volume groeit door internationale webwinkels (ACM 2025: +7,4% grensoverschrijdend), aandeel afhalen +1 procentpunt per jaar door kluizen"
+    }
+  },
+  "links": [
+    "https://www.acm.nl/nl/publicaties/omzet-pakketmarkt-stijgt-omzet-postmarkt-stabiel",
+    "https://www.acm.nl/nl/publicaties/acm-post-en-pakketmonitor-2024-meer-pakketten-minder-post-en-dalende-betrouwbaarheid",
+    "https://www.acm.nl/nl/publicaties/acm-post-en-pakketmonitor-2023-omzet-brede-post-en-pakketmarkt-stijgt-consumenten-zijn-meer-gaan-betalen-maar-ervaren-minder-kwaliteit",
+    "https://www.acm.nl/nl/publicaties/post-en-pakketmonitor-acm-43-miljoen-minder-pakketten-2022",
+    "https://www.thuiswinkel.org/kennisbank/kennisartikelen/pakketmarkt-groeit-verder-door-hoeveelheid-pakketkluizen-neemt-ook-toe/",
+    "https://www.thuiswinkel.org/kennisbank/kennisartikelen/groei-pakketmarkt-zet-door-duurzaamheid-wint-terrein/",
+    "https://www.acm.nl/system/files/documents/post-en-pakketmonitor-2021.pdf"
+  ]
+}

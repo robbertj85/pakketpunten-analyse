@@ -54,11 +54,20 @@ def _address(props: dict) -> str:
     return re.sub(r"[^a-z0-9]", "", raw.lower())
 
 
-def pakketpunten(geojson: dict):
-    """Yield (key, carrier, category, lat, lon, address) for each feature."""
+def pakketpunten(geojson: dict, exclude=frozenset()):
+    """
+    Yield (key, carrier, category, lat, lon, address) for each feature.
+
+    Applies today's ingestion scope to older snapshots too, so a history built
+    from them measures one definition throughout: Budbee boxes listed in the DPD
+    feed are Budbee's (api_client.get_data_dpd skips them), and keys in exclude
+    are dropped (statiegeld-only ViaTim points, see point_history.py).
+    """
     for feature in geojson.get("features", []):
         props = feature.get("properties") or {}
         if props.get("type") != "pakketpunt":
+            continue
+        if props.get("vervoerder") == "DPD" and "budbee" in (props.get("locatieNaam") or "").lower():
             continue
         lat, lon = props.get("latitude"), props.get("longitude")
         if lat is None or lon is None:
@@ -67,8 +76,11 @@ def pakketpunten(geojson: dict):
                 continue
             lon, lat = coords[0], coords[1]
         carrier = props.get("vervoerder") or "Unknown"
+        key = point_key(carrier, lat, lon)
+        if key in exclude:
+            continue
         yield (
-            point_key(carrier, lat, lon),
+            key,
             carrier,
             point_category(props.get("puntType") or ""),
             float(lat),

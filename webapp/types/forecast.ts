@@ -52,6 +52,62 @@ export interface OlsFit {
   groei_per_jaar_95?: [number, number];
 }
 
+/** OLS on the level: points added per week (helling), per year and as % of today. */
+export interface LevelFit extends OlsFit {
+  toename_per_jaar: number;
+  toename_per_jaar_pct: number;
+  toename_per_jaar_95: [number, number];
+  /** Same pace over the last 13 weeks, as % of today per year. */
+  toename_13w_per_jaar_pct: number | null;
+  /** Share of weeks with a measured organic change (rest: category pace). */
+  aandeel_gemeten: number;
+}
+
+export interface PakketvraagScenario {
+  volume_groei_pct: number;
+  afhaal_aandeel_pp_per_jaar: number;
+  toelichting: string;
+  vraag_groei_per_jaar_pct: number;
+  vraag_groei_servicepunt_pct: number;
+  vraag_groei_kluis_pct: number;
+  afhaalpakketten_mln_nu: number;
+  afhaalpakketten_mln_2030: number;
+  pakketten_per_punt_per_week_nu: number;
+  pakketten_per_punt_per_week_2030: number;
+  /** Calendar years from the last ACM year to 2030 under this scenario's assumptions. */
+  pad?: {
+    jaar: number;
+    pakketten_mln: number;
+    afgehaald_mln: number;
+    servicepunt_mln: number;
+    kluis_mln: number;
+  }[];
+}
+
+/** ACM Post- en Pakketmonitor inputs behind the ceiling and long-run growth. */
+export interface Pakketvraag {
+  bron: string;
+  links: string[];
+  basisjaar: number;
+  volume_mln: Record<string, number>;
+  groei_pct: Record<string, number>;
+  afhaal_aandeel: Record<string, number>;
+  kluizen_acm: Record<string, number>;
+  /** Same figures as the Netwerkplanner capacity model (scripts/parcel_demand.py). */
+  per_inwoner: {
+    jaar: number;
+    inwoners_mln: number;
+    pakketten_mln: number;
+    totaal: number;
+    consument: number;
+    afgehaald: number;
+    b2c_aandeel: number;
+    afhaal_aandeel: number;
+    afhaal_aandeel_consument?: number;
+  };
+  scenarios: Record<Scenario, PakketvraagScenario>;
+}
+
 export interface Reliability {
   n_now: number;
   weeks_clean: number;
@@ -123,11 +179,19 @@ export interface NationalForecast extends ForecastBase {
     totaal: OlsFit;
     locaties: OlsFit | null;
     categorie: Record<Category, OlsFit | null>;
-    per_reeks: Record<string, OlsFit | null>;
+    per_reeks: Record<string, LevelFit | null>;
+    /** The model's own next 52 weeks per series (midden, median). */
+    model_komend_jaar: Record<string, { punten: number; pct: number }>;
     multi_vs_ratio: OlsFit;
   };
   fits: Record<string, { slope: number; slope_se: number; sigma: number; n_obs: number }>;
-  markt: { helling_per_week: number; se: number; multi_beta: number };
+  markt: {
+    helling_per_week: number;
+    se: number;
+    multi_beta: number;
+    per_categorie: Record<Category, { slope: number; se: number }>;
+  };
+  pakketvraag: Pakketvraag;
   plafond_dichtheid_per_1000: Record<string, number>;
   methodology: Record<string, string | Record<string, Record<string, number>>>;
 }

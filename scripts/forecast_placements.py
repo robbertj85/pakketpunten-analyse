@@ -428,7 +428,8 @@ def main():
                 "year": year,
                 "nieuwe_punten": int(round(d_pts)),
                 "nieuwe_locaties": new_loc,
-                "co_locatie": max(int(round(d_pts - d_loc)), 0),
+                # A shrinking locatie count is not extra co-location.
+                "co_locatie": max(int(round(d_pts)) - new_loc, 0),
                 "witte_vlek": min(n_gap, new_loc),
                 "verdichting": max(new_loc - n_gap, 0),
             })
