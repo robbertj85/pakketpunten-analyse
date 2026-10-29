@@ -1710,10 +1710,15 @@ function RankingTable({
 
 /* ------------------------------------------------------------------ regressions */
 
+type RegSortKey = 'standaard' | 'vervoerder' | 'categorie' | 'tempo' | 'pct' | 'w13' | 'r2' | 'n' | 'model' | 'schoon';
+
 function RegressionTable({ national }: { national: NationalForecast }) {
   const reg = national.regressies;
   const multi = reg.multi_vs_ratio;
-  const rows = CARRIER_ORDER.flatMap((c) =>
+  const [sort, setSort] = useState<{ key: RegSortKey; dir: 1 | -1 }>({ key: 'standaard', dir: 1 });
+  const [catFilter, setCatFilter] = useState<CategoryChoice>('alle');
+  const [carrierFilter, setCarrierFilter] = useState<Carrier | 'alle'>('alle');
+  const allRows = CARRIER_ORDER.flatMap((c) =>
     (['locker', 'shop'] as Category[])
       .map((k) => ({
         c,
@@ -1724,6 +1729,65 @@ function RegressionTable({ national }: { national: NationalForecast }) {
       }))
       .filter((r) => r.ols || r.fit),
   );
+  type Row = (typeof allRows)[number];
+  const sortValue = (r: Row, key: RegSortKey): number | string | null => {
+    switch (key) {
+      case 'vervoerder':
+        return CARRIER_LABELS[r.c];
+      case 'categorie':
+        return r.k === 'locker' ? 'automaat' : 'bemand punt';
+      case 'tempo':
+        return r.ols?.toename_per_jaar ?? null;
+      case 'pct':
+        return r.ols?.toename_per_jaar_pct ?? null;
+      case 'w13':
+        return r.ols?.toename_13w_per_jaar_pct ?? null;
+      case 'r2':
+        return r.ols?.r2 ?? null;
+      case 'n':
+        return r.ols?.n ?? null;
+      case 'model':
+        return r.model?.punten ?? null;
+      case 'schoon':
+        return r.fit?.n_obs ?? null;
+      default:
+        return null;
+    }
+  };
+  const rows = allRows
+    .filter((r) => catFilter === 'alle' || r.k === catFilter)
+    .filter((r) => carrierFilter === 'alle' || r.c === carrierFilter)
+    .map((r, i) => ({ r, i }))
+    .sort((a, b) => {
+      if (sort.key === 'standaard') return a.i - b.i;
+      const va = sortValue(a.r, sort.key);
+      const vb = sortValue(b.r, sort.key);
+      // Empty cells last in both directions.
+      if (va == null || vb == null) return va == null ? (vb == null ? a.i - b.i : 1) : -1;
+      const d = typeof va === 'string' ? va.localeCompare(String(vb), 'nl') : va - (vb as number);
+      return d * sort.dir || a.i - b.i;
+    })
+    .map(({ r }) => r);
+  const carriersInTable = CARRIER_ORDER.filter((c) => allRows.some((r) => r.c === c));
+  const header = (key: RegSortKey, label: string, cls: string) => {
+    const text = key === 'vervoerder' || key === 'categorie';
+    const active = sort.key === key;
+    return (
+      <th className={`${cls} font-medium`} aria-sort={active ? (sort.dir === 1 ? 'ascending' : 'descending') : 'none'}>
+        <button
+          type="button"
+          onClick={() =>
+            setSort((s) => ({ key, dir: s.key === key ? ((-s.dir) as 1 | -1) : text ? 1 : -1 }))
+          }
+          className={`hover:text-foreground ${active ? 'text-foreground' : ''}`}
+          title={text ? 'Sorteer A-Z / Z-A' : 'Sorteer hoog-laag / laag-hoog'}
+        >
+          {label}
+          {active ? (sort.dir === 1 ? ' ▲' : ' ▼') : ''}
+        </button>
+      </th>
+    );
+  };
   // Round first, so -0.04 shows as 0,0% instead of +-0,0%.
   const pct = (v: number | undefined) => {
     if (v == null) return '—';
@@ -1772,20 +1836,63 @@ function RegressionTable({ national }: { national: NationalForecast }) {
           </div>
         </div>
       </div>
+      <div className="mt-4 flex flex-wrap items-end gap-4">
+        <SegControl
+          label="Categorie"
+          value={catFilter}
+          onChange={setCatFilter}
+          options={[
+            { value: 'alle', label: 'Alle' },
+            { value: 'locker', label: 'Automaat' },
+            { value: 'shop', label: 'Bemand punt' },
+          ]}
+        />
+        <label className="flex flex-col gap-1">
+          <span className="text-[11px] font-medium uppercase tracking-wide text-subtle-foreground">Vervoerder</span>
+          <select
+            value={carrierFilter}
+            onChange={(e) => setCarrierFilter(e.target.value as Carrier | 'alle')}
+            className="px-3 py-2 text-sm border border-input rounded-md bg-card text-foreground"
+          >
+            <option value="alle">Alle vervoerders</option>
+            {carriersInTable.map((c) => (
+              <option key={c} value={c}>
+                {CARRIER_LABELS[c]}
+              </option>
+            ))}
+          </select>
+        </label>
+        {(sort.key !== 'standaard' || catFilter !== 'alle' || carrierFilter !== 'alle') && (
+          <button
+            type="button"
+            onClick={() => {
+              setSort({ key: 'standaard', dir: 1 });
+              setCatFilter('alle');
+              setCarrierFilter('alle');
+            }}
+            className="px-3 py-2 text-xs font-medium border border-input bg-card text-muted-foreground rounded-lg hover:bg-secondary transition"
+          >
+            Herstel
+          </button>
+        )}
+        <span className="text-xs text-subtle-foreground pb-2">
+          {rows.length} van {allRows.length} reeksen · klik op een kolomkop om te sorteren
+        </span>
+      </div>
       <div className="mt-3 overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="text-xs text-muted-foreground border-b border-border">
-              <th className="py-1.5 pr-3 text-left font-medium">Vervoerder</th>
-              <th className="py-1.5 pr-3 text-left font-medium">Categorie</th>
-              <th className="py-1.5 px-2 text-right font-medium">Tempo: punten erbij per jaar</th>
-              <th className="py-1.5 px-2 text-right font-medium">Als % van nu</th>
-              <th className="py-1.5 px-2 text-right font-medium">Laatste 13 weken</th>
+              {header('vervoerder', 'Vervoerder', 'py-1.5 pr-3 text-left')}
+              {header('categorie', 'Categorie', 'py-1.5 pr-3 text-left')}
+              {header('tempo', 'Tempo: punten erbij per jaar', 'py-1.5 px-2 text-right')}
+              {header('pct', 'Als % van nu', 'py-1.5 px-2 text-right')}
+              {header('w13', 'Laatste 13 weken', 'py-1.5 px-2 text-right')}
               <th className="py-1.5 px-2 text-right font-medium">95%-interval</th>
-              <th className="py-1.5 px-2 text-right font-medium">R²</th>
-              <th className="py-1.5 px-2 text-right font-medium">Weken</th>
-              <th className="py-1.5 px-2 text-right font-medium">Model komende 52 weken</th>
-              <th className="py-1.5 pl-2 text-right font-medium">Schone weken</th>
+              {header('r2', 'R²', 'py-1.5 px-2 text-right')}
+              {header('n', 'Weken', 'py-1.5 px-2 text-right')}
+              {header('model', 'Model komende 52 weken', 'py-1.5 px-2 text-right')}
+              {header('schoon', 'Schone weken', 'py-1.5 pl-2 text-right')}
             </tr>
           </thead>
           <tbody>
