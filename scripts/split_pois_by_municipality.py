@@ -72,6 +72,9 @@ def main() -> int:
             "geometry": shape(f["geometry"]),
             "name": f["properties"].get("name", ""),
             "operator": f["properties"].get("operator", ""),
+            # Set by classify_poi_ownership.py; absent until it has run.
+            "eigendom": f["properties"].get("eigendom"),
+            "eigendom_bron": f["properties"].get("eigendom_bron"),
         } for f in feats if f.get("geometry", {}).get("type") == "Point"]
         gdf = gpd.GeoDataFrame(records, crs="EPSG:4326")
         joined = gpd.sjoin(gdf, munis[["slug", "gemeente", "geometry"]],
@@ -94,6 +97,7 @@ def main() -> int:
                     "category": slug,
                     "name": row["name"] or "",
                     "operator": row["operator"] or "",
+                    **({"eigendom": row["eigendom"], "eigendom_bron": row["eigendom_bron"]} if row["eigendom"] else {}),
                 },
             })
         print(f"  {slug:>22} : {len(joined):>6} points → {joined['slug'].nunique()} munis")

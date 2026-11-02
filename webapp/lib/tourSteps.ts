@@ -325,6 +325,59 @@ export const TOUR_STEPS: Record<string, TourStep[]> = {
     },
   ],
 
+  '/data-export/prognose': [
+    {
+      target: '[data-tour="intro"]',
+      title: 'Hoeveel pakketpunten in 2030?',
+      body: 'Deze prognose trekt de groei van het afgelopen jaar door tot en met 2030. Eerst worden meetbreuken eruit gehaald: een vervoerder die aan de data wordt toegevoegd of een cache die weken bevroor, is geen echte groei.',
+    },
+    {
+      target: '[data-tour="gemeente"]',
+      title: 'Kies een gemeente',
+      body: 'Standaard zie je heel Nederland. Kies een gemeente om haar eigen prognose te zien; die telt op tot het landelijke totaal.',
+    },
+    {
+      target: '[data-tour="knoppen"]',
+      title: 'Scenario, telling en periode',
+      body: 'Laag, midden en hoog verschillen in hoe snel de groei afvlakt en hoeveel ruimte er is boven de huidige best bediende gemeenten. Punten telt ieder punt per vervoerder, unieke locaties telt fysieke plekken. Wissel tussen week, maand en jaar, of splits uit per vervoerder.',
+    },
+    {
+      target: '[data-tour="kerncijfers"]',
+      title: 'Kerncijfers',
+      body: 'Het aantal nu, de middenverwachting voor eind 2030 met de bandbreedte van de scenario\'s, en hoeveel vervoerders gemiddeld een locatie delen.',
+    },
+    {
+      target: '[data-tour="grafiek"]',
+      title: 'De prognose',
+      body: 'Grijs is wat gemeten is, blauw de reeks na correctie voor meetbreuken, gestippeld de prognose met een band waarbinnen de uitkomst in 80% van de gevallen valt. De band is gekalibreerd op hoe vaak het model er in het verleden naast zat.',
+    },
+    {
+      target: '[data-tour="white-label"]',
+      title: 'Gedeelde locaties',
+      body: 'Hoeveel locaties meer dan een vervoerder bedienen. Een stijging betekent een meer gedeeld, white-label netwerk.',
+    },
+    {
+      target: '[data-tour="groeitabel"]',
+      title: 'Groei per jaar en maand',
+      body: 'De netto groei per vervoerder per jaar, en per maand voor het gekozen jaar. Exporteer naar CSV voor eigen analyses.',
+    },
+    {
+      target: '[data-tour="plaatsing"]',
+      title: 'Waar landt de groei?',
+      body: 'Nieuwe punten zijn een extra vervoerder op een bestaande locatie, verdichting in bediend gebied, of een nieuwe locatie in een witte vlek. Kies een gemeente voor de kaart: elke witte-vlekplek krijgt een terreinlabel (privaat of publiek, dezelfde methode als de inleverpuntenviewer). Plekken zonder private locatie zijn alleen op publieke grond in te vullen.',
+    },
+    {
+      target: '[data-tour="ranking"]',
+      title: 'Alle gemeenten',
+      body: 'De verwachte groei per gemeente met een betrouwbaarheidslabel. Gemeenten met weinig punten of weinig eigen historie krijgen het label laag en zijn standaard verborgen.',
+    },
+    {
+      target: '[data-tour="methode"]',
+      title: 'Verantwoording',
+      body: 'Hoe het model werkt, hoe goed het de afgelopen maanden voorspelde, en welke meetbreuken in de data zijn gevonden.',
+    },
+  ],
+
   '/data-export/suggesties': [
     {
       target: '[data-tour="intro"]',
@@ -407,7 +460,7 @@ export const TOUR_STEPS: Record<string, TourStep[]> = {
     {
       target: '[data-tour="ooh-slider"]',
       title: 'Het out-of-home aandeel',
-      body: 'Den Haag wil van circa 20 procent naar 80 procent out-of-home bezorging. Deze schuif bepaalt hoeveel pakketten door de kluizen stromen en dus hoeveel kluiscapaciteit er nodig is. De locaties veranderen niet — alleen de capaciteitsberekening.',
+      body: 'De schuif start op het huidige landelijke aandeel volgens de ACM: circa 23 procent van de consumentenpakketten wordt afgehaald. Den Haag wil naar 80 procent out-of-home bezorging. Deze schuif bepaalt hoeveel pakketten door de kluizen stromen en dus hoeveel kluiscapaciteit er nodig is. De locaties veranderen niet — alleen de capaciteitsberekening.',
     },
     {
       target: '[data-tour="n-slider"]',
@@ -452,7 +505,7 @@ export const TOUR_STEPS: Record<string, TourStep[]> = {
     {
       target: '[data-tour="aannames"]',
       title: 'Transparante aannames',
-      body: 'Alle aannames staan hier open en bloot: hemelsbrede afstand, CBS-grid als vraagbron, OSM-locaties als kandidaten en het capaciteitsmodel (24 pakketten per inwoner per jaar, 1,5 dag verblijftijd, 85 procent bezetting). Verdedigbaar in elke raadszaal.',
+      body: 'Alle aannames staan hier open en bloot: hemelsbrede afstand, CBS-grid als vraagbron, OSM-locaties als kandidaten en het capaciteitsmodel (consumentenpakketten per inwoner per jaar volgens de ACM-pakketmonitor, 1,5 dag verblijftijd, 85 procent bezetting). Verdedigbaar in elke raadszaal.',
     },
   ],
 };

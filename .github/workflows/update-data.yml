@@ -143,6 +143,14 @@ jobs:
         run: python scripts/update_totals_history.py
         working-directory: ${{ github.workspace }}
 
+      # Category split + location dedupe for this week, then the growth forecast
+      # that /data-export/prognose reads. Both only read files written above.
+      - name: Update point history and forecast
+        run: |
+          python scripts/point_history.py
+          python scripts/forecast_growth.py
+        working-directory: ${{ github.workspace }}
+
       - name: Configure Git
         run: |
           git config user.name "GitHub Actions Bot"
@@ -156,6 +164,7 @@ jobs:
           # blocked the save -- and that blocked record is what next week's run
           # confirms the new baseline against, so it has to be committed too.
           git add data/fetch_history.json 2>/dev/null || true
+          git add data/point_history.json data/point_lifetimes.json webapp/public/data/forecast 2>/dev/null || true
           # Own line: git add refuses the whole list when one path is missing,
           # and FedEx has no cache until its first successful fetch
           git add data/fedex_all_locations.json 2>/dev/null || true

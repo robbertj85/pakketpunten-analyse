@@ -673,6 +673,9 @@ def get_data_viatim(gemeente=None):
             if locations:
                 rows = []
                 for loc in locations:
+                    # Alleen statiegeld (blikjes/flessen inleveren) is geen pakketpunt
+                    if (loc.get('transporters') or []) == ['STATIEGELDNL']:
+                        continue
                     rows.append({
                         'locatieNaam': loc.get('locatieNaam', ''),
                         'straatNaam': loc.get('straatNaam', ''),

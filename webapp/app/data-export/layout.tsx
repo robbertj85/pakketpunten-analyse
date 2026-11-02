@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import GuidedTour from '@/components/GuidedTour';
@@ -14,21 +14,6 @@ export default function DataExportLayout({
   const pathname = usePathname();
   const [tourOpen, setTourOpen] = useState(false);
   const tourSteps = TOUR_STEPS[pathname];
-
-  const isDownloads = pathname === '/data-export';
-  const isMatrix = pathname === '/data-export/matrix';
-  const isStatistics = pathname === '/data-export/statistieken';
-  const isUpdates = pathname === '/data-export/updates';
-  const isPainpoints = pathname === '/data-export/painpoints';
-  const isGemeentePainpoints = pathname === '/data-export/gemeente-painpoints';
-  const isSchatting = pathname === '/data-export/schatting';
-  const isBereik = pathname === '/data-export/bereik';
-  const isSuggesties = pathname.startsWith('/data-export/suggesties');
-  const isNetwerkplanner = pathname.startsWith('/data-export/netwerkplanner');
-  const isPois = pathname === '/data-export/pois';
-  const isBeleidsprincipes = pathname === '/data-export/beleidsprincipes';
-  const isPilotlocaties = pathname === '/data-export/pilotlocaties';
-  const isSportlocaties = pathname === '/data-export/sportlocaties';
 
   return (
     <div className="min-h-screen bg-muted">
@@ -62,195 +47,7 @@ export default function DataExportLayout({
           </div>
 
           {/* Tab Navigation */}
-          <nav data-tour="tabs" className="flex gap-2 border-b border-border">
-            <Link
-              href="/data-export"
-              className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
-                isDownloads
-                  ? 'border-primary text-primary'
-                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
-              }`}
-            >
-              <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-              Downloads
-            </Link>
-            <Link
-              href="/data-export/matrix"
-              className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
-                isMatrix
-                  ? 'border-primary text-primary'
-                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
-              }`}
-            >
-              <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-              </svg>
-              Data Matrix
-            </Link>
-            <Link
-              href="/data-export/statistieken"
-              className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
-                isStatistics
-                  ? 'border-primary text-primary'
-                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
-              }`}
-            >
-              <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-              </svg>
-              Statistieken
-            </Link>
-            <Link
-              href="/data-export/updates"
-              className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
-                isUpdates
-                  ? 'border-primary text-primary'
-                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
-              }`}
-            >
-              <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-              </svg>
-              Updates
-            </Link>
-            <Link
-              href="/data-export/painpoints"
-              className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
-                isPainpoints
-                  ? 'border-primary text-primary'
-                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
-              }`}
-            >
-              <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M4.93 19h14.14c1.54 0 2.5-1.67 1.73-3L13.73 4a2 2 0 00-3.46 0L3.2 16c-.77 1.33.19 3 1.73 3z" />
-              </svg>
-              Pijnpunten (carriers)
-            </Link>
-            <Link
-              href="/data-export/gemeente-painpoints"
-              className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
-                isGemeentePainpoints
-                  ? 'border-primary text-primary'
-                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
-              }`}
-            >
-              <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 21h18M5 21V7l8-4 8 4v14M9 9h.01M9 12h.01M9 15h.01M9 18h.01M13 9h.01M13 12h.01M13 15h.01M13 18h.01" />
-              </svg>
-              Pijnpunten (gemeenten)
-            </Link>
-            <Link
-              href="/data-export/beleidsprincipes"
-              className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
-                isBeleidsprincipes
-                  ? 'border-primary text-primary'
-                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
-              }`}
-            >
-              <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-              Beleidsprincipes
-            </Link>
-            <Link
-              href="/data-export/pilotlocaties"
-              className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
-                isPilotlocaties
-                  ? 'border-primary text-primary'
-                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
-              }`}
-            >
-              <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v3a2 2 0 01-2 2H7a2 2 0 01-2-2V5zm0 11a2 2 0 012-2h10a2 2 0 012 2v3a2 2 0 01-2 2H7a2 2 0 01-2-2v-3zm3-9h.01M8 18h.01" />
-              </svg>
-              Pilotlocaties
-            </Link>
-            <Link
-              href="/data-export/sportlocaties"
-              className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
-                isSportlocaties
-                  ? 'border-primary text-primary'
-                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
-              }`}
-            >
-              <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              Sportlocaties
-            </Link>
-            <Link
-              href="/data-export/schatting"
-              className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
-                isSchatting
-                  ? 'border-indigo-600 text-indigo-600'
-                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
-              }`}
-            >
-              <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3v18h18M7 14l4-4 3 3 5-5" />
-              </svg>
-              Schatting pakketpunten
-              <span className="ml-1 px-1 py-px text-[9px] font-semibold uppercase tracking-wide rounded bg-amber-100 text-amber-700 border border-amber-200 align-middle">beta</span>
-            </Link>
-            <Link
-              href="/data-export/bereik"
-              className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
-                isBereik
-                  ? 'border-emerald-600 text-emerald-600'
-                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
-              }`}
-            >
-              <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              Bereik inwoners
-              <span className="ml-1 px-1 py-px text-[9px] font-semibold uppercase tracking-wide rounded bg-amber-100 text-amber-700 border border-amber-200 align-middle">beta</span>
-            </Link>
-            <Link
-              href="/data-export/pois"
-              className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
-                isPois
-                  ? 'border-teal-600 text-teal-600'
-                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
-              }`}
-            >
-              <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-              </svg>
-              Publieke POI&apos;s
-              <span className="ml-1 px-1 py-px text-[9px] font-semibold uppercase tracking-wide rounded bg-amber-100 text-amber-700 border border-amber-200 align-middle">beta</span>
-            </Link>
-            <Link
-              href="/data-export/suggesties"
-              className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
-                isSuggesties
-                  ? 'border-primary text-primary'
-                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
-              }`}
-            >
-              <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2v2m0 16v2m10-10h-2M4 12H2m15.07-7.07l-1.41 1.41M6.34 17.66l-1.41 1.41m12.14 0l-1.41-1.41M6.34 6.34L4.93 4.93M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-              </svg>
-              Plaatsingsadvies
-              <span className="ml-1 px-1 py-px text-[9px] font-semibold uppercase tracking-wide rounded bg-amber-100 text-amber-700 border border-amber-200 align-middle">beta</span>
-            </Link>
-            <Link
-              href="/data-export/netwerkplanner"
-              className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
-                isNetwerkplanner
-                  ? 'border-primary text-primary'
-                  : 'border-transparent text-muted-foreground hover:text-foreground hover:border-input'
-              }`}
-            >
-              <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v3m0 12v3m9-9h-3M6 12H3m13.5-6.5L14 8m-4 8l-2.5 2.5M16 16l2.5 2.5M8 8L5.5 5.5M12 12m-3 0a3 3 0 106 0 3 3 0 10-6 0" />
-              </svg>
-              Netwerkplanner
-              <span className="ml-1 px-1 py-px text-[9px] font-semibold uppercase tracking-wide rounded bg-amber-100 text-amber-700 border border-amber-200 align-middle">beta</span>
-            </Link>
-          </nav>
+          <TabNav pathname={pathname} />
         </div>
       </header>
 
@@ -263,5 +60,158 @@ export default function DataExportLayout({
         <GuidedTour steps={tourSteps} onClose={() => setTourOpen(false)} />
       )}
     </div>
+  );
+}
+
+type NavItem = { href: string; label: string; icon: string; beta?: boolean; prefix?: boolean };
+type NavEntry = NavItem | { label: string; icon: string; beta?: boolean; children: NavItem[] };
+
+// Grouped pages keep their own URL (links to them were shared); the group only
+// changes how they are reached from the menu.
+const NAV: NavEntry[] = [
+  { href: '/data-export', label: 'Downloads', icon: 'M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' },
+  { href: '/data-export/matrix', label: 'Data Matrix', icon: 'M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z' },
+  { href: '/data-export/statistieken', label: 'Statistieken', icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z' },
+  { href: '/data-export/updates', label: 'Updates', icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15' },
+  { href: '/data-export/painpoints', label: 'Pijnpunten (carriers)', icon: 'M12 9v2m0 4h.01M4.93 19h14.14c1.54 0 2.5-1.67 1.73-3L13.73 4a2 2 0 00-3.46 0L3.2 16c-.77 1.33.19 3 1.73 3z' },
+  { href: '/data-export/gemeente-painpoints', label: 'Pijnpunten (gemeenten)', icon: 'M3 21h18M5 21V7l8-4 8 4v14M9 9h.01M9 12h.01M9 15h.01M9 18h.01M13 9h.01M13 12h.01M13 15h.01M13 18h.01' },
+  { href: '/data-export/beleidsprincipes', label: 'Beleidsprincipes', icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' },
+  {
+    label: 'Pilotlocaties',
+    icon: 'M5 5a2 2 0 012-2h10a2 2 0 012 2v3a2 2 0 01-2 2H7a2 2 0 01-2-2V5zm0 11a2 2 0 012-2h10a2 2 0 012 2v3a2 2 0 01-2 2H7a2 2 0 01-2-2v-3zm3-9h.01M8 18h.01',
+    children: [
+      { href: '/data-export/pilotlocaties', label: 'Pilotlocaties', icon: 'M5 5a2 2 0 012-2h10a2 2 0 012 2v3a2 2 0 01-2 2H7a2 2 0 01-2-2V5zm0 11a2 2 0 012-2h10a2 2 0 012 2v3a2 2 0 01-2 2H7a2 2 0 01-2-2v-3zm3-9h.01M8 18h.01' },
+      { href: '/data-export/sportlocaties', label: 'Sportlocaties Rotterdam', icon: 'M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z' },
+    ],
+  },
+  {
+    label: 'Analyses',
+    icon: 'M3 3v18h18M7 14l4-4 3 3 5-5',
+    beta: true,
+    children: [
+      { href: '/data-export/schatting', label: 'Schatting pakketpunten', icon: 'M3 3v18h18M7 14l4-4 3 3 5-5', beta: true },
+      { href: '/data-export/bereik', label: 'Bereik inwoners', icon: 'M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z', beta: true },
+      { href: '/data-export/pois', label: "Publieke POI's", icon: 'M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7', beta: true },
+      { href: '/data-export/suggesties', label: 'Plaatsingsadvies', icon: 'M12 2v2m0 16v2m10-10h-2M4 12H2m15.07-7.07l-1.41 1.41M6.34 17.66l-1.41 1.41m12.14 0l-1.41-1.41M6.34 6.34L4.93 4.93M16 12a4 4 0 11-8 0 4 4 0 018 0z', beta: true, prefix: true },
+      { href: '/data-export/netwerkplanner', label: 'Netwerkplanner', icon: 'M12 3v3m0 12v3m9-9h-3M6 12H3m13.5-6.5L14 8m-4 8l-2.5 2.5M16 16l2.5 2.5M8 8L5.5 5.5M12 12m-3 0a3 3 0 106 0 3 3 0 10-6 0', beta: true, prefix: true },
+      { href: '/data-export/prognose', label: 'Prognose', icon: 'M3 17l6-6 4 4 8-8m0 0v6m0-6h-6', beta: true },
+    ],
+  },
+];
+
+function isActive(item: NavItem, pathname: string) {
+  return item.prefix ? pathname.startsWith(item.href) : pathname === item.href;
+}
+
+function NavIcon({ d }: { d: string }) {
+  return (
+    <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={d} />
+    </svg>
+  );
+}
+
+function BetaFlag() {
+  return (
+    <span className="ml-1 px-1 py-px text-[9px] font-semibold uppercase tracking-wide rounded bg-amber-100 text-amber-700 border border-amber-200 align-middle">
+      beta
+    </span>
+  );
+}
+
+const TAB = 'px-4 py-2 text-sm font-medium transition-colors border-b-2 whitespace-nowrap';
+const TAB_ON = 'border-primary text-primary';
+const TAB_OFF = 'border-transparent text-muted-foreground hover:text-foreground hover:border-input';
+
+function TabNav({ pathname }: { pathname: string }) {
+  const [open, setOpen] = useState<string | null>(null);
+  const navRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const close = (e: MouseEvent | KeyboardEvent) => {
+      if (e instanceof KeyboardEvent ? e.key === 'Escape' : !navRef.current?.contains(e.target as Node)) setOpen(null);
+    };
+    document.addEventListener('mousedown', close);
+    document.addEventListener('keydown', close);
+    return () => {
+      document.removeEventListener('mousedown', close);
+      document.removeEventListener('keydown', close);
+    };
+  }, [open]);
+
+  const activeGroup = NAV.find((e) => 'children' in e && e.children.some((c) => isActive(c, pathname)));
+
+  return (
+    <>
+      <nav ref={navRef} data-tour="tabs" className="flex flex-wrap gap-2 border-b border-border">
+        {NAV.map((entry) => {
+          if (!('children' in entry)) {
+            return (
+              <Link key={entry.href} href={entry.href} className={`${TAB} ${isActive(entry, pathname) ? TAB_ON : TAB_OFF}`}>
+                <NavIcon d={entry.icon} />
+                {entry.label}
+                {entry.beta && <BetaFlag />}
+              </Link>
+            );
+          }
+          const active = entry === activeGroup;
+          const current = entry.children.find((c) => isActive(c, pathname));
+          return (
+            <div key={entry.label} className="relative">
+              <button
+                type="button"
+                aria-haspopup="menu"
+                aria-expanded={open === entry.label}
+                onClick={() => setOpen(open === entry.label ? null : entry.label)}
+                className={`${TAB} ${active ? TAB_ON : TAB_OFF}`}
+              >
+                <NavIcon d={entry.icon} />
+                {entry.label}
+                {active && current && entry.children.length > 1 ? `: ${current.label}` : ''}
+                {entry.beta && <BetaFlag />}
+                <svg className="w-3 h-3 inline-block ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {open === entry.label && (
+                <div role="menu" className="absolute left-0 top-full mt-1 z-[1100] min-w-[240px] bg-popover border border-border rounded-md shadow-lg py-1">
+                  {entry.children.map((c) => (
+                    <Link
+                      key={c.href}
+                      href={c.href}
+                      role="menuitem"
+                      onClick={() => setOpen(null)}
+                      className={`flex items-center px-3 py-2 text-sm hover:bg-secondary ${
+                        isActive(c, pathname) ? 'text-primary font-medium' : 'text-foreground'
+                      }`}
+                    >
+                      <NavIcon d={c.icon} />
+                      {c.label}
+                      {c.beta && <BetaFlag />}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </nav>
+      {activeGroup && 'children' in activeGroup && (
+        <div className="flex flex-wrap gap-1 pt-2" aria-label={`${activeGroup.label}: pagina's`}>
+          {activeGroup.children.map((c) => (
+            <Link
+              key={c.href}
+              href={c.href}
+              className={`px-3 py-1 text-xs font-medium rounded-md transition-colors ${
+                isActive(c, pathname) ? 'bg-primary/10 text-primary' : 'text-muted-foreground hover:text-foreground hover:bg-secondary'
+              }`}
+            >
+              {c.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </>
   );
 }

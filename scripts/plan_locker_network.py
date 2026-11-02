@@ -48,6 +48,9 @@ import numpy as np
 from shapely.geometry import shape
 from shapely.prepared import prep
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from parcel_demand import parcels_per_inhabitant  # noqa: E402
+
 ROOT = Path(__file__).parent.parent
 DATA_DIR = ROOT / "webapp" / "public" / "data"
 POI_DIR = DATA_DIR / "poi" / "by-municipality"
@@ -89,15 +92,16 @@ TYPE_META: dict[str, dict] = {
 }
 
 # Transparent capacity assumptions — the webapp computes live capacity from
-# these together with the out-of-home slider. Sources: ACM Post- en
-# pakketmonitor 2024 counts 606M parcels in the total NL market (~34 per
-# inhabitant incl. B2B); 24 per inhabitant per year is a conservative
-# estimate of the consumer share. 1.5 days average dwell time per parcel,
-# 85% practical occupancy ceiling, and the cabinet column layout from
-# webapp/lib/lockerCatalog.ts. ACM publishes national totals only — no
-# per-municipality split exists.
+# these together with the out-of-home slider. Parcels per inhabitant come from
+# scripts/parcel_demand.py, shared with the growth forecast: the latest ACM Post-
+# en Pakketmonitor volume (615M in 2025, ~34 per inhabitant incl. B2B) times the
+# consumer (B2C) share, ~26. ACM publishes national totals only — no
+# per-municipality split exists. 1.5 days average dwell time per parcel, 85%
+# practical occupancy ceiling, and the cabinet column layout from
+# webapp/lib/lockerCatalog.ts.
+PARCEL_DEMAND = parcels_per_inhabitant()
 CAPACITY_DEFAULTS = {
-    "pakketten_pp_jaar": 24,
+    "pakketten_pp_jaar": round(PARCEL_DEMAND["consument"]),
     "verblijf_dagen": 1.5,
     "vakken_per_kolom": 9.3,
     "bezetting_max": 0.85,
@@ -400,6 +404,7 @@ def process_municipality(muni: dict) -> tuple[str, str]:
         },
         "type_meta": TYPE_META,
         "capacity_defaults": CAPACITY_DEFAULTS,
+        "pakketvraag_acm": PARCEL_DEMAND,
         "population_total": int(round(pop_total)),
         "cells": {
             "lat": [round(float(v), 5) for v in _CBS_LAT[cell_idx]],
