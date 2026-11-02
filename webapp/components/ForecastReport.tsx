@@ -43,6 +43,7 @@ import type {
   NationalForecast,
   Pakketvraag,
   Scenario,
+  StockFlow,
 } from '@/types/forecast';
 import { isNational } from '@/types/forecast';
 
@@ -89,13 +90,24 @@ function periodLabel(label: string, gran: Granularity) {
   return label;
 }
 
-/** Month (YYYY-MM) an ISO week belongs to: the month of its Thursday. */
-function weekMonth(label: string) {
+/** Monday of an ISO week (YYYY-Www), as UTC milliseconds. */
+function isoMonday(label: string) {
   const [y, w] = label.split('-W').map(Number);
   const jan4 = Date.UTC(y, 0, 4);
   const jan4Dow = (new Date(jan4).getUTCDay() + 6) % 7;
-  const thursday = new Date(jan4 - jan4Dow * 86400000 + (w - 1) * 7 * 86400000 + 3 * 86400000);
+  return jan4 - jan4Dow * 86400000 + (w - 1) * 7 * 86400000;
+}
+
+/** Month (YYYY-MM) an ISO week belongs to: the month of its Thursday. */
+function weekMonth(label: string) {
+  const thursday = new Date(isoMonday(label) + 3 * 86400000);
   return `${thursday.getUTCFullYear()}-${String(thursday.getUTCMonth() + 1).padStart(2, '0')}`;
+}
+
+/** Median end-of-2030 value of a scenario series (last year in the yearly grid). */
+function end2030(sf: StockFlow): number | null {
+  const p50 = sf.stock.jaar.p50;
+  return p50[p50.length - 1] ?? null;
 }
 
 function csvCell(v: string | number | null | undefined): string {
@@ -362,6 +374,24 @@ export default function ForecastReport({ national, index }: { national: National
   // The per-carrier split only exists for punten; locaties have no carrier.
   const effectiveView: View = measure === 'locaties' ? 'totaal' : view;
   const head = data.headline;
+  // The 2030 tiles follow the selected scenario; the headline itself only holds
+  // midden. Same numbers as forecast_growth.py's headline (checked: the yearly
+  // P50 of each scenario equals y2030 / y2030_laag / y2030_hoog).
+  const tile2030 = useMemo(() => {
+    const s = data.scenarios[scen];
+    const punten = end2030(s.punten) ?? head.y2030;
+    const locaties = end2030(s.locaties) ?? head.locaties_2030;
+    const multi = end2030(s.locaties_multi);
+    const years = (isoMonday('2030-W52') - isoMonday(data.last_week)) / (365.25 * 86400000);
+    return {
+      punten,
+      cagr_pct: 100 * (Math.pow(punten / Math.max(head.nu, 1), 1 / years) - 1),
+      locaties,
+      punten_per_locatie: punten / Math.max(locaties, 1),
+      multi_pct: multi != null && head.multi_aandeel_2030_pct != null ? (100 * multi) / Math.max(locaties, 1) : null,
+    };
+  }, [data, scen, head]);
+  const scenLabel = SCENARIO_LABELS[scen].toLowerCase();
   const isNl = isNational(data);
   const reliability = isNl ? null : (data as GemeenteForecast).reliability;
 
@@ -442,21 +472,25 @@ export default function ForecastReport({ national, index }: { national: National
           sub={`${nl1.format(head.aandeel_automaat_nu_pct)}% automaat`}
         />
         <Tile
-          label="Punten eind 2030 (midden)"
-          value={fmt(head.y2030)}
+          label={`Punten eind 2030 (${scenLabel})`}
+          value={fmt(tile2030.punten)}
           sub={`scenario laag ${fmt(head.y2030_laag)} tot hoog ${fmt(head.y2030_hoog)}`}
         />
-        <Tile label="Groei per jaar (midden)" value={`${nl1.format(head.cagr_pct)}%`} sub="gemiddeld, samengesteld tot eind 2030" />
         <Tile
-          label="Unieke locaties nu / 2030"
-          value={`${fmt(head.locaties_nu)} / ${fmt(head.locaties_2030)}`}
+          label={`Groei per jaar (${scenLabel})`}
+          value={`${nl1.format(tile2030.cagr_pct)}%`}
+          sub="gemiddeld, samengesteld tot eind 2030"
+        />
+        <Tile
+          label={`Unieke locaties nu / 2030 (${scenLabel})`}
+          value={`${fmt(head.locaties_nu)} / ${fmt(tile2030.locaties)}`}
           sub="fysieke plekken, alle vervoerders samen"
         />
         <Tile
-          label="Punten per locatie nu / 2030"
-          value={`${nl2.format(head.punten_per_locatie_nu)} / ${nl2.format(head.punten_per_locatie_2030)}`}
+          label={`Punten per locatie nu / 2030 (${scenLabel})`}
+          value={`${nl2.format(head.punten_per_locatie_nu)} / ${nl2.format(tile2030.punten_per_locatie)}`}
           sub={`${nl1.format(head.multi_aandeel_nu_pct)}% van de locaties heeft 2+ vervoerders${
-            head.multi_aandeel_2030_pct != null ? ` (2030: ${nl1.format(head.multi_aandeel_2030_pct)}%)` : ''
+            tile2030.multi_pct != null ? ` (2030: ${nl1.format(tile2030.multi_pct)}%)` : ''
           }`}
         />
       </section>
